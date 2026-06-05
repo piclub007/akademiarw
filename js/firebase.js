@@ -1,14 +1,10 @@
-// js/firebase.js
-
-// Import Firebase functions
+// Firebase initialization
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-database.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-storage.js";
 
-// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCdWBhNdJCjmleSj0UFdNR13HiV0xjArJY",
   authDomain: "akademiarw-40450.firebaseapp.com",
@@ -20,13 +16,10 @@ const firebaseConfig = {
   measurementId: "G-RE3YZZJ2D8"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const realtimeDb = getDatabase(app);
-const storage = getStorage(app);
 
-// Export for use in other files
-export { app, analytics, auth, db, realtimeDb, storage };
+export { app, analytics, auth, db, realtimeDb };
