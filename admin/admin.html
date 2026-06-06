@@ -5,49 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akademia Admin - Course Management</title>
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
     <style>
         :root {
-            --primary: #2563EB;
-            --primary-dark: #1D4ED8;
-            --primary-light: #3B82F6;
-            --primary-bg: #EFF6FF;
-            --primary-bg-hover: #DBEAFE;
-            --white: #ffffff;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-            --gray-900: #111827;
-            --success: #10B981;
-            --success-bg: #ECFDF5;
-            --warning: #F59E0B;
-            --warning-bg: #FFFBEB;
-            --danger: #EF4444;
-            --danger-bg: #FEF2F2;
-            --purple: #7C3AED;
-            --purple-bg: #F5F3FF;
-            --orange: #F97316;
-            --orange-bg: #FFF7ED;
-            --sidebar-width: 280px;
-            --header-height: 64px;
-            --radius-xs: 6px;
-            --radius-sm: 8px;
-            --radius: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
+            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-light: #3B82F6;
+            --primary-bg: #EFF6FF; --primary-bg-hover: #DBEAFE;
+            --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
+            --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
+            --gray-800: #1f2937; --gray-900: #111827;
+            --success: #10B981; --success-bg: #ECFDF5;
+            --warning: #F59E0B; --warning-bg: #FFFBEB;
+            --danger: #EF4444; --danger-bg: #FEF2F2;
+            --purple: #7C3AED; --purple-bg: #F5F3FF;
+            --orange: #F97316; --orange-bg: #FFF7ED;
+            --sidebar-width: 280px; --header-height: 64px;
+            --radius-xs: 6px; --radius-sm: 8px; --radius: 12px;
+            --radius-lg: 16px; --radius-xl: 20px;
             --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
             --shadow: 0 4px 6px rgba(0,0,0,0.05);
@@ -57,7 +35,6 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'Inter', sans-serif;
             background: var(--gray-50);
@@ -65,10 +42,8 @@
             display: flex;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
@@ -79,317 +54,136 @@
             width: var(--sidebar-width);
             background: var(--white);
             border-right: 1px solid var(--gray-200);
-            position: fixed;
-            top: 0; left: 0; bottom: 0;
-            display: flex;
-            flex-direction: column;
-            z-index: 100;
-            transition: transform var(--transition);
+            position: fixed; top: 0; left: 0; bottom: 0;
+            display: flex; flex-direction: column;
+            z-index: 100; transition: transform var(--transition);
         }
-
         .sidebar-header {
             padding: 1.25rem 1.5rem;
             border-bottom: 1px solid var(--gray-100);
-            display: flex;
-            align-items: center;
-            gap: 0.625rem;
+            display: flex; align-items: center; gap: 0.625rem;
         }
-
         .sidebar-header img { height: 32px; width: auto; }
         .sidebar-header span {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            letter-spacing: -0.3px;
+            font-size: 1.25rem; font-weight: 700; color: var(--gray-900);
         }
-
         .sidebar-nav { flex: 1; padding: 0.75rem; overflow-y: auto; }
-
         .sidebar-section { margin-bottom: 1.25rem; }
         .sidebar-label {
-            font-size: 0.688rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--gray-400);
+            font-size: 0.688rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--gray-400);
             padding: 0.5rem 0.75rem 0.25rem;
         }
-
         .sidebar-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.625rem 0.75rem;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all var(--transition);
-            color: var(--gray-600);
-            font-size: 0.875rem;
-            font-weight: 500;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            position: relative;
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.625rem 0.75rem; border-radius: var(--radius-sm);
+            cursor: pointer; transition: all var(--transition);
+            color: var(--gray-600); font-size: 0.875rem; font-weight: 500;
+            border: none; background: none; width: 100%; text-align: left;
         }
-
         .sidebar-item:hover { background: var(--gray-50); color: var(--gray-900); }
         .sidebar-item.active { background: var(--primary-bg); color: var(--primary); font-weight: 600; }
         .sidebar-item i { font-size: 1.25rem; width: 24px; text-align: center; flex-shrink: 0; }
-
         .sidebar-badge {
-            margin-left: auto;
-            background: var(--primary-bg);
-            color: var(--primary);
-            font-size: 0.688rem;
-            font-weight: 600;
-            padding: 0.125rem 0.5rem;
-            border-radius: 100px;
-            min-width: 22px;
-            text-align: center;
+            margin-left: auto; background: var(--primary-bg); color: var(--primary);
+            font-size: 0.688rem; font-weight: 600; padding: 0.125rem 0.5rem;
+            border-radius: 100px; min-width: 22px; text-align: center;
         }
-
         .sidebar-footer {
-            padding: 0.75rem;
-            border-top: 1px solid var(--gray-100);
+            padding: 0.75rem; border-top: 1px solid var(--gray-100);
+            text-align: center; font-size: 0.75rem; color: var(--gray-400);
         }
 
         /* ============ MAIN CONTENT ============ */
-        .main-content {
-            flex: 1;
-            margin-left: var(--sidebar-width);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* ============ TOPBAR ============ */
+        .main-content { flex: 1; margin-left: var(--sidebar-width); min-height: 100vh; display: flex; flex-direction: column; }
         .topbar {
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255,255,255,0.85); backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--gray-200);
-            padding: 0 2rem;
-            height: var(--header-height);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            padding: 0 2rem; height: var(--header-height);
+            display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 50;
         }
-
         .topbar-left { display: flex; align-items: center; gap: 1rem; }
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--gray-700);
-            cursor: pointer;
-            padding: 0.25rem;
-        }
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 0.375rem;
-            font-size: 0.875rem;
-            color: var(--gray-500);
-        }
-        .breadcrumb i { color: var(--gray-400); }
+        .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--gray-700); cursor: pointer; }
+        .breadcrumb { display: flex; align-items: center; gap: 0.375rem; font-size: 0.875rem; color: var(--gray-500); }
         .breadcrumb .current { color: var(--gray-900); font-weight: 500; }
-
         .topbar-actions { display: flex; align-items: center; gap: 0.75rem; }
-        .topbar-search {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--gray-50);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius-sm);
-            padding: 0.5rem 0.75rem;
-            transition: all var(--transition);
-        }
-        .topbar-search:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
-        .topbar-search i { color: var(--gray-400); font-size: 1rem; }
-        .topbar-search input {
-            border: none;
-            background: none;
-            outline: none;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.813rem;
-            color: var(--gray-900);
-            width: 180px;
-        }
-        .topbar-search input::placeholder { color: var(--gray-400); }
 
         /* ============ BUTTONS ============ */
         .btn {
             font-family: 'Inter', sans-serif;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.813rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all var(--transition);
-            cursor: pointer;
-            border: none;
-            white-space: nowrap;
-            line-height: 1.4;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 1rem; border-radius: var(--radius-sm);
+            font-size: 0.813rem; font-weight: 600;
+            transition: all var(--transition); cursor: pointer;
+            border: none; white-space: nowrap; line-height: 1.4;
         }
-
         .btn-primary { background: var(--primary); color: white; box-shadow: var(--shadow-xs); }
         .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
         .btn-ghost { background: transparent; color: var(--gray-600); }
-        .btn-ghost:hover { background: var(--gray-100); color: var(--gray-900); }
+        .btn-ghost:hover { background: var(--gray-100); }
         .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
         .btn-xs { padding: 0.25rem 0.5rem; font-size: 0.688rem; border-radius: var(--radius-xs); }
-        .btn-success { background: var(--success); color: white; }
-        .btn-success:hover { opacity: 0.9; }
         .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); }
         .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
-        .btn-danger-ghost { background: transparent; color: var(--danger); }
-        .btn-danger-ghost:hover { background: var(--danger-bg); }
+        .btn-danger { background: transparent; color: var(--danger); }
+        .btn-danger:hover { background: var(--danger-bg); }
 
         /* ============ CONTENT AREA ============ */
         .content-area { padding: 1.5rem 2rem; flex: 1; }
-
-        /* ============ STATS CARDS ============ */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
         .stat-card {
-            background: white;
-            border: 1px solid var(--gray-100);
-            border-radius: var(--radius-lg);
-            padding: 1.25rem 1.5rem;
-            transition: all var(--transition);
-            position: relative;
-            overflow: hidden;
+            background: white; border: 1px solid var(--gray-100);
+            border-radius: var(--radius-lg); padding: 1.25rem 1.5rem;
+            transition: all var(--transition); position: relative; overflow: hidden;
         }
         .stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
         .stat-card::after {
-            content: '';
-            position: absolute;
-            top: 0; right: 0;
-            width: 80px; height: 80px;
-            background: var(--primary-bg);
-            border-radius: 0 0 0 80px;
-            opacity: 0.5;
-            transition: all var(--transition);
+            content: ''; position: absolute; top: 0; right: 0;
+            width: 80px; height: 80px; border-radius: 0 0 0 80px; opacity: 0.5;
         }
+        .stat-card.blue::after { background: var(--primary-bg); }
         .stat-card.green::after { background: var(--success-bg); }
         .stat-card.purple::after { background: var(--purple-bg); }
         .stat-card.orange::after { background: var(--orange-bg); }
-        .stat-card:hover::after { width: 120px; height: 120px; }
-
-        .stat-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            position: relative;
-            z-index: 1;
-        }
-        .stat-icon {
-            width: 40px; height: 40px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-        }
+        .stat-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+        .stat-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
         .stat-icon.blue { background: var(--primary-bg); color: var(--primary); }
         .stat-icon.green { background: var(--success-bg); color: var(--success); }
         .stat-icon.purple { background: var(--purple-bg); color: var(--purple); }
         .stat-icon.orange { background: var(--orange-bg); color: var(--orange); }
-
         .stat-value {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            position: relative;
-            z-index: 1;
-            letter-spacing: -0.5px;
+            font-size: 2rem; font-weight: 700; color: var(--gray-900);
+            position: relative; z-index: 1;
         }
-        .stat-label {
-            font-size: 0.813rem;
-            color: var(--gray-500);
-            position: relative;
-            z-index: 1;
-        }
+        .stat-label { font-size: 0.813rem; color: var(--gray-500); position: relative; z-index: 1; }
 
-        /* ============ PANELS ============ */
-        .panel {
-            background: white;
-            border: 1px solid var(--gray-100);
-            border-radius: var(--radius-lg);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-        }
+        /* ============ PANELS & TABLES ============ */
+        .panel { background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-lg); margin-bottom: 1.5rem; overflow: hidden; }
         .panel-header {
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid var(--gray-100);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.75rem;
+            padding: 1rem 1.5rem; border-bottom: 1px solid var(--gray-100);
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
         }
-        .panel-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.0625rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            letter-spacing: -0.3px;
-        }
+        .panel-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.0625rem; font-weight: 600; color: var(--gray-900); }
         .panel-body { padding: 1.25rem 1.5rem; }
-
-        /* ============ TABLE ============ */
         .table-wrapper { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; }
         thead th {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--gray-500);
-            text-align: left;
-            padding: 0.625rem 1rem;
-            border-bottom: 2px solid var(--gray-200);
-            background: var(--gray-50);
-            white-space: nowrap;
+            font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; color: var(--gray-500);
+            text-align: left; padding: 0.625rem 1rem;
+            border-bottom: 2px solid var(--gray-200); background: var(--gray-50); white-space: nowrap;
         }
-        tbody td {
-            padding: 0.875rem 1rem;
-            border-bottom: 1px solid var(--gray-100);
-            font-size: 0.875rem;
-            color: var(--gray-700);
-            vertical-align: middle;
-        }
-        tbody tr { transition: background var(--transition); }
+        tbody td { padding: 0.875rem 1rem; border-bottom: 1px solid var(--gray-100); font-size: 0.875rem; color: var(--gray-700); }
         tbody tr:hover { background: var(--gray-50); }
 
         /* ============ BADGES ============ */
         .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.2rem 0.625rem;
-            border-radius: 100px;
-            font-size: 0.688rem;
-            font-weight: 600;
-            white-space: nowrap;
+            display: inline-flex; align-items: center; gap: 0.25rem;
+            padding: 0.2rem 0.625rem; border-radius: 100px;
+            font-size: 0.688rem; font-weight: 600; white-space: nowrap;
         }
         .badge-success { background: var(--success-bg); color: #059669; }
         .badge-warning { background: var(--warning-bg); color: #D97706; }
@@ -400,17 +194,10 @@
 
         /* ============ ICON BUTTONS ============ */
         .icon-btn {
-            width: 32px; height: 32px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--gray-200);
-            background: white;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all var(--transition);
-            color: var(--gray-500);
-            font-size: 1rem;
+            width: 32px; height: 32px; border-radius: var(--radius-sm);
+            border: 1px solid var(--gray-200); background: white;
+            display: inline-flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all var(--transition); color: var(--gray-500);
         }
         .icon-btn:hover { background: var(--gray-50); border-color: var(--gray-300); color: var(--gray-700); }
         .icon-btn.danger:hover { background: var(--danger-bg); border-color: #FECACA; color: var(--danger); }
@@ -420,293 +207,150 @@
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
         .form-group { margin-bottom: 1rem; }
         .form-group.span-2 { grid-column: span 2; }
-        .form-label {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            font-size: 0.813rem;
-            font-weight: 600;
-            color: var(--gray-700);
-            margin-bottom: 0.375rem;
-        }
+        .form-label { display: block; font-size: 0.813rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.375rem; }
         .form-label .required { color: var(--danger); }
         .form-input, .form-select, .form-textarea {
-            width: 100%;
-            padding: 0.5625rem 0.75rem;
-            border: 1px solid var(--gray-300);
-            border-radius: var(--radius-sm);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            color: var(--gray-900);
-            transition: all var(--transition);
-            background: white;
-            outline: none;
+            width: 100%; padding: 0.5625rem 0.75rem;
+            border: 1px solid var(--gray-300); border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--gray-900);
+            transition: all var(--transition); background: white; outline: none;
         }
         .form-input:focus, .form-select:focus, .form-textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+            border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
         }
         .form-textarea { resize: vertical; min-height: 80px; }
         .form-hint { font-size: 0.75rem; color: var(--gray-400); margin-top: 0.25rem; }
         .form-hint a { color: var(--primary); text-decoration: none; }
-        .form-hint a:hover { text-decoration: underline; }
 
         /* ============ MODAL ============ */
         .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease;
-            padding: 1rem;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px); z-index: 200;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.2s ease; padding: 1rem;
         }
-        .modal-overlay.show {
-            opacity: 1;
-            pointer-events: all;
-        }
-
+        .modal-overlay.show { opacity: 1; pointer-events: all; }
         .modal {
-            background: white;
-            border-radius: var(--radius-xl);
-            width: 100%;
-            max-width: 620px;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
+            background: white; border-radius: var(--radius-xl);
+            width: 100%; max-width: 620px; max-height: 85vh;
+            display: flex; flex-direction: column;
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-            transform: scale(0.95) translateY(20px);
-            transition: transform 0.2s ease;
+            transform: scale(0.95); transition: transform 0.2s ease;
         }
-        .modal-overlay.show .modal { transform: scale(1) translateY(0); }
-        .modal.lg { max-width: 760px; }
-
+        .modal-overlay.show .modal { transform: scale(1); }
+        .modal.lg { max-width: 800px; }
+        .modal.xl { max-width: 1000px; }
         .modal-header {
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid var(--gray-100);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-shrink: 0;
+            padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--gray-100);
+            display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
         }
-        .modal-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.125rem;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-        }
+        .modal-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 700; }
         .modal-close {
-            width: 36px; height: 36px;
-            border-radius: var(--radius-sm);
-            border: none;
-            background: var(--gray-100);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            transition: all var(--transition);
-            color: var(--gray-600);
+            width: 36px; height: 36px; border-radius: var(--radius-sm);
+            border: none; background: var(--gray-100); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; transition: all var(--transition); color: var(--gray-600);
         }
         .modal-close:hover { background: var(--gray-200); color: var(--gray-900); }
-
         .modal-body { padding: 1.5rem; overflow-y: auto; flex: 1; }
         .modal-footer {
-            padding: 1rem 1.5rem;
-            border-top: 1px solid var(--gray-100);
-            display: flex;
-            justify-content: flex-end;
-            gap: 0.75rem;
-            flex-shrink: 0;
+            padding: 1rem 1.5rem; border-top: 1px solid var(--gray-100);
+            display: flex; justify-content: flex-end; gap: 0.75rem; flex-shrink: 0;
         }
 
         /* ============ TABS ============ */
-        .tabs {
-            display: flex;
-            gap: 0;
-            border-bottom: 2px solid var(--gray-200);
-            margin-bottom: 1.25rem;
-            overflow-x: auto;
-        }
+        .tabs { display: flex; border-bottom: 2px solid var(--gray-200); margin-bottom: 1.25rem; overflow-x: auto; }
         .tab {
-            padding: 0.625rem 1rem;
-            font-size: 0.813rem;
-            font-weight: 500;
-            color: var(--gray-500);
-            cursor: pointer;
-            border: none;
-            background: none;
-            border-bottom: 2px solid transparent;
-            margin-bottom: -2px;
-            transition: all var(--transition);
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 0.375rem;
+            padding: 0.625rem 1rem; font-size: 0.813rem; font-weight: 500;
+            color: var(--gray-500); cursor: pointer; border: none; background: none;
+            border-bottom: 2px solid transparent; margin-bottom: -2px;
+            transition: all var(--transition); white-space: nowrap; display: flex; align-items: center; gap: 0.375rem;
         }
         .tab:hover { color: var(--gray-700); }
         .tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
-        .tab-content { display: none; animation: fadeIn 0.25s ease; }
+        .tab-content { display: none; animation: fadeIn 0.2s ease; }
         .tab-content.active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* ============ BUILDER STEPS ============ */
-        .builder-steps { display: flex; flex-direction: column; gap: 0.625rem; }
-        .builder-step {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem 1.25rem;
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius);
-            align-items: center;
-            cursor: pointer;
-            transition: all var(--transition);
+        /* ============ BLOCK BUILDER ============ */
+        .block-types { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .block-type {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.625rem 1rem; border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm); cursor: pointer;
+            font-size: 0.813rem; font-weight: 500; transition: all var(--transition);
             background: white;
         }
-        .builder-step:hover { border-color: var(--primary); background: var(--primary-bg); transform: translateX(4px); }
-        .builder-step-num {
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            background: var(--primary-bg);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.875rem;
-            flex-shrink: 0;
+        .block-type:hover { border-color: var(--primary); background: var(--primary-bg); }
+        .block-type i { font-size: 1rem; color: var(--primary); }
+        
+        .blocks-container { display: flex; flex-direction: column; gap: 0.75rem; }
+        .block-item {
+            border: 1px solid var(--gray-200); border-radius: var(--radius);
+            background: white; overflow: hidden; transition: all var(--transition);
         }
-        .builder-step-info { flex: 1; }
-        .builder-step-title { font-weight: 600; font-size: 0.938rem; color: var(--gray-900); }
-        .builder-step-desc { font-size: 0.813rem; color: var(--gray-500); margin-top: 0.125rem; }
+        .block-item:hover { border-color: var(--primary-light); box-shadow: var(--shadow-sm); }
+        .block-header {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.75rem 1rem; background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200); cursor: grab;
+        }
+        .block-header:active { cursor: grabbing; }
+        .block-type-icon { font-size: 1.25rem; color: var(--primary); }
+        .block-type-label { font-weight: 600; font-size: 0.813rem; flex: 1; }
+        .block-body { padding: 1rem; }
+        .block-actions { display: flex; gap: 0.25rem; }
+        
+        .page-tabs { display: flex; gap: 0.25rem; overflow-x: auto; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+        .page-tab {
+            padding: 0.5rem 1rem; border-radius: var(--radius-sm);
+            cursor: pointer; font-size: 0.813rem; font-weight: 500;
+            transition: all var(--transition); white-space: nowrap;
+            border: 1px solid var(--gray-200); background: white;
+        }
+        .page-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .page-tab:hover:not(.active) { border-color: var(--primary); }
 
         /* ============ EMPTY STATE ============ */
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1.5rem;
-        }
-        .empty-state-icon {
-            font-size: 3rem;
-            color: var(--gray-300);
-            margin-bottom: 1rem;
-            display: block;
-        }
-        .empty-state h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.125rem;
-            color: var(--gray-700);
-            margin-bottom: 0.5rem;
-        }
-        .empty-state p {
-            font-family: 'Manrope', sans-serif;
-            font-size: 0.875rem;
-            color: var(--gray-500);
-            margin-bottom: 1.25rem;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        .empty-state { text-align: center; padding: 3rem 1.5rem; }
+        .empty-state-icon { font-size: 3rem; color: var(--gray-300); margin-bottom: 1rem; display: block; }
+        .empty-state h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; color: var(--gray-700); margin-bottom: 0.5rem; }
+        .empty-state p { font-family: 'Manrope', sans-serif; font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1.25rem; }
 
         /* ============ TOAST ============ */
-        .toast-container {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            z-index: 300;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
+        .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 300; display: flex; flex-direction: column; gap: 0.5rem; }
         .toast {
-            background: var(--gray-900);
-            color: white;
-            padding: 0.75rem 1.25rem;
-            border-radius: var(--radius);
-            font-size: 0.875rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.625rem;
+            background: var(--gray-900); color: white;
+            padding: 0.75rem 1.25rem; border-radius: var(--radius);
+            font-size: 0.875rem; font-weight: 500;
+            display: flex; align-items: center; gap: 0.625rem;
             box-shadow: var(--shadow-lg);
             animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s forwards;
             max-width: 400px;
         }
         .toast.success { background: #059669; }
         .toast.error { background: #DC2626; }
-        .toast.info { background: var(--primary); }
 
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
-
-        /* ============ SEARCH HIGHLIGHT ============ */
-        .highlight {
-            background: #FDE68A;
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-
-        /* ============ CONFIRM DIALOG ============ */
-        .confirm-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 250;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity var(--transition);
-            padding: 1rem;
-        }
-        .confirm-overlay.show { opacity: 1; pointer-events: all; }
-        .confirm-dialog {
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-        }
-        .confirm-dialog i { font-size: 2.5rem; color: var(--danger); margin-bottom: 0.75rem; }
-        .confirm-dialog h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            margin-bottom: 0.5rem;
-        }
-        .confirm-dialog p { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1.25rem; }
-        .confirm-actions { display: flex; gap: 0.75rem; justify-content: center; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 
         /* ============ VIEW MANAGEMENT ============ */
         .view { display: none; animation: fadeIn 0.2s ease; }
         .view.active { display: block; }
 
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 1200px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        /* ============ IMAGE UPLOAD ============ */
+        .image-upload-area {
+            border: 2px dashed var(--gray-300); border-radius: var(--radius);
+            padding: 1.5rem; text-align: center; cursor: pointer;
+            transition: all var(--transition);
         }
+        .image-upload-area:hover { border-color: var(--primary); background: var(--primary-bg); }
+        .image-preview { max-width: 200px; max-height: 150px; border-radius: var(--radius-sm); margin-top: 0.5rem; }
 
-        @media (max-width: 1024px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .form-group.span-2 { grid-column: span 1; }
-        }
-
+        /* Responsive */
+        @media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 1024px) { .form-grid { grid-template-columns: 1fr; } .form-group.span-2 { grid-column: span 1; } }
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); }
             .sidebar.open { transform: translateX(0); }
@@ -715,15 +359,12 @@
             .stats-grid { grid-template-columns: 1fr; }
             .content-area { padding: 1rem; }
             .topbar { padding: 0 1rem; }
-            .topbar-search { display: none; }
             .modal { max-width: 95%; border-radius: var(--radius-lg); }
-            .tabs { gap: 0; }
-            .tab { padding: 0.5rem 0.75rem; font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
-    <!-- ============ SIDEBAR ============ -->
+    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
@@ -732,164 +373,48 @@
         <nav class="sidebar-nav">
             <div class="sidebar-section">
                 <div class="sidebar-label">Main</div>
-                <button class="sidebar-item active" data-view="dashboard">
-                    <i class='bx bxs-dashboard'></i> Dashboard
-                </button>
-                <button class="sidebar-item" data-view="topics">
-                    <i class='bx bx-category'></i> Topics
-                    <span class="sidebar-badge" id="topicBadge">0</span>
-                </button>
-                <button class="sidebar-item" data-view="courses">
-                    <i class='bx bx-book-content'></i> Courses
-                    <span class="sidebar-badge" id="courseBadge">0</span>
-                </button>
+                <button class="sidebar-item active" data-view="dashboard"><i class='bx bxs-dashboard'></i> Dashboard</button>
+                <button class="sidebar-item" data-view="topics"><i class='bx bx-category'></i> Topics <span class="sidebar-badge" id="topicBadge">0</span></button>
+                <button class="sidebar-item" data-view="courses"><i class='bx bx-book-content'></i> Courses <span class="sidebar-badge" id="courseBadge">0</span></button>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-label">Content</div>
-                <button class="sidebar-item" data-view="modules">
-                    <i class='bx bx-layer'></i> Modules
-                    <span class="sidebar-badge" id="moduleBadge">0</span>
-                </button>
-                <button class="sidebar-item" data-view="lessons">
-                    <i class='bx bx-video'></i> Lessons
-                    <span class="sidebar-badge" id="lessonBadge">0</span>
-                </button>
+                <button class="sidebar-item" data-view="modules"><i class='bx bx-layer'></i> Modules <span class="sidebar-badge" id="moduleBadge">0</span></button>
+                <button class="sidebar-item" data-view="lessons"><i class='bx bx-video'></i> Lessons <span class="sidebar-badge" id="lessonBadge">0</span></button>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-label">Quick Create</div>
-                <button class="sidebar-item" data-action="addTopic">
-                    <i class='bx bx-plus-circle'></i> New Topic
-                </button>
-                <button class="sidebar-item" data-action="addCourse">
-                    <i class='bx bx-plus-circle'></i> New Course
-                </button>
+                <button class="sidebar-item" data-action="addTopic"><i class='bx bx-plus-circle'></i> New Topic</button>
+                <button class="sidebar-item" data-action="addCourse"><i class='bx bx-plus-circle'></i> New Course</button>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-label">Navigation</div>
-                <a href="index.html" class="sidebar-item" style="text-decoration:none;">
-                    <i class='bx bx-home'></i> View Website
-                </a>
+                <a href="index.html" class="sidebar-item" style="text-decoration:none;"><i class='bx bx-home'></i> View Website</a>
             </div>
         </nav>
-        <div class="sidebar-footer">
-            <div style="font-size: 0.75rem; color: var(--gray-400); text-align: center; padding: 0.5rem;">
-                Akademia Admin v2.0
-            </div>
-        </div>
+        <div class="sidebar-footer">Akademia Admin v3.0</div>
     </aside>
 
-    <!-- ============ MAIN CONTENT ============ -->
+    <!-- Main Content -->
     <main class="main-content">
-        <!-- Topbar -->
         <header class="topbar">
             <div class="topbar-left">
-                <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-                    <i class='bx bx-menu'></i>
-                </button>
-                <div class="breadcrumb">
-                    <i class='bx bx-home'></i>
-                    <span>/</span>
-                    <span class="current" id="breadcrumbCurrent">Dashboard</span>
-                </div>
+                <button class="menu-toggle" id="menuToggle"><i class='bx bx-menu'></i></button>
+                <div class="breadcrumb"><i class='bx bx-home'></i><span>/</span><span class="current" id="breadcrumbCurrent">Dashboard</span></div>
             </div>
             <div class="topbar-actions">
-                <div class="topbar-search">
-                    <i class='bx bx-search'></i>
-                    <input type="text" id="globalSearch" placeholder="Search anything...">
-                </div>
-                <button class="btn btn-primary btn-sm" id="quickCreateBtn">
-                    <i class='bx bx-plus'></i> Quick Create
-                </button>
+                <button class="btn btn-primary btn-sm" id="quickCreateBtn"><i class='bx bx-plus'></i> Quick Create</button>
             </div>
         </header>
 
-        <!-- Content Area -->
-        <div class="content-area" id="contentArea">
+        <div class="content-area">
             <!-- Dashboard View -->
             <div class="view active" id="viewDashboard">
-                <!-- Stats -->
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header"><div class="stat-icon blue"><i class='bx bx-category'></i></div></div>
-                        <div class="stat-value" id="statTopics">0</div>
-                        <div class="stat-label">Total Topics</div>
-                    </div>
-                    <div class="stat-card green">
-                        <div class="stat-header"><div class="stat-icon green"><i class='bx bx-book-content'></i></div></div>
-                        <div class="stat-value" id="statCourses">0</div>
-                        <div class="stat-label">Total Courses</div>
-                    </div>
-                    <div class="stat-card purple">
-                        <div class="stat-header"><div class="stat-icon purple"><i class='bx bx-layer'></i></div></div>
-                        <div class="stat-value" id="statModules">0</div>
-                        <div class="stat-label">Total Modules</div>
-                    </div>
-                    <div class="stat-card orange">
-                        <div class="stat-header"><div class="stat-icon orange"><i class='bx bx-video'></i></div></div>
-                        <div class="stat-value" id="statLessons">0</div>
-                        <div class="stat-label">Total Lessons</div>
-                    </div>
-                </div>
-
-                <!-- Recent Activity & Quick Builder -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                    <!-- Course Builder -->
-                    <div class="panel">
-                        <div class="panel-header">
-                            <h3 class="panel-title">📋 Course Builder</h3>
-                            <span style="font-size:0.75rem;color:var(--gray-400);">Step-by-step workflow</span>
-                        </div>
-                        <div class="panel-body">
-                            <div class="builder-steps">
-                                <div class="builder-step" data-action="addTopic">
-                                    <div class="builder-step-num">1</div>
-                                    <div class="builder-step-info">
-                                        <div class="builder-step-title">Create Topic</div>
-                                        <div class="builder-step-desc">Define subject area (Web Dev, Design, etc.)</div>
-                                    </div>
-                                    <i class='bx bx-chevron-right' style="color:var(--gray-400);font-size:1.5rem;"></i>
-                                </div>
-                                <div class="builder-step" data-action="addCourse">
-                                    <div class="builder-step-num">2</div>
-                                    <div class="builder-step-info">
-                                        <div class="builder-step-title">Create Course</div>
-                                        <div class="builder-step-desc">Add course under a topic</div>
-                                    </div>
-                                    <i class='bx bx-chevron-right' style="color:var(--gray-400);font-size:1.5rem;"></i>
-                                </div>
-                                <div class="builder-step" data-view="modules">
-                                    <div class="builder-step-num">3</div>
-                                    <div class="builder-step-info">
-                                        <div class="builder-step-title">Organize Modules</div>
-                                        <div class="builder-step-desc">Break course into learning modules</div>
-                                    </div>
-                                    <i class='bx bx-chevron-right' style="color:var(--gray-400);font-size:1.5rem;"></i>
-                                </div>
-                                <div class="builder-step" data-view="lessons">
-                                    <div class="builder-step-num">4</div>
-                                    <div class="builder-step-info">
-                                        <div class="builder-step-title">Build Lessons</div>
-                                        <div class="builder-step-desc">Add videos, articles, quizzes</div>
-                                    </div>
-                                    <i class='bx bx-chevron-right' style="color:var(--gray-400);font-size:1.5rem;"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Recent Items -->
-                    <div class="panel">
-                        <div class="panel-header">
-                            <h3 class="panel-title">🕐 Recent Activity</h3>
-                        </div>
-                        <div class="panel-body" id="recentActivity">
-                            <div class="empty-state">
-                                <i class='bx bx-time-five empty-state-icon'></i>
-                                <h3>No Activity Yet</h3>
-                                <p>Start building your courses to see recent activity here</p>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="stat-card blue"><div class="stat-header"><div class="stat-icon blue"><i class='bx bx-category'></i></div></div><div class="stat-value" id="statTopics">0</div><div class="stat-label">Total Topics</div></div>
+                    <div class="stat-card green"><div class="stat-header"><div class="stat-icon green"><i class='bx bx-book-content'></i></div></div><div class="stat-value" id="statCourses">0</div><div class="stat-label">Total Courses</div></div>
+                    <div class="stat-card purple"><div class="stat-header"><div class="stat-icon purple"><i class='bx bx-layer'></i></div></div><div class="stat-value" id="statModules">0</div><div class="stat-label">Total Modules</div></div>
+                    <div class="stat-card orange"><div class="stat-header"><div class="stat-icon orange"><i class='bx bx-video'></i></div></div><div class="stat-value" id="statLessons">0</div><div class="stat-label">Total Lessons</div></div>
                 </div>
             </div>
 
@@ -898,27 +423,9 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h3 class="panel-title">All Topics</h3>
-                        <div style="display:flex;gap:0.5rem;">
-                            <span style="font-size:0.813rem;color:var(--gray-500);align-self:center;" id="topicsCountLabel">0 topics</span>
-                            <button class="btn btn-primary btn-sm" data-action="addTopic">
-                                <i class='bx bx-plus'></i> Add Topic
-                            </button>
-                        </div>
+                        <button class="btn btn-primary btn-sm" data-action="addTopic"><i class='bx bx-plus'></i> Add Topic</button>
                     </div>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Topic</th>
-                                    <th>Description</th>
-                                    <th>Courses</th>
-                                    <th>Status</th>
-                                    <th style="width:80px;">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="topicsTable"></tbody>
-                        </table>
-                    </div>
+                    <div class="table-wrapper"><table><thead><tr><th>Topic</th><th>Description</th><th>Courses</th><th>Status</th><th>Actions</th></tr></thead><tbody id="topicsTable"></tbody></table></div>
                 </div>
             </div>
 
@@ -927,31 +434,9 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h3 class="panel-title">All Courses</h3>
-                        <div style="display:flex;gap:0.5rem;">
-                            <select class="form-select" id="courseFilterTopic" style="width:180px;" onchange="renderCourses()">
-                                <option value="">All Topics</option>
-                            </select>
-                            <button class="btn btn-primary btn-sm" data-action="addCourse">
-                                <i class='bx bx-plus'></i> Add Course
-                            </button>
-                        </div>
+                        <button class="btn btn-primary btn-sm" data-action="addCourse"><i class='bx bx-plus'></i> Add Course</button>
                     </div>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Course</th>
-                                    <th>Topic</th>
-                                    <th>Difficulty</th>
-                                    <th>Duration</th>
-                                    <th>Modules</th>
-                                    <th>Status</th>
-                                    <th style="width:120px;">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="coursesTable"></tbody>
-                        </table>
-                    </div>
+                    <div class="table-wrapper"><table><thead><tr><th>Course</th><th>Topic</th><th>Difficulty</th><th>Duration</th><th>Modules</th><th>Status</th><th>Actions</th></tr></thead><tbody id="coursesTable"></tbody></table></div>
                 </div>
             </div>
 
@@ -960,30 +445,9 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h3 class="panel-title">All Modules</h3>
-                        <div style="display:flex;gap:0.5rem;">
-                            <select class="form-select" id="moduleFilterCourse" style="width:200px;" onchange="renderModules()">
-                                <option value="">All Courses</option>
-                            </select>
-                            <button class="btn btn-primary btn-sm" data-action="addModule">
-                                <i class='bx bx-plus'></i> Add Module
-                            </button>
-                        </div>
+                        <button class="btn btn-primary btn-sm" data-action="addModule"><i class='bx bx-plus'></i> Add Module</button>
                     </div>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th style="width:60px;">Order</th>
-                                    <th>Module Name</th>
-                                    <th>Course</th>
-                                    <th>Lessons</th>
-                                    <th style="width:100px;">Status</th>
-                                    <th style="width:80px;">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="modulesTable"></tbody>
-                        </table>
-                    </div>
+                    <div class="table-wrapper"><table><thead><tr><th>Order</th><th>Module</th><th>Course</th><th>Lessons</th><th>Actions</th></tr></thead><tbody id="modulesTable"></tbody></table></div>
                 </div>
             </div>
 
@@ -992,30 +456,9 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h3 class="panel-title">All Lessons</h3>
-                        <div style="display:flex;gap:0.5rem;">
-                            <select class="form-select" id="lessonFilterModule" style="width:220px;" onchange="renderLessons()">
-                                <option value="">All Modules</option>
-                            </select>
-                            <button class="btn btn-primary btn-sm" data-action="addLesson">
-                                <i class='bx bx-plus'></i> Add Lesson
-                            </button>
-                        </div>
+                        <button class="btn btn-primary btn-sm" data-action="addLesson"><i class='bx bx-plus'></i> Add Lesson</button>
                     </div>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Lesson Title</th>
-                                    <th>Module</th>
-                                    <th>Content Types</th>
-                                    <th>Duration</th>
-                                    <th>Status</th>
-                                    <th style="width:120px;">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="lessonsTable"></tbody>
-                        </table>
-                    </div>
+                    <div class="table-wrapper"><table><thead><tr><th>Lesson</th><th>Module</th><th>View Type</th><th>Blocks</th><th>Duration</th><th>Status</th><th>Actions</th></tr></thead><tbody id="lessonsTable"></tbody></table></div>
                 </div>
             </div>
         </div>
@@ -1026,161 +469,115 @@
     <!-- Topic Modal -->
     <div class="modal-overlay" id="topicModal">
         <div class="modal">
-            <div class="modal-header">
-                <h3 class="modal-title" id="topicModalTitle">Create New Topic</h3>
-                <button class="modal-close" data-close="topicModal"><i class='bx bx-x'></i></button>
-            </div>
+            <div class="modal-header"><h3 class="modal-title" id="topicModalTitle">Create New Topic</h3><button class="modal-close" data-close="topicModal"><i class='bx bx-x'></i></button></div>
             <div class="modal-body">
                 <input type="hidden" id="topicEditId">
                 <div class="form-group"><label class="form-label">Topic Name <span class="required">*</span></label><input type="text" class="form-input" id="fTopicName" placeholder="e.g., Web Development"></div>
                 <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="fTopicDesc" placeholder="Brief description..." rows="2"></textarea></div>
-                <div class="form-group"><label class="form-label">Icon (Boxicons)</label><input type="text" class="form-input" id="fTopicIcon" placeholder="e.g., bx-code-alt"><div class="form-hint">Browse icons at <a href="https://boxicons.com" target="_blank">boxicons.com</a></div></div>
-                <div class="form-group"><label class="form-label">Thumbnail URL</label><input type="text" class="form-input" id="fTopicThumbnail" placeholder="https://..."></div>
-                <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="fTopicStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></div>
+                <div class="form-group"><label class="form-label">Thumbnail</label><div class="image-upload-area" id="topicThumbnailUpload"><i class='bx bx-cloud-upload' style="font-size:2rem;color:var(--gray-400);"></i><p style="font-size:0.813rem;color:var(--gray-500);">Click to upload or paste URL below</p></div><input type="text" class="form-input" id="fTopicThumbnail" placeholder="Or paste image URL..."><img class="image-preview" id="topicThumbnailPreview" style="display:none;"></div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-ghost" data-close="topicModal">Cancel</button>
-                <button class="btn btn-primary" id="saveTopicBtn"><i class='bx bx-check'></i> Save Topic</button>
-            </div>
+            <div class="modal-footer"><button class="btn btn-ghost" data-close="topicModal">Cancel</button><button class="btn btn-primary" id="saveTopicBtn"><i class='bx bx-check'></i> Save Topic</button></div>
         </div>
     </div>
 
     <!-- Course Modal -->
     <div class="modal-overlay" id="courseModal">
         <div class="modal lg">
-            <div class="modal-header">
-                <h3 class="modal-title" id="courseModalTitle">Create New Course</h3>
-                <button class="modal-close" data-close="courseModal"><i class='bx bx-x'></i></button>
-            </div>
+            <div class="modal-header"><h3 class="modal-title" id="courseModalTitle">Create New Course</h3><button class="modal-close" data-close="courseModal"><i class='bx bx-x'></i></button></div>
             <div class="modal-body">
                 <input type="hidden" id="courseEditId">
                 <div class="form-grid">
                     <div class="form-group"><label class="form-label">Course Name <span class="required">*</span></label><input type="text" class="form-input" id="fCourseName" placeholder="e.g., HTML Fundamentals"></div>
                     <div class="form-group"><label class="form-label">Topic <span class="required">*</span></label><select class="form-select" id="fCourseTopic"><option value="">Select topic...</option></select></div>
-                    <div class="form-group"><label class="form-label">Difficulty</label><select class="form-select" id="fCourseDifficulty"><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option><option value="Advanced">Advanced</option></select></div>
-                    <div class="form-group"><label class="form-label">Duration (hours)</label><input type="number" class="form-input" id="fCourseDuration" placeholder="6" min="0"></div>
                     <div class="form-group span-2"><label class="form-label">Description</label><textarea class="form-textarea" id="fCourseDesc" placeholder="Course description..." rows="2"></textarea></div>
-                    <div class="form-group"><label class="form-label">Prerequisites</label><input type="text" class="form-input" id="fCoursePrereqs" placeholder="e.g., Basic HTML"></div>
-                    <div class="form-group"><label class="form-label">Thumbnail URL</label><input type="text" class="form-input" id="fCourseThumbnail" placeholder="https://..."></div>
-                    <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="fCourseStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></div>
+                    <div class="form-group"><label class="form-label">Logo</label><div class="image-upload-area" id="courseLogoUpload"><i class='bx bx-cloud-upload' style="font-size:2rem;color:var(--gray-400);"></i></div><input type="text" class="form-input" id="fCourseLogo" placeholder="Or paste logo URL..."><img class="image-preview" id="courseLogoPreview" style="display:none;"></div>
+                    <div class="form-group"><label class="form-label">Thumbnail</label><div class="image-upload-area" id="courseThumbnailUpload"><i class='bx bx-cloud-upload' style="font-size:2rem;color:var(--gray-400);"></i></div><input type="text" class="form-input" id="fCourseThumbnail" placeholder="Or paste thumbnail URL..."><img class="image-preview" id="courseThumbnailPreview" style="display:none;"></div>
                 </div>
                 <div style="margin-top:1rem;padding:1rem;background:var(--gray-50);border-radius:var(--radius-sm);">
-                    <label class="form-label" style="margin-bottom:0.5rem;"><i class='bx bx-copy'></i> Duplicate from existing course</label>
+                    <label class="form-label"><i class='bx bx-copy'></i> Duplicate from existing course</label>
                     <select class="form-select" id="fDuplicateCourse" onchange="handleDuplicateCourse()"><option value="">Select course to duplicate...</option></select>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-ghost" data-close="courseModal">Cancel</button>
-                <button class="btn btn-primary" id="saveCourseBtn"><i class='bx bx-check'></i> Save Course</button>
-            </div>
+            <div class="modal-footer"><button class="btn btn-ghost" data-close="courseModal">Cancel</button><button class="btn btn-primary" id="saveCourseBtn"><i class='bx bx-check'></i> Save Course</button></div>
         </div>
     </div>
 
     <!-- Module Modal -->
     <div class="modal-overlay" id="moduleModal">
         <div class="modal">
-            <div class="modal-header">
-                <h3 class="modal-title" id="moduleModalTitle">Create New Module</h3>
-                <button class="modal-close" data-close="moduleModal"><i class='bx bx-x'></i></button>
-            </div>
+            <div class="modal-header"><h3 class="modal-title" id="moduleModalTitle">Create New Module</h3><button class="modal-close" data-close="moduleModal"><i class='bx bx-x'></i></button></div>
             <div class="modal-body">
                 <input type="hidden" id="moduleEditId">
                 <div class="form-group"><label class="form-label">Module Name <span class="required">*</span></label><input type="text" class="form-input" id="fModuleName" placeholder="e.g., Introduction to HTML"></div>
                 <div class="form-group"><label class="form-label">Course <span class="required">*</span></label><select class="form-select" id="fModuleCourse"><option value="">Select course...</option></select></div>
-                <div class="form-group"><label class="form-label">Order Number</label><input type="number" class="form-input" id="fModuleOrder" value="1" min="1"></div>
                 <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="fModuleDesc" placeholder="Module description..." rows="2"></textarea></div>
+                <div class="form-group"><label class="form-label">Order Number</label><input type="number" class="form-input" id="fModuleOrder" value="1" min="1"></div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-ghost" data-close="moduleModal">Cancel</button>
-                <button class="btn btn-primary" id="saveModuleBtn"><i class='bx bx-check'></i> Save Module</button>
-            </div>
+            <div class="modal-footer"><button class="btn btn-ghost" data-close="moduleModal">Cancel</button><button class="btn btn-primary" id="saveModuleBtn"><i class='bx bx-check'></i> Save Module</button></div>
         </div>
     </div>
 
-    <!-- Lesson Modal -->
+    <!-- Lesson Modal (THE POWERFUL ONE) -->
     <div class="modal-overlay" id="lessonModal">
-        <div class="modal lg">
-            <div class="modal-header">
-                <h3 class="modal-title" id="lessonModalTitle">Create New Lesson</h3>
-                <button class="modal-close" data-close="lessonModal"><i class='bx bx-x'></i></button>
-            </div>
+        <div class="modal xl">
+            <div class="modal-header"><h3 class="modal-title" id="lessonModalTitle">Create New Lesson</h3><button class="modal-close" data-close="lessonModal"><i class='bx bx-x'></i></button></div>
             <div class="modal-body">
                 <input type="hidden" id="lessonEditId">
                 <div class="tabs" id="lessonTabs">
                     <button class="tab active" data-tab="basic">📋 Basic Info</button>
-                    <button class="tab" data-tab="video">📹 Video</button>
-                    <button class="tab" data-tab="article">📖 Article</button>
-                    <button class="tab" data-tab="code">💻 Code</button>
-                    <button class="tab" data-tab="exercise">✍️ Exercise</button>
-                    <button class="tab" data-tab="quiz">❓ Quiz</button>
+                    <button class="tab" data-tab="builder">🧱 Lesson Builder</button>
                 </div>
+                <!-- Basic Info -->
                 <div class="tab-content active" id="tabBasic">
                     <div class="form-group"><label class="form-label">Lesson Title <span class="required">*</span></label><input type="text" class="form-input" id="fLessonTitle" placeholder="e.g., HTML Input Fields"></div>
                     <div class="form-group"><label class="form-label">Module <span class="required">*</span></label><select class="form-select" id="fLessonModule"><option value="">Select module...</option></select></div>
-                    <div class="form-group"><label class="form-label">Estimated Time (minutes)</label><input type="number" class="form-input" id="fLessonTime" placeholder="15" min="0"></div>
-                    <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="fLessonStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></div>
+                    <div class="form-group"><label class="form-label">View Type <span class="required">*</span></label>
+                        <select class="form-select" id="fLessonViewType">
+                            <option value="one-page">One Page View (all blocks on one page)</option>
+                            <option value="sections">Sections Page View (navigable pages)</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="fLessonStatus"><option value="draft">Draft</option><option value="published">Published</option></select></div>
                 </div>
-                <div class="tab-content" id="tabVideo"><div class="form-group"><label class="form-label">Video URL</label><input type="text" class="form-input" id="fLessonVideoUrl" placeholder="YouTube / Vimeo URL..."></div></div>
-                <div class="tab-content" id="tabArticle"><div class="form-group"><label class="form-label">Written Content</label><textarea class="form-textarea" id="fLessonContent" placeholder="Write your lesson content here..." rows="6"></textarea></div></div>
-                <div class="tab-content" id="tabCode"><div class="form-group"><label class="form-label">Code Example</label><textarea class="form-textarea" id="fLessonCode" placeholder="Paste code examples..." rows="5" style="font-family:'Fira Code',monospace;"></textarea></div></div>
-                <div class="tab-content" id="tabExercise"><div class="form-group"><label class="form-label">Exercise Instructions</label><textarea class="form-textarea" id="fLessonExercise" placeholder="Describe the exercise..." rows="3"></textarea></div></div>
-                <div class="tab-content" id="tabQuiz">
-                    <div class="form-group"><label class="form-label">Quiz Question</label><input type="text" class="form-input" id="fQuizQuestion" placeholder="e.g., What tag creates a button?"></div>
-                    <div class="form-grid">
-                        <div class="form-group"><label class="form-label">Option A</label><input type="text" class="form-input" id="fQuizA"></div>
-                        <div class="form-group"><label class="form-label">Option B</label><input type="text" class="form-input" id="fQuizB"></div>
-                        <div class="form-group"><label class="form-label">Option C</label><input type="text" class="form-input" id="fQuizC"></div>
-                        <div class="form-group"><label class="form-label">Option D</label><input type="text" class="form-input" id="fQuizD"></div>
+                <!-- Lesson Builder -->
+                <div class="tab-content" id="tabBuilder">
+                    <div style="display:flex;gap:1rem;margin-bottom:1rem;align-items:center;">
+                        <span style="font-weight:600;font-size:0.875rem;">Add Block:</span>
+                        <div class="block-types" id="blockTypes">
+                            <button class="block-type" data-block="text"><i class='bx bx-text'></i> Text</button>
+                            <button class="block-type" data-block="video"><i class='bx bx-video'></i> Video</button>
+                            <button class="block-type" data-block="remember"><i class='bx bx-brain'></i> Remember</button>
+                            <button class="block-type" data-block="remember-question"><i class='bx bx-question-mark'></i> Remember Q</button>
+                            <button class="block-type" data-block="question"><i class='bx bx-help-circle'></i> Question</button>
+                            <button class="block-type" data-block="image"><i class='bx bx-image'></i> Image</button>
+                        </div>
                     </div>
-                    <div class="form-group"><label class="form-label">Correct Answer</label><select class="form-select" id="fQuizAnswer"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-ghost" data-close="lessonModal">Cancel</button>
-                <button class="btn btn-primary" id="saveLessonBtn"><i class='bx bx-check'></i> Save Lesson</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Quick Create Modal -->
-    <div class="modal-overlay" id="quickCreateModal">
-        <div class="modal" style="max-width:400px;">
-            <div class="modal-header">
-                <h3 class="modal-title">Quick Create</h3>
-                <button class="modal-close" data-close="quickCreateModal"><i class='bx bx-x'></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="builder-steps">
-                    <div class="builder-step" data-action="addTopic">
-                        <div class="builder-step-num"><i class='bx bx-category'></i></div>
-                        <div class="builder-step-info"><div class="builder-step-title">New Topic</div></div>
+                    <!-- Page tabs for sections view -->
+                    <div id="pageTabsContainer" style="display:none;">
+                        <div class="page-tabs" id="pageTabs">
+                            <button class="page-tab active" data-page="0">Page 1</button>
+                        </div>
+                        <button class="btn btn-sm btn-outline" id="addPageBtn" style="margin-bottom:1rem;"><i class='bx bx-plus'></i> Add Page</button>
                     </div>
-                    <div class="builder-step" data-action="addCourse">
-                        <div class="builder-step-num"><i class='bx bx-book-content'></i></div>
-                        <div class="builder-step-info"><div class="builder-step-title">New Course</div></div>
-                    </div>
-                    <div class="builder-step" data-action="addModule">
-                        <div class="builder-step-num"><i class='bx bx-layer'></i></div>
-                        <div class="builder-step-info"><div class="builder-step-title">New Module</div></div>
-                    </div>
-                    <div class="builder-step" data-action="addLesson">
-                        <div class="builder-step-num"><i class='bx bx-video'></i></div>
-                        <div class="builder-step-info"><div class="builder-step-title">New Lesson</div></div>
-                    </div>
+                    <!-- Blocks -->
+                    <div class="blocks-container" id="blocksContainer"></div>
                 </div>
             </div>
+            <div class="modal-footer"><button class="btn btn-ghost" data-close="lessonModal">Cancel</button><button class="btn btn-primary" id="saveLessonBtn"><i class='bx bx-check'></i> Save Lesson</button></div>
         </div>
     </div>
 
     <!-- Confirm Dialog -->
-    <div class="confirm-overlay" id="confirmDialog">
-        <div class="confirm-dialog">
-            <i class='bx bx-error-circle'></i>
-            <h3>Are you sure?</h3>
-            <p id="confirmMessage">This action cannot be undone.</p>
-            <div class="confirm-actions">
-                <button class="btn btn-ghost" onclick="closeConfirm()">Cancel</button>
-                <button class="btn btn-primary" id="confirmBtn" style="background:var(--danger);">Delete</button>
+    <div class="modal-overlay" id="confirmDialog">
+        <div class="modal" style="max-width:400px;text-align:center;">
+            <div class="modal-body">
+                <i class='bx bx-error-circle' style="font-size:3rem;color:var(--danger);"></i>
+                <h3 style="margin:0.5rem 0;">Are you sure?</h3>
+                <p id="confirmMessage" style="color:var(--gray-500);font-size:0.875rem;">This cannot be undone.</p>
+                <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:1rem;">
+                    <button class="btn btn-ghost" onclick="closeConfirm()">Cancel</button>
+                    <button class="btn btn-primary" id="confirmBtn" style="background:var(--danger);">Delete</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1189,405 +586,510 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <script type="module">
-        // ============ FIREBASE IMPORTS ============
         import { db } from './js/firebase.js';
-        import { 
-            collection, addDoc, getDocs, doc, updateDoc, deleteDoc, 
-            query, where, orderBy, Timestamp, writeBatch 
-        } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+        import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy, Timestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-        // ============ APP STATE ============
+        // IMGBB API Key
+        const IMGBB_API_KEY = 'ba8023ca74166460c442e8e703d2a1b0';
+
+        // App State
         const AppState = {
-            topics: [],
-            courses: [],
-            modules: [],
-            lessons: [],
+            topics: [], courses: [], modules: [], lessons: [],
             currentView: 'dashboard',
-            useFirebase: true,
+            currentBlocks: [], // For lesson builder
+            currentPages: [{ blocks: [] }], // For sections view
+            currentPageIndex: 0,
             confirmCallback: null
         };
 
-        // ============ LOCAL STORAGE FALLBACK ============
-        function loadLocalData() {
-            AppState.topics = JSON.parse(localStorage.getItem('akademia_topics') || '[]');
-            AppState.courses = JSON.parse(localStorage.getItem('akademia_courses') || '[]');
-            AppState.modules = JSON.parse(localStorage.getItem('akademia_modules') || '[]');
-            AppState.lessons = JSON.parse(localStorage.getItem('akademia_lessons') || '[]');
+        // ============ LOCAL STORAGE ============
+        function loadLocal() {
+            AppState.topics = JSON.parse(localStorage.getItem('ak_topics') || '[]');
+            AppState.courses = JSON.parse(localStorage.getItem('ak_courses') || '[]');
+            AppState.modules = JSON.parse(localStorage.getItem('ak_modules') || '[]');
+            AppState.lessons = JSON.parse(localStorage.getItem('ak_lessons') || '[]');
+        }
+        function saveLocal() {
+            localStorage.setItem('ak_topics', JSON.stringify(AppState.topics));
+            localStorage.setItem('ak_courses', JSON.stringify(AppState.courses));
+            localStorage.setItem('ak_modules', JSON.stringify(AppState.modules));
+            localStorage.setItem('ak_lessons', JSON.stringify(AppState.lessons));
         }
 
-        function saveLocalData() {
-            localStorage.setItem('akademia_topics', JSON.stringify(AppState.topics));
-            localStorage.setItem('akademia_courses', JSON.stringify(AppState.courses));
-            localStorage.setItem('akademia_modules', JSON.stringify(AppState.modules));
-            localStorage.setItem('akademia_lessons', JSON.stringify(AppState.lessons));
+        // ============ IMGBB UPLOAD ============
+        async function uploadToImgbb(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            try {
+                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: formData });
+                const data = await res.json();
+                if (data.success) return data.data.url;
+                throw new Error('Upload failed');
+            } catch (e) {
+                console.error('ImgBB upload error:', e);
+                return null;
+            }
         }
 
-        // ============ FIREBASE OPERATIONS ============
+        async function handleImageUpload(inputId, previewId) {
+            const input = document.getElementById(inputId);
+            const file = input.files?.[0];
+            if (!file) return;
+            const url = await uploadToImgbb(file);
+            if (url) {
+                document.getElementById(inputId.replace('Upload', '')).value = url;
+                const preview = document.getElementById(previewId);
+                if (preview) { preview.src = url; preview.style.display = 'block'; }
+                showToast('Image uploaded!', 'success');
+            }
+        }
+
+        // ============ DATA LOADING ============
         async function loadAllData() {
             try {
-                const [topicsSnap, coursesSnap, modulesSnap, lessonsSnap] = await Promise.all([
+                const [tSnap, cSnap, mSnap, lSnap] = await Promise.all([
                     getDocs(query(collection(db, 'topics'), orderBy('createdAt', 'desc'))),
                     getDocs(query(collection(db, 'courses'), orderBy('createdAt', 'desc'))),
                     getDocs(query(collection(db, 'modules'), orderBy('order'))),
                     getDocs(query(collection(db, 'lessons'), orderBy('createdAt', 'desc')))
                 ]);
-                
-                AppState.topics = topicsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-                AppState.courses = coursesSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-                AppState.modules = modulesSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-                AppState.lessons = lessonsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-                AppState.useFirebase = true;
-            } catch (error) {
-                console.warn('Firebase unavailable, using localStorage:', error.message);
-                AppState.useFirebase = false;
-                loadLocalData();
+                AppState.topics = tSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                AppState.courses = cSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                AppState.modules = mSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                AppState.lessons = lSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+            } catch (e) {
+                console.warn('Using localStorage:', e.message);
+                loadLocal();
             }
             refreshAllUI();
         }
 
-        async function saveToFirebase(collectionName, data, id = null) {
-            if (AppState.useFirebase) {
-                try {
-                    if (id) {
-                        await updateDoc(doc(db, collectionName, id), data);
-                        return id;
-                    } else {
-                        const docRef = await addDoc(collection(db, collectionName), {
-                            ...data,
-                            createdAt: Timestamp.now()
-                        });
-                        return docRef.id;
-                    }
-                } catch (error) {
-                    console.warn('Firebase save failed, using localStorage:', error.message);
-                    AppState.useFirebase = false;
+        async function saveDoc(collectionName, data, id = null) {
+            try {
+                if (id) {
+                    await updateDoc(doc(db, collectionName, id), data);
+                    return id;
+                } else {
+                    const docRef = await addDoc(collection(db, collectionName), { ...data, createdAt: Timestamp.now() });
+                    return docRef.id;
                 }
+            } catch (e) {
+                console.warn('Firebase unavailable, using localStorage');
+                if (id) {
+                    const arr = AppState[collectionName];
+                    const idx = arr.findIndex(i => i.id === id);
+                    if (idx !== -1) arr[idx] = { ...arr[idx], ...data };
+                } else {
+                    const newId = `${collectionName}_${Date.now()}`;
+                    AppState[collectionName].push({ id: newId, ...data, createdAt: new Date().toISOString() });
+                    saveLocal();
+                    return newId;
+                }
+                saveLocal();
+                return id;
             }
-            // Local fallback
-            if (id) {
-                const arr = AppState[collectionName];
-                const index = arr.findIndex(item => item.id === id);
-                if (index !== -1) arr[index] = { ...arr[index], ...data };
-            } else {
-                const newId = `${collectionName.slice(0, -1)}_${Date.now()}`;
-                AppState[collectionName].push({ id: newId, ...data, createdAt: new Date().toISOString() });
-                saveLocalData();
-                return newId;
-            }
-            saveLocalData();
-            return id;
         }
 
-        async function deleteFromFirebase(collectionName, id) {
-            if (AppState.useFirebase) {
-                try {
-                    await deleteDoc(doc(db, collectionName, id));
-                    return;
-                } catch (error) {
-                    console.warn('Firebase delete failed:', error.message);
-                    AppState.useFirebase = false;
-                }
+        async function deleteDocSafe(collectionName, id) {
+            try {
+                await deleteDoc(doc(db, collectionName, id));
+            } catch (e) {
+                AppState[collectionName] = AppState[collectionName].filter(i => i.id !== id);
+                saveLocal();
             }
-            AppState[collectionName] = AppState[collectionName].filter(item => item.id !== id);
-            saveLocalData();
         }
 
-        // ============ CRUD OPERATIONS ============
-        async function saveTopicData() {
-            const name = val('fTopicName').trim();
-            if (!name) { showToast('Topic name is required', 'error'); return; }
-
+        // ============ SAVE FUNCTIONS ============
+        async function saveTopic() {
+            const name = document.getElementById('fTopicName').value.trim();
+            if (!name) { showToast('Name required', 'error'); return; }
             const data = {
                 name,
-                description: val('fTopicDesc').trim(),
-                icon: val('fTopicIcon').trim() || 'bx-category',
-                thumbnail: val('fTopicThumbnail').trim(),
-                status: val('fTopicStatus'),
+                description: document.getElementById('fTopicDesc').value.trim(),
+                thumbnail: document.getElementById('fTopicThumbnail').value.trim(),
                 updatedAt: new Date().toISOString()
             };
-
-            const editId = val('topicEditId');
-            if (editId) {
-                await saveToFirebase('topics', data, editId);
-                showToast('Topic updated!', 'success');
-            } else {
-                data.courseCount = 0;
-                await saveToFirebase('topics', data);
-                showToast('Topic created!', 'success');
-            }
+            const editId = document.getElementById('topicEditId').value;
+            await saveDoc('topics', data, editId || undefined);
             closeModal('topicModal');
             clearTopicForm();
+            showToast(editId ? 'Topic updated!' : 'Topic created!', 'success');
             await loadAllData();
         }
 
-        async function saveCourseData() {
-            const name = val('fCourseName').trim();
-            const topicId = val('fCourseTopic');
-            if (!name || !topicId) { showToast('Name and Topic are required', 'error'); return; }
-
+        async function saveCourse() {
+            const name = document.getElementById('fCourseName').value.trim();
+            const topicId = document.getElementById('fCourseTopic').value;
+            if (!name || !topicId) { showToast('Name & Topic required', 'error'); return; }
             const topic = AppState.topics.find(t => t.id === topicId);
             const data = {
                 name,
                 topicId,
                 topicName: topic?.name || '',
-                difficulty: val('fCourseDifficulty'),
-                duration: parseInt(val('fCourseDuration')) || 0,
-                description: val('fCourseDesc').trim(),
-                prerequisites: val('fCoursePrereqs').trim(),
-                thumbnail: val('fCourseThumbnail').trim(),
-                status: val('fCourseStatus'),
+                description: document.getElementById('fCourseDesc').value.trim(),
+                logo: document.getElementById('fCourseLogo').value.trim(),
+                thumbnail: document.getElementById('fCourseThumbnail').value.trim(),
+                duration: 0, // Auto-calculated
                 updatedAt: new Date().toISOString()
             };
-
-            const editId = val('courseEditId');
-            if (editId) {
-                await saveToFirebase('courses', data, editId);
-                showToast('Course updated!', 'success');
-            } else {
-                data.moduleCount = 0;
-                await saveToFirebase('courses', data);
-                showToast('Course created!', 'success');
-            }
+            const editId = document.getElementById('courseEditId').value;
+            await saveDoc('courses', data, editId || undefined);
             closeModal('courseModal');
             clearCourseForm();
+            showToast(editId ? 'Course updated!' : 'Course created!', 'success');
             await loadAllData();
         }
 
-        async function saveModuleData() {
-            const name = val('fModuleName').trim();
-            const courseId = val('fModuleCourse');
-            if (!name || !courseId) { showToast('Name and Course are required', 'error'); return; }
-
+        async function saveModule() {
+            const name = document.getElementById('fModuleName').value.trim();
+            const courseId = document.getElementById('fModuleCourse').value;
+            if (!name || !courseId) { showToast('Name & Course required', 'error'); return; }
             const course = AppState.courses.find(c => c.id === courseId);
             const data = {
                 name,
                 courseId,
                 courseName: course?.name || '',
-                order: parseInt(val('fModuleOrder')) || 1,
-                description: val('fModuleDesc').trim(),
+                description: document.getElementById('fModuleDesc').value.trim(),
+                order: parseInt(document.getElementById('fModuleOrder').value) || 1,
                 updatedAt: new Date().toISOString()
             };
-
-            const editId = val('moduleEditId');
-            if (editId) {
-                await saveToFirebase('modules', data, editId);
-                showToast('Module updated!', 'success');
-            } else {
-                data.lessonCount = 0;
-                await saveToFirebase('modules', data);
-                showToast('Module created!', 'success');
-            }
+            const editId = document.getElementById('moduleEditId').value;
+            await saveDoc('modules', data, editId || undefined);
             closeModal('moduleModal');
             clearModuleForm();
+            showToast(editId ? 'Module updated!' : 'Module created!', 'success');
             await loadAllData();
         }
 
-        async function saveLessonData() {
-            const title = val('fLessonTitle').trim();
-            const moduleId = val('fLessonModule');
-            if (!title || !moduleId) { showToast('Title and Module are required', 'error'); return; }
-
-            const module = AppState.modules.find(m => m.id === moduleId);
-            const contentTypes = [];
-            if (val('fLessonVideoUrl')) contentTypes.push('video');
-            if (val('fLessonContent')) contentTypes.push('article');
-            if (val('fLessonCode')) contentTypes.push('code');
-            if (val('fLessonExercise')) contentTypes.push('exercise');
-            if (val('fQuizQuestion')) contentTypes.push('quiz');
-
+        async function saveLesson() {
+            const title = document.getElementById('fLessonTitle').value.trim();
+            const moduleId = document.getElementById('fLessonModule').value;
+            const viewType = document.getElementById('fLessonViewType').value;
+            if (!title || !moduleId) { showToast('Title & Module required', 'error'); return; }
+            
+            const mod = AppState.modules.find(m => m.id === moduleId);
+            const pages = viewType === 'sections' ? AppState.currentPages : [{ blocks: AppState.currentBlocks }];
+            const totalBlocks = pages.reduce((sum, p) => sum + (p.blocks?.length || 0), 0);
+            const estimatedTime = totalBlocks * 5; // 5 min per block estimate
+            
             const data = {
                 title,
                 moduleId,
-                moduleName: module?.name || '',
-                courseId: module?.courseId || '',
-                estimatedTime: parseInt(val('fLessonTime')) || 0,
-                videoUrl: val('fLessonVideoUrl').trim(),
-                content: val('fLessonContent').trim(),
-                codeExample: val('fLessonCode').trim(),
-                exercise: val('fLessonExercise').trim(),
-                quiz: val('fQuizQuestion') ? {
-                    question: val('fQuizQuestion'),
-                    options: { A: val('fQuizA'), B: val('fQuizB'), C: val('fQuizC'), D: val('fQuizD') },
-                    correctAnswer: val('fQuizAnswer')
-                } : null,
-                contentTypes,
-                status: val('fLessonStatus'),
+                moduleName: mod?.name || '',
+                courseId: mod?.courseId || '',
+                viewType,
+                pages,
+                status: document.getElementById('fLessonStatus').value,
+                estimatedTime,
                 updatedAt: new Date().toISOString()
             };
-
-            const editId = val('lessonEditId');
-            if (editId) {
-                await saveToFirebase('lessons', data, editId);
-                showToast('Lesson updated!', 'success');
-            } else {
-                await saveToFirebase('lessons', data);
-                showToast('Lesson created!', 'success');
-            }
+            
+            const editId = document.getElementById('lessonEditId').value;
+            await saveDoc('lessons', data, editId || undefined);
             closeModal('lessonModal');
             clearLessonForm();
+            showToast(editId ? 'Lesson updated!' : 'Lesson created!', 'success');
             await loadAllData();
+            recalculateCourseDurations();
         }
 
-        // ============ DELETE WITH CONFIRMATION ============
-        function confirmDelete(message, callback) {
-            document.getElementById('confirmMessage').textContent = message;
-            AppState.confirmCallback = callback;
+        async function recalculateCourseDurations() {
+            for (const course of AppState.courses) {
+                const courseModules = AppState.modules.filter(m => m.courseId === course.id);
+                let totalDuration = 0;
+                for (const mod of courseModules) {
+                    const modLessons = AppState.lessons.filter(l => l.moduleId === mod.id);
+                    totalDuration += modLessons.reduce((sum, l) => sum + (l.estimatedTime || 0), 0);
+                }
+                if (course.duration !== totalDuration) {
+                    course.duration = totalDuration;
+                    await saveDoc('courses', { duration: totalDuration }, course.id);
+                }
+            }
+        }
+
+        // ============ DELETE ============
+        function confirmDelete(msg, cb) {
+            document.getElementById('confirmMessage').textContent = msg;
+            AppState.confirmCallback = cb;
             document.getElementById('confirmDialog').classList.add('show');
-            document.getElementById('confirmBtn').onclick = () => {
-                if (AppState.confirmCallback) AppState.confirmCallback();
-                closeConfirm();
-            };
         }
-
         function closeConfirm() {
             document.getElementById('confirmDialog').classList.remove('show');
             AppState.confirmCallback = null;
         }
 
         async function deleteTopicItem(id) {
-            confirmDelete('Delete this topic and ALL its courses, modules & lessons? This cannot be undone.', async () => {
-                // Cascade delete
-                const topicCourses = AppState.courses.filter(c => c.topicId === id);
-                for (const course of topicCourses) {
-                    const courseModules = AppState.modules.filter(m => m.courseId === course.id);
-                    for (const mod of courseModules) {
-                        const modLessons = AppState.lessons.filter(l => l.moduleId === mod.id);
-                        for (const lesson of modLessons) {
-                            await deleteFromFirebase('lessons', lesson.id);
-                        }
-                        await deleteFromFirebase('modules', mod.id);
+            confirmDelete('Delete this topic and ALL its courses, modules & lessons?', async () => {
+                for (const c of AppState.courses.filter(c => c.topicId === id)) {
+                    for (const m of AppState.modules.filter(m => m.courseId === c.id)) {
+                        for (const l of AppState.lessons.filter(l => l.moduleId === m.id)) await deleteDocSafe('lessons', l.id);
+                        await deleteDocSafe('modules', m.id);
                     }
-                    await deleteFromFirebase('courses', course.id);
+                    await deleteDocSafe('courses', c.id);
                 }
-                await deleteFromFirebase('topics', id);
-                showToast('Topic and all related content deleted', 'success');
+                await deleteDocSafe('topics', id);
+                showToast('Deleted!', 'success');
                 await loadAllData();
             });
         }
-
         async function deleteCourseItem(id) {
-            confirmDelete('Delete this course and ALL its modules & lessons?', async () => {
-                const courseModules = AppState.modules.filter(m => m.courseId === id);
-                for (const mod of courseModules) {
-                    const modLessons = AppState.lessons.filter(l => l.moduleId === mod.id);
-                    for (const lesson of modLessons) {
-                        await deleteFromFirebase('lessons', lesson.id);
-                    }
-                    await deleteFromFirebase('modules', mod.id);
+            confirmDelete('Delete this course and its modules & lessons?', async () => {
+                for (const m of AppState.modules.filter(m => m.courseId === id)) {
+                    for (const l of AppState.lessons.filter(l => l.moduleId === m.id)) await deleteDocSafe('lessons', l.id);
+                    await deleteDocSafe('modules', m.id);
                 }
-                await deleteFromFirebase('courses', id);
-                showToast('Course deleted', 'success');
+                await deleteDocSafe('courses', id);
+                showToast('Deleted!', 'success');
                 await loadAllData();
             });
         }
-
         async function deleteModuleItem(id) {
-            confirmDelete('Delete this module and ALL its lessons?', async () => {
-                const modLessons = AppState.lessons.filter(l => l.moduleId === id);
-                for (const lesson of modLessons) {
-                    await deleteFromFirebase('lessons', lesson.id);
-                }
-                await deleteFromFirebase('modules', id);
-                showToast('Module deleted', 'success');
+            confirmDelete('Delete this module and its lessons?', async () => {
+                for (const l of AppState.lessons.filter(l => l.moduleId === id)) await deleteDocSafe('lessons', l.id);
+                await deleteDocSafe('modules', id);
+                showToast('Deleted!', 'success');
                 await loadAllData();
             });
         }
-
         async function deleteLessonItem(id) {
             confirmDelete('Delete this lesson?', async () => {
-                await deleteFromFirebase('lessons', id);
-                showToast('Lesson deleted', 'success');
+                await deleteDocSafe('lessons', id);
+                showToast('Deleted!', 'success');
                 await loadAllData();
             });
         }
-
         async function duplicateCourseItem(id) {
             const course = AppState.courses.find(c => c.id === id);
             if (!course) return;
-            const { id: _, createdAt, ...courseData } = course;
-            await saveToFirebase('courses', {
-                ...courseData,
-                name: courseData.name + ' (Copy)',
-                status: 'draft',
-                moduleCount: 0
-            });
-            showToast('Course duplicated!', 'success');
+            const { id: _, createdAt, ...data } = course;
+            await saveDoc('courses', { ...data, name: data.name + ' (Copy)', duration: 0 });
+            showToast('Duplicated!', 'success');
             await loadAllData();
         }
 
-        function handleDuplicateCourse() {
-            const select = document.getElementById('fDuplicateCourse');
-            const courseId = select.value;
-            if (!courseId) return;
-            const course = AppState.courses.find(c => c.id === courseId);
-            if (course) {
-                setVal('fCourseName', course.name + ' (Copy)');
-                setVal('fCourseTopic', course.topicId);
-                setVal('fCourseDifficulty', course.difficulty);
-                setVal('fCourseDuration', course.duration);
-                setVal('fCourseDesc', course.description || '');
-                setVal('fCoursePrereqs', course.prerequisites || '');
-                setVal('fCourseThumbnail', course.thumbnail || '');
+        // ============ LESSON BUILDER ============
+        function addBlock(type) {
+            const block = createBlockData(type);
+            if (AppState.currentViewType === 'sections') {
+                AppState.currentPages[AppState.currentPageIndex].blocks.push(block);
+            } else {
+                AppState.currentBlocks.push(block);
+            }
+            renderBlocks();
+        }
+
+        function createBlockData(type) {
+            const base = { id: 'block_' + Date.now(), type };
+            switch (type) {
+                case 'text': return { ...base, content: '', contentType: 'paragraph' };
+                case 'video': return { ...base, url: '' };
+                case 'remember': return { ...base, text: '', questionId: null };
+                case 'remember-question': return { ...base, question: '', options: ['', '', '', ''], correctAnswer: 0 };
+                case 'question': return { ...base, questionType: 'multiple-choice', question: '', options: ['', '', '', ''], correctAnswer: 0, points: 10 };
+                case 'image': return { ...base, url: '', alt: '' };
+                default: return base;
             }
         }
 
-        // ============ UI HELPERS ============
-        function val(id) { return document.getElementById(id)?.value || ''; }
-        function setVal(id, value) { const el = document.getElementById(id); if (el) el.value = value; }
+        function renderBlocks() {
+            const container = document.getElementById('blocksContainer');
+            const blocks = AppState.currentViewType === 'sections' 
+                ? (AppState.currentPages[AppState.currentPageIndex]?.blocks || [])
+                : AppState.currentBlocks;
+            
+            container.innerHTML = blocks.map((block, index) => `
+                <div class="block-item" draggable="true" data-index="${index}">
+                    <div class="block-header">
+                        <i class='bx bx-grid-vertical block-type-icon' style="cursor:grab;"></i>
+                        <span class="block-type-label">${getBlockLabel(block.type)}</span>
+                        <div class="block-actions">
+                            <button class="icon-btn" onclick="moveBlock(${index}, 'up')"><i class='bx bx-chevron-up'></i></button>
+                            <button class="icon-btn" onclick="moveBlock(${index}, 'down')"><i class='bx bx-chevron-down'></i></button>
+                            <button class="icon-btn danger" onclick="removeBlock(${index})"><i class='bx bx-trash'></i></button>
+                        </div>
+                    </div>
+                    <div class="block-body">${renderBlockForm(block, index)}</div>
+                </div>
+            `).join('');
+        }
 
+        function getBlockLabel(type) {
+            const labels = { text: '📝 Text', video: '📹 Video', remember: '🧠 Remember', 'remember-question': '❓ Remember Question', question: '📋 Question', image: '🖼️ Image' };
+            return labels[type] || type;
+        }
+
+        function renderBlockForm(block, index) {
+            const prefix = `block_${index}_`;
+            switch (block.type) {
+                case 'text':
+                    return `<select class="form-select" onchange="updateBlock(${index},'contentType',this.value)" style="margin-bottom:0.5rem;width:200px;">
+                        <option value="paragraph" ${block.contentType==='paragraph'?'selected':''}>Paragraph</option>
+                        <option value="title" ${block.contentType==='title'?'selected':''}>Title</option>
+                    </select>
+                    <textarea class="form-textarea" onchange="updateBlock(${index},'content',this.value)" placeholder="Write your text...">${block.content || ''}</textarea>`;
+                case 'video':
+                    return `<input type="text" class="form-input" onchange="updateBlock(${index},'url',this.value)" value="${block.url || ''}" placeholder="YouTube URL...">`;
+                case 'remember':
+                    return `<textarea class="form-textarea" onchange="updateBlock(${index},'text',this.value)" placeholder="Key point to remember...">${block.text || ''}</textarea>`;
+                case 'remember-question':
+                    return renderQuestionForm(block, index, 'remember-question');
+                case 'question':
+                    return `<select class="form-select" onchange="updateBlock(${index},'questionType',this.value)" style="margin-bottom:0.5rem;width:200px;">
+                        <option value="multiple-choice" ${block.questionType==='multiple-choice'?'selected':''}>Multiple Choice</option>
+                        <option value="complete" ${block.questionType==='complete'?'selected':''}>Complete the Following</option>
+                        <option value="matching" ${block.questionType==='matching'?'selected':''}>Matching</option>
+                        <option value="boolean" ${block.questionType==='boolean'?'selected':''}>Boolean</option>
+                    </select>` + renderQuestionForm(block, index, 'question');
+                case 'image':
+                    return `<input type="text" class="form-input" onchange="updateBlock(${index},'url',this.value)" value="${block.url || ''}" placeholder="Image URL...">
+                    <input type="text" class="form-input" onchange="updateBlock(${index},'alt',this.value)" value="${block.alt || ''}" placeholder="Alt text..." style="margin-top:0.5rem;">
+                    ${block.url ? `<img src="${block.url}" style="max-width:200px;margin-top:0.5rem;border-radius:8px;">` : ''}`;
+                default: return '';
+            }
+        }
+
+        function renderQuestionForm(block, index, type) {
+            return `
+                <input type="text" class="form-input" onchange="updateBlock(${index},'question',this.value)" value="${block.question || ''}" placeholder="Question..." style="margin-bottom:0.5rem;">
+                ${['A','B','C','D'].map((opt, i) => `
+                    <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.25rem;">
+                        <span style="font-size:0.75rem;width:20px;">${opt}</span>
+                        <input type="text" class="form-input" onchange="updateBlock(${index},'options',null,${i},this.value)" value="${block.options?.[i] || ''}" placeholder="Option ${opt}">
+                    </div>
+                `).join('')}
+                <div style="margin-top:0.5rem;"><label class="form-label">Correct Answer</label>
+                <select class="form-select" onchange="updateBlock(${index},'correctAnswer',parseInt(this.value))">
+                    <option value="0" ${block.correctAnswer===0?'selected':''}>A</option>
+                    <option value="1" ${block.correctAnswer===1?'selected':''}>B</option>
+                    <option value="2" ${block.correctAnswer===2?'selected':''}>C</option>
+                    <option value="3" ${block.correctAnswer===3?'selected':''}>D</option>
+                </select></div>
+                ${type === 'question' ? `<div style="margin-top:0.5rem;"><label class="form-label">Points</label><input type="number" class="form-input" onchange="updateBlock(${index},'points',parseInt(this.value))" value="${block.points || 10}" style="width:100px;"></div>` : ''}
+            `;
+        }
+
+        function updateBlock(index, field, value, optIndex = null, optValue = null) {
+            const blocks = AppState.currentViewType === 'sections' 
+                ? AppState.currentPages[AppState.currentPageIndex].blocks
+                : AppState.currentBlocks;
+            if (!blocks[index]) return;
+            if (field === 'options' && optIndex !== null) {
+                if (!blocks[index].options) blocks[index].options = ['', '', '', ''];
+                blocks[index].options[optIndex] = optValue;
+            } else {
+                blocks[index][field] = value;
+            }
+        }
+
+        function moveBlock(index, direction) {
+            const blocks = AppState.currentViewType === 'sections' 
+                ? AppState.currentPages[AppState.currentPageIndex].blocks
+                : AppState.currentBlocks;
+            const newIndex = direction === 'up' ? index - 1 : index + 1;
+            if (newIndex < 0 || newIndex >= blocks.length) return;
+            [blocks[index], blocks[newIndex]] = [blocks[newIndex], blocks[index]];
+            renderBlocks();
+        }
+
+        function removeBlock(index) {
+            const blocks = AppState.currentViewType === 'sections' 
+                ? AppState.currentPages[AppState.currentPageIndex].blocks
+                : AppState.currentBlocks;
+            blocks.splice(index, 1);
+            renderBlocks();
+        }
+
+        function addPage() {
+            AppState.currentPages.push({ blocks: [] });
+            renderPageTabs();
+            switchPage(AppState.currentPages.length - 1);
+        }
+
+        function switchPage(index) {
+            AppState.currentPageIndex = index;
+            renderPageTabs();
+            renderBlocks();
+        }
+
+        function renderPageTabs() {
+            const container = document.getElementById('pageTabs');
+            container.innerHTML = AppState.currentPages.map((_, i) => `
+                <button class="page-tab ${i === AppState.currentPageIndex ? 'active' : ''}" onclick="switchPage(${i})">
+                    Page ${i + 1}
+                    ${AppState.currentPages.length > 1 ? `<i class='bx bx-x' style="margin-left:4px;font-size:0.75rem;" onclick="event.stopPropagation();deletePage(${i})"></i>` : ''}
+                </button>
+            `).join('');
+        }
+
+        function deletePage(index) {
+            if (AppState.currentPages.length <= 1) return;
+            AppState.currentPages.splice(index, 1);
+            if (AppState.currentPageIndex >= AppState.currentPages.length) AppState.currentPageIndex = AppState.currentPages.length - 1;
+            renderPageTabs();
+            renderBlocks();
+        }
+
+        function updateViewType() {
+            const viewType = document.getElementById('fLessonViewType').value;
+            AppState.currentViewType = viewType;
+            document.getElementById('pageTabsContainer').style.display = viewType === 'sections' ? 'block' : 'none';
+            if (viewType === 'one-page') {
+                AppState.currentBlocks = [];
+                AppState.currentViewType = 'one-page';
+            } else {
+                AppState.currentPages = [{ blocks: [] }];
+                AppState.currentPageIndex = 0;
+                AppState.currentViewType = 'sections';
+                renderPageTabs();
+            }
+            renderBlocks();
+        }
+
+        // ============ UI HELPERS ============
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
-            toast.innerHTML = `<i class='bx ${type === 'success' ? 'bx-check-circle' : type === 'error' ? 'bx-x-circle' : 'bx-info-circle'}'></i> ${message}`;
+            toast.innerHTML = `<i class='bx ${type === 'success' ? 'bx-check-circle' : 'bx-x-circle'}'></i> ${message}`;
             container.appendChild(toast);
             setTimeout(() => toast.remove(), 3000);
         }
 
-        function openModal(id) {
-            document.getElementById(id).classList.add('show');
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('show');
-        }
+        function openModal(id) { document.getElementById(id).classList.add('show'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 
         function clearTopicForm() {
-            ['topicEditId','fTopicName','fTopicDesc','fTopicIcon','fTopicThumbnail'].forEach(setVal);
-            setVal('fTopicStatus', 'draft');
+            ['topicEditId','fTopicName','fTopicDesc','fTopicThumbnail'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('topicThumbnailPreview').style.display = 'none';
         }
-
         function clearCourseForm() {
-            ['courseEditId','fCourseName','fCourseDesc','fCourseDuration','fCoursePrereqs','fCourseThumbnail','fDuplicateCourse'].forEach(setVal);
-            setVal('fCourseTopic', ''); setVal('fCourseDifficulty', 'Beginner'); setVal('fCourseStatus', 'draft');
+            ['courseEditId','fCourseName','fCourseDesc','fCourseLogo','fCourseThumbnail','fDuplicateCourse'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('fCourseTopic').value = '';
+            document.getElementById('courseLogoPreview').style.display = 'none';
+            document.getElementById('courseThumbnailPreview').style.display = 'none';
         }
-
         function clearModuleForm() {
-            ['moduleEditId','fModuleName','fModuleDesc'].forEach(setVal);
-            setVal('fModuleCourse', ''); setVal('fModuleOrder', '1');
+            ['moduleEditId','fModuleName','fModuleDesc'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('fModuleCourse').value = '';
+            document.getElementById('fModuleOrder').value = '1';
         }
-
         function clearLessonForm() {
-            ['lessonEditId','fLessonTitle','fLessonVideoUrl','fLessonContent','fLessonCode','fLessonExercise','fLessonTime',
-             'fQuizQuestion','fQuizA','fQuizB','fQuizC','fQuizD'].forEach(setVal);
-            setVal('fLessonModule', ''); setVal('fQuizAnswer', 'A'); setVal('fLessonStatus', 'draft');
-            // Reset tabs
+            ['lessonEditId','fLessonTitle','fLessonTime'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('fLessonModule').value = '';
+            document.getElementById('fLessonViewType').value = 'one-page';
+            document.getElementById('fLessonStatus').value = 'draft';
+            AppState.currentBlocks = [];
+            AppState.currentPages = [{ blocks: [] }];
+            AppState.currentPageIndex = 0;
+            AppState.currentViewType = 'one-page';
+            document.getElementById('pageTabsContainer').style.display = 'none';
             document.querySelectorAll('#lessonTabs .tab').forEach((t, i) => t.classList.toggle('active', i === 0));
             document.querySelectorAll('#lessonModal .tab-content').forEach((tc, i) => tc.classList.toggle('active', i === 0));
+            renderBlocks();
         }
 
-        // ============ RENDER FUNCTIONS ============
         function refreshAllUI() {
-            updateStats();
-            updateDropdowns();
-            renderTopics();
-            renderCourses();
-            renderModules();
-            renderLessons();
-            updateRecentActivity();
-        }
-
-        function updateStats() {
             document.getElementById('statTopics').textContent = AppState.topics.length;
             document.getElementById('statCourses').textContent = AppState.courses.length;
             document.getElementById('statModules').textContent = AppState.modules.length;
@@ -1596,425 +1098,241 @@
             document.getElementById('courseBadge').textContent = AppState.courses.length;
             document.getElementById('moduleBadge').textContent = AppState.modules.length;
             document.getElementById('lessonBadge').textContent = AppState.lessons.length;
-            document.getElementById('topicsCountLabel').textContent = `${AppState.topics.length} topics`;
+            updateDropdowns();
+            renderTopics();
+            renderCourses();
+            renderModules();
+            renderLessons();
         }
 
         function updateDropdowns() {
-            // Course form topic dropdown
-            const courseTopic = document.getElementById('fCourseTopic');
-            courseTopic.innerHTML = '<option value="">Select topic...</option>' + 
-                AppState.topics.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
-            
-            // Duplicate course dropdown
-            const dupCourse = document.getElementById('fDuplicateCourse');
-            dupCourse.innerHTML = '<option value="">Select course to duplicate...</option>' + 
-                AppState.courses.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-            
-            // Module form course dropdown
-            const modCourse = document.getElementById('fModuleCourse');
-            modCourse.innerHTML = '<option value="">Select course...</option>' + 
-                AppState.courses.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-            
-            // Lesson form module dropdown
-            const lesModule = document.getElementById('fLessonModule');
-            lesModule.innerHTML = '<option value="">Select module...</option>' + 
-                AppState.modules.map(m => `<option value="${m.id}">${m.name} (${m.courseName || ''})</option>`).join('');
-            
-            // Filter dropdowns
-            const courseFilter = document.getElementById('courseFilterTopic');
-            courseFilter.innerHTML = '<option value="">All Topics</option>' + 
-                AppState.topics.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
-            
-            const moduleFilter = document.getElementById('moduleFilterCourse');
-            moduleFilter.innerHTML = '<option value="">All Courses</option>' + 
-                AppState.courses.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-            
-            const lessonFilter = document.getElementById('lessonFilterModule');
-            lessonFilter.innerHTML = '<option value="">All Modules</option>' + 
-                AppState.modules.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+            document.getElementById('fCourseTopic').innerHTML = '<option value="">Select topic...</option>' + AppState.topics.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+            document.getElementById('fDuplicateCourse').innerHTML = '<option value="">Select course...</option>' + AppState.courses.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+            document.getElementById('fModuleCourse').innerHTML = '<option value="">Select course...</option>' + AppState.courses.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+            document.getElementById('fLessonModule').innerHTML = '<option value="">Select module...</option>' + AppState.modules.map(m => `<option value="${m.id}">${m.name} (${m.courseName || ''})</option>`).join('');
         }
+
+        function escapeHtml(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 
         function renderTopics() {
             const tbody = document.getElementById('topicsTable');
-            if (AppState.topics.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><i class='bx bx-category empty-state-icon'></i><h3>No Topics Yet</h3><p>Create your first topic to start organizing courses</p><button class="btn btn-primary btn-sm" data-action="addTopic"><i class='bx bx-plus'></i> Create First Topic</button></div></td></tr>`;
-                return;
-            }
-            tbody.innerHTML = AppState.topics.map(topic => {
-                const courseCount = AppState.courses.filter(c => c.topicId === topic.id).length;
-                const statusBadge = topic.status === 'published' ? 'badge-success' : topic.status === 'archived' ? 'badge-danger' : 'badge-draft';
-                return `<tr>
-                    <td><div style="display:flex;align-items:center;gap:0.625rem;"><i class='bx ${topic.icon || 'bx-category'}' style="font-size:1.5rem;color:var(--primary);"></i><span style="font-weight:600;">${escapeHtml(topic.name)}</span></div></td>
-                    <td>${escapeHtml(topic.description || '-')}</td>
-                    <td><span class="badge badge-info">${courseCount} courses</span></td>
-                    <td><span class="badge ${statusBadge}">${topic.status || 'draft'}</span></td>
-                    <td><div style="display:flex;gap:0.25rem;">
-                        <button class="icon-btn primary" onclick="editTopic('${topic.id}')" title="Edit"><i class='bx bx-edit'></i></button>
-                        <button class="icon-btn danger" onclick="deleteTopicItem('${topic.id}')" title="Delete"><i class='bx bx-trash'></i></button>
-                    </div></td>
-                </tr>`;
+            if (!AppState.topics.length) { tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><i class="bx bx-category empty-state-icon"></i><h3>No Topics</h3><p>Create your first topic</p><button class="btn btn-primary btn-sm" data-action="addTopic"><i class="bx bx-plus"></i> Create Topic</button></div></td></tr>'; return; }
+            tbody.innerHTML = AppState.topics.map(t => {
+                const count = AppState.courses.filter(c => c.topicId === t.id).length;
+                return `<tr><td><div style="display:flex;align-items:center;gap:0.5rem;">${t.thumbnail ? `<img src="${t.thumbnail}" style="width:32px;height:32px;border-radius:6px;object-fit:cover;">` : ''}<span style="font-weight:600;">${escapeHtml(t.name)}</span></div></td><td>${escapeHtml(t.description || '-')}</td><td><span class="badge badge-info">${count} courses</span></td><td><span class="badge badge-success">Active</span></td><td><div style="display:flex;gap:0.25rem;"><button class="icon-btn primary" onclick="editTopic('${t.id}')"><i class="bx bx-edit"></i></button><button class="icon-btn danger" onclick="deleteTopicItem('${t.id}')"><i class="bx bx-trash"></i></button></div></td></tr>`;
             }).join('');
-            attachTableEvents();
         }
 
         function renderCourses() {
             const tbody = document.getElementById('coursesTable');
-            const filterTopic = val('courseFilterTopic');
-            let filteredCourses = AppState.courses;
-            if (filterTopic) filteredCourses = filteredCourses.filter(c => c.topicId === filterTopic);
-
-            if (filteredCourses.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><i class='bx bx-book-content empty-state-icon'></i><h3>No Courses</h3><p>Create a topic first, then add courses</p></div></td></tr>`;
-                return;
-            }
-            tbody.innerHTML = filteredCourses.map(course => {
-                const moduleCount = AppState.modules.filter(m => m.courseId === course.id).length;
-                const diffBadge = { Beginner: 'badge-success', Intermediate: 'badge-warning', Advanced: 'badge-danger' };
-                const statusBadge = course.status === 'published' ? 'badge-success' : course.status === 'archived' ? 'badge-danger' : 'badge-draft';
-                return `<tr>
-                    <td style="font-weight:600;">${escapeHtml(course.name)}</td>
-                    <td>${escapeHtml(course.topicName || '-')}</td>
-                    <td><span class="badge ${diffBadge[course.difficulty] || 'badge-info'}">${course.difficulty}</span></td>
-                    <td>${course.duration}h</td>
-                    <td><span class="badge badge-purple">${moduleCount} modules</span></td>
-                    <td><span class="badge ${statusBadge}">${course.status || 'draft'}</span></td>
-                    <td><div style="display:flex;gap:0.25rem;">
-                        <button class="icon-btn primary" onclick="editCourse('${course.id}')" title="Edit"><i class='bx bx-edit'></i></button>
-                        <button class="icon-btn" onclick="duplicateCourseItem('${course.id}')" title="Duplicate"><i class='bx bx-copy'></i></button>
-                        <button class="icon-btn danger" onclick="deleteCourseItem('${course.id}')" title="Delete"><i class='bx bx-trash'></i></button>
-                    </div></td>
-                </tr>`;
+            if (!AppState.courses.length) { tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><i class="bx bx-book-content empty-state-icon"></i><h3>No Courses</h3><p>Create a topic first</p></div></td></tr>'; return; }
+            tbody.innerHTML = AppState.courses.map(c => {
+                const modCount = AppState.modules.filter(m => m.courseId === c.id).length;
+                return `<tr><td style="font-weight:600;">${c.logo ? `<img src="${c.logo}" style="width:24px;height:24px;border-radius:4px;vertical-align:middle;margin-right:0.5rem;">` : ''}${escapeHtml(c.name)}</td><td>${escapeHtml(c.topicName || '-')}</td><td><span class="badge badge-info">Beginner</span></td><td>${c.duration || 0} min</td><td><span class="badge badge-purple">${modCount} modules</span></td><td><span class="badge badge-draft">Draft</span></td><td><div style="display:flex;gap:0.25rem;"><button class="icon-btn primary" onclick="editCourse('${c.id}')"><i class="bx bx-edit"></i></button><button class="icon-btn" onclick="duplicateCourseItem('${c.id}')"><i class="bx bx-copy"></i></button><button class="icon-btn danger" onclick="deleteCourseItem('${c.id}')"><i class="bx bx-trash"></i></button></div></td></tr>`;
             }).join('');
-            attachTableEvents();
         }
 
         function renderModules() {
             const tbody = document.getElementById('modulesTable');
-            const filterCourse = val('moduleFilterCourse');
-            let filteredModules = AppState.modules;
-            if (filterCourse) filteredModules = filteredModules.filter(m => m.courseId === filterCourse);
-            filteredModules.sort((a, b) => a.order - b.order);
-
-            if (filteredModules.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class='bx bx-layer empty-state-icon'></i><h3>No Modules</h3><p>Create courses first, then add modules</p></div></td></tr>`;
-                return;
-            }
-            tbody.innerHTML = filteredModules.map(mod => {
-                const lessonCount = AppState.lessons.filter(l => l.moduleId === mod.id).length;
-                return `<tr>
-                    <td><span class="badge badge-info">#${mod.order}</span></td>
-                    <td style="font-weight:600;">${escapeHtml(mod.name)}</td>
-                    <td>${escapeHtml(mod.courseName || '-')}</td>
-                    <td><span class="badge badge-purple">${lessonCount} lessons</span></td>
-                    <td><span class="badge badge-success">Active</span></td>
-                    <td><div style="display:flex;gap:0.25rem;">
-                        <button class="icon-btn primary" onclick="editModule('${mod.id}')" title="Edit"><i class='bx bx-edit'></i></button>
-                        <button class="icon-btn danger" onclick="deleteModuleItem('${mod.id}')" title="Delete"><i class='bx bx-trash'></i></button>
-                    </div></td>
-                </tr>`;
+            if (!AppState.modules.length) { tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><i class="bx bx-layer empty-state-icon"></i><h3>No Modules</h3><p>Create courses first</p></div></td></tr>'; return; }
+            tbody.innerHTML = [...AppState.modules].sort((a,b) => a.order - b.order).map(m => {
+                const lCount = AppState.lessons.filter(l => l.moduleId === m.id).length;
+                return `<tr><td><span class="badge badge-info">#${m.order}</span></td><td style="font-weight:600;">${escapeHtml(m.name)}</td><td>${escapeHtml(m.courseName || '-')}</td><td><span class="badge badge-purple">${lCount} lessons</span></td><td><div style="display:flex;gap:0.25rem;"><button class="icon-btn primary" onclick="editModule('${m.id}')"><i class="bx bx-edit"></i></button><button class="icon-btn danger" onclick="deleteModuleItem('${m.id}')"><i class="bx bx-trash"></i></button></div></td></tr>`;
             }).join('');
-            attachTableEvents();
         }
 
         function renderLessons() {
             const tbody = document.getElementById('lessonsTable');
-            const filterModule = val('lessonFilterModule');
-            let filteredLessons = AppState.lessons;
-            if (filterModule) filteredLessons = filteredLessons.filter(l => l.moduleId === filterModule);
-
-            if (filteredLessons.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class='bx bx-video empty-state-icon'></i><h3>No Lessons</h3><p>Create modules first, then add engaging lessons</p></div></td></tr>`;
-                return;
-            }
-            const typeIcons = { video: 'bx-video', article: 'bx-file', code: 'bx-code-alt', exercise: 'bx-edit', quiz: 'bx-question-mark' };
-            const typeColors = { video: 'badge-info', article: 'badge-success', code: 'badge-purple', exercise: 'badge-warning', quiz: 'badge-danger' };
-            
-            tbody.innerHTML = filteredLessons.map(lesson => {
-                const types = lesson.contentTypes || [];
-                const statusBadge = lesson.status === 'published' ? 'badge-success' : lesson.status === 'archived' ? 'badge-danger' : 'badge-draft';
-                return `<tr>
-                    <td style="font-weight:600;">${escapeHtml(lesson.title)}</td>
-                    <td>${escapeHtml(lesson.moduleName || '-')}</td>
-                    <td>${types.map(t => `<span class="badge ${typeColors[t] || 'badge-info'}" style="margin-right:2px;"><i class='bx ${typeIcons[t] || 'bx-file'}'></i> ${t}</span>`).join('') || '-'}</td>
-                    <td>${lesson.estimatedTime}min</td>
-                    <td><span class="badge ${statusBadge}">${lesson.status || 'draft'}</span></td>
-                    <td><div style="display:flex;gap:0.25rem;">
-                        <button class="icon-btn primary" onclick="editLesson('${lesson.id}')" title="Edit"><i class='bx bx-edit'></i></button>
-                        <button class="icon-btn danger" onclick="deleteLessonItem('${lesson.id}')" title="Delete"><i class='bx bx-trash'></i></button>
-                    </div></td>
-                </tr>`;
+            if (!AppState.lessons.length) { tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><i class="bx bx-video empty-state-icon"></i><h3>No Lessons</h3><p>Create modules first</p></div></td></tr>'; return; }
+            tbody.innerHTML = AppState.lessons.map(l => {
+                const totalBlocks = (l.pages || []).reduce((sum, p) => sum + (p.blocks?.length || 0), 0);
+                return `<tr><td style="font-weight:600;">${escapeHtml(l.title)}</td><td>${escapeHtml(l.moduleName || '-')}</td><td><span class="badge badge-info">${l.viewType === 'sections' ? 'Sections' : 'One Page'}</span></td><td><span class="badge badge-purple">${totalBlocks} blocks</span></td><td>${l.estimatedTime || 0} min</td><td><span class="badge ${l.status==='published'?'badge-success':'badge-draft'}">${l.status||'draft'}</span></td><td><div style="display:flex;gap:0.25rem;"><button class="icon-btn primary" onclick="editLesson('${l.id}')"><i class="bx bx-edit"></i></button><button class="icon-btn danger" onclick="deleteLessonItem('${l.id}')"><i class="bx bx-trash"></i></button></div></td></tr>`;
             }).join('');
-            attachTableEvents();
-        }
-
-        function updateRecentActivity() {
-            const container = document.getElementById('recentActivity');
-            const allItems = [
-                ...AppState.lessons.map(l => ({ ...l, type: 'lesson' })),
-                ...AppState.modules.map(m => ({ ...m, type: 'module' })),
-                ...AppState.courses.map(c => ({ ...c, type: 'course' })),
-                ...AppState.topics.map(t => ({ ...t, type: 'topic' }))
-            ].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).slice(0, 5);
-
-            if (allItems.length === 0) {
-                container.innerHTML = `<div class="empty-state"><i class='bx bx-time-five empty-state-icon'></i><h3>No Activity Yet</h3><p>Start building courses</p></div>`;
-                return;
-            }
-
-            const typeIcons = { topic: 'bx-category', course: 'bx-book-content', module: 'bx-layer', lesson: 'bx-video' };
-            container.innerHTML = allItems.map(item => `
-                <div style="display:flex;align-items:center;gap:0.75rem;padding:0.625rem 0;border-bottom:1px solid var(--gray-100);">
-                    <i class='bx ${typeIcons[item.type]}' style="font-size:1.25rem;color:var(--primary);"></i>
-                    <div style="flex:1;">
-                        <div style="font-size:0.813rem;font-weight:500;">${escapeHtml(item.name || item.title)}</div>
-                        <div style="font-size:0.75rem;color:var(--gray-400);">${item.type} • ${timeAgo(item.createdAt)}</div>
-                    </div>
-                    <span class="badge badge-info" style="font-size:0.625rem;">${item.type}</span>
-                </div>
-            `).join('');
-        }
-
-        function timeAgo(dateString) {
-            if (!dateString) return 'just now';
-            const seconds = Math.floor((Date.now() - new Date(dateString)) / 1000);
-            if (seconds < 60) return 'just now';
-            const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes}m ago`;
-            const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours}h ago`;
-            return `${Math.floor(hours / 24)}d ago`;
-        }
-
-        function escapeHtml(str) {
-            if (!str) return '';
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-
-        function attachTableEvents() {
-            // Re-attach any dynamic event listeners if needed
         }
 
         // ============ EDIT FUNCTIONS ============
         function editTopic(id) {
-            const topic = AppState.topics.find(t => t.id === id);
-            if (!topic) return;
-            setVal('topicEditId', topic.id);
-            setVal('fTopicName', topic.name);
-            setVal('fTopicDesc', topic.description || '');
-            setVal('fTopicIcon', topic.icon || '');
-            setVal('fTopicThumbnail', topic.thumbnail || '');
-            setVal('fTopicStatus', topic.status || 'draft');
+            const t = AppState.topics.find(x => x.id === id); if (!t) return;
+            document.getElementById('topicEditId').value = t.id;
+            document.getElementById('fTopicName').value = t.name;
+            document.getElementById('fTopicDesc').value = t.description || '';
+            document.getElementById('fTopicThumbnail').value = t.thumbnail || '';
+            if (t.thumbnail) { document.getElementById('topicThumbnailPreview').src = t.thumbnail; document.getElementById('topicThumbnailPreview').style.display = 'block'; }
             document.getElementById('topicModalTitle').textContent = 'Edit Topic';
             openModal('topicModal');
         }
-
         function editCourse(id) {
-            const course = AppState.courses.find(c => c.id === id);
-            if (!course) return;
-            setVal('courseEditId', course.id);
-            setVal('fCourseName', course.name);
-            setVal('fCourseTopic', course.topicId);
-            setVal('fCourseDifficulty', course.difficulty);
-            setVal('fCourseDuration', course.duration);
-            setVal('fCourseDesc', course.description || '');
-            setVal('fCoursePrereqs', course.prerequisites || '');
-            setVal('fCourseThumbnail', course.thumbnail || '');
-            setVal('fCourseStatus', course.status || 'draft');
+            const c = AppState.courses.find(x => x.id === id); if (!c) return;
+            document.getElementById('courseEditId').value = c.id;
+            document.getElementById('fCourseName').value = c.name;
+            document.getElementById('fCourseTopic').value = c.topicId;
+            document.getElementById('fCourseDesc').value = c.description || '';
+            document.getElementById('fCourseLogo').value = c.logo || '';
+            document.getElementById('fCourseThumbnail').value = c.thumbnail || '';
+            if (c.logo) { document.getElementById('courseLogoPreview').src = c.logo; document.getElementById('courseLogoPreview').style.display = 'block'; }
+            if (c.thumbnail) { document.getElementById('courseThumbnailPreview').src = c.thumbnail; document.getElementById('courseThumbnailPreview').style.display = 'block'; }
             document.getElementById('courseModalTitle').textContent = 'Edit Course';
             openModal('courseModal');
         }
-
         function editModule(id) {
-            const mod = AppState.modules.find(m => m.id === id);
-            if (!mod) return;
-            setVal('moduleEditId', mod.id);
-            setVal('fModuleName', mod.name);
-            setVal('fModuleCourse', mod.courseId);
-            setVal('fModuleOrder', mod.order);
-            setVal('fModuleDesc', mod.description || '');
+            const m = AppState.modules.find(x => x.id === id); if (!m) return;
+            document.getElementById('moduleEditId').value = m.id;
+            document.getElementById('fModuleName').value = m.name;
+            document.getElementById('fModuleCourse').value = m.courseId;
+            document.getElementById('fModuleDesc').value = m.description || '';
+            document.getElementById('fModuleOrder').value = m.order;
             document.getElementById('moduleModalTitle').textContent = 'Edit Module';
             openModal('moduleModal');
         }
-
         function editLesson(id) {
-            const lesson = AppState.lessons.find(l => l.id === id);
-            if (!lesson) return;
-            setVal('lessonEditId', lesson.id);
-            setVal('fLessonTitle', lesson.title);
-            setVal('fLessonModule', lesson.moduleId);
-            setVal('fLessonTime', lesson.estimatedTime);
-            setVal('fLessonVideoUrl', lesson.videoUrl || '');
-            setVal('fLessonContent', lesson.content || '');
-            setVal('fLessonCode', lesson.codeExample || '');
-            setVal('fLessonExercise', lesson.exercise || '');
-            setVal('fLessonStatus', lesson.status || 'draft');
-            if (lesson.quiz) {
-                setVal('fQuizQuestion', lesson.quiz.question);
-                setVal('fQuizA', lesson.quiz.options?.A || '');
-                setVal('fQuizB', lesson.quiz.options?.B || '');
-                setVal('fQuizC', lesson.quiz.options?.C || '');
-                setVal('fQuizD', lesson.quiz.options?.D || '');
-                setVal('fQuizAnswer', lesson.quiz.correctAnswer || 'A');
+            const l = AppState.lessons.find(x => x.id === id); if (!l) return;
+            document.getElementById('lessonEditId').value = l.id;
+            document.getElementById('fLessonTitle').value = l.title;
+            document.getElementById('fLessonModule').value = l.moduleId;
+            document.getElementById('fLessonViewType').value = l.viewType || 'one-page';
+            document.getElementById('fLessonStatus').value = l.status || 'draft';
+            AppState.currentViewType = l.viewType || 'one-page';
+            if (l.viewType === 'sections') {
+                AppState.currentPages = l.pages || [{ blocks: [] }];
+                AppState.currentPageIndex = 0;
+                document.getElementById('pageTabsContainer').style.display = 'block';
+                renderPageTabs();
+            } else {
+                AppState.currentBlocks = l.pages?.[0]?.blocks || [];
+                document.getElementById('pageTabsContainer').style.display = 'none';
             }
             document.getElementById('lessonModalTitle').textContent = 'Edit Lesson';
+            renderBlocks();
             openModal('lessonModal');
         }
 
+        function handleDuplicateCourse() {
+            const id = document.getElementById('fDuplicateCourse').value;
+            const c = AppState.courses.find(x => x.id === id);
+            if (c) {
+                document.getElementById('fCourseName').value = c.name + ' (Copy)';
+                document.getElementById('fCourseTopic').value = c.topicId;
+                document.getElementById('fCourseDesc').value = c.description || '';
+            }
+        }
+
         // ============ VIEW SWITCHING ============
-        function switchView(viewName) {
+        function switchView(name) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            const viewMap = {
-                dashboard: 'viewDashboard',
-                topics: 'viewTopics',
-                courses: 'viewCourses',
-                modules: 'viewModules',
-                lessons: 'viewLessons'
-            };
-            const viewId = viewMap[viewName];
-            if (viewId) {
-                document.getElementById(viewId).classList.add('active');
-                document.getElementById('breadcrumbCurrent').textContent = viewName.charAt(0).toUpperCase() + viewName.slice(1);
-            }
-            
-            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
-            const activeItem = document.querySelector(`.sidebar-item[data-view="${viewName}"]`);
-            if (activeItem) activeItem.classList.add('active');
-            
-            AppState.currentView = viewName;
+            const map = { dashboard: 'viewDashboard', topics: 'viewTopics', courses: 'viewCourses', modules: 'viewModules', lessons: 'viewLessons' };
+            const el = document.getElementById(map[name]);
+            if (el) el.classList.add('active');
+            document.getElementById('breadcrumbCurrent').textContent = name.charAt(0).toUpperCase() + name.slice(1);
+            document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+            const item = document.querySelector(`.sidebar-item[data-view="${name}"]`);
+            if (item) item.classList.add('active');
         }
 
-        function switchLessonTab(tabName) {
-            document.querySelectorAll('#lessonTabs .tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('#lessonModal .tab-content').forEach(tc => tc.classList.remove('active'));
-            
-            const activeTab = document.querySelector(`#lessonTabs .tab[data-tab="${tabName}"]`);
-            if (activeTab) activeTab.classList.add('active');
-            
-            const tabContent = document.getElementById(`tab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
-            if (tabContent) tabContent.classList.add('active');
-        }
-
-        // ============ EVENT DELEGATION ============
-        document.addEventListener('click', function(e) {
-            // Close modals on overlay click
-            if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('show')) {
-                e.target.classList.remove('show');
-            }
-            
-            // Modal close buttons
+        // ============ EVENT LISTENERS ============
+        document.addEventListener('click', e => {
+            if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('show')) e.target.classList.remove('show');
             const closeBtn = e.target.closest('[data-close]');
-            if (closeBtn) {
-                closeModal(closeBtn.dataset.close);
-                return;
-            }
-            
-            // Sidebar items with data-view
+            if (closeBtn) { closeModal(closeBtn.dataset.close); return; }
             const sidebarItem = e.target.closest('.sidebar-item[data-view]');
-            if (sidebarItem) {
-                switchView(sidebarItem.dataset.view);
-                if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
-                return;
-            }
-            
-            // Sidebar items with data-action
-            const actionItem = e.target.closest('.sidebar-item[data-action], [data-action]');
+            if (sidebarItem) { switchView(sidebarItem.dataset.view); if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open'); return; }
+            const actionItem = e.target.closest('[data-action]');
             if (actionItem) {
-                const action = actionItem.dataset.action;
-                if (action === 'addTopic') { clearTopicForm(); document.getElementById('topicModalTitle').textContent = 'Create New Topic'; openModal('topicModal'); }
-                if (action === 'addCourse') { clearCourseForm(); document.getElementById('courseModalTitle').textContent = 'Create New Course'; openModal('courseModal'); }
-                if (action === 'addModule') { clearModuleForm(); document.getElementById('moduleModalTitle').textContent = 'Create New Module'; openModal('moduleModal'); }
-                if (action === 'addLesson') { clearLessonForm(); document.getElementById('lessonModalTitle').textContent = 'Create New Lesson'; openModal('lessonModal'); }
-                return;
-            }
-            
-            // Builder steps with data-view
-            const builderStep = e.target.closest('.builder-step[data-view]');
-            if (builderStep) {
-                switchView(builderStep.dataset.view);
-                return;
-            }
-            
-            // Builder steps with data-action
-            const builderAction = e.target.closest('.builder-step[data-action]');
-            if (builderAction) {
-                const action = builderAction.dataset.action;
-                if (action === 'addTopic') { clearTopicForm(); openModal('topicModal'); }
-                if (action === 'addCourse') { clearCourseForm(); openModal('courseModal'); }
-                return;
-            }
-            
-            // Table buttons (delegated)
-            const tableBtn = e.target.closest('button[onclick]');
-            if (tableBtn && tableBtn.closest('tbody')) {
-                // Let onclick handle it naturally
+                const a = actionItem.dataset.action;
+                if (a === 'addTopic') { clearTopicForm(); document.getElementById('topicModalTitle').textContent = 'Create New Topic'; openModal('topicModal'); }
+                if (a === 'addCourse') { clearCourseForm(); document.getElementById('courseModalTitle').textContent = 'Create New Course'; openModal('courseModal'); }
+                if (a === 'addModule') { clearModuleForm(); document.getElementById('moduleModalTitle').textContent = 'Create New Module'; openModal('moduleModal'); }
+                if (a === 'addLesson') { clearLessonForm(); document.getElementById('lessonModalTitle').textContent = 'Create New Lesson'; openModal('lessonModal'); }
                 return;
             }
         });
 
-        // Lesson tabs
-        document.getElementById('lessonTabs').addEventListener('click', function(e) {
+        document.getElementById('lessonTabs').addEventListener('click', e => {
             const tab = e.target.closest('.tab[data-tab]');
-            if (tab) switchLessonTab(tab.dataset.tab);
-        });
-
-        // Save buttons
-        document.getElementById('saveTopicBtn').addEventListener('click', saveTopicData);
-        document.getElementById('saveCourseBtn').addEventListener('click', saveCourseData);
-        document.getElementById('saveModuleBtn').addEventListener('click', saveModuleData);
-        document.getElementById('saveLessonBtn').addEventListener('click', saveLessonData);
-
-        // Menu toggle
-        document.getElementById('menuToggle').addEventListener('click', () => {
-            document.getElementById('sidebar').classList.toggle('open');
-        });
-
-        // Quick create
-        document.getElementById('quickCreateBtn').addEventListener('click', () => {
-            openModal('quickCreateModal');
-        });
-
-        // Global search
-        document.getElementById('globalSearch').addEventListener('input', function(e) {
-            const query = e.target.value.toLowerCase();
-            // Simple search - switch to all views and highlight would require more complex implementation
-            if (query.length > 2) {
-                showToast(`Searching for "${query}"...`, 'info');
+            if (tab) {
+                document.querySelectorAll('#lessonTabs .tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('#lessonModal .tab-content').forEach(tc => tc.classList.remove('active'));
+                tab.classList.add('active');
+                const contentId = tab.dataset.tab === 'basic' ? 'tabBasic' : 'tabBuilder';
+                document.getElementById(contentId).classList.add('active');
             }
+        });
+
+        document.getElementById('blockTypes').addEventListener('click', e => {
+            const btn = e.target.closest('.block-type[data-block]');
+            if (btn) addBlock(btn.dataset.block);
+        });
+
+        document.getElementById('fLessonViewType').addEventListener('change', updateViewType);
+        document.getElementById('addPageBtn').addEventListener('click', addPage);
+
+        document.getElementById('saveTopicBtn').addEventListener('click', saveTopic);
+        document.getElementById('saveCourseBtn').addEventListener('click', saveCourse);
+        document.getElementById('saveModuleBtn').addEventListener('click', saveModule);
+        document.getElementById('saveLessonBtn').addEventListener('click', saveLesson);
+
+        document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+        document.getElementById('quickCreateBtn').addEventListener('click', () => {
+            clearTopicForm(); document.getElementById('topicModalTitle').textContent = 'Create New Topic'; openModal('topicModal');
+        });
+
+        document.getElementById('confirmBtn').addEventListener('click', () => {
+            if (AppState.confirmCallback) AppState.confirmCallback();
+            closeConfirm();
+        });
+
+        // Image upload areas
+        ['topicThumbnailUpload','courseLogoUpload','courseThumbnailUpload'].forEach(id => {
+            document.getElementById(id)?.addEventListener('click', () => {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = async () => {
+                    const url = await uploadToImgbb(input.files[0]);
+                    if (url) {
+                        const fieldId = id.replace('Upload', '');
+                        document.getElementById('f' + fieldId.charAt(0).toUpperCase() + fieldId.slice(1)).value = url;
+                        const previewId = id.replace('Upload', 'Preview');
+                        const preview = document.getElementById(previewId);
+                        if (preview) { preview.src = url; preview.style.display = 'block'; }
+                        showToast('Image uploaded!', 'success');
+                    }
+                };
+                input.click();
+            });
         });
 
         // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', e => {
             if (e.key === 'Escape') {
                 document.querySelectorAll('.modal-overlay.show').forEach(m => m.classList.remove('show'));
                 closeConfirm();
             }
-            // Ctrl+N for quick create
-            if (e.ctrlKey && e.key === 'n') {
-                e.preventDefault();
-                openModal('quickCreateModal');
-            }
         });
 
-        // ============ GLOBAL EXPOSURE ============
+        // Global exposure
         window.deleteTopicItem = deleteTopicItem;
         window.deleteCourseItem = deleteCourseItem;
         window.deleteModuleItem = deleteModuleItem;
         window.deleteLessonItem = deleteLessonItem;
         window.duplicateCourseItem = duplicateCourseItem;
-        window.handleDuplicateCourse = handleDuplicateCourse;
         window.editTopic = editTopic;
         window.editCourse = editCourse;
         window.editModule = editModule;
         window.editLesson = editLesson;
         window.closeConfirm = closeConfirm;
+        window.moveBlock = moveBlock;
+        window.removeBlock = removeBlock;
+        window.updateBlock = updateBlock;
+        window.switchPage = switchPage;
+        window.deletePage = deletePage;
+        window.handleDuplicateCourse = handleDuplicateCourse;
         window.openModal = openModal;
         window.closeModal = closeModal;
 
-        // ============ INIT ============
+        // Init
+        AppState.currentViewType = 'one-page';
         loadAllData();
-        console.log('🚀 Akademia Admin Panel v2.0 loaded successfully!');
+        console.log('🚀 Akademia Admin v3.0 loaded!');
     </script>
 </body>
 </html>
