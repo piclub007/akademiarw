@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akademia - Lesson</title>
+    <title>Akademia - Lesson Studio</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
     <style>
@@ -23,1395 +23,1445 @@
             --danger: #EF4444; --danger-bg: #FEF2F2; --danger-dark: #DC2626;
             --purple: #7C3AED; --purple-bg: #F5F3FF;
             --orange: #F97316; --orange-bg: #FFF7ED;
-            --sidebar-width: 320px;
-            --header-height: 60px;
-            --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 20px;
+            --teal: #14B8A6; --teal-bg: #F0FDFA;
+            --pink: #EC4899; --pink-bg: #FDF2F8;
+            --indigo: #6366F1; --indigo-bg: #EEF2FF;
+            --header-height: 56px;
+            --sidebar-width: 0px;
+            --right-panel-width: 380px;
+            --radius-xs: 4px; --radius-sm: 8px; --radius: 12px;
+            --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px;
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
             --shadow: 0 4px 12px rgba(0,0,0,0.06);
             --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
-            --shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
-            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-lg: 0 20px 48px rgba(0,0,0,0.1);
+            --shadow-xl: 0 32px 64px rgba(0,0,0,0.12);
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--gray-50);
+            background: #f0f2f5;
             color: var(--gray-800);
-            display: flex;
-            min-height: 100vh;
+            display: flex; min-height: 100vh;
             -webkit-font-smoothing: antialiased;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
 
-        /* ============ SIDEBAR / TABLE OF CONTENTS ============ */
-        .lesson-sidebar {
-            width: var(--sidebar-width);
-            background: var(--white);
+        /* ============ TOP LOADER ============ */
+        .top-loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+            z-index: 9999; pointer-events: none;
+        }
+        .top-loader::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--teal), var(--purple));
+            animation: none;
+        }
+        .top-loader.active::before {
+            animation: topLoader 1.2s ease-in-out infinite;
+        }
+        @keyframes topLoader {
+            0% { left: -100%; width: 40%; }
+            50% { left: 60%; width: 40%; }
+            100% { left: 100%; width: 40%; }
+        }
+
+        /* ============ SIDE TABS (Left) ============ */
+        .side-tabs {
+            width: 56px; background: var(--white);
             border-right: 1px solid var(--gray-200);
-            position: fixed;
-            top: 0; left: 0; bottom: 0;
             display: flex; flex-direction: column;
-            z-index: 100;
-            transition: transform var(--transition);
+            align-items: center; padding: 0.75rem 0;
+            gap: 0.25rem; position: fixed;
+            top: 0; left: 0; bottom: 0; z-index: 90;
         }
-
-        .sidebar-header {
-            padding: 1rem 1.25rem;
-            border-bottom: 1px solid var(--gray-100);
-            display: flex; align-items: center; gap: 0.5rem;
-        }
-        .sidebar-header img { height: 28px; width: auto; }
-        .sidebar-back {
-            display: flex; align-items: center; gap: 0.375rem;
-            color: var(--gray-600); text-decoration: none;
-            font-size: 0.813rem; font-weight: 500;
-            padding: 0.375rem 0.5rem; border-radius: var(--radius-sm);
-            transition: all var(--transition);
-        }
-        .sidebar-back:hover { background: var(--gray-100); color: var(--gray-900); }
-
-        .sidebar-progress {
-            padding: 0.75rem 1.25rem;
-            border-bottom: 1px solid var(--gray-100);
-        }
-        .progress-label {
-            display: flex; justify-content: space-between;
-            font-size: 0.75rem; color: var(--gray-500); margin-bottom: 0.375rem;
-        }
-        .progress-bar {
-            height: 6px; background: var(--gray-200);
-            border-radius: 3px; overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%; background: var(--primary);
-            border-radius: 3px; transition: width 0.5s ease;
-        }
-
-        .sidebar-toc {
-            flex: 1; overflow-y: auto; padding: 0.75rem;
-        }
-        .toc-section {
-            margin-bottom: 0.25rem;
-        }
-        .toc-item {
-            display: flex; align-items: center; gap: 0.625rem;
-            padding: 0.5rem 0.75rem; border-radius: var(--radius-sm);
-            cursor: pointer; transition: all var(--transition);
-            font-size: 0.813rem; color: var(--gray-600);
-            border: none; background: none; width: 100%; text-align: left;
-        }
-        .toc-item:hover { background: var(--gray-50); color: var(--gray-900); }
-        .toc-item.active { background: var(--primary-bg); color: var(--primary); font-weight: 600; }
-        .toc-item.completed { color: var(--success-dark); }
-        .toc-item .toc-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
-        .toc-item .toc-badge {
-            margin-left: auto; font-size: 0.625rem;
-            padding: 0.125rem 0.375rem; border-radius: 100px;
-        }
-        .toc-badge.done { background: var(--success-bg); color: var(--success-dark); }
-        .toc-badge.current { background: var(--primary-bg); color: var(--primary); }
-
-        .sidebar-footer {
-            padding: 0.75rem 1.25rem;
-            border-top: 1px solid var(--gray-100);
-        }
-        .points-display {
-            display: flex; align-items: center; gap: 0.5rem;
-            font-size: 0.875rem; font-weight: 600;
-        }
-        .points-icon {
-            width: 36px; height: 36px; border-radius: 50%;
-            background: var(--warning-bg); color: var(--warning-dark);
+        .side-tab {
+            width: 40px; height: 40px; border-radius: var(--radius-sm);
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.125rem;
+            cursor: pointer; transition: all var(--transition);
+            color: var(--gray-500); position: relative;
+            border: none; background: none; font-size: 1.25rem;
         }
+        .side-tab:hover { background: var(--gray-100); color: var(--gray-900); }
+        .side-tab.active { background: var(--primary-bg); color: var(--primary); }
+        .side-tab.active::before {
+            content: ''; position: absolute; left: -4px;
+            width: 3px; height: 20px; background: var(--primary);
+            border-radius: 0 2px 2px 0;
+        }
+        .side-tab .tab-tooltip {
+            position: absolute; left: 52px; background: var(--gray-900);
+            color: white; padding: 0.375rem 0.625rem; border-radius: var(--radius-xs);
+            font-size: 0.688rem; white-space: nowrap; opacity: 0; pointer-events: none;
+            transition: opacity var(--transition); z-index: 10;
+        }
+        .side-tab:hover .tab-tooltip { opacity: 1; }
 
         /* ============ MAIN CONTENT ============ */
         .main-content {
-            flex: 1; margin-left: var(--sidebar-width);
+            flex: 1; margin-left: 56px;
             min-height: 100vh; display: flex; flex-direction: column;
+            transition: margin-right var(--transition-slow);
         }
+        .main-content.panel-open { margin-right: var(--right-panel-width); }
 
-        /* Top bar */
-        .lesson-topbar {
-            background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(12px);
+        /* Topbar */
+        .topbar {
+            background: rgba(255,255,255,0.9); backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--gray-200);
-            padding: 0 2rem;
-            height: var(--header-height);
+            padding: 0 1.5rem; height: var(--header-height);
             display: flex; align-items: center; justify-content: space-between;
             position: sticky; top: 0; z-index: 50;
         }
-        .lesson-topbar-left {
-            display: flex; align-items: center; gap: 1rem;
-        }
-        .menu-toggle {
-            display: none; background: none; border: none;
-            font-size: 1.5rem; color: var(--gray-700); cursor: pointer;
-        }
-        .lesson-breadcrumb {
-            font-size: 0.813rem; color: var(--gray-500);
+        .topbar-left { display: flex; align-items: center; gap: 0.75rem; }
+        .topbar-back {
             display: flex; align-items: center; gap: 0.375rem;
+            color: var(--gray-600); text-decoration: none;
+            font-size: 0.813rem; font-weight: 500;
+            padding: 0.375rem 0.625rem; border-radius: var(--radius-sm);
+            transition: all var(--transition);
         }
-        .lesson-breadcrumb a { color: var(--primary); text-decoration: none; }
-        .lesson-breadcrumb a:hover { text-decoration: underline; }
-        .lesson-breadcrumb .sep { color: var(--gray-400); }
+        .topbar-back:hover { background: var(--gray-100); }
+        .lesson-title-input {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.125rem; font-weight: 700;
+            border: none; background: transparent;
+            color: var(--gray-900); outline: none;
+            letter-spacing: -0.3px; width: 300px;
+            transition: all var(--transition);
+            padding: 0.25rem 0.5rem; border-radius: var(--radius-sm);
+        }
+        .lesson-title-input:focus { background: var(--gray-50); }
+        .topbar-actions { display: flex; align-items: center; gap: 0.5rem; }
+        .topbar-status {
+            font-size: 0.75rem; padding: 0.25rem 0.625rem;
+            border-radius: 100px; font-weight: 600;
+        }
+        .topbar-status.draft { background: #F3F4F6; color: #6B7280; }
+        .topbar-status.published { background: var(--success-bg); color: var(--success-dark); }
+        .topbar-status.saving { background: var(--warning-bg); color: var(--warning-dark); animation: pulse 1s infinite; }
 
-        .lesson-topbar-actions {
-            display: flex; align-items: center; gap: 0.75rem;
-        }
+        /* ============ BUTTONS ============ */
         .btn {
             font-family: 'Inter', sans-serif;
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.5rem 1rem; border-radius: var(--radius-sm);
+            display: inline-flex; align-items: center; gap: 0.375rem;
+            padding: 0.4375rem 0.875rem; border-radius: var(--radius-sm);
             font-size: 0.813rem; font-weight: 600;
             transition: all var(--transition); cursor: pointer;
-            border: none; white-space: nowrap;
+            border: none; white-space: nowrap; line-height: 1.4;
         }
+        .btn:active { transform: scale(0.96); }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 1px 2px rgba(37,99,235,0.2); }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
         .btn-ghost { background: transparent; color: var(--gray-600); }
         .btn-ghost:hover { background: var(--gray-100); }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+        .btn-sm { padding: 0.3125rem 0.625rem; font-size: 0.75rem; }
+        .btn-xs { padding: 0.25rem 0.5rem; font-size: 0.688rem; border-radius: var(--radius-xs); }
         .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); }
-        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
-        .btn-success { background: var(--success); color: white; }
-        .btn-success:hover { background: var(--success-dark); }
-        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
+        .btn-teal { background: var(--teal); color: white; }
+        .btn-teal:hover { opacity: 0.9; }
+        .btn-purple { background: var(--purple); color: white; }
+        .btn-purple:hover { opacity: 0.9; }
+        .btn-pink { background: var(--pink); color: white; }
+        .btn-pink:hover { opacity: 0.9; }
 
-        /* Content area */
-        .lesson-content-area {
+        /* ============ EDITOR AREA ============ */
+        .editor-area {
             flex: 1; padding: 2rem;
-            max-width: 900px; margin: 0 auto; width: 100%;
+            max-width: 850px; margin: 0 auto; width: 100%;
+            transition: all var(--transition-slow);
         }
 
-        /* Lesson header */
-        .lesson-header {
-            margin-bottom: 2rem;
-            text-align: center;
+        /* ============ BLOCK TYPES PALETTE ============ */
+        .block-palette {
+            display: flex; gap: 0.375rem; flex-wrap: wrap;
+            margin-bottom: 1.5rem; justify-content: center;
+            position: sticky; top: calc(var(--header-height) + 0.5rem);
+            z-index: 10; padding: 0.625rem;
+            background: rgba(255,255,255,0.85); backdrop-filter: blur(12px);
+            border-radius: var(--radius-xl); border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
         }
-        .lesson-badge {
-            display: inline-flex; align-items: center; gap: 0.375rem;
-            background: var(--primary-bg); color: var(--primary);
-            padding: 0.375rem 0.875rem; border-radius: 100px;
-            font-size: 0.75rem; font-weight: 600; margin-bottom: 0.75rem;
+        .palette-item {
+            display: flex; align-items: center; gap: 0.375rem;
+            padding: 0.5rem 0.75rem; border-radius: var(--radius-sm);
+            cursor: pointer; font-size: 0.75rem; font-weight: 600;
+            transition: all var(--transition); background: white;
+            border: 1px solid var(--gray-200); user-select: none;
+            white-space: nowrap;
         }
-        .lesson-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.25rem; font-weight: 700;
-            color: var(--gray-900); letter-spacing: -1px;
-            margin-bottom: 0.5rem; line-height: 1.2;
+        .palette-item:hover {
+            border-color: var(--primary); background: var(--primary-bg);
+            transform: translateY(-2px); box-shadow: var(--shadow);
         }
-        .lesson-meta {
+        .palette-item:active { transform: scale(0.95); }
+        .palette-item i { font-size: 1rem; }
+        .palette-item.text-color { color: var(--primary); }
+        .palette-item.video-color { color: var(--danger); }
+        .palette-item.remember-color { color: var(--warning-dark); }
+        .palette-item.question-color { color: var(--purple); }
+        .palette-item.image-color { color: var(--teal); }
+        .palette-item.code-color { color: var(--pink); }
+
+        /* ============ BLOCKS CONTAINER ============ */
+        .blocks-canvas {
+            display: flex; flex-direction: column; gap: 0.75rem;
+        }
+        .blocks-canvas.drag-over {
+            background: var(--primary-bg); border-radius: var(--radius-lg);
+            padding: 0.5rem;
+        }
+
+        /* Block Item */
+        .block-card {
+            background: white; border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+            transition: all var(--transition);
+            position: relative; overflow: hidden;
+            animation: blockAppear 0.3s ease;
+        }
+        .block-card:hover { border-color: var(--gray-300); box-shadow: var(--shadow); }
+        .block-card.focused { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+        .block-card.dragging { opacity: 0.4; transform: scale(0.98); }
+        .block-card.drag-over { border-color: var(--primary); border-style: dashed; background: var(--primary-bg); }
+        .block-card.minimized .block-body { display: none; }
+        .block-card.minimized .block-header { border-bottom: none; border-radius: var(--radius-lg); }
+
+        @keyframes blockAppear {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .block-header {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.625rem 1rem; cursor: grab;
+            user-select: none; transition: background var(--transition);
+        }
+        .block-header:active { cursor: grabbing; }
+        .block-header:hover { background: var(--gray-50); }
+        .block-drag-handle { color: var(--gray-400); font-size: 1.125rem; flex-shrink: 0; }
+        .block-type-icon {
+            width: 28px; height: 28px; border-radius: var(--radius-sm);
             display: flex; align-items: center; justify-content: center;
-            gap: 1.5rem; font-size: 0.813rem; color: var(--gray-500);
+            font-size: 0.875rem; flex-shrink: 0;
         }
+        .block-type-icon.text { background: var(--primary-bg); color: var(--primary); }
+        .block-type-icon.video { background: var(--danger-bg); color: var(--danger); }
+        .block-type-icon.remember { background: var(--warning-bg); color: var(--warning-dark); }
+        .block-type-icon.question { background: var(--purple-bg); color: var(--purple); }
+        .block-type-icon.image { background: var(--teal-bg); color: var(--teal); }
+        .block-type-icon.code { background: var(--pink-bg); color: var(--pink); }
 
-        /* ============ BLOCK STYLES ============ */
-        .blocks-flow {
-            display: flex; flex-direction: column; gap: 1.25rem;
+        .block-type-label { font-weight: 600; font-size: 0.75rem; flex: 1; }
+        .block-number { font-size: 0.625rem; color: var(--gray-400); }
+        .block-actions { display: flex; gap: 0.125rem; }
+        .block-action-btn {
+            width: 26px; height: 26px; border-radius: var(--radius-xs);
+            border: none; background: transparent; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gray-400); transition: all var(--transition);
+            font-size: 0.875rem;
         }
+        .block-action-btn:hover { background: var(--gray-100); color: var(--gray-700); }
+        .block-action-btn.danger:hover { background: var(--danger-bg); color: var(--danger); }
+        .block-action-btn.duplicate:hover { background: var(--primary-bg); color: var(--primary); }
 
-        /* Text Block */
-        .block-text {
-            padding: 0.5rem 0;
+        .block-body { padding: 1rem 1.25rem; border-top: 1px solid var(--gray-100); }
+
+        /* Rich Text Editor */
+        .rich-editor {
+            border: 1px solid var(--gray-200); border-radius: var(--radius);
+            overflow: hidden; transition: all var(--transition);
         }
-        .block-text h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem; font-weight: 700;
-            color: var(--gray-900); margin-bottom: 0.75rem;
-            letter-spacing: -0.5px;
+        .rich-editor:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.08); }
+        .rich-toolbar {
+            display: flex; gap: 0.125rem; padding: 0.375rem;
+            background: var(--gray-50); border-bottom: 1px solid var(--gray-200);
+            flex-wrap: wrap;
         }
-        .block-text h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.25rem; font-weight: 600;
-            color: var(--gray-800); margin-bottom: 0.5rem;
+        .rich-tool-btn {
+            width: 28px; height: 28px; border-radius: var(--radius-xs);
+            border: none; background: transparent; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gray-600); font-size: 0.875rem;
+            transition: all var(--transition);
         }
-        .block-text p {
+        .rich-tool-btn:hover { background: var(--gray-200); color: var(--gray-900); }
+        .rich-tool-btn.active { background: var(--primary-bg); color: var(--primary); }
+        .rich-content {
+            min-height: 100px; padding: 0.75rem;
             font-family: 'Manrope', sans-serif;
-            font-size: 1rem; line-height: 1.8; color: var(--gray-700);
-            margin-bottom: 1rem;
+            font-size: 0.938rem; line-height: 1.8;
+            color: var(--gray-800); outline: none;
+            overflow-y: auto; max-height: 400px;
         }
-        .block-text a { color: var(--primary); text-decoration: underline; }
-        .block-text code {
+        .rich-content:empty::before {
+            content: 'Start typing...'; color: var(--gray-400);
+        }
+        .rich-content h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin: 0.5rem 0; }
+        .rich-content h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin: 0.5rem 0; }
+        .rich-content h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0.5rem 0; }
+        .rich-content p { margin: 0.5rem 0; }
+        .rich-content code {
             background: var(--gray-100); padding: 0.125rem 0.375rem;
-            border-radius: 4px; font-family: 'Fira Code', monospace;
-            font-size: 0.875rem; color: var(--danger-dark);
+            border-radius: 3px; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.813rem; color: var(--danger-dark);
         }
-        .block-text pre {
-            background: var(--gray-900); color: #e5e7eb;
-            padding: 1.25rem; border-radius: var(--radius);
-            overflow-x: auto; margin: 1rem 0;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.875rem; line-height: 1.6;
+        .rich-content pre {
+            background: #1e1e2e; color: #cdd6f4;
+            padding: 1rem; border-radius: var(--radius-sm);
+            font-family: 'JetBrains Mono', monospace; font-size: 0.813rem;
+            overflow-x: auto; margin: 0.5rem 0;
         }
-        .block-text ul, .block-text ol {
-            margin: 0.75rem 0 1rem 1.5rem;
-            font-family: 'Manrope', sans-serif;
-            line-height: 1.8; color: var(--gray-700);
+        .rich-content a { color: var(--primary); }
+        .rich-content ul, .rich-content ol { padding-left: 1.5rem; margin: 0.5rem 0; }
+        .rich-content blockquote {
+            border-left: 3px solid var(--primary); padding-left: 1rem;
+            color: var(--gray-600); margin: 0.5rem 0; font-style: italic;
         }
 
         /* Video Block */
-        .block-video {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
+        .video-input-group {
+            display: flex; gap: 0.5rem;
         }
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            background: var(--gray-900);
+        .video-preview {
+            margin-top: 0.75rem; border-radius: var(--radius);
+            overflow: hidden; background: var(--gray-900);
+            position: relative; padding-bottom: 56.25%; height: 0;
         }
-        .video-wrapper iframe {
+        .video-preview iframe {
             position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: none;
+            width: 100%; height: 100%; border: none;
         }
-        .video-placeholder {
-            position: absolute; inset: 0;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            color: white; gap: 0.75rem;
-        }
-        .video-placeholder i { font-size: 3rem; opacity: 0.6; }
-        .video-placeholder p { font-size: 0.875rem; opacity: 0.7; }
 
         /* Remember Block */
-        .block-remember {
-            background: var(--warning-bg);
-            border: 1px solid #FCD34D;
-            border-radius: var(--radius-lg);
-            padding: 1.25rem 1.5rem;
-            display: flex; gap: 1rem;
-            align-items: flex-start;
-        }
-        .block-remember .remember-icon {
-            font-size: 1.5rem; flex-shrink: 0;
-            margin-top: 0.125rem;
-        }
-        .block-remember .remember-content {
-            flex: 1;
-        }
-        .block-remember .remember-label {
-            font-weight: 700; font-size: 0.813rem;
-            text-transform: uppercase; letter-spacing: 0.5px;
-            color: var(--warning-dark); margin-bottom: 0.375rem;
-        }
-        .block-remember .remember-text {
-            font-family: 'Manrope', sans-serif;
-            font-size: 0.938rem; line-height: 1.7;
-            color: var(--gray-800); margin-bottom: 0.75rem;
-        }
-        .block-remember .acknowledge-btn {
-            display: inline-flex; align-items: center; gap: 0.375rem;
-            padding: 0.5rem 1rem; border-radius: var(--radius-sm);
-            background: var(--warning); color: white;
-            border: none; cursor: pointer; font-weight: 600;
-            font-size: 0.813rem; transition: all var(--transition);
-        }
-        .block-remember .acknowledge-btn:hover { background: var(--warning-dark); }
-        .block-remember .acknowledge-btn.acknowledged {
-            background: var(--success); cursor: default;
-        }
-        .remember-hidden {
-            opacity: 0.3; pointer-events: none;
-            filter: grayscale(0.5);
-        }
-
-        /* Remember Question Block */
-        .block-remember-question {
-            background: var(--white);
-            border: 2px solid var(--warning);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            animation: slideIn 0.3s ease;
-        }
-        .block-remember-question .rq-header {
-            display: flex; align-items: center; gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        .block-remember-question .rq-header i { color: var(--warning); font-size: 1.25rem; }
-        .block-remember-question .rq-header span {
-            font-weight: 700; font-size: 0.875rem;
-            text-transform: uppercase; letter-spacing: 0.5px;
-            color: var(--warning-dark);
-        }
-        .block-remember-question .rq-question {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.0625rem; font-weight: 600;
-            margin-bottom: 1rem; color: var(--gray-900);
+        .remember-card {
+            background: var(--warning-bg); border: 1px solid #FCD34D;
+            border-radius: var(--radius); padding: 1rem;
         }
 
         /* Question Block */
-        .block-question {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-sm);
-        }
-        .block-question.correct { border-color: var(--success); background: var(--success-bg); }
-        .block-question.incorrect { border-color: var(--danger); background: var(--danger-bg); }
-        .question-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 0.75rem;
-        }
-        .question-type-badge {
-            font-size: 0.688rem; font-weight: 600;
-            padding: 0.25rem 0.625rem; border-radius: 100px;
-            background: var(--gray-100); color: var(--gray-600);
-            display: inline-flex; align-items: center; gap: 0.25rem;
-        }
-        .question-points {
-            font-size: 0.75rem; font-weight: 600; color: var(--warning-dark);
-        }
-        .question-text {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.0625rem; font-weight: 600;
-            color: var(--gray-900); margin-bottom: 1.25rem;
-        }
-        .question-options {
-            display: flex; flex-direction: column; gap: 0.5rem;
-        }
-        .option-btn {
-            display: flex; align-items: center; gap: 0.75rem;
-            padding: 0.875rem 1rem;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius);
-            background: white; cursor: pointer;
-            transition: all var(--transition);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.938rem; color: var(--gray-700);
-            text-align: left; width: 100%;
-        }
-        .option-btn:hover { border-color: var(--primary); background: var(--primary-bg); }
-        .option-btn.selected { border-color: var(--primary); background: var(--primary-bg); font-weight: 600; }
-        .option-btn.correct { border-color: var(--success); background: var(--success-bg); color: var(--success-dark); }
-        .option-btn.incorrect { border-color: var(--danger); background: var(--danger-bg); color: var(--danger-dark); }
-        .option-btn:disabled { cursor: not-allowed; opacity: 0.8; }
-        .option-letter {
-            width: 28px; height: 28px; border-radius: 50%;
-            background: var(--gray-100); display: flex;
-            align-items: center; justify-content: center;
-            font-weight: 700; font-size: 0.75rem;
-            flex-shrink: 0;
-        }
-        .option-btn.selected .option-letter { background: var(--primary); color: white; }
-        .option-btn.correct .option-letter { background: var(--success); color: white; }
-        .option-btn.incorrect .option-letter { background: var(--danger); color: white; }
-
-        .question-feedback {
-            margin-top: 1rem; padding: 0.75rem 1rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.875rem; font-weight: 500;
-            display: none;
-        }
-        .question-feedback.show { display: block; animation: fadeIn 0.3s ease; }
-        .question-feedback.correct { background: var(--success-bg); color: var(--success-dark); }
-        .question-feedback.incorrect { background: var(--danger-bg); color: var(--danger-dark); }
-
-        .submit-answer-btn {
-            margin-top: 1rem;
-            padding: 0.625rem 1.5rem;
-            background: var(--primary); color: white;
-            border: none; border-radius: var(--radius-sm);
-            font-weight: 600; cursor: pointer;
-            transition: all var(--transition);
-            font-size: 0.875rem;
-        }
-        .submit-answer-btn:hover { background: var(--primary-dark); }
-        .submit-answer-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        /* Complete the following */
-        .complete-input {
-            width: 100%; padding: 0.75rem 1rem;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius);
-            font-family: 'Fira Code', monospace;
-            font-size: 0.938rem; outline: none;
-            transition: all var(--transition);
-        }
-        .complete-input:focus { border-color: var(--primary); }
-
-        /* Matching */
-        .matching-pairs {
-            display: flex; flex-direction: column; gap: 0.5rem;
-        }
-        .matching-row {
-            display: flex; align-items: center; gap: 1rem;
-        }
-        .matching-left {
-            flex: 1; padding: 0.625rem 1rem;
-            background: var(--gray-50); border-radius: var(--radius-sm);
-            font-weight: 500; font-size: 0.875rem;
-        }
-        .matching-select {
-            padding: 0.5rem 0.75rem;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius-sm); outline: none;
-            font-size: 0.875rem; flex: 1;
-        }
-
-        /* Boolean */
-        .boolean-options {
-            display: flex; gap: 1rem;
-        }
-        .boolean-btn {
-            flex: 1; padding: 1rem;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius);
-            text-align: center; cursor: pointer;
-            font-weight: 600; font-size: 1rem;
-            transition: all var(--transition);
+        .question-options-list { display: flex; flex-direction: column; gap: 0.5rem; }
+        .option-row {
+            display: flex; align-items: center; gap: 0.625rem;
+            padding: 0.5rem 0.75rem; border-radius: var(--radius-sm);
+            border: 1px solid var(--gray-200); transition: all var(--transition);
             background: white;
         }
-        .boolean-btn:hover { border-color: var(--primary); }
-        .boolean-btn.selected { border-color: var(--primary); background: var(--primary-bg); }
+        .option-row:hover { border-color: var(--primary-light); }
+        .option-row.correct-answer { border-color: var(--success); background: var(--success-bg); }
+        .option-radio {
+            width: 18px; height: 18px; border-radius: 50%;
+            border: 2px solid var(--gray-300); flex-shrink: 0;
+            cursor: pointer; transition: all var(--transition);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .option-row.correct-answer .option-radio {
+            border-color: var(--success); background: var(--success);
+        }
+        .option-row.correct-answer .option-radio::after {
+            content: '✓'; color: white; font-size: 0.625rem;
+        }
+        .option-input {
+            flex: 1; border: none; background: transparent;
+            font-size: 0.875rem; outline: none; font-family: 'Inter', sans-serif;
+        }
 
         /* Image Block */
-        .block-image {
-            background: white; border: 1px solid var(--gray-200);
-            border-radius: var(--radius-lg); overflow: hidden;
+        .image-drop-zone {
+            border: 2px dashed var(--gray-300); border-radius: var(--radius);
+            padding: 2rem; text-align: center; cursor: pointer;
+            transition: all var(--transition);
         }
-        .block-image img {
-            width: 100%; height: auto; display: block;
-            max-height: 500px; object-fit: contain;
-        }
-        .block-image .image-caption {
-            padding: 0.75rem 1rem;
-            font-size: 0.813rem; color: var(--gray-500);
-            text-align: center; background: var(--gray-50);
-        }
+        .image-drop-zone:hover { border-color: var(--primary); background: var(--primary-bg); }
 
-        /* ============ NAVIGATION BUTTONS ============ */
-        .lesson-navigation {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-top: 3rem; padding-top: 2rem;
-            border-top: 1px solid var(--gray-200);
-        }
-        .nav-btn {
-            display: flex; align-items: center; gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--radius);
-            font-weight: 600; font-size: 0.875rem;
-            transition: all var(--transition); cursor: pointer;
-            border: none; text-decoration: none;
-        }
-        .nav-btn.prev { background: var(--gray-100); color: var(--gray-700); }
-        .nav-btn.prev:hover { background: var(--gray-200); }
-        .nav-btn.next { background: var(--primary); color: white; }
-        .nav-btn.next:hover { background: var(--primary-dark); transform: translateX(2px); }
-        .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-        /* ============ TOAST ============ */
-        .toast-container {
-            position: fixed; bottom: 1.5rem; right: 1.5rem;
-            z-index: 300; display: flex; flex-direction: column; gap: 0.5rem;
-        }
-        .toast {
-            background: var(--gray-900); color: white;
-            padding: 0.75rem 1.25rem; border-radius: var(--radius);
-            font-size: 0.875rem; font-weight: 500;
+        /* ============ RIGHT PANEL ============ */
+        .right-panel {
+            position: fixed; top: 0; right: -400px; bottom: 0;
+            width: var(--right-panel-width); background: white;
+            border-left: 1px solid var(--gray-200); z-index: 80;
+            transition: right var(--transition-slow);
+            display: flex; flex-direction: column;
             box-shadow: var(--shadow-lg);
-            animation: slideIn 0.3s ease, slideOut 0.3s ease 3s forwards;
-            max-width: 400px;
         }
-        .toast.success { background: var(--success-dark); }
-        .toast.error { background: var(--danger-dark); }
+        .right-panel.open { right: 0; }
+        .right-panel-header {
+            padding: 1rem 1.25rem; border-bottom: 1px solid var(--gray-200);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .right-panel-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.938rem; font-weight: 600;
+        }
+        .right-panel-body { flex: 1; overflow-y: auto; padding: 1rem 1.25rem; }
+        .right-panel-section { margin-bottom: 1.25rem; }
+        .right-panel-label {
+            font-size: 0.688rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; color: var(--gray-400); margin-bottom: 0.5rem;
+        }
 
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        /* ============ COMPLETION MODAL ============ */
-        .completion-overlay {
+        /* ============ MODALS ============ */
+        .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.5);
             backdrop-filter: blur(4px); z-index: 200;
             display: flex; align-items: center; justify-content: center;
             opacity: 0; pointer-events: none; transition: opacity var(--transition);
         }
-        .completion-overlay.show { opacity: 1; pointer-events: all; }
-        .completion-modal {
+        .modal-overlay.show { opacity: 1; pointer-events: all; }
+        .modal {
             background: white; border-radius: var(--radius-xl);
-            padding: 2.5rem; text-align: center;
-            max-width: 450px; width: 90%;
-            box-shadow: var(--shadow-lg);
+            width: 90%; max-width: 500px; max-height: 80vh;
+            display: flex; flex-direction: column;
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.95); transition: transform var(--transition-bounce);
         }
-        .completion-icon {
-            font-size: 4rem; margin-bottom: 1rem;
+        .modal-overlay.show .modal { transform: scale(1); }
+        .modal-header {
+            padding: 1rem 1.25rem; border-bottom: 1px solid var(--gray-100);
+            display: flex; align-items: center; justify-content: space-between;
         }
-        .completion-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;
+        .modal-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; }
+        .modal-close {
+            width: 32px; height: 32px; border-radius: var(--radius-sm);
+            border: none; background: var(--gray-100); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; transition: all var(--transition);
         }
-        .completion-stats {
-            display: flex; gap: 2rem; justify-content: center;
-            margin: 1.5rem 0;
-        }
-        .completion-stat {
-            text-align: center;
-        }
-        .completion-stat-value {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem; font-weight: 700; color: var(--primary);
-        }
-        .completion-stat-label {
-            font-size: 0.75rem; color: var(--gray-500);
+        .modal-close:hover { background: var(--gray-200); }
+        .modal-body { padding: 1.25rem; overflow-y: auto; flex: 1; }
+        .modal-footer {
+            padding: 0.875rem 1.25rem; border-top: 1px solid var(--gray-100);
+            display: flex; justify-content: flex-end; gap: 0.5rem;
         }
 
-        /* ============ SECTION NAVIGATION ============ */
-        .section-nav {
-            display: flex; align-items: center; justify-content: center;
-            gap: 0.5rem; margin: 1.5rem 0;
+        /* ============ TOAST ============ */
+        .toast-container { position: fixed; bottom: 1.25rem; right: 1.25rem; z-index: 300; display: flex; flex-direction: column; gap: 0.375rem; }
+        .toast {
+            background: var(--gray-900); color: white;
+            padding: 0.75rem 1.125rem; border-radius: var(--radius);
+            font-size: 0.813rem; font-weight: 500;
+            box-shadow: var(--shadow-lg);
+            animation: toastIn 0.3s ease, toastOut 0.3s ease 3s forwards;
+            max-width: 380px; display: flex; align-items: center; gap: 0.5rem;
         }
-        .section-dot {
-            width: 10px; height: 10px; border-radius: 50%;
-            background: var(--gray-300); border: none;
-            cursor: pointer; transition: all var(--transition);
+        .toast.success { background: #059669; }
+        .toast.error { background: #DC2626; }
+        .toast.info { background: var(--primary); }
+
+        @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes toastOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* ============ CONTEXT MENU ============ */
+        .context-menu {
+            position: fixed; background: white; border-radius: var(--radius);
+            box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200);
+            padding: 0.375rem; z-index: 250; min-width: 180px;
+            opacity: 0; pointer-events: none; transition: opacity var(--transition);
         }
-        .section-dot.active { background: var(--primary); width: 24px; border-radius: 5px; }
-        .section-dot.completed { background: var(--success); }
+        .context-menu.show { opacity: 1; pointer-events: all; }
+        .context-item {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 0.75rem; border-radius: var(--radius-sm);
+            cursor: pointer; font-size: 0.813rem; color: var(--gray-700);
+            transition: all var(--transition); border: none; background: none; width: 100%; text-align: left;
+        }
+        .context-item:hover { background: var(--gray-50); }
+        .context-item.danger { color: var(--danger); }
+        .context-item.danger:hover { background: var(--danger-bg); }
+        .context-divider { height: 1px; background: var(--gray-100); margin: 0.25rem 0; }
+
+        /* ============ KEYBOARD SHORTCUTS PANEL ============ */
+        .shortcuts-panel {
+            position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%);
+            background: var(--gray-900); color: white;
+            padding: 0.5rem 1rem; border-radius: var(--radius);
+            font-size: 0.688rem; display: flex; gap: 1rem;
+            z-index: 50; opacity: 0.9; pointer-events: none;
+            transition: opacity var(--transition);
+        }
+        .shortcuts-panel kbd {
+            background: rgba(255,255,255,0.15); padding: 0.125rem 0.375rem;
+            border-radius: 3px; font-family: 'JetBrains Mono', monospace;
+        }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .lesson-sidebar { transform: translateX(-100%); }
-            .lesson-sidebar.open { transform: translateX(0); }
-            .main-content { margin-left: 0; }
-            .menu-toggle { display: block; }
-            .lesson-content-area { padding: 1.5rem 1rem; }
+            .editor-area { padding: 1rem; }
+            .right-panel { width: 320px; }
+            .main-content.panel-open { margin-right: 320px; }
         }
-        @media (max-width: 640px) {
-            .lesson-title { font-size: 1.5rem; }
-            .lesson-meta { flex-wrap: wrap; gap: 0.75rem; }
+        @media (max-width: 768px) {
+            .side-tabs { display: none; }
+            .main-content { margin-left: 0; }
+            .right-panel { width: 100%; right: -100%; }
+            .main-content.panel-open { margin-right: 0; }
+            .editor-area { padding: 0.75rem; }
+            .block-palette { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; }
         }
     </style>
 </head>
 <body>
-    <!-- Sidebar / Table of Contents -->
-    <aside class="lesson-sidebar" id="lessonSidebar">
-        <div class="sidebar-header">
-            <a href="index.html" class="sidebar-back">
-                <i class='bx bx-arrow-back'></i> Back to Course
-            </a>
-        </div>
-        
-        <div class="sidebar-progress">
-            <div class="progress-label">
-                <span>Lesson Progress</span>
-                <span id="progressPercent">0%</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width:0%;"></div>
-            </div>
-        </div>
+    <!-- Top Loader -->
+    <div class="top-loader" id="topLoader"></div>
 
-        <nav class="sidebar-toc" id="sidebarToc">
-            <!-- Dynamically populated -->
-        </nav>
-
-        <div class="sidebar-footer">
-            <div class="points-display">
-                <div class="points-icon"><i class='bx bx-star'></i></div>
-                <div>
-                    <div style="font-size:0.75rem;color:var(--gray-500);">Points Earned</div>
-                    <div id="totalPoints">0 / 0</div>
-                </div>
-            </div>
-        </div>
-    </aside>
+    <!-- Side Tabs -->
+    <nav class="side-tabs" id="sideTabs">
+        <button class="side-tab active" data-tab="editor" id="tabEditor">
+            <i class='bx bx-edit'></i>
+            <span class="tab-tooltip">Editor</span>
+        </button>
+        <button class="side-tab" data-tab="pages" id="tabPages">
+            <i class='bx bx-copy'></i>
+            <span class="tab-tooltip">Pages</span>
+        </button>
+        <button class="side-tab" data-tab="settings" id="tabSettings">
+            <i class='bx bx-cog'></i>
+            <span class="tab-tooltip">Settings</span>
+        </button>
+        <button class="side-tab" data-tab="preview" id="tabPreview">
+            <i class='bx bx-show'></i>
+            <span class="tab-tooltip">Preview</span>
+        </button>
+        <div style="flex:1;"></div>
+        <button class="side-tab" onclick="window.location.href='admin.html'" title="Back to Admin">
+            <i class='bx bx-arrow-back'></i>
+            <span class="tab-tooltip">Admin Panel</span>
+        </button>
+    </nav>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <header class="lesson-topbar">
-            <div class="lesson-topbar-left">
-                <button class="menu-toggle" id="menuToggle">
-                    <i class='bx bx-menu'></i>
-                </button>
-                <div class="lesson-breadcrumb">
-                    <a href="#" id="breadcrumbCourse">Course</a>
-                    <span class="sep">/</span>
-                    <span id="breadcrumbModule">Module</span>
-                    <span class="sep">/</span>
-                    <span style="color:var(--gray-900);font-weight:500;">Lesson</span>
-                </div>
+    <main class="main-content" id="mainContent">
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <a href="admin.html" class="topbar-back"><i class='bx bx-arrow-back'></i> Admin</a>
+                <input type="text" class="lesson-title-input" id="lessonTitleInput" placeholder="Untitled Lesson" value="">
+                <span class="topbar-status draft" id="topbarStatus">Draft</span>
             </div>
-            <div class="lesson-topbar-actions">
-                <span id="sectionIndicator" style="font-size:0.813rem;color:var(--gray-500);"></span>
-                <button class="btn btn-outline btn-sm" id="markCompleteBtn">
-                    <i class='bx bx-check-circle'></i> Mark Complete
+            <div class="topbar-actions">
+                <button class="btn btn-ghost btn-sm" onclick="toggleRightPanel()" id="togglePanelBtn">
+                    <i class='bx bx-cog'></i> Settings
+                </button>
+                <button class="btn btn-outline btn-sm" onclick="previewLesson()">
+                    <i class='bx bx-show'></i> Preview
+                </button>
+                <button class="btn btn-primary btn-sm" id="saveLessonBtn" onclick="saveLesson()">
+                    <i class='bx bx-save'></i> Save
+                </button>
+                <button class="btn btn-teal btn-sm" onclick="publishLesson()">
+                    <i class='bx bx-cloud-upload'></i> Publish
                 </button>
             </div>
         </header>
 
-        <div class="lesson-content-area">
-            <!-- Lesson Header -->
-            <div class="lesson-header" id="lessonHeader">
-                <div class="lesson-badge"><i class='bx bx-book-open'></i> <span id="lessonBadgeText">Lesson</span></div>
-                <h1 class="lesson-title" id="lessonTitleDisplay">Loading...</h1>
-                <div class="lesson-meta">
-                    <span><i class='bx bx-time'></i> <span id="lessonDuration">0 min</span></span>
-                    <span><i class='bx bx-cube'></i> <span id="lessonBlockCount">0 blocks</span></span>
-                    <span><i class='bx bx-star'></i> <span id="lessonPoints">0 points</span></span>
+        <!-- Editor Area -->
+        <div class="editor-area">
+            <!-- Block Palette -->
+            <div class="block-palette" id="blockPalette">
+                <button class="palette-item text-color" onclick="addBlock('text')">
+                    <i class='bx bx-text'></i> Text
+                </button>
+                <button class="palette-item video-color" onclick="addBlock('video')">
+                    <i class='bx bx-video'></i> Video
+                </button>
+                <button class="palette-item remember-color" onclick="addBlock('remember')">
+                    <i class='bx bx-brain'></i> Remember
+                </button>
+                <button class="palette-item question-color" onclick="addBlock('question')">
+                    <i class='bx bx-help-circle'></i> Question
+                </button>
+                <button class="palette-item image-color" onclick="addBlock('image')">
+                    <i class='bx bx-image'></i> Image
+                </button>
+                <button class="palette-item code-color" onclick="addBlock('code')">
+                    <i class='bx bx-code-alt'></i> Code
+                </button>
+            </div>
+
+            <!-- Blocks Canvas -->
+            <div class="blocks-canvas" id="blocksCanvas">
+                <div style="text-align:center;padding:3rem 1rem;color:var(--gray-400);" id="emptyState">
+                    <i class='bx bx-cube' style="font-size:3rem;display:block;margin-bottom:0.75rem;"></i>
+                    <h3 style="font-family:'Space Grotesk',sans-serif;color:var(--gray-500);margin-bottom:0.5rem;">Start Building Your Lesson</h3>
+                    <p style="font-size:0.875rem;">Click a block type above or press <kbd style="background:var(--gray-200);padding:0.125rem 0.375rem;border-radius:3px;">Ctrl+Shift+1-6</kbd></p>
                 </div>
-            </div>
-
-            <!-- Section Navigation (for sections view) -->
-            <div class="section-nav" id="sectionNav" style="display:none;">
-                <!-- Dynamically populated -->
-            </div>
-
-            <!-- Blocks Flow -->
-            <div class="blocks-flow" id="blocksFlow">
-                <!-- Dynamically populated -->
-            </div>
-
-            <!-- Navigation -->
-            <div class="lesson-navigation">
-                <button class="nav-btn prev" id="prevBtn" onclick="navigateLesson('prev')">
-                    <i class='bx bx-chevron-left'></i> Previous
-                </button>
-                <span style="font-size:0.813rem;color:var(--gray-500);" id="pageIndicator"></span>
-                <button class="nav-btn next" id="nextBtn" onclick="navigateLesson('next')">
-                    Next <i class='bx bx-chevron-right'></i>
-                </button>
             </div>
         </div>
     </main>
 
-    <!-- Completion Modal -->
-    <div class="completion-overlay" id="completionOverlay">
-        <div class="completion-modal">
-            <div class="completion-icon">🎉</div>
-            <h2 class="completion-title">Lesson Complete!</h2>
-            <p style="color:var(--gray-500);margin-bottom:1rem;">Great job! You've completed this lesson.</p>
-            <div class="completion-stats">
-                <div class="completion-stat">
-                    <div class="completion-stat-value" id="completionScore">0%</div>
-                    <div class="completion-stat-label">Score</div>
-                </div>
-                <div class="completion-stat">
-                    <div class="completion-stat-value" id="completionPoints">0</div>
-                    <div class="completion-stat-label">Points</div>
-                </div>
-                <div class="completion-stat">
-                    <div class="completion-stat-value" id="completionTime">0m</div>
-                    <div class="completion-stat-label">Time</div>
+    <!-- Right Settings Panel -->
+    <div class="right-panel" id="rightPanel">
+        <div class="right-panel-header">
+            <h3 class="right-panel-title">⚙️ Lesson Settings</h3>
+            <button class="modal-close" onclick="toggleRightPanel()"><i class='bx bx-x'></i></button>
+        </div>
+        <div class="right-panel-body">
+            <div class="right-panel-section">
+                <div class="right-panel-label">Module</div>
+                <select class="form-select" id="panelModule" onchange="updateLessonMeta()" style="width:100%;padding:0.5rem;border:1px solid var(--gray-300);border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:0.813rem;">
+                    <option value="">Select module...</option>
+                </select>
+            </div>
+            <div class="right-panel-section">
+                <div class="right-panel-label">View Type</div>
+                <div style="display:flex;gap:0.5rem;">
+                    <button class="btn btn-outline btn-sm active" id="viewOnePage" onclick="setViewType('one-page')">📄 One Page</button>
+                    <button class="btn btn-outline btn-sm" id="viewSections" onclick="setViewType('sections')">📑 Sections</button>
                 </div>
             </div>
-            <button class="btn btn-primary" onclick="continueLearning()" style="width:100%;justify-content:center;">
-                Continue Learning <i class='bx bx-right-arrow-alt'></i>
-            </button>
+            <div class="right-panel-section" id="pagesSection" style="display:none;">
+                <div class="right-panel-label">Pages</div>
+                <div id="pagesList" style="display:flex;flex-direction:column;gap:0.375rem;"></div>
+                <button class="btn btn-sm btn-outline" onclick="addPage()" style="margin-top:0.5rem;width:100%;"><i class='bx bx-plus'></i> Add Page</button>
+            </div>
+            <div class="right-panel-section">
+                <div class="right-panel-label">Status</div>
+                <select class="form-select" id="panelStatus" onchange="updateLessonMeta()" style="width:100%;padding:0.5rem;border:1px solid var(--gray-300);border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:0.813rem;">
+                    <option value="draft">📝 Draft</option>
+                    <option value="published">✅ Published</option>
+                    <option value="archived">📦 Archived</option>
+                </select>
+            </div>
+            <div class="right-panel-section">
+                <div class="right-panel-label">Stats</div>
+                <div style="font-size:0.813rem;color:var(--gray-500);">
+                    <div>Blocks: <strong id="panelBlockCount">0</strong></div>
+                    <div>Duration: <strong id="panelDuration">0 min</strong></div>
+                    <div>Points: <strong id="panelPoints">0</strong></div>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="contextMenu"></div>
+
+    <!-- Shortcuts Panel -->
+    <div class="shortcuts-panel" id="shortcutsPanel">
+        <span><kbd>Ctrl+S</kbd> Save</span>
+        <span><kbd>Ctrl+P</kbd> Preview</span>
+        <span><kbd>Ctrl+D</kbd> Duplicate block</span>
+        <span><kbd>Del</kbd> Delete block</span>
+        <span><kbd>Ctrl+↑↓</kbd> Move block</span>
     </div>
 
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- Preview Modal -->
+    <div class="modal-overlay" id="previewModal">
+        <div class="modal" style="max-width:800px;">
+            <div class="modal-header"><h3 class="modal-title">📖 Lesson Preview</h3><button class="modal-close" onclick="closeModal('previewModal')"><i class='bx bx-x'></i></button></div>
+            <div class="modal-body"><div id="previewContent" style="font-family:'Manrope',sans-serif;line-height:1.8;"></div></div>
+            <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('previewModal')">Close</button></div>
+        </div>
+    </div>
+
     <script type="module">
         import { db } from './js/firebase.js';
-        import { getDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+        import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, query, orderBy, Timestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+        const IMGBB_API_KEY = 'ba8023ca74166460c442e8e703d2a1b0';
 
         // ============ APP STATE ============
         const AppState = {
-            lesson: null,
-            currentPage: 0,
-            totalPages: 1,
+            lessonId: null,
+            title: 'Untitled Lesson',
+            moduleId: '',
+            viewType: 'one-page',
+            status: 'draft',
             blocks: [],
-            answeredQuestions: {},
-            acknowledgedRemembers: {},
-            earnedPoints: 0,
-            totalPoints: 0,
-            startTime: Date.now(),
-            isCompleted: false
+            pages: [{ blocks: [] }],
+            currentPage: 0,
+            modules: [],
+            focusedBlock: null,
+            dragIndex: null,
+            autoSaveTimer: null,
+            lastSaved: null
         };
 
-        // ============ UTILITIES ============
-        const $ = (id) => document.getElementById(id);
-        
-        function showToast(message, type = 'success') {
-            const container = $('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.textContent = message;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3500);
-        }
+        // ============ HELPERS ============
+        const $ = id => document.getElementById(id);
+        const toast = (msg, type = 'success') => {
+            const c = $('toastContainer');
+            const t = document.createElement('div');
+            t.className = `toast ${type}`;
+            t.innerHTML = `<i class='bx ${type==='success'?'bx-check-circle':type==='error'?'bx-x-circle':'bx-info-circle'}'></i> ${msg}`;
+            c.appendChild(t); setTimeout(() => t.remove(), 3000);
+        };
+        const showLoader = () => $('topLoader').classList.add('active');
+        const hideLoader = () => $('topLoader').classList.remove('active');
+        const openModal = id => $(id).classList.add('show');
+        const closeModal = id => $(id).classList.remove('show');
+        const getBlocks = () => AppState.viewType === 'sections' ? AppState.pages[AppState.currentPage]?.blocks || [] : AppState.blocks;
 
-        function escapeHtml(s) {
-            const d = document.createElement('div');
-            d.textContent = s || '';
-            return d.innerHTML;
-        }
-
-        function getYouTubeId(url) {
-            if (!url) return null;
-            const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-            return match ? match[1] : null;
-        }
-
-        // ============ LOAD LESSON ============
-        async function loadLesson() {
-            // Try to get lesson ID from URL
+        // ============ INITIALIZATION ============
+        async function init() {
+            showLoader();
             const params = new URLSearchParams(window.location.search);
-            let lessonId = params.get('id');
+            AppState.lessonId = params.get('id') || localStorage.getItem('ak_current_lesson');
             
-            if (!lessonId) {
-                // Try localStorage for demo/testing
-                lessonId = localStorage.getItem('ak_current_lesson');
-            }
-
-            if (!lessonId) {
-                // Load demo lesson for testing
+            await loadModules();
+            
+            if (AppState.lessonId && AppState.lessonId !== 'demo') {
+                await loadExistingLesson();
+            } else {
                 loadDemoLesson();
-                return;
             }
+            
+            renderAll();
+            updateStats();
+            hideLoader();
+            
+            // Auto-save
+            setInterval(autoSave, 10000);
+        }
 
+        async function loadModules() {
             try {
-                const lessonSnap = await getDoc(doc(db, 'lessons', lessonId));
-                if (lessonSnap.exists()) {
-                    AppState.lesson = { id: lessonSnap.id, ...lessonSnap.data() };
-                    initializeLesson();
-                } else {
-                    loadDemoLesson();
+                const snap = await getDocs(query(collection(db, 'modules'), orderBy('order')));
+                AppState.modules = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            } catch (e) {
+                AppState.modules = JSON.parse(localStorage.getItem('ak_modules') || '[]');
+            }
+            updateModuleDropdown();
+        }
+
+        async function loadExistingLesson() {
+            try {
+                const snap = await getDoc(doc(db, 'lessons', AppState.lessonId));
+                if (snap.exists()) {
+                    const data = snap.data();
+                    AppState.title = data.title || 'Untitled';
+                    AppState.moduleId = data.moduleId || '';
+                    AppState.viewType = data.viewType || 'one-page';
+                    AppState.status = data.status || 'draft';
+                    if (data.viewType === 'sections') {
+                        AppState.pages = data.pages || [{ blocks: [] }];
+                    } else {
+                        AppState.blocks = data.pages?.[0]?.blocks || [];
+                    }
                 }
             } catch (e) {
-                console.warn('Firebase unavailable, loading demo:', e.message);
                 loadDemoLesson();
             }
         }
 
         function loadDemoLesson() {
-            // Demo lesson for testing
-            AppState.lesson = {
-                id: 'demo',
-                title: 'Introduction to HTML Forms',
-                viewType: 'one-page',
-                estimatedTime: 25,
-                status: 'published',
-                moduleName: 'HTML Forms',
-                courseName: 'HTML Fundamentals',
-                pages: [{
-                    blocks: [
-                        {
-                            id: 'block_1',
-                            type: 'text',
-                            contentType: 'title',
-                            content: 'Understanding HTML Forms'
-                        },
-                        {
-                            id: 'block_2',
-                            type: 'text',
-                            contentType: 'paragraph',
-                            content: 'HTML forms are the backbone of user interaction on the web. They allow users to <b>input data</b>, make selections, and submit information to servers. Every time you log in, search, or make a purchase online, you\'re using an HTML form.'
-                        },
-                        {
-                            id: 'block_3',
-                            type: 'remember',
-                            text: 'Forms use the &lt;form&gt; tag as a container for all input elements. The <code>action</code> attribute specifies where to send the data, and the <code>method</code> attribute defines how to send it (GET or POST).'
-                        },
-                        {
-                            id: 'block_4',
-                            type: 'text',
-                            contentType: 'subtitle',
-                            content: 'Basic Form Structure'
-                        },
-                        {
-                            id: 'block_5',
-                            type: 'text',
-                            contentType: 'paragraph',
-                            content: 'Here\'s a simple form example:'
-                        },
-                        {
-                            id: 'block_6',
-                            type: 'text',
-                            contentType: 'paragraph',
-                            content: '<pre>&lt;form action="/submit" method="POST"&gt;\n  &lt;label for="name"&gt;Name:&lt;/label&gt;\n  &lt;input type="text" id="name" name="name"&gt;\n  &lt;button type="submit"&gt;Send&lt;/button&gt;\n&lt;/form&gt;</pre>'
-                        },
-                        {
-                            id: 'block_7',
-                            type: 'video',
-                            url: 'https://www.youtube.com/watch?v=2O8pkybH6po'
-                        },
-                        {
-                            id: 'block_8',
-                            type: 'text',
-                            contentType: 'subtitle',
-                            content: 'Common Input Types'
-                        },
-                        {
-                            id: 'block_9',
-                            type: 'text',
-                            contentType: 'paragraph',
-                            content: 'HTML provides various input types for different data: <code>text</code>, <code>email</code>, <code>password</code>, <code>number</code>, <code>date</code>, <code>checkbox</code>, <code>radio</code>, and <code>file</code>. Each type provides built-in validation and appropriate keyboards on mobile devices.'
-                        },
-                        {
-                            id: 'block_10',
-                            type: 'remember',
-                            text: 'Always use the <code>&lt;label&gt;</code> element with input fields. It improves accessibility and makes your forms easier to use by allowing users to click the label to focus the input.'
-                        },
-                        {
-                            id: 'block_11',
-                            type: 'remember-question',
-                            question: 'What tag is used to create a form container?',
-                            options: ['&lt;input&gt;', '&lt;form&gt;', '&lt;div&gt;', '&lt;section&gt;'],
-                            correctAnswer: 1
-                        },
-                        {
-                            id: 'block_12',
-                            type: 'text',
-                            contentType: 'title',
-                            content: 'Form Validation'
-                        },
-                        {
-                            id: 'block_13',
-                            type: 'text',
-                            contentType: 'paragraph',
-                            content: 'HTML5 introduced built-in form validation attributes. You can use <code>required</code>, <code>minlength</code>, <code>maxlength</code>, <code>min</code>, <code>max</code>, and <code>pattern</code> to validate user input without JavaScript.'
-                        },
-                        {
-                            id: 'block_14',
-                            type: 'question',
-                            questionType: 'multiple-choice',
-                            question: 'Which attribute makes a form field mandatory?',
-                            options: ['mandatory', 'validate', 'required', 'needed'],
-                            correctAnswer: 2,
-                            points: 10
-                        },
-                        {
-                            id: 'block_15',
-                            type: 'question',
-                            questionType: 'boolean',
-                            question: 'The GET method sends form data in the URL.',
-                            correctAnswer: true,
-                            points: 5
-                        },
-                        {
-                            id: 'block_16',
-                            type: 'text',
-                            contentType: 'subtitle',
-                            content: 'Summary'
-                        },
-                        {
-                            id: 'block_17',
-                            type: 'text',
-                            contentType: 'paragraph',
-                            content: 'You\'ve learned the fundamentals of HTML forms: the <code>&lt;form&gt;</code> container, various input types, the importance of labels, and basic validation. Forms are essential for creating interactive web applications.'
-                        },
-                        {
-                            id: 'block_18',
-                            type: 'question',
-                            questionType: 'complete',
-                            question: 'Complete the opening tag: _____ action="/login" method="POST"',
-                            correctAnswer: 0,
-                            options: ['<form', '<input', '<button', '<div'],
-                            points: 10
-                        }
-                    ]
-                }]
-            };
-            initializeLesson();
+            AppState.title = 'Sample Lesson';
+            AppState.blocks = [
+                { id: 'b1', type: 'text', content: '<h2>Welcome to Your Lesson</h2><p>This is a <b>rich text</b> block. You can edit everything here with the toolbar above.</p>' },
+                { id: 'b2', type: 'remember', text: 'This is a key point that students must acknowledge before continuing. Use these for important concepts.' },
+                { id: 'b3', type: 'text', content: '<h3>Adding Questions</h3><p>Questions are powerful. They test understanding and award points.</p>' },
+                { id: 'b4', type: 'question', question: 'What is the capital of France?', questionType: 'multiple-choice', options: ['London', 'Paris', 'Berlin', 'Madrid'], correctAnswer: 1, points: 10 },
+                { id: 'b5', type: 'code', code: 'console.log("Hello, World!");', language: 'javascript', caption: 'A simple JavaScript example' }
+            ];
         }
 
-        function initializeLesson() {
-            const lesson = AppState.lesson;
-            if (!lesson) return;
+        // ============ RENDER ============
+        function renderAll() {
+            $('lessonTitleInput').value = AppState.title;
+            $('topbarStatus').textContent = AppState.status;
+            $('topbarStatus').className = 'topbar-status ' + AppState.status;
+            $('panelModule').value = AppState.moduleId;
+            $('panelStatus').value = AppState.status;
+            renderBlocks();
+            renderPagesList();
+            updateViewTypeUI();
+            updateStats();
+        }
 
-            // Update header
-            $('lessonTitleDisplay').textContent = lesson.title;
-            $('lessonDuration').textContent = `${lesson.estimatedTime || 0} min`;
-            $('lessonBadgeText').textContent = lesson.moduleName || 'Lesson';
+        function renderBlocks() {
+            const canvas = $('blocksCanvas');
+            const blocks = getBlocks();
             
-            // Breadcrumb
-            if (lesson.courseName) $('breadcrumbCourse').textContent = lesson.courseName;
-            if (lesson.moduleName) $('breadcrumbModule').textContent = lesson.moduleName;
-
-            // Setup pages
-            const pages = lesson.pages || [{ blocks: [] }];
-            AppState.totalPages = pages.length;
-            AppState.currentPage = 0;
-
-            // Load saved progress
-            loadProgress();
-
-            // Calculate total points
-            AppState.totalPoints = 0;
-            pages.forEach(page => {
-                page.blocks?.forEach(block => {
-                    if (block.type === 'question') AppState.totalPoints += (block.points || 0);
-                });
-            });
-
-            // Setup view
-            if (lesson.viewType === 'sections') {
-                $('sectionNav').style.display = 'flex';
-                renderSectionNav();
+            if (!blocks.length) {
+                canvas.innerHTML = `
+                    <div style="text-align:center;padding:4rem 1rem;color:var(--gray-400);" id="emptyState">
+                        <i class='bx bx-cube' style="font-size:4rem;display:block;margin-bottom:1rem;opacity:0.5;"></i>
+                        <h3 style="font-family:'Space Grotesk',sans-serif;color:var(--gray-500);margin-bottom:0.5rem;">Empty Canvas</h3>
+                        <p style="font-size:0.875rem;margin-bottom:1rem;">Add blocks to start building your lesson</p>
+                        <button class="btn btn-primary" onclick="addBlock('text')"><i class='bx bx-plus'></i> Add First Block</button>
+                    </div>`;
+                return;
             }
-
-            // Update TOC
-            renderTableOfContents();
             
-            // Render first page
-            renderPage(AppState.currentPage);
-            
-            // Update navigation
-            updateNavigation();
-            updateProgress();
-            updatePointsDisplay();
-
-            // Track start time
-            AppState.startTime = Date.now();
-        }
-
-        // ============ PROGRESS MANAGEMENT ============
-        function loadProgress() {
-            try {
-                const saved = JSON.parse(localStorage.getItem(`ak_progress_${AppState.lesson.id}`) || '{}');
-                AppState.answeredQuestions = saved.answeredQuestions || {};
-                AppState.acknowledgedRemembers = saved.acknowledgedRemembers || {};
-                AppState.earnedPoints = saved.earnedPoints || 0;
-                AppState.isCompleted = saved.isCompleted || false;
-            } catch (e) {}
-        }
-
-        function saveProgress() {
-            try {
-                localStorage.setItem(`ak_progress_${AppState.lesson.id}`, JSON.stringify({
-                    answeredQuestions: AppState.answeredQuestions,
-                    acknowledgedRemembers: AppState.acknowledgedRemembers,
-                    earnedPoints: AppState.earnedPoints,
-                    isCompleted: AppState.isCompleted,
-                    lastUpdated: new Date().toISOString()
-                }));
-            } catch (e) {}
-        }
-
-        function updateProgress() {
-            const pages = AppState.lesson?.pages || [];
-            let totalBlocks = 0;
-            let completedBlocks = 0;
-
-            pages.forEach(page => {
-                page.blocks?.forEach(block => {
-                    totalBlocks++;
-                    if (block.type === 'remember' && AppState.acknowledgedRemembers[block.id]) completedBlocks++;
-                    if (block.type === 'remember-question' && AppState.answeredQuestions[block.id] !== undefined) completedBlocks++;
-                    if (block.type === 'question' && AppState.answeredQuestions[block.id] !== undefined) completedBlocks++;
-                    if (block.type === 'text' || block.type === 'video' || block.type === 'image') completedBlocks++; // Auto-complete content blocks
-                });
-            });
-
-            const percent = totalBlocks > 0 ? Math.round((completedBlocks / totalBlocks) * 100) : 0;
-            $('progressPercent').textContent = `${percent}%`;
-            $('progressFill').style.width = `${percent}%`;
-
-            // Check completion
-            if (percent === 100 && !AppState.isCompleted) {
-                AppState.isCompleted = true;
-                saveProgress();
-                showCompletionModal();
-            }
-        }
-
-        function updatePointsDisplay() {
-            $('totalPoints').textContent = `${AppState.earnedPoints} / ${AppState.totalPoints}`;
-            $('lessonPoints').textContent = `${AppState.totalPoints} points`;
-        }
-
-        // ============ RENDER TABLE OF CONTENTS ============
-        function renderTableOfContents() {
-            const toc = $('sidebarToc');
-            const blocks = getCurrentPageBlocks();
-            
-            const items = blocks.filter(b => ['text', 'question', 'remember', 'remember-question', 'video'].includes(b.type));
-            
-            toc.innerHTML = items.map((block, i) => {
-                let icon = 'bx-text';
-                let label = 'Content';
-                if (block.type === 'question') { icon = 'bx-help-circle'; label = 'Question'; }
-                if (block.type === 'remember') { icon = 'bx-brain'; label = 'Remember'; }
-                if (block.type === 'remember-question') { icon = 'bx-question-mark'; label = 'Recall'; }
-                if (block.type === 'video') { icon = 'bx-video'; label = 'Video'; }
-                
-                let badge = '';
-                if (block.type === 'question' && AppState.answeredQuestions[block.id] !== undefined) {
-                    badge = '<span class="toc-badge done">✓</span>';
-                }
-                if (block.type === 'remember' && AppState.acknowledgedRemembers[block.id]) {
-                    badge = '<span class="toc-badge done">✓</span>';
-                }
-                
-                return `
-                    <div class="toc-section">
-                        <button class="toc-item" onclick="scrollToBlock('${block.id}')">
-                            <i class='bx ${icon} toc-icon'></i>
-                            <span>${escapeHtml(block.content?.substring(0, 30) || block.text?.substring(0, 30) || block.question?.substring(0, 30) || label)}</span>
-                            ${badge}
-                        </button>
+            canvas.innerHTML = blocks.map((block, index) => `
+                <div class="block-card ${AppState.focusedBlock === block.id ? 'focused' : ''}" 
+                     id="block-${block.id}"
+                     draggable="true"
+                     ondragstart="handleDragStart(event, ${index})"
+                     ondragover="handleDragOver(event)"
+                     ondrop="handleDrop(event, ${index})"
+                     ondragend="handleDragEnd(event)"
+                     onclick="focusBlock('${block.id}')"
+                     oncontextmenu="showContextMenu(event, '${block.id}', ${index})">
+                    <div class="block-header">
+                        <i class='bx bx-grid-vertical block-drag-handle'></i>
+                        <div class="block-type-icon ${getBlockColorClass(block.type)}">
+                            <i class='bx ${getBlockIcon(block.type)}'></i>
+                        </div>
+                        <span class="block-type-label">${getBlockLabel(block.type)}</span>
+                        <span class="block-number">Block ${index + 1}</span>
+                        <div class="block-actions">
+                            <button class="block-action-btn" onclick="event.stopPropagation();toggleMinimize('${block.id}')" title="Minimize">
+                                <i class='bx bx-chevron-up'></i>
+                            </button>
+                            <button class="block-action-btn duplicate" onclick="event.stopPropagation();duplicateBlock('${block.id}')" title="Duplicate (Ctrl+D)">
+                                <i class='bx bx-copy'></i>
+                            </button>
+                            <button class="block-action-btn danger" onclick="event.stopPropagation();deleteBlock('${block.id}')" title="Delete (Del)">
+                                <i class='bx bx-trash'></i>
+                            </button>
+                        </div>
                     </div>
-                `;
-            }).join('');
+                    <div class="block-body" id="body-${block.id}">
+                        ${renderBlockContent(block, index)}
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // ============ RENDER PAGE ============
-        function getCurrentPageBlocks() {
-            const pages = AppState.lesson?.pages || [];
-            return pages[AppState.currentPage]?.blocks || [];
+        function getBlockIcon(type) {
+            return { text: 'bx-text', video: 'bx-video', remember: 'bx-brain', question: 'bx-help-circle', image: 'bx-image', code: 'bx-code-alt' }[type] || 'bx-cube';
+        }
+        function getBlockLabel(type) {
+            return { text: 'Rich Text', video: 'Video', remember: 'Remember Point', question: 'Question', image: 'Image', code: 'Code Snippet' }[type] || type;
+        }
+        function getBlockColorClass(type) {
+            return { text: 'text', video: 'video', remember: 'remember', question: 'question', image: 'image', code: 'code' }[type] || 'text';
         }
 
-        function renderPage(pageIndex) {
-            AppState.currentPage = pageIndex;
-            const blocks = getCurrentPageBlocks();
-            AppState.blocks = blocks;
-
-            const flow = $('blocksFlow');
-            flow.innerHTML = blocks.map((block, index) => renderBlock(block, index)).join('');
-
-            // Update section nav
-            if (AppState.lesson?.viewType === 'sections') {
-                renderSectionNav();
-            }
-
-            $('blockCount') && ($('blockCount').textContent = `${blocks.length} blocks`);
-            $('sectionIndicator').textContent = AppState.lesson?.viewType === 'sections' 
-                ? `Page ${pageIndex + 1} of ${AppState.totalPages}`
-                : '';
-
-            updateNavigation();
-            renderTableOfContents();
-            updateProgress();
-
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function renderBlock(block, index) {
+        function renderBlockContent(block, index) {
             switch (block.type) {
-                case 'text': return renderTextBlock(block);
-                case 'video': return renderVideoBlock(block);
-                case 'remember': return renderRememberBlock(block);
-                case 'remember-question': return renderRememberQuestionBlock(block);
-                case 'question': return renderQuestionBlock(block);
-                case 'image': return renderImageBlock(block);
+                case 'text': return renderRichTextEditor(block, index);
+                case 'video': return renderVideoBlock(block, index);
+                case 'remember': return renderRememberBlock(block, index);
+                case 'question': return renderQuestionBlock(block, index);
+                case 'image': return renderImageBlock(block, index);
+                case 'code': return renderCodeBlock(block, index);
                 default: return '';
             }
         }
 
-        function renderTextBlock(block) {
-            const content = block.content || '';
-            const id = block.id;
-            
-            let html = `<div class="block-text" id="${id}">`;
-            if (block.contentType === 'title') {
-                html += `<h2>${content}</h2>`;
-            } else if (block.contentType === 'subtitle') {
-                html += `<h3>${content}</h3>`;
-            } else {
-                // Process markdown-like content
-                html += `<p>${processTextContent(content)}</p>`;
-            }
-            html += '</div>';
-            return html;
-        }
-
-        function processTextContent(content) {
-            // Convert code blocks
-            content = content.replace(/<pre>(.*?)<\/pre>/gs, (match, code) => {
-                return `<pre>${code}</pre>`;
-            });
-            return content;
-        }
-
-        function renderVideoBlock(block) {
-            const youtubeId = getYouTubeId(block.url);
-            const id = block.id;
-            
-            if (youtubeId) {
-                return `
-                    <div class="block-video" id="${id}">
-                        <div class="video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/${youtubeId}" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
-                            </iframe>
-                        </div>
-                    </div>`;
-            }
-            
+        // Rich Text Editor
+        function renderRichTextEditor(block, index) {
             return `
-                <div class="block-video" id="${id}">
-                    <div class="video-wrapper">
-                        <div class="video-placeholder">
-                            <i class='bx bx-video'></i>
-                            <p>Video unavailable</p>
-                        </div>
+                <div class="rich-editor">
+                    <div class="rich-toolbar">
+                        <button class="rich-tool-btn" onclick="execRichCmd('bold', '${block.id}')" title="Bold"><b>B</b></button>
+                        <button class="rich-tool-btn" onclick="execRichCmd('italic', '${block.id}')" title="Italic"><i>I</i></button>
+                        <button class="rich-tool-btn" onclick="execRichCmd('underline', '${block.id}')" title="Underline"><u>U</u></button>
+                        <span style="width:1px;background:var(--gray-300);margin:0 0.25rem;"></span>
+                        <button class="rich-tool-btn" onclick="execRichCmd('formatBlock', '${block.id}', 'h2')" title="Heading 2">H2</button>
+                        <button class="rich-tool-btn" onclick="execRichCmd('formatBlock', '${block.id}', 'h3')" title="Heading 3">H3</button>
+                        <button class="rich-tool-btn" onclick="execRichCmd('formatBlock', '${block.id}', 'p')" title="Paragraph">P</button>
+                        <span style="width:1px;background:var(--gray-300);margin:0 0.25rem;"></span>
+                        <button class="rich-tool-btn" onclick="execRichCmd('insertUnorderedList', '${block.id}')" title="Bullet List"><i class='bx bx-list-ul'></i></button>
+                        <button class="rich-tool-btn" onclick="execRichCmd('insertOrderedList', '${block.id}')" title="Numbered List"><i class='bx bx-list-ol'></i></button>
+                        <button class="rich-tool-btn" onclick="execRichCmd('formatBlock', '${block.id}', 'blockquote')" title="Quote"><i class='bx bx-quote-right'></i></button>
+                        <span style="width:1px;background:var(--gray-300);margin:0 0.25rem;"></span>
+                        <button class="rich-tool-btn" onclick="insertCodeBlock('${block.id}')" title="Code">&lt;/&gt;</button>
+                        <button class="rich-tool-btn" onclick="execRichCmd('createLink', '${block.id}')" title="Link"><i class='bx bx-link'></i></button>
                     </div>
+                    <div class="rich-content" id="rich-${block.id}" contenteditable="true" 
+                         oninput="updateBlockContent('${block.id}', this.innerHTML)"
+                         onfocus="focusBlock('${block.id}')">${block.content || ''}</div>
                 </div>`;
         }
 
-        function renderRememberBlock(block) {
-            const id = block.id;
-            const isAcknowledged = AppState.acknowledgedRemembers[id];
-            
+        function renderVideoBlock(block, index) {
+            const ytId = getYouTubeId(block.url);
             return `
-                <div class="block-remember ${isAcknowledged ? 'remember-hidden' : ''}" id="${id}">
-                    <div class="remember-icon">🧠</div>
-                    <div class="remember-content">
-                        <div class="remember-label">Remember This</div>
-                        <div class="remember-text">${processTextContent(block.text || '')}</div>
-                        <button class="acknowledge-btn ${isAcknowledged ? 'acknowledged' : ''}" 
-                                onclick="acknowledgeRemember('${id}')" 
-                                ${isAcknowledged ? 'disabled' : ''}>
-                            <i class='bx ${isAcknowledged ? 'bx-check' : 'bx-check-circle'}'></i>
-                            ${isAcknowledged ? 'Got it!' : 'I understand'}
-                        </button>
-                    </div>
+                <div class="video-input-group">
+                    <input type="text" class="form-input" value="${block.url || ''}" placeholder="Paste YouTube URL..." 
+                           onchange="updateBlockField('${block.id}', 'url', this.value);renderBlocks();" style="flex:1;">
+                    <button class="btn btn-sm btn-outline" onclick="updateBlockField('${block.id}', 'url', document.getElementById('vid-input-${block.id}').value);renderBlocks();">
+                        <i class='bx bx-check'></i>
+                    </button>
+                </div>
+                ${ytId ? `<div class="video-preview"><iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen></iframe></div>` : 
+                block.url ? `<div style="padding:1rem;text-align:center;color:var(--gray-400);"><i class='bx bx-video' style="font-size:2rem;"></i><p>Invalid URL</p></div>` : ''}`;
+        }
+
+        function renderRememberBlock(block, index) {
+            return `
+                <div class="remember-card">
+                    <label style="font-weight:700;font-size:0.75rem;text-transform:uppercase;color:var(--warning-dark);display:block;margin-bottom:0.5rem;">🧠 Key Point to Remember</label>
+                    <textarea class="form-textarea" onchange="updateBlockField('${block.id}', 'text', this.value)" placeholder="Write the key concept here..." rows="3">${block.text || ''}</textarea>
                 </div>`;
         }
 
-        function renderRememberQuestionBlock(block) {
-            const id = block.id;
-            const answered = AppState.answeredQuestions[id];
-            
+        function renderQuestionBlock(block, index) {
             return `
-                <div class="block-remember-question" id="${id}">
-                    <div class="rq-header">
-                        <i class='bx bx-question-mark'></i>
-                        <span>Quick Recall</span>
-                    </div>
-                    <div class="rq-question">${block.question || 'Question'}</div>
-                    <div class="question-options">
-                        ${(block.options || []).map((opt, i) => `
-                            <button class="option-btn ${answered === i ? (i === block.correctAnswer ? 'correct' : 'incorrect') : ''}" 
-                                    onclick="answerRememberQuestion('${id}', ${i}, ${block.correctAnswer})"
-                                    ${answered !== undefined ? 'disabled' : ''}>
-                                <span class="option-letter">${String.fromCharCode(65 + i)}</span>
-                                ${opt || `Option ${String.fromCharCode(65 + i)}`}
-                            </button>
+                <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem;flex-wrap:wrap;">
+                    <select class="form-select" onchange="updateBlockField('${block.id}', 'questionType', this.value);renderBlocks();" style="width:180px;">
+                        <option value="multiple-choice" ${block.questionType==='multiple-choice'?'selected':''}>🔘 Multiple Choice</option>
+                        <option value="boolean" ${block.questionType==='boolean'?'selected':''}>✅ True/False</option>
+                        <option value="complete" ${block.questionType==='complete'?'selected':''}>✍️ Complete</option>
+                        <option value="matching" ${block.questionType==='matching'?'selected':''}>🔗 Matching</option>
+                    </select>
+                    <input type="number" class="form-input" value="${block.points||10}" onchange="updateBlockField('${block.id}', 'points', parseInt(this.value)||0)" placeholder="Points" style="width:80px;" min="0">
+                </div>
+                <input type="text" class="form-input" value="${block.question||''}" onchange="updateBlockField('${block.id}', 'question', this.value)" placeholder="Enter your question..." style="margin-bottom:0.75rem;font-weight:600;">
+                ${block.questionType === 'boolean' ? `
+                    <div style="display:flex;gap:0.5rem;">
+                        <button class="btn btn-outline btn-sm ${block.correctAnswer===true?'active':''}" onclick="updateBlockField('${block.id}','correctAnswer',true);renderBlocks();" style="flex:1;">✅ True</button>
+                        <button class="btn btn-outline btn-sm ${block.correctAnswer===false?'active':''}" onclick="updateBlockField('${block.id}','correctAnswer',false);renderBlocks();" style="flex:1;">❌ False</button>
+                    </div>` : `
+                    <div class="question-options-list">
+                        ${(block.options||['','','','']).map((opt, i) => `
+                            <div class="option-row ${block.correctAnswer===i?'correct-answer':''}" onclick="updateBlockField('${block.id}','correctAnswer',${i});renderBlocks();">
+                                <div class="option-radio"></div>
+                                <input class="option-input" value="${opt}" placeholder="Option ${String.fromCharCode(65+i)}" 
+                                       onchange="updateBlockOption('${block.id}',${i},this.value)" onclick="event.stopPropagation();">
+                                <span style="font-size:0.688rem;color:var(--gray-400);">${String.fromCharCode(65+i)}</span>
+                            </div>
                         `).join('')}
                     </div>
-                    ${answered !== undefined ? `
-                        <div class="question-feedback show ${answered === block.correctAnswer ? 'correct' : 'incorrect'}">
-                            ${answered === block.correctAnswer ? '✅ Correct! Well remembered.' : `❌ Not quite. The correct answer is ${String.fromCharCode(65 + block.correctAnswer)}.`}
-                        </div>
-                    ` : ''}
-                </div>`;
+                    <div style="font-size:0.75rem;color:var(--gray-400);margin-top:0.5rem;">Click the circle to mark correct answer</div>
+                `}
+                ${block.questionType === 'complete' ? `
+                    <div style="margin-top:0.5rem;"><label class="form-label">Correct completion text</label>
+                    <input class="form-input" value="${block.options?.[block.correctAnswer]||''}" onchange="updateBlockOption('${block.id}',${block.correctAnswer||0},this.value)" placeholder="Correct answer..."></div>` : ''}`;
         }
 
-        function renderQuestionBlock(block) {
-            const id = block.id;
-            const answered = AppState.answeredQuestions[id];
-            
-            let typeLabel = 'Multiple Choice';
-            if (block.questionType === 'boolean') typeLabel = 'True/False';
-            if (block.questionType === 'complete') typeLabel = 'Complete';
-            if (block.questionType === 'matching') typeLabel = 'Matching';
-            
-            let html = `
-                <div class="block-question ${answered !== undefined ? (answered.correct ? 'correct' : 'incorrect') : ''}" id="${id}">
-                    <div class="question-header">
-                        <span class="question-type-badge">
-                            <i class='bx ${block.questionType === 'boolean' ? 'bx-check-circle' : 'bx-help-circle'}'></i>
-                            ${typeLabel}
-                        </span>
-                        <span class="question-points">+${block.points || 0} pts</span>
-                    </div>
-                    <div class="question-text">${block.question || 'Question'}</div>`;
-            
-            if (block.questionType === 'multiple-choice') {
-                html += `<div class="question-options">${(block.options || []).map((opt, i) => `
-                    <button class="option-btn ${answered?.selected === i ? (i === block.correctAnswer ? 'correct' : 'incorrect') : ''}" 
-                            onclick="answerQuestion('${id}', ${i}, ${block.correctAnswer}, ${block.points || 0})"
-                            ${answered !== undefined ? 'disabled' : ''}>
-                        <span class="option-letter">${String.fromCharCode(65 + i)}</span>
-                        ${opt || `Option ${String.fromCharCode(65 + i)}`}
-                    </button>
-                `).join('')}</div>`;
-            } else if (block.questionType === 'boolean') {
-                html += `<div class="boolean-options">
-                    <button class="boolean-btn ${answered?.selected === true ? (block.correctAnswer === true ? 'correct' : 'incorrect') : ''}" 
-                            onclick="answerQuestion('${id}', true, ${block.correctAnswer}, ${block.points || 0})"
-                            ${answered !== undefined ? 'disabled' : ''}>
-                        ✅ True
-                    </button>
-                    <button class="boolean-btn ${answered?.selected === false ? (block.correctAnswer === false ? 'correct' : 'incorrect') : ''}" 
-                            onclick="answerQuestion('${id}', false, ${block.correctAnswer}, ${block.points || 0})"
-                            ${answered !== undefined ? 'disabled' : ''}>
-                        ❌ False
-                    </button>
-                </div>`;
-            } else if (block.questionType === 'complete') {
-                html += `
-                    <input type="text" class="complete-input" id="completeInput_${id}" placeholder="Type your answer..." ${answered !== undefined ? 'disabled' : ''}>
-                    <button class="submit-answer-btn" onclick="submitCompleteAnswer('${id}', '${block.options?.[block.correctAnswer] || ''}', ${block.points || 0})" ${answered !== undefined ? 'disabled' : ''}>
-                        Submit Answer
-                    </button>`;
-            }
-            
-            if (answered !== undefined) {
-                html += `
-                    <div class="question-feedback show ${answered.correct ? 'correct' : 'incorrect'}">
-                        ${answered.correct ? '✅ Correct! Great job.' : '❌ Incorrect. Try again next time.'}
-                    </div>`;
-            }
-            
-            html += '</div>';
-            return html;
-        }
-
-        function renderImageBlock(block) {
-            const id = block.id;
+        function renderImageBlock(block, index) {
             return `
-                <div class="block-image" id="${id}">
-                    <img src="${block.url || 'https://via.placeholder.com/800x400'}" alt="${block.alt || ''}" onerror="this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
-                    ${block.alt ? `<div class="image-caption">${block.alt}</div>` : ''}
-                </div>`;
+                <div class="image-drop-zone" onclick="document.getElementById('imgInput-${block.id}').click()">
+                    <i class='bx bx-cloud-upload' style="font-size:2.5rem;color:var(--gray-400);display:block;margin-bottom:0.5rem;"></i>
+                    <p style="font-size:0.813rem;color:var(--gray-500);">Click to upload or paste URL below</p>
+                    <input type="file" id="imgInput-${block.id}" accept="image/*" style="display:none;" onchange="uploadImageForBlock('${block.id}', this)">
+                </div>
+                <input type="text" class="form-input" value="${block.url||''}" onchange="updateBlockField('${block.id}','url',this.value);renderBlocks();" placeholder="Or paste image URL..." style="margin-top:0.5rem;">
+                <input type="text" class="form-input" value="${block.alt||''}" onchange="updateBlockField('${block.id}','alt',this.value)" placeholder="Alt text / Caption" style="margin-top:0.375rem;">
+                ${block.url ? `<img src="${block.url}" style="max-width:100%;max-height:300px;margin-top:0.75rem;border-radius:var(--radius);object-fit:contain;">` : ''}`;
         }
 
-        function renderSectionNav() {
-            const nav = $('sectionNav');
-            nav.innerHTML = Array.from({ length: AppState.totalPages }, (_, i) => `
-                <button class="section-dot ${i === AppState.currentPage ? 'active' : ''}" 
-                        onclick="renderPage(${i})"></button>
+        function renderCodeBlock(block, index) {
+            return `
+                <select class="form-select" onchange="updateBlockField('${block.id}','language',this.value)" style="width:180px;margin-bottom:0.5rem;">
+                    <option value="javascript" ${block.language==='javascript'?'selected':''}>JavaScript</option>
+                    <option value="python" ${block.language==='python'?'selected':''}>Python</option>
+                    <option value="html" ${block.language==='html'?'selected':''}>HTML</option>
+                    <option value="css" ${block.language==='css'?'selected':''}>CSS</option>
+                    <option value="bash" ${block.language==='bash'?'selected':''}>Bash</option>
+                </select>
+                <textarea class="form-textarea" onchange="updateBlockField('${block.id}','code',this.value)" placeholder="Paste your code here..." rows="6" style="font-family:'JetBrains Mono',monospace;font-size:0.813rem;background:#1e1e2e;color:#cdd6f4;">${block.code||''}</textarea>
+                <input type="text" class="form-input" value="${block.caption||''}" onchange="updateBlockField('${block.id}','caption',this.value)" placeholder="Caption (optional)" style="margin-top:0.375rem;">`;
+        }
+
+        // ============ BLOCK OPERATIONS ============
+        function addBlock(type) {
+            const block = {
+                id: 'b_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+                type,
+                content: type === 'text' ? '' : undefined,
+                text: type === 'remember' ? '' : undefined,
+                url: type === 'video' || type === 'image' ? '' : undefined,
+                alt: type === 'image' ? '' : undefined,
+                question: type === 'question' ? '' : undefined,
+                questionType: type === 'question' ? 'multiple-choice' : undefined,
+                options: type === 'question' ? ['', '', '', ''] : undefined,
+                correctAnswer: type === 'question' ? 0 : undefined,
+                points: type === 'question' ? 10 : undefined,
+                code: type === 'code' ? '' : undefined,
+                language: type === 'code' ? 'javascript' : undefined,
+                caption: type === 'code' ? '' : undefined,
+            };
+            getBlocks().push(block);
+            AppState.focusedBlock = block.id;
+            renderBlocks();
+            updateStats();
+            autoSave();
+            scrollToBlock(block.id);
+            toast('Block added!', 'success');
+        }
+
+        function focusBlock(id) {
+            AppState.focusedBlock = id;
+            document.querySelectorAll('.block-card').forEach(c => c.classList.remove('focused'));
+            const card = document.getElementById('block-' + id);
+            if (card) card.classList.add('focused');
+        }
+
+        function scrollToBlock(id) {
+            setTimeout(() => {
+                const el = document.getElementById('block-' + id);
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        function toggleMinimize(id) {
+            const card = document.getElementById('block-' + id);
+            if (card) card.classList.toggle('minimized');
+        }
+
+        function deleteBlock(id) {
+            const blocks = getBlocks();
+            const index = blocks.findIndex(b => b.id === id);
+            if (index === -1) return;
+            const removed = blocks.splice(index, 1)[0];
+            renderBlocks();
+            updateStats();
+            autoSave();
+            toast('Block deleted', 'info');
+            
+            // Undo with Ctrl+Z
+            window._lastDeleted = { block: removed, index };
+        }
+
+        function duplicateBlock(id) {
+            const blocks = getBlocks();
+            const index = blocks.findIndex(b => b.id === id);
+            if (index === -1) return;
+            const clone = JSON.parse(JSON.stringify(blocks[index]));
+            clone.id = 'b_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+            blocks.splice(index + 1, 0, clone);
+            renderBlocks();
+            updateStats();
+            autoSave();
+            toast('Block duplicated!', 'success');
+        }
+
+        function moveBlock(id, direction) {
+            const blocks = getBlocks();
+            const index = blocks.findIndex(b => b.id === id);
+            if (index === -1) return;
+            const newIndex = direction === 'up' ? index - 1 : index + 1;
+            if (newIndex < 0 || newIndex >= blocks.length) return;
+            [blocks[index], blocks[newIndex]] = [blocks[newIndex], blocks[index]];
+            renderBlocks();
+            updateStats();
+            autoSave();
+        }
+
+        // Update functions
+        function updateBlockContent(id, content) {
+            const blocks = getBlocks();
+            const block = blocks.find(b => b.id === id);
+            if (block) block.content = content;
+            autoSave();
+        }
+
+        function updateBlockField(id, field, value) {
+            const blocks = getBlocks();
+            const block = blocks.find(b => b.id === id);
+            if (block) block[field] = value;
+            autoSave();
+        }
+
+        function updateBlockOption(id, optIndex, value) {
+            const blocks = getBlocks();
+            const block = blocks.find(b => b.id === id);
+            if (block && block.options) {
+                block.options[optIndex] = value;
+                autoSave();
+            }
+        }
+
+        // ============ DRAG & DROP ============
+        function handleDragStart(e, index) {
+            AppState.dragIndex = index;
+            const card = e.target.closest('.block-card');
+            if (card) card.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', index);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            const card = e.target.closest('.block-card');
+            if (card) card.classList.add('drag-over');
+        }
+
+        function handleDrop(e, targetIndex) {
+            e.preventDefault();
+            document.querySelectorAll('.block-card').forEach(c => c.classList.remove('drag-over'));
+            if (AppState.dragIndex === null || AppState.dragIndex === targetIndex) return;
+            const blocks = getBlocks();
+            const [moved] = blocks.splice(AppState.dragIndex, 1);
+            blocks.splice(targetIndex, 0, moved);
+            AppState.dragIndex = null;
+            renderBlocks();
+            updateStats();
+            autoSave();
+        }
+
+        function handleDragEnd(e) {
+            document.querySelectorAll('.block-card').forEach(c => {
+                c.classList.remove('dragging', 'drag-over');
+            });
+        }
+
+        // ============ RICH TEXT COMMANDS ============
+        function execRichCmd(command, blockId, value = null) {
+            const richEl = document.getElementById('rich-' + blockId);
+            if (!richEl) return;
+            richEl.focus();
+            
+            if (command === 'createLink') {
+                const url = prompt('Enter URL:');
+                if (url) document.execCommand('createLink', false, url);
+            } else if (command === 'formatBlock') {
+                document.execCommand(command, false, value);
+            } else {
+                document.execCommand(command, false, null);
+            }
+            
+            updateBlockContent(blockId, richEl.innerHTML);
+        }
+
+        function insertCodeBlock(blockId) {
+            const richEl = document.getElementById('rich-' + blockId);
+            if (!richEl) return;
+            const code = prompt('Enter code:');
+            if (code) {
+                document.execCommand('insertHTML', false, `<pre><code>${code.replace(/</g, '&lt;')}</code></pre>`);
+                updateBlockContent(blockId, richEl.innerHTML);
+            }
+        }
+
+        // ============ VIDEO HELPERS ============
+        function getYouTubeId(url) {
+            if (!url) return null;
+            const patterns = [
+                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\s]{11})/,
+                /youtube\.com\/watch\?.*v=([^&?\s]{11})/
+            ];
+            for (const p of patterns) {
+                const match = url.match(p);
+                if (match) return match[1];
+            }
+            return null;
+        }
+
+        // ============ IMAGE UPLOAD ============
+        async function uploadImageForBlock(blockId, input) {
+            const file = input.files?.[0];
+            if (!file) return;
+            showLoader();
+            try {
+                const fd = new FormData(); fd.append('image', file);
+                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: fd });
+                const data = await res.json();
+                if (data.success) {
+                    updateBlockField(blockId, 'url', data.data.url);
+                    renderBlocks();
+                    toast('Image uploaded!', 'success');
+                }
+            } catch (e) {
+                toast('Upload failed', 'error');
+            }
+            hideLoader();
+        }
+
+        // ============ SAVE ============
+        async function saveLesson() {
+            showLoader();
+            $('topbarStatus').textContent = 'Saving...';
+            $('topbarStatus').className = 'topbar-status saving';
+            
+            const data = {
+                title: AppState.title,
+                moduleId: AppState.moduleId,
+                viewType: AppState.viewType,
+                status: AppState.status,
+                pages: AppState.viewType === 'sections' ? AppState.pages : [{ blocks: AppState.blocks }],
+                estimatedTime: getBlocks().length * 5,
+                blockCount: getBlocks().length,
+                updatedAt: new Date().toISOString()
+            };
+
+            try {
+                if (AppState.lessonId && AppState.lessonId !== 'demo') {
+                    await updateDoc(doc(db, 'lessons', AppState.lessonId), { ...data, updatedAt: Timestamp.now() });
+                } else {
+                    const ref = await addDoc(collection(db, 'lessons'), { ...data, createdAt: Timestamp.now(), updatedAt: Timestamp.now() });
+                    AppState.lessonId = ref.id;
+                    localStorage.setItem('ak_current_lesson', ref.id);
+                    // Update URL
+                    window.history.replaceState({}, '', '?id=' + ref.id);
+                }
+                
+                // Save locally as backup
+                localStorage.setItem('ak_lesson_backup', JSON.stringify(data));
+                AppState.lastSaved = new Date();
+                $('topbarStatus').textContent = AppState.status;
+                $('topbarStatus').className = 'topbar-status ' + AppState.status;
+                toast('Lesson saved! 💾', 'success');
+            } catch (e) {
+                // Save locally
+                localStorage.setItem('ak_lesson_backup', JSON.stringify(data));
+                AppState.lastSaved = new Date();
+                toast('Saved locally (offline)', 'warning');
+            }
+            hideLoader();
+        }
+
+        async function publishLesson() {
+            AppState.status = 'published';
+            $('topbarStatus').textContent = 'Published';
+            $('topbarStatus').className = 'topbar-status published';
+            $('panelStatus').value = 'published';
+            await saveLesson();
+            toast('Lesson published! 🚀', 'success');
+        }
+
+        function autoSave() {
+            clearTimeout(AppState.autoSaveTimer);
+            AppState.autoSaveTimer = setTimeout(async () => {
+                const data = {
+                    title: AppState.title,
+                    moduleId: AppState.moduleId,
+                    viewType: AppState.viewType,
+                    status: AppState.status,
+                    pages: AppState.viewType === 'sections' ? AppState.pages : [{ blocks: AppState.blocks }],
+                    estimatedTime: getBlocks().length * 5,
+                    blockCount: getBlocks().length
+                };
+                localStorage.setItem('ak_lesson_autosave', JSON.stringify(data));
+                AppState.lastSaved = new Date();
+            }, 2000);
+        }
+
+        // ============ PAGES (SECTIONS VIEW) ============
+        function addPage() {
+            AppState.pages.push({ blocks: [] });
+            AppState.currentPage = AppState.pages.length - 1;
+            renderPagesList();
+            renderBlocks();
+            updateStats();
+            autoSave();
+        }
+
+        function switchToPage(index) {
+            AppState.currentPage = index;
+            renderPagesList();
+            renderBlocks();
+            updateStats();
+        }
+
+        function deletePage(index) {
+            if (AppState.pages.length <= 1) {
+                toast('Cannot delete the only page', 'error');
+                return;
+            }
+            AppState.pages.splice(index, 1);
+            if (AppState.currentPage >= AppState.pages.length) AppState.currentPage = AppState.pages.length - 1;
+            renderPagesList();
+            renderBlocks();
+            updateStats();
+            autoSave();
+        }
+
+        function renderPagesList() {
+            const container = $('pagesList');
+            container.innerHTML = AppState.pages.map((_, i) => `
+                <div style="display:flex;align-items:center;gap:0.375rem;padding:0.375rem 0.5rem;border-radius:var(--radius-sm);
+                    ${i === AppState.currentPage ? 'background:var(--primary-bg);border:1px solid var(--primary);' : 'border:1px solid var(--gray-200);'}
+                    cursor:pointer;" onclick="switchToPage(${i})">
+                    <span style="flex:1;font-size:0.813rem;font-weight:${i===AppState.currentPage?'600':'400'};">Page ${i+1}</span>
+                    <span style="font-size:0.688rem;color:var(--gray-400);">${AppState.pages[i].blocks.length} blocks</span>
+                    ${AppState.pages.length > 1 ? `<button class="block-action-btn danger" onclick="event.stopPropagation();deletePage(${i})"><i class='bx bx-x'></i></button>` : ''}
+                </div>
             `).join('');
         }
 
-        // ============ INTERACTIONS ============
-        window.acknowledgeRemember = (blockId) => {
-            AppState.acknowledgedRemembers[blockId] = true;
-            saveProgress();
-            renderPage(AppState.currentPage);
-            updateProgress();
-            showToast('Point remembered! 👍', 'success');
-        };
-
-        window.answerRememberQuestion = (blockId, selected, correctAnswer) => {
-            const correct = selected === correctAnswer;
-            AppState.answeredQuestions[blockId] = { selected, correct };
-            saveProgress();
-            renderPage(AppState.currentPage);
-            updateProgress();
-            showToast(correct ? 'Correct! 🎉' : 'Not quite. Review and try again.', correct ? 'success' : 'error');
-        };
-
-        window.answerQuestion = (blockId, selected, correctAnswer, points) => {
-            const correct = selected === correctAnswer;
-            AppState.answeredQuestions[blockId] = { selected, correct };
-            if (correct) {
-                AppState.earnedPoints += (points || 0);
-            }
-            saveProgress();
-            updatePointsDisplay();
-            renderPage(AppState.currentPage);
-            updateProgress();
-            showToast(correct ? `Correct! +${points || 0} points 🎉` : 'Incorrect. Keep learning!', correct ? 'success' : 'error');
-        };
-
-        window.submitCompleteAnswer = (blockId, correctAnswer, points) => {
-            const input = $(`completeInput_${blockId}`);
-            if (!input) return;
-            const userAnswer = input.value.trim().toLowerCase();
-            const correct = userAnswer === correctAnswer.toLowerCase().replace('<', '').replace('>', '');
-            
-            AppState.answeredQuestions[blockId] = { selected: userAnswer, correct };
-            if (correct) {
-                AppState.earnedPoints += (points || 0);
-            }
-            saveProgress();
-            updatePointsDisplay();
-            renderPage(AppState.currentPage);
-            updateProgress();
-            showToast(correct ? `Correct! +${points || 0} points 🎉` : `The correct answer was: ${correctAnswer}`, correct ? 'success' : 'error');
-        };
-
-        window.scrollToBlock = (blockId) => {
-            const el = document.getElementById(blockId);
-            if (el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                el.style.boxShadow = '0 0 0 4px rgba(37,99,235,0.3)';
-                setTimeout(() => el.style.boxShadow = '', 2000);
-            }
-        };
-
-        // ============ NAVIGATION ============
-        function updateNavigation() {
-            $('prevBtn').disabled = AppState.currentPage === 0;
-            $('nextBtn').disabled = AppState.currentPage >= AppState.totalPages - 1;
-            $('pageIndicator').textContent = `${AppState.currentPage + 1} / ${AppState.totalPages}`;
+        function setViewType(type) {
+            AppState.viewType = type;
+            updateViewTypeUI();
+            renderBlocks();
+            updateStats();
+            autoSave();
         }
 
-        window.navigateLesson = (direction) => {
-            if (direction === 'next' && AppState.currentPage < AppState.totalPages - 1) {
-                renderPage(AppState.currentPage + 1);
-            } else if (direction === 'prev' && AppState.currentPage > 0) {
-                renderPage(AppState.currentPage - 1);
-            }
-        };
-
-        window.renderPage = renderPage;
-
-        // ============ COMPLETION ============
-        function showCompletionModal() {
-            const elapsed = Math.floor((Date.now() - AppState.startTime) / 60000);
-            $('completionScore').textContent = `${Math.round((AppState.earnedPoints / AppState.totalPoints) * 100) || 0}%`;
-            $('completionPoints').textContent = AppState.earnedPoints;
-            $('completionTime').textContent = `${elapsed}m`;
-            $('completionOverlay').classList.add('show');
+        function updateViewTypeUI() {
+            const isSections = AppState.viewType === 'sections';
+            $('viewOnePage').classList.toggle('active', !isSections);
+            $('viewSections').classList.toggle('active', isSections);
+            $('pagesSection').style.display = isSections ? 'block' : 'none';
+            if (isSections) renderPagesList();
         }
 
-        window.continueLearning = () => {
-            $('completionOverlay').classList.remove('show');
-            // Navigate to next lesson or back to course
-            window.location.href = 'courses.html';
-        };
+        // ============ SETTINGS PANEL ============
+        function toggleRightPanel() {
+            const panel = $('rightPanel');
+            const main = $('mainContent');
+            panel.classList.toggle('open');
+            main.classList.toggle('panel-open');
+        }
 
-        window.markComplete = () => {
-            AppState.isCompleted = true;
-            saveProgress();
-            showCompletionModal();
-        };
+        function updateLessonMeta() {
+            AppState.moduleId = $('panelModule').value;
+            AppState.status = $('panelStatus').value;
+            $('topbarStatus').textContent = AppState.status;
+            $('topbarStatus').className = 'topbar-status ' + AppState.status;
+            autoSave();
+        }
 
-        // ============ EVENT LISTENERS ============
-        $('menuToggle').addEventListener('click', () => {
-            $('lessonSidebar').classList.toggle('open');
-        });
+        function updateModuleDropdown() {
+            $('panelModule').innerHTML = '<option value="">Select module...</option>' + 
+                AppState.modules.map(m => `<option value="${m.id}">${m.name} (${m.courseName||''})</option>`).join('');
+        }
 
-        $('markCompleteBtn').addEventListener('click', window.markComplete);
+        function updateStats() {
+            const blocks = getBlocks();
+            $('panelBlockCount').textContent = blocks.length;
+            $('panelDuration').textContent = `${blocks.length * 5} min`;
+            const totalPoints = blocks.filter(b => b.type === 'question').reduce((s, b) => s + (b.points || 0), 0);
+            $('panelPoints').textContent = totalPoints;
+        }
 
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' && !e.ctrlKey && !e.metaKey && !e.target.closest('input')) {
-                navigateLesson('next');
+        // ============ PREVIEW ============
+        function previewLesson() {
+            const blocks = getBlocks();
+            let html = `<h1 style="font-family:'Space Grotesk',sans-serif;">${AppState.title}</h1>`;
+            blocks.forEach(b => {
+                html += '<div style="padding:1rem;border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:0.75rem;">';
+                if (b.type === 'text') html += b.content || '<p style="color:var(--gray-400);">Empty text block</p>';
+                if (b.type === 'video') html += b.url ? `<div style="background:var(--gray-900);color:white;padding:2rem;text-align:center;border-radius:var(--radius);">📹 Video</div>` : '<p>No video URL</p>';
+                if (b.type === 'remember') html += `<div style="background:var(--warning-bg);padding:1rem;border-radius:var(--radius);"><strong>🧠 Remember:</strong> ${b.text||'Empty'}</div>`;
+                if (b.type === 'question') html += `<div style="background:var(--purple-bg);padding:1rem;border-radius:var(--radius);"><strong>❓ ${b.question||'Question'}</strong><br>${b.options?.map((o,i)=>`${String.fromCharCode(65+i)}. ${o} ${b.correctAnswer===i?'✅':''}`).join('<br>')||''}</div>`;
+                if (b.type === 'image') html += b.url ? `<img src="${b.url}" style="max-width:100%;border-radius:var(--radius);">` : '<p>No image</p>';
+                if (b.type === 'code') html += `<pre style="background:#1e1e2e;color:#cdd6f4;padding:1rem;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;">${b.code||'// No code'}</pre>`;
+                html += '</div>';
+            });
+            $('previewContent').innerHTML = html;
+            openModal('previewModal');
+        }
+
+        // ============ CONTEXT MENU ============
+        function showContextMenu(e, blockId, index) {
+            e.preventDefault();
+            const menu = $('contextMenu');
+            menu.innerHTML = `
+                <button class="context-item" onclick="duplicateBlock('${blockId}');hideContextMenu();"><i class='bx bx-copy'></i> Duplicate</button>
+                <button class="context-item" onclick="moveBlock('${blockId}','up');hideContextMenu();"><i class='bx bx-chevron-up'></i> Move Up</button>
+                <button class="context-item" onclick="moveBlock('${blockId}','down');hideContextMenu();"><i class='bx bx-chevron-down'></i> Move Down</button>
+                <div class="context-divider"></div>
+                <button class="context-item" onclick="toggleMinimize('${blockId}');hideContextMenu();"><i class='bx bx-chevron-up'></i> Toggle Minimize</button>
+                <div class="context-divider"></div>
+                <button class="context-item danger" onclick="deleteBlock('${blockId}');hideContextMenu();"><i class='bx bx-trash'></i> Delete</button>
+            `;
+            menu.style.top = e.clientY + 'px';
+            menu.style.left = Math.min(e.clientX, window.innerWidth - 200) + 'px';
+            menu.classList.add('show');
+        }
+
+        function hideContextMenu() {
+            $('contextMenu').classList.remove('show');
+        }
+
+        // ============ KEYBOARD SHORTCUTS ============
+        document.addEventListener('keydown', e => {
+            // Ctrl+S - Save
+            if (e.ctrlKey && e.key === 's') { e.preventDefault(); saveLesson(); }
+            // Ctrl+P - Preview
+            if (e.ctrlKey && e.key === 'p') { e.preventDefault(); previewLesson(); }
+            // Delete - Delete focused block
+            if (e.key === 'Delete' && AppState.focusedBlock && !e.target.closest('[contenteditable]') && !e.target.closest('input,textarea,select')) {
+                e.preventDefault();
+                deleteBlock(AppState.focusedBlock);
             }
-            if (e.key === 'ArrowLeft' && !e.ctrlKey && !e.metaKey && !e.target.closest('input')) {
-                navigateLesson('prev');
+            // Ctrl+D - Duplicate focused block
+            if (e.ctrlKey && e.key === 'd' && AppState.focusedBlock && !e.target.closest('input,textarea,select')) {
+                e.preventDefault();
+                duplicateBlock(AppState.focusedBlock);
             }
+            // Ctrl+ArrowUp/Down - Move block
+            if (e.ctrlKey && e.key === 'ArrowUp' && AppState.focusedBlock) {
+                e.preventDefault();
+                moveBlock(AppState.focusedBlock, 'up');
+            }
+            if (e.ctrlKey && e.key === 'ArrowDown' && AppState.focusedBlock) {
+                e.preventDefault();
+                moveBlock(AppState.focusedBlock, 'down');
+            }
+            // Ctrl+Z - Undo delete
+            if (e.ctrlKey && e.key === 'z' && window._lastDeleted) {
+                e.preventDefault();
+                const { block, index } = window._lastDeleted;
+                getBlocks().splice(index, 0, block);
+                renderBlocks();
+                updateStats();
+                toast('Undo!', 'info');
+                window._lastDeleted = null;
+            }
+            // Ctrl+Shift+1-6 - Add blocks
+            if (e.ctrlKey && e.shiftKey) {
+                const blockMap = { '1': 'text', '2': 'video', '3': 'remember', '4': 'question', '5': 'image', '6': 'code' };
+                if (blockMap[e.key]) { e.preventDefault(); addBlock(blockMap[e.key]); }
+            }
+            // Escape - Close context menu & modals
             if (e.key === 'Escape') {
-                $('completionOverlay').classList.remove('show');
+                hideContextMenu();
+                closeModal('previewModal');
             }
         });
 
-        // Close sidebar on outside click (mobile)
-        document.addEventListener('click', (e) => {
-            const sidebar = $('lessonSidebar');
-            const toggle = $('menuToggle');
-            if (sidebar.classList.contains('open') && 
-                !sidebar.contains(e.target) && 
-                !toggle.contains(e.target)) {
-                sidebar.classList.remove('open');
+        // Close context menu on click outside
+        document.addEventListener('click', e => {
+            if (!e.target.closest('.context-menu')) hideContextMenu();
+            if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('show')) {
+                e.target.classList.remove('show');
             }
         });
+
+        // Title input
+        $('lessonTitleInput').addEventListener('input', function() {
+            AppState.title = this.value;
+            autoSave();
+        });
+
+        // ============ GLOBAL EXPOSURE ============
+        window.addBlock = addBlock;
+        window.focusBlock = focusBlock;
+        window.toggleMinimize = toggleMinimize;
+        window.deleteBlock = deleteBlock;
+        window.duplicateBlock = duplicateBlock;
+        window.moveBlock = moveBlock;
+        window.updateBlockContent = updateBlockContent;
+        window.updateBlockField = updateBlockField;
+        window.updateBlockOption = updateBlockOption;
+        window.execRichCmd = execRichCmd;
+        window.insertCodeBlock = insertCodeBlock;
+        window.uploadImageForBlock = uploadImageForBlock;
+        window.saveLesson = saveLesson;
+        window.publishLesson = publishLesson;
+        window.previewLesson = previewLesson;
+        window.toggleRightPanel = toggleRightPanel;
+        window.updateLessonMeta = updateLessonMeta;
+        window.setViewType = setViewType;
+        window.addPage = addPage;
+        window.switchToPage = switchToPage;
+        window.deletePage = deletePage;
+        window.showContextMenu = showContextMenu;
+        window.hideContextMenu = hideContextMenu;
+        window.closeModal = closeModal;
+        window.handleDragStart = handleDragStart;
+        window.handleDragOver = handleDragOver;
+        window.handleDrop = handleDrop;
+        window.handleDragEnd = handleDragEnd;
 
         // ============ INIT ============
-        loadLesson();
-        console.log('📚 Akademia Lesson Page loaded!');
+        init();
+        console.log('🚀 Akademia Lesson Studio loaded!');
     </script>
 </body>
 </html>
