@@ -49,6 +49,35 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
 
+        /* ============ TOP LINE LOADER ============ */
+        .top-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        .top-loader::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--primary-light), var(--primary));
+            animation: none;
+        }
+        .top-loader.loading::before {
+            animation: topLoader 1.5s ease-in-out infinite;
+        }
+        @keyframes topLoader {
+            0% { left: -100%; width: 30%; }
+            50% { left: 50%; width: 50%; }
+            100% { left: 100%; width: 30%; }
+        }
+
         /* ============ SIDEBAR ============ */
         .sidebar {
             width: var(--sidebar-width); background: var(--white);
@@ -415,6 +444,9 @@
     </style>
 </head>
 <body>
+    <!-- Top Line Loader -->
+    <div class="top-loader" id="topLoader"></div>
+
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -442,11 +474,10 @@
             <div class="sidebar-section">
                 <div class="sidebar-label">Navigation</div>
                 <a href="index.html" class="sidebar-item"><i class='bx bx-home'></i> View Website</a>
-                <a href="lesson.html" class="sidebar-item" target="_blank"><i class='bx bx-book-open'></i> View Lesson Page</a>
             </div>
         </nav>
         <div class="sidebar-footer">
-            Akademia Admin v5.0
+            Akademia Admin v5.1
             <div class="sidebar-sync">
                 <span class="sync-dot online" id="syncDot"></span>
                 <span id="syncStatus">Connected</span>
@@ -548,36 +579,24 @@
         </div>
     </div>
 
-    <!-- Course Modal -->
+    <!-- Course Modal - NO Difficulty, NO Duplicate -->
     <div class="modal-overlay" id="courseModal">
         <div class="modal lg">
             <div class="modal-header"><h3 class="modal-title" id="courseModalTitle">Create New Course</h3><button class="modal-close" data-close="courseModal"><i class='bx bx-x'></i></button></div>
             <div class="modal-body">
                 <input type="hidden" id="courseEditId">
                 <div class="form-grid">
-                    <div class="form-group"><label class="form-label">Course Name <span class="required">*</span></label><input type="text" class="form-input" id="fCourseName" placeholder="e.g., HTML Fundamentals"></div>
-                    <div class="form-group"><label class="form-label">Topic <span class="required">*</span></label><select class="form-select" id="fCourseTopic"><option value="">Select topic...</option></select></div>
+                    <div class="form-group span-2"><label class="form-label">Course Name <span class="required">*</span></label><input type="text" class="form-input" id="fCourseName" placeholder="e.g., HTML Fundamentals"></div>
+                    <div class="form-group span-2"><label class="form-label">Topic <span class="required">*</span></label><select class="form-select" id="fCourseTopic"><option value="">Select topic...</option></select></div>
                     <div class="form-group span-2"><label class="form-label">Description</label><textarea class="form-textarea" id="fCourseDesc" placeholder="Course description..." rows="2"></textarea></div>
-                    <div class="form-group">
+                    <div class="form-group span-2">
                         <label class="form-label">Logo <span class="optional">(optional)</span></label>
                         <div class="image-upload-area" id="courseLogoUpload"><i class='bx bx-cloud-upload upload-icon'></i><p class="upload-text">Upload logo</p></div>
                         <input type="text" class="form-input" id="fCourseLogo" placeholder="Or paste logo URL..." onchange="previewImg(this.value,'courseLogoPreview')" style="margin-top:0.5rem;">
                         <img class="image-preview" id="courseLogoPreview" style="display:none;">
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Difficulty</label>
-                        <select class="form-select" id="fCourseDifficulty">
-                            <option value="Beginner">Beginner</option>
-                            <option value="Intermediate">Intermediate</option>
-                            <option value="Advanced">Advanced</option>
-                        </select>
-                    </div>
                 </div>
-                <div class="form-hint" style="margin-top:0.5rem;"><i class='bx bx-info-circle'></i> Duration is auto-calculated from lesson times. Thumbnail is optional.</div>
-                <div style="margin-top:1rem;padding:0.875rem;background:var(--gray-50);border-radius:var(--radius-sm);">
-                    <label class="form-label" style="margin-bottom:0.375rem;"><i class='bx bx-copy'></i> Duplicate from existing course</label>
-                    <select class="form-select" id="fDuplicateCourse" onchange="handleDuplicateCourse()"><option value="">Select course to duplicate...</option></select>
-                </div>
+                <div class="form-hint" style="margin-top:0.5rem;"><i class='bx bx-info-circle'></i> Duration is auto-calculated from lesson times.</div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-ghost" data-close="courseModal">Cancel</button>
@@ -689,6 +708,10 @@
             confirmCallback: null, lastSaved: null
         };
 
+        // ============ LOADER ============
+        function showLoader() { document.getElementById('topLoader').classList.add('loading'); }
+        function hideLoader() { document.getElementById('topLoader').classList.remove('loading'); }
+
         // ============ HELPERS ============
         const $ = id => document.getElementById(id);
         const val = id => $(id)?.value?.trim() || '';
@@ -760,6 +783,7 @@
 
         // ============ DATA LOADING ============
         async function loadAll() {
+            showLoader();
             try {
                 updateSync('syncing');
                 const [t,c,m,l] = await Promise.all([
@@ -776,23 +800,27 @@
             } catch(e) {
                 updateSync('offline'); loadLocal(); toast('Offline mode - using local data','warning');
             }
+            hideLoader();
             refreshUI();
         }
 
         async function saveDoc(colName, data, id = null) {
+            showLoader();
             try {
-                if (id) { await updateDoc(doc(db,colName,id),{...data,updatedAt:Timestamp.now()}); return id; }
-                else { const ref = await addDoc(collection(db,colName),{...data,createdAt:Timestamp.now(),updatedAt:Timestamp.now()}); return ref.id; }
+                if (id) { await updateDoc(doc(db,colName,id),{...data,updatedAt:Timestamp.now()}); hideLoader(); return id; }
+                else { const ref = await addDoc(collection(db,colName),{...data,createdAt:Timestamp.now(),updatedAt:Timestamp.now()}); hideLoader(); return ref.id; }
             } catch(e) {
                 if (id) { const arr = AppState[colName]; const idx = arr.findIndex(i=>i.id===id); if(idx!==-1) arr[idx]={...arr[idx],...data}; }
-                else { const nid = colName+'_'+Date.now(); AppState[colName].unshift({id:nid,...data,createdAt:new Date().toISOString()}); saveLocal(); return nid; }
-                saveLocal(); return id;
+                else { const nid = colName+'_'+Date.now(); AppState[colName].unshift({id:nid,...data,createdAt:new Date().toISOString()}); saveLocal(); hideLoader(); return nid; }
+                saveLocal(); hideLoader(); return id;
             }
         }
 
         async function delDoc(colName, id) {
+            showLoader();
             try { await deleteDoc(doc(db,colName,id)); }
             catch(e) { AppState[colName] = AppState[colName].filter(i=>i.id!==id); saveLocal(); }
+            hideLoader();
         }
 
         // ============ SAVE FUNCTIONS ============
@@ -814,7 +842,6 @@
                 name, topicId, topicName: topic?.name||'',
                 description: val('fCourseDesc'),
                 logo: val('fCourseLogo'),
-                difficulty: val('fCourseDifficulty'),
                 duration: 0
             };
             const editId = val('courseEditId');
@@ -856,14 +883,10 @@
             await loadAll();
             recalcDurations();
             
-            // Ask if they want to view the lesson
+            // Redirect to lesson.html
             if (!editId && savedId) {
-                setTimeout(() => {
-                    if (confirm('Lesson saved! Would you like to open it in the lesson viewer?')) {
-                        localStorage.setItem('ak_current_lesson', savedId);
-                        window.open('lesson.html?id=' + savedId, '_blank');
-                    }
-                }, 500);
+                localStorage.setItem('ak_current_lesson', savedId);
+                setTimeout(() => { window.open('lesson.html?id=' + savedId, '_blank'); }, 300);
             }
         }
 
@@ -915,12 +938,6 @@
             confirmDelete('Delete this lesson?', async () => {
                 await delDoc('lessons',id); toast('Deleted!','success'); await loadAll();
             });
-        }
-        async function dupCourse(id) {
-            const c = AppState.courses.find(x=>x.id===id); if(!c) return;
-            const {id:_,createdAt,updatedAt,...data} = c;
-            await saveDoc('courses',{...data,name:data.name+' (Copy)',duration:0});
-            toast('Duplicated!','success'); await loadAll();
         }
 
         // ============ LESSON BUILDER ============
@@ -1051,10 +1068,11 @@
             $('previewContent').innerHTML = h; openModal('previewModal');
         }
 
-        // ============ VIEW LESSON ============
+        // ============ VIEW LESSON (Redirect) ============
         function viewLesson(id) {
+            showLoader();
             localStorage.setItem('ak_current_lesson', id);
-            window.open('lesson.html?id=' + id, '_blank');
+            window.location.href = 'lesson.html?id=' + id;
         }
 
         // ============ UI ============
@@ -1071,7 +1089,6 @@
         function updateDropdowns() {
             const to = AppState.topics.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join('');
             $('fCourseTopic').innerHTML = '<option value="">Select topic...</option>'+to;
-            $('fDuplicateCourse').innerHTML = '<option value="">Select course...</option>'+AppState.courses.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
             $('fModuleCourse').innerHTML = '<option value="">Select course...</option>'+AppState.courses.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
             $('fLessonModule').innerHTML = '<option value="">Select module...</option>'+AppState.modules.map(m=>`<option value="${m.id}">${esc(m.name)} (${esc(m.courseName||'')})</option>`).join('');
         }
@@ -1081,7 +1098,6 @@
                     <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid var(--gray-200);border-radius:var(--radius-sm);cursor:pointer;" onclick="clearTopicForm();$('topicModalTitle').textContent='Create New Topic';openModal('topicModal');"><div style="width:32px;height:32px;border-radius:50%;background:var(--primary-bg);display:flex;align-items:center;justify-content:center;"><i class='bx bx-category' style="color:var(--primary);"></i></div><div><strong>Create Topic</strong><br><small style="color:var(--gray-500);">Define subject area</small></div></div>
                     <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid var(--gray-200);border-radius:var(--radius-sm);cursor:pointer;" onclick="clearCourseForm();$('courseModalTitle').textContent='Create New Course';openModal('courseModal');"><div style="width:32px;height:32px;border-radius:50%;background:var(--success-bg);display:flex;align-items:center;justify-content:center;"><i class='bx bx-book-content' style="color:var(--success);"></i></div><div><strong>Create Course</strong><br><small style="color:var(--gray-500);">Add course under topic</small></div></div>
                     <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid var(--gray-200);border-radius:var(--radius-sm);cursor:pointer;" onclick="clearLessonForm();$('lessonModalTitle').textContent='Create New Lesson';openModal('lessonModal');"><div style="width:32px;height:32px;border-radius:50%;background:var(--purple-bg);display:flex;align-items:center;justify-content:center;"><i class='bx bx-video' style="color:var(--purple);"></i></div><div><strong>Create Lesson</strong><br><small style="color:var(--gray-500);">Build interactive content</small></div></div>
-                    <a href="lesson.html" target="_blank" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid var(--gray-200);border-radius:var(--radius-sm);text-decoration:none;color:inherit;"><div style="width:32px;height:32px;border-radius:50%;background:var(--teal-bg);display:flex;align-items:center;justify-content:center;"><i class='bx bx-book-open' style="color:var(--teal);"></i></div><div><strong>View Lesson Page</strong><br><small style="color:var(--gray-500);">See student view</small></div></a>
                 </div>`;
         }
         function updateRecentActivity() {
@@ -1100,7 +1116,7 @@
         function renderCourses() {
             const tb = $('coursesTable');
             if (!AppState.courses.length) { tb.innerHTML = '<tr><td colspan="6"><div class="empty-state"><i class="bx bx-book-content empty-state-icon"></i><h3>No Courses</h3><p>Create a topic first</p></div></td></tr>'; return; }
-            tb.innerHTML = AppState.courses.map(c=>`<tr><td style="font-weight:600;">${c.logo?`<img src="${c.logo}" style="width:22px;height:22px;border-radius:4px;vertical-align:middle;margin-right:0.375rem;">`:''}${esc(c.name)}</td><td>${esc(c.topicName||'-')}</td><td>${c.duration||0} min</td><td><span class="badge badge-purple">${AppState.modules.filter(m=>m.courseId===c.id).length} modules</span></td><td><span class="badge badge-draft">Draft</span></td><td><div style="display:flex;gap:0.25rem;"><button class="icon-btn primary" onclick="editCourse('${c.id}')"><i class='bx bx-edit'></i></button><button class="icon-btn success" onclick="dupCourse('${c.id}')"><i class='bx bx-copy'></i></button><button class="icon-btn danger" onclick="delCourse('${c.id}')"><i class='bx bx-trash'></i></button></div></td></tr>`).join('');
+            tb.innerHTML = AppState.courses.map(c=>`<tr><td style="font-weight:600;">${c.logo?`<img src="${c.logo}" style="width:22px;height:22px;border-radius:4px;vertical-align:middle;margin-right:0.375rem;">`:''}${esc(c.name)}</td><td>${esc(c.topicName||'-')}</td><td>${c.duration||0} min</td><td><span class="badge badge-purple">${AppState.modules.filter(m=>m.courseId===c.id).length} modules</span></td><td><span class="badge badge-draft">Draft</span></td><td><div style="display:flex;gap:0.25rem;"><button class="icon-btn primary" onclick="editCourse('${c.id}')"><i class='bx bx-edit'></i></button><button class="icon-btn danger" onclick="delCourse('${c.id}')"><i class='bx bx-trash'></i></button></div></td></tr>`).join('');
         }
         function renderModules() {
             const tb = $('modulesTable');
@@ -1119,7 +1135,7 @@
 
         // ============ EDIT ============
         function editTopic(id) { const t=AppState.topics.find(x=>x.id===id); if(!t)return; setVal('topicEditId',t.id); setVal('fTopicName',t.name); setVal('fTopicDesc',t.description||''); setVal('fTopicThumbnail',t.thumbnail||''); if(t.thumbnail)previewImg(t.thumbnail,'topicPreview'); $('topicModalTitle').textContent='Edit Topic'; openModal('topicModal'); }
-        function editCourse(id) { const c=AppState.courses.find(x=>x.id===id); if(!c)return; setVal('courseEditId',c.id); setVal('fCourseName',c.name); setVal('fCourseTopic',c.topicId); setVal('fCourseDesc',c.description||''); setVal('fCourseLogo',c.logo||''); setVal('fCourseDifficulty',c.difficulty||'Beginner'); if(c.logo)previewImg(c.logo,'courseLogoPreview'); $('courseModalTitle').textContent='Edit Course'; openModal('courseModal'); }
+        function editCourse(id) { const c=AppState.courses.find(x=>x.id===id); if(!c)return; setVal('courseEditId',c.id); setVal('fCourseName',c.name); setVal('fCourseTopic',c.topicId); setVal('fCourseDesc',c.description||''); setVal('fCourseLogo',c.logo||''); if(c.logo)previewImg(c.logo,'courseLogoPreview'); $('courseModalTitle').textContent='Edit Course'; openModal('courseModal'); }
         function editModule(id) { const m=AppState.modules.find(x=>x.id===id); if(!m)return; setVal('moduleEditId',m.id); setVal('fModuleName',m.name); setVal('fModuleCourse',m.courseId); setVal('fModuleDesc',m.description||''); setVal('fModuleOrder',m.order); $('moduleModalTitle').textContent='Edit Module'; openModal('moduleModal'); }
         function editLesson(id) {
             const l=AppState.lessons.find(x=>x.id===id); if(!l)return;
@@ -1131,14 +1147,10 @@
             $('lessonModalTitle').textContent='Edit Lesson';
             renderBlocks(); updateBlockCount(); openModal('lessonModal');
         }
-        function handleDuplicateCourse() {
-            const id=val('fDuplicateCourse'), c=AppState.courses.find(x=>x.id===id);
-            if(c) { setVal('fCourseName',c.name+' (Copy)'); setVal('fCourseTopic',c.topicId); setVal('fCourseDesc',c.description||''); setVal('fCourseLogo',c.logo||''); setVal('fCourseDifficulty',c.difficulty||'Beginner'); }
-        }
 
         // Clear forms
         function clearTopicForm() { ['topicEditId','fTopicName','fTopicDesc','fTopicThumbnail'].forEach(id=>setVal(id,'')); const p=$('topicPreview'); if(p)p.style.display='none'; }
-        function clearCourseForm() { ['courseEditId','fCourseName','fCourseDesc','fCourseLogo','fDuplicateCourse'].forEach(id=>setVal(id,'')); setVal('fCourseTopic',''); setVal('fCourseDifficulty','Beginner'); ['courseLogoPreview'].forEach(id=>{const e=$(id);if(e)e.style.display='none';}); }
+        function clearCourseForm() { ['courseEditId','fCourseName','fCourseDesc','fCourseLogo'].forEach(id=>setVal(id,'')); setVal('fCourseTopic',''); ['courseLogoPreview'].forEach(id=>{const e=$(id);if(e)e.style.display='none';}); }
         function clearModuleForm() { ['moduleEditId','fModuleName','fModuleDesc'].forEach(id=>setVal(id,'')); setVal('fModuleCourse',''); setVal('fModuleOrder','1'); }
         function clearLessonForm() {
             ['lessonEditId','fLessonTitle'].forEach(id=>setVal(id,'')); setVal('fLessonModule',''); setVal('fLessonViewType','one-page'); setVal('fLessonStatus','draft'); setVal('fLessonTime','0 min');
@@ -1158,20 +1170,42 @@
             document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
             const item=document.querySelector(`.sidebar-item[data-view="${name}"]`); if(item)item.classList.add('active');
             AppState.currentView=name;
+            
+            // REDIRECT: If clicking Lessons or New Lesson, go to lesson.html
+            if (name === 'lessons') {
+                viewLesson(AppState.lessons[0]?.id || 'demo');
+            }
         }
 
         // ============ EVENT LISTENERS ============
         document.addEventListener('click', e => {
             if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('show')) e.target.classList.remove('show');
             const cb = e.target.closest('[data-close]'); if (cb) { closeModal(cb.dataset.close); return; }
-            const si = e.target.closest('.sidebar-item[data-view]'); if (si) { switchView(si.dataset.view); if(window.innerWidth<=768)$('sidebar').classList.remove('open'); return; }
+            const si = e.target.closest('.sidebar-item[data-view]'); 
+            if (si) { 
+                const viewName = si.dataset.view;
+                if (viewName === 'lessons') {
+                    // Redirect to lesson.html instead
+                    localStorage.setItem('ak_current_lesson', AppState.lessons[0]?.id || 'demo');
+                    window.location.href = 'lesson.html';
+                    return;
+                }
+                switchView(viewName); 
+                if(window.innerWidth<=768)$('sidebar').classList.remove('open'); 
+                return; 
+            }
             const ai = e.target.closest('[data-action]');
             if (ai) {
                 const a = ai.dataset.action;
                 if (a==='addTopic') { clearTopicForm(); $('topicModalTitle').textContent='Create New Topic'; openModal('topicModal'); }
                 if (a==='addCourse') { clearCourseForm(); $('courseModalTitle').textContent='Create New Course'; openModal('courseModal'); }
                 if (a==='addModule') { clearModuleForm(); $('moduleModalTitle').textContent='Create New Module'; openModal('moduleModal'); }
-                if (a==='addLesson') { clearLessonForm(); $('lessonModalTitle').textContent='Create New Lesson'; openModal('lessonModal'); }
+                if (a==='addLesson') { 
+                    // Redirect to lesson.html instead of opening modal
+                    localStorage.setItem('ak_current_lesson', '');
+                    window.location.href = 'lesson.html';
+                    return;
+                }
                 return;
             }
         });
@@ -1219,9 +1253,7 @@
 
         // ============ GLOBAL EXPOSURE ============
         window.delTopic = delTopic; window.delCourse = delCourse; window.delModule = delModule; window.delLesson = delLesson;
-        window.dupCourse = dupCourse;
         window.editTopic = editTopic; window.editCourse = editCourse; window.editModule = editModule; window.editLesson = editLesson;
-        window.handleDuplicateCourse = handleDuplicateCourse;
         window.moveBlock = moveBlock; window.remBlock = remBlock; window.dupBlock = dupBlock;
         window.updBlock = updBlock; window.updBlockOpt = updBlockOpt;
         window.switchPage = switchPage; window.delPage = delPage;
@@ -1236,7 +1268,7 @@
         AppState.currentViewType = 'one-page';
         loadAll();
         updateSync('online');
-        console.log('🚀 Akademia Admin v5.0 ready!');
+        console.log('🚀 Akademia Admin v5.1 ready!');
     </script>
 </body>
 </html>
