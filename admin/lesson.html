@@ -24,6 +24,7 @@
             --purple: #7C3AED; --purple-bg: #F5F3FF;
             --teal: #14B8A6; --teal-bg: #F0FDFA;
             --pink: #EC4899; --pink-bg: #FDF2F8;
+            --orange: #F97316; --orange-bg: #FFF7ED;
             --header-height: 56px;
             --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 20px;
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
@@ -34,20 +35,16 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             font-family: 'Inter', sans-serif;
-            background: #f0f2f5;
-            color: var(--gray-800);
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
+            background: #f0f2f5; color: var(--gray-800);
+            min-height: 100vh; -webkit-font-smoothing: antialiased;
         }
-
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 2px; }
 
-        /* ============ TOP LOADER ============ */
+        /* Top Loader */
         .top-loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 2px;
             z-index: 9999; pointer-events: none;
@@ -60,12 +57,10 @@
         }
         .top-loader.active::before { animation: topLoader 1.2s ease-in-out infinite; }
         @keyframes topLoader {
-            0% { left: -100%; width: 40%; }
-            50% { left: 60%; width: 40%; }
-            100% { left: 100%; width: 40%; }
+            0% { left: -100%; width: 40%; } 50% { left: 60%; width: 40%; } 100% { left: 100%; width: 40%; }
         }
 
-        /* ============ TOPBAR ============ */
+        /* Topbar */
         .topbar {
             background: rgba(255,255,255,0.9); backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--gray-200);
@@ -101,13 +96,12 @@
         .topbar-status.saving { background: var(--warning-bg); color: #D97706; animation: pulse 1s infinite; }
         @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-        /* ============ TABS ============ */
+        /* Tabs */
         .main-tabs {
-            display: flex; gap: 0;
-            border-bottom: 2px solid var(--gray-200);
-            background: white;
-            padding: 0 1.5rem;
+            display: flex; gap: 0; border-bottom: 2px solid var(--gray-200);
+            background: white; padding: 0 1.5rem;
             position: sticky; top: var(--header-height); z-index: 40;
+            overflow-x: auto;
         }
         .main-tab {
             padding: 0.75rem 1.25rem; font-size: 0.813rem; font-weight: 500;
@@ -120,46 +114,36 @@
         .main-tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
         .main-tab i { font-size: 1rem; }
 
-        /* ============ TAB PANELS ============ */
+        /* Tab Panels */
         .tab-panel { display: none; }
         .tab-panel.active { display: block; animation: fadeIn 0.2s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* ============ CREATE LESSON PANEL ============ */
+        /* Create Panel */
         .create-lesson-container {
             max-width: 550px; margin: 4rem auto;
             background: white; border-radius: var(--radius-xl);
-            padding: 2.5rem; box-shadow: var(--shadow-md);
-            text-align: center;
+            padding: 2.5rem; box-shadow: var(--shadow-md); text-align: center;
         }
-        .create-lesson-container .create-icon {
-            font-size: 3.5rem; margin-bottom: 1rem;
-        }
+        .create-lesson-container .create-icon { font-size: 3.5rem; margin-bottom: 1rem; }
         .create-lesson-container h2 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.5rem; margin-bottom: 0.5rem;
         }
-        .create-lesson-container p {
-            color: var(--gray-500); font-size: 0.875rem; margin-bottom: 2rem;
-        }
-        .searchable-select {
-            position: relative;
-        }
+        .create-lesson-container p { color: var(--gray-500); font-size: 0.875rem; margin-bottom: 2rem; }
+        .searchable-select { position: relative; text-align: left; }
         .searchable-select input {
             width: 100%; padding: 0.625rem 0.875rem;
             border: 1px solid var(--gray-300); border-radius: var(--radius-sm);
             font-family: 'Inter', sans-serif; font-size: 0.875rem;
             outline: none; transition: all var(--transition);
         }
-        .searchable-select input:focus {
-            border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-        }
+        .searchable-select input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
         .searchable-select .dropdown {
             position: absolute; top: 100%; left: 0; right: 0;
             background: white; border: 1px solid var(--gray-200);
             border-radius: var(--radius-sm); max-height: 200px;
-            overflow-y: auto; z-index: 10; box-shadow: var(--shadow);
-            display: none;
+            overflow-y: auto; z-index: 10; box-shadow: var(--shadow); display: none;
         }
         .searchable-select .dropdown.show { display: block; }
         .searchable-select .dropdown-item {
@@ -169,20 +153,55 @@
         .searchable-select .dropdown-item:hover { background: var(--primary-bg); }
         .searchable-select .dropdown-item.selected { background: var(--primary-bg); font-weight: 600; }
 
-        /* ============ MANAGE PANEL ============ */
-        .lesson-list-item {
-            display: flex; align-items: center; gap: 1rem;
-            padding: 1rem; border: 1px solid var(--gray-200);
-            border-radius: var(--radius); margin-bottom: 0.5rem;
-            cursor: pointer; transition: all var(--transition);
-            background: white;
+        /* Manage & Analysis Panels */
+        .panel-container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .panel-header-row {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem;
         }
-        .lesson-list-item:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); }
-        .lesson-list-item .lesson-info { flex: 1; }
-        .lesson-list-item .lesson-name { font-weight: 600; font-size: 0.875rem; }
-        .lesson-list-item .lesson-meta { font-size: 0.75rem; color: var(--gray-500); }
+        .panel-header-row h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; }
+        .search-input { max-width: 300px; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+        .lesson-card {
+            background: white; border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg); padding: 1.25rem;
+            cursor: pointer; transition: all var(--transition);
+        }
+        .lesson-card:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-2px); }
+        .lesson-card .card-title { font-weight: 600; font-size: 0.938rem; margin-bottom: 0.375rem; }
+        .lesson-card .card-meta { font-size: 0.75rem; color: var(--gray-500); margin-bottom: 0.5rem; }
+        .lesson-card .card-stats { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .lesson-card .card-stat {
+            font-size: 0.688rem; padding: 0.1875rem 0.5rem;
+            border-radius: 100px; background: var(--gray-50);
+            display: flex; align-items: center; gap: 0.25rem;
+        }
+        .lesson-card .card-actions { display: flex; gap: 0.25rem; margin-top: 0.75rem; }
 
-        /* ============ BUTTONS ============ */
+        /* Analysis Stats */
+        .analysis-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        .analysis-stat {
+            background: white; border: 1px solid var(--gray-100);
+            border-radius: var(--radius-lg); padding: 1.25rem;
+            text-align: center;
+        }
+        .analysis-stat .stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; }
+        .analysis-stat .stat-lbl { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem; }
+        .analysis-stat.blue .stat-val { color: var(--primary); }
+        .analysis-stat.green .stat-val { color: var(--success); }
+        .analysis-stat.purple .stat-val { color: var(--purple); }
+        .analysis-stat.orange .stat-val { color: var(--orange); }
+
+        .progress-bar-sm {
+            height: 6px; background: var(--gray-200);
+            border-radius: 3px; overflow: hidden; margin-top: 0.375rem;
+        }
+        .progress-bar-sm .fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+        .fill.blue { background: var(--primary); }
+        .fill.green { background: var(--success); }
+        .fill.purple { background: var(--purple); }
+
+        /* Buttons */
         .btn {
             font-family: 'Inter', sans-serif;
             display: inline-flex; align-items: center; gap: 0.375rem;
@@ -201,20 +220,18 @@
         .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
         .btn-teal { background: var(--teal); color: white; }
         .btn-teal:hover { opacity: 0.9; }
-        .btn-purple { background: var(--purple); color: white; }
-        .btn-purple:hover { opacity: 0.9; }
+        .btn-danger { background: transparent; color: var(--danger); border: 1px solid transparent; }
+        .btn-danger:hover { background: var(--danger-bg); border-color: #FECACA; }
 
-        /* ============ EDITOR AREA ============ */
+        /* Editor Area */
         .editor-area { padding: 1.5rem 2rem; max-width: 850px; margin: 0 auto; }
-
-        /* Block Palette */
         .block-palette {
             display: flex; gap: 0.375rem; flex-wrap: wrap;
             margin-bottom: 1.5rem; justify-content: center;
             padding: 0.625rem; background: rgba(255,255,255,0.9);
             backdrop-filter: blur(8px); border-radius: var(--radius-xl);
-            border: 1px solid var(--gray-200); position: sticky;
-            top: calc(var(--header-height) + 44px); z-index: 10;
+            border: 1px solid var(--gray-200);
+            position: sticky; top: calc(var(--header-height) + 44px); z-index: 10;
         }
         .palette-item {
             display: flex; align-items: center; gap: 0.375rem;
@@ -227,7 +244,6 @@
         .palette-item:active { transform: scale(0.95); }
         .palette-item i { font-size: 0.875rem; }
 
-        /* Blocks */
         .blocks-canvas { display: flex; flex-direction: column; gap: 0.75rem; }
         .block-card {
             background: white; border-radius: var(--radius-lg);
@@ -238,7 +254,6 @@
         .block-card:hover { border-color: var(--gray-300); box-shadow: var(--shadow); }
         .block-card.focused { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
         .block-card.minimized .block-body { display: none; }
-        .block-card.minimized .block-header { border-bottom: none; }
         @keyframes blockAppear { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 
         .block-header {
@@ -260,7 +275,6 @@
         .block-type-icon.code { background: var(--pink-bg); color: var(--pink); }
         .block-type-label { font-weight: 600; font-size: 0.75rem; flex: 1; }
         .block-number { font-size: 0.625rem; color: var(--gray-400); }
-
         .block-actions { display: flex; gap: 0.125rem; }
         .block-action-btn {
             width: 26px; height: 26px; border-radius: var(--radius-xs);
@@ -296,7 +310,6 @@
         }
         .rich-content:empty::before { content: 'Start typing...'; color: var(--gray-400); }
 
-        /* Form elements */
         .form-input, .form-select, .form-textarea {
             width: 100%; padding: 0.5rem 0.75rem;
             border: 1px solid var(--gray-300); border-radius: var(--radius-sm);
@@ -310,7 +323,6 @@
         .form-textarea { resize: vertical; min-height: 60px; }
         .form-label { display: block; font-size: 0.813rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.3125rem; }
 
-        /* Empty state */
         .empty-state { text-align: center; padding: 3rem 1rem; color: var(--gray-400); }
         .empty-state i { font-size: 3.5rem; display: block; margin-bottom: 0.75rem; opacity: 0.5; }
         .empty-state h3 { font-family: 'Space Grotesk', sans-serif; color: var(--gray-500); margin-bottom: 0.5rem; }
@@ -330,7 +342,7 @@
         @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes toastOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 
-        /* Preview Modal */
+        /* Modal */
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.5);
             backdrop-filter: blur(4px); z-index: 200;
@@ -363,7 +375,9 @@
         @media (max-width: 768px) {
             .editor-area { padding: 0.75rem; }
             .block-palette { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; }
-            .main-tabs { overflow-x: auto; }
+            .main-tabs { overflow-x: auto; padding: 0 0.5rem; }
+            .analysis-stats { grid-template-columns: repeat(2, 1fr); }
+            .card-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -375,8 +389,8 @@
     <header class="topbar">
         <div class="topbar-left">
             <a href="admin.html" class="topbar-back"><i class='bx bx-arrow-back'></i> Admin</a>
-            <input type="text" class="lesson-title-input" id="lessonTitleInput" placeholder="Untitled Lesson">
-            <span class="topbar-status draft" id="topbarStatus">Draft</span>
+            <input type="text" class="lesson-title-input" id="lessonTitleInput" placeholder="Untitled Lesson" style="display:none;">
+            <span class="topbar-status draft" id="topbarStatus" style="display:none;">Draft</span>
         </div>
         <div class="topbar-actions">
             <button class="btn btn-outline btn-sm" id="btnPreview" style="display:none;"><i class='bx bx-show'></i> Preview</button>
@@ -389,16 +403,18 @@
     <nav class="main-tabs" id="mainTabs">
         <button class="main-tab active" data-tab="create"><i class='bx bx-plus-circle'></i> Create New</button>
         <button class="main-tab" data-tab="manage"><i class='bx bx-folder'></i> Manage Lessons</button>
+        <button class="main-tab" data-tab="analysis"><i class='bx bx-bar-chart-square'></i> Analysis</button>
         <button class="main-tab" data-tab="editor" id="tabEditor" style="display:none;"><i class='bx bx-edit'></i> Editor</button>
     </nav>
 
-    <!-- ============ TAB: Create New ============ -->
+    <!-- ============ TAB PANELS ============ -->
+    
+    <!-- Create New -->
     <div class="tab-panel active" id="panelCreate">
         <div class="create-lesson-container">
             <div class="create-icon">📝</div>
             <h2>Create New Lesson</h2>
             <p>Start building an interactive learning experience</p>
-            
             <div style="text-align:left;">
                 <div class="form-group">
                     <label class="form-label">Lesson Title <span style="color:var(--danger);">*</span></label>
@@ -415,43 +431,66 @@
                 <div class="form-group">
                     <label class="form-label">View Type</label>
                     <div style="display:flex;gap:0.5rem;">
-                        <button class="btn btn-outline btn-sm active" id="optOnePage" onclick="selectViewOption('one-page')">📄 One Page</button>
-                        <button class="btn btn-outline btn-sm" id="optSections" onclick="selectViewOption('sections')">📑 Sections</button>
+                        <button class="btn btn-outline btn-sm active" id="optOnePage" data-view="one-page">📄 One Page</button>
+                        <button class="btn btn-outline btn-sm" id="optSections" data-view="sections">📑 Sections</button>
                     </div>
                 </div>
             </div>
-            
-            <button class="btn btn-primary" onclick="createNewLesson()" style="width:100%;justify-content:center;margin-top:1.5rem;padding:0.75rem;">
+            <button class="btn btn-primary" id="btnCreateLesson" style="width:100%;justify-content:center;margin-top:1.5rem;padding:0.75rem;">
                 <i class='bx bx-plus'></i> Create Lesson & Start Editing
             </button>
         </div>
     </div>
 
-    <!-- ============ TAB: Manage Lessons ============ -->
+    <!-- Manage Lessons -->
     <div class="tab-panel" id="panelManage">
-        <div style="max-width:800px;margin:2rem auto;padding:0 1rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
-                <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.25rem;">📚 All Lessons</h2>
-                <input type="text" class="form-input" id="lessonSearchInput" placeholder="🔍 Search lessons..." style="max-width:280px;">
+        <div class="panel-container">
+            <div class="panel-header-row">
+                <h2>📚 All Lessons</h2>
+                <input type="text" class="form-input search-input" id="lessonSearchInput" placeholder="🔍 Search lessons...">
             </div>
-            <div id="lessonList"></div>
+            <div class="card-grid" id="lessonCardGrid"></div>
         </div>
     </div>
 
-    <!-- ============ TAB: Editor ============ -->
+    <!-- Analysis -->
+    <div class="tab-panel" id="panelAnalysis">
+        <div class="panel-container">
+            <div class="panel-header-row"><h2>📊 Lesson Analysis</h2></div>
+            <div class="analysis-stats" id="analysisStats">
+                <div class="analysis-stat blue"><div class="stat-val" id="aTotalLessons">0</div><div class="stat-lbl">Total Lessons</div></div>
+                <div class="analysis-stat green"><div class="stat-val" id="aPublished">0</div><div class="stat-lbl">Published</div></div>
+                <div class="analysis-stat purple"><div class="stat-val" id="aTotalBlocks">0</div><div class="stat-lbl">Total Blocks</div></div>
+                <div class="analysis-stat orange"><div class="stat-val" id="aTotalDuration">0m</div><div class="stat-lbl">Total Duration</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+                <div class="panel" style="background:white;border:1px solid var(--gray-100);border-radius:var(--radius-lg);padding:1.25rem;">
+                    <h4 style="font-family:'Space Grotesk',sans-serif;margin-bottom:1rem;">📈 Block Type Distribution</h4>
+                    <div id="blockTypeChart"></div>
+                </div>
+                <div class="panel" style="background:white;border:1px solid var(--gray-100);border-radius:var(--radius-lg);padding:1.25rem;">
+                    <h4 style="font-family:'Space Grotesk',sans-serif;margin-bottom:1rem;">📋 Lesson Status Breakdown</h4>
+                    <div id="statusChart"></div>
+                </div>
+            </div>
+            <div style="margin-top:1.5rem;background:white;border:1px solid var(--gray-100);border-radius:var(--radius-lg);padding:1.25rem;">
+                <h4 style="font-family:'Space Grotesk',sans-serif;margin-bottom:1rem;">📋 Lessons by Module</h4>
+                <div id="moduleBreakdown"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Editor -->
     <div class="tab-panel" id="panelEditor">
         <div class="editor-area">
-            <!-- Block Palette -->
             <div class="block-palette" id="blockPalette">
-                <button class="palette-item" onclick="LessonBuilder.addBlock('text')"><i class='bx bx-text'></i> Text</button>
-                <button class="palette-item" onclick="LessonBuilder.addBlock('video')"><i class='bx bx-video'></i> Video</button>
-                <button class="palette-item" onclick="LessonBuilder.addBlock('remember')"><i class='bx bx-brain'></i> Remember</button>
-                <button class="palette-item" onclick="LessonBuilder.addBlock('question')"><i class='bx bx-help-circle'></i> Question</button>
-                <button class="palette-item" onclick="LessonBuilder.addBlock('image')"><i class='bx bx-image'></i> Image</button>
-                <button class="palette-item" onclick="LessonBuilder.addBlock('code')"><i class='bx bx-code-alt'></i> Code</button>
+                <button class="palette-item" data-block="text"><i class='bx bx-text'></i> Text</button>
+                <button class="palette-item" data-block="video"><i class='bx bx-video'></i> Video</button>
+                <button class="palette-item" data-block="remember"><i class='bx bx-brain'></i> Remember</button>
+                <button class="palette-item" data-block="question"><i class='bx bx-help-circle'></i> Question</button>
+                <button class="palette-item" data-block="image"><i class='bx bx-image'></i> Image</button>
+                <button class="palette-item" data-block="code"><i class='bx bx-code-alt'></i> Code</button>
             </div>
-
-            <!-- Blocks Canvas -->
             <div class="blocks-canvas" id="blocksCanvas"></div>
         </div>
     </div>
@@ -459,9 +498,9 @@
     <!-- Preview Modal -->
     <div class="modal-overlay" id="previewModal">
         <div class="modal">
-            <div class="modal-header"><h3 class="modal-title">📖 Lesson Preview</h3><button class="modal-close" onclick="LessonBuilder.closePreview()"><i class='bx bx-x'></i></button></div>
+            <div class="modal-header"><h3 class="modal-title">📖 Lesson Preview</h3><button class="modal-close" id="btnClosePreview"><i class='bx bx-x'></i></button></div>
             <div class="modal-body"><div id="previewContent" style="font-family:'Manrope',sans-serif;line-height:1.8;"></div></div>
-            <div class="modal-footer"><button class="btn btn-ghost" onclick="LessonBuilder.closePreview()">Close</button></div>
+            <div class="modal-footer"><button class="btn btn-ghost" id="btnClosePreview2">Close</button></div>
         </div>
     </div>
 
@@ -474,7 +513,7 @@
 
         const IMGBB_API_KEY = 'ba8023ca74166460c442e8e703d2a1b0';
 
-        // ============ UTILITY FUNCTIONS ============
+        // ============ UTILITIES ============
         const $ = id => document.getElementById(id);
         const toast = (msg, type = 'success') => {
             const c = $('toastContainer');
@@ -486,11 +525,94 @@
         };
         const showLoader = () => $('topLoader').classList.add('active');
         const hideLoader = () => $('topLoader').classList.remove('active');
+        const escHtml = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
 
-        // ============ MODULES DATA ============
+        // ============ GLOBAL DATA ============
         let allModules = [];
         let allLessons = [];
+        let selectedModuleId = '';
+        let selectedViewType = 'one-page';
 
+        // ============ TAB SWITCHING ============
+        function switchTab(tabName) {
+            document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            
+            const tabEl = document.querySelector(`.main-tab[data-tab="${tabName}"]`);
+            const panelEl = $(`panel${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+            
+            if (tabEl) tabEl.classList.add('active');
+            if (panelEl) panelEl.classList.add('active');
+            
+            const isEditor = tabName === 'editor';
+            ['btnPreview','btnSave','btnPublish','lessonTitleInput','topbarStatus'].forEach(id => {
+                const el = $(id);
+                if (el) el.style.display = isEditor ? '' : 'none';
+            });
+            
+            if (tabName === 'manage') loadManageTab();
+            if (tabName === 'analysis') loadAnalysisTab();
+        }
+
+        $('mainTabs').addEventListener('click', (e) => {
+            const tab = e.target.closest('.main-tab');
+            if (tab && tab.dataset.tab) switchTab(tab.dataset.tab);
+        });
+
+        // ============ MODULE SEARCH ============
+        function setupModuleSearch() {
+            const input = $('moduleSearchInput');
+            const dropdown = $('moduleDropdown');
+            if (!input || !dropdown) return;
+            
+            input.addEventListener('focus', () => { filterModules(input.value); dropdown.classList.add('show'); });
+            input.addEventListener('input', () => filterModules(input.value));
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('#moduleSearchContainer')) dropdown.classList.remove('show');
+            });
+        }
+
+        function filterModules(query) {
+            const dropdown = $('moduleDropdown');
+            if (!dropdown) return;
+            const filtered = query ? allModules.filter(m => 
+                m.name.toLowerCase().includes(query.toLowerCase()) ||
+                (m.courseName || '').toLowerCase().includes(query.toLowerCase())
+            ) : allModules;
+            
+            dropdown.innerHTML = filtered.length ? filtered.map(m => `
+                <div class="dropdown-item ${m.id === selectedModuleId ? 'selected' : ''}" 
+                     data-module-id="${m.id}" data-module-name="${escHtml(m.name)} (${escHtml(m.courseName||'No course')})">
+                    ${escHtml(m.name)} <span style="color:var(--gray-400);font-size:0.75rem;">(${escHtml(m.courseName||'No course')})</span>
+                </div>
+            `).join('') : '<div class="dropdown-item" style="color:var(--gray-400);">No modules found</div>';
+            
+            dropdown.classList.add('show');
+        }
+
+        $('moduleDropdown')?.addEventListener('click', (e) => {
+            const item = e.target.closest('.dropdown-item[data-module-id]');
+            if (item) {
+                selectedModuleId = item.dataset.moduleId;
+                $('selectedModuleId').value = selectedModuleId;
+                $('moduleSearchInput').value = item.dataset.moduleName;
+                $('moduleDropdown').classList.remove('show');
+            }
+        });
+
+        // View type selection
+        document.getElementById('optOnePage')?.addEventListener('click', function() {
+            selectedViewType = 'one-page';
+            this.classList.add('active');
+            $('optSections').classList.remove('active');
+        });
+        document.getElementById('optSections')?.addEventListener('click', function() {
+            selectedViewType = 'sections';
+            this.classList.add('active');
+            $('optOnePage').classList.remove('active');
+        });
+
+        // ============ DATA LOADING ============
         async function loadModules() {
             try {
                 const snap = await getDocs(query(collection(db, 'modules'), orderBy('order')));
@@ -501,178 +623,74 @@
             setupModuleSearch();
         }
 
-        async function loadLessons() {
+        async function loadAllLessons() {
             try {
                 const snap = await getDocs(query(collection(db, 'lessons'), orderBy('createdAt', 'desc')));
                 allLessons = snap.docs.map(d => ({ id: d.id, ...d.data() }));
             } catch (e) {
                 allLessons = JSON.parse(localStorage.getItem('ak_lessons') || '[]');
             }
-            renderLessonList();
         }
 
-        // ============ MODULE SEARCH ============
-        let selectedModuleId = '';
-        function setupModuleSearch() {
-            const input = $('moduleSearchInput');
-            const dropdown = $('moduleDropdown');
-            
-            input.addEventListener('focus', () => {
-                filterModules(input.value);
-                dropdown.classList.add('show');
-            });
-            
-            input.addEventListener('input', () => filterModules(input.value));
-            
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('#moduleSearchContainer')) {
-                    dropdown.classList.remove('show');
-                }
-            });
+        // ============ MANAGE TAB ============
+        async function loadManageTab() {
+            await loadAllLessons();
+            renderLessonCards();
         }
 
-        function filterModules(query) {
-            const dropdown = $('moduleDropdown');
-            const filtered = query ? allModules.filter(m => 
-                m.name.toLowerCase().includes(query.toLowerCase()) ||
-                (m.courseName || '').toLowerCase().includes(query.toLowerCase())
-            ) : allModules;
-            
-            dropdown.innerHTML = filtered.map(m => `
-                <div class="dropdown-item ${m.id === selectedModuleId ? 'selected' : ''}" 
-                     onclick="selectModule('${m.id}', '${m.name.replace(/'/g, "\\'")} (${(m.courseName||'').replace(/'/g, "\\'")})')">
-                    ${m.name} <span style="color:var(--gray-400);font-size:0.75rem;">(${m.courseName||'No course'})</span>
-                </div>
-            `).join('');
+        function renderLessonCards() {
+            const grid = $('lessonCardGrid');
+            if (!grid) return;
+            const query = ($('lessonSearchInput')?.value || '').toLowerCase();
+            let filtered = allLessons;
+            if (query) filtered = allLessons.filter(l => (l.title||'').toLowerCase().includes(query) || (l.moduleName||'').toLowerCase().includes(query));
             
             if (!filtered.length) {
-                dropdown.innerHTML = '<div class="dropdown-item" style="color:var(--gray-400);">No modules found</div>';
+                grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><i class="bx bx-folder-open"></i><h3>No Lessons Found</h3><p>Create a new lesson or adjust your search</p></div>';
+                return;
             }
             
-            dropdown.classList.add('show');
+            grid.innerHTML = filtered.map(l => {
+                const blocks = l.blockCount || ((l.pages||[]).reduce((s,p)=>s+(p.blocks?.length||0),0));
+                const statusClass = l.status==='published'?'success':l.status==='archived'?'danger':'';
+                return `
+                <div class="lesson-card" data-lesson-id="${l.id}">
+                    <div class="card-title">${escHtml(l.title||'Untitled')}</div>
+                    <div class="card-meta">${escHtml(l.moduleName||'No module')} • ${l.viewType==='sections'?'Sections':'One Page'}</div>
+                    <div class="card-stats">
+                        <span class="card-stat"><i class='bx bx-cube'></i> ${blocks} blocks</span>
+                        <span class="card-stat"><i class='bx bx-time'></i> ${l.estimatedTime||0} min</span>
+                        <span class="card-stat" style="color:${l.status==='published'?'var(--success)':'var(--gray-500)'};">${l.status||'draft'}</span>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-primary btn-sm edit-lesson-btn" data-id="${l.id}"><i class='bx bx-edit'></i> Edit</button>
+                        <button class="btn btn-ghost btn-sm view-lesson-btn" data-id="${l.id}"><i class='bx bx-show'></i></button>
+                        <button class="btn btn-danger btn-sm delete-lesson-btn" data-id="${l.id}"><i class='bx bx-trash'></i></button>
+                    </div>
+                </div>`;
+            }).join('');
         }
 
-        window.selectModule = (id, name) => {
-            selectedModuleId = id;
-            $('selectedModuleId').value = id;
-            $('moduleSearchInput').value = name;
-            $('moduleDropdown').classList.remove('show');
-        };
+        $('lessonSearchInput')?.addEventListener('input', renderLessonCards);
 
-        // ============ VIEW OPTION ============
-        let selectedViewType = 'one-page';
-        window.selectViewOption = (type) => {
-            selectedViewType = type;
-            $('optOnePage').classList.toggle('active', type === 'one-page');
-            $('optSections').classList.toggle('active', type === 'sections');
-        };
-
-        // ============ TAB SWITCHING ============
-        function switchTab(tabName) {
-            document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        // Manage tab button clicks (event delegation)
+        $('lessonCardGrid')?.addEventListener('click', async (e) => {
+            const card = e.target.closest('.lesson-card');
+            if (!card) return;
+            const id = card.dataset.lessonId;
             
-            const tabMap = {
-                'create': { tab: document.querySelector('[data-tab="create"]'), panel: $('panelCreate') },
-                'manage': { tab: document.querySelector('[data-tab="manage"]'), panel: $('panelManage') },
-                'editor': { tab: $('tabEditor'), panel: $('panelEditor') }
-            };
-            
-            const target = tabMap[tabName];
-            if (target && target.tab && target.panel) {
-                target.tab.classList.add('active');
-                target.panel.classList.add('active');
-            }
-            
-            if (tabName === 'manage') loadLessons();
-            
-            // Show/hide topbar buttons
-            const isEditor = tabName === 'editor';
-            $('btnPreview').style.display = isEditor ? '' : 'none';
-            $('btnSave').style.display = isEditor ? '' : 'none';
-            $('btnPublish').style.display = isEditor ? '' : 'none';
-            $('lessonTitleInput').style.display = isEditor ? '' : 'none';
-            $('topbarStatus').style.display = isEditor ? '' : 'none';
-        }
-
-        document.getElementById('mainTabs').addEventListener('click', (e) => {
-            const tab = e.target.closest('.main-tab');
-            if (tab) {
-                const tabName = tab.dataset.tab;
-                if (tabName) switchTab(tabName);
+            if (e.target.closest('.edit-lesson-btn')) {
+                await editExistingLesson(id);
+            } else if (e.target.closest('.view-lesson-btn')) {
+                previewExistingLesson(id);
+            } else if (e.target.closest('.delete-lesson-btn')) {
+                deleteLessonConfirm(id);
+            } else {
+                await editExistingLesson(id);
             }
         });
 
-        // ============ CREATE NEW LESSON ============
-        window.createNewLesson = () => {
-            const title = $('createLessonTitle').value.trim();
-            
-            if (!title) {
-                toast('Please enter a lesson title', 'error');
-                $('createLessonTitle').focus();
-                return;
-            }
-            if (!selectedModuleId) {
-                toast('Please select a module', 'error');
-                $('moduleSearchInput').focus();
-                return;
-            }
-            
-            // Initialize the Lesson Builder
-            LessonBuilder.init({
-                title: title,
-                moduleId: selectedModuleId,
-                viewType: selectedViewType,
-                blocks: [],
-                pages: [{ blocks: [] }],
-                status: 'draft',
-                lessonId: null
-            });
-            
-            switchTab('editor');
-            toast('Lesson created! Start adding blocks.', 'success');
-        };
-
-        // ============ MANAGE LESSONS ============
-        function renderLessonList() {
-            const container = $('lessonList');
-            const searchQuery = ($('lessonSearchInput')?.value || '').toLowerCase();
-            
-            let filtered = allLessons;
-            if (searchQuery) {
-                filtered = allLessons.filter(l => 
-                    (l.title || '').toLowerCase().includes(searchQuery) ||
-                    (l.moduleName || '').toLowerCase().includes(searchQuery)
-                );
-            }
-            
-            if (!filtered.length) {
-                container.innerHTML = '<div class="empty-state"><i class="bx bx-folder-open"></i><h3>No Lessons Found</h3><p>Create your first lesson or adjust search</p></div>';
-                return;
-            }
-            
-            container.innerHTML = filtered.map(l => `
-                <div class="lesson-list-item" onclick="editExistingLesson('${l.id}')">
-                    <div style="width:40px;height:40px;border-radius:var(--radius-sm);background:var(--primary-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                        <i class='bx bx-book-open' style="color:var(--primary);"></i>
-                    </div>
-                    <div class="lesson-info">
-                        <div class="lesson-name">${escapeHtml(l.title || 'Untitled')}</div>
-                        <div class="lesson-meta">
-                            ${l.moduleName || 'No module'} • ${l.viewType === 'sections' ? 'Sections' : 'One Page'} • 
-                            ${l.blockCount || 0} blocks • ${l.estimatedTime || 0} min • 
-                            <span style="color:${l.status==='published'?'var(--success)':'var(--gray-500)'};">${l.status||'draft'}</span>
-                        </div>
-                    </div>
-                    <div style="display:flex;gap:0.25rem;">
-                        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();viewLesson('${l.id}')" title="View"><i class='bx bx-show'></i></button>
-                        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();deleteLessonConfirm('${l.id}')" title="Delete" style="color:var(--danger);"><i class='bx bx-trash'></i></button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        window.editExistingLesson = async (id) => {
+        async function editExistingLesson(id) {
             showLoader();
             try {
                 const snap = await getDoc(doc(db, 'lessons', id));
@@ -694,71 +712,140 @@
                 toast('Failed to load lesson', 'error');
             }
             hideLoader();
-        };
+        }
 
-        window.viewLesson = (id) => {
-            localStorage.setItem('ak_current_lesson', id);
-            // Reload in view mode
-        };
+        function previewExistingLesson(id) {
+            const lesson = allLessons.find(l => l.id === id);
+            if (!lesson) return;
+            const blocks = lesson.pages?.[0]?.blocks || [];
+            let html = `<h1 style="font-family:'Space Grotesk',sans-serif;">${escHtml(lesson.title||'Untitled')}</h1>`;
+            blocks.forEach(b => {
+                html += '<div style="padding:1rem;border:1px solid var(--gray-200);border-radius:8px;margin-bottom:0.75rem;">';
+                if (b.type==='text') html += b.content||'<p>Empty</p>';
+                if (b.type==='video') html += b.url?'<div style="background:#111;color:#fff;padding:2rem;text-align:center;">📹 Video</div>':'<p>No video</p>';
+                if (b.type==='remember') html += `<div style="background:var(--warning-bg);padding:1rem;border-radius:8px;"><strong>🧠</strong> ${escHtml(b.text||'')}</div>`;
+                if (b.type==='question') html += `<div style="background:var(--purple-bg);padding:1rem;border-radius:8px;"><strong>❓ ${escHtml(b.question||'')}</strong></div>`;
+                if (b.type==='image') html += b.url?`<img src="${b.url}" style="max-width:100%;border-radius:8px;">`:'<p>No image</p>';
+                if (b.type==='code') html += `<pre style="background:#1e1e2e;color:#cdd6f4;padding:1rem;border-radius:8px;">${escHtml(b.code||'')}</pre>`;
+                html += '</div>';
+            });
+            $('previewContent').innerHTML = html;
+            $('previewModal').classList.add('show');
+        }
 
-        window.deleteLessonConfirm = async (id) => {
+        async function deleteLessonConfirm(id) {
             if (!confirm('Delete this lesson permanently?')) return;
             showLoader();
             try {
                 await deleteDoc(doc(db, 'lessons', id));
                 allLessons = allLessons.filter(l => l.id !== id);
-                renderLessonList();
-                toast('Lesson deleted!', 'success');
+                localStorage.setItem('ak_lessons', JSON.stringify(allLessons));
+                renderLessonCards();
+                toast('Deleted!', 'success');
             } catch (e) {
                 allLessons = allLessons.filter(l => l.id !== id);
                 localStorage.setItem('ak_lessons', JSON.stringify(allLessons));
-                renderLessonList();
+                renderLessonCards();
                 toast('Deleted locally', 'warning');
             }
             hideLoader();
-        };
-
-        $('lessonSearchInput')?.addEventListener('input', renderLessonList);
-
-        function escapeHtml(s) {
-            const d = document.createElement('div');
-            d.textContent = s || '';
-            return d.innerHTML;
         }
 
-        // ============ LESSON BUILDER (Namespaced) ============
+        // ============ ANALYSIS TAB ============
+        async function loadAnalysisTab() {
+            await loadAllLessons();
+            
+            const total = allLessons.length;
+            const published = allLessons.filter(l => l.status === 'published').length;
+            const totalBlocks = allLessons.reduce((s, l) => s + (l.blockCount || ((l.pages||[]).reduce((sp,p)=>sp+(p.blocks?.length||0),0))), 0);
+            const totalDuration = allLessons.reduce((s, l) => s + (l.estimatedTime || 0), 0);
+            
+            $('aTotalLessons').textContent = total;
+            $('aPublished').textContent = published;
+            $('aTotalBlocks').textContent = totalBlocks;
+            $('aTotalDuration').textContent = totalDuration + 'm';
+            
+            // Block type distribution
+            const blockTypes = { text: 0, video: 0, remember: 0, question: 0, image: 0, code: 0 };
+            allLessons.forEach(l => {
+                (l.pages || []).forEach(p => {
+                    (p.blocks || []).forEach(b => {
+                        if (blockTypes[b.type] !== undefined) blockTypes[b.type]++;
+                    });
+                });
+            });
+            
+            const maxBlocks = Math.max(...Object.values(blockTypes), 1);
+            const labels = { text: 'Text', video: 'Video', remember: 'Remember', question: 'Question', image: 'Image', code: 'Code' };
+            const colors = { text: 'blue', video: 'red', remember: 'yellow', question: 'purple', image: 'teal', code: 'pink' };
+            
+            $('blockTypeChart').innerHTML = Object.entries(blockTypes).map(([type, count]) => `
+                <div style="margin-bottom:0.75rem;">
+                    <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.25rem;">
+                        <span>${labels[type]}</span><span style="font-weight:600;">${count}</span>
+                    </div>
+                    <div class="progress-bar-sm"><div class="fill ${colors[type]}" style="width:${(count/maxBlocks)*100}%;"></div></div>
+                </div>
+            `).join('');
+            
+            // Status breakdown
+            const draftCount = allLessons.filter(l => !l.status || l.status === 'draft').length;
+            const archivedCount = allLessons.filter(l => l.status === 'archived').length;
+            $('statusChart').innerHTML = `
+                <div style="margin-bottom:0.75rem;"><div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.25rem;"><span>✅ Published</span><span style="font-weight:600;">${published}</span></div><div class="progress-bar-sm"><div class="fill green" style="width:${total?(published/total)*100:0}%;"></div></div></div>
+                <div style="margin-bottom:0.75rem;"><div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.25rem;"><span>📝 Draft</span><span style="font-weight:600;">${draftCount}</span></div><div class="progress-bar-sm"><div class="fill blue" style="width:${total?(draftCount/total)*100:0}%;"></div></div></div>
+                <div style="margin-bottom:0.75rem;"><div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.25rem;"><span>📦 Archived</span><span style="font-weight:600;">${archivedCount}</span></div><div class="progress-bar-sm"><div class="fill purple" style="width:${total?(archivedCount/total)*100:0}%;"></div></div></div>
+            `;
+            
+            // Module breakdown
+            const moduleMap = {};
+            allLessons.forEach(l => {
+                const key = l.moduleName || 'No Module';
+                if (!moduleMap[key]) moduleMap[key] = 0;
+                moduleMap[key]++;
+            });
+            
+            $('moduleBreakdown').innerHTML = Object.entries(moduleMap).sort((a,b) => b[1] - a[1]).map(([name, count]) => `
+                <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0;border-bottom:1px solid var(--gray-100);">
+                    <span style="flex:1;font-size:0.813rem;">${escHtml(name)}</span>
+                    <span class="badge" style="background:var(--primary-bg);color:var(--primary);padding:0.1875rem 0.5rem;border-radius:100px;font-size:0.688rem;font-weight:600;">${count} lessons</span>
+                </div>
+            `).join('') || '<p style="color:var(--gray-400);font-size:0.813rem;">No data yet</p>';
+        }
+
+        // ============ CREATE LESSON ============
+        $('btnCreateLesson').addEventListener('click', () => {
+            const title = $('createLessonTitle').value.trim();
+            if (!title) { toast('Please enter a lesson title', 'error'); $('createLessonTitle').focus(); return; }
+            if (!selectedModuleId) { toast('Please select a module', 'error'); $('moduleSearchInput').focus(); return; }
+            
+            LessonBuilder.init({
+                title, moduleId: selectedModuleId,
+                viewType: selectedViewType,
+                blocks: [], pages: [{ blocks: [] }],
+                status: 'draft', lessonId: null
+            });
+            switchTab('editor');
+            toast('Lesson created! Start adding blocks.', 'success');
+        });
+
+        // ============ LESSON BUILDER ============
         const LessonBuilder = {
-            title: '',
-            moduleId: '',
-            viewType: 'one-page',
-            status: 'draft',
-            blocks: [],
-            pages: [{ blocks: [] }],
-            currentPage: 0,
-            lessonId: null,
-            focusedBlockId: null,
-            autoSaveTimer: null,
-            lastDeleted: null,
+            title: '', moduleId: '', viewType: 'one-page', status: 'draft',
+            blocks: [], pages: [{ blocks: [] }], currentPage: 0,
+            lessonId: null, focusedBlockId: null, autoSaveTimer: null, lastDeleted: null,
 
             init(data) {
-                this.title = data.title;
-                this.moduleId = data.moduleId;
-                this.viewType = data.viewType;
-                this.status = data.status;
-                this.blocks = data.blocks || [];
-                this.pages = data.pages || [{ blocks: [] }];
-                this.currentPage = 0;
-                this.lessonId = data.lessonId;
+                this.title = data.title; this.moduleId = data.moduleId;
+                this.viewType = data.viewType; this.status = data.status;
+                this.blocks = data.blocks || []; this.pages = data.pages || [{ blocks: [] }];
+                this.currentPage = 0; this.lessonId = data.lessonId;
                 this.focusedBlockId = null;
                 
                 $('lessonTitleInput').value = this.title;
                 $('topbarStatus').textContent = this.status;
                 $('topbarStatus').className = 'topbar-status ' + this.status;
-                
                 this.renderBlocks();
-                this.updateStats();
-                $('lessonTitleInput').style.display = '';
-                $('topbarStatus').style.display = '';
             },
 
             getBlocks() {
@@ -766,25 +853,26 @@
             },
 
             addBlock(type) {
-                const block = this.createBlockData(type);
-                const blocks = this.getBlocks();
-                blocks.push(block);
+                const block = this._createBlock(type);
+                this.getBlocks().push(block);
                 this.focusedBlockId = block.id;
                 this.renderBlocks();
-                this.updateStats();
-                this.autoSave();
-                this.scrollToBlock(block.id);
+                this._autoSave();
+                setTimeout(() => {
+                    const el = document.getElementById('block-' + block.id);
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
                 toast('Block added!', 'success');
             },
 
-            createBlockData(type) {
+            _createBlock(type) {
                 const id = 'b_' + Date.now();
                 const base = { id, type };
                 switch (type) {
                     case 'text': return { ...base, content: '' };
                     case 'video': return { ...base, url: '' };
                     case 'remember': return { ...base, text: '' };
-                    case 'question': return { ...base, question: '', questionType: 'multiple-choice', options: ['', '', '', ''], correctAnswer: 0, points: 10 };
+                    case 'question': return { ...base, question: '', questionType: 'multiple-choice', options: ['','','',''], correctAnswer: 0, points: 10 };
                     case 'image': return { ...base, url: '', alt: '' };
                     case 'code': return { ...base, code: '', language: 'javascript', caption: '' };
                     default: return base;
@@ -795,345 +883,376 @@
                 const canvas = $('blocksCanvas');
                 if (!canvas) return;
                 const blocks = this.getBlocks();
-                
                 if (!blocks.length) {
-                    canvas.innerHTML = `
-                        <div class="empty-state">
-                            <i class='bx bx-cube'></i>
-                            <h3>Empty Canvas</h3>
-                            <p>Click a block type above to start building</p>
-                        </div>`;
+                    canvas.innerHTML = '<div class="empty-state"><i class="bx bx-cube"></i><h3>Empty Canvas</h3><p>Click a block type above to start building</p></div>';
                     return;
                 }
-                
-                canvas.innerHTML = blocks.map((block, i) => this.renderBlockCard(block, i)).join('');
+                canvas.innerHTML = blocks.map((b, i) => this._renderCard(b, i)).join('');
             },
 
-            renderBlockCard(block, index) {
+            _renderCard(block, index) {
+                const icons = { text:'bx-text',video:'bx-video',remember:'bx-brain',question:'bx-help-circle',image:'bx-image',code:'bx-code-alt' };
+                const labels = { text:'Rich Text',video:'Video',remember:'Remember',question:'Question',image:'Image',code:'Code' };
                 const isFocused = this.focusedBlockId === block.id;
-                const icons = { text: 'bx-text', video: 'bx-video', remember: 'bx-brain', question: 'bx-help-circle', image: 'bx-image', code: 'bx-code-alt' };
-                const labels = { text: 'Rich Text', video: 'Video', remember: 'Remember', question: 'Question', image: 'Image', code: 'Code' };
+                const bid = block.id;
                 
-                return `
-                <div class="block-card ${isFocused ? 'focused' : ''}" id="block-${block.id}"
-                     onclick="LessonBuilder.focusBlock('${block.id}')">
+                return `<div class="block-card ${isFocused?'focused':''}" id="block-${bid}" data-block-id="${bid}">
                     <div class="block-header">
                         <i class='bx bx-grid-vertical block-drag'></i>
-                        <div class="block-type-icon ${block.type}"><i class='bx ${icons[block.type] || 'bx-cube'}'></i></div>
-                        <span class="block-type-label">${labels[block.type] || block.type}</span>
-                        <span class="block-number">Block ${index + 1}</span>
+                        <div class="block-type-icon ${block.type}"><i class='bx ${icons[block.type]||'bx-cube'}'></i></div>
+                        <span class="block-type-label">${labels[block.type]||block.type}</span>
+                        <span class="block-number">Block ${index+1}</span>
                         <div class="block-actions">
-                            <button class="block-action-btn" onclick="event.stopPropagation();LessonBuilder.toggleMinimize('${block.id}')"><i class='bx bx-chevron-up'></i></button>
-                            <button class="block-action-btn" onclick="event.stopPropagation();LessonBuilder.duplicateBlock('${block.id}')"><i class='bx bx-copy'></i></button>
-                            <button class="block-action-btn danger" onclick="event.stopPropagation();LessonBuilder.deleteBlock('${block.id}')"><i class='bx bx-trash'></i></button>
+                            <button class="block-action-btn minimize-btn" data-id="${bid}"><i class='bx bx-chevron-up'></i></button>
+                            <button class="block-action-btn duplicate-btn" data-id="${bid}"><i class='bx bx-copy'></i></button>
+                            <button class="block-action-btn danger delete-btn" data-id="${bid}"><i class='bx bx-trash'></i></button>
                         </div>
                     </div>
-                    <div class="block-body" id="body-${block.id}">
-                        ${this.renderBlockContent(block)}
-                    </div>
+                    <div class="block-body">${this._renderContent(block)}</div>
                 </div>`;
             },
 
-            renderBlockContent(block) {
+            _renderContent(block) {
                 const bid = block.id;
                 switch (block.type) {
-                    case 'text': return `
-                        <div class="rich-editor">
-                            <div class="rich-toolbar">
-                                <button class="rich-tool-btn" onclick="LessonBuilder.execCmd('bold','${bid}')"><b>B</b></button>
-                                <button class="rich-tool-btn" onclick="LessonBuilder.execCmd('italic','${bid}')"><i>I</i></button>
-                                <button class="rich-tool-btn" onclick="LessonBuilder.execCmd('underline','${bid}')"><u>U</u></button>
-                                <span style="width:1px;background:var(--gray-300);margin:0 0.25rem;"></span>
-                                <button class="rich-tool-btn" onclick="LessonBuilder.execCmd('formatBlock','${bid}','h2')">H2</button>
-                                <button class="rich-tool-btn" onclick="LessonBuilder.execCmd('formatBlock','${bid}','h3')">H3</button>
-                                <button class="rich-tool-btn" onclick="LessonBuilder.execCmd('formatBlock','${bid}','p')">P</button>
-                                <span style="width:1px;background:var(--gray-300);margin:0 0.25rem;"></span>
-                                <button class="rich-tool-btn" onclick="LessonBuilder.execCmd('insertUnorderedList','${bid}')"><i class='bx bx-list-ul'></i></button>
-                                <button class="rich-tool-btn" onclick="LessonBuilder.execCmd('insertOrderedList','${bid}')"><i class='bx bx-list-ol'></i></button>
-                                <button class="rich-tool-btn" onclick="LessonBuilder.execCmd('formatBlock','${bid}','blockquote')"><i class='bx bx-quote-right'></i></button>
-                                <span style="width:1px;background:var(--gray-300);margin:0 0.25rem;"></span>
-                                <button class="rich-tool-btn" onclick="LessonBuilder.insertLink('${bid}')"><i class='bx bx-link'></i></button>
-                            </div>
-                            <div class="rich-content" id="rich-${bid}" contenteditable="true"
-                                 oninput="LessonBuilder.updateBlockField('${bid}','content',this.innerHTML)"
-                                 onfocus="LessonBuilder.focusBlock('${bid}')">${block.content || ''}</div>
-                        </div>`;
-                    case 'video': return `
-                        <input type="text" class="form-input" value="${block.url||''}" placeholder="YouTube URL..." 
-                               onchange="LessonBuilder.updateBlockField('${bid}','url',this.value);LessonBuilder.renderBlocks();">
-                        ${block.url ? `<div style="margin-top:0.75rem;position:relative;padding-bottom:56.25%;height:0;background:var(--gray-900);border-radius:var(--radius);overflow:hidden;"><iframe src="https://www.youtube.com/embed/${LessonBuilder.getYouTubeId(block.url)||''}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allowfullscreen></iframe></div>` : ''}`;
-                    case 'remember': return `
-                        <div style="background:var(--warning-bg);border:1px solid #FCD34D;border-radius:var(--radius);padding:1rem;">
-                            <label style="font-weight:700;font-size:0.75rem;color:#D97706;display:block;margin-bottom:0.5rem;">🧠 Key Point</label>
-                            <textarea class="form-textarea" onchange="LessonBuilder.updateBlockField('${bid}','text',this.value)" rows="3">${block.text||''}</textarea>
-                        </div>`;
-                    case 'question': return `
-                        <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;">
-                            <select class="form-select" onchange="LessonBuilder.updateBlockField('${bid}','questionType',this.value);LessonBuilder.renderBlocks();" style="width:180px;">
-                                <option value="multiple-choice" ${block.questionType==='multiple-choice'?'selected':''}>Multiple Choice</option>
-                                <option value="boolean" ${block.questionType==='boolean'?'selected':''}>True/False</option>
-                            </select>
-                            <input type="number" class="form-input" value="${block.points||10}" onchange="LessonBuilder.updateBlockField('${bid}','points',parseInt(this.value)||0)" style="width:80px;" min="0" placeholder="Points">
-                        </div>
-                        <input type="text" class="form-input" value="${block.question||''}" onchange="LessonBuilder.updateBlockField('${bid}','question',this.value)" placeholder="Enter question..." style="margin-bottom:0.75rem;font-weight:600;">
-                        ${block.questionType === 'boolean' ? `
-                            <div style="display:flex;gap:0.5rem;">
-                                <button class="btn btn-outline btn-sm ${block.correctAnswer===true?'active':''}" style="flex:1;${block.correctAnswer===true?'background:var(--success-bg);border-color:var(--success);':''}" onclick="LessonBuilder.updateBlockField('${bid}','correctAnswer',true);LessonBuilder.renderBlocks();">✅ True</button>
-                                <button class="btn btn-outline btn-sm ${block.correctAnswer===false?'active':''}" style="flex:1;${block.correctAnswer===false?'background:var(--success-bg);border-color:var(--success);':''}" onclick="LessonBuilder.updateBlockField('${bid}','correctAnswer',false);LessonBuilder.renderBlocks();">❌ False</button>
-                            </div>` : `
-                            ${(block.options||['','','','']).map((opt,i) => `
-                                <div style="display:flex;align-items:center;gap:0.5rem;padding:0.375rem 0.75rem;border:1px solid ${block.correctAnswer===i?'var(--success)':'var(--gray-200)'};border-radius:var(--radius-sm);margin-bottom:0.25rem;background:${block.correctAnswer===i?'var(--success-bg)':'white'};cursor:pointer;" onclick="LessonBuilder.updateBlockField('${bid}','correctAnswer',${i});LessonBuilder.renderBlocks();">
-                                    <div style="width:18px;height:18px;border-radius:50%;border:2px solid ${block.correctAnswer===i?'var(--success)':'var(--gray-300)'};display:flex;align-items:center;justify-content:center;flex-shrink:0;">${block.correctAnswer===i?'✓':''}</div>
-                                    <input class="form-input" value="${opt}" placeholder="Option ${String.fromCharCode(65+i)}" onchange="LessonBuilder.updateBlockOption('${bid}',${i},this.value)" onclick="event.stopPropagation();" style="border:none;padding:0.25rem;flex:1;">
-                                    <span style="font-size:0.688rem;color:var(--gray-400);">${String.fromCharCode(65+i)}</span>
-                                </div>
-                            `).join('')}
-                            <div style="font-size:0.688rem;color:var(--gray-400);margin-top:0.25rem;">Click option row to mark as correct</div>`}`;
-                    case 'image': return `
-                        <input type="file" accept="image/*" style="display:none;" id="imgfile-${bid}" onchange="LessonBuilder.uploadImage('${bid}',this)">
-                        <div class="form-input" style="text-align:center;cursor:pointer;padding:1.5rem;border:2px dashed var(--gray-300);border-radius:var(--radius);" onclick="document.getElementById('imgfile-${bid}').click()">
-                            <i class='bx bx-cloud-upload' style="font-size:2rem;color:var(--gray-400);"></i>
-                            <p style="font-size:0.75rem;color:var(--gray-500);">Click to upload</p>
-                        </div>
-                        <input type="text" class="form-input" value="${block.url||''}" onchange="LessonBuilder.updateBlockField('${bid}','url',this.value);LessonBuilder.renderBlocks();" placeholder="Or paste URL..." style="margin-top:0.5rem;">
-                        <input type="text" class="form-input" value="${block.alt||''}" onchange="LessonBuilder.updateBlockField('${bid}','alt',this.value)" placeholder="Caption" style="margin-top:0.375rem;">
-                        ${block.url?`<img src="${block.url}" style="max-width:100%;max-height:300px;margin-top:0.75rem;border-radius:var(--radius);">`:''}`;
-                    case 'code': return `
-                        <select class="form-select" onchange="LessonBuilder.updateBlockField('${bid}','language',this.value)" style="width:160px;margin-bottom:0.5rem;">
-                            <option value="javascript" ${block.language==='javascript'?'selected':''}>JavaScript</option>
-                            <option value="python" ${block.language==='python'?'selected':''}>Python</option>
-                            <option value="html" ${block.language==='html'?'selected':''}>HTML</option>
-                            <option value="css" ${block.language==='css'?'selected':''}>CSS</option>
-                        </select>
-                        <textarea class="form-textarea" onchange="LessonBuilder.updateBlockField('${bid}','code',this.value)" rows="5" style="font-family:'JetBrains Mono',monospace;font-size:0.813rem;background:#1e1e2e;color:#cdd6f4;">${block.code||''}</textarea>
-                        <input type="text" class="form-input" value="${block.caption||''}" onchange="LessonBuilder.updateBlockField('${bid}','caption',this.value)" placeholder="Caption" style="margin-top:0.375rem;">`;
+                    case 'text': return `<div class="rich-editor"><div class="rich-toolbar">
+                        <button class="rich-tool-btn rich-cmd" data-cmd="bold" data-id="${bid}"><b>B</b></button>
+                        <button class="rich-tool-btn rich-cmd" data-cmd="italic" data-id="${bid}"><i>I</i></button>
+                        <button class="rich-tool-btn rich-cmd" data-cmd="underline" data-id="${bid}"><u>U</u></button>
+                        <span style="width:1px;background:var(--gray-300);margin:0 0.25rem;"></span>
+                        <button class="rich-tool-btn rich-cmd" data-cmd="formatBlock" data-id="${bid}" data-val="h2">H2</button>
+                        <button class="rich-tool-btn rich-cmd" data-cmd="formatBlock" data-id="${bid}" data-val="h3">H3</button>
+                        <button class="rich-tool-btn rich-cmd" data-cmd="formatBlock" data-id="${bid}" data-val="p">P</button>
+                        <span style="width:1px;background:var(--gray-300);margin:0 0.25rem;"></span>
+                        <button class="rich-tool-btn rich-cmd" data-cmd="insertUnorderedList" data-id="${bid}"><i class='bx bx-list-ul'></i></button>
+                        <button class="rich-tool-btn rich-cmd" data-cmd="insertOrderedList" data-id="${bid}"><i class='bx bx-list-ol'></i></button>
+                        <span style="width:1px;background:var(--gray-300);margin:0 0.25rem;"></span>
+                        <button class="rich-tool-btn link-btn" data-id="${bid}"><i class='bx bx-link'></i></button>
+                    </div><div class="rich-content" id="rich-${bid}" contenteditable="true">${block.content||''}</div></div>`;
+                    case 'video': return `<input type="text" class="form-input video-url-input" data-id="${bid}" value="${block.url||''}" placeholder="YouTube URL...">${block.url?`<div style="margin-top:0.75rem;position:relative;padding-bottom:56.25%;height:0;background:var(--gray-900);border-radius:var(--radius);overflow:hidden;"><iframe src="https://www.youtube.com/embed/${LessonBuilder._getYTId(block.url)||''}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allowfullscreen></iframe></div>`:''}`;
+                    case 'remember': return `<div style="background:var(--warning-bg);border:1px solid #FCD34D;border-radius:var(--radius);padding:1rem;"><label style="font-weight:700;font-size:0.75rem;color:#D97706;display:block;margin-bottom:0.5rem;">🧠 Key Point</label><textarea class="form-textarea remember-input" data-id="${bid}" rows="3">${block.text||''}</textarea></div>`;
+                    case 'question': return this._renderQuestionForm(block);
+                    case 'image': return `<input type="file" accept="image/*" style="display:none;" class="img-file-input" data-id="${bid}"><div style="text-align:center;cursor:pointer;padding:1.5rem;border:2px dashed var(--gray-300);border-radius:var(--radius);" class="img-upload-trigger" data-id="${bid}"><i class='bx bx-cloud-upload' style="font-size:2rem;color:var(--gray-400);"></i><p style="font-size:0.75rem;color:var(--gray-500);">Click to upload</p></div><input type="text" class="form-input img-url-input" data-id="${bid}" value="${block.url||''}" placeholder="Or paste URL..." style="margin-top:0.5rem;"><input type="text" class="form-input img-alt-input" data-id="${bid}" value="${block.alt||''}" placeholder="Caption" style="margin-top:0.375rem;">${block.url?`<img src="${block.url}" style="max-width:100%;max-height:300px;margin-top:0.75rem;border-radius:var(--radius);">`:''}`;
+                    case 'code': return `<select class="form-select code-lang-select" data-id="${bid}" style="width:160px;margin-bottom:0.5rem;"><option value="javascript" ${block.language==='javascript'?'selected':''}>JavaScript</option><option value="python" ${block.language==='python'?'selected':''}>Python</option><option value="html" ${block.language==='html'?'selected':''}>HTML</option><option value="css" ${block.language==='css'?'selected':''}>CSS</option></select><textarea class="form-textarea code-input" data-id="${bid}" rows="5" style="font-family:'JetBrains Mono',monospace;font-size:0.813rem;background:#1e1e2e;color:#cdd6f4;">${block.code||''}</textarea><input type="text" class="form-input code-caption-input" data-id="${bid}" value="${block.caption||''}" placeholder="Caption" style="margin-top:0.375rem;">`;
                     default: return '';
                 }
             },
 
-            focusBlock(id) {
-                this.focusedBlockId = id;
-                document.querySelectorAll('.block-card').forEach(c => c.classList.remove('focused'));
-                const card = document.getElementById('block-' + id);
-                if (card) card.classList.add('focused');
+            _renderQuestionForm(block) {
+                const bid = block.id;
+                return `<div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;">
+                    <select class="form-select q-type-select" data-id="${bid}" style="width:180px;"><option value="multiple-choice" ${block.questionType==='multiple-choice'?'selected':''}>Multiple Choice</option><option value="boolean" ${block.questionType==='boolean'?'selected':''}>True/False</option></select>
+                    <input type="number" class="form-input q-points-input" data-id="${bid}" value="${block.points||10}" style="width:80px;" min="0" placeholder="Points">
+                </div>
+                <input type="text" class="form-input q-text-input" data-id="${bid}" value="${block.question||''}" placeholder="Enter question..." style="margin-bottom:0.75rem;font-weight:600;">
+                ${block.questionType==='boolean'?`<div style="display:flex;gap:0.5rem;"><button class="btn btn-outline btn-sm bool-true-btn" data-id="${bid}" style="flex:1;${block.correctAnswer===true?'background:var(--success-bg);border-color:var(--success);':''}">✅ True</button><button class="btn btn-outline btn-sm bool-false-btn" data-id="${bid}" style="flex:1;${block.correctAnswer===false?'background:var(--success-bg);border-color:var(--success);':''}">❌ False</button></div>`:
+                (block.options||['','','','']).map((opt,i)=>`<div class="opt-row" data-id="${bid}" data-opt="${i}" style="display:flex;align-items:center;gap:0.5rem;padding:0.375rem 0.75rem;border:1px solid ${block.correctAnswer===i?'var(--success)':'var(--gray-200)'};border-radius:var(--radius-sm);margin-bottom:0.25rem;background:${block.correctAnswer===i?'var(--success-bg)':'white'};cursor:pointer;"><div style="width:18px;height:18px;border-radius:50%;border:2px solid ${block.correctAnswer===i?'var(--success)':'var(--gray-300)'};display:flex;align-items:center;justify-content:center;flex-shrink:0;">${block.correctAnswer===i?'✓':''}</div><input class="form-input opt-input" data-id="${bid}" data-opt="${i}" value="${opt}" placeholder="Option ${String.fromCharCode(65+i)}" style="border:none;padding:0.25rem;flex:1;"></div>`).join('')+`<div style="font-size:0.688rem;color:var(--gray-400);margin-top:0.25rem;">Click option row to mark as correct</div>`}`;
             },
 
-            scrollToBlock(id) {
-                setTimeout(() => {
-                    const el = document.getElementById('block-' + id);
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 100);
-            },
+            _getYTId(url) { if(!url)return null; const m=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\s]{11})/); return m?m[1]:null; },
 
-            toggleMinimize(id) {
-                document.getElementById('block-' + id)?.classList.toggle('minimized');
-            },
+            _findBlock(id) { return this.getBlocks().find(b => b.id === id); },
 
-            deleteBlock(id) {
-                const blocks = this.getBlocks();
-                const index = blocks.findIndex(b => b.id === id);
-                if (index === -1) return;
-                this.lastDeleted = { block: blocks.splice(index, 1)[0], index };
-                this.renderBlocks();
-                this.updateStats();
-                this.autoSave();
-                toast('Block deleted', 'info');
-            },
-
-            duplicateBlock(id) {
-                const blocks = this.getBlocks();
-                const index = blocks.findIndex(b => b.id === id);
-                if (index === -1) return;
-                const clone = JSON.parse(JSON.stringify(blocks[index]));
-                clone.id = 'b_' + Date.now();
-                blocks.splice(index + 1, 0, clone);
-                this.renderBlocks();
-                this.updateStats();
-                this.autoSave();
-                toast('Block duplicated!', 'success');
-            },
-
-            updateBlockField(id, field, value) {
-                const blocks = this.getBlocks();
-                const block = blocks.find(b => b.id === id);
-                if (block) {
-                    block[field] = value;
-                    this.autoSave();
-                }
-            },
-
-            updateBlockOption(id, optIndex, value) {
-                const blocks = this.getBlocks();
-                const block = blocks.find(b => b.id === id);
-                if (block && block.options) {
-                    block.options[optIndex] = value;
-                    this.autoSave();
-                }
-            },
-
-            execCmd(command, blockId, value = null) {
-                const richEl = document.getElementById('rich-' + blockId);
-                if (!richEl) return;
-                richEl.focus();
-                if (command === 'formatBlock') {
-                    document.execCommand(command, false, value);
-                } else if (command === 'insertUnorderedList' || command === 'insertOrderedList') {
-                    document.execCommand(command, false, null);
-                } else {
-                    document.execCommand(command, false, null);
-                }
-                this.updateBlockField(blockId, 'content', richEl.innerHTML);
-            },
-
-            insertLink(blockId) {
-                const richEl = document.getElementById('rich-' + blockId);
-                if (!richEl) return;
-                richEl.focus();
-                const url = prompt('Enter URL:', 'https://');
-                if (url) {
-                    document.execCommand('createLink', false, url);
-                    this.updateBlockField(blockId, 'content', richEl.innerHTML);
-                }
-            },
-
-            getYouTubeId(url) {
-                if (!url) return null;
-                const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\s]{11})/);
-                return match ? match[1] : null;
-            },
-
-            async uploadImage(blockId, input) {
-                const file = input.files?.[0];
-                if (!file) return;
-                showLoader();
-                try {
-                    const fd = new FormData(); fd.append('image', file);
-                    const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: fd });
-                    const data = await res.json();
-                    if (data.success) {
-                        this.updateBlockField(blockId, 'url', data.data.url);
-                        this.renderBlocks();
-                        toast('Image uploaded!', 'success');
-                    } else {
-                        toast('Upload failed', 'error');
-                    }
-                } catch (e) {
-                    toast('Upload error', 'error');
-                }
-                hideLoader();
-            },
-
-            updateStats() {
-                const blocks = this.getBlocks();
-                const totalPoints = blocks.filter(b => b.type === 'question').reduce((s, b) => s + (b.points || 0), 0);
-                // Update any stats display if needed
+            _autoSave() {
+                clearTimeout(this.autoSaveTimer);
+                this.autoSaveTimer = setTimeout(() => {
+                    const data = {
+                        title: $('lessonTitleInput')?.value || this.title,
+                        moduleId: this.moduleId, viewType: this.viewType, status: this.status,
+                        pages: this.viewType==='sections'?this.pages:[{blocks:this.blocks}],
+                        estimatedTime: this.getBlocks().length*5, blockCount: this.getBlocks().length
+                    };
+                    localStorage.setItem('ak_lesson_autosave', JSON.stringify(data));
+                }, 2000);
             },
 
             async save() {
                 showLoader();
                 $('topbarStatus').textContent = 'Saving...';
                 $('topbarStatus').className = 'topbar-status saving';
-                
                 const data = {
                     title: $('lessonTitleInput')?.value || this.title,
-                    moduleId: this.moduleId,
-                    viewType: this.viewType,
-                    status: this.status,
-                    pages: this.viewType === 'sections' ? this.pages : [{ blocks: this.blocks }],
-                    estimatedTime: this.getBlocks().length * 5,
-                    blockCount: this.getBlocks().length,
+                    moduleId: this.moduleId, viewType: this.viewType, status: this.status,
+                    pages: this.viewType==='sections'?this.pages:[{blocks:this.blocks}],
+                    estimatedTime: this.getBlocks().length*5, blockCount: this.getBlocks().length,
                     updatedAt: new Date().toISOString()
                 };
                 this.title = data.title;
-
                 try {
                     if (this.lessonId) {
-                        await updateDoc(doc(db, 'lessons', this.lessonId), { ...data, updatedAt: Timestamp.now() });
+                        await updateDoc(doc(db,'lessons',this.lessonId),{...data,updatedAt:Timestamp.now()});
                     } else {
-                        const ref = await addDoc(collection(db, 'lessons'), { ...data, createdAt: Timestamp.now(), updatedAt: Timestamp.now() });
+                        const ref = await addDoc(collection(db,'lessons'),{...data,createdAt:Timestamp.now(),updatedAt:Timestamp.now()});
                         this.lessonId = ref.id;
                         localStorage.setItem('ak_current_lesson', ref.id);
-                        window.history.replaceState({}, '', '?id=' + ref.id);
+                        window.history.replaceState({},'',`?id=${ref.id}`);
                     }
-                    localStorage.setItem('ak_lesson_backup', JSON.stringify(data));
+                    localStorage.setItem('ak_lesson_backup',JSON.stringify(data));
                     $('topbarStatus').textContent = this.status;
-                    $('topbarStatus').className = 'topbar-status ' + this.status;
-                    toast('Saved! 💾', 'success');
-                } catch (e) {
-                    localStorage.setItem('ak_lesson_backup', JSON.stringify(data));
-                    toast('Saved locally (offline)', 'warning');
+                    $('topbarStatus').className = 'topbar-status '+this.status;
+                    toast('Saved! 💾','success');
+                } catch(e) {
+                    localStorage.setItem('ak_lesson_backup',JSON.stringify(data));
+                    toast('Saved locally (offline)','warning');
                 }
                 hideLoader();
             },
 
-            publish() {
-                this.status = 'published';
-                $('topbarStatus').textContent = 'Published';
-                $('topbarStatus').className = 'topbar-status published';
-                this.save();
-                toast('Lesson published! 🚀', 'success');
-            },
+            publish() { this.status='published'; $('topbarStatus').textContent='Published'; $('topbarStatus').className='topbar-status published'; this.save(); toast('Published! 🚀','success'); },
 
             preview() {
                 const blocks = this.getBlocks();
-                let html = `<h1 style="font-family:'Space Grotesk',sans-serif;">${this.title}</h1>`;
-                blocks.forEach(b => {
-                    html += '<div style="padding:1rem;border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:0.75rem;">';
-                    if (b.type === 'text') html += b.content || '<p style="color:var(--gray-400);">Empty</p>';
-                    if (b.type === 'video') html += b.url ? '<div style="background:var(--gray-900);color:white;padding:2rem;text-align:center;">📹 Video</div>' : '<p>No video</p>';
-                    if (b.type === 'remember') html += `<div style="background:var(--warning-bg);padding:1rem;border-radius:var(--radius);"><strong>🧠</strong> ${b.text||''}</div>`;
-                    if (b.type === 'question') html += `<div style="background:var(--purple-bg);padding:1rem;border-radius:var(--radius);"><strong>❓ ${b.question||''}</strong><br>${b.options?.map((o,i)=>`${String.fromCharCode(65+i)}. ${o}`).join('<br>')||''}</div>`;
-                    if (b.type === 'image') html += b.url ? `<img src="${b.url}" style="max-width:100%;border-radius:var(--radius);">` : '<p>No image</p>';
-                    if (b.type === 'code') html += `<pre style="background:#1e1e2e;color:#cdd6f4;padding:1rem;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;">${b.code||''}</pre>`;
-                    html += '</div>';
+                let h = `<h1 style="font-family:'Space Grotesk',sans-serif;">${escHtml(this.title)}</h1>`;
+                blocks.forEach(b=>{
+                    h+='<div style="padding:1rem;border:1px solid var(--gray-200);border-radius:8px;margin-bottom:0.75rem;">';
+                    if(b.type==='text')h+=b.content||'<p>Empty</p>';
+                    if(b.type==='video')h+=b.url?'<div style="background:#111;color:#fff;padding:2rem;text-align:center;">📹 Video</div>':'<p>No video</p>';
+                    if(b.type==='remember')h+=`<div style="background:var(--warning-bg);padding:1rem;border-radius:8px;"><strong>🧠</strong> ${escHtml(b.text||'')}</div>`;
+                    if(b.type==='question')h+=`<div style="background:var(--purple-bg);padding:1rem;border-radius:8px;"><strong>❓ ${escHtml(b.question||'')}</strong></div>`;
+                    if(b.type==='image')h+=b.url?`<img src="${b.url}" style="max-width:100%;border-radius:8px;">`:'<p>No image</p>';
+                    if(b.type==='code')h+=`<pre style="background:#1e1e2e;color:#cdd6f4;padding:1rem;border-radius:8px;">${escHtml(b.code||'')}</pre>`;
+                    h+='</div>';
                 });
-                $('previewContent').innerHTML = html;
+                $('previewContent').innerHTML=h;
                 $('previewModal').classList.add('show');
-            },
-
-            closePreview() {
-                $('previewModal').classList.remove('show');
-            },
-
-            autoSave() {
-                clearTimeout(this.autoSaveTimer);
-                this.autoSaveTimer = setTimeout(() => {
-                    const data = {
-                        title: $('lessonTitleInput')?.value || this.title,
-                        moduleId: this.moduleId,
-                        viewType: this.viewType,
-                        status: this.status,
-                        pages: this.viewType === 'sections' ? this.pages : [{ blocks: this.blocks }],
-                        estimatedTime: this.getBlocks().length * 5,
-                        blockCount: this.getBlocks().length
-                    };
-                    localStorage.setItem('ak_lesson_autosave', JSON.stringify(data));
-                }, 2000);
             }
         };
 
-        // ============ TOPBAR BUTTONS ============
-        $('btnSave').addEventListener('click', () => LessonBuilder.save());
-        $('btnPublish').addEventListener('click', () => LessonBuilder.publish());
-        $('btnPreview').addEventListener('click', () => LessonBuilder.preview());
+        // ============ EVENT DELEGATION FOR EDITOR ============
+        document.addEventListener('click', async (e) => {
+            // Block palette
+            const paletteBtn = e.target.closest('.palette-item[data-block]');
+            if (paletteBtn) {
+                LessonBuilder.addBlock(paletteBtn.dataset.block);
+                return;
+            }
+            
+            // Block card focus
+            const blockCard = e.target.closest('.block-card[data-block-id]');
+            if (blockCard && !e.target.closest('button,input,textarea,select,[contenteditable]')) {
+                LessonBuilder.focusedBlockId = blockCard.dataset.blockId;
+                document.querySelectorAll('.block-card').forEach(c => c.classList.remove('focused'));
+                blockCard.classList.add('focused');
+                return;
+            }
+            
+            // Minimize button
+            const minBtn = e.target.closest('.minimize-btn');
+            if (minBtn) {
+                document.getElementById('block-' + minBtn.dataset.id)?.classList.toggle('minimized');
+                return;
+            }
+            
+            // Duplicate button
+            const dupBtn = e.target.closest('.duplicate-btn');
+            if (dupBtn) {
+                const id = dupBtn.dataset.id;
+                const blocks = LessonBuilder.getBlocks();
+                const idx = blocks.findIndex(b => b.id === id);
+                if (idx !== -1) {
+                    const clone = JSON.parse(JSON.stringify(blocks[idx]));
+                    clone.id = 'b_' + Date.now();
+                    blocks.splice(idx + 1, 0, clone);
+                    LessonBuilder.renderBlocks();
+                    LessonBuilder._autoSave();
+                    toast('Duplicated!', 'success');
+                }
+                return;
+            }
+            
+            // Delete button
+            const delBtn = e.target.closest('.delete-btn');
+            if (delBtn) {
+                const id = delBtn.dataset.id;
+                const blocks = LessonBuilder.getBlocks();
+                const idx = blocks.findIndex(b => b.id === id);
+                if (idx !== -1) {
+                    LessonBuilder.lastDeleted = { block: blocks.splice(idx, 1)[0], index: idx };
+                    LessonBuilder.renderBlocks();
+                    LessonBuilder._autoSave();
+                    toast('Block deleted', 'info');
+                }
+                return;
+            }
+            
+            // Rich text commands
+            const richCmd = e.target.closest('.rich-cmd');
+            if (richCmd) {
+                const { cmd, id, val } = richCmd.dataset;
+                const richEl = document.getElementById('rich-' + id);
+                if (richEl) {
+                    richEl.focus();
+                    document.execCommand(cmd, false, val || null);
+                    const block = LessonBuilder._findBlock(id);
+                    if (block) { block.content = richEl.innerHTML; LessonBuilder._autoSave(); }
+                }
+                return;
+            }
+            
+            // Link button
+            const linkBtn = e.target.closest('.link-btn');
+            if (linkBtn) {
+                const id = linkBtn.dataset.id;
+                const richEl = document.getElementById('rich-' + id);
+                if (richEl) {
+                    richEl.focus();
+                    const url = prompt('Enter URL:', 'https://');
+                    if (url) {
+                        document.execCommand('createLink', false, url);
+                        const block = LessonBuilder._findBlock(id);
+                        if (block) { block.content = richEl.innerHTML; LessonBuilder._autoSave(); }
+                    }
+                }
+                return;
+            }
+            
+            // Question: option row click (mark correct)
+            const optRow = e.target.closest('.opt-row');
+            if (optRow && !e.target.closest('input')) {
+                const id = optRow.dataset.id;
+                const optIdx = parseInt(optRow.dataset.opt);
+                const block = LessonBuilder._findBlock(id);
+                if (block) { block.correctAnswer = optIdx; LessonBuilder.renderBlocks(); LessonBuilder._autoSave(); }
+                return;
+            }
+            
+            // Boolean buttons
+            const boolTrue = e.target.closest('.bool-true-btn');
+            if (boolTrue) {
+                const block = LessonBuilder._findBlock(boolTrue.dataset.id);
+                if (block) { block.correctAnswer = true; LessonBuilder.renderBlocks(); LessonBuilder._autoSave(); }
+                return;
+            }
+            const boolFalse = e.target.closest('.bool-false-btn');
+            if (boolFalse) {
+                const block = LessonBuilder._findBlock(boolFalse.dataset.id);
+                if (block) { block.correctAnswer = false; LessonBuilder.renderBlocks(); LessonBuilder._autoSave(); }
+                return;
+            }
+            
+            // Image upload trigger
+            const imgTrigger = e.target.closest('.img-upload-trigger');
+            if (imgTrigger) {
+                const fileInput = document.querySelector(`.img-file-input[data-id="${imgTrigger.dataset.id}"]`);
+                if (fileInput) fileInput.click();
+                return;
+            }
+        });
 
-        // Title input
-        $('lessonTitleInput').addEventListener('input', function() {
+        // Input change events (delegated)
+        document.addEventListener('change', async (e) => {
+            const getBlock = (id) => LessonBuilder._findBlock(id);
+            
+            // Rich content
+            if (e.target.classList.contains('rich-content')) {
+                const id = e.target.id.replace('rich-', '');
+                const block = getBlock(id);
+                if (block) { block.content = e.target.innerHTML; LessonBuilder._autoSave(); }
+            }
+            
+            // Video URL
+            if (e.target.classList.contains('video-url-input')) {
+                const block = getBlock(e.target.dataset.id);
+                if (block) { block.url = e.target.value; LessonBuilder.renderBlocks(); LessonBuilder._autoSave(); }
+            }
+            
+            // Remember text
+            if (e.target.classList.contains('remember-input')) {
+                const block = getBlock(e.target.dataset.id);
+                if (block) { block.text = e.target.value; LessonBuilder._autoSave(); }
+            }
+            
+            // Question fields
+            if (e.target.classList.contains('q-type-select')) {
+                const block = getBlock(e.target.dataset.id);
+                if (block) { block.questionType = e.target.value; LessonBuilder.renderBlocks(); LessonBuilder._autoSave(); }
+            }
+            if (e.target.classList.contains('q-points-input')) {
+                const block = getBlock(e.target.dataset.id);
+                if (block) { block.points = parseInt(e.target.value) || 0; LessonBuilder._autoSave(); }
+            }
+            if (e.target.classList.contains('q-text-input')) {
+                const block = getBlock(e.target.dataset.id);
+                if (block) { block.question = e.target.value; LessonBuilder._autoSave(); }
+            }
+            if (e.target.classList.contains('opt-input')) {
+                const block = getBlock(e.target.dataset.id);
+                if (block) { block.options[parseInt(e.target.dataset.opt)] = e.target.value; LessonBuilder._autoSave(); }
+            }
+            
+            // Image fields
+            if (e.target.classList.contains('img-url-input')) {
+                const block = getBlock(e.target.dataset.id);
+                if (block) { block.url = e.target.value; LessonBuilder.renderBlocks(); LessonBuilder._autoSave(); }
+            }
+            if (e.target.classList.contains('img-alt-input')) {
+                const block = getBlock(e.target.dataset.id);
+                if (block) { block.alt = e.target.value; LessonBuilder._autoSave(); }
+            }
+            if (e.target.classList.contains('img-file-input')) {
+                const file = e.target.files?.[0];
+                if (file) {
+                    showLoader();
+                    const fd = new FormData(); fd.append('image', file);
+                    try {
+                        const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: fd });
+                        const data = await res.json();
+                        if (data.success) {
+                            const block = getBlock(e.target.dataset.id);
+                            if (block) { block.url = data.data.url; LessonBuilder.renderBlocks(); LessonBuilder._autoSave(); toast('Uploaded!', 'success'); }
+                        }
+                    } catch(ex) { toast('Upload failed', 'error'); }
+                    hideLoader();
+                }
+            }
+            
+            // Code fields
+            if (e.target.classList.contains('code-lang-select')) {
+                const block = getBlock(e.target.dataset.id);
+                if (block) { block.language = e.target.value; LessonBuilder._autoSave(); }
+            }
+            if (e.target.classList.contains('code-input')) {
+                const block = getBlock(e.target.dataset.id);
+                if (block) { block.code = e.target.value; LessonBuilder._autoSave(); }
+            }
+            if (e.target.classList.contains('code-caption-input')) {
+                const block = getBlock(e.target.dataset.id);
+                if (block) { block.caption = e.target.value; LessonBuilder._autoSave(); }
+            }
+        });
+
+        // ============ TOPBAR BUTTONS ============
+        $('btnSave')?.addEventListener('click', () => LessonBuilder.save());
+        $('btnPublish')?.addEventListener('click', () => LessonBuilder.publish());
+        $('btnPreview')?.addEventListener('click', () => LessonBuilder.preview());
+        $('btnClosePreview')?.addEventListener('click', () => $('previewModal').classList.remove('show'));
+        $('btnClosePreview2')?.addEventListener('click', () => $('previewModal').classList.remove('show'));
+
+        $('lessonTitleInput')?.addEventListener('input', function() {
             LessonBuilder.title = this.value;
-            LessonBuilder.autoSave();
+            LessonBuilder._autoSave();
+        });
+
+        // Close modals
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('show')) {
+                e.target.classList.remove('show');
+            }
         });
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 's') { e.preventDefault(); if (LessonBuilder.getBlocks) LessonBuilder.save(); }
-            if (e.ctrlKey && e.key === 'p') { e.preventDefault(); if (LessonBuilder.preview) LessonBuilder.preview(); }
+            if (e.ctrlKey && e.key === 's') { e.preventDefault(); LessonBuilder.save(); }
+            if (e.ctrlKey && e.key === 'p') { e.preventDefault(); LessonBuilder.preview(); }
             if (e.key === 'Delete' && LessonBuilder.focusedBlockId && !e.target.closest('[contenteditable],input,textarea,select')) {
                 e.preventDefault();
-                LessonBuilder.deleteBlock(LessonBuilder.focusedBlockId);
-            }
-            if (e.ctrlKey && e.key === 'd' && LessonBuilder.focusedBlockId && !e.target.closest('input,textarea,select')) {
-                e.preventDefault();
-                LessonBuilder.duplicateBlock(LessonBuilder.focusedBlockId);
+                const blocks = LessonBuilder.getBlocks();
+                const idx = blocks.findIndex(b => b.id === LessonBuilder.focusedBlockId);
+                if (idx !== -1) {
+                    LessonBuilder.lastDeleted = { block: blocks.splice(idx, 1)[0], index: idx };
+                    LessonBuilder.renderBlocks();
+                    LessonBuilder._autoSave();
+                }
             }
             if (e.ctrlKey && e.key === 'z' && LessonBuilder.lastDeleted) {
                 e.preventDefault();
@@ -1148,17 +1267,10 @@
             }
         });
 
-        // Close modal on overlay click
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('show')) {
-                e.target.classList.remove('show');
-            }
-        });
-
         // ============ INIT ============
         loadModules();
-        loadLessons();
-        console.log('🚀 Akademia Lesson Studio v2.0 loaded!');
+        loadAllLessons();
+        console.log('🚀 Akademia Lesson Studio v3.0 ready!');
     </script>
 </body>
 </html>
