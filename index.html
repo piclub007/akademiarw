@@ -4,27 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akademia 2026 - Learn Without Limits</title>
-    <meta name="description" content="Akademia - Master new skills with AI-powered courses, interactive lessons, and expert-led content. Learn to code, design, and more.">
+    <meta name="description" content="Akademia - Master new skills with interactive lessons, AI-powered tutoring, and hands-on projects. Learn to code, design, and build the future.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
     <style>
         :root {
-            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-light: #3B82F6;
-            --primary-bg: #EFF6FF; --secondary: #06B6D4; --accent: #8B5CF6;
-            --success: #10B981; --success-bg: #ECFDF5; --success-dark: #059669;
+            --primary: #2563EB; --primary-dark: #1D4ED8;
+            --primary-bg: #EFF6FF; --secondary: #06B6D4;
+            --success: #10B981; --success-bg: #ECFDF5;
             --warning: #F59E0B; --warning-bg: #FFFBEB;
-            --danger: #EF4444; --danger-bg: #FEF2F2;
+            --danger: #EF4444;
             --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
             --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
             --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
             --gray-800: #1f2937; --gray-900: #111827;
-            --black: #0a0a0b; --dark-bg: #1a1a2e;
-            --code-bg: #1e1e2e; --code-text: #cdd6f4;
-            --radius-xs: 4px; --radius-sm: 6px; --radius: 8px; --radius-lg: 12px; --radius-xl: 16px;
+            --dark-bg: #282A35; --code-bg: #1e1e2e;
+            --ws-green: #D9EEE1; --ws-yellow: #FFF4A3; --ws-pink: #FFC0C7;
+            --ws-turquoise: #96D4D4; --ws-light-pink: #F3ECEA;
+            --radius-sm: 6px; --radius: 8px; --radius-lg: 12px; --radius-xl: 16px;
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.05); --shadow: 0 1px 3px rgba(0,0,0,0.1);
             --shadow-md: 0 4px 6px rgba(0,0,0,0.07); --shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
             --transition: 0.2s ease;
@@ -56,9 +57,6 @@
         .topbar-links { display: flex; gap: 1.5rem; }
         .topbar-links a { color: #9ca3af; text-decoration: none; transition: color var(--transition); }
         .topbar-links a:hover { color: white; }
-        .topbar-social { display: flex; gap: 1rem; }
-        .topbar-social a { color: #9ca3af; text-decoration: none; font-size: 1rem; transition: color var(--transition); }
-        .topbar-social a:hover { color: white; }
 
         /* ============ NAVBAR ============ */
         .navbar {
@@ -81,7 +79,6 @@
             padding: 0.5rem 0.875rem; border-radius: var(--radius-sm);
             font-size: 0.875rem; font-weight: 500; color: var(--gray-700);
             text-decoration: none; cursor: pointer; transition: all var(--transition);
-            border: none; background: none; font-family: 'Inter', sans-serif;
         }
         .nav-item:hover { background: var(--gray-100); color: var(--gray-900); }
         .nav-item.active { background: var(--primary-bg); color: var(--primary); }
@@ -97,9 +94,10 @@
         .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); }
         .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
         .btn-success { background: var(--success); color: white; }
-        .btn-success:hover { background: var(--success-dark); }
+        .btn-success:hover { background: #059669; }
         .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
         .btn-lg { padding: 0.75rem 1.5rem; font-size: 1rem; }
+        .btn-xl { padding: 0.875rem 2rem; font-size: 1.0625rem; }
         .hamburger { display: none; background: none; border: none; font-size: 1.5rem; color: var(--gray-700); cursor: pointer; }
 
         /* ============ HERO ============ */
@@ -115,7 +113,7 @@
         .hero-badge {
             display: inline-flex; align-items: center; gap: 0.375rem;
             background: rgba(255,255,255,0.1); color: var(--secondary);
-            padding: 0.375rem 0.875rem; border-radius: var(--radius-full);
+            padding: 0.375rem 0.875rem; border-radius: 9999px;
             font-size: 0.813rem; font-weight: 600; margin-bottom: 1.25rem;
             border: 1px solid rgba(255,255,255,0.15);
         }
@@ -135,8 +133,8 @@
         .hero-code {
             flex: 1; background: var(--code-bg); border-radius: var(--radius-lg);
             padding: 1.5rem; font-family: 'Source Code Pro', monospace;
-            font-size: 0.813rem; color: var(--code-text); line-height: 1.8;
-            border: 1px solid rgba(255,255,255,0.1); position: relative;
+            font-size: 0.813rem; color: #cdd6f4; line-height: 1.8;
+            border: 1px solid rgba(255,255,255,0.1);
         }
         .hero-code .comment { color: #6b7280; }
         .hero-code .keyword { color: #c084fc; }
@@ -151,29 +149,58 @@
         .code-dot { width: 10px; height: 10px; border-radius: 50%; }
         .code-dot.red { background: #ef4444; } .code-dot.yellow { background: #f59e0b; } .code-dot.green { background: #10b981; }
 
-        /* ============ SEARCH BAR ============ */
-        .search-bar-section {
-            background: var(--gray-50); border-bottom: 1px solid var(--gray-200);
-            padding: 1.25rem 0;
+        /* ============ SUBTOP NAV ============ */
+        .subtopnav-wrapper {
+            background: var(--dark-bg); position: sticky; top: 60px; z-index: 999;
+            height: 42px; overflow: hidden;
         }
-        .search-bar-inner { max-width: 700px; margin: 0 auto; padding: 0 1.5rem; position: relative; }
-        .search-bar {
+        .subtopnav-scroll {
+            display: flex; align-items: center; overflow-x: auto;
+            white-space: nowrap; height: 42px;
+            scrollbar-width: none; -ms-overflow-style: none;
+        }
+        .subtopnav-scroll::-webkit-scrollbar { display: none; }
+        .subtopnav-scroll a {
+            display: inline-flex; align-items: center;
+            padding: 0 1.125rem; height: 42px;
+            color: #ffffff; text-decoration: none;
+            font-size: 0.813rem; font-weight: 500;
+            transition: background var(--transition); flex-shrink: 0;
+        }
+        .subtopnav-scroll a:hover { background: rgba(255,255,255,0.1); }
+        .subtopnav-scroll a.active { background: var(--success); color: white; }
+        .subtopnav-scroll .scroll-btn {
+            position: absolute; top: 0; height: 42px;
+            width: 40px; display: flex; align-items: center;
+            justify-content: center; cursor: pointer; z-index: 2;
+            font-size: 1.25rem; color: white; user-select: none;
+        }
+        .subtopnav-scroll .scroll-left { left: 0; background: linear-gradient(to right, var(--dark-bg) 60%, transparent); display: none; }
+        .subtopnav-scroll .scroll-right { right: 0; background: linear-gradient(to left, var(--dark-bg) 60%, transparent); }
+
+        /* ============ SEARCH BAR ============ */
+        .search-section {
+            background: var(--gray-50); border-bottom: 1px solid var(--gray-200);
+            padding: 1rem 0;
+        }
+        .search-inner { max-width: 650px; margin: 0 auto; padding: 0 1.5rem; position: relative; }
+        .search-box {
             display: flex; align-items: center; background: white;
-            border: 1px solid var(--gray-300); border-radius: var(--radius);
+            border: 2px solid var(--gray-300); border-radius: 9999px;
             overflow: hidden; box-shadow: var(--shadow-sm); transition: all var(--transition);
         }
-        .search-bar:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
-        .search-bar input {
-            flex: 1; border: none; padding: 0.75rem 1rem;
+        .search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+        .search-box input {
+            flex: 1; border: none; padding: 0.75rem 1.25rem;
             font-family: 'Inter', sans-serif; font-size: 0.938rem; outline: none;
         }
-        .search-bar input::placeholder { color: var(--gray-400); }
-        .search-bar button {
-            padding: 0.75rem 1.25rem; background: var(--primary); color: white;
+        .search-box input::placeholder { color: var(--gray-400); }
+        .search-box button {
+            padding: 0.75rem 1.5rem; background: var(--primary); color: white;
             border: none; cursor: pointer; font-weight: 600; font-size: 0.875rem;
             transition: background var(--transition);
         }
-        .search-bar button:hover { background: var(--primary-dark); }
+        .search-box button:hover { background: var(--primary-dark); }
         .search-results {
             position: absolute; top: calc(100% + 4px); left: 1.5rem; right: 1.5rem;
             background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
@@ -181,12 +208,11 @@
             z-index: 50; display: none;
         }
         .search-results.show { display: block; }
-        .search-result-item {
+        .sr-item {
             display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem;
             cursor: pointer; transition: background var(--transition); border-bottom: 1px solid var(--gray-100);
         }
-        .search-result-item:hover { background: var(--primary-bg); }
-        .search-result-item:last-child { border-bottom: none; }
+        .sr-item:hover { background: var(--primary-bg); }
         .sr-icon {
             width: 36px; height: 36px; border-radius: var(--radius-sm);
             display: flex; align-items: center; justify-content: center;
@@ -194,199 +220,110 @@
         }
         .sr-icon.topic { background: var(--primary-bg); color: var(--primary); }
         .sr-icon.course { background: var(--success-bg); color: var(--success); }
-        .sr-icon.module { background: #F5F3FF; color: #7C3AED; }
         .sr-icon.lesson { background: var(--warning-bg); color: #D97706; }
         .sr-info { flex: 1; }
         .sr-name { font-weight: 600; font-size: 0.875rem; }
         .sr-meta { font-size: 0.75rem; color: var(--gray-500); }
 
-        /* ============ MAIN LAYOUT ============ */
-        .main-layout {
-            display: flex; gap: 2rem; max-width: 1280px;
-            margin: 0 auto; padding: 2rem 1.5rem;
+        /* ============ LANGUAGE SECTIONS ============ */
+        .lang-section { padding: 3rem 0; }
+        .lang-section.green { background: var(--ws-green); }
+        .lang-section.yellow { background: var(--ws-yellow); }
+        .lang-section.black { background: var(--dark-bg); color: white; }
+        .lang-section.pink { background: var(--ws-pink); }
+        .lang-section.turquoise { background: var(--ws-turquoise); }
+        .lang-section.light { background: var(--ws-light-pink); }
+        .lang-inner {
+            max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
+            display: flex; align-items: center; gap: 3rem;
         }
-        .sidebar {
-            width: 240px; flex-shrink: 0;
-            position: sticky; top: 80px; align-self: flex-start;
+        .lang-info { flex: 1; text-align: center; }
+        .lang-info h1 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem;
+            font-weight: 700; margin-bottom: 0.5rem;
         }
-        .sidebar-title {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1rem;
-            font-weight: 700; color: var(--gray-900); margin-bottom: 0.75rem;
-        }
-        .sidebar-menu { list-style: none; }
-        .sidebar-item {
-            display: flex; align-items: center; gap: 0.5rem;
-            padding: 0.5rem 0.75rem; border-radius: var(--radius-sm);
-            font-size: 0.813rem; font-weight: 500; color: var(--gray-600);
-            cursor: pointer; transition: all var(--transition);
-            text-decoration: none; margin-bottom: 0.125rem;
-        }
-        .sidebar-item:hover { background: var(--gray-100); color: var(--gray-900); }
-        .sidebar-item.active { background: var(--primary-bg); color: var(--primary); font-weight: 600; }
-        .sidebar-item i { font-size: 1rem; width: 20px; text-align: center; }
-        .sidebar-badge {
-            margin-left: auto; font-size: 0.625rem; padding: 0.125rem 0.375rem;
-            border-radius: var(--radius-full); background: var(--gray-200);
-        }
-        .content-area { flex: 1; min-width: 0; }
-
-        /* ============ SECTION HEADERS ============ */
-        .section-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem;
-        }
-        .section-title {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem;
-            font-weight: 700; color: var(--gray-900);
-        }
-        .section-link { font-size: 0.875rem; color: var(--primary); text-decoration: none; font-weight: 500; }
-        .section-link:hover { text-decoration: underline; }
-
-        /* ============ TOPICS ROW ============ */
-        .topics-row {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 0.75rem; margin-bottom: 2.5rem;
-        }
-        .topic-card {
-            background: white; border: 1px solid var(--gray-200);
-            border-radius: var(--radius-lg); padding: 1.25rem;
-            cursor: pointer; transition: all var(--transition); text-align: center;
-        }
-        .topic-card:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-2px); }
-        .topic-card i { font-size: 2rem; color: var(--primary); display: block; margin-bottom: 0.5rem; }
-        .topic-card h3 { font-size: 0.875rem; font-weight: 600; color: var(--gray-800); margin-bottom: 0.25rem; }
-        .topic-card span { font-size: 0.688rem; color: var(--gray-500); }
-
-        /* ============ COURSES GRID ============ */
-        .courses-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.25rem; margin-bottom: 2.5rem;
-        }
-        .course-card {
-            background: white; border: 1px solid var(--gray-200);
-            border-radius: var(--radius-lg); overflow: hidden;
-            transition: all var(--transition); cursor: pointer;
-        }
-        .course-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); transform: translateY(-3px); }
-        .course-card-header {
-            background: var(--gray-900); padding: 1.5rem;
-            display: flex; align-items: center; justify-content: center;
-            position: relative;
-        }
-        .course-card-header i { font-size: 3rem; color: rgba(255,255,255,0.2); }
-        .course-card-badge {
-            position: absolute; top: 0.75rem; right: 0.75rem;
-            background: rgba(255,255,255,0.15); color: white;
-            padding: 0.1875rem 0.625rem; border-radius: var(--radius-full);
-            font-size: 0.625rem; font-weight: 600;
-        }
-        .course-card-body { padding: 1.25rem; }
-        .course-card-topic { font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary); margin-bottom: 0.375rem; }
-        .course-card-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.0625rem; font-weight: 600; color: var(--gray-900); margin-bottom: 0.5rem; }
-        .course-card-desc { font-size: 0.813rem; color: var(--gray-500); line-height: 1.6; margin-bottom: 0.75rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .course-card-meta { display: flex; gap: 1rem; font-size: 0.75rem; color: var(--gray-500); margin-bottom: 0.75rem; }
-        .course-card-meta span { display: flex; align-items: center; gap: 0.25rem; }
-        .course-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 0.75rem; border-top: 1px solid var(--gray-100); }
-        .course-card-price { font-weight: 700; font-size: 1.125rem; color: var(--gray-900); }
-        .course-card-rating { color: #f59e0b; font-weight: 600; font-size: 0.813rem; display: flex; align-items: center; gap: 0.25rem; }
-
-        /* ============ TRY IT YOURSELF BOX ============ */
-        .try-box {
-            background: var(--gray-50); border: 1px solid var(--gray-200);
-            border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 2.5rem;
-        }
-        .try-box-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-        .try-box-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 700; }
-        .try-box button { padding: 0.5rem 1rem; background: var(--success); color: white; border: none; border-radius: var(--radius-sm); cursor: pointer; font-weight: 600; font-size: 0.813rem; }
-        .try-box button:hover { background: var(--success-dark); }
-        .try-box-code {
-            background: var(--code-bg); border-radius: var(--radius);
-            padding: 1.25rem; font-family: 'Source Code Pro', monospace;
-            font-size: 0.813rem; color: var(--code-text); line-height: 1.8;
-            overflow-x: auto; border-left: 3px solid var(--success);
-        }
-
-        /* ============ TESTIMONIALS ============ */
-        .testimonials-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.25rem; margin-bottom: 2.5rem;
-        }
-        .testimonial-card {
-            background: white; border: 1px solid var(--gray-200);
+        .lang-info p { font-size: 1.125rem; margin-bottom: 1.25rem; }
+        .lang-info .btn { margin: 0.25rem; }
+        .lang-code {
+            flex: 1; background: #1a1a2e; color: #cdd6f4;
             border-radius: var(--radius-lg); padding: 1.5rem;
-            transition: all var(--transition);
+            font-family: 'Source Code Pro', monospace; font-size: 0.813rem;
+            line-height: 1.8; border: 2px solid var(--success);
         }
-        .testimonial-card:hover { box-shadow: var(--shadow); }
-        .testimonial-stars { color: #f59e0b; margin-bottom: 0.75rem; font-size: 0.875rem; }
-        .testimonial-text { font-size: 0.875rem; color: var(--gray-600); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
-        .testimonial-author { display: flex; align-items: center; gap: 0.625rem; }
-        .testimonial-avatar {
-            width: 36px; height: 36px; border-radius: var(--radius-sm);
-            background: var(--primary); color: white; display: flex;
-            align-items: center; justify-content: center; font-weight: 700; font-size: 0.813rem;
+        .lang-code .example-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .lang-code .try-btn {
+            display: inline-block; margin-top: 1rem; padding: 0.5rem 1.25rem;
+            background: var(--success); color: white; border-radius: 9999px;
+            text-decoration: none; font-family: 'Inter', sans-serif;
+            font-weight: 600; font-size: 0.813rem; transition: all var(--transition);
         }
-        .testimonial-name { font-weight: 600; font-size: 0.813rem; }
-        .testimonial-role { font-size: 0.688rem; color: var(--gray-500); }
+        .lang-code .try-btn:hover { background: #059669; }
 
-        /* ============ CTA BANNER ============ */
-        .cta-banner {
-            background: var(--gray-900); color: white;
-            border-radius: var(--radius-lg); padding: 2.5rem;
-            text-align: center; margin-bottom: 2.5rem;
+        /* ============ CARD GRID ============ */
+        .cards-section { padding: 3rem 0; background: var(--dark-bg); }
+        .cards-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+        .cards-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
         }
-        .cta-banner h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 0.75rem; }
-        .cta-banner p { color: #9ca3af; margin-bottom: 1.5rem; font-size: 0.938rem; }
-        .cta-banner .btn { font-size: 0.938rem; padding: 0.75rem 2rem; }
+        .tech-card {
+            background: white; color: var(--gray-900); border-radius: var(--radius-lg);
+            padding: 1.5rem; text-align: center; cursor: pointer;
+            transition: all var(--transition); text-decoration: none;
+        }
+        .tech-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+        .tech-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; }
+        .tech-card p { font-size: 0.813rem; color: var(--gray-500); margin-top: 0.5rem; }
+        .tech-card.pink-bg { background: var(--ws-pink); }
+        .tech-card.yellow-bg { background: var(--ws-yellow); }
+        .tech-card.green-bg { background: var(--ws-green); }
+        .tech-card.turquoise-bg { background: var(--ws-turquoise); }
+        .tech-card.light-bg { background: var(--ws-light-pink); }
+
+        /* ============ CTA ============ */
+        .cta-section {
+            background: var(--dark-bg); color: white;
+            text-align: center; padding: 4rem 0;
+        }
+        .cta-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .cta-section p { font-size: 1.125rem; color: #9ca3af; margin-bottom: 2rem; }
 
         /* ============ FOOTER ============ */
         .footer {
-            background: var(--gray-100); border-top: 1px solid var(--gray-200);
-            padding: 3rem 0 1.5rem;
+            background: var(--dark-bg); color: #ddd;
+            padding: 3rem 0 1rem;
         }
+        .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
         .footer-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 2rem; margin-bottom: 2rem;
         }
-        .footer-col h4 {
-            font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 0.5px; color: var(--gray-900); margin-bottom: 1rem;
+        .footer-col h5 {
+            font-family: 'Source Sans Pro', sans-serif; font-size: 0.875rem;
+            font-weight: 600; color: var(--ws-yellow); margin-bottom: 1rem;
         }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 0.5rem; }
-        .footer-col ul li a {
-            font-size: 0.813rem; color: var(--gray-600); text-decoration: none;
-            transition: color var(--transition);
+        .footer-col a {
+            display: block; color: #ddd; text-decoration: none;
+            font-size: 0.813rem; margin-bottom: 0.5rem; transition: color var(--transition);
         }
-        .footer-col ul li a:hover { color: var(--primary); }
+        .footer-col a:hover { color: var(--ws-yellow); }
+        .footer-social {
+            text-align: center; padding: 1.5rem 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1rem;
+        }
+        .footer-social a {
+            color: #ddd; font-size: 1.5rem; margin: 0 0.5rem;
+            text-decoration: none; transition: color var(--transition);
+        }
+        .footer-social a:hover { color: var(--ws-yellow); }
         .footer-bottom {
-            border-top: 1px solid var(--gray-300); padding-top: 1.5rem;
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 1rem; font-size: 0.813rem; color: var(--gray-500);
-        }
-        .footer-bottom a { color: var(--gray-500); text-decoration: none; margin-left: 1.5rem; }
-        .footer-bottom a:hover { color: var(--primary); }
-        .footer-newsletter { display: flex; gap: 0.5rem; max-width: 350px; }
-        .footer-newsletter input {
-            flex: 1; padding: 0.5rem 0.75rem; border: 1px solid var(--gray-300);
-            border-radius: var(--radius-sm); font-family: 'Inter', sans-serif;
-            font-size: 0.813rem; outline: none;
-        }
-        .footer-newsletter input:focus { border-color: var(--primary); }
-        .footer-newsletter button {
-            padding: 0.5rem 1rem; background: var(--primary); color: white;
-            border: none; border-radius: var(--radius-sm); cursor: pointer;
-            font-weight: 600; font-size: 0.813rem;
+            text-align: center; font-size: 0.813rem; color: #9ca3af;
+            padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Responsive */
         @media (max-width: 1024px) {
-            .main-layout { flex-direction: column; }
-            .sidebar { width: 100%; position: static; display: flex; overflow-x: auto; gap: 0.25rem; padding-bottom: 0.5rem; }
-            .sidebar-title { display: none; }
-            .sidebar-item { white-space: nowrap; flex-shrink: 0; }
+            .lang-inner { flex-direction: column; }
             .hero-inner { flex-direction: column; }
             .hero-code { width: 100%; }
         }
@@ -394,9 +331,7 @@
             .nav-menu { display: none; position: absolute; top: 60px; left: 0; right: 0; background: white; flex-direction: column; padding: 1rem; box-shadow: var(--shadow-lg); }
             .nav-menu.active { display: flex; }
             .hamburger { display: block; }
-            .courses-grid { grid-template-columns: 1fr; }
-            .testimonials-grid { grid-template-columns: 1fr; }
-            .topics-row { grid-template-columns: repeat(3, 1fr); }
+            .cards-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -405,16 +340,10 @@
     <div class="topbar">
         <div class="topbar-inner">
             <div class="topbar-links">
-                <a href="admin.html">Admin Panel</a>
                 <a href="lesson.html">Lesson Studio</a>
                 <a href="#">Documentation</a>
                 <a href="#">Help Center</a>
-            </div>
-            <div class="topbar-social">
-                <a href="#"><i class='bx bxl-github'></i></a>
-                <a href="#"><i class='bx bxl-youtube'></i></a>
-                <a href="#"><i class='bx bxl-discord-alt'></i></a>
-                <a href="#"><i class='bx bxl-twitter'></i></a>
+                <a href="#">Blog</a>
             </div>
         </div>
     </div>
@@ -428,11 +357,12 @@
             </a>
             <ul class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-item active">Home</a>
-                <a href="#topics" class="nav-item">Topics</a>
-                <a href="#courses" class="nav-item">Courses</a>
-                <a href="#tryit" class="nav-item">Try It</a>
+                <a href="#html-section" class="nav-item">HTML</a>
+                <a href="#css-section" class="nav-item">CSS</a>
+                <a href="#js-section" class="nav-item">JavaScript</a>
+                <a href="#python-section" class="nav-item">Python</a>
+                <a href="#sql-section" class="nav-item">SQL</a>
                 <a href="lesson.html" class="nav-item">Lessons</a>
-                <a href="admin.html" class="nav-item">Admin</a>
             </ul>
             <div class="nav-right">
                 <a href="lesson.html" class="btn btn-outline btn-sm">Sign In</a>
@@ -442,25 +372,65 @@
         </div>
     </nav>
 
+    <!-- ============ SUBTOP NAV ============ -->
+    <div class="subtopnav-wrapper">
+        <div class="subtopnav-scroll" id="subtopnav">
+            <span class="scroll-btn scroll-left" onclick="scrollSubNav(-1)">&#10094;</span>
+            <a href="#html-section" class="active">HTML</a>
+            <a href="#css-section">CSS</a>
+            <a href="#js-section">JAVASCRIPT</a>
+            <a href="#python-section">PYTHON</a>
+            <a href="#sql-section">SQL</a>
+            <a href="#">JAVA</a>
+            <a href="#">PHP</a>
+            <a href="#">REACT</a>
+            <a href="#">NODEJS</a>
+            <a href="#">TYPESCRIPT</a>
+            <a href="#">DSA</a>
+            <a href="#">GIT</a>
+            <a href="#">MYSQL</a>
+            <a href="#">MONGODB</a>
+            <a href="#">AWS</a>
+            <a href="#">DOCKER</a>
+            <a href="#">CYBERSECURITY</a>
+            <a href="#">AI/ML</a>
+            <a href="#">DATA SCIENCE</a>
+            <a href="#">BOOTSTRAP</a>
+            <a href="#">TAILWIND</a>
+            <a href="#">ANGULAR</a>
+            <a href="#">VUE</a>
+            <a href="#">DJANGO</a>
+            <a href="#">RUST</a>
+            <a href="#">GO</a>
+            <a href="#">SWIFT</a>
+            <a href="#">KOTLIN</a>
+            <a href="#">C</a>
+            <a href="#">C++</a>
+            <a href="#">C#</a>
+            <a href="#" style="width:50px;visibility:hidden;"></a>
+            <span class="scroll-btn scroll-right" onclick="scrollSubNav(1)">&#10095;</span>
+        </div>
+    </div>
+
     <!-- ============ HERO ============ -->
     <section class="hero">
         <div class="hero-inner">
             <div class="hero-content">
                 <div class="hero-badge"><span class="dot"></span> 2026 Edition • AI-Powered</div>
-                <h1 class="hero-title">Learn to <span>Code</span>, Design & Build the Future</h1>
+                <h1 class="hero-title">Learn to <span>Code</span></h1>
                 <p class="hero-desc">
-                    Master modern skills with interactive lessons, AI-powered tutoring, and hands-on projects. 
-                    Join thousands of learners advancing their careers with Akademia.
+                    With the world's largest web developer learning platform. 
+                    Master modern skills with interactive lessons, AI-powered tutoring, and hands-on projects.
                 </p>
                 <div class="hero-actions">
-                    <a href="#courses" class="btn btn-success btn-lg">Start Learning Free</a>
-                    <a href="lesson.html" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,0.3);color:white;">Try a Lesson</a>
+                    <a href="#html-section" class="btn btn-success btn-xl">Start Learning Free</a>
+                    <a href="lesson.html" class="btn btn-outline btn-xl" style="border-color:rgba(255,255,255,0.3);color:white;">Try a Lesson</a>
                 </div>
             </div>
             <div class="hero-code">
                 <div class="code-header">
                     <span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span>
-                    <span style="margin-left:0.5rem;font-size:0.75rem;color:#6b7280;">lesson.html</span>
+                    <span style="margin-left:0.5rem;font-size:0.75rem;color:#6b7280;">index.html</span>
                 </div>
                 <code>
                     <span class="comment">// Welcome to Akademia 2026</span><br>
@@ -478,172 +448,222 @@
         </div>
     </section>
 
-    <!-- ============ SEARCH BAR ============ -->
-    <section class="search-bar-section">
-        <div class="search-bar-inner">
-            <div class="search-bar">
-                <input type="text" id="universalSearch" placeholder="Search courses, modules, lessons... (e.g., 'HTML', 'Python', 'CSS')" autocomplete="off">
+    <!-- ============ SEARCH ============ -->
+    <section class="search-section">
+        <div class="search-inner">
+            <div class="search-box">
+                <input type="text" id="universalSearch" placeholder="Search our tutorials, e.g. HTML" autocomplete="off">
                 <button onclick="performSearch()"><i class='bx bx-search'></i> Search</button>
             </div>
             <div class="search-results" id="searchResults"></div>
         </div>
     </section>
 
-    <!-- ============ MAIN LAYOUT ============ -->
-    <div class="main-layout">
-        <!-- SIDEBAR -->
-        <aside class="sidebar" id="sidebar">
-            <h3 class="sidebar-title">Browse Topics</h3>
-            <ul class="sidebar-menu" id="sidebarMenu">
-                <li><a href="#topics" class="sidebar-item active" data-topic="all"><i class='bx bx-grid-alt'></i> All Topics <span class="sidebar-badge" id="totalCount">0</span></a></li>
-                <!-- Dynamically filled -->
-            </ul>
-        </aside>
-
-        <!-- CONTENT -->
-        <div class="content-area">
-            <!-- TOPICS SECTION -->
-            <div id="topics">
-                <div class="section-header">
-                    <h2 class="section-title">📚 Browse by Topic</h2>
-                    <a href="#" class="section-link">View all topics →</a>
-                </div>
-                <div class="topics-row" id="topicsGrid"></div>
+    <!-- ============ HTML SECTION ============ -->
+    <section class="lang-section green" id="html-section">
+        <div class="lang-inner">
+            <div class="lang-info">
+                <h1>HTML</h1>
+                <p>The language for building web pages</p>
+                <a href="lesson.html" class="btn btn-success btn-lg">Learn HTML</a>
+                <a href="lesson.html" class="btn btn-outline btn-lg" style="border-color:var(--gray-700);color:var(--gray-700);">HTML Reference</a>
             </div>
-
-            <!-- COURSES SECTION -->
-            <div id="courses">
-                <div class="section-header">
-                    <h2 class="section-title">🎓 Featured Courses</h2>
-                    <a href="#" class="section-link">View all courses →</a>
-                </div>
-                <div class="courses-grid" id="coursesGrid"></div>
-            </div>
-
-            <!-- TRY IT YOURSELF -->
-            <div id="tryit">
-                <div class="section-header">
-                    <h2 class="section-title">💻 Try It Yourself</h2>
-                </div>
-                <div class="try-box">
-                    <div class="try-box-header">
-                        <h3 class="try-box-title">Your First HTML Page</h3>
-                        <button onclick="runTryItCode()">▶ Run Code</button>
-                    </div>
-                    <div class="try-box-code" contenteditable="true" id="tryItCode" spellcheck="false">
-&lt;!DOCTYPE html&gt;<br>
-&lt;html&gt;<br>
-&lt;head&gt;<br>
-&nbsp;&nbsp;&lt;title&gt;My First Page&lt;/title&gt;<br>
-&lt;/head&gt;<br>
-&lt;body&gt;<br>
-&nbsp;&nbsp;&lt;h1&gt;Hello, Akademia!&lt;/h1&gt;<br>
-&nbsp;&nbsp;&lt;p&gt;I'm learning to code!&lt;/p&gt;<br>
-&lt;/body&gt;<br>
-&lt;/html&gt;
-                    </div>
-                    <div id="tryItOutput" style="margin-top:1rem;padding:1rem;background:white;border:1px solid var(--gray-200);border-radius:var(--radius);min-height:60px;"></div>
-                </div>
-            </div>
-
-            <!-- TESTIMONIALS -->
-            <div id="testimonials">
-                <div class="section-header">
-                    <h2 class="section-title">⭐ What Students Say</h2>
-                </div>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars">★★★★★</div>
-                        <p class="testimonial-text">"Akademia's interactive lessons made learning React so much easier. The hands-on approach is exactly what I needed to switch careers."</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar">AM</div>
-                            <div>
-                                <div class="testimonial-name">Alex Martinez</div>
-                                <div class="testimonial-role">Full-Stack Developer</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars">★★★★★</div>
-                        <p class="testimonial-text">"The Data Science track is incredibly well-structured. Real projects, clear explanations, and the AI tutor is a game-changer."</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar">JL</div>
-                            <div>
-                                <div class="testimonial-name">Jessica Lee</div>
-                                <div class="testimonial-role">Data Scientist</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars">★★★★★</div>
-                        <p class="testimonial-text">"Best learning platform I've used. Clean design, practical exercises, and the community support is outstanding."</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar">RT</div>
-                            <div>
-                                <div class="testimonial-name">Robert Taylor</div>
-                                <div class="testimonial-role">Product Designer</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CTA -->
-            <div class="cta-banner">
-                <h3>🚀 Ready to Start Your Learning Journey?</h3>
-                <p>Join thousands of students already advancing their careers with Akademia's AI-powered platform.</p>
-                <a href="lesson.html" class="btn btn-success">Start Learning Free →</a>
+            <div class="lang-code">
+                <div class="example-title">HTML Example:</div>
+                <code>
+                    &lt;!DOCTYPE html&gt;<br>
+                    &lt;html&gt;<br>
+                    &lt;head&gt;<br>
+                    &nbsp;&nbsp;&lt;title&gt;Page Title&lt;/title&gt;<br>
+                    &lt;/head&gt;<br>
+                    &lt;body&gt;<br>
+                    &nbsp;&nbsp;&lt;h1&gt;Hello World&lt;/h1&gt;<br>
+                    &nbsp;&nbsp;&lt;p&gt;My first paragraph.&lt;/p&gt;<br>
+                    &lt;/body&gt;<br>
+                    &lt;/html&gt;
+                </code>
+                <a href="lesson.html" class="try-btn" target="_blank">Try it Yourself →</a>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- ============ CSS SECTION ============ -->
+    <section class="lang-section yellow" id="css-section">
+        <div class="lang-inner">
+            <div class="lang-info">
+                <h1>CSS</h1>
+                <p>The language for styling web pages</p>
+                <a href="lesson.html" class="btn btn-success btn-lg">Learn CSS</a>
+                <a href="lesson.html" class="btn btn-outline btn-lg" style="border-color:var(--gray-700);color:var(--gray-700);">CSS Reference</a>
+            </div>
+            <div class="lang-code">
+                <div class="example-title">CSS Example:</div>
+                <code>
+                    body {<br>
+                    &nbsp;&nbsp;background-color: lightblue;<br>
+                    }<br><br>
+                    h1 {<br>
+                    &nbsp;&nbsp;color: white;<br>
+                    &nbsp;&nbsp;text-align: center;<br>
+                    }<br><br>
+                    p {<br>
+                    &nbsp;&nbsp;font-family: verdana;<br>
+                    }
+                </code>
+                <a href="lesson.html" class="try-btn" target="_blank">Try it Yourself →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ JAVASCRIPT SECTION ============ -->
+    <section class="lang-section black" id="js-section">
+        <div class="lang-inner">
+            <div class="lang-info">
+                <h1 style="font-size:2.5rem;">JavaScript</h1>
+                <p style="color:#9ca3af;">The language for programming web pages</p>
+                <a href="lesson.html" class="btn btn-success btn-lg">Learn JavaScript</a>
+                <a href="lesson.html" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,0.3);color:white;">JS Reference</a>
+            </div>
+            <div class="lang-code">
+                <div class="example-title">JavaScript Example:</div>
+                <code>
+                    &lt;button onclick="myFunction()"&gt;Click Me!&lt;/button&gt;<br><br>
+                    &lt;script&gt;<br>
+                    function myFunction() {<br>
+                    &nbsp;&nbsp;let x = document.getElementById("demo");<br>
+                    &nbsp;&nbsp;x.style.fontSize = "25px";<br>
+                    &nbsp;&nbsp;x.style.color = "red";<br>
+                    }<br>
+                    &lt;/script&gt;
+                </code>
+                <a href="lesson.html" class="try-btn" target="_blank">Try it Yourself →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PYTHON SECTION ============ -->
+    <section class="lang-section pink" id="python-section">
+        <div class="lang-inner">
+            <div class="lang-info">
+                <h1>Python</h1>
+                <p>A popular programming language</p>
+                <a href="lesson.html" class="btn btn-success btn-lg">Learn Python</a>
+                <a href="lesson.html" class="btn btn-outline btn-lg" style="border-color:var(--gray-700);color:var(--gray-700);">Python Reference</a>
+            </div>
+            <div class="lang-code">
+                <div class="example-title">Python Example:</div>
+                <code>
+                    if 5 > 2:<br>
+                    &nbsp;&nbsp;print("Five is greater than two!")<br><br>
+                    x = "Hello World"<br>
+                    print(x)<br><br>
+                    # This is a comment<br>
+                    print("Akademia 2026")
+                </code>
+                <a href="lesson.html" class="try-btn" target="_blank">Try it Yourself →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SQL SECTION ============ -->
+    <section class="lang-section turquoise" id="sql-section">
+        <div class="lang-inner">
+            <div class="lang-info">
+                <h1>SQL</h1>
+                <p>A language for accessing databases</p>
+                <a href="lesson.html" class="btn btn-success btn-lg">Learn SQL</a>
+                <a href="lesson.html" class="btn btn-outline btn-lg" style="border-color:var(--gray-700);color:var(--gray-700);">SQL Reference</a>
+            </div>
+            <div class="lang-code">
+                <div class="example-title">SQL Example:</div>
+                <code>
+                    SELECT * FROM Customers<br>
+                    WHERE Country='Mexico';<br><br>
+                    SELECT COUNT(*) FROM Orders<br>
+                    WHERE OrderDate > '2024-01-01';
+                </code>
+                <a href="lesson.html" class="try-btn" target="_blank">Try it Yourself →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ MORE TECHNOLOGIES CARDS ============ -->
+    <section class="cards-section">
+        <div class="cards-inner">
+            <div class="cards-grid">
+                <a href="lesson.html" class="tech-card pink-bg"><h2>PHP</h2><p>A web server programming language</p></a>
+                <a href="lesson.html" class="tech-card yellow-bg"><h2>jQuery</h2><p>A JS library for developing web pages</p></a>
+                <a href="lesson.html" class="tech-card light-bg"><h2>Java</h2><p>A programming language</p></a>
+                <a href="lesson.html" class="tech-card green-bg"><h2>C++</h2><p>A programming language</p></a>
+                <a href="lesson.html" class="tech-card turquoise-bg"><h2>React</h2><p>A JavaScript library for building UIs</p></a>
+                <a href="lesson.html" class="tech-card pink-bg"><h2>Node.js</h2><p>JavaScript runtime environment</p></a>
+                <a href="lesson.html" class="tech-card yellow-bg"><h2>TypeScript</h2><p>Typed superset of JavaScript</p></a>
+                <a href="lesson.html" class="tech-card green-bg"><h2>Django</h2><p>Python web framework</p></a>
+                <a href="lesson.html" class="tech-card light-bg"><h2>Git</h2><p>Version control system</p></a>
+                <a href="lesson.html" class="tech-card turquoise-bg"><h2>Docker</h2><p>Container platform</p></a>
+                <a href="lesson.html" class="tech-card pink-bg"><h2>AWS</h2><p>Cloud computing platform</p></a>
+                <a href="lesson.html" class="tech-card yellow-bg"><h2>MongoDB</h2><p>NoSQL database</p></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Your Learning Journey?</h2>
+            <p>Join thousands of students already advancing their careers with Akademia's AI-powered platform.</p>
+            <a href="lesson.html" class="btn btn-success btn-xl">Start Learning Free →</a>
+        </div>
+    </section>
 
     <!-- ============ FOOTER ============ -->
     <footer class="footer">
-        <div class="container">
+        <div class="footer-inner">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h4>Platform</h4>
-                    <ul>
-                        <li><a href="#courses">Courses</a></li>
-                        <li><a href="#topics">Topics</a></li>
-                        <li><a href="lesson.html">Lessons</a></li>
-                        <li><a href="#tryit">Try It Yourself</a></li>
-                        <li><a href="#">Pricing</a></li>
-                    </ul>
+                    <h5>Top Tutorials</h5>
+                    <a href="#html-section">HTML Tutorial</a>
+                    <a href="#css-section">CSS Tutorial</a>
+                    <a href="#js-section">JavaScript Tutorial</a>
+                    <a href="#python-section">Python Tutorial</a>
+                    <a href="#sql-section">SQL Tutorial</a>
                 </div>
                 <div class="footer-col">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Press</a></li>
-                    </ul>
+                    <h5>Top References</h5>
+                    <a href="#">HTML Reference</a>
+                    <a href="#">CSS Reference</a>
+                    <a href="#">JavaScript Reference</a>
+                    <a href="#">Python Reference</a>
+                    <a href="#">SQL Reference</a>
                 </div>
                 <div class="footer-col">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">API</a></li>
-                    </ul>
+                    <h5>Platform</h5>
+                    <a href="lesson.html">Lessons</a>
+                    <a href="#">Courses</a>
+                    <a href="#">Exercises</a>
+                    <a href="#">Quizzes</a>
+                    <a href="#">Certificates</a>
                 </div>
                 <div class="footer-col">
-                    <h4>Stay Updated</h4>
-                    <div class="footer-newsletter">
-                        <input type="email" placeholder="your@email.com">
-                        <button>Subscribe</button>
-                    </div>
+                    <h5>Company</h5>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Privacy Policy</a>
                 </div>
             </div>
+            <div class="footer-social">
+                <a href="#"><i class='bx bxl-youtube'></i></a>
+                <a href="#"><i class='bx bxl-linkedin'></i></a>
+                <a href="#"><i class='bx bxl-discord-alt'></i></a>
+                <a href="#"><i class='bx bxl-facebook'></i></a>
+                <a href="#"><i class='bx bxl-instagram'></i></a>
+                <a href="#"><i class='bx bxl-github'></i></a>
+            </div>
             <div class="footer-bottom">
-                <span>&copy; 2026 Akademia. All rights reserved.</span>
-                <div>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Sitemap</a>
-                </div>
+                <p>Akademia is optimized for learning and training. Examples might be simplified to improve reading and learning.</p>
+                <p style="margin-top:0.5rem;">&copy; 2026 Akademia. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -655,150 +675,64 @@
         const $ = id => document.getElementById(id);
         const escHtml = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
 
-        let allTopics = [], allCourses = [], allModules = [], allLessons = [];
+        let allTopics = [], allCourses = [], allLessons = [];
 
-        // ============ LOAD DATA ============
-        async function loadAllData() {
+        async function loadData() {
             try {
-                const [t, c, m, l] = await Promise.all([
+                const [t, c, l] = await Promise.all([
                     getDocs(query(collection(db, 'topics'), orderBy('createdAt', 'desc'))),
                     getDocs(query(collection(db, 'courses'), orderBy('createdAt', 'desc'))),
-                    getDocs(query(collection(db, 'modules'), orderBy('order'))),
                     getDocs(query(collection(db, 'lessons'), orderBy('createdAt', 'desc')))
                 ]);
                 allTopics = t.docs.map(d => ({ id: d.id, ...d.data() }));
                 allCourses = c.docs.map(d => ({ id: d.id, ...d.data() }));
-                allModules = m.docs.map(d => ({ id: d.id, ...d.data() }));
                 allLessons = l.docs.map(d => ({ id: d.id, ...d.data() }));
             } catch (e) {
                 allTopics = JSON.parse(localStorage.getItem('ak_topics') || '[]');
                 allCourses = JSON.parse(localStorage.getItem('ak_courses') || '[]');
-                allModules = JSON.parse(localStorage.getItem('ak_modules') || '[]');
                 allLessons = JSON.parse(localStorage.getItem('ak_lessons') || '[]');
             }
-            renderSidebar();
-            renderTopics();
-            renderCourses();
-        }
-
-        function getDemoTopics() {
-            return [
-                { id:'1', name:'Web Development', icon:'bx-code-alt', description:'HTML, CSS, JS, React' },
-                { id:'2', name:'App Development', icon:'bx-mobile-alt', description:'Flutter, React Native' },
-                { id:'3', name:'UI/UX Design', icon:'bx-palette', description:'Figma, Design Systems' },
-                { id:'4', name:'Cybersecurity', icon:'bx-shield-quarter', description:'Network, Ethical Hacking' },
-                { id:'5', name:'AI & Machine Learning', icon:'bx-brain', description:'Python, TensorFlow' },
-                { id:'6', name:'Data Science', icon:'bx-bar-chart-square', description:'SQL, Python, Stats' },
-                { id:'7', name:'Cloud Computing', icon:'bx-cloud', description:'AWS, Azure, Docker' },
-                { id:'8', name:'Blockchain', icon:'bx-cube', description:'Solidity, Web3' }
-            ];
-        }
-
-        // ============ SIDEBAR ============
-        function renderSidebar() {
-            const menu = $('sidebarMenu');
-            const topics = allTopics.length ? allTopics : getDemoTopics();
-            const totalCourses = allCourses.length || 24;
-            $('totalCount').textContent = totalCourses;
-
-            const topicItems = topics.slice(0, 8).map((t, i) => {
-                const count = allCourses.filter(c => c.topicId === t.id).length || Math.floor(Math.random()*8)+2;
-                return `<li><a href="#courses" class="sidebar-item" data-topic="${t.id}"><i class='bx ${t.icon || 'bx-code-alt'}'></i> ${escHtml(t.name)} <span class="sidebar-badge">${count}</span></a></li>`;
-            }).join('');
-
-            menu.innerHTML = `<li><a href="#topics" class="sidebar-item active" data-topic="all"><i class='bx bx-grid-alt'></i> All Topics <span class="sidebar-badge">${totalCourses}</span></a></li>${topicItems}`;
-        }
-
-        // ============ RENDER TOPICS ============
-        function renderTopics() {
-            const grid = $('topicsGrid');
-            const topics = allTopics.length ? allTopics : getDemoTopics();
-            const icons = ['bx-code-alt','bx-mobile-alt','bx-palette','bx-shield-quarter','bx-brain','bx-bar-chart-square','bx-cloud','bx-cube'];
-            grid.innerHTML = topics.slice(0, 8).map((t, i) => {
-                const count = allCourses.filter(c => c.topicId === t.id).length || Math.floor(Math.random()*15)+3;
-                return `<div class="topic-card" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">
-                    <i class='bx ${t.icon || icons[i%icons.length]}'></i>
-                    <h3>${escHtml(t.name)}</h3>
-                    <span>${count} courses</span>
-                </div>`;
-            }).join('');
-        }
-
-        // ============ RENDER COURSES ============
-        function renderCourses() {
-            const grid = $('coursesGrid');
-            const courses = allCourses.length ? allCourses.slice(0, 6) : getDemoCourses();
-            grid.innerHTML = courses.map(c => {
-                const modCount = allModules.filter(m => m.courseId === c.id).length || Math.floor(Math.random()*8)+3;
-                const icons = ['bx-code','bx-data','bx-paint','bx-shield','bx-brain','bx-cloud'];
-                const ri = Math.floor(Math.random()*icons.length);
-                return `<div class="course-card" onclick="window.location.href='lesson.html'">
-                    <div class="course-card-header">
-                        <i class='bx ${icons[ri]}'></i>
-                        <span class="course-card-badge">${c.difficulty || 'All Levels'}</span>
-                    </div>
-                    <div class="course-card-body">
-                        <div class="course-card-topic">${escHtml(c.topicName || 'General')}</div>
-                        <h3 class="course-card-title">${escHtml(c.name)}</h3>
-                        <p class="course-card-desc">${escHtml(c.description || 'Learn with hands-on projects and expert guidance.')}</p>
-                        <div class="course-card-meta">
-                            <span><i class='bx bx-layer'></i> ${modCount} modules</span>
-                            <span><i class='bx bx-time'></i> ${c.duration || Math.floor(Math.random()*20)+5}h</span>
-                            <span><i class='bx bx-user'></i> ${Math.floor(Math.random()*3000)+200}</span>
-                        </div>
-                        <div class="course-card-footer">
-                            <span class="course-card-price">${c.price || '$'+(Math.floor(Math.random()*50)+49)+'.99'}</span>
-                            <span class="course-card-rating"><i class='bx bxs-star'></i> ${(4+Math.random()).toFixed(1)}</span>
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
-        }
-
-        function getDemoCourses() {
-            return [
-                { id:'1', name:'Complete Web Development Bootcamp', topicName:'Web Development', description:'Master HTML, CSS, JavaScript, React, and Node.js with 10+ projects.', duration:48, difficulty:'Beginner' },
-                { id:'2', name:'Data Science & Machine Learning', topicName:'Data Science', description:'Python, pandas, scikit-learn, TensorFlow — from data to deployment.', duration:36, difficulty:'Intermediate' },
-                { id:'3', name:'UI/UX Design Masterclass', topicName:'UI/UX Design', description:'Figma, design systems, user research, and prototyping mastery.', duration:24, difficulty:'All Levels' },
-                { id:'4', name:'Python Programming Pro', topicName:'Programming', description:'Zero to hero: Python, OOP, async, and real-world applications.', duration:30, difficulty:'Beginner' },
-                { id:'5', name:'Cloud Computing with AWS', topicName:'Cloud Computing', description:'EC2, S3, Lambda, DynamoDB — master AWS and get certified.', duration:40, difficulty:'Advanced' },
-                { id:'6', name:'Cybersecurity Fundamentals', topicName:'Cybersecurity', description:'Network security, crypto, pen testing, and security operations.', duration:32, difficulty:'Intermediate' }
-            ];
         }
 
         // ============ SEARCH ============
         function performSearch() {
             const query = $('universalSearch')?.value?.toLowerCase()?.trim();
-            const resultsContainer = $('searchResults');
-            if (!query || query.length < 2) { resultsContainer.classList.remove('show'); return; }
-
+            const container = $('searchResults');
+            if (!query || query.length < 2) { container.classList.remove('show'); return; }
             const results = [];
             allTopics.forEach(t => { if (t.name?.toLowerCase().includes(query)) results.push({ type:'topic', name:t.name, meta:t.description, icon:'bx-category', cls:'topic' }); });
-            allCourses.forEach(c => { if (c.name?.toLowerCase().includes(query)||c.topicName?.toLowerCase().includes(query)) results.push({ type:'course', name:c.name, meta:c.topicName, icon:'bx-book-content', cls:'course' }); });
-            allModules.forEach(m => { if (m.name?.toLowerCase().includes(query)) results.push({ type:'module', name:m.name, meta:`Course: ${m.courseName}`, icon:'bx-layer', cls:'module' }); });
-            allLessons.forEach(l => { if (l.title?.toLowerCase().includes(query)) results.push({ type:'lesson', name:l.title, meta:`Module: ${l.moduleName}`, icon:'bx-video', cls:'lesson' }); });
-
-            resultsContainer.innerHTML = results.length ? results.slice(0, 8).map(r => `
-                <div class="search-result-item" onclick="window.location.href='lesson.html'">
+            allCourses.forEach(c => { if (c.name?.toLowerCase().includes(query)) results.push({ type:'course', name:c.name, meta:c.topicName, icon:'bx-book-content', cls:'course' }); });
+            allLessons.forEach(l => { if (l.title?.toLowerCase().includes(query)) results.push({ type:'lesson', name:l.title, meta:l.moduleName, icon:'bx-video', cls:'lesson' }); });
+            container.innerHTML = results.length ? results.slice(0, 6).map(r => `
+                <div class="sr-item" onclick="window.location.href='lesson.html'">
                     <div class="sr-icon ${r.cls}"><i class='bx ${r.icon}'></i></div>
                     <div class="sr-info"><div class="sr-name">${escHtml(r.name)}</div><div class="sr-meta">${escHtml(r.meta)}</div></div>
                     <i class='bx bx-chevron-right' style="color:var(--gray-400);"></i>
                 </div>`).join('') : '<div style="padding:2rem;text-align:center;color:var(--gray-400);">No results found</div>';
-            resultsContainer.classList.add('show');
+            container.classList.add('show');
         }
 
         $('universalSearch')?.addEventListener('input', performSearch);
         $('universalSearch')?.addEventListener('focus', performSearch);
-        document.addEventListener('click', e => { if (!e.target.closest('.search-bar-inner')) $('searchResults').classList.remove('show'); });
+        document.addEventListener('click', e => { if (!e.target.closest('.search-inner')) $('searchResults').classList.remove('show'); });
 
-        // ============ TRY IT YOURSELF ============
-        window.runTryItCode = function() {
-            const code = $('tryItCode')?.innerText || '';
-            const output = $('tryItOutput');
-            if (output) {
-                output.innerHTML = '<iframe sandbox="allow-scripts" style="width:100%;height:200px;border:none;background:white;" srcdoc="' + code.replace(/"/g, '&quot;') + '"></iframe>';
-            }
-        };
+        // ============ SUBTOP NAV SCROLL ============
+        let scrollInterval, scrollSpeed = 1;
+        function scrollSubNav(n) {
+            scrollInterval = setInterval(() => {
+                scrollSpeed = Math.min(scrollSpeed * 1.1, 10);
+                const el = document.getElementById('subtopnav');
+                if (el) el.scrollLeft += scrollSpeed * n;
+            }, 10);
+        }
+        function stopScroll() { scrollSpeed = 1; clearInterval(scrollInterval); }
+        
+        document.querySelector('.scroll-left')?.addEventListener('mousedown', () => scrollSubNav(-1));
+        document.querySelector('.scroll-right')?.addEventListener('mousedown', () => scrollSubNav(1));
+        document.querySelector('.scroll-left')?.addEventListener('mouseup', stopScroll);
+        document.querySelector('.scroll-right')?.addEventListener('mouseup', stopScroll);
+        document.querySelector('.scroll-left')?.addEventListener('mouseleave', stopScroll);
+        document.querySelector('.scroll-right')?.addEventListener('mouseleave', stopScroll);
 
         // ============ NAVBAR ============
         const hamburger = $('hamburger');
@@ -806,19 +740,9 @@
         hamburger?.addEventListener('click', () => navMenu?.classList.toggle('active'));
         document.addEventListener('click', e => { if (!e.target.closest('.nav-inner') && navMenu?.classList.contains('active')) navMenu.classList.remove('active'); });
 
-        // Sidebar item clicks
-        $('sidebarMenu')?.addEventListener('click', e => {
-            const item = e.target.closest('.sidebar-item');
-            if (item) {
-                document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-            }
-        });
-
-        // ============ INIT ============
         window.performSearch = performSearch;
-        loadAllData();
-        console.log('🚀 Akademia 2026 - W3Schools Inspired Design loaded!');
+        loadData();
+        console.log('🚀 Akademia 2026 - W3Schools Inspired loaded!');
     </script>
 </body>
 </html>
