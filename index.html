@@ -2,620 +2,1032 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>w3schools inspired · learn to code</title>
-    <meta name="description" content="Build your web development skills with interactive tutorials, references, and examples. Inspired by the w3schools learning platform.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademia 2026 - Learn Without Limits</title>
+    <meta name="description" content="Akademia - The future of online learning. Master new skills with AI-powered courses, interactive lessons, and expert-led content.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-light: #3B82F6;
+            --primary-bg: #EFF6FF; --primary-glow: rgba(37,99,235,0.3);
+            --secondary: #06B6D4; --accent: #8B5CF6; --accent-glow: rgba(139,92,246,0.3);
+            --success: #10B981; --warning: #F59E0B; --danger: #EF4444;
+            --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
+            --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
+            --gray-800: #1f2937; --gray-900: #111827; --black: #0a0a0b;
+            --glass-bg: rgba(255,255,255,0.8); --glass-border: rgba(255,255,255,0.2);
+            --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px; --radius-full: 9999px;
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.04); --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow: 0 4px 12px rgba(0,0,0,0.06); --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 48px rgba(0,0,0,0.1); --shadow-xl: 0 32px 64px rgba(0,0,0,0.12);
+            --shadow-glow: 0 0 40px var(--primary-glow); --shadow-glow-accent: 0 0 40px var(--accent-glow);
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Segoe UI', 'Fira Sans', 'Roboto', 'Helvetica Neue', sans-serif;
-            background-color: #f5f7fa;
-            color: #1f2a3e;
-            line-height: 1.5;
+            font-family: 'Inter', sans-serif;
+            background: var(--white); color: var(--gray-800);
+            line-height: 1.6; overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--gray-100); }
+        ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
+
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+
+        /* ============ FLOATING ORBS (2026 Background) ============ */
+        .bg-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .bg-orb {
+            position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.15;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+        .bg-orb.orb-1 { width: 600px; height: 600px; background: var(--primary); top: -200px; left: -100px; animation-delay: 0s; }
+        .bg-orb.orb-2 { width: 500px; height: 500px; background: var(--accent); bottom: -150px; right: -100px; animation-delay: -7s; }
+        .bg-orb.orb-3 { width: 400px; height: 400px; background: var(--secondary); top: 50%; left: 50%; animation-delay: -14s; }
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -30px) scale(1.1); }
+            50% { transform: translate(-30px, 50px) scale(0.9); }
+            75% { transform: translate(-50px, -20px) scale(1.05); }
         }
 
-        /* header / navbar — w3schools style dark top bar */
-        .top-bar {
-            background-color: #282A35;
-            color: white;
-            padding: 0 24px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        /* ============ NAVBAR ============ */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255,255,255,0.7); backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            transition: all var(--transition);
         }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 0;
+        .navbar.scrolled { box-shadow: var(--shadow-sm); background: rgba(255,255,255,0.9); }
+        .nav-container {
+            max-width: 1280px; margin: 0 auto; padding: 0 2rem;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 68px;
         }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            background: #04AA6D;
-            padding: 4px 12px;
-            border-radius: 30px;
-            letter-spacing: -0.5px;
-            color: white;
+        .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .nav-logo img { height: 36px; width: auto; }
+        .nav-logo-text {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem;
+            font-weight: 700; color: var(--gray-900); letter-spacing: -0.5px;
         }
-
-        .logo span {
-            font-weight: 300;
-            font-size: 20px;
+        .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+        .nav-link {
+            font-size: 0.875rem; font-weight: 500; color: var(--gray-600);
+            text-decoration: none; transition: color var(--transition);
+            position: relative; padding: 0.25rem 0;
         }
-
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -2px; left: 0;
+            width: 0; height: 2px; background: var(--primary);
+            border-radius: 1px; transition: width var(--transition);
         }
-
-        .nav-links a {
-            color: #f1f1f1;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            padding: 8px 0;
-            transition: 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: #04AA6D;
-        }
-
-        .btn-green {
-            background-color: #04AA6D;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 28px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 0.9rem;
-        }
-
-        .btn-green:hover {
-            background-color: #059862;
-            transform: scale(1.02);
-        }
-
-        /* hero section */
-        .hero {
-            background: linear-gradient(135deg, #1e2a3e 0%, #0f172a 100%);
-            color: white;
-            text-align: center;
-            padding: 64px 24px;
-        }
-
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 16px;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto 28px;
-            opacity: 0.9;
-        }
-
-        .search-box {
-            background: white;
-            max-width: 550px;
-            margin: 0 auto;
-            border-radius: 48px;
-            display: flex;
+        .nav-link:hover { color: var(--primary); }
+        .nav-link:hover::after { width: 100%; }
+        .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .btn {
+            font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.375rem;
+            padding: 0.5625rem 1.25rem; border-radius: var(--radius-full); font-size: 0.875rem;
+            font-weight: 600; transition: all var(--transition); cursor: pointer;
+            border: none; white-space: nowrap; text-decoration: none; position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
+        .btn::after {
+            content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0);
+            transition: background var(--transition); border-radius: var(--radius-full);
+        }
+        .btn:hover::after { background: rgba(255,255,255,0.15); }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,99,235,0.4); }
+        .btn-ghost { background: transparent; color: var(--gray-700); }
+        .btn-ghost:hover { background: var(--gray-100); }
+        .btn-outline { background: transparent; border: 1.5px solid var(--gray-300); color: var(--gray-700); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
+        .btn-lg { padding: 0.75rem 1.75rem; font-size: 1rem; }
+        .btn-xl { padding: 0.875rem 2rem; font-size: 1.0625rem; }
+        .btn-glow { box-shadow: var(--shadow-glow); }
+        .btn-accent { background: var(--accent); color: white; box-shadow: 0 2px 8px rgba(139,92,246,0.3); }
+        .btn-accent:hover { box-shadow: 0 8px 20px rgba(139,92,246,0.4); transform: translateY(-2px); }
+        .hamburger { display: none; background: none; border: none; font-size: 1.5rem; color: var(--gray-700); cursor: pointer; }
 
+        /* ============ HERO ============ */
+        .hero {
+            position: relative; padding: 180px 0 100px;
+            text-align: center; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -300px; left: 50%; transform: translateX(-50%);
+            width: 900px; height: 900px;
+            background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: var(--primary-bg); color: var(--primary);
+            padding: 0.4375rem 1rem; border-radius: var(--radius-full);
+            font-size: 0.813rem; font-weight: 600; margin-bottom: 1.5rem;
+            animation: fadeInUp 0.6s ease;
+            border: 1px solid rgba(37,99,235,0.15);
+        }
+        .hero-badge .ai-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.5); } }
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800;
+            color: var(--gray-900); line-height: 1.08; letter-spacing: -2px;
+            margin-bottom: 1.25rem; animation: fadeInUp 0.6s ease 0.1s both;
+        }
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, #2563EB 0%, #8B5CF6 50%, #06B6D4 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; background-size: 200% 200%;
+            animation: gradientShift 4s ease infinite;
+        }
+        @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .hero-subtitle {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.2rem; color: var(--gray-500);
+            max-width: 600px; margin: 0 auto 2.5rem;
+            animation: fadeInUp 0.6s ease 0.2s both;
+            line-height: 1.7;
+        }
+        .hero-actions {
+            display: flex; align-items: center; justify-content: center;
+            gap: 1rem; flex-wrap: wrap; animation: fadeInUp 0.6s ease 0.3s both;
+        }
+        .hero-stats {
+            display: flex; align-items: center; justify-content: center;
+            gap: 3rem; margin-top: 4rem;
+            animation: fadeInUp 0.6s ease 0.4s both;
+            flex-wrap: wrap;
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat-value {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2.25rem;
+            font-weight: 700; color: var(--gray-900); letter-spacing: -1px;
+        }
+        .hero-stat-label { font-size: 0.875rem; color: var(--gray-500); margin-top: 0.25rem; }
+        .hero-stat-divider { width: 1px; height: 40px; background: var(--gray-200); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ============ SEARCH SECTION ============ */
+        .search-section {
+            padding: 0 0 60px; position: relative; z-index: 10;
+        }
+        .search-container {
+            max-width: 700px; margin: 0 auto; position: relative;
+            animation: fadeInUp 0.6s ease 0.5s both;
+        }
+        .search-box {
+            display: flex; align-items: center; gap: 0;
+            background: white; border: 2px solid var(--gray-200);
+            border-radius: var(--radius-full); overflow: hidden;
+            box-shadow: var(--shadow-lg); transition: all var(--transition);
+        }
+        .search-box:focus-within {
+            border-color: var(--primary); box-shadow: 0 0 0 4px rgba(37,99,235,0.1), var(--shadow-lg);
+        }
         .search-box input {
-            flex: 1;
-            border: none;
-            padding: 16px 24px;
-            font-size: 1rem;
-            outline: none;
-            font-weight: 400;
+            flex: 1; border: none; padding: 1rem 1.5rem;
+            font-family: 'Inter', sans-serif; font-size: 1rem;
+            outline: none; color: var(--gray-900);
         }
-
+        .search-box input::placeholder { color: var(--gray-400); }
         .search-box button {
-            background-color: #04AA6D;
-            border: none;
-            padding: 0 28px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: 0.2s;
+            padding: 1rem 1.75rem; background: var(--primary);
+            color: white; border: none; cursor: pointer;
+            font-weight: 600; font-size: 0.938rem;
+            transition: all var(--transition); display: flex; align-items: center; gap: 0.5rem;
         }
-
-        .search-box button:hover {
-            background-color: #028a58;
+        .search-box button:hover { background: var(--primary-dark); }
+        .search-results {
+            position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+            background: white; border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200);
+            max-height: 400px; overflow-y: auto; z-index: 50;
+            display: none;
         }
+        .search-results.show { display: block; animation: fadeInUp 0.2s ease; }
+        .search-result-item {
+            display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem;
+            cursor: pointer; transition: background var(--transition); border-bottom: 1px solid var(--gray-100);
+        }
+        .search-result-item:hover { background: var(--primary-bg); }
+        .search-result-item:last-child { border-bottom: none; }
+        .search-result-icon {
+            width: 40px; height: 40px; border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; flex-shrink: 0;
+        }
+        .search-result-icon.course { background: var(--primary-bg); color: var(--primary); }
+        .search-result-icon.module { background: var(--purple-bg); color: var(--purple); }
+        .search-result-icon.lesson { background: var(--warning-bg); color: #D97706; }
+        .search-result-info { flex: 1; }
+        .search-result-name { font-weight: 600; font-size: 0.875rem; }
+        .search-result-meta { font-size: 0.75rem; color: var(--gray-500); }
 
-        /* language cards grid — main learning paths */
+        /* ============ SECTIONS ============ */
+        .section { padding: 100px 0; position: relative; z-index: 1; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-label {
+            font-size: 0.813rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--primary); margin-bottom: 0.75rem;
+        }
         .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            margin: 50px 0 20px;
-            color: #1f2a3e;
-            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700; color: var(--gray-900); letter-spacing: -1px;
+            margin-bottom: 1rem; line-height: 1.2;
+        }
+        .section-subtitle {
+            font-family: 'Manrope', sans-serif; font-size: 1.1rem;
+            color: var(--gray-500); max-width: 500px; margin: 0 auto;
         }
 
-        .card-grid {
-            max-width: 1280px;
-            margin: 0 auto 50px;
-            padding: 0 24px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 28px;
+        /* ============ TOPICS GRID ============ */
+        .topics-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.25rem;
+        }
+        .topic-card {
+            background: white; border: 1px solid var(--gray-100);
+            border-radius: var(--radius-xl); padding: 2rem 1.5rem;
+            cursor: pointer; transition: all var(--transition);
+            position: relative; overflow: hidden;
+        }
+        .topic-card:hover {
+            border-color: var(--primary); transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .topic-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0); transition: transform var(--transition);
+        }
+        .topic-card:hover::before { transform: scaleX(1); }
+        .topic-icon {
+            width: 48px; height: 48px; border-radius: var(--radius);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 1rem;
+            background: var(--primary-bg); color: var(--primary);
+        }
+        .topic-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--gray-900); }
+        .topic-card p { font-size: 0.875rem; color: var(--gray-500); line-height: 1.6; margin-bottom: 1rem; }
+        .topic-card .topic-count { font-size: 0.75rem; color: var(--primary); font-weight: 600; }
+
+        /* ============ COURSES GRID ============ */
+        .courses-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+        .course-card {
+            background: white; border-radius: var(--radius-xl); overflow: hidden;
+            border: 1px solid var(--gray-100); transition: all var(--transition);
+            box-shadow: var(--shadow-xs);
+        }
+        .course-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--gray-200); }
+        .course-image {
+            height: 180px; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .course-image .course-icon {
+            font-size: 4rem; opacity: 0.3; color: white;
+        }
+        .course-image .course-badge {
+            position: absolute; top: 1rem; right: 1rem;
+            background: rgba(255,255,255,0.2); backdrop-filter: blur(8px);
+            color: white; padding: 0.25rem 0.75rem; border-radius: var(--radius-full);
+            font-size: 0.688rem; font-weight: 600;
+        }
+        .course-body { padding: 1.5rem; }
+        .course-category {
+            font-size: 0.688rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; color: var(--primary); margin-bottom: 0.5rem;
+        }
+        .course-title {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem;
+            font-weight: 600; margin-bottom: 0.5rem; color: var(--gray-900);
+        }
+        .course-desc { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .course-meta { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1rem; }
+        .course-meta-item { display: flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; color: var(--gray-500); }
+        .course-meta-item i { font-size: 0.875rem; }
+        .course-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--gray-100); }
+        .course-price { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; }
+        .course-rating { display: flex; align-items: center; gap: 0.25rem; color: #F59E0B; font-weight: 600; font-size: 0.875rem; }
+
+        /* ============ AI SECTION ============ */
+        .ai-section {
+            background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
+            position: relative; overflow: hidden;
+        }
+        .ai-card {
+            background: white; border-radius: var(--radius-2xl);
+            padding: 3rem; box-shadow: var(--shadow-lg);
+            display: flex; align-items: center; gap: 3rem;
+            border: 1px solid var(--gray-100);
+            position: relative; overflow: hidden;
+        }
+        .ai-card::before {
+            content: ''; position: absolute; top: -100px; right: -100px;
+            width: 300px; height: 300px; background: radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .ai-content { flex: 1; position: relative; z-index: 1; }
+        .ai-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: linear-gradient(135deg, #8B5CF6, #6366F1);
+            color: white; padding: 0.4375rem 1rem; border-radius: var(--radius-full);
+            font-size: 0.75rem; font-weight: 600; margin-bottom: 1.25rem;
+        }
+        .ai-badge .ai-sparkle { animation: spin 3s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .ai-title {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
+            font-weight: 700; color: var(--gray-900); margin-bottom: 1rem;
+        }
+        .ai-desc {
+            font-family: 'Manrope', sans-serif; font-size: 1rem;
+            color: var(--gray-500); margin-bottom: 1.5rem; line-height: 1.7;
+        }
+        .ai-chat-preview {
+            width: 380px; background: var(--gray-900); border-radius: var(--radius-xl);
+            padding: 1.5rem; color: white; flex-shrink: 0; position: relative; z-index: 1;
+        }
+        .ai-chat-msg {
+            display: flex; gap: 0.75rem; margin-bottom: 1rem;
+        }
+        .ai-chat-avatar {
+            width: 32px; height: 32px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 0.875rem; flex-shrink: 0;
+        }
+        .ai-chat-avatar.bot { background: var(--accent); }
+        .ai-chat-avatar.user { background: var(--primary); }
+        .ai-chat-bubble {
+            background: rgba(255,255,255,0.1); padding: 0.625rem 0.875rem;
+            border-radius: var(--radius); font-size: 0.813rem; line-height: 1.5;
+        }
+        .ai-chat-input-row {
+            display: flex; gap: 0.5rem; margin-top: 1rem;
+        }
+        .ai-chat-input {
+            flex: 1; padding: 0.625rem 0.875rem; border-radius: var(--radius-sm);
+            border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1);
+            color: white; font-family: 'Inter', sans-serif; font-size: 0.813rem; outline: none;
         }
 
-        .lang-card {
-            background: white;
-            border-radius: 20px;
-            padding: 28px 20px;
-            text-align: center;
-            transition: all 0.25s ease;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-            border: 1px solid #e9edf2;
+        /* ============ TESTIMONIALS ============ */
+        .testimonials-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
         }
-
-        .lang-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 28px -12px rgba(0,0,0,0.2);
-            border-color: #04AA6D;
+        .testimonial-card {
+            background: white; border: 1px solid var(--gray-100);
+            border-radius: var(--radius-xl); padding: 2rem;
+            transition: all var(--transition);
         }
-
-        .lang-icon {
-            font-size: 58px;
-            display: inline-block;
-            margin-bottom: 16px;
+        .testimonial-card:hover { box-shadow: var(--shadow-md); }
+        .testimonial-stars { color: #F59E0B; margin-bottom: 1rem; display: flex; gap: 0.125rem; }
+        .testimonial-text {
+            font-family: 'Manrope', sans-serif; font-size: 0.938rem;
+            color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem;
+            font-style: italic;
         }
-
-        .lang-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            font-weight: 600;
+        .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+        .testimonial-avatar {
+            width: 44px; height: 44px; border-radius: var(--radius);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 1rem;
         }
+        .testimonial-name { font-weight: 600; font-size: 0.875rem; color: var(--gray-900); }
+        .testimonial-role { font-size: 0.75rem; color: var(--gray-500); }
 
-        .lang-card p {
-            color: #4a5568;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
+        /* ============ CTA ============ */
+        .cta-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            position: relative; overflow: hidden; text-align: center; padding: 100px 0;
         }
-
-        .card-btn {
-            background-color: #04AA6D20;
-            color: #04AA6D;
-            border: 1px solid #04AA6D;
-            padding: 8px 24px;
-            border-radius: 60px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            transition: 0.2s;
+        .cta-section::before {
+            content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%);
+            border-radius: 50%;
         }
-
-        .card-btn:hover {
-            background-color: #04AA6D;
-            color: white;
+        .cta-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+            margin-top: 3rem; position: relative; z-index: 1;
         }
-
-        /* featured tutorial section (interactive demo style) */
-        .feature-block {
-            background-color: #e7f3ef;
-            padding: 48px 24px;
-            margin: 30px 0 30px;
+        .cta-feature {
+            text-align: center; color: white; padding: 2rem;
         }
+        .cta-feature i { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.8; }
+        .cta-feature h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; margin-bottom: 0.5rem; }
+        .cta-feature p { font-size: 0.875rem; opacity: 0.6; line-height: 1.6; }
 
-        .feature-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .feature-text {
-            flex: 1;
-            min-width: 260px;
-        }
-
-        .feature-text h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #0a2b1e;
-        }
-
-        .feature-text p {
-            font-size: 1.05rem;
-            margin-bottom: 24px;
-            color: #2c3e2f;
-        }
-
-        .demo-box {
-            flex: 1;
-            background: #1e2a32;
-            border-radius: 28px;
-            padding: 28px;
-            color: #f0f0f0;
-            font-family: 'Courier New', monospace;
-            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.3);
-        }
-
-        .demo-box pre {
-            background: #0f171e;
-            padding: 18px;
-            border-radius: 16px;
-            overflow-x: auto;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-
-        .try-btn {
-            background: #FFC107;
-            color: #1e2a32;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .try-btn:hover {
-            background: #ffb300;
-            transform: scale(1.02);
-        }
-
-        /* references & tools section */
-        .tools-section {
-            max-width: 1280px;
-            margin: 40px auto;
-            padding: 0 24px;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            margin-top: 20px;
-        }
-
-        .tool-card {
-            background: white;
-            border-radius: 20px;
-            padding: 24px 16px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            transition: all 0.2s;
-        }
-
-        .tool-card:hover {
-            border-left: 5px solid #04AA6D;
-            background: #fefefe;
-        }
-
-        .tool-card h4 {
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-        }
-
-        /* footer */
+        /* ============ FOOTER ============ */
         .footer {
-            background: #1f2937;
-            color: #cbd5e1;
-            padding: 48px 24px 24px;
-            margin-top: 60px;
-            text-align: center;
+            background: var(--gray-900); color: #9ca3af;
+            padding: 5rem 0 2rem; position: relative;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem; margin-bottom: 4rem;
+        }
+        .footer-brand img { height: 32px; width: auto; margin-bottom: 1rem; }
+        .footer-brand p { font-family: 'Manrope', sans-serif; font-size: 0.875rem; line-height: 1.7; margin-bottom: 1.5rem; }
+        .footer-social { display: flex; gap: 0.75rem; }
+        .footer-social a {
+            width: 36px; height: 36px; border-radius: var(--radius-sm);
+            background: rgba(255,255,255,0.05); display: flex;
+            align-items: center; justify-content: center;
+            color: #9ca3af; text-decoration: none; transition: all var(--transition);
+        }
+        .footer-social a:hover { background: var(--primary); color: white; }
+        .footer-col h4 {
+            font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; color: white;
+            margin-bottom: 1.25rem;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.625rem; }
+        .footer-col ul li a {
+            color: #9ca3af; text-decoration: none; font-size: 0.813rem;
+            transition: color var(--transition);
+        }
+        .footer-col ul li a:hover { color: white; }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 2rem; display: flex;
+            justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 1rem;
+        }
+        .footer-bottom p { font-size: 0.813rem; }
+        .footer-bottom-links { display: flex; gap: 1.5rem; }
+        .footer-bottom-links a { color: #9ca3af; text-decoration: none; font-size: 0.813rem; transition: color var(--transition); }
+        .footer-bottom-links a:hover { color: white; }
+        .footer-newsletter {
+            display: flex; gap: 0.5rem; margin-top: 1rem;
+        }
+        .footer-newsletter input {
+            flex: 1; padding: 0.625rem 1rem; border-radius: var(--radius-sm);
+            border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05);
+            color: white; font-family: 'Inter', sans-serif; font-size: 0.813rem; outline: none;
+        }
+        .footer-newsletter button {
+            padding: 0.625rem 1.25rem; border-radius: var(--radius-sm);
+            background: var(--primary); color: white; border: none;
+            cursor: pointer; font-weight: 600; font-size: 0.813rem;
         }
 
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 32px;
-            margin-bottom: 32px;
+        /* ============ MODAL ============ */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px); z-index: 2000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity var(--transition);
+        }
+        .modal-overlay.show { opacity: 1; pointer-events: all; }
+        .modal {
+            background: white; border-radius: var(--radius-2xl);
+            width: 90%; max-width: 700px; max-height: 85vh;
+            overflow-y: auto; box-shadow: var(--shadow-xl);
+            padding: 2.5rem;
+        }
+        .modal-close {
+            position: sticky; top: 0; float: right;
+            width: 36px; height: 36px; border-radius: 50%;
+            border: none; background: var(--gray-100); cursor: pointer;
+            font-size: 1.25rem; display: flex; align-items: center; justify-content: center;
         }
 
-        .footer-links a {
-            color: #94a3b8;
-            text-decoration: none;
-            font-weight: 500;
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .footer-grid { grid-template-columns: repeat(3, 1fr); }
+            .cta-grid { grid-template-columns: 1fr; }
+            .ai-card { flex-direction: column; }
+            .ai-chat-preview { width: 100%; }
         }
-
-        .footer-links a:hover {
-            color: #04AA6D;
-        }
-
-        .copyright {
-            font-size: 0.85rem;
-            border-top: 1px solid #334155;
-            padding-top: 28px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 700px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-                padding: 12px 20px;
-            }
-            .nav-links {
-                margin-bottom: 8px;
-            }
-            .section-title {
-                font-size: 1.8rem;
-            }
-        }
-
-        button, a {
-            cursor: pointer;
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: fixed; top: 68px; left: 0; right: 0; background: white; flex-direction: column; padding: 1.5rem; box-shadow: var(--shadow-lg); }
+            .nav-links.active { display: flex; }
+            .hamburger { display: block; }
+            .hero { padding: 140px 0 60px; }
+            .hero-stats { gap: 1.5rem; }
+            .hero-stat-divider { display: none; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .courses-grid { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .topics-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
+    <!-- Floating Background Orbs -->
+    <div class="bg-orbs">
+        <div class="bg-orb orb-1"></div>
+        <div class="bg-orb orb-2"></div>
+        <div class="bg-orb orb-3"></div>
+    </div>
 
-<!-- header / navigation -->
-<div class="top-bar">
-    <div class="logo-area">
-        <div class="logo">w3<span style="font-weight:300">.</span>dev</div>
-        <div style="font-size:14px; opacity:0.8;">The world's largest web dev site</div>
-    </div>
-    <div class="nav-links">
-        <a href="#">Tutorials</a>
-        <a href="#">References</a>
-        <a href="#">Exercises</a>
-        <a href="#">Get Certified</a>
-        <button class="btn-green" id="proButton">Pro 🔥</button>
-    </div>
-</div>
-
-<!-- hero banner -->
-<section class="hero">
-    <h1>Learn to Code</h1>
-    <p>With the world's largest web developer site. <br> HTML, CSS, JavaScript, Python, SQL and more.</p>
-    <div class="search-box">
-        <input type="text" placeholder="Search our tutorials, e.g. 'CSS Grid'" id="searchInput">
-        <button id="searchBtn">Search →</button>
-    </div>
-</section>
-
-<!-- main learning paths: cards inspired by w3schools core languages -->
-<h2 class="section-title">⚡ Explore top technologies</h2>
-<div class="card-grid" id="langCardsContainer">
-    <!-- HTML card -->
-    <div class="lang-card">
-        <div class="lang-icon">🌐</div>
-        <h3>HTML</h3>
-        <p>The standard markup language for web pages. Build structure and content.</p>
-        <a href="#" class="card-btn" data-lang="html">Learn HTML →</a>
-    </div>
-    <!-- CSS card -->
-    <div class="lang-card">
-        <div class="lang-icon">🎨</div>
-        <h3>CSS</h3>
-        <p>Style your websites with colors, layouts, fonts, and animations.</p>
-        <a href="#" class="card-btn" data-lang="css">Learn CSS →</a>
-    </div>
-    <!-- JavaScript -->
-    <div class="lang-card">
-        <div class="lang-icon">⚡</div>
-        <h3>JavaScript</h3>
-        <p>Make your pages interactive, dynamic, and powerful.</p>
-        <a href="#" class="card-btn" data-lang="js">Learn JS →</a>
-    </div>
-    <!-- Python -->
-    <div class="lang-card">
-        <div class="lang-icon">🐍</div>
-        <h3>Python</h3>
-        <p>Backend, data science, AI — clean and versatile language.</p>
-        <a href="#" class="card-btn" data-lang="py">Learn Python →</a>
-    </div>
-    <!-- SQL -->
-    <div class="lang-card">
-        <div class="lang-icon">🗄️</div>
-        <h3>SQL</h3>
-        <p>Manage databases, query data like a pro.</p>
-        <a href="#" class="card-btn" data-lang="sql">Learn SQL →</a>
-    </div>
-    <!-- React -->
-    <div class="lang-card">
-        <div class="lang-icon">⚛️</div>
-        <h3>React</h3>
-        <p>Build modern UI components with the popular library.</p>
-        <a href="#" class="card-btn" data-lang="react">Learn React →</a>
-    </div>
-</div>
-
-<!-- featured interactive demo (code editor style) w3schools "try it" vibe -->
-<div class="feature-block">
-    <div class="feature-container">
-        <div class="feature-text">
-            <h2>✏️ Try it Yourself</h2>
-            <p>Edit the code and see results instantly — like the famous "Try it Yourself" editor. Click the button to run a sample JavaScript greeting.</p>
-            <button class="try-btn" id="runDemoBtn">▶ Run code example</button>
-            <p style="margin-top: 18px; font-size:0.9rem;">💡 Output will appear in the panel on the right →</p>
+    <!-- ============ NAVBAR ============ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia Logo">
+                <span class="nav-logo-text">Akademia</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="nav-link">Home</a></li>
+                <li><a href="#topics" class="nav-link">Topics</a></li>
+                <li><a href="#courses" class="nav-link">Courses</a></li>
+                <li><a href="#ai" class="nav-link">AI Tutor</a></li>
+                <li><a href="lesson.html" class="nav-link">Lessons</a></li>
+                <li><a href="admin.html" class="nav-link">Admin</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="lesson.html" class="btn btn-ghost">Sign In</a>
+                <a href="lesson.html" class="btn btn-primary">Get Started Free</a>
+                <button class="hamburger" id="hamburger"><i class='bx bx-menu'></i></button>
+            </div>
         </div>
-        <div class="demo-box" id="demoOutputArea">
-            <pre id="codePreview">// JavaScript demo
-function greet() {
-  return "Hello from w3.dev! 🚀";
-}
-console.log(greet());</pre>
-            <div id="liveDemoResult" style="background:#07131c; padding:12px; border-radius:16px; margin-top:12px; font-family:monospace; font-size:0.9rem;">
-                💡 Click "Run code example"
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <span class="ai-dot"></span> AI-Powered Learning • 2026 Edition
+            </div>
+            <h1 class="hero-title">
+                Learn Without<br><span class="gradient-text">Limits</span>
+            </h1>
+            <p class="hero-subtitle">
+                Master future-ready skills with AI-powered courses, interactive lessons, and a global community of learners. The next generation of education starts here.
+            </p>
+            <div class="hero-actions">
+                <a href="#courses" class="btn btn-primary btn-xl btn-glow">
+                    <i class='bx bx-rocket'></i> Explore Courses
+                </a>
+                <a href="lesson.html" class="btn btn-outline btn-xl">
+                    <i class='bx bx-play-circle'></i> Try a Free Lesson
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">50K+</div>
+                    <div class="hero-stat-label">Active Students</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">1,200+</div>
+                    <div class="hero-stat-label">Premium Courses</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">500+</div>
+                    <div class="hero-stat-label">Expert Instructors</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">4.9</div>
+                    <div class="hero-stat-label">Student Rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ UNIVERSAL SEARCH ============ -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="universalSearch" placeholder="🔍 Search courses, modules, lessons... (e.g., 'HTML', 'Python', 'Data Science')" autocomplete="off">
+                    <button onclick="performSearch()"><i class='bx bx-search'></i> Search</button>
+                </div>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TOPICS SECTION ============ -->
+    <section class="section" id="topics">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Explore Topics</div>
+                <h2 class="section-title">Choose Your Path</h2>
+                <p class="section-subtitle">Discover curated learning paths designed by industry experts</p>
+            </div>
+            <div class="topics-grid" id="topicsGrid"></div>
+        </div>
+    </section>
+
+    <!-- ============ COURSES SECTION ============ -->
+    <section class="section" id="courses" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Featured Courses</div>
+                <h2 class="section-title">Most Popular Courses</h2>
+                <p class="section-subtitle">Start learning with our highest-rated, most-enrolled courses</p>
+            </div>
+            <div class="courses-grid" id="coursesGrid"></div>
+        </div>
+    </section>
+
+    <!-- ============ AI TUTOR SECTION ============ -->
+    <section class="section ai-section" id="ai">
+        <div class="container">
+            <div class="ai-card">
+                <div class="ai-content">
+                    <div class="ai-badge">
+                        <i class='bx bxs-magic-wand ai-sparkle'></i> AI-Powered
+                    </div>
+                    <h3 class="ai-title">Your Personal AI Tutor</h3>
+                    <p class="ai-desc">
+                        Stuck on a concept? Ask our AI tutor anything. It explains complex topics, generates practice exercises, reviews your code, and adapts to your learning style — available 24/7.
+                    </p>
+                    <button class="btn btn-accent btn-lg" onclick="openAIChat()">
+                        <i class='bx bx-bot'></i> Chat with AI Tutor
+                    </button>
+                </div>
+                <div class="ai-chat-preview">
+                    <div class="ai-chat-msg">
+                        <div class="ai-chat-avatar bot">🤖</div>
+                        <div class="ai-chat-bubble">Hello! I'm your AI tutor. Ask me anything about programming, math, science, or any topic you're learning!</div>
+                    </div>
+                    <div class="ai-chat-msg">
+                        <div class="ai-chat-avatar user" style="margin-left: auto;">👤</div>
+                        <div class="ai-chat-bubble" style="background: rgba(37,99,235,0.3);">Explain CSS Flexbox in simple terms</div>
+                    </div>
+                    <div class="ai-chat-msg">
+                        <div class="ai-chat-avatar bot">🤖</div>
+                        <div class="ai-chat-bubble">Flexbox is like a smart container that automatically arranges items in a row or column. Think of it as a box where you tell items: "line up horizontally" or "stack vertically" — and they obey!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============ -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Testimonials</div>
+                <h2 class="section-title">Loved by Learners Worldwide</h2>
+                <p class="section-subtitle">Join thousands who transformed their careers with Akademia</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Akademia completely changed my career trajectory. The AI tutor helped me understand complex React concepts in minutes. I landed a senior dev role within 3 months!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AM</div>
+                        <div>
+                            <div class="testimonial-name">Alex Martinez</div>
+                            <div class="testimonial-role">Senior Full-Stack Developer @ Google</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"The Data Science path is incredibly comprehensive. Real-world projects, interactive exercises, and the AI code reviewer caught bugs I never would have found. Worth every minute."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JL</div>
+                        <div>
+                            <div class="testimonial-name">Jessica Lee</div>
+                            <div class="testimonial-role">Data Scientist @ Netflix</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Best learning platform of 2026. The community support, AI tutoring, and project-based curriculum make learning addictive. I've never been this motivated to study!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RT</div>
+                        <div>
+                            <div class="testimonial-name">Robert Taylor</div>
+                            <div class="testimonial-role">Product Designer @ Stripe</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta-section">
+        <div class="container" style="position:relative;z-index:1;">
+            <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:white;margin-bottom:1rem;">Ready to Transform Your Future?</h2>
+            <p style="font-family:'Manrope',sans-serif;font-size:1.1rem;color:rgba(255,255,255,0.7);max-width:500px;margin:0 auto 2rem;">Join 50,000+ learners already advancing their careers with Akademia's AI-powered platform.</p>
+            <a href="lesson.html" class="btn btn-primary btn-xl btn-glow" style="font-size:1.0625rem;">Start Learning Free <i class='bx bx-right-arrow-alt'></i></a>
+            <div class="cta-grid">
+                <div class="cta-feature"><i class='bx bx-bot'></i><h4>AI-Powered</h4><p>Personalized learning with 24/7 AI tutoring</p></div>
+                <div class="cta-feature"><i class='bx bx-certification'></i><h4>Certificates</h4><p>Industry-recognized credentials</p></div>
+                <div class="cta-feature"><i class='bx bx-globe'></i><h4>Global Community</h4><p>Learn alongside peers worldwide</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia" style="filter:brightness(0)invert(1);">
+                    <p>Akademia is the next-generation learning platform combining expert-led courses with AI-powered tutoring. Learn without limits.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class='bx bxl-twitter'></i></a>
+                        <a href="#"><i class='bx bxl-github'></i></a>
+                        <a href="#"><i class='bx bxl-youtube'></i></a>
+                        <a href="#"><i class='bx bxl-discord-alt'></i></a>
+                        <a href="#"><i class='bx bxl-linkedin'></i></a>
+                    </div>
+                    <div class="footer-newsletter">
+                        <input type="email" placeholder="Enter your email">
+                        <button>Subscribe</button>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#courses">Browse Courses</a></li>
+                        <li><a href="#topics">Learning Paths</a></li>
+                        <li><a href="#ai">AI Tutor</a></li>
+                        <li><a href="#">Certificates</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press Kit</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Akademia. All rights reserved. Built with ❤️ for learners worldwide.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chat Modal -->
+    <div class="modal-overlay" id="aiChatModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeAIChat()"><i class='bx bx-x'></i></button>
+            <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:1.5rem;">🤖 AI Tutor</h3>
+            <div id="aiChatMessages" style="max-height:400px;overflow-y:auto;margin-bottom:1rem;">
+                <div style="display:flex;gap:0.75rem;margin-bottom:1rem;">
+                    <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:white;flex-shrink:0;">🤖</div>
+                    <div style="background:var(--gray-100);padding:0.75rem;border-radius:var(--radius);font-size:0.875rem;line-height:1.6;">Hi! I'm your AI tutor. How can I help you learn today?</div>
+                </div>
+            </div>
+            <div style="display:flex;gap:0.5rem;">
+                <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="Ask anything..." style="flex:1;padding:0.75rem;border:1px solid var(--gray-200);border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:0.875rem;outline:none;">
+                <button class="btn btn-accent" onclick="sendAIMessage()"><i class='bx bx-send'></i> Send</button>
             </div>
         </div>
     </div>
-</div>
 
-<!-- references & tools (like w3schools references) -->
-<div class="tools-section">
-    <h2 class="section-title" style="margin-top:0;">📚 References & Tools</h2>
-    <div class="tools-grid">
-        <div class="tool-card">
-            <h4>📘 HTML Reference</h4>
-            <p>Tags, attributes, events, canvas</p>
-        </div>
-        <div class="tool-card">
-            <h4>🎨 CSS Reference</h4>
-            <p>Selectors, flexbox, grid, animations</p>
-        </div>
-        <div class="tool-card">
-            <h4>📜 JS Reference</h4>
-            <p>Built-in objects, DOM, ES6+</p>
-        </div>
-        <div class="tool-card">
-            <h4>🐍 Python Reference</h4>
-            <p>Modules, functions, syntax</p>
-        </div>
-        <div class="tool-card">
-            <h4>📊 SQL Keywords</h4>
-            <p>SELECT, JOIN, GROUP BY</p>
-        </div>
-        <div class="tool-card">
-            <h4>⚙️ Code Editor</h4>
-            <p>Frontend tester (coming soon)</p>
-        </div>
-    </div>
-</div>
+    <script type="module">
+        import { db } from './js/firebase.js';
+        import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-<!-- footer with typical w3schools style links -->
-<div class="footer">
-    <div class="footer-links">
-        <a href="#">LEARN HTML</a>
-        <a href="#">LEARN CSS</a>
-        <a href="#">LEARN JS</a>
-        <a href="#">LEARN PYTHON</a>
-        <a href="#">LEARN SQL</a>
-        <a href="#">EXERCISES</a>
-        <a href="#">CERTIFICATES</a>
-    </div>
-    <div class="copyright">
-        © 2026 w3.dev — Inspired by the w3schools learning platform. All tutorials and references are for educational purposes.<br>
-        This is a demo homepage built with HTML, CSS, and JavaScript.
-    </div>
-</div>
+        const $ = id => document.getElementById(id);
+        const escHtml = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
 
-<script>
-    // ----- interactive demos & behaviours inspired by w3schools dynamic feel -----
+        // ============ DATA ============
+        let allTopics = [], allCourses = [], allModules = [], allLessons = [];
 
-    // 1) Simple search alert: simulate search navigation (matching spirit of w3schools quick search)
-    const searchBtn = document.getElementById('searchBtn');
-    const searchInput = document.getElementById('searchInput');
-
-    function performSearch() {
-        let query = searchInput.value.trim();
-        if (query === "") {
-            alert("🔍 Type something to search, for example: 'HTML tables' or 'CSS flexbox'");
-        } else {
-            alert(`✨ Searching for "${query}"...\nIn a real w3schools environment, you'd see related tutorials.`);
-            // optional: we could redirect but this is a demo homepage so we show feedback.
-            searchInput.value = "";
-        }
-    }
-
-    searchBtn.addEventListener('click', performSearch);
-    searchInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') performSearch();
-    });
-
-    // 2) Card buttons (learn more) -> demo alerts showcasing that you are starting a journey
-    const cardBtns = document.querySelectorAll('.card-btn');
-    cardBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const lang = this.getAttribute('data-lang') || 'topic';
-            let topicName = '';
-            switch(lang) {
-                case 'html': topicName = 'HTML'; break;
-                case 'css': topicName = 'CSS'; break;
-                case 'js': topicName = 'JavaScript'; break;
-                case 'py': topicName = 'Python'; break;
-                case 'sql': topicName = 'SQL'; break;
-                case 'react': topicName = 'React'; break;
-                default: topicName = 'this topic';
+        async function loadAllData() {
+            try {
+                const [t, c, m, l] = await Promise.all([
+                    getDocs(query(collection(db, 'topics'), orderBy('createdAt', 'desc'))),
+                    getDocs(query(collection(db, 'courses'), orderBy('createdAt', 'desc'))),
+                    getDocs(query(collection(db, 'modules'), orderBy('order'))),
+                    getDocs(query(collection(db, 'lessons'), orderBy('createdAt', 'desc')))
+                ]);
+                allTopics = t.docs.map(d => ({ id: d.id, ...d.data() }));
+                allCourses = c.docs.map(d => ({ id: d.id, ...d.data() }));
+                allModules = m.docs.map(d => ({ id: d.id, ...d.data() }));
+                allLessons = l.docs.map(d => ({ id: d.id, ...d.data() }));
+            } catch (e) {
+                allTopics = JSON.parse(localStorage.getItem('ak_topics') || '[]');
+                allCourses = JSON.parse(localStorage.getItem('ak_courses') || '[]');
+                allModules = JSON.parse(localStorage.getItem('ak_modules') || '[]');
+                allLessons = JSON.parse(localStorage.getItem('ak_lessons') || '[]');
             }
-            alert(`🚀 Start learning ${topicName}!\nInteractive lessons, quizzes, and examples available.`);
-        });
-    });
-
-    // 3) Try-it demo: run javascript code preview from static example to simulate live output.
-    const runDemoBtn = document.getElementById('runDemoBtn');
-    const liveDemoResult = document.getElementById('liveDemoResult');
-
-    runDemoBtn.addEventListener('click', () => {
-        // w3schools style "Try It" - we display dynamic output and also change the demo area
-        const greetingMessage = "🎉 Hello from the interactive demo! You just ran JavaScript code. 🎉\n👉 This is similar to w3schools' 'Try it Yourself' editors.";
-        // also simulate console.log style
-        liveDemoResult.innerHTML = `<span style="color:#8bc34a;">▶ Output:</span> ${greetingMessage}<br><span style="color:#ccc;font-size:0.8rem;">✔️ You can modify real code in advanced editors.</span>`;
-        // bonus: update code preview area to show that code was executed
-        const codePreview = document.getElementById('codePreview');
-        if (codePreview) {
-            codePreview.innerHTML = `// JavaScript demo (executed)\nfunction demoRun() {\n   return "Live execution successful!";\n}\n${greetingMessage.substring(0, 40)}...`;
+            renderTopics();
+            renderCourses();
         }
-        // extra effect: add temporary green flash background to demo box
-        const demoBox = document.querySelector('.demo-box');
-        demoBox.style.transition = "background 0.2s";
-        demoBox.style.backgroundColor = "#253b44";
-        setTimeout(() => { demoBox.style.backgroundColor = "#1e2a32"; }, 400);
-    });
 
-    // 4) "Pro Button" - show info modal (like w3schools pro membership alert)
-    const proBtn = document.getElementById('proButton');
-    proBtn.addEventListener('click', () => {
-        alert("⭐ W3.DEV Pro (inspired) : Unlock certificates, ad-free learning, and advanced courses.\nThis is a demo homepage — but the real w3schools Pro is even better!");
-    });
+        // ============ RENDER TOPICS ============
+        function renderTopics() {
+            const grid = $('topicsGrid');
+            const displayTopics = allTopics.length ? allTopics : getDemoTopics();
+            const icons = ['bx-code-alt', 'bx-mobile-alt', 'bx-palette', 'bx-shield-quarter', 'bx-brain', 'bx-bar-chart-square', 'bx-cloud', 'bx-bot'];
+            grid.innerHTML = displayTopics.slice(0, 8).map((t, i) => {
+                const count = allCourses.filter(c => c.topicId === t.id).length;
+                return `<div class="topic-card" onclick="window.location.href='#courses'">
+                    <div class="topic-icon"><i class='bx ${t.icon || icons[i % icons.length]}'></i></div>
+                    <h3>${escHtml(t.name)}</h3>
+                    <p>${escHtml(t.description || 'Explore courses in this topic')}</p>
+                    <span class="topic-count">${count || Math.floor(Math.random()*20)+5} courses →</span>
+                </div>`;
+            }).join('');
+        }
 
-    // 5) Tool cards hover effect not necessary but we can add console greeting, 
-    // also simulate references click alert (keep interactive but not intrusive)
-    const toolCards = document.querySelectorAll('.tool-card');
-    toolCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const titleElem = card.querySelector('h4');
-            if (titleElem) {
-                alert(`📖 ${titleElem.innerText} — Full reference documentation would open here.`);
+        function getDemoTopics() {
+            return [
+                { id: '1', name: 'Web Development', description: 'HTML, CSS, JavaScript, React, and more', icon: 'bx-code-alt' },
+                { id: '2', name: 'App Development', description: 'iOS, Android, Flutter, React Native', icon: 'bx-mobile-alt' },
+                { id: '3', name: 'UI/UX Design', description: 'Figma, design systems, user research', icon: 'bx-palette' },
+                { id: '4', name: 'Cybersecurity', description: 'Network security, ethical hacking, forensics', icon: 'bx-shield-quarter' },
+                { id: '5', name: 'AI & Machine Learning', description: 'Python, TensorFlow, neural networks', icon: 'bx-brain' },
+                { id: '6', name: 'Data Science', description: 'SQL, Python, visualization, statistics', icon: 'bx-bar-chart-square' },
+                { id: '7', name: 'Cloud Computing', description: 'AWS, Azure, Docker, Kubernetes', icon: 'bx-cloud' },
+                { id: '8', name: 'Robotics', description: 'ROS, embedded systems, automation', icon: 'bx-bot' }
+            ];
+        }
+
+        // ============ RENDER COURSES ============
+        function renderCourses() {
+            const grid = $('coursesGrid');
+            const displayCourses = allCourses.length ? allCourses : getDemoCourses();
+            grid.innerHTML = displayCourses.slice(0, 6).map(c => {
+                const modCount = allModules.filter(m => m.courseId === c.id).length;
+                const icons = ['bx-code', 'bx-data', 'bx-paint', 'bx-shield', 'bx-brain', 'bx-cloud'];
+                const ri = Math.floor(Math.random() * icons.length);
+                return `<div class="course-card" onclick="window.location.href='lesson.html'">
+                    <div class="course-image">
+                        <i class='bx ${icons[ri]} course-icon'></i>
+                        <span class="course-badge">${c.difficulty || 'All Levels'}</span>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-category">${escHtml(c.topicName || 'General')}</div>
+                        <h3 class="course-title">${escHtml(c.name)}</h3>
+                        <p class="course-desc">${escHtml(c.description || 'Master this comprehensive course with hands-on projects and expert guidance.')}</p>
+                        <div class="course-meta">
+                            <span class="course-meta-item"><i class='bx bx-layer'></i> ${modCount || Math.floor(Math.random()*8)+3} modules</span>
+                            <span class="course-meta-item"><i class='bx bx-time'></i> ${c.duration || Math.floor(Math.random()*20)+5}h</span>
+                            <span class="course-meta-item"><i class='bx bx-user'></i> ${Math.floor(Math.random()*5000)+500}</span>
+                        </div>
+                        <div class="course-footer">
+                            <span class="course-price">${c.price || '$' + (Math.floor(Math.random()*50)+49) + '.99'}</span>
+                            <span class="course-rating"><i class='bx bxs-star'></i> ${(4 + Math.random()).toFixed(1)}</span>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function getDemoCourses() {
+            return [
+                { id: '1', name: 'Complete Web Development Bootcamp', topicName: 'Web Development', description: 'Master HTML, CSS, JavaScript, React, Node.js, and build 10+ real-world projects.', duration: 48, difficulty: 'Beginner' },
+                { id: '2', name: 'Data Science & Machine Learning', topicName: 'Data Science', description: 'Learn Python, pandas, scikit-learn, TensorFlow, and deploy ML models to production.', duration: 36, difficulty: 'Intermediate' },
+                { id: '3', name: 'UI/UX Design Masterclass', topicName: 'UI/UX Design', description: 'From wireframes to polished prototypes. Master Figma, design systems, and user research.', duration: 24, difficulty: 'All Levels' },
+                { id: '4', name: 'Python Programming Pro', topicName: 'Programming', description: 'From zero to hero: Python basics, OOP, async programming, and building real applications.', duration: 30, difficulty: 'Beginner' },
+                { id: '5', name: 'Cloud Computing with AWS', topicName: 'Cloud Computing', description: 'EC2, S3, Lambda, DynamoDB — master the AWS ecosystem and get certified.', duration: 40, difficulty: 'Advanced' },
+                { id: '6', name: 'Cybersecurity Fundamentals', topicName: 'Cybersecurity', description: 'Network security, cryptography, penetration testing, and security operations.', duration: 32, difficulty: 'Intermediate' }
+            ];
+        }
+
+        // ============ UNIVERSAL SEARCH ============
+        function performSearch() {
+            const query = $('universalSearch')?.value?.toLowerCase()?.trim();
+            const resultsContainer = $('searchResults');
+            if (!query || query.length < 1) { resultsContainer.classList.remove('show'); return; }
+
+            const results = [];
+            allTopics.forEach(t => { if (t.name?.toLowerCase().includes(query)) results.push({ type: 'topic', name: t.name, meta: t.description, icon: 'bx-category', colorClass: 'course' }); });
+            allCourses.forEach(c => { if (c.name?.toLowerCase().includes(query) || c.topicName?.toLowerCase().includes(query)) results.push({ type: 'course', name: c.name, meta: c.topicName, icon: 'bx-book-content', colorClass: 'course' }); });
+            allModules.forEach(m => { if (m.name?.toLowerCase().includes(query) || m.courseName?.toLowerCase().includes(query)) results.push({ type: 'module', name: m.name, meta: `Course: ${m.courseName}`, icon: 'bx-layer', colorClass: 'module' }); });
+            allLessons.forEach(l => { if (l.title?.toLowerCase().includes(query) || l.moduleName?.toLowerCase().includes(query)) results.push({ type: 'lesson', name: l.title, meta: `Module: ${l.moduleName}`, icon: 'bx-video', colorClass: 'lesson' }); });
+
+            if (!results.length) {
+                resultsContainer.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--gray-400);">No results found for "' + escHtml(query) + '"</div>';
             } else {
-                alert(`📖 Open detailed reference.`);
+                resultsContainer.innerHTML = results.slice(0, 8).map(r => `
+                    <div class="search-result-item" onclick="window.location.href='lesson.html'">
+                        <div class="search-result-icon ${r.colorClass}"><i class='bx ${r.icon}'></i></div>
+                        <div class="search-result-info">
+                            <div class="search-result-name">${escHtml(r.name)}</div>
+                            <div class="search-result-meta">${escHtml(r.meta)} • ${r.type}</div>
+                        </div>
+                        <i class='bx bx-chevron-right' style="color:var(--gray-400);"></i>
+                    </div>
+                `).join('');
             }
+            resultsContainer.classList.add('show');
+        }
+
+        $('universalSearch')?.addEventListener('input', performSearch);
+        $('universalSearch')?.addEventListener('focus', performSearch);
+        document.addEventListener('click', e => { if (!e.target.closest('.search-container')) $('searchResults').classList.remove('show'); });
+
+        // ============ AI CHAT ============
+        function openAIChat() { $('aiChatModal').classList.add('show'); $('aiChatInput')?.focus(); }
+        function closeAIChat() { $('aiChatModal').classList.remove('show'); }
+        function sendAIMessage() {
+            const input = $('aiChatInput');
+            const messages = $('aiChatMessages');
+            const text = input?.value?.trim();
+            if (!text || !messages) return;
+
+            // Add user message
+            messages.innerHTML += `<div style="display:flex;gap:0.75rem;margin-bottom:1rem;justify-content:flex-end;">
+                <div style="background:var(--primary-bg);padding:0.75rem;border-radius:var(--radius);font-size:0.875rem;max-width:80%;">${escHtml(text)}</div>
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:white;flex-shrink:0;">👤</div>
+            </div>`;
+
+            // Simulate AI response
+            const responses = [
+                "That's a great question! Let me break it down for you...",
+                "I can help with that! Here's what you need to know:",
+                "Excellent topic! Let me explain this concept step by step.",
+                "I've analyzed your question. Here's a comprehensive answer:",
+                "Great choice! This is a fundamental concept that's important to understand."
+            ];
+            const response = responses[Math.floor(Math.random() * responses.length)] + " " + text.split(' ').slice(0, 3).join(' ') + " is an important topic. I recommend starting with the basics and practicing regularly. Would you like me to create a practice exercise for you?";
+
+            setTimeout(() => {
+                messages.innerHTML += `<div style="display:flex;gap:0.75rem;margin-bottom:1rem;">
+                    <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:white;flex-shrink:0;">🤖</div>
+                    <div style="background:var(--gray-100);padding:0.75rem;border-radius:var(--radius);font-size:0.875rem;line-height:1.6;max-width:80%;">${response}</div>
+                </div>`;
+                messages.scrollTop = messages.scrollHeight;
+            }, 800 + Math.random() * 1200);
+
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        $('aiChatInput')?.addEventListener('keydown', e => { if (e.key === 'Enter') sendAIMessage(); });
+
+        // ============ NAVBAR ============
+        const hamburger = $('hamburger');
+        const navLinks = $('navLinks');
+        hamburger?.addEventListener('click', () => navLinks?.classList.toggle('active'));
+        window.addEventListener('scroll', () => {
+            const navbar = $('navbar');
+            if (window.scrollY > 20) navbar?.classList.add('scrolled');
+            else navbar?.classList.remove('scrolled');
         });
-    });
+        document.addEventListener('click', e => { if (!e.target.closest('.nav-container') && navLinks?.classList.contains('active')) navLinks.classList.remove('active'); });
 
-    // Bonus: simple "Try it Yourself" like dynamic feedback on search bar placeholder change on focus
-    searchInput.addEventListener('focus', () => {
-        searchInput.placeholder = "e.g., 'HTML Forms' or 'JavaScript Promises'";
-    });
-    searchInput.addEventListener('blur', () => {
-        searchInput.placeholder = "Search our tutorials, e.g. 'CSS Grid'";
-    });
+        // Close modals
+        document.addEventListener('click', e => { if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('show')) e.target.classList.remove('show'); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { $('aiChatModal').classList.remove('show'); $('searchResults').classList.remove('show'); } });
 
-    // small extra: highlight hero interactive
-    console.log("✅ W3Schools-inspired homepage ready — interactive cards, search, demo runner.");
-</script>
+        // Expose functions
+        window.performSearch = performSearch;
+        window.openAIChat = openAIChat;
+        window.closeAIChat = closeAIChat;
+        window.sendAIMessage = sendAIMessage;
+
+        // ============ INIT ============
+        loadAllData();
+        console.log('🚀 Akademia 2026 - The Ultimate Learning Platform loaded!');
+    </script>
 </body>
 </html>
