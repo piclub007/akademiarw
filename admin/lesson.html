@@ -38,8 +38,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif; background: #f0f2f5;
-            color: var(--gray-800); min-height: 100vh; -webkit-font-smoothing: antialiased;
-            display: flex;
+            color: var(--gray-800); height: 100vh; overflow: hidden;
+            -webkit-font-smoothing: antialiased; display: flex;
         }
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -51,11 +51,11 @@
         .top-loader.active::before { animation: topLoader 1.2s ease-in-out infinite; }
         @keyframes topLoader { 0% { left: -100%; width: 40%; } 50% { left: 60%; width: 40%; } 100% { left: 100%; width: 40%; } }
 
-        /* LEFT SIDE TABS (Create New) */
+        /* LEFT SIDE PANEL */
         .left-side-panel {
             width: 72px; background: var(--white); border-right: 1px solid var(--gray-200);
             display: flex; flex-direction: column; align-items: center; padding: 0.75rem 0;
-            gap: 0.25rem; flex-shrink: 0; position: sticky; top: 0; height: 100vh; z-index: 30;
+            gap: 0.25rem; flex-shrink: 0; height: 100vh; overflow-y: auto; z-index: 30;
         }
         .left-side-panel .side-tab {
             width: 44px; height: 44px; border-radius: var(--radius-sm); display: flex;
@@ -66,10 +66,9 @@
         .left-side-panel .side-tab:hover { background: var(--gray-100); color: var(--gray-900); }
         .left-side-panel .side-tab:active { cursor: grabbing; transform: scale(0.95); }
         .left-side-panel .side-tab.dragging { opacity: 0.5; }
-        .left-side-panel .side-label { font-size: 0.625rem; color: var(--gray-400); text-align: center; margin-top: 0.125rem; }
 
         /* MAIN AREA */
-        .main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .main-area { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow: hidden; min-width: 0; }
 
         /* TOPBAR */
         .topbar {
@@ -77,7 +76,7 @@
             border-bottom: 1px solid var(--gray-200);
             padding: 0 1.5rem; height: var(--header-height);
             display: flex; align-items: center; justify-content: space-between;
-            position: sticky; top: 0; z-index: 50;
+            flex-shrink: 0; z-index: 50;
         }
         .topbar-left { display: flex; align-items: center; gap: 0.75rem; }
         .topbar-back { display: flex; align-items: center; gap: 0.375rem; color: var(--gray-600); text-decoration: none; font-size: 0.813rem; font-weight: 500; padding: 0.375rem 0.625rem; border-radius: var(--radius-sm); transition: all var(--transition); }
@@ -88,20 +87,21 @@
         .topbar-status { font-size: 0.75rem; padding: 0.25rem 0.625rem; border-radius: 100px; font-weight: 600; }
         .topbar-status.draft { background: #F3F4F6; color: #6B7280; }
         .topbar-status.published { background: var(--success-bg); color: #059669; }
+        .topbar-status.sections-badge { background: var(--purple-bg); color: var(--purple); }
 
         /* MAIN TABS */
-        .main-tabs { display: flex; border-bottom: 2px solid var(--gray-200); background: white; padding: 0 1.5rem; position: sticky; top: var(--header-height); z-index: 40; overflow-x: auto; }
+        .main-tabs { display: flex; border-bottom: 2px solid var(--gray-200); background: white; padding: 0 1.5rem; flex-shrink: 0; z-index: 40; overflow-x: auto; }
         .main-tab { padding: 0.75rem 1.25rem; font-size: 0.813rem; font-weight: 500; color: var(--gray-500); cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all var(--transition); white-space: nowrap; display: flex; align-items: center; gap: 0.375rem; }
         .main-tab:hover { color: var(--gray-700); }
         .main-tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
 
         /* TAB PANELS */
-        .tab-panel { display: none; flex: 1; }
+        .tab-panel { display: none; flex: 1; overflow-y: auto; overflow-x: hidden; }
         .tab-panel.active { display: flex; animation: fadeIn 0.2s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* ============ ANALYSIS ============ */
-        .analysis-container { max-width: 1000px; margin: 2rem auto; padding: 0 1.5rem; width: 100%; }
+        .analysis-container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem; width: 100%; }
         .analysis-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-bottom: 1.5rem; }
         .a-stat { background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-lg); padding: 1.25rem; text-align: center; }
         .a-stat .a-val { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; }
@@ -117,7 +117,7 @@
         .fill.red { background: var(--danger); } .fill.orange { background: var(--orange); } .fill.teal { background: var(--teal); }
 
         /* ============ CREATE NEW ============ */
-        .create-container { max-width: 700px; margin: 3rem auto; padding: 0 1.5rem; width: 100%; }
+        .create-container { max-width: 700px; margin: 0 auto; padding: 3rem 1.5rem; width: 100%; }
         .create-card { background: white; border-radius: var(--radius-xl); padding: 2.5rem; box-shadow: var(--shadow-md); text-align: center; }
         .create-card .create-icon { font-size: 3.5rem; margin-bottom: 1rem; }
         .create-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
@@ -132,8 +132,22 @@
         .searchable-select .ss-item { padding: 0.5rem 0.875rem; cursor: pointer; font-size: 0.813rem; transition: background var(--transition); }
         .searchable-select .ss-item:hover { background: var(--primary-bg); }
 
+        /* View type selector */
+        .view-type-selector { display: flex; gap: 0.5rem; }
+        .vt-option {
+            flex: 1; padding: 0.75rem 1rem; border: 2px solid var(--gray-200);
+            border-radius: var(--radius); text-align: center; cursor: pointer;
+            transition: all var(--transition); background: white;
+        }
+        .vt-option:hover { border-color: var(--primary); }
+        .vt-option.selected { border-color: var(--primary); background: var(--primary-bg); }
+        .vt-option.selected .vt-icon { color: var(--primary); }
+        .vt-option .vt-icon { font-size: 1.5rem; display: block; margin-bottom: 0.25rem; color: var(--gray-400); }
+        .vt-option .vt-label { font-weight: 600; font-size: 0.813rem; }
+        .vt-option .vt-desc { font-size: 0.688rem; color: var(--gray-500); margin-top: 0.125rem; }
+
         /* ============ MANAGE ============ */
-        .manage-container { max-width: 1000px; margin: 2rem auto; padding: 0 1.5rem; width: 100%; }
+        .manage-container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem; width: 100%; }
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
         .lesson-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1.25rem; cursor: pointer; transition: all var(--transition); }
         .lesson-card:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-2px); }
@@ -144,16 +158,12 @@
         .lesson-card .l-actions { display: flex; gap: 0.25rem; margin-top: 0.75rem; }
 
         /* ============ EDITOR ============ */
-        .editor-layout { display: flex; flex: 1; }
-        .editor-main { flex: 1; padding: 1.5rem 2rem; max-width: 850px; margin: 0 auto; min-width: 0; }
+        .editor-layout { display: flex; flex: 1; overflow: hidden; }
+        .editor-main { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 1.5rem 2rem; max-width: 850px; margin: 0 auto; min-width: 0; }
         .editor-sidebar { width: var(--side-panel-w); border-left: 1px solid var(--gray-200); background: white; overflow-y: auto; padding: 1rem; flex-shrink: 0; }
-        .editor-sidebar h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; margin-bottom: 0.75rem; }
-        .q-bank-item { padding: 0.75rem; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); margin-bottom: 0.5rem; cursor: pointer; transition: all var(--transition); font-size: 0.813rem; }
-        .q-bank-item:hover { border-color: var(--primary); background: var(--primary-bg); }
-        .q-bank-item .q-type-badge { font-size: 0.625rem; padding: 0.125rem 0.375rem; border-radius: 100px; display: inline-block; margin-bottom: 0.25rem; }
 
         /* Block palette */
-        .block-palette { display: flex; gap: 0.375rem; flex-wrap: wrap; margin-bottom: 1.5rem; justify-content: center; padding: 0.625rem; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); border-radius: var(--radius-xl); border: 1px solid var(--gray-200); position: sticky; top: calc(var(--header-height) + 44px); z-index: 10; }
+        .block-palette { display: flex; gap: 0.375rem; flex-wrap: wrap; margin-bottom: 1.5rem; justify-content: center; padding: 0.625rem; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); border-radius: var(--radius-xl); border: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 10; }
         .palette-item { display: flex; align-items: center; gap: 0.375rem; padding: 0.4375rem 0.75rem; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.75rem; font-weight: 600; transition: all var(--transition); background: white; border: 1px solid var(--gray-200); user-select: none; }
         .palette-item:hover { border-color: var(--primary); background: var(--primary-bg); transform: translateY(-1px); }
         .palette-item:active { transform: scale(0.95); }
@@ -183,7 +193,15 @@
         .block-action-btn { width: 26px; height: 26px; border-radius: var(--radius-xs); border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--gray-400); font-size: 0.875rem; transition: all var(--transition); }
         .block-action-btn:hover { background: var(--gray-100); color: var(--gray-700); }
         .block-action-btn.danger:hover { background: var(--danger-bg); color: var(--danger); }
-        .block-body { padding: 1rem 1.25rem; border-top: 1px solid var(--gray-100); }
+        .block-body { padding: 1rem 1.25rem; border-top: 1px solid var(--gray-100); position: relative; }
+
+        /* Overlay dropdown within block */
+        .block-overlay {
+            position: absolute; top: 100%; left: 0; right: 0;
+            background: white; border: 1px solid var(--gray-200);
+            border-radius: var(--radius); box-shadow: var(--shadow-lg);
+            z-index: 15; padding: 1rem; max-height: 300px; overflow-y: auto;
+        }
 
         /* Rich Editor */
         .rich-editor { border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; }
@@ -192,9 +210,19 @@
         .rich-tool-btn { width: 28px; height: 28px; border-radius: var(--radius-xs); border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--gray-600); font-size: 0.75rem; transition: all var(--transition); }
         .rich-tool-btn:hover { background: var(--gray-200); color: var(--gray-900); }
         .rich-tool-btn.color-btn { position: relative; }
-        .rich-tool-btn.color-btn input[type="color"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
         .rich-content { min-height: 80px; padding: 0.75rem; font-family: 'Manrope', sans-serif; font-size: 0.938rem; line-height: 1.8; color: var(--gray-800); outline: none; word-wrap: break-word; }
         .rich-content:empty::before { content: 'Start typing...'; color: var(--gray-400); }
+
+        /* Color palette popover */
+        .color-popover {
+            position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+            background: white; border: 1px solid var(--gray-200);
+            border-radius: var(--radius); box-shadow: var(--shadow-lg);
+            padding: 0.5rem; display: flex; flex-wrap: wrap; gap: 4px;
+            width: 180px; z-index: 20; margin-bottom: 4px;
+        }
+        .color-popover .color-swatch { width: 24px; height: 24px; border-radius: 4px; cursor: pointer; border: 2px solid transparent; transition: all var(--transition); }
+        .color-popover .color-swatch:hover { border-color: var(--primary); transform: scale(1.2); }
 
         /* Custom inputs */
         .custom-input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--gray-900); transition: all var(--transition); background: white; outline: none; }
@@ -213,20 +241,31 @@
         .empty-state h3 { font-family: 'Space Grotesk', sans-serif; color: var(--gray-500); margin-bottom: 0.5rem; }
         .empty-state p { font-size: 0.813rem; }
 
-        /* Image preview */
+        /* Auto preview */
         .auto-preview { margin-top: 0.75rem; }
         .auto-preview img { max-width: 100%; max-height: 300px; border-radius: var(--radius); object-fit: contain; }
         .auto-preview .vid-preview { position: relative; padding-bottom: 56.25%; height: 0; background: var(--gray-900); border-radius: var(--radius); overflow: hidden; }
         .auto-preview .vid-preview iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-        /* Question bank in sidebar */
+        /* Question bank sidebar */
+        .editor-sidebar h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; margin-bottom: 0.75rem; }
         .q-bank-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
         .q-bank-list { display: flex; flex-direction: column; gap: 0.375rem; max-height: 400px; overflow-y: auto; }
+        .q-bank-item { padding: 0.75rem; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); margin-bottom: 0.5rem; cursor: pointer; transition: all var(--transition); font-size: 0.813rem; }
+        .q-bank-item:hover { border-color: var(--primary); background: var(--primary-bg); }
+        .q-bank-item .q-type-badge { font-size: 0.625rem; padding: 0.125rem 0.375rem; border-radius: 100px; display: inline-block; margin-bottom: 0.25rem; }
 
-        /* Color picker dropdown */
-        .color-palette { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; background: white; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); position: absolute; z-index: 30; box-shadow: var(--shadow-md); }
-        .color-swatch { width: 22px; height: 22px; border-radius: 4px; cursor: pointer; border: 2px solid transparent; transition: all var(--transition); }
-        .color-swatch:hover { border-color: var(--primary); transform: scale(1.15); }
+        /* Pages section */
+        .pages-section { margin-top: 1.5rem; }
+        .pages-section h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; margin-bottom: 0.75rem; }
+        .page-list-item {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 0.75rem; border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm); margin-bottom: 0.375rem;
+            cursor: pointer; transition: all var(--transition); font-size: 0.813rem;
+        }
+        .page-list-item:hover { border-color: var(--primary); }
+        .page-list-item.active { background: var(--primary-bg); border-color: var(--primary); font-weight: 600; }
 
         /* Toast */
         .toast-container { position: fixed; bottom: 1.25rem; right: 1.25rem; z-index: 300; display: flex; flex-direction: column; gap: 0.375rem; }
@@ -238,7 +277,7 @@
         /* Modal */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity var(--transition); }
         .modal-overlay.show { opacity: 1; pointer-events: all; }
-        .modal { background: white; border-radius: var(--radius-xl); width: 90%; max-width: 700px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 25px 50px rgba(0,0,0,0.15); transform: scale(0.95); transition: transform 0.25s ease; }
+        .modal { background: white; border-radius: var(--radius-xl); width: 90%; max-width: 650px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 25px 50px rgba(0,0,0,0.15); transform: scale(0.95); transition: transform 0.25s ease; }
         .modal-overlay.show .modal { transform: scale(1); }
         .modal-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; }
         .modal-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; }
@@ -254,11 +293,16 @@
         .btn-ghost { background: transparent; color: var(--gray-600); }
         .btn-ghost:hover { background: var(--gray-100); }
         .btn-sm { padding: 0.3125rem 0.625rem; font-size: 0.75rem; }
+        .btn-xs { padding: 0.25rem 0.5rem; font-size: 0.625rem; border-radius: var(--radius-xs); }
         .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); }
         .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
         .btn-teal { background: var(--teal); color: white; }
         .btn-danger { background: transparent; color: var(--danger); }
         .btn-danger:hover { background: var(--danger-bg); }
+
+        /* Matching row */
+        .matching-row { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.375rem; }
+        .matching-row .m-type-select { width: 80px; flex-shrink: 0; }
 
         @media (max-width: 1024px) {
             .editor-sidebar { display: none; }
@@ -277,32 +321,16 @@
     <!-- TOP LOADER -->
     <div class="top-loader" id="topLoader"></div>
 
-    <!-- LEFT SIDE PANEL (Drag & Drop Blocks for Create New) -->
+    <!-- LEFT SIDE PANEL -->
     <div class="left-side-panel" id="leftSidePanel">
-        <div style="text-align:center;margin-bottom:0.5rem;">
-            <span style="font-size:0.625rem;color:var(--gray-400);font-weight:600;">BLOCKS</span>
-        </div>
-        <button class="side-tab" draggable="true" data-block-type="text" title="Rich Text">
-            <i class='bx bx-text'></i>
-        </button>
-        <button class="side-tab" draggable="true" data-block-type="video" title="Video">
-            <i class='bx bx-video'></i>
-        </button>
-        <button class="side-tab" draggable="true" data-block-type="remember" title="Remember">
-            <i class='bx bx-brain'></i>
-        </button>
-        <button class="side-tab" draggable="true" data-block-type="question" title="Question">
-            <i class='bx bx-help-circle'></i>
-        </button>
-        <button class="side-tab" draggable="true" data-block-type="image" title="Image">
-            <i class='bx bx-image'></i>
-        </button>
-        <button class="side-tab" draggable="true" data-block-type="code" title="Code">
-            <i class='bx bx-code-alt'></i>
-        </button>
-        <button class="side-tab" draggable="true" data-block-type="embed" title="Embed">
-            <i class='bx bx-globe'></i>
-        </button>
+        <div style="text-align:center;margin-bottom:0.5rem;"><span style="font-size:0.625rem;color:var(--gray-400);font-weight:600;">BLOCKS</span></div>
+        <button class="side-tab" draggable="true" data-block-type="text" title="Rich Text"><i class='bx bx-text'></i></button>
+        <button class="side-tab" draggable="true" data-block-type="video" title="Video"><i class='bx bx-video'></i></button>
+        <button class="side-tab" draggable="true" data-block-type="remember" title="Remember"><i class='bx bx-brain'></i></button>
+        <button class="side-tab" draggable="true" data-block-type="question" title="Exercise"><i class='bx bx-dumbbell'></i></button>
+        <button class="side-tab" draggable="true" data-block-type="image" title="Image"><i class='bx bx-image'></i></button>
+        <button class="side-tab" draggable="true" data-block-type="code" title="Code"><i class='bx bx-code-alt'></i></button>
+        <button class="side-tab" draggable="true" data-block-type="embed" title="Embed"><i class='bx bx-globe'></i></button>
     </div>
 
     <!-- MAIN AREA -->
@@ -334,10 +362,7 @@
             <div class="analysis-container">
                 <div style="margin-bottom:1.5rem;"><h2 style="font-family:'Space Grotesk',sans-serif;">📊 Lesson Analysis</h2></div>
                 <div class="analysis-stats" id="aStats"></div>
-                <div class="a-charts">
-                    <div class="a-panel"><h4>📈 Block Type Distribution</h4><div id="aBlockChart"></div></div>
-                    <div class="a-panel"><h4>📋 Status Breakdown</h4><div id="aStatusChart"></div></div>
-                </div>
+                <div class="a-charts"><div class="a-panel"><h4>📈 Block Type Distribution</h4><div id="aBlockChart"></div></div><div class="a-panel"><h4>📋 Status Breakdown</h4><div id="aStatusChart"></div></div></div>
                 <div class="a-panel" style="margin-top:1.5rem;"><h4>📚 Lessons by Module</h4><div id="aModuleBreakdown"></div></div>
             </div>
         </div>
@@ -352,7 +377,21 @@
                     <div style="text-align:left;">
                         <div class="form-group"><label class="form-label">Lesson Title <span class="req">*</span></label><input type="text" class="custom-input" id="createLessonTitle" placeholder="e.g., Introduction to HTML Forms"></div>
                         <div class="form-group"><label class="form-label">Module <span class="req">*</span></label><div class="searchable-select" id="moduleSearchContainer"><input type="text" class="ss-input" id="moduleSearchInput" placeholder="Search modules..." autocomplete="off"><div class="ss-dropdown" id="moduleDropdown"></div><input type="hidden" id="selectedModuleId"></div></div>
-                        <div class="form-group"><label class="form-label">View Type</label><div style="display:flex;gap:0.5rem;"><button class="btn btn-outline btn-sm active" id="optOnePage" data-vt="one-page">📄 One Page</button><button class="btn btn-outline btn-sm" id="optSections" data-vt="sections">📑 Sections</button></div></div>
+                        <div class="form-group">
+                            <label class="form-label">View Type <span class="req">*</span></label>
+                            <div class="view-type-selector" id="viewTypeSelector">
+                                <div class="vt-option selected" data-vt="one-page">
+                                    <i class='bx bx-file vt-icon'></i>
+                                    <div class="vt-label">One Page</div>
+                                    <div class="vt-desc">All blocks on one scrollable page</div>
+                                </div>
+                                <div class="vt-option" data-vt="sections">
+                                    <i class='bx bx-copy vt-icon'></i>
+                                    <div class="vt-label">Sections</div>
+                                    <div class="vt-desc">Multiple navigable pages</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <button class="btn btn-primary" id="btnCreateLesson" style="width:100%;justify-content:center;margin-top:1.5rem;padding:0.75rem;"><i class='bx bx-plus'></i> Create Lesson & Start Editing</button>
                 </div>
@@ -362,10 +401,7 @@
         <!-- ============ MANAGE PANEL ============ -->
         <div class="tab-panel" id="panelManage">
             <div class="manage-container">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.75rem;">
-                    <h2 style="font-family:'Space Grotesk',sans-serif;">📚 All Lessons</h2>
-                    <input type="text" class="custom-input" id="lessonSearchInput" placeholder="🔍 Search lessons..." style="max-width:300px;">
-                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.75rem;"><h2 style="font-family:'Space Grotesk',sans-serif;">📚 All Lessons</h2><input type="text" class="custom-input" id="lessonSearchInput" placeholder="🔍 Search lessons..." style="max-width:300px;"></div>
                 <div class="card-grid" id="lessonCardGrid"></div>
             </div>
         </div>
@@ -378,20 +414,26 @@
                         <button class="palette-item" data-block="text"><i class='bx bx-text'></i> Text</button>
                         <button class="palette-item" data-block="video"><i class='bx bx-video'></i> Video</button>
                         <button class="palette-item" data-block="remember"><i class='bx bx-brain'></i> Remember</button>
-                        <button class="palette-item" data-block="question"><i class='bx bx-help-circle'></i> Question</button>
+                        <button class="palette-item" data-block="question"><i class='bx bx-dumbbell'></i> Exercise</button>
                         <button class="palette-item" data-block="image"><i class='bx bx-image'></i> Image</button>
                         <button class="palette-item" data-block="code"><i class='bx bx-code-alt'></i> Code</button>
                         <button class="palette-item" data-block="embed"><i class='bx bx-globe'></i> Embed</button>
                     </div>
                     <div class="blocks-canvas" id="blocksCanvas"></div>
                 </div>
-                <!-- Question Bank Sidebar -->
-                <div class="editor-sidebar" id="questionBankSidebar">
-                    <div class="q-bank-header">
-                        <h4>🗂️ Question Bank</h4>
-                        <button class="btn btn-sm btn-primary" id="btnAddQuestionToBank"><i class='bx bx-plus'></i> New</button>
+                <!-- Right Sidebar -->
+                <div class="editor-sidebar" id="editorSidebar">
+                    <!-- Question Bank -->
+                    <div id="qBankSection">
+                        <div class="q-bank-header"><h4>🗂️ Question Bank</h4><button class="btn btn-sm btn-primary" id="btnAddQuestionToBank"><i class='bx bx-plus'></i> New</button></div>
+                        <div class="q-bank-list" id="qBankList"></div>
                     </div>
-                    <div class="q-bank-list" id="qBankList"></div>
+                    <!-- Pages Section (for Sections view) -->
+                    <div class="pages-section" id="pagesSection" style="display:none;">
+                        <h4>📑 Pages</h4>
+                        <div id="pagesList"></div>
+                        <button class="btn btn-sm btn-outline" id="btnAddPage" style="width:100%;margin-top:0.5rem;"><i class='bx bx-plus'></i> Add Page</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -399,20 +441,12 @@
 
     <!-- PREVIEW MODAL -->
     <div class="modal-overlay" id="previewModal">
-        <div class="modal">
-            <div class="modal-header"><h3 class="modal-title">📖 Lesson Preview</h3><button class="modal-close" id="btnClosePreview"><i class='bx bx-x'></i></button></div>
-            <div class="modal-body"><div id="previewContent" style="font-family:'Manrope',sans-serif;line-height:1.8;"></div></div>
-            <div class="modal-footer"><button class="btn btn-ghost" id="btnClosePreview2">Close</button></div>
-        </div>
+        <div class="modal"><div class="modal-header"><h3 class="modal-title">📖 Lesson Preview</h3><button class="modal-close" id="btnClosePreview"><i class='bx bx-x'></i></button></div><div class="modal-body"><div id="previewContent" style="font-family:'Manrope',sans-serif;line-height:1.8;"></div></div><div class="modal-footer"><button class="btn btn-ghost" id="btnClosePreview2">Close</button></div></div>
     </div>
 
     <!-- QUESTION BANK MODAL -->
     <div class="modal-overlay" id="qBankModal">
-        <div class="modal" style="max-width:550px;">
-            <div class="modal-header"><h3 class="modal-title" id="qBankModalTitle">Add Question to Bank</h3><button class="modal-close" id="btnCloseQBank"><i class='bx bx-x'></i></button></div>
-            <div class="modal-body" id="qBankModalBody"></div>
-            <div class="modal-footer"><button class="btn btn-ghost" id="btnCloseQBank2">Cancel</button><button class="btn btn-primary" id="btnSaveQBank">Save Question</button></div>
-        </div>
+        <div class="modal" style="max-width:600px;"><div class="modal-header"><h3 class="modal-title" id="qBankModalTitle">Add Question to Bank</h3><button class="modal-close" id="btnCloseQBank"><i class='bx bx-x'></i></button></div><div class="modal-body" id="qBankModalBody"></div><div class="modal-footer"><button class="btn btn-ghost" id="btnCloseQBank2">Cancel</button><button class="btn btn-primary" id="btnSaveQBank">Save Question</button></div></div>
     </div>
 
     <!-- TOAST -->
@@ -425,10 +459,8 @@
         const IMGBB_API_KEY = 'ba8023ca74166460c442e8e703d2a1b0';
         const $ = id => document.getElementById(id);
         const toast = (msg, type = 'success') => {
-            const c = $('toastContainer');
-            const t = document.createElement('div');
-            t.className = `toast ${type}`;
-            t.innerHTML = `<i class='bx ${type==='success'?'bx-check-circle':'bx-x-circle'}'></i> ${msg}`;
+            const c = $('toastContainer'); const t = document.createElement('div');
+            t.className = `toast ${type}`; t.innerHTML = `<i class='bx ${type==='success'?'bx-check-circle':'bx-x-circle'}'></i> ${msg}`;
             c.appendChild(t); setTimeout(() => t.remove(), 3000);
         };
         const showLoader = () => $('topLoader').classList.add('active');
@@ -440,7 +472,23 @@
         let selectedModuleId = '', selectedViewType = 'one-page';
         let editingQBankItem = null;
 
-        // ============ TAB SWITCHING ============
+        // ============ VIEW TYPE SELECTION (FIX #10) ============
+        function initViewTypeSelector() {
+            const container = $('viewTypeSelector');
+            if (!container) return;
+            container.querySelectorAll('.vt-option').forEach(opt => {
+                opt.addEventListener('click', function() {
+                    container.querySelectorAll('.vt-option').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedViewType = this.dataset.vt;
+                });
+            });
+            // Set initial state
+            const active = container.querySelector('.vt-option.selected');
+            if (active) selectedViewType = active.dataset.vt;
+        }
+
+        // ============ TAB SWITCHING (FIX #4 - scroll only in panel) ============
         function switchTab(name) {
             document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -454,7 +502,7 @@
             });
             if (name === 'analysis') loadAnalysis();
             if (name === 'manage') loadManage();
-            if (name === 'editor') { loadQuestionBank(); LB.renderBlocks(); }
+            if (name === 'editor') { loadQuestionBank(); LB.renderBlocks(); updatePagesUI(); }
         }
 
         $('mainTabs').addEventListener('click', e => {
@@ -501,10 +549,6 @@
             if (item) { selectedModuleId = item.dataset.mid; $('selectedModuleId').value = selectedModuleId; $('moduleSearchInput').value = item.dataset.mname; $('moduleDropdown').classList.remove('show'); }
         });
 
-        // View type
-        document.getElementById('optOnePage')?.addEventListener('click', function(){selectedViewType='one-page';this.classList.add('active');$('optSections').classList.remove('active');});
-        document.getElementById('optSections')?.addEventListener('click', function(){selectedViewType='sections';this.classList.add('active');$('optOnePage').classList.remove('active');});
-
         // ============ CREATE LESSON ============
         $('btnCreateLesson')?.addEventListener('click', () => {
             const title = $('createLessonTitle')?.value?.trim();
@@ -512,7 +556,7 @@
             if (!selectedModuleId) { toast('Select a module','error'); return; }
             LB.init({ title, moduleId: selectedModuleId, viewType: selectedViewType, blocks: [], pages: [{blocks:[]}], status: 'draft', lessonId: null });
             switchTab('editor');
-            toast('Lesson created! Add blocks.','success');
+            toast('Lesson created!','success');
         });
 
         // ============ MANAGE ============
@@ -524,12 +568,7 @@
             if (!f.length) { grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><i class="bx bx-folder-open"></i><h3>No Lessons</h3></div>'; return; }
             grid.innerHTML = f.map(l => {
                 const blocks = l.blockCount||((l.pages||[]).reduce((s,p)=>s+(p.blocks?.length||0),0));
-                return `<div class="lesson-card" data-lid="${l.id}">
-                    <div class="l-title">${escHtml(l.title||'Untitled')}</div>
-                    <div class="l-meta">${escHtml(l.moduleName||'No module')} • ${l.viewType==='sections'?'Sections':'One Page'}</div>
-                    <div class="l-stats"><span class="l-stat"><i class='bx bx-cube'></i> ${blocks}</span><span class="l-stat"><i class='bx bx-time'></i> ${l.estimatedTime||0}m</span><span class="l-stat">${l.status||'draft'}</span></div>
-                    <div class="l-actions"><button class="btn btn-primary btn-sm edit-btn" data-lid="${l.id}"><i class='bx bx-edit'></i> Edit</button><button class="btn btn-ghost btn-sm view-btn" data-lid="${l.id}"><i class='bx bx-show'></i></button><button class="btn btn-danger btn-sm del-btn" data-lid="${l.id}"><i class='bx bx-trash'></i></button></div>
-                </div>`;
+                return `<div class="lesson-card" data-lid="${l.id}"><div class="l-title">${escHtml(l.title||'Untitled')}</div><div class="l-meta">${escHtml(l.moduleName||'No module')} • ${l.viewType==='sections'?'Sections':'One Page'}</div><div class="l-stats"><span class="l-stat"><i class='bx bx-cube'></i> ${blocks}</span><span class="l-stat"><i class='bx bx-time'></i> ${l.estimatedTime||0}m</span><span class="l-stat">${l.status||'draft'}</span></div><div class="l-actions"><button class="btn btn-primary btn-sm edit-btn" data-lid="${l.id}"><i class='bx bx-edit'></i> Edit</button><button class="btn btn-ghost btn-sm view-btn" data-lid="${l.id}"><i class='bx bx-show'></i></button><button class="btn btn-danger btn-sm del-btn" data-lid="${l.id}"><i class='bx bx-trash'></i></button></div></div>`;
             }).join('');
         }
         $('lessonSearchInput')?.addEventListener('input', renderManageCards);
@@ -538,7 +577,7 @@
             const id = card.dataset.lid;
             if (e.target.closest('.edit-btn')) await editLesson(id);
             else if (e.target.closest('.view-btn')) previewLessonById(id);
-            else if (e.target.closest('.del-btn')) { if (confirm('Delete?')) { await deleteDoc(doc(db,'lessons',id)).catch(()=>{}); allLessons=allLessons.filter(l=>l.id!==id); renderManageCards(); toast('Deleted','success'); } }
+            else if (e.target.closest('.del-btn')) { if (confirm('Delete?')) { try{await deleteDoc(doc(db,'lessons',id));}catch(e){} allLessons=allLessons.filter(l=>l.id!==id); renderManageCards(); toast('Deleted','success'); } }
             else await editLesson(id);
         });
         async function editLesson(id) {
@@ -566,11 +605,7 @@
             const total = allLessons.length, pub = allLessons.filter(l=>l.status==='published').length;
             const tBlocks = allLessons.reduce((s,l)=>s+(l.blockCount||((l.pages||[]).reduce((sp,p)=>sp+(p.blocks?.length||0),0))),0);
             const tDur = allLessons.reduce((s,l)=>s+(l.estimatedTime||0),0);
-            $('aStats').innerHTML = `
-                <div class="a-stat blue"><div class="a-val">${total}</div><div class="a-lbl">Total Lessons</div></div>
-                <div class="a-stat green"><div class="a-val">${pub}</div><div class="a-lbl">Published</div></div>
-                <div class="a-stat purple"><div class="a-val">${tBlocks}</div><div class="a-lbl">Total Blocks</div></div>
-                <div class="a-stat orange"><div class="a-val">${tDur}m</div><div class="a-lbl">Total Duration</div></div>`;
+            $('aStats').innerHTML = `<div class="a-stat blue"><div class="a-val">${total}</div><div class="a-lbl">Total Lessons</div></div><div class="a-stat green"><div class="a-val">${pub}</div><div class="a-lbl">Published</div></div><div class="a-stat purple"><div class="a-val">${tBlocks}</div><div class="a-lbl">Total Blocks</div></div><div class="a-stat orange"><div class="a-val">${tDur}m</div><div class="a-lbl">Total Duration</div></div>`;
             const bTypes = { text:0, video:0, remember:0, question:0, image:0, code:0, embed:0 };
             allLessons.forEach(l => (l.pages||[]).forEach(p => (p.blocks||[]).forEach(b => { if (bTypes[b.type]!==undefined) bTypes[b.type]++; })));
             const maxB = Math.max(...Object.values(bTypes),1);
@@ -582,58 +617,122 @@
             $('aModuleBreakdown').innerHTML = Object.entries(modMap).sort((a,b)=>b[1]-a[1]).map(([n,c]) => `<div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0;border-bottom:1px solid var(--gray-100);"><span style="flex:1;font-size:0.813rem;">${escHtml(n)}</span><span style="background:var(--primary-bg);color:var(--primary);padding:0.1875rem 0.5rem;border-radius:100px;font-size:0.688rem;font-weight:600;">${c} lessons</span></div>`).join('')||'<p style="color:var(--gray-400);">No data</p>';
         }
 
-        // ============ QUESTION BANK ============
+        // ============ QUESTION BANK (FIX #3 - dynamic form based on type) ============
         function renderQBankList() {
             const list = $('qBankList'); if (!list) return;
             if (!questionBank.length) { list.innerHTML = '<div class="empty-state" style="padding:1rem;"><i class="bx bx-help-circle" style="font-size:2rem;"></i><p style="font-size:0.75rem;">No questions in bank</p></div>'; return; }
-            const typeLabels = { 'multiple-choice':'MCQ', 'boolean':'T/F', 'complete-text':'Text', 'complete-drag':'Drag', 'matching':'Match' };
-            list.innerHTML = questionBank.map((q,i) => `
-                <div class="q-bank-item" data-qindex="${i}">
-                    <span class="q-type-badge" style="background:var(--purple-bg);color:var(--purple);">${typeLabels[q.questionType]||q.questionType}</span>
-                    <div style="font-weight:500;font-size:0.75rem;margin:0.25rem 0;">${escHtml(q.question||'Untitled')}</div>
-                    <div style="display:flex;gap:0.25rem;">
-                        <button class="btn btn-xs btn-ghost edit-qbank-btn" data-qindex="${i}"><i class='bx bx-edit'></i></button>
-                        <button class="btn btn-xs btn-danger del-qbank-btn" data-qindex="${i}"><i class='bx bx-trash'></i></button>
-                    </div>
-                </div>`).join('');
+            const typeLabels = { 'multiple-choice':'MCQ', 'boolean':'T/F', 'complete-text':'Complete(Text)', 'complete-drag':'Complete(Drag)', 'matching':'Matching' };
+            list.innerHTML = questionBank.map((q,i) => `<div class="q-bank-item" data-qindex="${i}"><span class="q-type-badge" style="background:var(--purple-bg);color:var(--purple);">${typeLabels[q.questionType]||q.questionType}</span><div style="font-weight:500;font-size:0.75rem;margin:0.25rem 0;">${escHtml(q.question||'Untitled')}</div><div style="display:flex;gap:0.25rem;"><button class="btn btn-xs btn-ghost edit-qbank-btn" data-qindex="${i}"><i class='bx bx-edit'></i></button><button class="btn btn-xs btn-danger del-qbank-btn" data-qindex="${i}"><i class='bx bx-trash'></i></button></div></div>`).join('');
         }
         function openQBankModal(editIndex = null) {
             editingQBankItem = editIndex;
             $('qBankModalTitle').textContent = editIndex !== null ? 'Edit Question' : 'Add Question to Bank';
-            const q = editIndex !== null ? questionBank[editIndex] : { questionType: 'multiple-choice', question: '', options: ['','','',''], correctAnswer: 0, points: 10 };
-            $('qBankModalBody').innerHTML = `
-                <div class="form-group"><label class="form-label">Question Type</label><select class="custom-select" id="qBankType"><option value="multiple-choice" ${q.questionType==='multiple-choice'?'selected':''}>Multiple Choice</option><option value="boolean" ${q.questionType==='boolean'?'selected':''}>True/False</option><option value="complete-text" ${q.questionType==='complete-text'?'selected':''}>Complete (Text Input)</option><option value="complete-drag" ${q.questionType==='complete-drag'?'selected':''}>Complete (Drag Answer)</option><option value="matching" ${q.questionType==='matching'?'selected':''}>Matching</option></select></div>
-                <div class="form-group"><label class="form-label">Question <span class="req">*</span></label><input type="text" class="custom-input" id="qBankQuestion" value="${escHtml(q.question||'')}" placeholder="Enter question..."></div>
-                <div id="qBankOptionsArea">${renderQBankOptions(q)}</div>
-                <div class="form-group"><label class="form-label">Points</label><input type="number" class="custom-input" id="qBankPoints" value="${q.points||10}" min="0"></div>`;
+            const q = editIndex !== null ? questionBank[editIndex] : { questionType: 'multiple-choice', question: '', options: ['','','',''], correctAnswer: 0, points: 10, matchingRight: ['','','',''], matchingTypes: {left:'text',right:'text'} };
+            renderQBankForm(q);
             $('qBankModal').classList.add('show');
         }
-        function renderQBankOptions(q) {
-            if (q.questionType === 'boolean') return `<div class="form-group"><label class="form-label">Correct Answer</label><select class="custom-select" id="qBankCorrect"><option value="true" ${q.correctAnswer===true?'selected':''}>True</option><option value="false" ${q.correctAnswer===false?'selected':''}>False</option></select></div>`;
-            if (q.questionType === 'complete-text') return `<div class="form-group"><label class="form-label">Correct Answer Text</label><input type="text" class="custom-input" id="qBankCorrect" value="${escHtml(q.options?.[q.correctAnswer]||'')}" placeholder="Correct answer..."></div>`;
-            if (q.questionType === 'complete-drag') return `<div class="form-group"><label class="form-label">Answer Options (drag choices)</label>${[0,1,2,3].map(i=>`<input type="text" class="custom-input" style="margin-bottom:0.25rem;" id="qBankOpt${i}" value="${escHtml(q.options?.[i]||'')}" placeholder="Option ${i+1}">`).join('')}<label class="form-label" style="margin-top:0.5rem;">Correct Answer Index</label><select class="custom-select" id="qBankCorrect">${[0,1,2,3].map(i=>`<option value="${i}" ${q.correctAnswer===i?'selected':''}>Option ${i+1}</option>`).join('')}</select></div>`;
-            if (q.questionType === 'matching') return `<p style="font-size:0.75rem;color:var(--gray-500);">Matching: pairs will be auto-generated from options</p>${[0,1,2,3].map(i=>`<div style="display:flex;gap:0.5rem;margin-bottom:0.25rem;"><input type="text" class="custom-input" id="qBankLeft${i}" value="${escHtml(q.options?.[i]||'')}" placeholder="Left ${i+1}"><input type="text" class="custom-input" id="qBankRight${i}" value="${escHtml(q.matchingRight?.[i]||'')}" placeholder="Right ${i+1}"></div>`).join('')}`;
-            // multiple-choice default
-            return `${[0,1,2,3].map(i=>`<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;"><span style="width:20px;font-size:0.75rem;">${String.fromCharCode(65+i)}</span><input type="text" class="custom-input" id="qBankOpt${i}" value="${escHtml(q.options?.[i]||'')}" placeholder="Option ${String.fromCharCode(65+i)}"></div>`).join('')}<div class="form-group" style="margin-top:0.5rem;"><label class="form-label">Correct Answer</label><select class="custom-select" id="qBankCorrect">${[0,1,2,3].map(i=>`<option value="${i}" ${q.correctAnswer===i?'selected':''}>${String.fromCharCode(65+i)}</option>`).join('')}</select></div>`;
+        function renderQBankForm(q) {
+            const typeOpts = [
+                {v:'multiple-choice',l:'Multiple Choice'},
+                {v:'boolean',l:'True/False'},
+                {v:'complete-text',l:'Complete (Text Input - Case Sensitive)'},
+                {v:'complete-drag',l:'Complete (Drag Answer Block)'},
+                {v:'matching',l:'Matching (Two Columns)'}
+            ];
+            let h = `<div class="form-group"><label class="form-label">Question Type</label><select class="custom-select" id="qBankType" onchange="updateQBankForm()">${typeOpts.map(o=>`<option value="${o.v}" ${q.questionType===o.v?'selected':''}>${o.l}</option>`).join('')}</select></div>`;
+            h += `<div class="form-group"><label class="form-label">Question <span class="req">*</span></label><input type="text" class="custom-input" id="qBankQuestion" value="${escHtml(q.question||'')}" placeholder="Enter question..."></div>`;
+            h += `<div id="qBankDynamicArea">${renderQBankDynamicFields(q)}</div>`;
+            h += `<div class="form-group"><label class="form-label">Points</label><input type="number" class="custom-input" id="qBankPoints" value="${q.points||10}" min="0"></div>`;
+            $('qBankModalBody').innerHTML = h;
         }
+        function renderQBankDynamicFields(q) {
+            switch (q.questionType) {
+                case 'boolean':
+                    return `<div class="form-group"><label class="form-label">Correct Answer</label><select class="custom-select" id="qBankCorrect"><option value="true" ${q.correctAnswer===true?'selected':''}>True</option><option value="false" ${q.correctAnswer===false?'selected':''}>False</option></select></div>`;
+                case 'complete-text':
+                    return `<div class="form-group"><label class="form-label">Complete the sentence (use ____ for blank)</label><input type="text" class="custom-input" id="qBankSentence" value="${escHtml(q.sentence||'')}" placeholder="e.g., HTML stands for Hyper Text ____ Language."><div class="form-hint" style="font-size:0.688rem;color:var(--gray-400);margin-top:0.25rem;">Use ____ to mark where the blank is. The correct answer goes below.</div></div><div class="form-group"><label class="form-label">Correct Answer (Case Sensitive)</label><input type="text" class="custom-input" id="qBankCorrect" value="${escHtml(q.options?.[q.correctAnswer]||'')}" placeholder="e.g., Markup"></div>`;
+                case 'complete-drag':
+                    const dragOpts = q.options || ['','','',''];
+                    let dh = `<div class="form-group"><label class="form-label">Complete the sentence (use ____ for blank)</label><input type="text" class="custom-input" id="qBankSentence" value="${escHtml(q.sentence||'')}" placeholder="e.g., HTML stands for Hyper Text ____ Language."></div>`;
+                    dh += `<div class="form-group"><label class="form-label">Drag Options (3-4 choices)</label>`;
+                    for (let i = 0; i < 4; i++) {
+                        dh += `<input type="text" class="custom-input" id="qBankOpt${i}" value="${escHtml(dragOpts[i]||'')}" placeholder="Option ${i+1}" style="margin-bottom:0.25rem;">`;
+                    }
+                    dh += `</div><div class="form-group"><label class="form-label">Correct Answer Index</label><select class="custom-select" id="qBankCorrect">${[0,1,2,3].map(i=>`<option value="${i}" ${q.correctAnswer===i?'selected':''}>Option ${i+1}</option>`).join('')}</select></div>`;
+                    return dh;
+                case 'matching':
+                    let mh = `<div class="form-group"><label class="form-label">Left Column Type</label><select class="custom-select" id="qBankMatchLeftType"><option value="text" ${(q.matchingTypes?.left||'text')==='text'?'selected':''}>Text</option><option value="image" ${(q.matchingTypes?.left||'text')==='image'?'selected':''}>Image</option></select></div>`;
+                    mh += `<div class="form-group"><label class="form-label">Right Column Type</label><select class="custom-select" id="qBankMatchRightType"><option value="text" ${(q.matchingTypes?.right||'text')==='text'?'selected':''}>Text</option><option value="image" ${(q.matchingTypes?.right||'text')==='image'?'selected':''}>Image</option></select></div>`;
+                    mh += `<div class="form-group"><label class="form-label">Pairs (Left - Right)</label><div id="matchingPairsContainer">`;
+                    const leftOpts = q.options || ['','','',''];
+                    const rightOpts = q.matchingRight || ['','','',''];
+                    const count = Math.max(leftOpts.length, rightOpts.length, 2);
+                    for (let i = 0; i < count; i++) {
+                        mh += `<div class="matching-row"><input type="text" class="custom-input" id="qBankLeft${i}" value="${escHtml(leftOpts[i]||'')}" placeholder="Left ${i+1}" style="flex:1;"><span style="padding:0 0.25rem;">↔</span><input type="text" class="custom-input" id="qBankRight${i}" value="${escHtml(rightOpts[i]||'')}" placeholder="Right ${i+1}" style="flex:1;"></div>`;
+                    }
+                    mh += `</div><button class="btn btn-sm btn-ghost" onclick="addMatchingRow()" style="margin-top:0.25rem;"><i class='bx bx-plus'></i> Add Row</button></div>`;
+                    return mh;
+                default: // multiple-choice
+                    let mch = '';
+                    for (let i = 0; i < 4; i++) {
+                        mch += `<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;"><span style="width:20px;font-size:0.75rem;">${String.fromCharCode(65+i)}</span><input type="text" class="custom-input" id="qBankOpt${i}" value="${escHtml((q.options||['','','',''])[i]||'')}" placeholder="Option ${String.fromCharCode(65+i)}"></div>`;
+                    }
+                    mch += `<div class="form-group" style="margin-top:0.5rem;"><label class="form-label">Correct Answer</label><select class="custom-select" id="qBankCorrect">${[0,1,2,3].map(i=>`<option value="${i}" ${q.correctAnswer===i?'selected':''}>${String.fromCharCode(65+i)}</option>`).join('')}</select></div>`;
+                    return mch;
+            }
+        }
+        window.updateQBankForm = function() {
+            const type = $('qBankType')?.value || 'multiple-choice';
+            const q = { questionType: type, question: $('qBankQuestion')?.value||'', options: ['','','',''], correctAnswer: 0, points: parseInt($('qBankPoints')?.value)||10, matchingRight: ['','','',''], matchingTypes: {left:'text',right:'text'}, sentence: '' };
+            $('qBankDynamicArea').innerHTML = renderQBankDynamicFields(q);
+        };
+        window.addMatchingRow = function() {
+            const container = document.getElementById('matchingPairsContainer');
+            if (!container) return;
+            const idx = container.querySelectorAll('.matching-row').length;
+            const row = document.createElement('div');
+            row.className = 'matching-row';
+            row.innerHTML = `<input type="text" class="custom-input" id="qBankLeft${idx}" placeholder="Left ${idx+1}" style="flex:1;"><span style="padding:0 0.25rem;">↔</span><input type="text" class="custom-input" id="qBankRight${idx}" placeholder="Right ${idx+1}" style="flex:1;">`;
+            container.appendChild(row);
+        };
         function saveQBankItem() {
             const type = $('qBankType')?.value || 'multiple-choice';
             const question = $('qBankQuestion')?.value?.trim();
             if (!question) { toast('Question required','error'); return; }
             const points = parseInt($('qBankPoints')?.value)||10;
-            let options = ['','','',''], correctAnswer = 0, matchingRight = null;
-            if (type === 'boolean') { correctAnswer = $('qBankCorrect')?.value === 'true'; options = ['True','False']; }
-            else if (type === 'complete-text') { options[0] = $('qBankCorrect')?.value?.trim()||''; correctAnswer = 0; }
-            else if (type === 'complete-drag') { for(let i=0;i<4;i++) options[i] = document.getElementById(`qBankOpt${i}`)?.value?.trim()||''; correctAnswer = parseInt($('qBankCorrect')?.value)||0; }
-            else if (type === 'matching') { for(let i=0;i<4;i++) options[i] = document.getElementById(`qBankLeft${i}`)?.value?.trim()||''; matchingRight = [0,1,2,3].map(i=>document.getElementById(`qBankRight${i}`)?.value?.trim()||''); }
-            else { for(let i=0;i<4;i++) options[i] = document.getElementById(`qBankOpt${i}`)?.value?.trim()||''; correctAnswer = parseInt($('qBankCorrect')?.value)||0; }
+            let options = ['','','',''], correctAnswer = 0, matchingRight = null, matchingTypes = {left:'text',right:'text'}, sentence = '';
             
-            const qData = { questionType: type, question, options, correctAnswer, points, matchingRight };
+            if (type === 'boolean') {
+                correctAnswer = $('qBankCorrect')?.value === 'true';
+                options = ['True','False'];
+            } else if (type === 'complete-text') {
+                sentence = $('qBankSentence')?.value?.trim()||'';
+                options[0] = $('qBankCorrect')?.value?.trim()||'';
+                correctAnswer = 0;
+            } else if (type === 'complete-drag') {
+                sentence = $('qBankSentence')?.value?.trim()||'';
+                for (let i = 0; i < 4; i++) options[i] = document.getElementById(`qBankOpt${i}`)?.value?.trim()||'';
+                correctAnswer = parseInt($('qBankCorrect')?.value)||0;
+            } else if (type === 'matching') {
+                matchingTypes.left = $('qBankMatchLeftType')?.value||'text';
+                matchingTypes.right = $('qBankMatchRightType')?.value||'text';
+                const rows = document.querySelectorAll('#matchingPairsContainer .matching-row');
+                options = []; matchingRight = [];
+                rows.forEach((row, i) => {
+                    options.push(row.querySelector(`#qBankLeft${i}`)?.value?.trim()||'');
+                    matchingRight.push(row.querySelector(`#qBankRight${i}`)?.value?.trim()||'');
+                });
+            } else {
+                for (let i = 0; i < 4; i++) options[i] = document.getElementById(`qBankOpt${i}`)?.value?.trim()||'';
+                correctAnswer = parseInt($('qBankCorrect')?.value)||0;
+            }
+            
+            const qData = { questionType: type, question, options, correctAnswer, points, matchingRight, matchingTypes, sentence };
             if (editingQBankItem !== null) questionBank[editingQBankItem] = qData;
             else questionBank.push(qData);
             saveQuestionBank();
             $('qBankModal').classList.remove('show');
-            toast(editingQBankItem !== null ? 'Updated!' : 'Added to bank!', 'success');
+            toast(editingQBankItem !== null ? 'Updated!' : 'Added!', 'success');
         }
 
         $('btnAddQuestionToBank')?.addEventListener('click', () => openQBankModal(null));
@@ -647,6 +746,64 @@
             if (delBtn) { questionBank.splice(parseInt(delBtn.dataset.qindex),1); saveQuestionBank(); toast('Removed','info'); return; }
         });
 
+        // ============ PAGES MANAGEMENT (FIX #9) ============
+        function updatePagesUI() {
+            const section = $('pagesSection');
+            if (!section) return;
+            if (LB.viewType === 'sections') {
+                section.style.display = 'block';
+                renderPagesList();
+            } else {
+                section.style.display = 'none';
+            }
+        }
+        function renderPagesList() {
+            const container = $('pagesList');
+            if (!container) return;
+            container.innerHTML = LB.pages.map((p, i) => `
+                <div class="page-list-item ${i === LB.currentPage ? 'active' : ''}" onclick="switchToPage(${i})">
+                    <i class='bx bx-file'></i>
+                    <span style="flex:1;">Page ${i + 1}</span>
+                    <span style="font-size:0.625rem;color:var(--gray-400);">${p.blocks.length} blocks</span>
+                    ${LB.pages.length > 1 ? `<button class="btn btn-xs btn-danger" onclick="event.stopPropagation();deletePage(${i})"><i class='bx bx-x'></i></button>` : ''}
+                </div>
+            `).join('');
+        }
+        window.switchToPage = function(index) {
+            LB.currentPage = index;
+            LB.renderBlocks();
+            renderPagesList();
+            updateTopbarForSections();
+        };
+        window.deletePage = function(index) {
+            if (LB.pages.length <= 1) { toast('Cannot delete only page','error'); return; }
+            LB.pages.splice(index, 1);
+            if (LB.currentPage >= LB.pages.length) LB.currentPage = LB.pages.length - 1;
+            LB.renderBlocks();
+            renderPagesList();
+            updateTopbarForSections();
+            LB._autoSave();
+        };
+        function addNewPage() {
+            LB.pages.push({ blocks: [] });
+            LB.currentPage = LB.pages.length - 1;
+            LB.renderBlocks();
+            renderPagesList();
+            updateTopbarForSections();
+            LB._autoSave();
+        }
+        function updateTopbarForSections() {
+            const status = $('topbarStatus');
+            if (LB.viewType === 'sections') {
+                status.textContent = `Page ${LB.currentPage + 1}/${LB.pages.length}`;
+                status.className = 'topbar-status sections-badge';
+            } else {
+                status.textContent = LB.status;
+                status.className = 'topbar-status ' + LB.status;
+            }
+        }
+        $('btnAddPage')?.addEventListener('click', addNewPage);
+
         // ============ LESSON BUILDER ============
         const LB = {
             title:'', moduleId:'', viewType:'one-page', status:'draft', blocks:[], pages:[{blocks:[]}], currentPage:0, lessonId:null, focusedBlockId:null, autoSaveTimer:null, lastDeleted:null,
@@ -654,8 +811,8 @@
                 this.title=d.title; this.moduleId=d.moduleId; this.viewType=d.viewType; this.status=d.status;
                 this.blocks=d.blocks||[]; this.pages=d.pages||[{blocks:[]}]; this.currentPage=0; this.lessonId=d.lessonId; this.focusedBlockId=null;
                 $('lessonTitleInput').value=this.title;
-                $('topbarStatus').textContent=this.status; $('topbarStatus').className='topbar-status '+this.status;
-                this.renderBlocks(); loadQuestionBank();
+                updateTopbarForSections();
+                this.renderBlocks(); updatePagesUI(); loadQuestionBank();
             },
             getBlocks(){ return this.viewType==='sections'?(this.pages[this.currentPage]?.blocks||[]):this.blocks; },
             addBlock(type) {
@@ -670,10 +827,10 @@
                     case 'text': return {...base, content:''};
                     case 'video': return {...base, url:''};
                     case 'remember': return {...base, text:'', rememberQuestion:null};
-                    case 'question': return {...base, questionSource:'bank', questionBankIndex:null, questionType:'multiple-choice', question:'', options:['','','',''], correctAnswer:0, points:10};
+                    case 'question': return {...base, isExercise: true, questionSource:'custom', questionType:'multiple-choice', question:'', options:['','','',''], correctAnswer:0, points:10};
                     case 'image': return {...base, url:'', alt:''};
                     case 'code': return {...base, code:'', language:'javascript', caption:'', description:''};
-                    case 'embed': return {...base, embedUrl:'', description:''};
+                    case 'embed': return {...base, embedUrl:'https://akademiarw.vercel.app/Editor.html', description:''};
                     default: return base;
                 }
             },
@@ -684,23 +841,13 @@
                 canvas.innerHTML=blocks.map((b,i)=>this._renderCard(b,i)).join('');
             },
             _renderCard(block,index) {
-                const icons={text:'bx-text',video:'bx-video',remember:'bx-brain',question:'bx-help-circle',image:'bx-image',code:'bx-code-alt',embed:'bx-globe'};
-                const labels={text:'Rich Text',video:'Video',remember:'Remember',question:'Question',image:'Image',code:'Code',embed:'Embed'};
+                const icons={text:'bx-text',video:'bx-video',remember:'bx-brain',question:'bx-dumbbell',image:'bx-image',code:'bx-code-alt',embed:'bx-globe'};
+                const labels={text:'Rich Text',video:'Video',remember:'Remember',question:'Exercise',image:'Image',code:'Code',embed:'Embed'};
                 const isFocused=this.focusedBlockId===block.id, bid=block.id;
                 return `<div class="block-card ${isFocused?'focused':''}" id="block-${bid}" data-block-id="${bid}">
-                    <div class="block-header">
-                        <i class='bx bx-grid-vertical block-drag'></i>
-                        <div class="block-type-icon ${block.type}"><i class='bx ${icons[block.type]||'bx-cube'}'></i></div>
-                        <span class="block-type-label">${labels[block.type]||block.type}</span>
-                        <span class="block-number">Block ${index+1}</span>
-                        <div class="block-actions">
-                            <button class="block-action-btn minimize-btn" data-id="${bid}"><i class='bx bx-chevron-up'></i></button>
-                            <button class="block-action-btn duplicate-btn" data-id="${bid}"><i class='bx bx-copy'></i></button>
-                            <button class="block-action-btn danger delete-btn" data-id="${bid}"><i class='bx bx-trash'></i></button>
-                        </div>
-                    </div>
-                    <div class="block-body">${this._renderContent(block)}</div>
-                </div>`;
+                    <div class="block-header"><i class='bx bx-grid-vertical block-drag'></i><div class="block-type-icon ${block.type}"><i class='bx ${icons[block.type]||'bx-cube'}'></i></div><span class="block-type-label">${labels[block.type]||block.type}</span><span class="block-number">Block ${index+1}</span>
+                        <div class="block-actions"><button class="block-action-btn minimize-btn" data-id="${bid}"><i class='bx bx-chevron-up'></i></button><button class="block-action-btn duplicate-btn" data-id="${bid}"><i class='bx bx-copy'></i></button><button class="block-action-btn danger delete-btn" data-id="${bid}"><i class='bx bx-trash'></i></button></div>
+                    </div><div class="block-body">${this._renderContent(block)}</div></div>`;
             },
             _renderContent(block) {
                 const bid=block.id;
@@ -708,7 +855,7 @@
                     case 'text': return this._renderRichText(block);
                     case 'video': return this._renderVideo(block);
                     case 'remember': return this._renderRemember(block);
-                    case 'question': return this._renderQuestionBlock(block);
+                    case 'question': return this._renderExerciseBlock(block);
                     case 'image': return this._renderImage(block);
                     case 'code': return this._renderCode(block);
                     case 'embed': return this._renderEmbed(block);
@@ -723,9 +870,8 @@
                     <button class="rich-tool-btn rich-cmd" data-cmd="italic" data-id="${bid}"><i>I</i></button>
                     <button class="rich-tool-btn rich-cmd" data-cmd="underline" data-id="${bid}"><u>U</u></button>
                     <span style="width:1px;background:var(--gray-300);margin:0 0.25rem;"></span>
-                    <select class="rich-tool-btn" style="width:auto;padding:0 0.25rem;font-size:0.688rem;" onchange="document.execCommand('fontSize',false,this.value);LB._updateRichBlock('${bid}');" data-id="${bid}">
-                        <option value="1">Size 1</option><option value="2">Size 2</option><option value="3" selected>Size 3</option><option value="4">Size 4</option><option value="5">Size 5</option><option value="6">Size 6</option><option value="7">Size 7</option>
-                    </select>
+                    <select class="rich-tool-btn" style="width:auto;padding:0 0.25rem;font-size:0.688rem;" onchange="document.execCommand('fontSize',false,this.value);LB._updateRichBlock('${bid}');">
+                        <option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option></select>
                     <button class="rich-tool-btn rich-cmd" data-cmd="formatBlock" data-id="${bid}" data-val="h2">H2</button>
                     <button class="rich-tool-btn rich-cmd" data-cmd="formatBlock" data-id="${bid}" data-val="h3">H3</button>
                     <button class="rich-tool-btn rich-cmd" data-cmd="formatBlock" data-id="${bid}" data-val="p">P</button>
@@ -733,7 +879,7 @@
                     <button class="rich-tool-btn rich-cmd" data-cmd="insertUnorderedList" data-id="${bid}"><i class='bx bx-list-ul'></i></button>
                     <button class="rich-tool-btn rich-cmd" data-cmd="insertOrderedList" data-id="${bid}"><i class='bx bx-list-ol'></i></button>
                     <span style="width:1px;background:var(--gray-300);margin:0 0.25rem;"></span>
-                    <button class="rich-tool-btn color-btn" data-id="${bid}"><i class='bx bx-color'></i><span class="color-palette" style="display:none;">${colors.map(c=>`<span class="color-swatch" style="background:${c};" data-color="${c}" data-id="${bid}"></span>`).join('')}</span></button>
+                    <button class="rich-tool-btn color-btn" data-id="${bid}" style="position:relative;"><i class='bx bx-color'></i><span class="color-popover" style="display:none;">${colors.map(c=>`<span class="color-swatch" style="background:${c};" data-color="${c}" data-id="${bid}"></span>`).join('')}</span></button>
                     <button class="rich-tool-btn link-btn" data-id="${bid}"><i class='bx bx-link'></i></button>
                 </div><div class="rich-content" id="rich-${bid}" contenteditable="true">${block.content||''}</div></div>`;
             },
@@ -744,34 +890,50 @@
             _renderRemember(block) {
                 const bid=block.id;
                 let h = `<div style="background:var(--warning-bg);border:1px solid #FCD34D;border-radius:var(--radius);padding:1rem;margin-bottom:0.75rem;"><label style="font-weight:700;font-size:0.75rem;color:#D97706;display:block;margin-bottom:0.5rem;">🧠 Key Point</label><textarea class="custom-textarea remember-text" data-id="${bid}" rows="3">${block.text||''}</textarea></div>`;
-                h += `<div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:1rem;"><label style="font-weight:700;font-size:0.75rem;display:block;margin-bottom:0.5rem;">❓ Remember Question (Multiple Choice)</label>`;
+                h += `<div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:1rem;"><label style="font-weight:700;font-size:0.75rem;display:block;margin-bottom:0.5rem;">❓ Remember Question (MCQ)</label>`;
                 const rq = block.rememberQuestion || { question:'', options:['','','',''], correctAnswer:0 };
-                h += `<input type="text" class="custom-input rem-q-text" data-id="${bid}" value="${escHtml(rq.question||'')}" placeholder="Question to test recall..." style="margin-bottom:0.5rem;">`;
+                h += `<input type="text" class="custom-input rem-q-text" data-id="${bid}" value="${escHtml(rq.question||'')}" placeholder="Question..." style="margin-bottom:0.5rem;">`;
                 h += [0,1,2,3].map(i => `<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;"><span style="width:20px;font-size:0.75rem;">${String.fromCharCode(65+i)}</span><input type="text" class="custom-input rem-q-opt" data-id="${bid}" data-opt="${i}" value="${escHtml(rq.options?.[i]||'')}" placeholder="Option ${String.fromCharCode(65+i)}"></div>`).join('');
-                h += `<div style="margin-top:0.5rem;"><label style="font-size:0.75rem;">Correct Answer</label><select class="custom-select rem-q-correct" data-id="${bid}" style="width:100px;">${[0,1,2,3].map(i=>`<option value="${i}" ${rq.correctAnswer===i?'selected':''}>${String.fromCharCode(65+i)}</option>`).join('')}</select></div></div>`;
+                h += `<div style="margin-top:0.5rem;"><label style="font-size:0.75rem;">Correct</label><select class="custom-select rem-q-correct" data-id="${bid}" style="width:100px;">${[0,1,2,3].map(i=>`<option value="${i}" ${rq.correctAnswer===i?'selected':''}>${String.fromCharCode(65+i)}</option>`).join('')}</select></div></div>`;
                 return h;
             },
-            _renderQuestionBlock(block) {
+            _renderExerciseBlock(block) {
                 const bid=block.id;
-                let h = `<div style="margin-bottom:0.75rem;"><label style="font-size:0.75rem;font-weight:600;">Question Source</label><select class="custom-select q-source-select" data-id="${bid}" style="margin-top:0.25rem;"><option value="bank" ${block.questionSource==='bank'?'selected':''}>📋 From Question Bank</option><option value="custom" ${block.questionSource==='custom'?'selected':''}>✏️ Custom Question</option></select></div>`;
-                if (block.questionSource === 'bank') {
-                    h += `<div style="margin-bottom:0.5rem;"><label style="font-size:0.75rem;font-weight:600;">Select Question</label><select class="custom-select q-bank-select" data-id="${bid}" style="margin-top:0.25rem;"><option value="">-- Random from bank --</option>${questionBank.map((q,i)=>`<option value="${i}" ${block.questionBankIndex===i?'selected':''}>${escHtml(q.question||'Untitled').substring(0,50)}</option>`).join('')}</select></div>`;
-                    if (block.questionBankIndex !== null && block.questionBankIndex !== undefined && questionBank[block.questionBankIndex]) {
-                        const q = questionBank[block.questionBankIndex];
-                        h += `<div style="background:var(--purple-bg);padding:0.75rem;border-radius:var(--radius-sm);font-size:0.813rem;"><strong>Preview:</strong> ${escHtml(q.question)} (${q.questionType})</div>`;
-                    }
-                } else {
-                    h += this._renderCustomQuestionForm(block);
+                let h = `<div style="margin-bottom:0.75rem;"><label style="font-size:0.75rem;font-weight:600;">Exercise Type</label><select class="custom-select q-type-select" data-id="${bid}" style="margin-top:0.25rem;">`;
+                ['multiple-choice','boolean','complete-text','complete-drag','matching'].forEach(t => {
+                    const labels = {'multiple-choice':'Multiple Choice','boolean':'True/False','complete-text':'Complete (Text Input)','complete-drag':'Complete (Drag Answer)','matching':'Matching'};
+                    h += `<option value="${t}" ${block.questionType===t?'selected':''}>${labels[t]}</option>`;
+                });
+                h += `</select></div>`;
+                h += `<input type="number" class="custom-input q-points-input" data-id="${bid}" value="${block.points||10}" style="width:80px;margin-bottom:0.5rem;" min="0" placeholder="Points">`;
+                h += `<input type="text" class="custom-input q-text-input" data-id="${bid}" value="${escHtml(block.question||'')}" placeholder="Question..." style="margin-bottom:0.5rem;font-weight:600;">`;
+                h += this._renderExerciseFields(block);
+                return h;
+            },
+            _renderExerciseFields(block) {
+                const bid=block.id;
+                switch(block.questionType) {
+                    case 'boolean':
+                        return `<div style="display:flex;gap:0.5rem;"><button class="btn btn-outline btn-sm bool-true-btn" data-id="${bid}" style="flex:1;${block.correctAnswer===true?'background:var(--success-bg);border-color:var(--success);':''}">✅ True</button><button class="btn btn-outline btn-sm bool-false-btn" data-id="${bid}" style="flex:1;${block.correctAnswer===false?'background:var(--success-bg);border-color:var(--success);':''}">❌ False</button></div>`;
+                    case 'complete-text':
+                        return `<div class="form-group"><label class="form-label">Sentence (use ____ for blank)</label><input type="text" class="custom-input comp-sentence" data-id="${bid}" value="${escHtml(block.sentence||'')}" placeholder="HTML stands for ____ Language."></div><div class="form-group"><label class="form-label">Correct Answer (Case Sensitive)</label><input type="text" class="custom-input comp-correct" data-id="${bid}" value="${escHtml(block.options?.[block.correctAnswer]||'')}" placeholder="Markup"></div>`;
+                    case 'complete-drag':
+                        let dh = `<div class="form-group"><label class="form-label">Sentence (use ____ for blank)</label><input type="text" class="custom-input comp-sentence" data-id="${bid}" value="${escHtml(block.sentence||'')}" placeholder="HTML stands for ____ Language."></div>`;
+                        dh += `<div class="form-group"><label class="form-label">Drag Options</label>`;
+                        for(let i=0;i<4;i++) dh += `<input type="text" class="custom-input comp-opt" data-id="${bid}" data-opt="${i}" value="${escHtml((block.options||['','','',''])[i]||'')}" placeholder="Option ${i+1}" style="margin-bottom:0.25rem;">`;
+                        dh += `</div><div class="form-group"><label class="form-label">Correct Answer</label><select class="custom-select comp-correct-sel" data-id="${bid}">${[0,1,2,3].map(i=>`<option value="${i}" ${block.correctAnswer===i?'selected':''}>Option ${i+1}</option>`).join('')}</select></div>`;
+                        return dh;
+                    case 'matching':
+                        let mh = `<div class="form-group"><label class="form-label">Pairs</label>`;
+                        const lefts = block.options||['','','',''];
+                        const rights = block.matchingRight||['','','',''];
+                        const cnt = Math.max(lefts.length, rights.length, 2);
+                        for(let i=0;i<cnt;i++) mh += `<div class="matching-row"><input type="text" class="custom-input match-left" data-id="${bid}" data-opt="${i}" value="${escHtml(lefts[i]||'')}" placeholder="Left ${i+1}" style="flex:1;"><span style="padding:0 0.25rem;">↔</span><input type="text" class="custom-input match-right" data-id="${bid}" data-opt="${i}" value="${escHtml(rights[i]||'')}" placeholder="Right ${i+1}" style="flex:1;"></div>`;
+                        return mh + '</div>';
+                    default:
+                        let mch = (block.options||['','','','']).map((o,i)=>`<div class="opt-row" data-id="${bid}" data-opt="${i}" style="display:flex;align-items:center;gap:0.5rem;padding:0.375rem 0.75rem;border:1px solid ${block.correctAnswer===i?'var(--success)':'var(--gray-200)'};border-radius:var(--radius-sm);margin-bottom:0.25rem;background:${block.correctAnswer===i?'var(--success-bg)':'white'};cursor:pointer;"><div style="width:18px;height:18px;border-radius:50%;border:2px solid ${block.correctAnswer===i?'var(--success)':'var(--gray-300)'};display:flex;align-items:center;justify-content:center;flex-shrink:0;">${block.correctAnswer===i?'✓':''}</div><input class="custom-input opt-input" data-id="${bid}" data-opt="${i}" value="${escHtml(o||'')}" placeholder="Option ${String.fromCharCode(65+i)}" style="border:none;padding:0.25rem;flex:1;"></div>`).join('');
+                        return mch + '<div style="font-size:0.688rem;color:var(--gray-400);margin-top:0.25rem;">Click row to mark as correct</div>';
                 }
-                return h;
-            },
-            _renderCustomQuestionForm(block) {
-                const bid=block.id;
-                return `<select class="custom-select q-type-select" data-id="${bid}" style="width:200px;margin-bottom:0.5rem;"><option value="multiple-choice" ${block.questionType==='multiple-choice'?'selected':''}>Multiple Choice</option><option value="boolean" ${block.questionType==='boolean'?'selected':''}>True/False</option><option value="complete-text" ${block.questionType==='complete-text'?'selected':''}>Complete (Text)</option><option value="complete-drag" ${block.questionType==='complete-drag'?'selected':''}>Complete (Drag)</option><option value="matching" ${block.questionType==='matching'?'selected':''}>Matching</option></select>
-                <input type="number" class="custom-input q-points-input" data-id="${bid}" value="${block.points||10}" style="width:80px;margin-bottom:0.5rem;" min="0" placeholder="Points">
-                <input type="text" class="custom-input q-text-input" data-id="${bid}" value="${escHtml(block.question||'')}" placeholder="Question..." style="margin-bottom:0.5rem;font-weight:600;">
-                ${block.questionType==='boolean'?`<div style="display:flex;gap:0.5rem;"><button class="btn btn-outline btn-sm bool-true-btn" data-id="${bid}" style="flex:1;${block.correctAnswer===true?'background:var(--success-bg);border-color:var(--success);':''}">✅ True</button><button class="btn btn-outline btn-sm bool-false-btn" data-id="${bid}" style="flex:1;${block.correctAnswer===false?'background:var(--success-bg);border-color:var(--success);':''}">❌ False</button></div>`:
-                (block.options||['','','','']).map((o,i)=>`<div class="opt-row" data-id="${bid}" data-opt="${i}" style="display:flex;align-items:center;gap:0.5rem;padding:0.375rem 0.75rem;border:1px solid ${block.correctAnswer===i?'var(--success)':'var(--gray-200)'};border-radius:var(--radius-sm);margin-bottom:0.25rem;background:${block.correctAnswer===i?'var(--success-bg)':'white'};cursor:pointer;"><div style="width:18px;height:18px;border-radius:50%;border:2px solid ${block.correctAnswer===i?'var(--success)':'var(--gray-300)'};display:flex;align-items:center;justify-content:center;flex-shrink:0;">${block.correctAnswer===i?'✓':''}</div><input class="custom-input opt-input" data-id="${bid}" data-opt="${i}" value="${escHtml(o||'')}" placeholder="Option ${String.fromCharCode(65+i)}" style="border:none;padding:0.25rem;flex:1;"></div>`).join('')+`<div style="font-size:0.688rem;color:var(--gray-400);margin-top:0.25rem;">Click row to mark as correct</div>`}`;
             },
             _renderImage(block) {
                 const bid=block.id;
@@ -782,37 +944,33 @@
             },
             _renderCode(block) {
                 const bid=block.id;
-                return `<select class="custom-select code-lang" data-id="${bid}" style="width:160px;margin-bottom:0.5rem;"><option value="javascript" ${block.language==='javascript'?'selected':''}>JavaScript</option><option value="python" ${block.language==='python'?'selected':''}>Python</option><option value="html" ${block.language==='html'?'selected':''}>HTML</option><option value="css" ${block.language==='css'?'selected':''}>CSS</option><option value="bash" ${block.language==='bash'?'selected':''}>Bash</option></select>
+                return `<select class="custom-select code-lang" data-id="${bid}" style="width:160px;margin-bottom:0.5rem;"><option value="javascript" ${block.language==='javascript'?'selected':''}>JavaScript</option><option value="python" ${block.language==='python'?'selected':''}>Python</option><option value="html" ${block.language==='html'?'selected':''}>HTML</option><option value="css" ${block.language==='css'?'selected':''}>CSS</option></select>
                 <textarea class="custom-textarea code-input" data-id="${bid}" rows="5" style="font-family:'JetBrains Mono',monospace;font-size:0.813rem;background:#1e1e2e;color:#cdd6f4;">${block.code||''}</textarea>
-                <input type="text" class="custom-input code-desc-input" data-id="${bid}" value="${block.description||''}" placeholder="Description (explain what this code does)" style="margin-top:0.375rem;">
+                <input type="text" class="custom-input code-desc-input" data-id="${bid}" value="${block.description||''}" placeholder="Description" style="margin-top:0.375rem;">
                 <input type="text" class="custom-input code-cap-input" data-id="${bid}" value="${block.caption||''}" placeholder="Caption" style="margin-top:0.375rem;">`;
             },
             _renderEmbed(block) {
                 const bid=block.id;
-                return `<input type="text" class="custom-input embed-url" data-id="${bid}" value="${block.embedUrl||''}" placeholder="Embed URL (website, iframe, etc.)...">
-                <input type="text" class="custom-input embed-desc" data-id="${bid}" value="${block.description||''}" placeholder="Description" style="margin-top:0.375rem;">
-                <div class="auto-preview">${block.embedUrl?`<div class="vid-preview"><iframe src="${block.embedUrl}" allowfullscreen sandbox="allow-scripts allow-same-origin"></iframe></div>`:''}</div>`;
+                const defaultUrl = 'https://akademiarw.vercel.app/Editor.html';
+                return `<input type="text" class="custom-input embed-url" data-id="${bid}" value="${block.embedUrl||defaultUrl}" placeholder="Embed URL..."><input type="text" class="custom-input embed-desc" data-id="${bid}" value="${block.description||''}" placeholder="Description" style="margin-top:0.375rem;"><div class="auto-preview">${(block.embedUrl||defaultUrl)?`<div class="vid-preview"><iframe src="${block.embedUrl||defaultUrl}" allowfullscreen sandbox="allow-scripts allow-same-origin"></iframe></div>`:''}</div>`;
             },
             _getYTId(url){ if(!url)return null; const m=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\s]{11})/); return m?m[1]:null; },
             _findBlock(id){ return this.getBlocks().find(b=>b.id===id); },
             _updateRichBlock(bid){ const el=document.getElementById('rich-'+bid); if(el){ const b=this._findBlock(bid); if(b){ b.content=el.innerHTML; this._autoSave(); } } },
             _autoSave(){ clearTimeout(this.autoSaveTimer); this.autoSaveTimer=setTimeout(()=>{ const d={title:$('lessonTitleInput')?.value||this.title,moduleId:this.moduleId,viewType:this.viewType,status:this.status,pages:this.viewType==='sections'?this.pages:[{blocks:this.blocks}],estimatedTime:this.getBlocks().length*5,blockCount:this.getBlocks().length}; localStorage.setItem('ak_lesson_autosave',JSON.stringify(d)); },2000); },
             async save(){
-                showLoader(); $('topbarStatus').textContent='Saving...'; $('topbarStatus').className='topbar-status saving';
+                showLoader();
                 const d={title:$('lessonTitleInput')?.value||this.title,moduleId:this.moduleId,viewType:this.viewType,status:this.status,pages:this.viewType==='sections'?this.pages:[{blocks:this.blocks}],estimatedTime:this.getBlocks().length*5,blockCount:this.getBlocks().length,updatedAt:new Date().toISOString()};
                 this.title=d.title;
                 try {
                     if(this.lessonId) await updateDoc(doc(db,'lessons',this.lessonId),{...d,updatedAt:Timestamp.now()});
                     else { const ref=await addDoc(collection(db,'lessons'),{...d,createdAt:Timestamp.now(),updatedAt:Timestamp.now()}); this.lessonId=ref.id; localStorage.setItem('ak_current_lesson',ref.id); window.history.replaceState({},'',`?id=${ref.id}`); }
-                    localStorage.setItem('ak_lesson_backup',JSON.stringify(d));
-                    $('topbarStatus').textContent=this.status; $('topbarStatus').className='topbar-status '+this.status; toast('Saved!','success');
+                    localStorage.setItem('ak_lesson_backup',JSON.stringify(d)); toast('Saved!','success');
                 } catch(e) { localStorage.setItem('ak_lesson_backup',JSON.stringify(d)); toast('Saved locally','warning'); }
                 hideLoader();
             },
-            publish(){ this.status='published'; $('topbarStatus').textContent='Published'; $('topbarStatus').className='topbar-status published'; this.save(); },
-            preview(){
-                const blocks=this.getBlocks(); $('previewContent').innerHTML=buildPreviewHTML(this.title,blocks); $('previewModal').classList.add('show');
-            }
+            publish(){ this.status='published'; updateTopbarForSections(); this.save(); },
+            preview(){ const blocks=this.getBlocks(); $('previewContent').innerHTML=buildPreviewHTML(this.title,blocks); $('previewModal').classList.add('show'); }
         };
 
         function buildPreviewHTML(title, blocks) {
@@ -822,7 +980,7 @@
                 if (b.type==='text') h += b.content||'<p>Empty</p>';
                 if (b.type==='video') h += b.url?`<div style="background:#111;color:#fff;padding:2rem;text-align:center;">📹 Video</div>`:'<p>No video</p>';
                 if (b.type==='remember') h += `<div style="background:var(--warning-bg);padding:1rem;border-radius:8px;"><strong>🧠</strong> ${escHtml(b.text||'')}</div>`;
-                if (b.type==='question') h += `<div style="background:var(--purple-bg);padding:1rem;border-radius:8px;"><strong>❓ ${escHtml(b.question||'Question')}</strong></div>`;
+                if (b.type==='question') h += `<div style="background:var(--purple-bg);padding:1rem;border-radius:8px;"><strong>🏋️ ${escHtml(b.question||'Exercise')}</strong></div>`;
                 if (b.type==='image') h += b.url?`<img src="${b.url}" style="max-width:100%;border-radius:8px;">`:'<p>No image</p>';
                 if (b.type==='code') h += `<pre style="background:#1e1e2e;color:#cdd6f4;padding:1rem;border-radius:8px;">${escHtml(b.code||'')}</pre>`;
                 if (b.type==='embed') h += b.embedUrl?`<div style="background:#111;color:#fff;padding:2rem;text-align:center;">🔗 Embed</div>`:'<p>No embed</p>';
@@ -833,82 +991,83 @@
 
         // ============ EVENT DELEGATION ============
         document.addEventListener('click', async e => {
-            // Palette
             const pal = e.target.closest('.palette-item[data-block]');
             if (pal) { LB.addBlock(pal.dataset.block); return; }
-            // Block card focus
             const card = e.target.closest('.block-card[data-block-id]');
             if (card && !e.target.closest('button,input,textarea,select,[contenteditable],.color-swatch')) {
                 LB.focusedBlockId = card.dataset.blockId;
                 document.querySelectorAll('.block-card').forEach(c=>c.classList.remove('focused'));
                 card.classList.add('focused'); return;
             }
-            // Minimize
             const min = e.target.closest('.minimize-btn');
             if (min) { document.getElementById('block-'+min.dataset.id)?.classList.toggle('minimized'); return; }
-            // Duplicate
             const dup = e.target.closest('.duplicate-btn');
             if (dup) { const b=LB._findBlock(dup.dataset.id); if(b){const clone=JSON.parse(JSON.stringify(b));clone.id='b_'+Date.now();LB.getBlocks().splice(LB.getBlocks().findIndex(x=>x.id===dup.dataset.id)+1,0,clone);LB.renderBlocks();LB._autoSave();toast('Duplicated!','success');} return; }
-            // Delete
             const del = e.target.closest('.delete-btn');
             if (del) { const blocks=LB.getBlocks(); const idx=blocks.findIndex(x=>x.id===del.dataset.id); if(idx!==-1){LB.lastDeleted={block:blocks.splice(idx,1)[0],index:idx};LB.renderBlocks();LB._autoSave();toast('Deleted','info');} return; }
-            // Rich commands
             const cmd = e.target.closest('.rich-cmd');
             if (cmd) { const {cmd:c, id, val}=cmd.dataset; const el=document.getElementById('rich-'+id); if(el){el.focus();document.execCommand(c,false,val||null);LB._updateRichBlock(id);} return; }
-            // Color swatch
             const sw = e.target.closest('.color-swatch');
-            if (sw) { const {color, id}=sw.dataset; const el=document.getElementById('rich-'+id); if(el){el.focus();document.execCommand('foreColor',false,color);LB._updateRichBlock(id);} sw.parentElement.style.display='none'; return; }
-            // Color button toggle
+            if (sw) { const {color, id}=sw.dataset; const el=document.getElementById('rich-'+id); if(el){el.focus();document.execCommand('foreColor',false,color);LB._updateRichBlock(id);} sw.closest('.color-popover').style.display='none'; return; }
             const colBtn = e.target.closest('.color-btn');
-            if (colBtn) { const pal = colBtn.querySelector('.color-palette'); if(pal){pal.style.display=pal.style.display==='none'?'flex':'none';} return; }
-            // Link
+            if (colBtn) { const pop = colBtn.querySelector('.color-popover'); if(pop){pop.style.display=pop.style.display==='none'?'flex':'none';} return; }
             const link = e.target.closest('.link-btn');
             if (link) { const id=link.dataset.id; const el=document.getElementById('rich-'+id); if(el){el.focus();const url=prompt('URL:','https://');if(url){document.execCommand('createLink',false,url);LB._updateRichBlock(id);}} return; }
-            // Image upload
+            // FIX #1: Image upload trigger
             const imgTrg = e.target.closest('.img-upload-trigger');
-            if (imgTrg) { const fi=imgTrg.querySelector('.img-file-input'); if(fi)fi.click(); return; }
-            // Option row
+            if (imgTrg) { const fi = imgTrg.querySelector('.img-file-input'); if(fi) fi.click(); return; }
+            // FIX #7: Option row click to mark correct
             const optRow = e.target.closest('.opt-row');
             if (optRow && !e.target.closest('input')) { const b=LB._findBlock(optRow.dataset.id); if(b){b.correctAnswer=parseInt(optRow.dataset.opt);LB.renderBlocks();LB._autoSave();} return; }
-            // Boolean buttons
             const bt = e.target.closest('.bool-true-btn');
             if (bt) { const b=LB._findBlock(bt.dataset.id); if(b){b.correctAnswer=true;LB.renderBlocks();LB._autoSave();} return; }
             const bf = e.target.closest('.bool-false-btn');
             if (bf) { const b=LB._findBlock(bf.dataset.id); if(b){b.correctAnswer=false;LB.renderBlocks();LB._autoSave();} return; }
         });
 
-        // Change events
         document.addEventListener('change', async e => {
-            // Video URL
             if (e.target.classList.contains('video-url')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.url=e.target.value;LB.renderBlocks();LB._autoSave();} }
-            // Remember text
             if (e.target.classList.contains('remember-text')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.text=e.target.value;LB._autoSave();} }
-            // Remember question fields
             if (e.target.classList.contains('rem-q-text')) { const b=LB._findBlock(e.target.dataset.id); if(b){if(!b.rememberQuestion)b.rememberQuestion={question:'',options:['','','',''],correctAnswer:0};b.rememberQuestion.question=e.target.value;LB._autoSave();} }
             if (e.target.classList.contains('rem-q-opt')) { const b=LB._findBlock(e.target.dataset.id); if(b){if(!b.rememberQuestion)b.rememberQuestion={question:'',options:['','','',''],correctAnswer:0};b.rememberQuestion.options[parseInt(e.target.dataset.opt)]=e.target.value;LB._autoSave();} }
             if (e.target.classList.contains('rem-q-correct')) { const b=LB._findBlock(e.target.dataset.id); if(b){if(!b.rememberQuestion)b.rememberQuestion={question:'',options:['','','',''],correctAnswer:0};b.rememberQuestion.correctAnswer=parseInt(e.target.value);LB._autoSave();} }
-            // Question source
-            if (e.target.classList.contains('q-source-select')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.questionSource=e.target.value;b.questionBankIndex=null;LB.renderBlocks();LB._autoSave();} }
-            if (e.target.classList.contains('q-bank-select')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.questionBankIndex=e.target.value?parseInt(e.target.value):null;LB.renderBlocks();LB._autoSave();} }
             if (e.target.classList.contains('q-type-select')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.questionType=e.target.value;LB.renderBlocks();LB._autoSave();} }
             if (e.target.classList.contains('q-text-input')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.question=e.target.value;LB._autoSave();} }
             if (e.target.classList.contains('q-points-input')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.points=parseInt(e.target.value)||0;LB._autoSave();} }
             if (e.target.classList.contains('opt-input')) { const b=LB._findBlock(e.target.dataset.id); if(b&&b.options){b.options[parseInt(e.target.dataset.opt)]=e.target.value;LB._autoSave();} }
-            // Image URL
+            if (e.target.classList.contains('comp-sentence')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.sentence=e.target.value;LB._autoSave();} }
+            if (e.target.classList.contains('comp-correct')) { const b=LB._findBlock(e.target.dataset.id); if(b){if(!b.options)b.options=['','','',''];b.options[0]=e.target.value;b.correctAnswer=0;LB._autoSave();} }
+            if (e.target.classList.contains('comp-opt')) { const b=LB._findBlock(e.target.dataset.id); if(b){if(!b.options)b.options=['','','',''];b.options[parseInt(e.target.dataset.opt)]=e.target.value;LB._autoSave();} }
+            if (e.target.classList.contains('comp-correct-sel')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.correctAnswer=parseInt(e.target.value);LB._autoSave();} }
+            if (e.target.classList.contains('match-left')) { const b=LB._findBlock(e.target.dataset.id); if(b){if(!b.options)b.options=['','','',''];b.options[parseInt(e.target.dataset.opt)]=e.target.value;LB._autoSave();} }
+            if (e.target.classList.contains('match-right')) { const b=LB._findBlock(e.target.dataset.id); if(b){if(!b.matchingRight)b.matchingRight=['','','',''];b.matchingRight[parseInt(e.target.dataset.opt)]=e.target.value;LB._autoSave();} }
+            // FIX #1: Image file upload
+            if (e.target.classList.contains('img-file-input')) {
+                const file = e.target.files?.[0];
+                if (file) {
+                    showLoader();
+                    const fd = new FormData(); fd.append('image', file);
+                    try {
+                        const r = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: fd });
+                        const d = await r.json();
+                        if (d.success) {
+                            const b = LB._findBlock(e.target.dataset.id);
+                            if (b) { b.url = d.data.url; LB.renderBlocks(); LB._autoSave(); toast('Image uploaded!','success'); }
+                        } else { toast('Upload failed','error'); }
+                    } catch(ex) { toast('Upload error','error'); }
+                    hideLoader();
+                }
+            }
             if (e.target.classList.contains('img-url-input')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.url=e.target.value;LB.renderBlocks();LB._autoSave();} }
             if (e.target.classList.contains('img-alt-input')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.alt=e.target.value;LB._autoSave();} }
-            if (e.target.classList.contains('img-file-input')) { const file=e.target.files?.[0]; if(file){showLoader();const fd=new FormData();fd.append('image',file);try{const r=await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,{method:'POST',body:fd});const d=await r.json();if(d.success){const b=LB._findBlock(e.target.dataset.id);if(b){b.url=d.data.url;LB.renderBlocks();LB._autoSave();toast('Uploaded!','success');}}}catch(ex){toast('Upload failed','error');}hideLoader();} }
-            // Code fields
             if (e.target.classList.contains('code-lang')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.language=e.target.value;LB._autoSave();} }
             if (e.target.classList.contains('code-input')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.code=e.target.value;LB._autoSave();} }
             if (e.target.classList.contains('code-desc-input')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.description=e.target.value;LB._autoSave();} }
             if (e.target.classList.contains('code-cap-input')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.caption=e.target.value;LB._autoSave();} }
-            // Embed
             if (e.target.classList.contains('embed-url')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.embedUrl=e.target.value;LB.renderBlocks();LB._autoSave();} }
             if (e.target.classList.contains('embed-desc')) { const b=LB._findBlock(e.target.dataset.id); if(b){b.description=e.target.value;LB._autoSave();} }
         });
 
-        // Input events for rich content
         document.addEventListener('input', e => {
             if (e.target.classList.contains('rich-content')) {
                 const id = e.target.id.replace('rich-','');
@@ -919,23 +1078,13 @@
 
         // Drag & Drop from left panel
         document.querySelectorAll('.left-side-panel .side-tab').forEach(btn => {
-            btn.addEventListener('dragstart', e => {
-                e.dataTransfer.setData('block-type', btn.dataset.blockType);
-                btn.classList.add('dragging');
-            });
+            btn.addEventListener('dragstart', e => { e.dataTransfer.setData('block-type', btn.dataset.blockType); btn.classList.add('dragging'); });
             btn.addEventListener('dragend', e => { btn.classList.remove('dragging'); });
         });
-
         const blocksCanvas = $('blocksCanvas');
         if (blocksCanvas) {
-            blocksCanvas.addEventListener('dragover', e => { e.preventDefault(); blocksCanvas.classList.add('drag-over'); });
-            blocksCanvas.addEventListener('dragleave', () => { blocksCanvas.classList.remove('drag-over'); });
-            blocksCanvas.addEventListener('drop', e => {
-                e.preventDefault();
-                blocksCanvas.classList.remove('drag-over');
-                const type = e.dataTransfer.getData('block-type');
-                if (type && LB.addBlock) LB.addBlock(type);
-            });
+            blocksCanvas.addEventListener('dragover', e => { e.preventDefault(); });
+            blocksCanvas.addEventListener('drop', e => { e.preventDefault(); const type = e.dataTransfer.getData('block-type'); if (type && LB.addBlock) LB.addBlock(type); });
         }
 
         // Topbar buttons
@@ -946,13 +1095,9 @@
         $('btnClosePreview2')?.addEventListener('click', () => $('previewModal').classList.remove('show'));
         $('lessonTitleInput')?.addEventListener('input', function() { LB.title = this.value; LB._autoSave(); });
 
-        // Close modals
         document.addEventListener('click', e => {
             if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('show')) e.target.classList.remove('show');
-            // Close color palettes when clicking outside
-            if (!e.target.closest('.color-btn')) {
-                document.querySelectorAll('.color-palette').forEach(p => p.style.display = 'none');
-            }
+            if (!e.target.closest('.color-btn')) document.querySelectorAll('.color-popover').forEach(p => p.style.display = 'none');
         });
 
         // Keyboard shortcuts
@@ -961,28 +1106,22 @@
             if (e.ctrlKey && e.key === 'p') { e.preventDefault(); LB.preview(); }
             if (e.key === 'Delete' && LB.focusedBlockId && !e.target.closest('[contenteditable],input,textarea,select')) {
                 e.preventDefault();
-                const blocks = LB.getBlocks();
-                const idx = blocks.findIndex(b => b.id === LB.focusedBlockId);
+                const blocks = LB.getBlocks(); const idx = blocks.findIndex(b => b.id === LB.focusedBlockId);
                 if (idx !== -1) { LB.lastDeleted = { block: blocks.splice(idx, 1)[0], index: idx }; LB.renderBlocks(); LB._autoSave(); }
             }
             if (e.ctrlKey && e.key === 'z' && LB.lastDeleted) {
-                e.preventDefault();
-                LB.getBlocks().splice(LB.lastDeleted.index, 0, LB.lastDeleted.block);
-                LB.renderBlocks(); LB.lastDeleted = null; toast('Undo!', 'info');
+                e.preventDefault(); LB.getBlocks().splice(LB.lastDeleted.index, 0, LB.lastDeleted.block); LB.renderBlocks(); LB.lastDeleted = null; toast('Undo!','info');
             }
-            if (e.key === 'Escape') {
-                $('previewModal').classList.remove('show');
-                $('qBankModal').classList.remove('show');
-                document.querySelectorAll('.color-palette').forEach(p => p.style.display = 'none');
-            }
+            if (e.key === 'Escape') { $('previewModal').classList.remove('show'); $('qBankModal').classList.remove('show'); document.querySelectorAll('.color-popover').forEach(p => p.style.display = 'none'); }
         });
 
         // ============ INIT ============
+        initViewTypeSelector();
         loadModules();
         loadAllLessons();
         loadQuestionBank();
         loadAnalysis();
-        console.log('🚀 Akademia Lesson Studio v4.0 Professional Ready!');
+        console.log('🚀 Akademia Lesson Studio v4.1 - All 10 fixes applied!');
     </script>
 </body>
 </html>
