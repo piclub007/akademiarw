@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademia Code Studio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <style>
+        :root {
+            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-light: #3B82F6;
+            --primary-bg: #EFF6FF; --primary-bg-hover: #DBEAFE;
+            --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
+            --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
+            --gray-800: #1f2937; --gray-900: #111827;
+            --success: #10B981; --success-bg: #ECFDF5;
+            --warning: #F59E0B; --warning-bg: #FFFBEB;
+            --danger: #EF4444; --danger-bg: #FEF2F2;
+            --purple: #7C3AED; --purple-bg: #F5F3FF;
+            --teal: #14B8A6; --teal-bg: #F0FDFA;
+            --radius-xs: 4px; --radius-sm: 8px; --radius: 12px;
+            --radius-lg: 16px; --radius-xl: 20px;
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 48px rgba(0,0,0,0.1);
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-primary: #ffffff; --bg-secondary: #f8f9fa; --bg-tertiary: #f1f3f5;
+            --border-color: #e5e7eb; --text-primary: #111827;
+            --text-secondary: #4b5563; --text-muted: #9ca3af;
+            --titlebar-bg: #ffffff; --sidebar-bg: #f8f9fa; --terminal-bg: #f1f3f5;
+            --editor-bg: #ffffff; --hover-bg: rgba(0,0,0,0.04); --active-bg: rgba(37,99,235,0.08);
+        }
+        [data-theme="dark"] {
+            --bg-primary: #1e1e2e; --bg-secondary: #181825; --bg-tertiary: #11111b;
+            --border-color: rgba(255,255,255,0.06); --text-primary: #cdd6f4;
+            --text-secondary: #a6adc8; --text-muted: #6c7086;
+            --titlebar-bg: #181825; --sidebar-bg: #181825; --terminal-bg: #11111b;
+            --editor-bg: #1e1e2e; --hover-bg: rgba(255,255,255,0.04); --active-bg: rgba(37,99,235,0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif; background: var(--bg-primary);
+            color: var(--text-primary); height: 100vh; overflow: hidden;
+            display: flex; flex-direction: column; transition: background var(--transition), color var(--transition);
+        }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; opacity: 0.4; }
+
+        /* TITLEBAR */
+        .titlebar {
+            background: var(--titlebar-bg); border-bottom: 1px solid var(--border-color);
+            height: 46px; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 1rem; user-select: none; z-index: 100; flex-shrink: 0;
+        }
+        .titlebar-left { display: flex; align-items: center; gap: 0.75rem; }
+        .titlebar-logo {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.938rem; color: var(--primary);
+        }
+        .titlebar-logo i { font-size: 1.375rem; }
+        .titlebar-center { display: flex; align-items: center; gap: 0.5rem; }
+        .lang-select {
+            display: flex; align-items: center; gap: 0.375rem; padding: 0.3125rem 0.625rem;
+            border-radius: var(--radius-sm); border: 1px solid var(--border-color);
+            background: var(--bg-secondary); cursor: pointer; font-family: 'Inter', sans-serif;
+            font-size: 0.75rem; font-weight: 500; color: var(--text-primary); transition: all var(--transition);
+        }
+        .lang-select:hover { border-color: var(--primary); background: var(--active-bg); }
+        .titlebar-actions { display: flex; align-items: center; gap: 0.1875rem; }
+        .tbar-btn {
+            width: 32px; height: 32px; border-radius: var(--radius-sm); border: none;
+            background: transparent; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; color: var(--text-secondary); font-size: 1.125rem;
+            transition: all var(--transition); position: relative;
+        }
+        .tbar-btn:hover { background: var(--hover-bg); color: var(--text-primary); }
+        .tbar-btn.run-btn {
+            background: var(--success); color: white; width: auto; padding: 0 0.75rem;
+            gap: 0.3125rem; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600;
+        }
+        .tbar-btn.run-btn:hover { background: #059669; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(16,185,129,0.25); }
+        .tbar-btn .badge {
+            position: absolute; top: 2px; right: 2px; width: 15px; height: 15px;
+            border-radius: 50%; background: var(--danger); color: white; font-size: 0.5rem;
+            display: none; align-items: center; justify-content: center; font-weight: 700;
+        }
+
+        /* DROPDOWNS */
+        .dropdown {
+            position: absolute; top: 100%; right: 0; margin-top: 0.375rem;
+            background: var(--bg-primary); border: 1px solid var(--border-color);
+            border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: 0.375rem;
+            z-index: 200; display: none; min-width: 180px;
+        }
+        .dropdown.show { display: block; }
+        .dropdown-item {
+            display: flex; align-items: center; gap: 0.5rem; padding: 0.4375rem 0.75rem;
+            border-radius: var(--radius-sm); cursor: pointer; font-size: 0.75rem; font-weight: 500;
+            color: var(--text-primary); transition: all var(--transition);
+        }
+        .dropdown-item:hover { background: var(--hover-bg); }
+        .dropdown-item.active { background: var(--active-bg); color: var(--primary); }
+        .swatch { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border-color); flex-shrink: 0; }
+
+        /* MAIN LAYOUT */
+        .main-layout { flex: 1; display: flex; min-height: 0; }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color);
+            display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden; transition: width var(--transition);
+        }
+        .sidebar.collapsed { width: 0; border-right: none; }
+        .sidebar-header {
+            padding: 0.625rem 0.75rem; border-bottom: 1px solid var(--border-color);
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.688rem; font-weight: 600;
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;
+            display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+        }
+        .sidebar-header .collapse-btn {
+            width: 22px; height: 22px; border-radius: var(--radius-xs); border: none;
+            background: transparent; cursor: pointer; color: var(--text-muted); font-size: 0.875rem;
+            transition: all var(--transition); display: flex; align-items: center; justify-content: center;
+        }
+        .sidebar-header .collapse-btn:hover { background: var(--hover-bg); color: var(--text-primary); }
+        .file-tree { flex: 1; overflow-y: auto; padding: 0.375rem; }
+        .sidebar-actions {
+            padding: 0.5rem; border-top: 1px solid var(--border-color);
+            display: flex; gap: 0.25rem; flex-shrink: 0; flex-wrap: wrap;
+        }
+        .sidebar-action-btn {
+            flex: 1; min-width: 55px; padding: 0.3125rem; border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color); background: transparent; cursor: pointer;
+            color: var(--text-secondary); font-size: 0.625rem; font-weight: 500;
+            font-family: 'Inter', sans-serif; transition: all var(--transition);
+            display: flex; align-items: center; justify-content: center; gap: 0.1875rem;
+        }
+        .sidebar-action-btn:hover { background: var(--hover-bg); border-color: var(--primary); color: var(--primary); }
+
+        /* FILE TREE ITEMS */
+        .ft-folder { margin-bottom: 0.0625rem; }
+        .ft-folder-header {
+            display: flex; align-items: center; gap: 0.3125rem; padding: 0.3125rem 0.4375rem;
+            border-radius: var(--radius-xs); cursor: pointer; font-size: 0.75rem;
+            transition: all var(--transition); color: var(--text-primary); font-weight: 500;
+        }
+        .ft-folder-header:hover { background: var(--hover-bg); }
+        .ft-folder-header i { font-size: 0.8125rem; transition: transform var(--transition); }
+        .ft-folder.open > .ft-folder-header i.fa { transform: rotate(90deg); }
+        .ft-folder-content { display: none; padding-left: 1.125rem; }
+        .ft-folder.open > .ft-folder-content { display: block; }
+        .ft-file {
+            display: flex; align-items: center; gap: 0.3125rem; padding: 0.25rem 0.4375rem;
+            border-radius: var(--radius-xs); cursor: pointer; font-size: 0.75rem;
+            transition: all var(--transition); color: var(--text-secondary);
+        }
+        .ft-file:hover { background: var(--hover-bg); }
+        .ft-file.active { background: var(--active-bg); color: var(--primary); font-weight: 500; }
+        .ft-file .fi { width: 16px; text-align: center; flex-shrink: 0; font-size: 0.8125rem; }
+        .fi.html { color: #E34F26; } .fi.css { color: #563D7C; } .fi.js { color: #F7DF1E; } .fi.py { color: #3572A5; }
+
+        /* EDITOR AREA */
+        .editor-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .editor-container { flex: 1; display: flex; min-height: 0; }
+        .editor-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .editor-tabs {
+            display: flex; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color);
+            overflow-x: auto; flex-shrink: 0; gap: 0.0625rem; padding: 0.1875rem 0.375rem 0;
+        }
+        .editor-tab {
+            display: flex; align-items: center; gap: 0.3125rem; padding: 0.4375rem 0.75rem;
+            font-size: 0.71875rem; font-weight: 500; color: var(--text-muted); cursor: pointer;
+            border: none; background: transparent; border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            transition: all var(--transition); white-space: nowrap; font-family: 'Inter', sans-serif;
+        }
+        .editor-tab:hover { background: var(--hover-bg); color: var(--text-primary); }
+        .editor-tab.active { background: var(--bg-primary); color: var(--primary); box-shadow: 0 -2px 0 var(--primary); }
+        .editor-tab .tab-close {
+            width: 16px; height: 16px; border-radius: 3px; border: none; background: transparent;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 0.6875rem; color: var(--text-muted); transition: all var(--transition);
+            margin-left: 0.1875rem; opacity: 0;
+        }
+        .editor-tab:hover .tab-close { opacity: 1; }
+        .editor-tab .tab-close:hover { background: var(--danger-bg); color: var(--danger); }
+        #monacoEditor { flex: 1; min-height: 0; }
+
+        /* PREVIEW PANEL */
+        .preview-panel {
+            width: 0; background: white; border-left: 1px solid var(--border-color);
+            display: flex; flex-direction: column; transition: width 0.25s ease; overflow: hidden;
+        }
+        .preview-panel.open { width: 50%; min-width: 280px; }
+        .preview-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.4375rem 0.625rem; border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary); flex-shrink: 0;
+        }
+        .preview-header span { font-size: 0.71875rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif; color: var(--text-primary); }
+        .preview-actions { display: flex; gap: 0.125rem; }
+        .preview-btn {
+            width: 26px; height: 26px; border-radius: var(--radius-xs); border: none;
+            background: transparent; cursor: pointer; color: var(--text-secondary);
+            font-size: 0.8125rem; transition: all var(--transition);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .preview-btn:hover { background: var(--hover-bg); color: var(--primary); }
+        .preview-frame { flex: 1; border: none; background: white; min-height: 0; }
+
+        /* BOTTOM PANEL */
+        .bottom-panel {
+            border-top: 1px solid var(--border-color); display: flex; flex-direction: column;
+            flex-shrink: 0; background: var(--bg-tertiary); transition: height var(--transition);
+        }
+        .bottom-panel.collapsed { height: 0 !important; border-top: none; overflow: hidden; }
+        .panel-resize-handle {
+            height: 3px; background: transparent; cursor: ns-resize;
+            transition: background var(--transition); flex-shrink: 0;
+        }
+        .panel-resize-handle:hover { background: var(--primary); }
+        .panel-tabs {
+            display: flex; background: var(--bg-secondary); flex-shrink: 0;
+            border-bottom: 1px solid var(--border-color); align-items: center;
+        }
+        .panel-tab {
+            padding: 0.4375rem 0.75rem; font-size: 0.65625rem; font-weight: 500;
+            color: var(--text-muted); cursor: pointer; border: none; background: transparent;
+            border-bottom: 2px solid transparent; transition: all var(--transition);
+            font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 0.3125rem;
+        }
+        .panel-tab:hover { color: var(--text-secondary); }
+        .panel-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .panel-tab-spacer { flex: 1; }
+        .panel-tab-hide {
+            padding: 0.25rem 0.5rem; font-size: 1rem; color: var(--text-muted);
+            cursor: pointer; border: none; background: transparent; transition: all var(--transition);
+            display: flex; align-items: center; margin-left: auto; margin-right: 0.25rem;
+        }
+        .panel-tab-hide:hover { color: var(--danger); }
+        .panel-content { flex: 1; min-height: 0; display: none; overflow: hidden; }
+        .panel-content.active { display: flex; }
+        #terminalContainer { flex: 1; padding: 0.3125rem; }
+        .output-area, .problems-area {
+            flex: 1; padding: 0.625rem; overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-primary);
+        }
+        .output-line { padding: 0.09375rem 0; white-space: pre-wrap; word-break: break-all; }
+        .output-line.error { color: var(--danger); }
+        .output-line.success { color: var(--success); }
+        .output-line.info { color: var(--primary); }
+
+        /* STATUSBAR */
+        .statusbar {
+            height: 24px; background: var(--bg-secondary); border-top: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 0.625rem; flex-shrink: 0; font-size: 0.625rem;
+            color: var(--text-muted); font-family: 'JetBrains Mono', monospace;
+        }
+        .statusbar-left, .statusbar-right { display: flex; align-items: center; gap: 0.75rem; }
+        .status-item {
+            display: flex; align-items: center; gap: 0.25rem; cursor: pointer;
+            padding: 0.0625rem 0.3125rem; border-radius: var(--radius-xs); transition: all var(--transition);
+        }
+        .status-item:hover { background: var(--hover-bg); color: var(--text-primary); }
+
+        /* TOAST */
+        .toast-container { position: fixed; bottom: 1.5rem; right: 0.75rem; z-index: 300; display: flex; flex-direction: column; gap: 0.3125rem; pointer-events: none; }
+        .toast {
+            background: var(--gray-800); color: white; padding: 0.625rem 0.875rem;
+            border-radius: var(--radius); font-size: 0.71875rem; font-weight: 500;
+            box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease, toastOut 0.3s ease 2.5s forwards;
+            max-width: 350px; display: flex; align-items: center; gap: 0.375rem; pointer-events: all;
+        }
+        .toast.success { border-left: 3px solid var(--success); }
+        .toast.error { border-left: 3px solid var(--danger); }
+        @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes toastOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(2px);
+            z-index: 250; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity var(--transition);
+        }
+        .modal-overlay.show { opacity: 1; pointer-events: all; }
+        .modal {
+            background: var(--bg-primary); border-radius: var(--radius-lg); width: 90%; max-width: 420px;
+            box-shadow: var(--shadow-lg); border: 1px solid var(--border-color);
+        }
+        .modal-header {
+            padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between;
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; font-weight: 700;
+        }
+        .modal-close {
+            width: 28px; height: 28px; border-radius: var(--radius-sm); border: none;
+            background: transparent; cursor: pointer; font-size: 1rem; color: var(--text-muted);
+            transition: all var(--transition); display: flex; align-items: center; justify-content: center;
+        }
+        .modal-close:hover { background: var(--hover-bg); color: var(--danger); }
+        .modal-body { padding: 1rem; }
+        .modal-footer {
+            padding: 0.625rem 1rem; border-top: 1px solid var(--border-color);
+            display: flex; justify-content: flex-end; gap: 0.375rem;
+        }
+        .input {
+            width: 100%; padding: 0.5rem 0.625rem; border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 0.8125rem;
+            background: var(--bg-primary); color: var(--text-primary); outline: none; transition: all var(--transition);
+        }
+        .input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+        .btn {
+            padding: 0.4375rem 0.875rem; border-radius: var(--radius-sm); font-family: 'Inter', sans-serif;
+            font-size: 0.75rem; font-weight: 600; cursor: pointer; border: none; transition: all var(--transition);
+            display: inline-flex; align-items: center; gap: 0.3125rem;
+        }
+        .btn:active { transform: scale(0.96); }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-ghost { background: transparent; color: var(--text-secondary); }
+        .btn-ghost:hover { background: var(--hover-bg); }
+        .btn-danger { background: transparent; color: var(--danger); }
+        .btn-danger:hover { background: var(--danger-bg); }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .preview-panel.open { position: absolute; right: 0; top: 0; bottom: 0; z-index: 50; width: 100%; }
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <!-- TITLEBAR -->
+    <div class="titlebar">
+        <div class="titlebar-left">
+            <div class="titlebar-logo"><i class='bx bx-code-alt'></i> Akademia Code</div>
+        </div>
+        <div class="titlebar-center">
+            <button class="lang-select" id="langSelect">
+                <i class='bx bx-code'></i> <span id="langLabel">HTML/CSS/JS</span> <i class='bx bx-chevron-down'></i>
+            </button>
+            <div class="dropdown" id="langDropdown">
+                <div class="dropdown-item active" data-lang="web"><i class='bx bx-globe' style="color:#E34F26;"></i> HTML/CSS/JavaScript</div>
+                <div class="dropdown-item" data-lang="python"><i class='bx bxl-python' style="color:#3572A5;"></i> Python</div>
+            </div>
+        </div>
+        <div class="titlebar-actions">
+            <button class="tbar-btn" id="btnToggleSidebar" title="Toggle Sidebar (Ctrl+B)"><i class='bx bx-sidebar'></i></button>
+            <button class="tbar-btn" id="btnPreview" title="Toggle Preview (Ctrl+Shift+P)"><i class='bx bx-show'></i></button>
+            <button class="tbar-btn" id="btnFormat" title="Format Code"><i class='bx bx-align-left'></i></button>
+            <button class="tbar-btn" id="btnProblems" title="Problems"><i class='bx bx-error-circle'></i><span class="badge" id="probBadge">0</span></button>
+            <button class="tbar-btn" id="btnTheme" title="Theme" style="position:relative;">
+                <i class='bx bx-sun'></i>
+                <div class="dropdown" id="themeDropdown" style="right:0;">
+                    <div class="dropdown-item active" data-theme="light"><span class="swatch" style="background:#fff;"></span> Light</div>
+                    <div class="dropdown-item" data-theme="dark"><span class="swatch" style="background:#1e1e2e;"></span> Dark</div>
+                    <div class="dropdown-item" data-theme="github"><span class="swatch" style="background:#f6f8fa;"></span> GitHub</div>
+                </div>
+            </button>
+            <button class="tbar-btn run-btn" id="btnRun"><i class='bx bx-play'></i> Run</button>
+        </div>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="main-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span>📁 Explorer</span>
+                <button class="collapse-btn" id="btnCollapseSidebar"><i class='bx bx-chevron-left'></i></button>
+            </div>
+            <div class="file-tree" id="fileTree"></div>
+            <div class="sidebar-actions">
+                <button class="sidebar-action-btn" id="btnNewFile"><i class='bx bx-file'></i> New File</button>
+                <button class="sidebar-action-btn" id="btnNewFolder"><i class='bx bx-folder-plus'></i> Folder</button>
+                <button class="sidebar-action-btn" id="btnRenameFile"><i class='bx bx-edit'></i> Rename</button>
+                <button class="sidebar-action-btn" id="btnDeleteFile"><i class='bx bx-trash'></i> Delete</button>
+            </div>
+        </aside>
+
+        <!-- EDITOR AREA -->
+        <div class="editor-area">
+            <div class="editor-container">
+                <div class="editor-main">
+                    <div class="editor-tabs" id="editorTabs"></div>
+                    <div id="monacoEditor"></div>
+                </div>
+                <!-- PREVIEW PANEL -->
+                <div class="preview-panel" id="previewPanel">
+                    <div class="preview-header">
+                        <span><i class='bx bx-desktop'></i> Preview</span>
+                        <div class="preview-actions">
+                            <button class="preview-btn" id="btnRefreshPreview" title="Refresh"><i class='bx bx-refresh'></i></button>
+                            <button class="preview-btn" id="btnOpenPreview" title="Open in new tab"><i class='bx bx-link-external'></i></button>
+                            <button class="preview-btn" id="btnClosePreview" title="Close preview"><i class='bx bx-x'></i></button>
+                        </div>
+                    </div>
+                    <iframe class="preview-frame" id="previewFrame" sandbox="allow-scripts allow-same-origin"></iframe>
+                </div>
+            </div>
+
+            <!-- BOTTOM PANEL -->
+            <div class="bottom-panel" id="bottomPanel" style="height:220px;">
+                <div class="panel-resize-handle" id="panelResizeHandle"></div>
+                <div class="panel-tabs" id="panelTabs">
+                    <button class="panel-tab active" data-panel="terminal"><i class='bx bx-terminal'></i> Terminal</button>
+                    <button class="panel-tab" data-panel="output"><i class='bx bx-code-curly'></i> Output</button>
+                    <button class="panel-tab" data-panel="problems"><i class='bx bx-error'></i> Problems</button>
+                    <span class="panel-tab-spacer"></span>
+                    <button class="panel-tab-hide" id="btnHideBottom" title="Hide Panel"><i class='bx bx-chevron-down'></i></button>
+                </div>
+                <div class="panel-content active" id="panelTerminal"><div id="terminalContainer"></div></div>
+                <div class="panel-content" id="panelOutput"><div class="output-area" id="outputArea"></div></div>
+                <div class="panel-content" id="panelProblems"><div class="problems-area" id="problemsArea"><div class="output-line success">✅ No problems detected</div></div></div>
+            </div>
+
+            <!-- STATUSBAR -->
+            <div class="statusbar">
+                <div class="statusbar-left">
+                    <span class="status-item" id="statusLang">JavaScript</span>
+                    <span class="status-item" id="statusLine">Ln 1, Col 1</span>
+                </div>
+                <div class="statusbar-right">
+                    <span class="status-item" id="statusIndent">Spaces: 2</span>
+                    <span class="status-item">UTF-8</span>
+                    <span class="status-item" id="statusTheme">Light</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW FILE MODAL -->
+    <div class="modal-overlay" id="newFileModal">
+        <div class="modal">
+            <div class="modal-header"><span id="modalTitle">New File</span><button class="modal-close" id="btnCloseModal"><i class='bx bx-x'></i></button></div>
+            <div class="modal-body">
+                <input type="text" class="input" id="newFileName" placeholder="filename.ext (e.g., app.js, style.css)">
+                <p style="font-size:0.6875rem;color:var(--text-muted);margin-top:0.375rem;">Create in: <span id="targetFolder">workspace/</span></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" id="btnCancelModal">Cancel</button>
+                <button class="btn btn-primary" id="btnConfirmNewFile">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
+    
+    <script>
+    (function() {
+        'use strict';
+        
+        // ============ SINGLE NAMESPACE ============
+        const CS = {
+            // State
+            lang: 'web',
+            theme: 'light',
+            activeFile: '',
+            openTabs: [],
+            editor: null,
+            terminal: null,
+            problems: [],
+            bottomVisible: true,
+            sidebarVisible: true,
+            selectedFile: null,
+            
+            // DOM cache
+            dom: {},
+            
+            // File systems
+            fs: {
+                web: {
+                    'index.html': '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Web App</title>\n  <link rel="stylesheet" href="style.css">\n</head>\n<body>\n  <div id="app">\n    <h1>Hello World</h1>\n    <p>Edit me!</p>\n  </div>\n  <script src="script.js"><\/script>\n</body>\n</html>',
+                    'style.css': 'body {\n  font-family: sans-serif;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n  margin: 0;\n  background: #f0f0f0;\n}\n#app {\n  text-align: center;\n  padding: 2rem;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 20px rgba(0,0,0,0.1);\n}',
+                    'script.js': 'console.log("Ready!");\ndocument.querySelector("h1").onclick = () => alert("Clicked!");'
+                },
+                python: {
+                    'main.py': '# Main Python File\ndef greet(name):\n    return f"Hello, {name}!"\n\nif __name__ == "__main__":\n    print(greet("World"))\n    print("Python is running!")',
+                    'utils.py': '# Utility functions\ndef add(a, b):\n    return a + b\n\ndef multiply(a, b):\n    return a * b'
+                }
+            },
+            
+            init() {
+                this.cacheDOM();
+                this.loadPrefs();
+                this.setupEvents();
+                this.buildFileTree();
+                this.renderTabs();
+                this.initEditor();
+                this.initTerminal();
+                this.applyTheme();
+                console.log('🚀 Akademia Code Studio Ready');
+            },
+            
+            cacheDOM() {
+                const d = this.dom;
+                d.body = document.body;
+                d.sidebar = document.getElementById('sidebar');
+                d.fileTree = document.getElementById('fileTree');
+                d.editorTabs = document.getElementById('editorTabs');
+                d.monacoEditor = document.getElementById('monacoEditor');
+                d.previewPanel = document.getElementById('previewPanel');
+                d.previewFrame = document.getElementById('previewFrame');
+                d.terminalContainer = document.getElementById('terminalContainer');
+                d.outputArea = document.getElementById('outputArea');
+                d.problemsArea = document.getElementById('problemsArea');
+                d.bottomPanel = document.getElementById('bottomPanel');
+                d.panelTabs = document.getElementById('panelTabs');
+                d.panelResizeHandle = document.getElementById('panelResizeHandle');
+                d.langSelect = document.getElementById('langSelect');
+                d.langDropdown = document.getElementById('langDropdown');
+                d.langLabel = document.getElementById('langLabel');
+                d.themeDropdown = document.getElementById('themeDropdown');
+                d.statusLang = document.getElementById('statusLang');
+                d.statusLine = document.getElementById('statusLine');
+                d.statusIndent = document.getElementById('statusIndent');
+                d.statusTheme = document.getElementById('statusTheme');
+                d.probBadge = document.getElementById('probBadge');
+                d.toastContainer = document.getElementById('toastContainer');
+                d.btnHideBottom = document.getElementById('btnHideBottom');
+                d.btnToggleSidebar = document.getElementById('btnToggleSidebar');
+                d.btnCollapseSidebar = document.getElementById('btnCollapseSidebar');
+                d.newFileModal = document.getElementById('newFileModal');
+                d.newFileName = document.getElementById('newFileName');
+                d.modalTitle = document.getElementById('modalTitle');
+                d.targetFolder = document.getElementById('targetFolder');
+            },
+            
+            loadPrefs() {
+                this.lang = localStorage.getItem('cs-lang') || 'web';
+                this.theme = localStorage.getItem('cs-theme') || 'light';
+                this.activeFile = this.lang === 'web' ? 'index.html' : 'main.py';
+                this.openTabs = [this.activeFile];
+                this.updateLangUI();
+            },
+            
+            updateLangUI() {
+                const names = { web: 'HTML/CSS/JS', python: 'Python' };
+                if (this.dom.langLabel) this.dom.langLabel.textContent = names[this.lang];
+                document.querySelectorAll('#langDropdown .dropdown-item').forEach(el => {
+                    el.classList.toggle('active', el.dataset.lang === this.lang);
+                });
+            },
+            
+            // ============ FILE TREE ============
+            buildFileTree() {
+                const files = this.fs[this.lang];
+                const list = Object.keys(files);
+                let h = '<div class="ft-folder open"><div class="ft-folder-header"><i class="bx bx-chevron-right fa"></i> <i class="bx bx-folder"></i> workspace</div><div class="ft-folder-content">';
+                list.forEach(f => {
+                    const ext = f.split('.').pop();
+                    const icons = { html: 'bxl-html5 html', css: 'bxl-css3 css', js: 'bxl-javascript js', py: 'bxl-python python' };
+                    const ic = icons[ext] || 'bx-file';
+                    h += `<div class="ft-file${f === this.activeFile ? ' active' : ''}" data-file="${f}"><i class='bx ${ic} fi ${ext}'></i> ${f}</div>`;
+                });
+                h += '</div></div>';
+                this.dom.fileTree.innerHTML = h;
+            },
+            
+            // ============ EDITOR TABS ============
+            renderTabs() {
+                const icons = { html: 'bxl-html5', css: 'bxl-css3', js: 'bxl-javascript', py: 'bxl-python' };
+                this.dom.editorTabs.innerHTML = this.openTabs.map(f => {
+                    const ext = f.split('.').pop();
+                    return `<div class="editor-tab${f === this.activeFile ? ' active' : ''}" data-file="${f}">
+                        <i class='bx ${icons[ext] || 'bx-file'}'></i> ${f}
+                        <button class="tab-close" data-file="${f}"><i class='bx bx-x'></i></button>
+                    </div>`;
+                }).join('');
+            },
+            
+            // ============ MONACO EDITOR ============
+            initEditor() {
+                if (!this.dom.monacoEditor) return;
+                const self = this;
+                
+                require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' } });
+                
+                require(['vs/editor/editor.main'], function() {
+                    const langMap = { html: 'html', css: 'css', js: 'javascript', py: 'python' };
+                    const ext = self.activeFile.split('.').pop();
+                    const content = self.fs[self.lang][self.activeFile] || '';
+                    
+                    self.editor = monaco.editor.create(self.dom.monacoEditor, {
+                        value: content,
+                        language: langMap[ext] || 'plaintext',
+                        theme: 'vs',
+                        fontSize: 14,
+                        fontFamily: "'JetBrains Mono', monospace",
+                        minimap: { enabled: true },
+                        automaticLayout: true,
+                        scrollBeyondLastLine: false,
+                        padding: { top: 10 },
+                        tabSize: self.lang === 'python' ? 4 : 2,
+                        insertSpaces: true,
+                    });
+                    
+                    self.editor.onDidChangeCursorPosition(e => {
+                        if (self.dom.statusLine) self.dom.statusLine.textContent = `Ln ${e.position.lineNumber}, Col ${e.position.column}`;
+                    });
+                    
+                    self.editor.onDidChangeModelContent(() => self.runDiagnostics());
+                    
+                    self.editor.addAction({ id: 'run', label: 'Run', keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter], run: () => self.runCode() });
+                    self.editor.addAction({ id: 'format', label: 'Format', keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyF], run: () => self.formatCode() });
+                    self.editor.addAction({ id: 'save', label: 'Save', keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS], run: () => self.saveFile() });
+                    
+                    self.updateStatusLang();
+                });
+            },
+            
+            // ============ FILE OPERATIONS ============
+            switchFile(filename) {
+                if (this.activeFile === filename) return;
+                
+                // Save current
+                if (this.editor && this.activeFile) {
+                    this.fs[this.lang][this.activeFile] = this.editor.getValue();
+                }
+                
+                this.activeFile = filename;
+                if (!this.openTabs.includes(filename)) this.openTabs.push(filename);
+                
+                if (this.editor) {
+                    this.editor.setValue(this.fs[this.lang][filename] || '');
+                    const ext = filename.split('.').pop();
+                    const langMap = { html: 'html', css: 'css', js: 'javascript', py: 'python' };
+                    monaco.editor.setModelLanguage(this.editor.getModel(), langMap[ext] || 'plaintext');
+                    this.updateStatusLang();
+                }
+                
+                this.renderTabs();
+                this.buildFileTree();
+            },
+            
+            saveFile() {
+                if (this.editor && this.activeFile) {
+                    this.fs[this.lang][this.activeFile] = this.editor.getValue();
+                    this.showToast(`${this.activeFile} saved`, 'success');
+                }
+            },
+            
+            createFile(name) {
+                if (!name || !name.includes('.')) return this.showToast('Invalid filename', 'error');
+                if (this.fs[this.lang][name]) return this.showToast('File already exists', 'error');
+                
+                this.fs[this.lang][name] = this.lang === 'python' ? '# New Python file\n' : '/* New file */\n';
+                this.switchFile(name);
+                this.buildFileTree();
+                this.showToast(`Created ${name}`, 'success');
+            },
+            
+            deleteFile(name) {
+                if (!name || !this.fs[this.lang][name]) return;
+                if (Object.keys(this.fs[this.lang]).length <= 1) return this.showToast('Cannot delete last file', 'error');
+                
+                delete this.fs[this.lang][name];
+                this.openTabs = this.openTabs.filter(f => f !== name);
+                if (this.activeFile === name) {
+                    this.activeFile = Object.keys(this.fs[this.lang])[0];
+                    this.switchFile(this.activeFile);
+                }
+                this.buildFileTree();
+                this.renderTabs();
+                this.showToast(`Deleted ${name}`, 'success');
+            },
+            
+            renameFile(oldName, newName) {
+                if (!newName || !newName.includes('.')) return this.showToast('Invalid filename', 'error');
+                if (this.fs[this.lang][newName] && oldName !== newName) return this.showToast('File already exists', 'error');
+                
+                this.fs[this.lang][newName] = this.fs[this.lang][oldName];
+                delete this.fs[this.lang][oldName];
+                
+                this.openTabs = this.openTabs.map(f => f === oldName ? newName : f);
+                if (this.activeFile === oldName) this.activeFile = newName;
+                
+                if (this.editor && this.activeFile === newName) {
+                    const ext = newName.split('.').pop();
+                    const langMap = { html: 'html', css: 'css', js: 'javascript', py: 'python' };
+                    monaco.editor.setModelLanguage(this.editor.getModel(), langMap[ext] || 'plaintext');
+                }
+                
+                this.buildFileTree();
+                this.renderTabs();
+                this.showToast(`Renamed to ${newName}`, 'success');
+            },
+            
+            updateStatusLang() {
+                if (!this.dom.statusLang) return;
+                const ext = this.activeFile.split('.').pop();
+                const m = { html: 'HTML', css: 'CSS', js: 'JavaScript', py: 'Python' };
+                this.dom.statusLang.textContent = m[ext] || 'Plain Text';
+            },
+            
+            // ============ CODE EXECUTION ============
+            runCode() {
+                this.saveFile();
+                this.dom.outputArea.innerHTML = '';
+                this.switchPanel('output');
+                this.addOutput('info', `🚀 Running ${this.activeFile}...`);
+                this.addOutput('info', '═'.repeat(30));
+                
+                if (this.lang === 'web') {
+                    this.updatePreview();
+                    this.addOutput('success', '✅ Preview updated!');
+                } else {
+                    const code = this.fs[this.lang][this.activeFile] || '';
+                    const lines = code.split('\n').filter(l => {
+                        const t = l.trim();
+                        return t && !t.startsWith('#') && !t.startsWith('"""');
+                    });
+                    lines.forEach(line => {
+                        if (line.includes('print(')) {
+                            const m = line.match(/print\((.*)\)/);
+                            if (m) this.addOutput('success', m[1].replace(/['"]/g, '').replace(/f"/g, '').replace(/f'/g, ''));
+                        }
+                    });
+                    this.addOutput('success', '✅ Done');
+                }
+                this.addOutput('info', '═'.repeat(30));
+            },
+            
+            formatCode() {
+                if (!this.editor) return;
+                try {
+                    this.editor.getAction('editor.action.formatDocument')?.run();
+                    this.showToast('Formatted', 'success');
+                } catch (e) {
+                    this.showToast('Format failed', 'error');
+                }
+            },
+            
+            addOutput(type, msg) {
+                if (!this.dom.outputArea) return;
+                const d = document.createElement('div');
+                d.className = `output-line ${type}`;
+                d.textContent = msg;
+                this.dom.outputArea.appendChild(d);
+                this.dom.outputArea.scrollTop = this.dom.outputArea.scrollHeight;
+            },
+            
+            updatePreview() {
+                if (!this.dom.previewFrame || this.lang !== 'web') return;
+                const html = this.fs.web['index.html'] || '';
+                const css = this.fs.web['style.css'] || '';
+                const js = this.fs.web['script.js'] || '';
+                this.dom.previewFrame.srcdoc = html.replace('</head>', `<style>${css}</style></head>`).replace('</body>', `<script>${js}<\/script></body>`);
+            },
+            
+            // ============ TERMINAL ============
+            initTerminal() {
+                if (!this.dom.terminalContainer) return;
+                const self = this;
+                try {
+                    this.terminal = new Terminal({
+                        theme: { background: '#ffffff', foreground: '#1a1a1a' },
+                        fontSize: 13,
+                        fontFamily: "'JetBrains Mono', monospace",
+                        cursorBlink: true,
+                        scrollback: 500,
+                    });
+                    
+                    const fitAddon = new FitAddon.FitAddon();
+                    this.terminal.loadAddon(fitAddon);
+                    this.terminal.loadAddon(new WebLinksAddon.WebLinksAddon());
+                    this.terminal.open(this.dom.terminalContainer);
+                    
+                    setTimeout(() => fitAddon.fit(), 100);
+                    window.addEventListener('resize', () => fitAddon.fit());
+                    
+                    let buf = '';
+                    this.terminal.onData(data => {
+                        if (data === '\r') {
+                            this.terminal.writeln('');
+                            self.execCmd(buf.trim());
+                            buf = '';
+                            this.terminal.write('\x1b[1;34m$\x1b[0m ');
+                        } else if (data === '\x7f') {
+                            if (buf.length > 0) { buf = buf.slice(0, -1); this.terminal.write('\b \b'); }
+                        } else { buf += data; this.terminal.write(data); }
+                    });
+                    
+                    this.terminal.writeln('\x1b[1;36mAkademia Terminal\x1b[0m');
+                    this.terminal.write('\x1b[1;34m$\x1b[0m ');
+                } catch (e) { console.warn('Terminal unavailable'); }
+            },
+            
+            execCmd(cmd) {
+                if (!cmd || !this.terminal) return;
+                const p = cmd.split(' ');
+                switch(p[0].toLowerCase()) {
+                    case 'help': this.terminal.writeln('help clear run ls echo date'); break;
+                    case 'clear': this.terminal.clear(); break;
+                    case 'run': this.runCode(); break;
+                    case 'ls': Object.keys(this.fs[this.lang]).forEach(f => this.terminal.writeln(`  ${f}`)); break;
+                    case 'echo': this.terminal.writeln(p.slice(1).join(' ')); break;
+                    case 'date': this.terminal.writeln(new Date().toString()); break;
+                    default: this.terminal.writeln(`\x1b[1;31m${p[0]}: not found\x1b[0m`);
+                }
+            },
+            
+            // ============ PANEL MANAGEMENT ============
+            switchPanel(name) {
+                document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.panel-content').forEach(p => p.classList.remove('active'));
+                
+                const tab = document.querySelector(`.panel-tab[data-panel="${name}"]`);
+                const panel = document.getElementById('panel' + name.charAt(0).toUpperCase() + name.slice(1));
+                if (tab) tab.classList.add('active');
+                if (panel) panel.classList.add('active');
+            },
+            
+            toggleBottomPanel() {
+                this.bottomVisible = !this.bottomVisible;
+                this.dom.bottomPanel.classList.toggle('collapsed', !this.bottomVisible);
+                const icon = this.dom.btnHideBottom.querySelector('i');
+                if (icon) icon.className = `bx bx-chevron-${this.bottomVisible ? 'down' : 'up'}`;
+                if (this.bottomVisible) this.dom.bottomPanel.style.height = '220px';
+            },
+            
+            toggleSidebar() {
+                this.sidebarVisible = !this.sidebarVisible;
+                this.dom.sidebar.classList.toggle('collapsed', !this.sidebarVisible);
+            },
+            
+            togglePreview() {
+                this.dom.previewPanel.classList.toggle('open');
+                if (this.dom.previewPanel.classList.contains('open')) this.updatePreview();
+            },
+            
+            // ============ THEME ============
+            setTheme(t) {
+                this.theme = t;
+                this.dom.body.dataset.theme = t;
+                const themes = { light: 'vs', dark: 'vs-dark', github: 'vs' };
+                if (this.editor) monaco.editor.setTheme(themes[t] || 'vs');
+                
+                const icons = { light: 'bx-sun', dark: 'bx-moon', github: 'bx-sun' };
+                const icon = this.dom.btnTheme?.querySelector('i');
+                if (icon) icon.className = `bx ${icons[t] || 'bx-sun'}`;
+                if (this.dom.statusTheme) this.dom.statusTheme.textContent = t.charAt(0).toUpperCase() + t.slice(1);
+                
+                document.querySelectorAll('#themeDropdown .dropdown-item').forEach(el => el.classList.toggle('active', el.dataset.theme === t));
+                
+                if (this.terminal) {
+                    const tt = { light: { background: '#ffffff', foreground: '#1a1a1a' }, dark: { background: '#11111b', foreground: '#cdd6f4' }, github: { background: '#ffffff', foreground: '#24292e' } };
+                    this.terminal.options.theme = tt[t] || tt.light;
+                }
+                
+                localStorage.setItem('cs-theme', t);
+            },
+            
+            applyTheme() { this.setTheme(this.theme); },
+            
+            // ============ DIAGNOSTICS ============
+            runDiagnostics() {
+                if (!this.editor) return;
+                this.problems = [];
+                const code = this.editor.getValue();
+                const lines = code.split('\n');
+                
+                lines.forEach((line, i) => {
+                    const t = line.trim();
+                    if (this.lang === 'python' && t.includes('except:') && !t.includes('Exception')) {
+                        this.problems.push({ type: 'warning', msg: `Line ${i+1}: Bare except clause` });
+                    }
+                    if (this.lang === 'web' && t.includes('var ')) {
+                        this.problems.push({ type: 'info', msg: `Line ${i+1}: Consider let/const` });
+                    }
+                });
+                
+                if (this.dom.problemsArea) {
+                    this.dom.problemsArea.innerHTML = this.problems.length === 0 
+                        ? '<div class="output-line success">✅ No problems detected</div>'
+                        : this.problems.map(p => `<div class="output-line ${p.type}">${p.msg}</div>`).join('');
+                }
+                if (this.dom.probBadge) {
+                    this.dom.probBadge.textContent = this.problems.length;
+                    this.dom.probBadge.style.display = this.problems.length > 0 ? 'flex' : 'none';
+                }
+            },
+            
+            // ============ TOAST ============
+            showToast(msg, type = 'success') {
+                const t = document.createElement('div');
+                t.className = `toast ${type}`;
+                t.innerHTML = `<i class='bx ${type === 'success' ? 'bx-check-circle' : 'bx-x-circle'}'></i> ${msg}`;
+                this.dom.toastContainer.appendChild(t);
+                setTimeout(() => t.remove(), 2500);
+            },
+            
+            // ============ LANGUAGE SWITCHING ============
+            switchLanguage(lang) {
+                if (this.lang === lang) return;
+                
+                if (this.editor && this.activeFile) {
+                    this.fs[this.lang][this.activeFile] = this.editor.getValue();
+                }
+                
+                this.lang = lang;
+                this.activeFile = lang === 'web' ? 'index.html' : 'main.py';
+                this.openTabs = [this.activeFile];
+                
+                localStorage.setItem('cs-lang', lang);
+                this.updateLangUI();
+                this.buildFileTree();
+                this.renderTabs();
+                
+                if (this.editor) {
+                    this.editor.setValue(this.fs[lang][this.activeFile] || '');
+                    const ext = this.activeFile.split('.').pop();
+                    const langMap = { html: 'html', css: 'css', js: 'javascript', py: 'python' };
+                    monaco.editor.setModelLanguage(this.editor.getModel(), langMap[ext] || 'plaintext');
+                    this.editor.updateOptions({ tabSize: lang === 'python' ? 4 : 2 });
+                    this.updateStatusLang();
+                }
+                
+                this.showToast(`Switched to ${lang === 'web' ? 'HTML/CSS/JS' : 'Python'}`, 'success');
+            },
+            
+            // ============ EVENT SETUP ============
+            setupEvents() {
+                const self = this;
+                
+                // Language
+                this.dom.langSelect?.addEventListener('click', e => { e.stopPropagation(); this.dom.langDropdown.classList.toggle('show'); this.dom.themeDropdown?.classList.remove('show'); });
+                this.dom.langDropdown?.addEventListener('click', e => {
+                    const item = e.target.closest('.dropdown-item[data-lang]');
+                    if (item) { self.switchLanguage(item.dataset.lang); self.dom.langDropdown.classList.remove('show'); }
+                });
+                
+                // Theme
+                this.dom.btnTheme?.addEventListener('click', e => { e.stopPropagation(); this.dom.themeDropdown.classList.toggle('show'); this.dom.langDropdown?.classList.remove('show'); });
+                this.dom.themeDropdown?.addEventListener('click', e => {
+                    const item = e.target.closest('.dropdown-item[data-theme]');
+                    if (item) { self.setTheme(item.dataset.theme); self.dom.themeDropdown.classList.remove('show'); }
+                });
+                
+                // File tree clicks
+                this.dom.fileTree?.addEventListener('click', e => {
+                    const file = e.target.closest('.ft-file');
+                    if (file) { self.switchFile(file.dataset.file); return; }
+                    const folder = e.target.closest('.ft-folder-header');
+                    if (folder) { folder.parentElement.classList.toggle('open'); return; }
+                });
+                
+                // Right-click context menu on file tree
+                this.dom.fileTree?.addEventListener('contextmenu', e => {
+                    const file = e.target.closest('.ft-file');
+                    if (file) {
+                        e.preventDefault();
+                        self.selectedFile = file.dataset.file;
+                        self.dom.modalTitle.textContent = 'Rename File';
+                        self.dom.newFileName.value = self.selectedFile;
+                        self.dom.targetFolder.textContent = 'workspace/';
+                        self.dom.newFileModal.dataset.mode = 'rename';
+                        self.dom.newFileModal.classList.add('show');
+                    }
+                });
+                
+                // Editor tabs
+                this.dom.editorTabs?.addEventListener('click', e => {
+                    const close = e.target.closest('.tab-close');
+                    if (close) {
+                        e.stopPropagation();
+                        const f = close.dataset.file;
+                        if (self.openTabs.length <= 1) return self.showToast('Cannot close last tab', 'error');
+                        self.openTabs = self.openTabs.filter(t => t !== f);
+                        if (self.activeFile === f) { self.activeFile = self.openTabs[0]; self.switchFile(self.activeFile); }
+                        self.renderTabs();
+                        return;
+                    }
+                    const tab = e.target.closest('.editor-tab');
+                    if (tab) self.switchFile(tab.dataset.file);
+                });
+                
+                // Panel tabs
+                this.dom.panelTabs?.addEventListener('click', e => {
+                    const tab = e.target.closest('.panel-tab');
+                    if (tab) self.switchPanel(tab.dataset.panel);
+                });
+                
+                // Bottom panel hide
+                this.dom.btnHideBottom?.addEventListener('click', () => self.toggleBottomPanel());
+                
+                // Sidebar toggle
+                this.dom.btnToggleSidebar?.addEventListener('click', () => self.toggleSidebar());
+                this.dom.btnCollapseSidebar?.addEventListener('click', () => self.toggleSidebar());
+                
+                // Preview
+                this.dom.btnPreview?.addEventListener('click', () => self.togglePreview());
+                this.dom.btnClosePreview?.addEventListener('click', () => self.dom.previewPanel.classList.remove('open'));
+                this.dom.btnRefreshPreview?.addEventListener('click', () => self.updatePreview());
+                this.dom.btnOpenPreview?.addEventListener('click', () => {
+                    self.updatePreview();
+                    const w = window.open('', '_blank');
+                    if (w) { w.document.write(self.dom.previewFrame.srcdoc); w.document.close(); }
+                });
+                
+                // Buttons
+                this.dom.btnFormat?.addEventListener('click', () => self.formatCode());
+                this.dom.btnProblems?.addEventListener('click', () => self.switchPanel('problems'));
+                this.dom.btnRun?.addEventListener('click', () => self.runCode());
+                
+                // New file modal
+                this.dom.btnNewFile?.addEventListener('click', () => {
+                    self.selectedFile = null;
+                    self.dom.modalTitle.textContent = 'New File';
+                    self.dom.newFileName.value = '';
+                    self.dom.targetFolder.textContent = 'workspace/';
+                    self.dom.newFileModal.dataset.mode = 'create';
+                    self.dom.newFileModal.classList.add('show');
+                });
+                
+                this.dom.btnRenameFile?.addEventListener('click', () => {
+                    if (!self.selectedFile) {
+                        self.selectedFile = self.activeFile;
+                    }
+                    self.dom.modalTitle.textContent = 'Rename File';
+                    self.dom.newFileName.value = self.selectedFile;
+                    self.dom.targetFolder.textContent = 'workspace/';
+                    self.dom.newFileModal.dataset.mode = 'rename';
+                    self.dom.newFileModal.classList.add('show');
+                });
+                
+                this.dom.btnDeleteFile?.addEventListener('click', () => {
+                    const file = self.selectedFile || self.activeFile;
+                    if (confirm(`Delete ${file}?`)) self.deleteFile(file);
+                });
+                
+                this.dom.btnConfirmNewFile?.addEventListener('click', () => {
+                    const name = self.dom.newFileName.value.trim();
+                    const mode = self.dom.newFileModal.dataset.mode;
+                    
+                    if (mode === 'create') self.createFile(name);
+                    else if (mode === 'rename' && self.selectedFile) self.renameFile(self.selectedFile, name);
+                    
+                    self.dom.newFileModal.classList.remove('show');
+                });
+                
+                this.dom.btnCancelModal?.addEventListener('click', () => self.dom.newFileModal.classList.remove('show'));
+                this.dom.btnCloseModal?.addEventListener('click', () => self.dom.newFileModal.classList.remove('show'));
+                this.dom.newFileModal?.addEventListener('click', e => { if (e.target === self.dom.newFileModal) self.dom.newFileModal.classList.remove('show'); });
+                
+                // Modal Enter key
+                this.dom.newFileName?.addEventListener('keydown', e => {
+                    if (e.key === 'Enter') self.dom.btnConfirmNewFile?.click();
+                    if (e.key === 'Escape') self.dom.newFileModal.classList.remove('show');
+                });
+                
+                // Panel resize
+                let resizing = false, startY = 0, startH = 0;
+                this.dom.panelResizeHandle?.addEventListener('mousedown', e => {
+                    if (!self.bottomVisible) return;
+                    resizing = true; startY = e.clientY; startH = self.dom.bottomPanel.offsetHeight;
+                    document.body.style.cursor = 'ns-resize'; document.body.style.userSelect = 'none';
+                });
+                
+                document.addEventListener('mousemove', e => {
+                    if (!resizing) return;
+                    const h = Math.max(80, Math.min(500, startH + (startY - e.clientY)));
+                    self.dom.bottomPanel.style.height = h + 'px';
+                });
+                
+                document.addEventListener('mouseup', () => {
+                    if (resizing) { resizing = false; document.body.style.cursor = ''; document.body.style.userSelect = ''; }
+                });
+                
+                // Status bar clicks
+                this.dom.statusIndent?.addEventListener('click', () => {
+                    const s = this.editor?.getOption(monaco.editor.EditorOption.tabSize) || 2;
+                    const ns = s === 2 ? 4 : 2;
+                    if (this.editor) this.editor.updateOptions({ tabSize: ns });
+                    this.dom.statusIndent.textContent = `Spaces: ${ns}`;
+                });
+                
+                this.dom.statusTheme?.addEventListener('click', () => {
+                    self.setTheme(self.theme === 'light' ? 'dark' : 'light');
+                });
+                
+                // Close dropdowns on outside click
+                document.addEventListener('click', () => {
+                    self.dom.themeDropdown?.classList.remove('show');
+                    self.dom.langDropdown?.classList.remove('show');
+                });
+                
+                // Keyboard shortcuts
+                document.addEventListener('keydown', e => {
+                    if ((e.ctrlKey || e.metaKey) && e.key === 'b') { e.preventDefault(); self.toggleSidebar(); }
+                    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'P') { e.preventDefault(); self.togglePreview(); }
+                    if ((e.ctrlKey || e.metaKey) && e.key === '`') { e.preventDefault(); self.switchPanel('terminal'); }
+                });
+                
+                // New file from tree double-click on folder
+                this.dom.fileTree?.addEventListener('dblclick', e => {
+                    const folder = e.target.closest('.ft-folder-header');
+                    if (folder) {
+                        self.selectedFile = null;
+                        self.dom.modalTitle.textContent = 'New File in workspace/';
+                        self.dom.newFileName.value = '';
+                        self.dom.targetFolder.textContent = 'workspace/';
+                        self.dom.newFileModal.dataset.mode = 'create';
+                        self.dom.newFileModal.classList.add('show');
+                    }
+                });
+            }
+        };
+        
+        // ============ STARTUP ============
+        document.addEventListener('DOMContentLoaded', () => CS.init());
+    })();
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.3.0/lib/xterm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.8.0/lib/addon-fit.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-web-links@0.9.0/lib/addon-web-links.js"></script>
+</body>
+</html>
