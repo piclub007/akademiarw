@@ -13,150 +13,152 @@
     
     <style>
         :root {
-            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-light: #3B82F6;
-            --primary-bg: #EFF6FF; --accent: #8B5CF6; --accent-dark: #7C3AED;
-            --success: #04AA6D; --success-dark: #038857; --success-bg: rgba(4,170,109,0.06);
-            --warning: #F59E0B; --warning-bg: #FFFBEB;
-            --danger: #EF4444; --danger-bg: #FEF2F2;
+            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-bg: #EFF6FF;
+            --accent: #8B5CF6; --accent-dark: #7C3AED;
+            --success: #04AA6D; --success-dark: #038857;
+            --warning: #F59E0B; --danger: #EF4444; --danger-bg: #FEF2F2;
             --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
             --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
             --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
             --gray-800: #1f2937; --gray-900: #111827;
-            --radius-xs: 4px; --radius-sm: 6px; --radius: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-2xl: 20px;
+            --radius-sm: 6px; --radius: 8px; --radius-lg: 12px; --radius-xl: 16px;
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.04); --shadow: 0 1px 3px rgba(0,0,0,0.06);
             --shadow-md: 0 4px 12px rgba(0,0,0,0.06); --shadow-lg: 0 10px 30px rgba(0,0,0,0.08);
             --shadow-xl: 0 20px 50px rgba(0,0,0,0.1);
-            --transition: 0.2s ease;
+            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html, body { height: 100%; overflow: hidden; }
         body {
             font-family: 'Inter', sans-serif; background: var(--gray-50);
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            -webkit-font-smoothing: antialiased; padding: 1rem;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ============ PAGE LOADER ============ */
+        /* PAGE LOADER */
         .page-loader {
-            position: fixed; inset: 0; background: var(--white);
+            position: fixed; inset: 0; background: var(--white); z-index: 9999;
             display: flex; align-items: center; justify-content: center;
-            z-index: 9999; transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
         .page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         .loader-spinner {
-            width: 56px; height: 56px; display: inline-block; color: var(--primary);
-            animation: spinnerRotate 1.4s linear infinite;
+            width: 48px; height: 48px; color: var(--primary);
+            animation: spin 1.2s linear infinite;
         }
-        .loader-spinner svg { display: block; transform-origin: center; }
+        .loader-spinner svg { display: block; }
         .loader-spinner circle {
             stroke: currentColor; stroke-dasharray: 80px, 200px;
-            stroke-dashoffset: 0; animation: spinnerDash 1.4s ease-in-out infinite;
+            stroke-dashoffset: 0; animation: dash 1.4s ease-in-out infinite;
             fill: none; stroke-width: 3;
         }
-        @keyframes spinnerRotate { 100% { transform: rotate(360deg); } }
-        @keyframes spinnerDash {
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes dash {
             0% { stroke-dasharray: 1px, 200px; stroke-dashoffset: 0; }
             50% { stroke-dasharray: 100px, 200px; stroke-dashoffset: -15px; }
             100% { stroke-dasharray: 100px, 200px; stroke-dashoffset: -125px; }
         }
 
-        /* ============ MAIN LAYOUT ============ */
-        .auth-layout {
-            width: 100%; max-width: 1050px; min-height: 620px;
-            background: var(--white); border-radius: var(--radius-2xl);
-            box-shadow: var(--shadow-xl); display: flex; overflow: hidden;
+        /* FULL PAGE CONTAINER */
+        .auth-fullpage {
+            display: flex; height: 100vh; width: 100%;
+            position: relative; overflow: hidden;
         }
 
-        /* LEFT BRAND PANEL */
-        .brand-panel {
-            width: 42%; background: linear-gradient(160deg, #0f172a 0%, #1a1f2e 40%, #1a1a2e 100%);
-            color: white; display: flex; flex-direction: column;
-            justify-content: center; padding: 3.5rem 2.5rem; position: relative; overflow: hidden;
+        /* HALF PANELS */
+        .auth-half {
+            width: 50%; height: 100%; display: flex; align-items: center; justify-content: center;
+            position: relative; transition: all var(--transition);
         }
-        .brand-panel::before {
-            content: ''; position: absolute; top: -30%; right: -30%;
-            width: 350px; height: 350px;
-            background: radial-gradient(circle, rgba(37,99,235,0.1) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        .brand-panel::after {
-            content: ''; position: absolute; bottom: -20%; left: -20%;
-            width: 280px; height: 280px;
-            background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        .brand-content { position: relative; z-index: 1; }
-        .brand-logo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2.5rem; }
-        .brand-logo img { height: 36px; width: auto; filter: brightness(0) invert(1); }
-        .brand-logo span { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; color: white; letter-spacing: -0.3px; }
-        .brand-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.75rem; letter-spacing: -0.5px; }
-        .brand-title span { color: var(--primary-light); }
-        .brand-desc { font-family: 'Manrope', sans-serif; font-size: 0.875rem; color: #9ca3af; line-height: 1.6; margin-bottom: 2rem; }
-        .brand-features { display: flex; flex-direction: column; gap: 0.875rem; }
-        .brand-feature { display: flex; align-items: center; gap: 0.625rem; font-size: 0.813rem; color: #d1d5db; }
-        .brand-feature .feat-icon { width: 28px; height: 28px; border-radius: 50%; background: rgba(4,170,109,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .brand-feature .feat-icon i { font-size: 0.875rem; color: var(--success); }
 
-        /* RIGHT FORM PANEL */
-        .form-panel {
-            width: 58%; display: flex; flex-direction: column; position: relative;
+        /* LEFT HALF - SIGN IN (DEFAULT VISIBLE) */
+        .half-signin {
+            background: var(--white); z-index: 2;
         }
-        .form-tabs {
-            display: flex; border-bottom: 1px solid var(--gray-200);
-            padding: 0 2.5rem; flex-shrink: 0;
+        .half-signin.slide-right {
+            transform: translateX(100%);
         }
-        .form-tab {
-            padding: 1.125rem 0; font-size: 0.875rem; font-weight: 600;
-            color: var(--gray-500); cursor: pointer; border: none; background: none;
-            border-bottom: 2px solid transparent; margin-bottom: -1px;
-            transition: all var(--transition); font-family: 'Inter', sans-serif;
-            margin-right: 1.5rem;
-        }
-        .form-tab:hover { color: var(--gray-700); }
-        .form-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
 
-        .form-body {
-            flex: 1; padding: 2rem 2.5rem; overflow-y: auto; position: relative;
+        /* RIGHT HALF - SIGN UP (SLIDES IN) */
+        .half-signup {
+            background: linear-gradient(160deg, #0f172a 0%, #1a1f2e 40%, #1a1a2e 100%);
+            color: white; position: absolute; right: 0; top: 0; z-index: 1;
         }
-        .form-slide {
-            display: none; animation: fadeSlide 0.3s ease;
+        .half-signup.slide-left {
+            transform: translateX(-100%);
         }
-        .form-slide.active { display: block; }
-        @keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        .form-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.25rem; }
-        .form-subtitle { font-size: 0.813rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+        /* FORM CONTAINER */
+        .form-container {
+            width: 100%; max-width: 440px; padding: 2rem;
+            animation: fadeSlideIn 0.5s ease;
+        }
+        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+        .form-logo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; }
+        .form-logo img { height: 36px; width: auto; }
+        .form-logo span { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.3px; }
+        .half-signin .form-logo span { color: var(--gray-900); }
+        .half-signup .form-logo span { color: white; }
+        .half-signup .form-logo img { filter: brightness(0) invert(1); }
+
+        .form-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+        .half-signin .form-title { color: var(--gray-900); }
+        .half-signup .form-title { color: white; }
+        .form-subtitle { font-size: 0.875rem; margin-bottom: 2rem; line-height: 1.5; }
+        .half-signin .form-subtitle { color: var(--gray-500); }
+        .half-signup .form-subtitle { color: #9ca3af; }
 
         /* FORM ELEMENTS */
+        .form-group { margin-bottom: 1rem; }
         .form-row { display: flex; gap: 0.75rem; }
         .form-row .form-group { flex: 1; }
-        .form-group { margin-bottom: 1rem; }
-        .form-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.25rem; }
+        .form-label { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .half-signin .form-label { color: var(--gray-700); }
+        .half-signup .form-label { color: #d1d5db; }
         .form-label .req { color: var(--danger); }
+
         .input-wrap { position: relative; }
-        .input-wrap .input-icon {
+        .input-icon {
             position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%);
-            color: var(--gray-400); font-size: 0.938rem; pointer-events: none; z-index: 1;
+            font-size: 0.938rem; pointer-events: none; z-index: 1;
         }
+        .half-signin .input-icon { color: var(--gray-400); }
+        .half-signup .input-icon { color: #6b7280; }
+
         .form-input {
-            width: 100%; padding: 0.5625rem 0.75rem 0.5625rem 2.25rem;
-            border: 1px solid var(--gray-300); border-radius: var(--radius-sm);
-            font-family: 'Inter', sans-serif; font-size: 0.813rem; color: var(--gray-900);
-            transition: all var(--transition); background: var(--white); outline: none;
-            line-height: 1.5;
+            width: 100%; padding: 0.625rem 0.875rem 0.625rem 2.5rem;
+            border-radius: var(--radius-sm); font-family: 'Inter', sans-serif;
+            font-size: 0.875rem; transition: all var(--transition); outline: none; line-height: 1.5;
         }
-        .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.06); }
-        .form-input.error { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(239,68,68,0.06); }
-        .form-input.no-icon { padding-left: 0.75rem; }
+        .half-signin .form-input {
+            border: 1px solid var(--gray-300); background: var(--white); color: var(--gray-900);
+        }
+        .half-signin .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.06); }
+        .half-signin .form-input.error { border-color: var(--danger); }
+
+        .half-signup .form-input {
+            border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05);
+            color: white;
+        }
+        .half-signup .form-input::placeholder { color: #6b7280; }
+        .half-signup .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139,92,246,0.15); background: rgba(255,255,255,0.08); }
+        .half-signup .form-input.error { border-color: var(--danger); }
+
         .toggle-pw {
             position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
-            cursor: pointer; color: var(--gray-400); font-size: 0.875rem; z-index: 1;
+            cursor: pointer; font-size: 0.875rem; z-index: 1;
             background: none; border: none; padding: 0;
         }
+        .half-signin .toggle-pw { color: var(--gray-400); }
+        .half-signup .toggle-pw { color: #6b7280; }
         .toggle-pw:hover { color: var(--gray-600); }
-        .form-error { font-size: 0.688rem; color: var(--danger); margin-top: 0.1875rem; display: none; align-items: center; gap: 0.25rem; }
+
+        .form-error { font-size: 0.688rem; margin-top: 0.1875rem; display: none; align-items: center; gap: 0.25rem; }
+        .half-signin .form-error { color: var(--danger); }
+        .half-signup .form-error { color: #fca5a5; }
         .form-error.show { display: flex; }
+
         .username-status { display: flex; align-items: center; gap: 0.25rem; font-size: 0.688rem; margin-top: 0.1875rem; }
         .username-status.available { color: var(--success); }
         .username-status.unavailable { color: var(--danger); }
@@ -165,39 +167,59 @@
         /* Profile Upload */
         .profile-upload { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
         .profile-preview {
-            width: 52px; height: 52px; border-radius: 50%; border: 2px dashed var(--gray-300);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; overflow: hidden; transition: all var(--transition);
-            flex-shrink: 0; background: var(--gray-50);
+            width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; cursor: pointer; overflow: hidden; transition: all var(--transition);
+            flex-shrink: 0;
         }
-        .profile-preview:hover { border-color: var(--primary); background: var(--primary-bg); }
+        .half-signin .profile-preview { border: 2px dashed var(--gray-300); background: var(--gray-50); }
+        .half-signup .profile-preview { border: 2px dashed rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
+        .profile-preview:hover { border-color: var(--primary); }
         .profile-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .profile-preview i { font-size: 1.125rem; color: var(--gray-400); }
-        .profile-upload-text { font-size: 0.688rem; color: var(--gray-500); }
+        .profile-preview i { font-size: 1.25rem; }
+        .half-signin .profile-preview i { color: var(--gray-400); }
+        .half-signup .profile-preview i { color: #6b7280; }
+        .profile-upload-text { font-size: 0.688rem; }
+        .half-signin .profile-upload-text { color: var(--gray-500); }
+        .half-signup .profile-upload-text { color: #9ca3af; }
         .profile-upload-text span { color: var(--primary); cursor: pointer; font-weight: 500; }
         .profile-upload-text span:hover { text-decoration: underline; }
 
-        /* Submit Button */
+        /* SUBMIT BUTTON */
         .submit-btn {
-            width: 100%; padding: 0.625rem 1.25rem; border-radius: var(--radius-sm);
+            width: 100%; padding: 0.6875rem 1.25rem; border-radius: var(--radius-sm);
             font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600;
             transition: all var(--transition); cursor: pointer; border: none;
-            display: flex; align-items: center; justify-content: center; gap: 0.375rem;
-            margin-top: 0.5rem;
+            display: flex; align-items: center; justify-content: center; gap: 0.375rem; margin-top: 0.5rem;
         }
         .submit-btn.primary { background: var(--primary); color: white; }
-        .submit-btn.primary:hover { background: var(--primary-dark); }
-        .submit-btn.primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .submit-btn.primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+        .submit-btn.primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
         .submit-btn.accent { background: var(--accent); color: white; }
-        .submit-btn.accent:hover { background: var(--accent-dark); }
-        .submit-btn.accent:disabled { opacity: 0.5; cursor: not-allowed; }
+        .submit-btn.accent:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(139,92,246,0.3); }
+        .submit-btn.accent:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        .form-footer { text-align: center; margin-top: 1rem; font-size: 0.813rem; color: var(--gray-500); }
-        .form-footer a { color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; }
-        .form-footer a:hover { text-decoration: underline; }
+        /* SWITCH LINK */
+        .switch-link { text-align: center; margin-top: 1.25rem; font-size: 0.813rem; }
+        .half-signin .switch-link { color: var(--gray-500); }
+        .half-signup .switch-link { color: #9ca3af; }
+        .switch-link a { font-weight: 600; cursor: pointer; text-decoration: none; }
+        .switch-link a:hover { text-decoration: underline; }
+        .half-signin .switch-link a { color: var(--primary); }
+        .half-signup .switch-link a { color: var(--primary-light, #60a5fa); }
 
-        .back-home { display: inline-flex; align-items: center; gap: 0.25rem; color: var(--gray-500); text-decoration: none; font-size: 0.813rem; margin-bottom: 1rem; }
-        .back-home:hover { color: var(--primary); }
+        .back-home { display: inline-flex; align-items: center; gap: 0.25rem; text-decoration: none; font-size: 0.813rem; margin-bottom: 1.5rem; }
+        .half-signin .back-home { color: var(--gray-500); } .half-signin .back-home:hover { color: var(--primary); }
+        .half-signup .back-home { color: #9ca3af; } .half-signup .back-home:hover { color: white; }
+
+        /* FEATURES LIST (ON SIGN UP SIDE) */
+        .features-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 2rem 0 0; }
+        .feat-item { display: flex; align-items: center; gap: 0.625rem; font-size: 0.813rem; }
+        .half-signin .feat-item { color: var(--gray-600); }
+        .half-signup .feat-item { color: #d1d5db; }
+        .feat-dot { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .half-signin .feat-dot { background: var(--primary-bg); color: var(--primary); }
+        .half-signup .feat-dot { background: rgba(4,170,109,0.15); color: var(--success); }
+        .feat-dot i { font-size: 0.813rem; }
 
         /* TOAST */
         .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
@@ -205,19 +227,14 @@
         .toast.success { background: #059669; } .toast.error { background: #DC2626; } .toast.info { background: var(--primary); }
         @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .auth-layout { flex-direction: column; max-width: 460px; min-height: auto; }
-            .brand-panel { width: 100%; padding: 2rem 1.5rem; text-align: center; }
-            .brand-features { display: none; }
-            .brand-title { font-size: 1.35rem; }
-            .form-panel { width: 100%; }
-            .form-tabs { padding: 0 1.5rem; }
-            .form-body { padding: 1.5rem; }
-        }
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
+            .half-signin, .half-signup { width: 100%; position: absolute; }
+            .half-signin.slide-right { transform: translateX(0); }
+            .half-signup { transform: translateX(100%); }
+            .half-signup.slide-left { transform: translateX(0); }
+            .form-container { max-width: 100%; padding: 1.5rem; }
             .form-row { flex-direction: column; }
-            .form-tab { margin-right: 1rem; font-size: 0.813rem; }
+            .features-list { display: none; }
         }
     </style>
 </head>
@@ -225,142 +242,140 @@
     <!-- PAGE LOADER -->
     <div class="page-loader" id="pageLoader">
         <span class="loader-spinner">
-            <svg viewBox="22 22 44 44"><circle cx="44" cy="44" r="20" fill="none" stroke-width="3.6"></circle></svg>
+            <svg viewBox="22 22 44 44"><circle cx="44" cy="44" r="20" fill="none" stroke-width="3"></circle></svg>
         </span>
     </div>
 
-    <!-- AUTH LAYOUT -->
-    <div class="auth-layout">
-        <!-- LEFT: BRAND PANEL -->
-        <div class="brand-panel">
-            <div class="brand-content">
-                <div class="brand-logo">
+    <!-- FULL PAGE AUTH -->
+    <div class="auth-fullpage">
+        <!-- LEFT HALF: SIGN IN -->
+        <div class="auth-half half-signin" id="halfSignin">
+            <div class="form-container">
+                <a href="index.html" class="back-home"><i class='bx bx-arrow-back'></i> Back to Home</a>
+                <div class="form-logo">
                     <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
                     <span>Akademia</span>
                 </div>
-                <h1 class="brand-title" id="brandTitle">Learn Without <span>Limits</span></h1>
-                <p class="brand-desc" id="brandDesc">
-                    Join thousands of learners mastering new skills with AI-powered courses, interactive lessons, and hands-on projects.
-                </p>
-                <div class="brand-features">
-                    <div class="brand-feature"><div class="feat-icon"><i class='bx bx-check'></i></div> 500+ Expert-led Courses</div>
-                    <div class="brand-feature"><div class="feat-icon"><i class='bx bx-check'></i></div> AI-Powered Tutoring 24/7</div>
-                    <div class="brand-feature"><div class="feat-icon"><i class='bx bx-check'></i></div> Interactive Exercises & Quizzes</div>
-                    <div class="brand-feature"><div class="feat-icon"><i class='bx bx-check'></i></div> Industry-Recognized Certificates</div>
+                <h1 class="form-title">Welcome Back</h1>
+                <p class="form-subtitle">Sign in to continue your learning journey and track your progress.</p>
+
+                <form id="signinForm" autocomplete="off">
+                    <div class="form-group">
+                        <label class="form-label">Email or Username</label>
+                        <div class="input-wrap">
+                            <i class='bx bx-envelope input-icon'></i>
+                            <input type="text" class="form-input" id="signinEmail" placeholder="you@example.com">
+                        </div>
+                        <div class="form-error" id="signinEmailError"><i class='bx bx-error-circle'></i> Please enter your email or username</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-wrap">
+                            <i class='bx bx-lock-alt input-icon'></i>
+                            <input type="password" class="form-input" id="signinPassword" placeholder="Enter password">
+                            <button type="button" class="toggle-pw" onclick="togglePW('signinPassword', this)"><i class='bx bx-hide'></i></button>
+                        </div>
+                        <div class="form-error" id="signinPasswordError"><i class='bx bx-error-circle'></i> Please enter your password</div>
+                    </div>
+                    <button type="submit" class="submit-btn primary" id="signinBtn">
+                        <i class='bx bx-log-in'></i> Sign In
+                    </button>
+                </form>
+
+                <div class="features-list">
+                    <div class="feat-item"><div class="feat-dot"><i class='bx bx-check'></i></div> Track your learning progress</div>
+                    <div class="feat-item"><div class="feat-dot"><i class='bx bx-check'></i></div> Access all your courses</div>
+                    <div class="feat-item"><div class="feat-dot"><i class='bx bx-check'></i></div> Earn certificates</div>
                 </div>
+
+                <p class="switch-link">Don't have an account? <a onclick="slideTo('signup')">Create one →</a></p>
             </div>
         </div>
 
-        <!-- RIGHT: FORM PANEL -->
-        <div class="form-panel">
-            <div class="form-tabs">
-                <button class="form-tab active" data-tab="signin">Sign In</button>
-                <button class="form-tab" data-tab="signup">Sign Up</button>
-            </div>
+        <!-- RIGHT HALF: SIGN UP -->
+        <div class="auth-half half-signup" id="halfSignup">
+            <div class="form-container">
+                <a href="index.html" class="back-home"><i class='bx bx-arrow-back'></i> Back to Home</a>
+                <div class="form-logo">
+                    <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
+                    <span>Akademia</span>
+                </div>
+                <h1 class="form-title">Create Account</h1>
+                <p class="form-subtitle">Join Akademia and unlock 500+ courses with AI-powered tutoring.</p>
 
-            <div class="form-body">
-                <!-- SIGN IN -->
-                <div class="form-slide active" id="slideSignin">
-                    <a href="index.html" class="back-home"><i class='bx bx-arrow-back'></i> Back to Home</a>
-                    <h2 class="form-title">Welcome Back</h2>
-                    <p class="form-subtitle">Sign in to continue your learning journey</p>
-                    <form id="signinForm" autocomplete="off">
+                <form id="signupForm" autocomplete="off">
+                    <div class="profile-upload">
+                        <div class="profile-preview" id="profilePreview" onclick="document.getElementById('profileImageInput').click()">
+                            <i class='bx bx-camera'></i>
+                        </div>
+                        <div class="profile-upload-text">
+                            <span onclick="document.getElementById('profileImageInput').click()">Upload photo</span><br>PNG, JPG (max 2MB)
+                        </div>
+                        <input type="file" id="profileImageInput" accept="image/*" style="display:none;" onchange="previewProfile(this)">
+                    </div>
+
+                    <div class="form-row">
                         <div class="form-group">
-                            <label class="form-label">Email or Username</label>
+                            <label class="form-label">Full Name <span class="req">*</span></label>
                             <div class="input-wrap">
-                                <i class='bx bx-envelope input-icon'></i>
-                                <input type="text" class="form-input" id="signinEmail" placeholder="you@example.com">
+                                <i class='bx bx-user input-icon'></i>
+                                <input type="text" class="form-input" id="signupName" placeholder="John Doe">
                             </div>
-                            <div class="form-error" id="signinEmailError"><i class='bx bx-error-circle'></i> Please enter your email or username</div>
+                            <div class="form-error" id="signupNameError"><i class='bx bx-error-circle'></i> Required</div>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Password</label>
+                            <label class="form-label">Username <span class="req">*</span></label>
+                            <div class="input-wrap">
+                                <i class='bx bx-at input-icon'></i>
+                                <input type="text" class="form-input" id="signupUsername" placeholder="johndoe" oninput="checkUsername()">
+                            </div>
+                            <div class="username-status" id="usernameStatus"></div>
+                            <div class="form-error" id="signupUsernameError"><i class='bx bx-error-circle'></i> Min 3 characters</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address <span class="req">*</span></label>
+                        <div class="input-wrap">
+                            <i class='bx bx-envelope input-icon'></i>
+                            <input type="email" class="form-input" id="signupEmail" placeholder="you@example.com">
+                        </div>
+                        <div class="form-error" id="signupEmailError"><i class='bx bx-error-circle'></i> Valid email required</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Password <span class="req">*</span></label>
                             <div class="input-wrap">
                                 <i class='bx bx-lock-alt input-icon'></i>
-                                <input type="password" class="form-input" id="signinPassword" placeholder="Enter password">
-                                <button type="button" class="toggle-pw" onclick="togglePW('signinPassword', this)"><i class='bx bx-hide'></i></button>
+                                <input type="password" class="form-input" id="signupPassword" placeholder="Min. 8 characters">
+                                <button type="button" class="toggle-pw" onclick="togglePW('signupPassword', this)"><i class='bx bx-hide'></i></button>
                             </div>
-                            <div class="form-error" id="signinPasswordError"><i class='bx bx-error-circle'></i> Please enter your password</div>
+                            <div class="form-error" id="signupPasswordError"><i class='bx bx-error-circle'></i> Min 8 characters</div>
                         </div>
-                        <button type="submit" class="submit-btn primary" id="signinBtn">
-                            <i class='bx bx-log-in'></i> Sign In
-                        </button>
-                    </form>
-                    <p class="form-footer">Don't have an account? <a onclick="switchTab('signup')">Create one</a></p>
-                </div>
-
-                <!-- SIGN UP -->
-                <div class="form-slide" id="slideSignup">
-                    <a href="index.html" class="back-home"><i class='bx bx-arrow-back'></i> Back to Home</a>
-                    <h2 class="form-title">Create Account</h2>
-                    <p class="form-subtitle">Join Akademia and start learning today</p>
-                    <form id="signupForm" autocomplete="off">
-                        <div class="profile-upload">
-                            <div class="profile-preview" id="profilePreview" onclick="document.getElementById('profileImageInput').click()">
-                                <i class='bx bx-camera'></i>
-                            </div>
-                            <div class="profile-upload-text">
-                                <span onclick="document.getElementById('profileImageInput').click()">Upload photo</span><br>PNG, JPG (max 2MB)
-                            </div>
-                            <input type="file" id="profileImageInput" accept="image/*" style="display:none;" onchange="previewProfile(this)">
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Full Name <span class="req">*</span></label>
-                                <div class="input-wrap">
-                                    <i class='bx bx-user input-icon'></i>
-                                    <input type="text" class="form-input" id="signupName" placeholder="John Doe">
-                                </div>
-                                <div class="form-error" id="signupNameError"><i class='bx bx-error-circle'></i> Required</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Username <span class="req">*</span></label>
-                                <div class="input-wrap">
-                                    <i class='bx bx-at input-icon'></i>
-                                    <input type="text" class="form-input" id="signupUsername" placeholder="johndoe" oninput="checkUsername()">
-                                </div>
-                                <div class="username-status" id="usernameStatus"></div>
-                                <div class="form-error" id="signupUsernameError"><i class='bx bx-error-circle'></i> Min 3 characters</div>
-                            </div>
-                        </div>
-
                         <div class="form-group">
-                            <label class="form-label">Email Address <span class="req">*</span></label>
+                            <label class="form-label">Confirm <span class="req">*</span></label>
                             <div class="input-wrap">
-                                <i class='bx bx-envelope input-icon'></i>
-                                <input type="email" class="form-input" id="signupEmail" placeholder="you@example.com">
+                                <i class='bx bx-lock-alt input-icon'></i>
+                                <input type="password" class="form-input" id="signupConfirmPassword" placeholder="Re-enter">
+                                <button type="button" class="toggle-pw" onclick="togglePW('signupConfirmPassword', this)"><i class='bx bx-hide'></i></button>
                             </div>
-                            <div class="form-error" id="signupEmailError"><i class='bx bx-error-circle'></i> Valid email required</div>
+                            <div class="form-error" id="signupConfirmError"><i class='bx bx-error-circle'></i> Must match</div>
                         </div>
+                    </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Password <span class="req">*</span></label>
-                                <div class="input-wrap">
-                                    <i class='bx bx-lock-alt input-icon'></i>
-                                    <input type="password" class="form-input" id="signupPassword" placeholder="Min. 8 characters">
-                                    <button type="button" class="toggle-pw" onclick="togglePW('signupPassword', this)"><i class='bx bx-hide'></i></button>
-                                </div>
-                                <div class="form-error" id="signupPasswordError"><i class='bx bx-error-circle'></i> Min 8 characters</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Confirm <span class="req">*</span></label>
-                                <div class="input-wrap">
-                                    <i class='bx bx-lock-alt input-icon'></i>
-                                    <input type="password" class="form-input" id="signupConfirmPassword" placeholder="Re-enter password">
-                                    <button type="button" class="toggle-pw" onclick="togglePW('signupConfirmPassword', this)"><i class='bx bx-hide'></i></button>
-                                </div>
-                                <div class="form-error" id="signupConfirmError"><i class='bx bx-error-circle'></i> Must match</div>
-                            </div>
-                        </div>
+                    <button type="submit" class="submit-btn accent" id="signupBtn">
+                        <i class='bx bx-user-plus'></i> Create Account
+                    </button>
+                </form>
 
-                        <button type="submit" class="submit-btn accent" id="signupBtn">
-                            <i class='bx bx-user-plus'></i> Create Account
-                        </button>
-                    </form>
-                    <p class="form-footer">Already have an account? <a onclick="switchTab('signin')">Sign in</a></p>
+                <div class="features-list">
+                    <div class="feat-item"><div class="feat-dot"><i class='bx bx-check'></i></div> 500+ Expert-led Courses</div>
+                    <div class="feat-item"><div class="feat-dot"><i class='bx bx-check'></i></div> AI-Powered Tutoring 24/7</div>
+                    <div class="feat-item"><div class="feat-dot"><i class='bx bx-check'></i></div> Industry Certificates</div>
                 </div>
+
+                <p class="switch-link">Already have an account? <a onclick="slideTo('signin')">Sign in →</a></p>
             </div>
         </div>
     </div>
@@ -385,37 +400,29 @@
         let profileImageFile = null, isUsernameAvailable = false, checkTimer = null, allUsernames = [];
 
         // ============ PAGE LOADER ============
-        window.addEventListener('load', () => { setTimeout(() => $('pageLoader')?.classList.add('hidden'), 400); });
+        window.addEventListener('load', () => { setTimeout(() => $('pageLoader')?.classList.add('hidden'), 500); });
 
-        // ============ TAB SWITCHING ============
-        window.switchTab = function(tab) {
-            document.querySelectorAll('.form-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.form-slide').forEach(s => s.classList.remove('active'));
-            document.querySelector(`.form-tab[data-tab="${tab}"]`)?.classList.add('active');
-            $(tab === 'signin' ? 'slideSignin' : 'slideSignup')?.classList.add('active');
-
-            if (tab === 'signup') {
-                $('brandTitle').innerHTML = 'Join the <span>Community</span>';
-                $('brandDesc').textContent = 'Create your account and unlock access to 500+ courses, AI tutoring, and interactive exercises.';
+        // ============ SLIDE ANIMATION ============
+        window.slideTo = function(form) {
+            const signin = $('halfSignin');
+            const signup = $('halfSignup');
+            if (form === 'signup') {
+                signin.classList.add('slide-right');
+                signup.classList.add('slide-left');
             } else {
-                $('brandTitle').innerHTML = 'Learn Without <span>Limits</span>';
-                $('brandDesc').textContent = 'Join thousands of learners mastering new skills with AI-powered courses, interactive lessons, and hands-on projects.';
+                signin.classList.remove('slide-right');
+                signup.classList.remove('slide-left');
             }
         };
 
-        document.querySelectorAll('.form-tab').forEach(tab => {
-            tab.addEventListener('click', () => switchTab(tab.dataset.tab));
-        });
-
         const params = new URLSearchParams(window.location.search);
         if (params.get('mode') === 'register' || params.get('mode') === 'signup') {
-            setTimeout(() => switchTab('signup'), 300);
+            setTimeout(() => slideTo('signup'), 400);
         }
 
         // ============ PASSWORD TOGGLE ============
         window.togglePW = function(inputId, btn) {
-            const input = $(inputId);
-            const icon = btn.querySelector('i');
+            const input = $(inputId); const icon = btn.querySelector('i');
             if (input.type === 'password') { input.type = 'text'; icon.className = 'bx bx-show'; }
             else { input.type = 'password'; icon.className = 'bx bx-hide'; }
         };
@@ -443,8 +450,7 @@
             const username = $('signupUsername')?.value?.trim();
             const status = $('usernameStatus');
             if (!username || username.length < 3) { status.innerHTML = ''; status.className = 'username-status'; isUsernameAvailable = false; return; }
-            status.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Checking...';
-            status.className = 'username-status checking';
+            status.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Checking...'; status.className = 'username-status checking';
             checkTimer = setTimeout(() => {
                 if (allUsernames.includes(username.toLowerCase())) {
                     status.innerHTML = '<i class="bx bx-x-circle"></i> Username taken'; status.className = 'username-status unavailable'; isUsernameAvailable = false;
@@ -454,7 +460,6 @@
             }, 500);
         };
 
-        // ============ UPLOAD ============
         async function uploadImage(file) {
             if (!file) return null;
             const fd = new FormData(); fd.append('image', file);
@@ -462,7 +467,6 @@
             catch (e) { return null; }
         }
 
-        // ============ CLEAR ERRORS ============
         function clearErrors() {
             document.querySelectorAll('.form-error').forEach(e => e.classList.remove('show'));
             document.querySelectorAll('.form-input').forEach(e => e.classList.remove('error'));
@@ -471,13 +475,11 @@
         // ============ SIGN IN ============
         $('signinForm')?.addEventListener('submit', async function(e) {
             e.preventDefault(); clearErrors();
-            const emailOrUser = $('signinEmail')?.value?.trim();
-            const password = $('signinPassword')?.value;
+            const emailOrUser = $('signinEmail')?.value?.trim(); const password = $('signinPassword')?.value;
             let err = false;
             if (!emailOrUser) { $('signinEmailError').classList.add('show'); $('signinEmail').classList.add('error'); err = true; }
             if (!password) { $('signinPasswordError').classList.add('show'); $('signinPassword').classList.add('error'); err = true; }
             if (err) return;
-
             const btn = $('signinBtn'); btn.disabled = true; btn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Signing in...';
             try {
                 let email = emailOrUser;
@@ -491,8 +493,7 @@
                 }
                 const uc = await signInWithEmailAndPassword(auth, email, password);
                 localStorage.setItem('ak_user', JSON.stringify({ uid: uc.user.uid, email: uc.user.email, displayName: uc.user.displayName, photoURL: uc.user.photoURL }));
-                toast('Welcome back!', 'success');
-                setTimeout(() => { window.location.href = 'index.html'; }, 800);
+                toast('Welcome back!', 'success'); setTimeout(() => { window.location.href = 'index.html'; }, 800);
             } catch (error) {
                 let msg = 'Sign in failed.';
                 if (error.code === 'auth/invalid-credential') msg = 'Incorrect email or password.';
@@ -504,13 +505,9 @@
         // ============ SIGN UP ============
         $('signupForm')?.addEventListener('submit', async function(e) {
             e.preventDefault(); clearErrors();
-            const name = $('signupName')?.value?.trim();
-            const username = $('signupUsername')?.value?.trim();
-            const email = $('signupEmail')?.value?.trim();
-            const password = $('signupPassword')?.value;
-            const confirm = $('signupConfirmPassword')?.value;
-            let err = false;
-
+            const name = $('signupName')?.value?.trim(); const username = $('signupUsername')?.value?.trim();
+            const email = $('signupEmail')?.value?.trim(); const password = $('signupPassword')?.value;
+            const confirm = $('signupConfirmPassword')?.value; let err = false;
             if (!name) { $('signupNameError').classList.add('show'); $('signupName').classList.add('error'); err = true; }
             if (!username || username.length < 3) { $('signupUsernameError').textContent = username ? 'Min 3 characters' : 'Required'; $('signupUsernameError').classList.add('show'); $('signupUsername').classList.add('error'); err = true; }
             else if (!isUsernameAvailable) { $('signupUsernameError').textContent = 'Username taken'; $('signupUsernameError').classList.add('show'); $('signupUsername').classList.add('error'); err = true; }
@@ -518,15 +515,12 @@
             if (!password || password.length < 8) { $('signupPasswordError').classList.add('show'); $('signupPassword').classList.add('error'); err = true; }
             if (password !== confirm) { $('signupConfirmError').classList.add('show'); $('signupConfirmPassword').classList.add('error'); err = true; }
             if (err) return;
-
             const btn = $('signupBtn'); btn.disabled = true; btn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Creating...';
             try {
                 let photoURL = null;
                 if (profileImageFile) { toast('Uploading photo...', 'info'); photoURL = await uploadImage(profileImageFile); }
-
                 const uc = await createUserWithEmailAndPassword(auth, email, password);
                 await updateProfile(uc.user, { displayName: name, photoURL: photoURL || null });
-
                 try {
                     await setDoc(doc(db, 'users', uc.user.uid), { uid: uc.user.uid, name, username: username.toLowerCase(), email, photoURL: photoURL || '', createdAt: new Date().toISOString(), provider: 'email' });
                 } catch (fe) {
@@ -536,8 +530,7 @@
                 }
                 saveUsernameLocal(username);
                 localStorage.setItem('ak_user', JSON.stringify({ uid: uc.user.uid, email, displayName: name, photoURL: photoURL || '' }));
-                toast('Account created!', 'success');
-                setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+                toast('Account created!', 'success'); setTimeout(() => { window.location.href = 'index.html'; }, 1000);
             } catch (error) {
                 let msg = 'Registration failed.';
                 if (error.code === 'auth/email-already-in-use') msg = 'Email already registered.';
@@ -546,9 +539,8 @@
             }
         });
 
-        // ============ INIT ============
         loadUsernames();
-        console.log('🚀 Akademia Auth - Adsterra Inspired loaded!');
+        console.log('🚀 Akademia Full-Page Auth loaded!');
     </script>
 </body>
 </html>
