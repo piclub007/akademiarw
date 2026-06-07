@@ -43,442 +43,250 @@
 
         .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
 
-        /* ============ TEXT ANIMATIONS ============ */
-        @keyframes wordFade {
-            0%, 100% { opacity: 1; transform: translateY(0); }
-            50% { opacity: 0.6; transform: translateY(-2px); }
-        }
-        @keyframes subtlePulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        @keyframes gentleGlow {
-            0%, 100% { text-shadow: 0 0 8px rgba(37,99,235,0.2); }
-            50% { text-shadow: 0 0 20px rgba(37,99,235,0.4); }
-        }
-        .animate-word {
-            display: inline-block;
-            animation: wordFade 3s ease-in-out infinite;
-        }
+        /* Text Animations */
+        @keyframes wordFade { 0%,100% { opacity: 1; transform: translateY(0); } 50% { opacity: 0.6; transform: translateY(-2px); } }
+        @keyframes gentleGlow { 0%,100% { text-shadow: 0 0 8px rgba(37,99,235,0.2); } 50% { text-shadow: 0 0 20px rgba(37,99,235,0.4); } }
+        .animate-word { display: inline-block; animation: wordFade 3s ease-in-out infinite; }
         .animate-word:nth-child(2) { animation-delay: 0.5s; }
         .animate-word:nth-child(3) { animation-delay: 1s; }
-        .animate-word:nth-child(4) { animation-delay: 1.5s; }
-        .animate-word:nth-child(5) { animation-delay: 2s; }
-        .animate-glow {
-            animation: gentleGlow 2.5s ease-in-out infinite;
-        }
+        .animate-glow { animation: gentleGlow 2.5s ease-in-out infinite; }
 
-        /* Loading Skeleton */
-        .skeleton {
-            background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
-            background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--radius);
-        }
+        .skeleton { background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--radius); }
         .skeleton-card { height: 200px; border-radius: var(--radius-lg); }
         @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 
-        /* TOP BAR */
-        .topbar {
-            background: var(--gray-900); color: white;
-            padding: 0.5rem 0; font-size: 0.813rem; position: relative; z-index: 1001;
-        }
-        .topbar-inner {
-            max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
-            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
-        }
+        /* ============ TOP BAR ============ */
+        .topbar { background: var(--gray-900); color: white; padding: 0.5rem 0; font-size: 0.813rem; position: relative; z-index: 1001; }
+        .topbar-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
         .topbar-links { display: flex; gap: 1.5rem; }
         .topbar-links a { color: #9ca3af; text-decoration: none; transition: color var(--transition); display: flex; align-items: center; gap: 0.25rem; }
         .topbar-links a:hover { color: white; }
 
-        /* NAVBAR */
-        .navbar {
-            background: var(--white); border-bottom: 1px solid var(--gray-200);
-            position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-sm);
-        }
-        .nav-inner {
-            max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
-            display: flex; align-items: center; justify-content: space-between; height: 64px;
-        }
+        /* ============ NAVBAR ============ */
+        .navbar { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-sm); }
+        .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
         .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; flex-shrink: 0; }
         .nav-logo img { height: 36px; width: auto; }
-        .nav-logo span {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem;
-            font-weight: 700; color: var(--gray-900); letter-spacing: -0.3px;
-        }
+        .nav-logo span { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--gray-900); letter-spacing: -0.3px; }
         .nav-menu { display: flex; align-items: center; gap: 0.125rem; list-style: none; }
-        .nav-item {
-            padding: 0.5rem 0.875rem; border-radius: var(--radius-sm);
-            font-size: 0.875rem; font-weight: 500; color: var(--gray-700);
-            text-decoration: none; cursor: pointer; transition: all var(--transition); white-space: nowrap;
-        }
+        .nav-item { padding: 0.5rem 0.875rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500; color: var(--gray-700); text-decoration: none; cursor: pointer; transition: all var(--transition); white-space: nowrap; }
         .nav-item:hover { background: var(--gray-100); color: var(--gray-900); }
         .nav-item.active { background: var(--primary-bg); color: var(--primary); }
-
         .nav-dropdown { position: relative; }
-        .nav-dropdown-trigger {
-            display: flex; align-items: center; gap: 0.25rem;
-            padding: 0.5rem 0.875rem; border-radius: var(--radius-sm);
-            font-size: 0.875rem; font-weight: 500; color: var(--gray-700);
-            cursor: pointer; transition: all var(--transition); white-space: nowrap;
-            border: none; background: none; font-family: 'Inter', sans-serif;
-        }
+        .nav-dropdown-trigger { display: flex; align-items: center; gap: 0.25rem; padding: 0.5rem 0.875rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500; color: var(--gray-700); cursor: pointer; transition: all var(--transition); white-space: nowrap; border: none; background: none; font-family: 'Inter', sans-serif; }
         .nav-dropdown-trigger:hover { background: var(--gray-100); color: var(--gray-900); }
         .nav-dropdown-trigger i { font-size: 0.75rem; transition: transform var(--transition); }
         .nav-dropdown:hover .nav-dropdown-trigger i { transform: rotate(180deg); }
-        .nav-dropdown-menu {
-            position: absolute; top: 100%; left: 0;
-            background: white; border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200);
-            min-width: 200px; padding: 0.5rem;
-            opacity: 0; visibility: hidden; transform: translateY(-8px);
-            transition: all var(--transition); z-index: 100;
-        }
+        .nav-dropdown-menu { position: absolute; top: 100%; left: 0; background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200); min-width: 200px; padding: 0.5rem; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all var(--transition); z-index: 100; }
         .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-        .nav-dropdown-menu a {
-            display: flex; align-items: center; gap: 0.625rem;
-            padding: 0.625rem 0.875rem; border-radius: var(--radius-sm);
-            font-size: 0.813rem; color: var(--gray-700); text-decoration: none; transition: all var(--transition);
-        }
+        .nav-dropdown-menu a { display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.875rem; border-radius: var(--radius-sm); font-size: 0.813rem; color: var(--gray-700); text-decoration: none; transition: all var(--transition); }
         .nav-dropdown-menu a:hover { background: var(--primary-bg); color: var(--primary); }
-
         .profile-dropdown { position: relative; }
-        .profile-trigger {
-            display: flex; align-items: center; gap: 0.5rem;
-            padding: 0.375rem 0.75rem; border-radius: var(--radius-sm);
-            cursor: pointer; transition: all var(--transition);
-            border: 1px solid var(--gray-200); background: white; font-family: 'Inter', sans-serif;
-        }
+        .profile-trigger { display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.75rem; border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition); border: 1px solid var(--gray-200); background: white; font-family: 'Inter', sans-serif; }
         .profile-trigger:hover { border-color: var(--primary); background: var(--primary-bg); }
-        .profile-avatar {
-            width: 32px; height: 32px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: 700; font-size: 0.813rem;
-        }
+        .profile-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.813rem; }
         .profile-name { font-size: 0.813rem; font-weight: 600; color: var(--gray-900); }
-        .profile-dropdown-menu {
-            position: absolute; top: calc(100% + 4px); right: 0;
-            background: white; border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200);
-            min-width: 220px; padding: 0.5rem;
-            opacity: 0; visibility: hidden; transform: translateY(-8px);
-            transition: all var(--transition); z-index: 100;
-        }
-        .profile-dropdown:hover .profile-dropdown-menu,
-        .profile-dropdown-menu.show { opacity: 1; visibility: visible; transform: translateY(0); }
-        .profile-dropdown-menu a {
-            display: flex; align-items: center; gap: 0.625rem;
-            padding: 0.625rem 0.875rem; border-radius: var(--radius-sm);
-            font-size: 0.813rem; color: var(--gray-700); text-decoration: none; transition: all var(--transition);
-        }
+        .profile-dropdown-menu { position: absolute; top: calc(100% + 4px); right: 0; background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200); min-width: 220px; padding: 0.5rem; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all var(--transition); z-index: 100; }
+        .profile-dropdown:hover .profile-dropdown-menu, .profile-dropdown-menu.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .profile-dropdown-menu a { display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.875rem; border-radius: var(--radius-sm); font-size: 0.813rem; color: var(--gray-700); text-decoration: none; transition: all var(--transition); }
         .profile-dropdown-menu a:hover { background: var(--primary-bg); color: var(--primary); }
         .profile-dropdown-menu .divider { height: 1px; background: var(--gray-200); margin: 0.375rem 0; }
         .profile-dropdown-menu .logout-btn { color: var(--danger); cursor: pointer; }
         .profile-dropdown-menu .logout-btn:hover { background: var(--danger-bg); }
-
         .nav-right { display: flex; align-items: center; gap: 0.75rem; }
-        .btn {
-            font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.375rem;
-            padding: 0.5rem 1.125rem; border-radius: var(--radius-sm); font-size: 0.875rem;
-            font-weight: 600; transition: all var(--transition); cursor: pointer;
-            border: none; text-decoration: none; white-space: nowrap;
-        }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); }
-        .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); }
-        .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
-        .btn-success { background: var(--success); color: white; }
-        .btn-success:hover { background: var(--success-dark); }
-        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
-        .btn-lg { padding: 0.75rem 1.5rem; font-size: 1rem; }
-        .btn-xl { padding: 0.875rem 2rem; font-size: 1.0625rem; }
+        .btn { font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.5rem 1.125rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 600; transition: all var(--transition); cursor: pointer; border: none; text-decoration: none; white-space: nowrap; }
+        .btn-primary { background: var(--primary); color: white; } .btn-primary:hover { background: var(--primary-dark); }
+        .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); } .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
+        .btn-success { background: var(--success); color: white; } .btn-success:hover { background: var(--success-dark); }
+        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; } .btn-lg { padding: 0.75rem 1.5rem; font-size: 1rem; } .btn-xl { padding: 0.875rem 2rem; font-size: 1.0625rem; }
         .hamburger { display: none; background: none; border: none; font-size: 1.5rem; color: var(--gray-700); cursor: pointer; }
 
-        /* SUBTOP NAV */
-        .subtopnav-wrapper {
-            background: var(--dark-bg); position: sticky; top: 64px; z-index: 999;
-            height: 42px; overflow: hidden;
-        }
-        .subtopnav-scroll {
-            display: flex; align-items: center; overflow-x: auto;
-            white-space: nowrap; height: 42px;
-            scrollbar-width: none; -ms-overflow-style: none;
-        }
+        /* ============ SUBTOP NAV ============ */
+        .subtopnav-wrapper { background: var(--dark-bg); position: sticky; top: 64px; z-index: 999; height: 42px; overflow: hidden; }
+        .subtopnav-scroll { display: flex; align-items: center; overflow-x: auto; white-space: nowrap; height: 42px; scrollbar-width: none; -ms-overflow-style: none; }
         .subtopnav-scroll::-webkit-scrollbar { display: none; }
-        .subtopnav-scroll a {
-            display: inline-flex; align-items: center;
-            padding: 0 1.125rem; height: 42px;
-            color: #ffffff; text-decoration: none;
-            font-size: 0.813rem; font-weight: 500;
-            transition: background var(--transition); flex-shrink: 0;
-        }
+        .subtopnav-scroll a { display: inline-flex; align-items: center; padding: 0 1.125rem; height: 42px; color: #ffffff; text-decoration: none; font-size: 0.813rem; font-weight: 500; transition: background var(--transition); flex-shrink: 0; }
         .subtopnav-scroll a:hover { background: rgba(255,255,255,0.1); }
         .subtopnav-scroll a.active { background: var(--success); color: white; }
 
-        /* HERO */
-        .hero {
-            background: var(--gray-900); color: white;
-            padding: 4rem 0; position: relative; overflow: hidden;
-        }
-        .hero-inner {
-            max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
-            display: flex; align-items: center; gap: 3rem; position: relative; z-index: 1;
-        }
+        /* ============ HERO ============ */
+        .hero { background: var(--gray-900); color: white; padding: 4rem 0; position: relative; overflow: hidden; }
+        .hero-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 3rem; position: relative; z-index: 1; }
         .hero-content { flex: 1; }
-        .hero-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2rem, 4.5vw, 3.25rem); font-weight: 800;
-            line-height: 1.15; margin-bottom: 1rem; letter-spacing: -1px;
-        }
+        .hero-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4.5vw, 3.25rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; letter-spacing: -1px; }
         .hero-title span { color: var(--secondary); }
         .hero-desc { font-size: 1.0625rem; color: #9ca3af; margin-bottom: 2rem; max-width: 500px; line-height: 1.7; }
         .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-        .hero-code {
-            flex: 1; background: var(--code-bg); border-radius: var(--radius-lg);
-            padding: 1.5rem; font-family: 'Source Code Pro', monospace;
-            font-size: 0.813rem; color: #cdd6f4; line-height: 1.8;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .hero-code .comment { color: #6b7280; }
-        .hero-code .keyword { color: #c084fc; }
-        .hero-code .string { color: #34d399; }
-        .code-header {
-            display: flex; align-items: center; gap: 0.5rem;
-            margin-bottom: 1rem; padding-bottom: 0.75rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+        .hero-code { flex: 1; background: var(--code-bg); border-radius: var(--radius-lg); padding: 1.5rem; font-family: 'Source Code Pro', monospace; font-size: 0.813rem; color: #cdd6f4; line-height: 1.8; border: 1px solid rgba(255,255,255,0.1); }
+        .hero-code .comment { color: #6b7280; } .hero-code .keyword { color: #c084fc; } .hero-code .string { color: #34d399; }
+        .code-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .code-dot { width: 10px; height: 10px; border-radius: 50%; }
         .code-dot.red { background: #ef4444; } .code-dot.yellow { background: #f59e0b; } .code-dot.green { background: #10b981; }
 
-        /* ============ ENHANCED SEARCH ============ */
-        .search-section {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            padding: 3.5rem 0; position: relative; overflow: hidden;
+        /* ============ ELEGANT SEARCH WITH TREE NAV ============ */
+        .search-tree-section {
+            background: var(--gray-50); padding: 0; position: relative;
         }
-        .search-section::before {
-            content: ''; position: absolute; top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle at 30% 50%, rgba(37,99,235,0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 50%, rgba(6,182,212,0.06) 0%, transparent 50%);
-            animation: searchBgPulse 8s ease-in-out infinite;
+        .search-tree-inner {
+            max-width: 1280px; margin: 0 auto; display: flex; gap: 0; min-height: 500px;
         }
-        @keyframes searchBgPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .search-container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 2; }
-        .search-header { text-align: center; margin-bottom: 2rem; }
-        .search-header h2 {
-            font-family: 'Space Grotesk', sans-serif; font-size: 2.25rem;
-            font-weight: 700; color: white; margin-bottom: 0.5rem;
+        /* Left Tree Panel */
+        .tree-panel {
+            width: 320px; flex-shrink: 0; background: white;
+            border-right: 1px solid var(--gray-200); padding: 1.5rem;
+            overflow-y: auto; max-height: 600px; position: sticky; top: 108px;
         }
-        .search-header p { color: rgba(255,255,255,0.6); font-size: 1.0625rem; }
-        .search-wrapper {
-            background: white; border: 3px solid transparent;
-            border-radius: var(--radius-3xl); padding: 0.625rem;
+        .tree-panel h3 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.938rem;
+            font-weight: 700; color: var(--gray-900); margin-bottom: 1rem;
             display: flex; align-items: center; gap: 0.5rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3); transition: all 0.3s ease;
         }
-        .search-wrapper:focus-within {
-            border-color: var(--secondary);
-            box-shadow: 0 20px 80px rgba(6,182,212,0.3), 0 0 0 1px rgba(6,182,212,0.5);
-            transform: translateY(-3px);
+        .tree-search {
+            display: flex; align-items: center; gap: 0.5rem;
+            background: var(--gray-50); border: 1px solid var(--gray-200);
+            border-radius: var(--radius); padding: 0.5rem 0.75rem; margin-bottom: 1rem;
         }
-        .search-wrapper .search-icon-wrap {
-            width: 52px; height: 52px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        .tree-search input {
+            flex: 1; border: none; background: transparent;
+            font-family: 'Inter', sans-serif; font-size: 0.813rem; outline: none;
         }
-        .search-wrapper .search-icon-wrap i { font-size: 1.5rem; color: white; }
-        .search-wrapper input {
-            flex: 1; border: none; padding: 0.75rem 0.5rem;
-            font-family: 'Inter', sans-serif; font-size: 1.125rem; outline: none; color: var(--gray-900);
+        .tree-search i { color: var(--gray-400); font-size: 0.875rem; }
+        .tree-nav { display: flex; flex-direction: column; gap: 0.125rem; }
+        .tree-folder { cursor: pointer; user-select: none; }
+        .tree-folder-header {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.4375rem 0.5rem; border-radius: var(--radius-sm);
+            transition: all var(--transition); font-size: 0.813rem; font-weight: 500;
+            color: var(--gray-700);
         }
-        .search-wrapper input::placeholder { color: var(--gray-400); }
-        .search-wrapper .search-submit {
-            padding: 0.875rem 2rem; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white; border: none; border-radius: var(--radius-2xl); cursor: pointer;
-            font-weight: 700; font-size: 0.938rem; transition: all var(--transition); flex-shrink: 0;
+        .tree-folder-header:hover { background: var(--gray-100); }
+        .tree-folder-header i { font-size: 0.75rem; color: var(--gray-400); transition: transform var(--transition); width: 14px; text-align: center; }
+        .tree-folder.open > .tree-folder-header i { transform: rotate(90deg); }
+        .tree-folder-header .folder-icon { font-size: 1rem; color: var(--warning); }
+        .tree-folder-header .course-icon { font-size: 1rem; color: var(--primary); }
+        .tree-folder-header .module-icon { font-size: 1rem; color: var(--success); }
+        .tree-children { display: none; padding-left: 1.25rem; }
+        .tree-folder.open > .tree-children { display: flex; flex-direction: column; gap: 0.125rem; }
+        .tree-item {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.375rem 0.5rem; border-radius: var(--radius-sm);
+            cursor: pointer; transition: all var(--transition); font-size: 0.813rem;
+            color: var(--gray-600);
         }
-        .search-wrapper .search-submit:hover { background: linear-gradient(135deg, var(--primary-dark), #1e40af); box-shadow: 0 8px 25px rgba(37,99,235,0.4); transform: scale(1.03); }
-        .search-filters { display: flex; gap: 0.5rem; margin-top: 1.25rem; justify-content: center; flex-wrap: wrap; }
-        .search-filter {
-            padding: 0.5rem 1.125rem; border-radius: 9999px;
-            font-size: 0.813rem; font-weight: 600; cursor: pointer;
-            transition: all var(--transition);
-            border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05);
-            color: rgba(255,255,255,0.8);
-        }
-        .search-filter:hover, .search-filter.active { background: white; border-color: white; color: var(--primary); box-shadow: 0 4px 15px rgba(255,255,255,0.2); }
-        .search-results {
-            position: absolute; top: calc(100% + 12px); left: 0; right: 0;
-            background: white; border-radius: var(--radius-2xl); box-shadow: var(--shadow-xl);
-            border: 1px solid var(--gray-200); max-height: 400px; overflow-y: auto;
-            z-index: 50; display: none;
-        }
-        .search-results.show { display: block; animation: fadeInDown 0.25s ease; }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        .sr-item {
-            display: flex; align-items: center; gap: 0.875rem; padding: 1rem 1.25rem;
-            cursor: pointer; transition: background var(--transition); border-bottom: 1px solid var(--gray-100);
-        }
-        .sr-item:hover { background: var(--primary-bg); }
-        .sr-icon {
-            width: 46px; height: 46px; border-radius: var(--radius);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.375rem; flex-shrink: 0; background: var(--gray-100);
-        }
-        .sr-info { flex: 1; }
-        .sr-name { font-weight: 600; font-size: 0.938rem; }
-        .sr-meta { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.125rem; }
+        .tree-item:hover { background: var(--primary-bg); color: var(--primary); }
+        .tree-item.active { background: var(--primary-bg); color: var(--primary); font-weight: 600; }
+        .tree-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gray-300); flex-shrink: 0; }
+        .tree-item.active .dot { background: var(--primary); }
+        .highlight { background: #FDE68A; padding: 1px 3px; border-radius: 2px; color: #92400e; font-weight: 600; }
 
-        /* COURSE SECTIONS */
+        /* Right Content Panel */
+        .content-panel {
+            flex: 1; padding: 1.5rem; overflow-y: auto; max-height: 600px;
+        }
+        .content-panel .panel-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .content-panel .panel-header h3 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700;
+        }
+        .lesson-list { display: flex; flex-direction: column; gap: 0.5rem; }
+        .lesson-item {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.75rem 1rem; background: white; border: 1px solid var(--gray-200);
+            border-radius: var(--radius); cursor: pointer; transition: all var(--transition);
+        }
+        .lesson-item:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); }
+        .lesson-item .l-icon {
+            width: 36px; height: 36px; border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            background: var(--primary-bg); color: var(--primary); flex-shrink: 0;
+        }
+        .lesson-item .l-info { flex: 1; }
+        .lesson-item .l-title { font-weight: 600; font-size: 0.875rem; }
+        .lesson-item .l-meta { font-size: 0.75rem; color: var(--gray-500); }
+        .search-results-inline { display: flex; flex-direction: column; gap: 0.5rem; }
+        .sr-inline-item {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.75rem 1rem; background: white; border: 1px solid var(--gray-200);
+            border-radius: var(--radius); cursor: pointer; transition: all var(--transition);
+        }
+        .sr-inline-item:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); background: var(--primary-bg); }
+
+        /* ============ COURSE SECTIONS ============ */
         .course-section { padding: 3rem 0; }
-        .course-inner {
-            max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
-            display: flex; align-items: center; gap: 3rem;
-        }
+        .course-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 3rem; }
         .course-info { flex: 1; text-align: center; }
-        .course-logo {
-            width: 80px; height: 80px; border-radius: var(--radius-xl);
-            margin: 0 auto 1rem; display: flex; align-items: center;
-            justify-content: center; font-size: 2.5rem;
-            background: white; box-shadow: var(--shadow);
-        }
-        .course-logo img { width: 50px; height: 50px; object-fit: contain; border-radius: var(--radius-sm); }
+        .course-logo { width: 80px; height: 80px; border-radius: var(--radius-xl); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; background: white; box-shadow: var(--shadow); }
         .course-info h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
         .course-info .course-meta-text { font-size: 1.0625rem; margin-bottom: 1rem; }
         .course-info .course-desc { font-size: 0.875rem; opacity: 0.8; margin-bottom: 1.25rem; max-width: 400px; margin-left: auto; margin-right: auto; }
         .course-info .btn { margin: 0.25rem; }
-        .course-code {
-            flex: 1; background: #1a1a2e; color: #cdd6f4;
-            border-radius: var(--radius-lg); padding: 1.5rem;
-            font-family: 'Source Code Pro', monospace; font-size: 0.813rem;
-            line-height: 1.8; border: 2px solid var(--success);
-        }
+        .course-code { flex: 1; background: #1a1a2e; color: #cdd6f4; border-radius: var(--radius-lg); padding: 1.5rem; font-family: 'Source Code Pro', monospace; font-size: 0.813rem; line-height: 1.8; border: 2px solid var(--success); }
         .course-code .example-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; }
-        .course-code .try-btn {
-            display: inline-block; margin-top: 1rem; padding: 0.5rem 1.25rem;
-            background: var(--success); color: white; border-radius: 9999px;
-            text-decoration: none; font-family: 'Inter', sans-serif;
-            font-weight: 600; font-size: 0.813rem; transition: all var(--transition);
-        }
+        .course-code .try-btn { display: inline-block; margin-top: 1rem; padding: 0.5rem 1.25rem; background: var(--success); color: white; border-radius: 9999px; text-decoration: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.813rem; transition: all var(--transition); }
         .course-code .try-btn:hover { background: var(--success-dark); }
 
-        /* EMBEDDED EDITOR */
+        /* ============ EMBEDDED EDITOR ============ */
         .editor-embed-section { background: var(--dark-bg); padding: 3rem 0; }
         .editor-embed-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-        .editor-embed-inner h2 {
-            font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
-            font-weight: 700; color: white; text-align: center; margin-bottom: 2rem;
-        }
-        .editor-frame-wrapper {
-            background: white; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl);
-        }
+        .editor-embed-inner h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: white; text-align: center; margin-bottom: 2rem; }
+        .editor-frame-wrapper { background: white; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); }
         .editor-frame-wrapper iframe { width: 100%; height: 500px; border: none; }
 
-        /* ============ QUESTION CHALLENGE SECTION ============ */
-        .challenge-section {
-            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-            padding: 4rem 0;
-        }
+        /* ============ CHALLENGE SECTION ============ */
+        .challenge-section { background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%); padding: 4rem 0; }
         .challenge-inner { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; text-align: center; }
-        .challenge-inner h2 {
-            font-family: 'Space Grotesk', sans-serif; font-size: 2.25rem;
-            font-weight: 700; margin-bottom: 0.5rem;
-        }
+        .challenge-inner h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem; }
         .challenge-inner .ch-subtitle { color: var(--gray-500); font-size: 1.0625rem; margin-bottom: 2.5rem; }
-        
-        .challenge-card {
-            background: white; border-radius: var(--radius-2xl);
-            padding: 2.5rem; box-shadow: var(--shadow-lg);
-            border: 1px solid var(--gray-200); transition: all var(--transition);
-            max-width: 600px; margin: 0 auto;
-        }
+        .challenge-card { background: white; border-radius: var(--radius-2xl); padding: 2.5rem; box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); transition: all var(--transition); max-width: 600px; margin: 0 auto; }
         .challenge-step { display: none; animation: fadeInUp 0.4s ease; }
         .challenge-step.active { display: block; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .challenge-icon {
-            font-size: 3.5rem; margin-bottom: 1rem; display: block;
-        }
-        .challenge-question {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem;
-            font-weight: 600; color: var(--gray-900); margin-bottom: 1.5rem;
-        }
-        .challenge-options {
-            display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
-        }
-        .challenge-option {
-            padding: 0.875rem 2rem; border-radius: var(--radius-xl);
-            font-weight: 600; font-size: 1rem; cursor: pointer;
-            transition: all var(--transition); border: 2px solid var(--gray-200);
-            background: white; font-family: 'Inter', sans-serif;
-        }
+        .challenge-icon { font-size: 3.5rem; margin-bottom: 1rem; display: block; }
+        .challenge-question { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; color: var(--gray-900); margin-bottom: 1.5rem; }
+        .challenge-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .challenge-option { padding: 0.875rem 2rem; border-radius: var(--radius-xl); font-weight: 600; font-size: 1rem; cursor: pointer; transition: all var(--transition); border: 2px solid var(--gray-200); background: white; font-family: 'Inter', sans-serif; }
         .challenge-option:hover { border-color: var(--primary); background: var(--primary-bg); }
-        .challenge-option.selected { border-color: var(--primary); background: var(--primary-bg); }
-        
-        .challenge-feedback {
-            margin-top: 1.5rem; padding: 1rem 1.5rem;
-            border-radius: var(--radius); font-weight: 600;
-            display: none; animation: fadeInUp 0.3s ease;
-        }
+        .challenge-feedback { margin-top: 1.5rem; padding: 1rem 1.5rem; border-radius: var(--radius); font-weight: 600; display: none; animation: fadeInUp 0.3s ease; }
         .challenge-feedback.show { display: block; }
         .challenge-feedback.correct { background: var(--success-bg); color: var(--success-dark); }
         .challenge-feedback.incorrect { background: var(--danger-bg); color: var(--danger-dark); }
-        
-        .challenge-course-select {
-            display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0;
-        }
-        .challenge-course-btn {
-            padding: 0.625rem 1.25rem; border-radius: var(--radius);
-            font-weight: 600; font-size: 0.875rem; cursor: pointer;
-            transition: all var(--transition); border: 2px solid var(--gray-200);
-            background: white; font-family: 'Inter', sans-serif;
-        }
-        .challenge-course-btn:hover, .challenge-course-btn.selected {
-            border-color: var(--primary); background: var(--primary-bg); color: var(--primary);
-        }
+        .challenge-course-select { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
+        .challenge-course-btn { padding: 0.625rem 1.25rem; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: all var(--transition); border: 2px solid var(--gray-200); background: white; font-family: 'Inter', sans-serif; }
+        .challenge-course-btn:hover, .challenge-course-btn.selected { border-color: var(--primary); background: var(--primary-bg); color: var(--primary); }
 
-        /* ALL COURSES GRID */
-        .all-courses-section { padding: 3rem 0; background: var(--gray-50); }
+        /* ============ ALL COURSES GRID (DARK BG, RANDOM COLORS) ============ */
+        .all-courses-section { padding: 3rem 0; background: var(--dark-bg); }
         .all-courses-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-        .all-courses-inner h2 {
-            font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
-            font-weight: 700; text-align: center; margin-bottom: 2rem;
-        }
-        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+        .all-courses-inner h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: white; text-align: center; margin-bottom: 2rem; }
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
         .course-card {
-            background: white; border-radius: var(--radius-xl); overflow: hidden;
-            border: 1px solid var(--gray-200); transition: all var(--transition);
-            cursor: pointer; text-decoration: none; color: inherit; display: block;
+            border-radius: var(--radius-xl); overflow: hidden;
+            transition: all var(--transition); cursor: pointer; text-decoration: none; color: inherit; display: block;
+            box-shadow: var(--shadow-md);
         }
-        .course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .course-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); }
         .course-card-header {
-            height: 120px; display: flex; align-items: center; justify-content: center;
-            font-size: 3rem; position: relative;
-            background: linear-gradient(135deg, var(--primary-bg) 0%, #1e293b 100%);
+            padding: 1.5rem; text-align: center; position: relative;
         }
-        .course-card-header img { width: 60px; height: 60px; object-fit: contain; border-radius: var(--radius); }
-        .course-card-body { padding: 1.25rem; }
-        .course-card-body h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 600; margin-bottom: 0.375rem; }
-        .course-card-body p { font-size: 0.813rem; color: var(--gray-500); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .course-card-body .course-topic-tag {
-            display: inline-block; font-size: 0.625rem; font-weight: 600;
-            padding: 0.1875rem 0.5rem; border-radius: 9999px;
-            background: var(--primary-bg); color: var(--primary); margin-bottom: 0.5rem;
+        .course-card-header .cc-icon { font-size: 2.5rem; display: block; margin-bottom: 0.25rem; }
+        .course-card-header h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 700; }
+        .course-card-modules { padding: 0 1.5rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+        .course-module-item {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 0.75rem; border-radius: var(--radius-sm);
+            background: rgba(255,255,255,0.15); cursor: pointer;
+            transition: all var(--transition); font-size: 0.813rem; font-weight: 500;
         }
-        .course-card-footer { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-top: 1px solid var(--gray-100); }
-        .course-card-rating { color: #f59e0b; font-weight: 600; font-size: 0.813rem; display: flex; align-items: center; gap: 0.25rem; }
-        .course-card-lessons { font-size: 0.75rem; color: var(--gray-500); display: flex; align-items: center; gap: 0.25rem; }
+        .course-module-item:hover { background: rgba(255,255,255,0.25); }
+        .course-module-item i { font-size: 0.875rem; }
+        .course-card-footer { padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; opacity: 0.8; }
+        .course-card-footer span { display: flex; align-items: center; gap: 0.25rem; }
 
         /* CTA */
-        .cta-section {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white; text-align: center; padding: 5rem 0; position: relative; overflow: hidden;
-        }
-        .cta-section::before {
-            content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%);
-            border-radius: 50%;
-        }
+        .cta-section { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; text-align: center; padding: 5rem 0; position: relative; overflow: hidden; }
+        .cta-section::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%); border-radius: 50%; }
         .cta-inner { position: relative; z-index: 1; }
         .cta-inner h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
         .cta-inner p { font-size: 1.125rem; color: #9ca3af; margin-bottom: 2rem; }
@@ -505,77 +313,37 @@
         @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
         @media (max-width: 1024px) {
-            .course-inner { flex-direction: column; }
-            .hero-inner { flex-direction: column; }
-            .hero-code { width: 100%; }
+            .course-inner { flex-direction: column; } .hero-inner { flex-direction: column; } .hero-code { width: 100%; }
+            .search-tree-inner { flex-direction: column; } .tree-panel { width: 100%; max-height: none; position: static; border-right: none; border-bottom: 1px solid var(--gray-200); }
+            .content-panel { max-height: none; }
         }
         @media (max-width: 768px) {
             .nav-menu { display: none; position: absolute; top: 64px; left: 0; right: 0; background: white; flex-direction: column; padding: 1rem; box-shadow: var(--shadow-lg); max-height: 80vh; overflow-y: auto; }
-            .nav-menu.active { display: flex; }
-            .hamburger { display: block; }
+            .nav-menu.active { display: flex; } .hamburger { display: block; }
             .courses-grid { grid-template-columns: 1fr; }
-            .search-wrapper { flex-direction: column; padding: 1rem; }
-            .search-wrapper input { width: 100%; text-align: center; }
-            .search-wrapper .search-submit { width: 100%; justify-content: center; }
-            .search-header h2 { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
     <!-- TOP BAR -->
-    <div class="topbar">
-        <div class="topbar-inner">
-            <div class="topbar-links">
-                <a href="Editor.html"><i class='bx bx-code-alt'></i> Code Editor</a>
-                <a href="documentation.html"><i class='bx bx-book'></i> Documentation</a>
-                <a href="help-center.html"><i class='bx bx-support'></i> Help Center</a>
-                <a href="contact.html"><i class='bx bx-envelope'></i> Contact</a>
-            </div>
-        </div>
-    </div>
+    <div class="topbar"><div class="topbar-inner"><div class="topbar-links"><a href="Editor.html"><i class='bx bx-code-alt'></i> Code Editor</a><a href="documentation.html"><i class='bx bx-book'></i> Documentation</a><a href="help-center.html"><i class='bx bx-support'></i> Help Center</a><a href="contact.html"><i class='bx bx-envelope'></i> Contact</a></div></div></div>
 
     <!-- NAVBAR -->
     <nav class="navbar" id="navbar">
         <div class="nav-inner">
-            <a href="index.html" class="nav-logo">
-                <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
-                <span>Akademia</span>
-            </a>
+            <a href="index.html" class="nav-logo"><img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia"><span>Akademia</span></a>
             <ul class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-item active">Home</a>
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-trigger">Courses <i class='bx bx-chevron-down'></i></button>
-                    <div class="nav-dropdown-menu" id="coursesDropdown"></div>
-                </div>
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-trigger">Exercises <i class='bx bx-chevron-down'></i></button>
-                    <div class="nav-dropdown-menu" id="exercisesDropdown"></div>
-                </div>
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-trigger">Certificate <i class='bx bx-chevron-down'></i></button>
-                    <div class="nav-dropdown-menu">
-                        <a href="#"><i class='bx bx-certification'></i> View Certificates</a>
-                        <a href="#"><i class='bx bx-award'></i> Earn Certificates</a>
-                    </div>
-                </div>
+                <div class="nav-dropdown"><button class="nav-dropdown-trigger">Courses <i class='bx bx-chevron-down'></i></button><div class="nav-dropdown-menu" id="coursesDropdown"></div></div>
+                <div class="nav-dropdown"><button class="nav-dropdown-trigger">Exercises <i class='bx bx-chevron-down'></i></button><div class="nav-dropdown-menu" id="exercisesDropdown"></div></div>
+                <div class="nav-dropdown"><button class="nav-dropdown-trigger">Certificate <i class='bx bx-chevron-down'></i></button><div class="nav-dropdown-menu"><a href="#"><i class='bx bx-certification'></i> View Certificates</a><a href="#"><i class='bx bx-award'></i> Earn Certificates</a></div></div>
             </ul>
             <div class="nav-right" id="navRight">
                 <a href="auth.html?mode=signin" class="btn btn-outline btn-sm" id="btnSignIn">Sign In</a>
                 <a href="auth.html?mode=register" class="btn btn-primary btn-sm" id="btnRegister">Get Started</a>
                 <div class="profile-dropdown" id="profileDropdown" style="display:none;">
-                    <button class="profile-trigger" id="profileTriggerBtn">
-                        <div class="profile-avatar" id="profileAvatar">U</div>
-                        <span class="profile-name" id="profileName">User</span>
-                        <i class='bx bx-chevron-down'></i>
-                    </button>
-                    <div class="profile-dropdown-menu" id="profileMenu">
-                        <a href="#"><i class='bx bx-user'></i> Account</a>
-                        <a href="#"><i class='bx bx-trending-up'></i> My Progress</a>
-                        <a href="#"><i class='bx bx-certification'></i> Certificates</a>
-                        <a href="#"><i class='bx bx-cog'></i> Settings</a>
-                        <div class="divider"></div>
-                        <a href="#" class="logout-btn" id="logoutBtn"><i class='bx bx-log-out'></i> Sign Out</a>
-                    </div>
+                    <button class="profile-trigger" id="profileTriggerBtn"><div class="profile-avatar" id="profileAvatar">U</div><span class="profile-name" id="profileName">User</span><i class='bx bx-chevron-down'></i></button>
+                    <div class="profile-dropdown-menu" id="profileMenu"><a href="#"><i class='bx bx-user'></i> Account</a><a href="#"><i class='bx bx-trending-up'></i> My Progress</a><a href="#"><i class='bx bx-certification'></i> Certificates</a><a href="#"><i class='bx bx-cog'></i> Settings</a><div class="divider"></div><a href="#" class="logout-btn" id="logoutBtn"><i class='bx bx-log-out'></i> Sign Out</a></div>
                 </div>
                 <button class="hamburger" id="hamburger"><i class='bx bx-menu'></i></button>
             </div>
@@ -583,176 +351,84 @@
     </nav>
 
     <!-- SUBTOP NAV -->
-    <div class="subtopnav-wrapper">
-        <div class="subtopnav-scroll" id="subtopnav"></div>
-    </div>
+    <div class="subtopnav-wrapper"><div class="subtopnav-scroll" id="subtopnav"></div></div>
 
     <!-- HERO -->
     <section class="hero">
         <div class="hero-inner">
             <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="animate-word">Learn</span> 
-                    <span class="animate-word">to</span> 
-                    <span class="animate-word animate-glow" style="color:var(--secondary);">Code</span>
-                </h1>
+                <h1 class="hero-title"><span class="animate-word">Learn</span> <span class="animate-word">to</span> <span class="animate-word animate-glow" style="color:var(--secondary);">Code</span></h1>
                 <p class="hero-desc">Master new skills with interactive courses, AI-powered tutoring, and hands-on projects.</p>
-                <div class="hero-actions">
-                    <a href="#course-sections" class="btn btn-success btn-xl">Start Learning Free</a>
-                    <a href="start.html" class="btn btn-outline btn-xl" style="border-color:rgba(255,255,255,0.3);color:white;">Try a Course</a>
-                </div>
+                <div class="hero-actions"><a href="#course-sections" class="btn btn-success btn-xl">Start Learning Free</a><a href="start.html" class="btn btn-outline btn-xl" style="border-color:rgba(255,255,255,0.3);color:white;">Try a Course</a></div>
             </div>
             <div class="hero-code">
-                <div class="code-header">
-                    <span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span>
-                    <span style="margin-left:0.5rem;font-size:0.75rem;color:#6b7280;">index.html</span>
-                </div>
-                <code>
-                    <span class="comment">// Welcome to Akademia 2026</span><br>
-                    <span class="keyword">const</span> student = {<br>
-                    &nbsp;&nbsp;name: <span class="string">"You"</span>,<br>
-                    &nbsp;&nbsp;goal: <span class="string">"Master New Skills"</span>,<br>
-                    };<br><br>
-                    <span class="keyword">function</span> startLearning() {<br>
-                    &nbsp;&nbsp;<span class="keyword">return</span> <span class="string">"Your future begins now! 🚀"</span>;<br>
-                    }
-                </code>
+                <div class="code-header"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span><span style="margin-left:0.5rem;font-size:0.75rem;color:#6b7280;">index.html</span></div>
+                <code><span class="comment">// Welcome to Akademia 2026</span><br><span class="keyword">const</span> student = {<br>&nbsp;&nbsp;name: <span class="string">"You"</span>,<br>&nbsp;&nbsp;goal: <span class="string">"Master New Skills"</span>,<br>};<br><br><span class="keyword">function</span> startLearning() {<br>&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">"Your future begins now! 🚀"</span>;<br>}</code>
             </div>
         </div>
     </section>
 
-    <!-- ENHANCED SEARCH -->
-    <section class="search-section" id="searchSection">
-        <div class="search-container">
-            <div class="search-header">
-                <h2><i class='bx bx-search-alt-2'></i> Find Your Perfect Course</h2>
-                <p>Search across all our courses, modules, and lessons</p>
+    <!-- ============ SEARCH + TREE NAV SECTION ============ -->
+    <section class="search-tree-section" id="searchTreeSection">
+        <div class="search-tree-inner">
+            <!-- LEFT: Tree Navigation -->
+            <div class="tree-panel" id="treePanel">
+                <h3><i class='bx bx-git-branch'></i> Course Explorer</h3>
+                <div class="tree-search">
+                    <i class='bx bx-search'></i>
+                    <input type="text" id="treeSearchInput" placeholder="Search topics, courses..." autocomplete="off">
+                </div>
+                <div class="tree-nav" id="treeNav"></div>
             </div>
-            <div class="search-wrapper">
-                <div class="search-icon-wrap"><i class='bx bx-search'></i></div>
-                <input type="text" id="universalSearch" placeholder="e.g., HTML, Python, JavaScript, CSS..." autocomplete="off">
-                <button class="search-submit" id="searchSubmitBtn">Search Now</button>
+            <!-- RIGHT: Content Display -->
+            <div class="content-panel" id="contentPanel">
+                <div class="panel-header"><h3 id="panelTitle"><i class='bx bx-book-open'></i> Select a course to view lessons</h3></div>
+                <div id="panelContent">
+                    <div style="text-align:center;padding:4rem 1rem;color:var(--gray-400);">
+                        <i class='bx bx-pointer' style="font-size:4rem;display:block;margin-bottom:1rem;opacity:0.4;"></i>
+                        <p>👈 Browse topics in the left panel or search above</p>
+                    </div>
+                </div>
             </div>
-            <div class="search-filters" id="searchFilters"></div>
-            <div class="search-results" id="searchResults"></div>
         </div>
     </section>
 
     <!-- COURSE SECTIONS -->
-    <div id="courseSections">
-        <div style="text-align:center;padding:3rem;">
-            <div class="skeleton skeleton-card" style="max-width:800px;margin:0 auto;"></div>
-        </div>
-    </div>
+    <div id="courseSections"><div style="text-align:center;padding:3rem;"><div class="skeleton skeleton-card" style="max-width:800px;margin:0 auto;"></div></div></div>
 
     <!-- EMBEDDED EDITOR -->
     <section class="editor-embed-section">
-        <div class="editor-embed-inner">
-            <h2><i class='bx bx-code-block'></i> Try Our Code Editor</h2>
-            <div class="editor-frame-wrapper">
-                <iframe src="https://akademiarw.vercel.app/Editor.html" allowfullscreen loading="lazy" title="Akademia Code Editor"></iframe>
-            </div>
-        </div>
+        <div class="editor-embed-inner"><h2><i class='bx bx-code-block'></i> Try Our Code Editor</h2><div class="editor-frame-wrapper"><iframe src="https://akademiarw.vercel.app/Editor.html" allowfullscreen loading="lazy" title="Akademia Code Editor"></iframe></div></div>
     </section>
 
-    <!-- ============ QUESTION CHALLENGE SECTION ============ -->
+    <!-- CHALLENGE SECTION -->
     <section class="challenge-section" id="challengeSection">
         <div class="challenge-inner">
-            <h2><i class='bx bx-question-mark'></i> Test Your Knowledge</h2>
-            <p class="ch-subtitle">Answer a quick question and discover what you can learn</p>
-            
+            <h2><i class='bx bx-question-mark'></i> Test Your Knowledge</h2><p class="ch-subtitle">Answer a quick question and discover what you can learn</p>
             <div class="challenge-card" id="challengeCard">
-                <!-- Step 1: Ask if they want to try -->
-                <div class="challenge-step active" id="stepWelcome">
-                    <div class="challenge-icon"><i class='bx bx-bulb' style="color:var(--warning);"></i></div>
-                    <div class="challenge-question">Want to test your skills with a quick question?</div>
-                    <div class="challenge-options">
-                        <button class="challenge-option" onclick="challengeAnswer('yes')">
-                            <i class='bx bx-check-circle'></i> Yes, challenge me!
-                        </button>
-                        <button class="challenge-option" onclick="challengeAnswer('no')">
-                            <i class='bx bx-x-circle'></i> No, thanks
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Step 2: Choose course -->
-                <div class="challenge-step" id="stepChooseCourse">
-                    <div class="challenge-icon"><i class='bx bx-book-open' style="color:var(--primary);"></i></div>
-                    <div class="challenge-question">Which course are you interested in?</div>
-                    <div class="challenge-course-select" id="challengeCourseList"></div>
-                    <button class="btn btn-primary" onclick="loadChallengeQuestion()" id="btnLoadQuestion" style="margin-top:1rem;">
-                        <i class='bx bx-right-arrow-alt'></i> Show me a question
-                    </button>
-                </div>
-
-                <!-- Step 3: Show question -->
-                <div class="challenge-step" id="stepQuestion">
-                    <div class="challenge-icon"><i class='bx bx-help-circle' style="color:var(--purple);"></i></div>
-                    <div class="challenge-question" id="challengeQuestionText"></div>
-                    <div class="challenge-options" id="challengeQuestionOptions"></div>
-                    <div class="challenge-feedback" id="challengeFeedback"></div>
-                </div>
-
-                <!-- Step 4: Result / Engagement -->
-                <div class="challenge-step" id="stepResult">
-                    <div class="challenge-icon" id="resultIcon"></div>
-                    <div class="challenge-question" id="resultMessage"></div>
-                    <p style="color:var(--gray-500);margin-bottom:1.5rem;" id="resultSubtext"></p>
-                    <div class="challenge-options">
-                        <button class="btn btn-primary" onclick="resetChallenge()">
-                            <i class='bx bx-refresh'></i> Try Another Question
-                        </button>
-                        <a href="exercise.html" class="btn btn-success" id="btnMoreExercises">
-                            <i class='bx bx-dumbbell'></i> More Exercises
-                        </a>
-                    </div>
-                </div>
+                <div class="challenge-step active" id="stepWelcome"><div class="challenge-icon"><i class='bx bx-bulb' style="color:var(--warning);"></i></div><div class="challenge-question">Want to test your skills with a quick question?</div><div class="challenge-options"><button class="challenge-option" onclick="challengeAnswer('yes')"><i class='bx bx-check-circle'></i> Yes, challenge me!</button><button class="challenge-option" onclick="challengeAnswer('no')"><i class='bx bx-x-circle'></i> No, thanks</button></div></div>
+                <div class="challenge-step" id="stepChooseCourse"><div class="challenge-icon"><i class='bx bx-book-open' style="color:var(--primary);"></i></div><div class="challenge-question">Which course are you interested in?</div><div class="challenge-course-select" id="challengeCourseList"></div><button class="btn btn-primary" onclick="loadChallengeQuestion()" id="btnLoadQuestion" style="margin-top:1rem;display:none;"><i class='bx bx-right-arrow-alt'></i> Show me a question</button></div>
+                <div class="challenge-step" id="stepQuestion"><div class="challenge-icon"><i class='bx bx-help-circle' style="color:#7C3AED;"></i></div><div class="challenge-question" id="challengeQuestionText"></div><div class="challenge-options" id="challengeQuestionOptions"></div><div class="challenge-feedback" id="challengeFeedback"></div></div>
+                <div class="challenge-step" id="stepResult"><div class="challenge-icon" id="resultIcon"></div><div class="challenge-question" id="resultMessage"></div><p style="color:var(--gray-500);margin-bottom:1.5rem;" id="resultSubtext"></p><div class="challenge-options"><button class="btn btn-primary" onclick="resetChallenge()"><i class='bx bx-refresh'></i> Try Another Question</button><a href="exercise.html" class="btn btn-success" id="btnMoreExercises"><i class='bx bx-dumbbell'></i> More Exercises</a></div></div>
             </div>
         </div>
     </section>
 
-    <!-- ALL COURSES GRID -->
+    <!-- ALL COURSES GRID (DARK) -->
     <section class="all-courses-section">
-        <div class="all-courses-inner">
-            <h2><i class='bx bx-collection'></i> Explore All Courses</h2>
-            <div class="courses-grid" id="allCoursesGrid"></div>
-        </div>
+        <div class="all-courses-inner"><h2><i class='bx bx-collection'></i> Explore All Courses</h2><div class="courses-grid" id="allCoursesGrid"></div></div>
     </section>
 
     <!-- CTA -->
-    <section class="cta-section">
-        <div class="cta-inner">
-            <h2>Ready to Start Your Learning Journey?</h2>
-            <p>Join thousands of students advancing their careers with Akademia.</p>
-            <div class="cta-actions">
-                <a href="start.html" class="btn btn-success btn-xl">Start Learning Free →</a>
-                <a href="start.html" class="btn btn-outline btn-xl" style="border-color:rgba(255,255,255,0.3);color:white;">Try a Course</a>
-            </div>
-        </div>
-    </section>
+    <section class="cta-section"><div class="cta-inner"><h2>Ready to Start Your Learning Journey?</h2><p>Join thousands of students advancing their careers with Akademia.</p><div class="cta-actions"><a href="start.html" class="btn btn-success btn-xl">Start Learning Free →</a><a href="start.html" class="btn btn-outline btn-xl" style="border-color:rgba(255,255,255,0.3);color:white;">Try a Course</a></div></div></section>
 
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-inner">
-            <div class="footer-brand">
-                <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia Logo" style="height:70px;filter:brightness(0)invert(1);">
-                <p>The next-generation learning platform. Master new skills with interactive courses, AI-powered tutoring, and hands-on projects.</p>
-            </div>
-            <div class="footer-grid">
-                <div class="footer-col"><h5>Platform</h5><a href="course.html">Courses</a><a href="Editor.html">Code Editor</a><a href="#">Exercises</a><a href="#">Certificates</a></div>
-                <div class="footer-col"><h5>Support</h5><a href="documentation.html">Documentation</a><a href="help-center.html">Help Center</a><a href="contact.html">Contact</a></div>
-                <div class="footer-col"><h5>Company</h5><a href="#">About Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
-            </div>
-            <div class="footer-social">
-                <a href="#"><i class='bx bxl-youtube'></i></a>
-                <a href="#"><i class='bx bxl-github'></i></a>
-                <a href="#"><i class='bx bxl-discord-alt'></i></a>
-                <a href="#"><i class='bx bxl-twitter'></i></a>
-            </div>
-            <div class="footer-bottom">
-                <p>Akademia is optimized for learning and training. &copy; 2026 Akademia. All rights reserved.</p>
-            </div>
+            <div class="footer-brand"><img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia Logo" style="height:70px;filter:brightness(0)invert(1);"><p>The next-generation learning platform. Master new skills with interactive courses, AI-powered tutoring, and hands-on projects.</p></div>
+            <div class="footer-grid"><div class="footer-col"><h5>Platform</h5><a href="course.html">Courses</a><a href="Editor.html">Code Editor</a><a href="#">Exercises</a><a href="#">Certificates</a></div><div class="footer-col"><h5>Support</h5><a href="documentation.html">Documentation</a><a href="help-center.html">Help Center</a><a href="contact.html">Contact</a></div><div class="footer-col"><h5>Company</h5><a href="#">About Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div></div>
+            <div class="footer-social"><a href="#"><i class='bx bxl-youtube'></i></a><a href="#"><i class='bx bxl-github'></i></a><a href="#"><i class='bx bxl-discord-alt'></i></a><a href="#"><i class='bx bxl-twitter'></i></a></div>
+            <div class="footer-bottom"><p>Akademia is optimized for learning and training. &copy; 2026 Akademia. All rights reserved.</p></div>
         </div>
     </footer>
 
@@ -771,42 +447,21 @@
             c.appendChild(t); setTimeout(() => t.remove(), 3000);
         };
 
-        const AppData = {
-            topics: [], courses: [], modules: [], lessons: [],
-            currentUser: null, activeFilter: 'all',
-            selectedCourseId: null, currentQuestion: null
-        };
+        const AppData = { topics: [], courses: [], modules: [], lessons: [], currentUser: null, activeFilter: 'all', selectedCourseId: null, currentQuestion: null };
 
         // ============ AUTH ============
         function updateAuthUI(user) {
             AppData.currentUser = user;
-            const btnSignIn = $('btnSignIn'), btnRegister = $('btnRegister'), pd = $('profileDropdown');
-            if (user) {
-                if (btnSignIn) btnSignIn.style.display = 'none';
-                if (btnRegister) btnRegister.style.display = 'none';
-                if (pd) pd.style.display = 'block';
+            const si = $('btnSignIn'), sr = $('btnRegister'), pd = $('profileDropdown');
+            if (user) { if (si) si.style.display = 'none'; if (sr) sr.style.display = 'none'; if (pd) pd.style.display = 'block';
                 const av = $('profileAvatar'), nm = $('profileName');
                 if (av) av.textContent = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
                 if (nm) nm.textContent = user.displayName || user.email?.split('@')[0] || 'User';
                 localStorage.setItem('ak_user', JSON.stringify({ uid: user.uid, email: user.email, displayName: user.displayName }));
-            } else {
-                if (btnSignIn) btnSignIn.style.display = '';
-                if (btnRegister) btnRegister.style.display = '';
-                if (pd) pd.style.display = 'none';
-                localStorage.removeItem('ak_user');
-            }
+            } else { if (si) si.style.display = ''; if (sr) sr.style.display = ''; if (pd) pd.style.display = 'none'; localStorage.removeItem('ak_user'); }
         }
         onAuthStateChanged(auth, updateAuthUI);
-        (function() {
-            const c = JSON.parse(localStorage.getItem('ak_user') || 'null');
-            if (c && !AppData.currentUser) {
-                if ($('btnSignIn')) $('btnSignIn').style.display = 'none';
-                if ($('btnRegister')) $('btnRegister').style.display = 'none';
-                if ($('profileDropdown')) $('profileDropdown').style.display = 'block';
-                if ($('profileAvatar')) $('profileAvatar').textContent = (c.displayName || c.email || 'U').charAt(0).toUpperCase();
-                if ($('profileName')) $('profileName').textContent = c.displayName || c.email?.split('@')[0] || 'User';
-            }
-        })();
+        (function() { const c = JSON.parse(localStorage.getItem('ak_user') || 'null'); if (c && !AppData.currentUser) { if ($('btnSignIn')) $('btnSignIn').style.display = 'none'; if ($('btnRegister')) $('btnRegister').style.display = 'none'; if ($('profileDropdown')) $('profileDropdown').style.display = 'block'; if ($('profileAvatar')) $('profileAvatar').textContent = (c.displayName || c.email || 'U').charAt(0).toUpperCase(); if ($('profileName')) $('profileName').textContent = c.displayName || c.email?.split('@')[0] || 'User'; } })();
         $('profileTriggerBtn')?.addEventListener('click', function(e) { e.stopPropagation(); $('profileMenu')?.classList.toggle('show'); });
         $('logoutBtn')?.addEventListener('click', async function(e) { e.preventDefault(); try { await signOut(auth); } catch(ex) { localStorage.removeItem('ak_user'); } updateAuthUI(null); toast('Signed out', 'success'); });
         document.addEventListener('click', function(e) { if (!e.target.closest('.profile-dropdown')) $('profileMenu')?.classList.remove('show'); });
@@ -814,265 +469,244 @@
         // ============ LOAD DATA ============
         async function loadAllData() {
             try {
-                const [tS, cS, mS, lS] = await Promise.all([
-                    getDocs(query(collection(db,'topics'),orderBy('createdAt','desc'))),
-                    getDocs(query(collection(db,'courses'),orderBy('createdAt','desc'))),
-                    getDocs(query(collection(db,'modules'),orderBy('order'))),
-                    getDocs(query(collection(db,'lessons'),orderBy('createdAt','desc')))
-                ]);
-                AppData.topics = tS.docs.map(d=>({id:d.id,...d.data()}));
-                AppData.courses = cS.docs.map(d=>({id:d.id,...d.data()}));
-                AppData.modules = mS.docs.map(d=>({id:d.id,...d.data()}));
-                AppData.lessons = lS.docs.map(d=>({id:d.id,...d.data()}));
-            } catch(e) {
-                AppData.topics = JSON.parse(localStorage.getItem('ak_topics')||'[]');
-                AppData.courses = JSON.parse(localStorage.getItem('ak_courses')||'[]');
-                AppData.modules = JSON.parse(localStorage.getItem('ak_modules')||'[]');
-                AppData.lessons = JSON.parse(localStorage.getItem('ak_lessons')||'[]');
-            }
+                const [tS, cS, mS, lS] = await Promise.all([getDocs(query(collection(db,'topics'),orderBy('createdAt','desc'))),getDocs(query(collection(db,'courses'),orderBy('createdAt','desc'))),getDocs(query(collection(db,'modules'),orderBy('order'))),getDocs(query(collection(db,'lessons'),orderBy('createdAt','desc')))]);
+                AppData.topics = tS.docs.map(d=>({id:d.id,...d.data()})); AppData.courses = cS.docs.map(d=>({id:d.id,...d.data()}));
+                AppData.modules = mS.docs.map(d=>({id:d.id,...d.data()})); AppData.lessons = lS.docs.map(d=>({id:d.id,...d.data()}));
+            } catch(e) { AppData.topics=JSON.parse(localStorage.getItem('ak_topics')||'[]'); AppData.courses=JSON.parse(localStorage.getItem('ak_courses')||'[]'); AppData.modules=JSON.parse(localStorage.getItem('ak_modules')||'[]'); AppData.lessons=JSON.parse(localStorage.getItem('ak_lessons')||'[]'); }
             if (!AppData.topics.length && !AppData.courses.length) loadDemoData();
             renderAll();
         }
-
         function loadDemoData() {
             AppData.topics = [{id:'t1',name:'Web Development',description:'Build modern websites',icon:'bx-code-alt'},{id:'t2',name:'Python',description:'Data science & automation',icon:'bxl-python'}];
-            AppData.courses = [
-                {id:'c1',name:'HTML Fundamentals',topicId:'t1',topicName:'Web Development',description:'Master HTML5 semantic markup.',duration:24,difficulty:'Beginner'},
-                {id:'c2',name:'CSS Mastery',topicId:'t1',topicName:'Web Development',description:'Learn CSS3, Flexbox, Grid.',duration:20,difficulty:'Beginner'},
-                {id:'c3',name:'JavaScript Essentials',topicId:'t1',topicName:'Web Development',description:'Master JavaScript.',duration:36,difficulty:'Intermediate'},
-                {id:'c4',name:'Python Programming',topicId:'t2',topicName:'Python',description:'Learn Python from scratch.',duration:40,difficulty:'Beginner'}
-            ];
+            AppData.courses = [{id:'c1',name:'HTML Fundamentals',topicId:'t1',topicName:'Web Development',description:'Master HTML5 semantic markup.',duration:24,difficulty:'Beginner'},{id:'c2',name:'CSS Mastery',topicId:'t1',topicName:'Web Development',description:'Learn CSS3, Flexbox, Grid.',duration:20,difficulty:'Beginner'},{id:'c3',name:'JavaScript Essentials',topicId:'t1',topicName:'Web Development',description:'Master JavaScript.',duration:36,difficulty:'Intermediate'},{id:'c4',name:'Python Programming',topicId:'t2',topicName:'Python',description:'Learn Python.',duration:40,difficulty:'Beginner'}];
         }
 
-        function getCourseIcon(course) {
-            if (course.logo) return `<img src="${course.logo}" alt="${escHtml(course.name)}" onerror="this.style.display='none';this.parentElement.textContent='📚';">`;
-            const n = (course.name||'').toLowerCase();
-            if (n.includes('html')) return '<i class="bx bx-code-alt" style="font-size:2rem;color:#e67e22;"></i>';
-            if (n.includes('css')) return '<i class="bx bx-palette" style="font-size:2rem;color:#059669;"></i>';
-            if (n.includes('javascript')||n.includes('js')) return '<i class="bx bx-code-curly" style="font-size:2rem;color:#dc2626;"></i>';
-            if (n.includes('python')) return '<i class="bx bxl-python" style="font-size:2rem;color:#7C3AED;"></i>';
-            return '<i class="bx bx-book-open" style="font-size:2rem;color:var(--primary);"></i>';
-        }
-
-        function getCodeExample(course) {
-            const n = (course.name||'').toLowerCase();
-            if (n.includes('html')) return `&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n  &lt;title&gt;Page&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n  &lt;h1&gt;Hello World&lt;/h1&gt;\n  &lt;p&gt;My first page.&lt;/p&gt;\n&lt;/body&gt;\n&lt;/html&gt;`;
-            if (n.includes('css')) return `body {\n  background: lightblue;\n}\nh1 {\n  color: white;\n  text-align: center;\n}\np {\n  font-family: verdana;\n}`;
-            if (n.includes('javascript')||n.includes('js')) return `function greet(name) {\n  return "Hello, " + name + "!";\n}\nconsole.log(greet("World"));`;
-            if (n.includes('python')) return `def greet(name):\n    return f"Hello, {name}!"\n\nprint(greet("World"))\n# Output: Hello, World!`;
-            return `// ${escHtml(course.name)} Example`;
-        }
-
+        function getCourseIcon(course) { if(course.logo) return `<img src="${course.logo}" alt="${escHtml(course.name)}" style="width:40px;height:40px;object-fit:contain;">`; const n=(course.name||'').toLowerCase(); if(n.includes('html')) return '<i class="bx bx-code-alt" style="font-size:2.5rem;"></i>'; if(n.includes('css')) return '<i class="bx bx-palette" style="font-size:2.5rem;"></i>'; if(n.includes('javascript')||n.includes('js')) return '<i class="bx bx-code-curly" style="font-size:2.5rem;"></i>'; if(n.includes('python')) return '<i class="bx bxl-python" style="font-size:2.5rem;"></i>'; return '<i class="bx bx-book-open" style="font-size:2.5rem;"></i>'; }
+        function getCodeExample(course) { const n=(course.name||'').toLowerCase(); if(n.includes('html')) return `&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n  &lt;title&gt;Page&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n  &lt;h1&gt;Hello World&lt;/h1&gt;\n  &lt;p&gt;My first page.&lt;/p&gt;\n&lt;/body&gt;\n&lt;/html&gt;`; if(n.includes('css')) return `body {\n  background: lightblue;\n}\nh1 {\n  color: white;\n  text-align: center;\n}\np {\n  font-family: verdana;\n}`; if(n.includes('javascript')||n.includes('js')) return `function greet(name) {\n  return "Hello, " + name + "!";\n}\nconsole.log(greet("World"));`; if(n.includes('python')) return `def greet(name):\n    return f"Hello, {name}!"\n\nprint(greet("World"))`; return `// ${escHtml(course.name)} Example`; }
         function getSectionBg(i) { return ['#D9EEE1','#FFF4A3','#282A35','#FFC0C7','#96D4D4','#F3ECEA'][i%6]; }
         function getLessonCount(cid) { return AppData.lessons.filter(l=>{const m=AppData.modules.find(x=>x.id===l.moduleId);return m&&m.courseId===cid;}).length; }
         function getModuleCount(cid) { return AppData.modules.filter(m=>m.courseId===cid).length; }
 
-        function renderAll() {
-            renderSubtopNav(); renderSearchFilters(); renderCourseSections();
-            renderAllCoursesGrid(); renderDropdowns(); renderChallengeCourses();
+        // Random bright colors for course cards
+        function getRandomCardColor() {
+            const colors = ['#6366F1','#8B5CF6','#EC4899','#F43F5E','#F97316','#EAB308','#22C55E','#14B8A6','#06B6D4','#3B82F6'];
+            return colors[Math.floor(Math.random()*colors.length)];
+        }
+        function getTextColorForBg(bg) {
+            const hex = bg.replace('#',''); const r=parseInt(hex.substr(0,2),16),g=parseInt(hex.substr(2,2),16),b=parseInt(hex.substr(4,2),16);
+            return (r*0.299+g*0.587+b*0.114)>150?'#1f2937':'#ffffff';
         }
 
-        function renderSubtopNav() {
-            const nav = $('subtopnav');
-            if (!AppData.courses.length) { nav.innerHTML = '<a href="#" class="active">Loading...</a>'; return; }
-            nav.innerHTML = AppData.courses.map((c,i)=>`<a href="#course-${c.id}" class="${i===0?'active':''}">${escHtml(c.name).toUpperCase()}</a>`).join('');
+        function renderAll() { renderSubtopNav(); renderTreeNav(); renderCourseSections(); renderAllCoursesGrid(); renderDropdowns(); renderChallengeCourses(); }
+
+        function renderSubtopNav() { const nav=$('subtopnav'); if(!AppData.courses.length){nav.innerHTML='<a href="#" class="active">Loading...</a>';return;} nav.innerHTML=AppData.courses.map((c,i)=>`<a href="#course-${c.id}" class="${i===0?'active':''}">${escHtml(c.name).toUpperCase()}</a>`).join(''); }
+
+        // ============ TREE NAVIGATION ============
+        function renderTreeNav() {
+            const container = $('treeNav');
+            if (!AppData.topics.length) { container.innerHTML = '<p style="font-size:0.813rem;color:var(--gray-400);">No data yet</p>'; return; }
+            container.innerHTML = AppData.topics.map(topic => {
+                const topicCourses = AppData.courses.filter(c => c.topicId === topic.id);
+                return `<div class="tree-folder" data-topic="${topic.id}">
+                    <div class="tree-folder-header" onclick="toggleTreeFolder(this)">
+                        <i class='bx bx-chevron-right'></i>
+                        <i class='bx bx-folder folder-icon'></i>
+                        <span>${escHtml(topic.name)}</span>
+                        <span style="font-size:0.625rem;color:var(--gray-400);margin-left:auto;">${topicCourses.length}</span>
+                    </div>
+                    <div class="tree-children">
+                        ${topicCourses.map(course => {
+                            const courseModules = AppData.modules.filter(m => m.courseId === course.id).sort((a,b)=>a.order-b.order);
+                            return `<div class="tree-folder" data-course="${course.id}">
+                                <div class="tree-folder-header" onclick="toggleTreeFolder(this);selectCourseInTree('${course.id}')">
+                                    <i class='bx bx-chevron-right'></i>
+                                    <i class='bx bx-book-open course-icon'></i>
+                                    <span>${escHtml(course.name)}</span>
+                                </div>
+                                <div class="tree-children">
+                                    ${courseModules.slice(0,6).map(mod => {
+                                        const modLessons = AppData.lessons.filter(l => l.moduleId === mod.id);
+                                        return `<div class="tree-folder" data-module="${mod.id}">
+                                            <div class="tree-folder-header" onclick="toggleTreeFolder(this);selectModuleInTree('${course.id}','${mod.id}')">
+                                                <i class='bx bx-chevron-right'></i>
+                                                <i class='bx bx-layer module-icon'></i>
+                                                <span>${escHtml(mod.name)}</span>
+                                                <span style="font-size:0.625rem;color:var(--gray-400);margin-left:auto;">${modLessons.length}</span>
+                                            </div>
+                                            <div class="tree-children">
+                                                ${modLessons.slice(0,5).map(lesson => `
+                                                    <div class="tree-item" onclick="openLesson('${course.id}','${mod.id}','${lesson.id}')">
+                                                        <span class="dot"></span>
+                                                        <i class='bx bx-video' style="font-size:0.75rem;color:var(--gray-400);"></i>
+                                                        <span>${escHtml(lesson.title||'Untitled')}</span>
+                                                    </div>
+                                                `).join('')}
+                                                ${modLessons.length > 5 ? `<div class="tree-item" style="color:var(--primary);" onclick="openCourse('${course.id}')">+${modLessons.length-5} more lessons</div>` : ''}
+                                            </div>
+                                        </div>`;
+                                    }).join('')}
+                                </div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>`;
+            }).join('');
         }
 
-        function renderSearchFilters() {
-            const c = $('searchFilters');
-            const f = [{id:'all',label:'All'}];
-            AppData.topics.forEach(t=>f.push({id:t.id,label:t.name}));
-            c.innerHTML = f.map(x=>`<span class="search-filter ${x.id==='all'?'active':''}" data-filter="${x.id}">${escHtml(x.label)}</span>`).join('');
+        window.toggleTreeFolder = function(header) {
+            const folder = header.parentElement;
+            folder.classList.toggle('open');
+            // Auto-close other folders at same level
+            const parent = folder.parentElement;
+            if (parent) {
+                parent.querySelectorAll(':scope > .tree-folder').forEach(f => {
+                    if (f !== folder && folder.classList.contains('open')) {
+                        // Keep siblings open - no auto-close
+                    }
+                });
+            }
+        };
+
+        window.selectCourseInTree = function(courseId) {
+            document.querySelectorAll('.tree-item').forEach(i => i.classList.remove('active'));
+            showCourseLessons(courseId);
+        };
+
+        window.selectModuleInTree = function(courseId, moduleId) {
+            document.querySelectorAll('.tree-item').forEach(i => i.classList.remove('active'));
+            showModuleLessons(courseId, moduleId);
+        };
+
+        window.openLesson = function(courseId, moduleId, lessonId) {
+            window.location.href = `course.html?id=${courseId}&module=${moduleId}&lesson=${lessonId}`;
+        };
+
+        window.openCourse = function(courseId) {
+            window.location.href = `course.html?id=${courseId}`;
+        };
+
+        function showCourseLessons(courseId) {
+            const course = AppData.courses.find(c => c.id === courseId);
+            if (!course) return;
+            const courseModules = AppData.modules.filter(m => m.courseId === courseId).sort((a,b)=>a.order-b.order);
+            const allLessons = [];
+            courseModules.forEach(mod => {
+                AppData.lessons.filter(l => l.moduleId === mod.id).forEach(l => {
+                    allLessons.push({ ...l, moduleName: mod.name, courseId: courseId, moduleId: mod.id });
+                });
+            });
+            $('panelTitle').innerHTML = `<i class='bx bx-book-open'></i> ${escHtml(course.name)} - Lessons`;
+            $('panelContent').innerHTML = `<div class="lesson-list">${allLessons.slice(0,10).map(l => `
+                <div class="lesson-item" onclick="openLesson('${courseId}','${l.moduleId}','${l.id}')">
+                    <div class="l-icon"><i class='bx bx-video'></i></div>
+                    <div class="l-info"><div class="l-title">${escHtml(l.title||'Untitled')}</div><div class="l-meta">Module: ${escHtml(l.moduleName)} • ${l.estimatedTime||0} min</div></div>
+                    <i class='bx bx-chevron-right' style="color:var(--gray-400);"></i>
+                </div>`).join('')}</div>`;
+            if (allLessons.length > 10) $('panelContent').innerHTML += `<p style="text-align:center;margin-top:1rem;"><a href="course.html?id=${courseId}" style="color:var(--primary);">View all ${allLessons.length} lessons →</a></p>`;
         }
 
+        function showModuleLessons(courseId, moduleId) {
+            const mod = AppData.modules.find(m => m.id === moduleId);
+            if (!mod) return;
+            const modLessons = AppData.lessons.filter(l => l.moduleId === moduleId);
+            $('panelTitle').innerHTML = `<i class='bx bx-layer'></i> ${escHtml(mod.name)} - Lessons`;
+            $('panelContent').innerHTML = `<div class="lesson-list">${modLessons.map(l => `
+                <div class="lesson-item" onclick="openLesson('${courseId}','${moduleId}','${l.id}')">
+                    <div class="l-icon"><i class='bx bx-video'></i></div>
+                    <div class="l-info"><div class="l-title">${escHtml(l.title||'Untitled')}</div><div class="l-meta">${l.estimatedTime||0} min</div></div>
+                    <i class='bx bx-chevron-right' style="color:var(--gray-400);"></i>
+                </div>`).join('')}</div>`;
+        }
+
+        // Tree search with orange highlight
+        $('treeSearchInput')?.addEventListener('input', function() {
+            const q = this.value.toLowerCase().trim();
+            if (!q) { renderTreeNav(); $('panelContent').innerHTML = '<div style="text-align:center;padding:4rem 1rem;color:var(--gray-400);"><i class="bx bx-pointer" style="font-size:4rem;display:block;margin-bottom:1rem;opacity:0.4;"></i><p>👈 Browse topics in the left panel</p></div>'; return; }
+            
+            // Highlight tree items
+            renderTreeNav();
+            document.querySelectorAll('.tree-folder-header span, .tree-item span').forEach(el => {
+                const text = el.textContent || '';
+                if (text.toLowerCase().includes(q)) {
+                    const regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                    el.innerHTML = text.replace(regex, '<span class="highlight">$1</span>');
+                    el.closest('.tree-folder')?.classList.add('open');
+                }
+            });
+
+            // Show search results in content panel
+            const results = [];
+            AppData.courses.forEach(c => { if(c.name?.toLowerCase().includes(q)||c.description?.toLowerCase().includes(q)) results.push({type:'course',name:c.name,meta:c.topicName,id:c.id}); });
+            AppData.modules.forEach(m => { if(m.name?.toLowerCase().includes(q)) results.push({type:'module',name:m.name,meta:`Course: ${m.courseName}`,id:m.id,courseId:m.courseId}); });
+            AppData.lessons.forEach(l => { if(l.title?.toLowerCase().includes(q)) results.push({type:'lesson',name:l.title,meta:`Module: ${l.moduleName}`,id:l.id,courseId:l.courseId,moduleId:l.moduleId}); });
+
+            $('panelTitle').innerHTML = `<i class='bx bx-search'></i> Search results for "<span class="highlight">${escHtml(q)}</span>"`;
+            $('panelContent').innerHTML = results.length ? `<div class="search-results-inline">${results.slice(0,10).map(r => `
+                <div class="sr-inline-item" onclick="window.location.href='course.html?id=${r.courseId||r.id}${r.moduleId?'&module='+r.moduleId:''}${r.type==='lesson'?'&lesson='+r.id:''}'">
+                    <div class="l-icon"><i class='bx ${r.type==='course'?'bx-book-open':r.type==='module'?'bx-layer':'bx-video'}'></i></div>
+                    <div class="l-info">
+                        <div class="l-title">${escHtml(r.name).replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<span class="highlight">$1</span>')}</div>
+                        <div class="l-meta">${escHtml(r.meta)} • ${r.type}</div>
+                    </div>
+                    <i class='bx bx-chevron-right' style="color:var(--gray-400);"></i>
+                </div>`).join('')}</div>` : '<div style="text-align:center;padding:2rem;color:var(--gray-400);">No results found</div>';
+        });
+
+        // ============ COURSE SECTIONS ============
         function renderCourseSections() {
             const container = $('courseSections');
-            if (!AppData.courses.length) {
-                container.innerHTML = '<div style="text-align:center;padding:4rem;color:var(--gray-400);"><i class="bx bx-book-open" style="font-size:4rem;display:block;margin-bottom:1rem;"></i><h2>No courses yet</h2><p>Create courses in the <a href="admin.html" style="color:var(--primary);">Admin Panel</a></p></div>';
-                return;
-            }
+            if (!AppData.courses.length) { container.innerHTML = '<div style="text-align:center;padding:4rem;color:var(--gray-400);"><i class="bx bx-book-open" style="font-size:4rem;display:block;margin-bottom:1rem;"></i><h2>No courses yet</h2><p>Create courses in the <a href="admin.html" style="color:var(--primary);">Admin Panel</a></p></div>'; return; }
             container.innerHTML = AppData.courses.map((course,i)=>{
-                const bg = getSectionBg(i), isDark = bg==='#282A35';
-                const code = getCodeExample(course);
-                return `<section class="course-section" id="course-${course.id}" style="background:${bg};${isDark?'color:white;':''}">
-                    <div class="course-inner">
-                        <div class="course-info">
-                            <div class="course-logo" style="${isDark?'background:rgba(255,255,255,0.1);':''}">${getCourseIcon(course)}</div>
-                            <h1 style="${isDark?'color:white;':''}">${escHtml(course.name)}</h1>
-                            <p class="course-meta-text" style="${isDark?'color:#9ca3af;':''}">${escHtml(course.topicName||'')} • ${course.difficulty||'All Levels'}</p>
-                            <p class="course-desc" style="${isDark?'color:#9ca3af;':''}">${escHtml(course.description||'')}</p>
-                            <p style="font-size:0.813rem;${isDark?'color:#9ca3af;':'opacity:0.7;'}">⏱ ${course.duration||20}h • 📚 ${getModuleCount(course.id)} modules • 📝 ${getLessonCount(course.id)} lessons</p>
-                            <div style="margin-top:1rem;">
-                                <a href="course.html?id=${course.id}" class="btn btn-success btn-lg">Learn ${escHtml(course.name)}</a>
-                                <a href="course.html?id=${course.id}" class="btn btn-outline btn-lg" style="${isDark?'border-color:rgba(255,255,255,0.3);color:white;':'border-color:var(--gray-700);color:var(--gray-700);'}">Course Details</a>
-                            </div>
-                        </div>
-                        <div class="course-code">
-                            <div class="example-title">${escHtml(course.name)} Example:</div>
-                            <code>${code.replace(/\n/g,'<br>').replace(/  /g,'&nbsp;&nbsp;')}</code>
-                            <a href="Editor.html?code=${encodeURIComponent(code)}" class="try-btn" target="_blank">Try it Yourself →</a>
-                        </div>
-                    </div>
-                </section>`;
+                const bg=getSectionBg(i), isDark=bg==='#282A35', code=getCodeExample(course);
+                return `<section class="course-section" id="course-${course.id}" style="background:${bg};${isDark?'color:white;':''}"><div class="course-inner"><div class="course-info"><div class="course-logo" style="${isDark?'background:rgba(255,255,255,0.1);':''}">${getCourseIcon(course)}</div><h1 style="${isDark?'color:white;':''}">${escHtml(course.name)}</h1><p class="course-meta-text" style="${isDark?'color:#9ca3af;':''}">${escHtml(course.topicName||'')} • ${course.difficulty||'All Levels'}</p><p class="course-desc" style="${isDark?'color:#9ca3af;':''}">${escHtml(course.description||'')}</p><p style="font-size:0.813rem;${isDark?'color:#9ca3af;':'opacity:0.7;'}">⏱ ${course.duration||20}h • 📚 ${getModuleCount(course.id)} modules • 📝 ${getLessonCount(course.id)} lessons</p><div style="margin-top:1rem;"><a href="course.html?id=${course.id}" class="btn btn-success btn-lg">Learn ${escHtml(course.name)}</a><a href="course.html?id=${course.id}" class="btn btn-outline btn-lg" style="${isDark?'border-color:rgba(255,255,255,0.3);color:white;':'border-color:var(--gray-700);color:var(--gray-700);'}">Course Details</a></div></div><div class="course-code"><div class="example-title">${escHtml(course.name)} Example:</div><code>${code.replace(/\n/g,'<br>').replace(/  /g,'&nbsp;&nbsp;')}</code><a href="Editor.html?code=${encodeURIComponent(code)}" class="try-btn" target="_blank">Try it Yourself →</a></div></div></section>`;
             }).join('');
         }
 
+        // ============ ALL COURSES GRID (DARK BG, RANDOM COLORS, 3 MODULES) ============
         function renderAllCoursesGrid() {
             const grid = $('allCoursesGrid');
-            if (!AppData.courses.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--gray-400);">No courses yet.</div>'; return; }
-            grid.innerHTML = AppData.courses.map(course=>{
-                const lc = getLessonCount(course.id);
-                return `<a href="course.html?id=${course.id}" class="course-card">
-                    <div class="course-card-header">${course.thumbnail?`<img src="${course.thumbnail}" alt="${escHtml(course.name)}">`:course.logo?`<img src="${course.logo}" alt="${escHtml(course.name)}">`:getCourseIcon(course)}</div>
-                    <div class="course-card-body"><span class="course-topic-tag">${escHtml(course.topicName||course.difficulty||'Course')}</span><h3>${escHtml(course.name)}</h3><p>${escHtml(course.description||'')}</p></div>
-                    <div class="course-card-footer"><span class="course-card-rating"><i class='bx bxs-star'></i> ${(4+Math.random()).toFixed(1)}</span><span class="course-card-lessons"><i class='bx bx-book-open'></i> ${lc||0} lessons</span></div>
-                </a>`;
+            if (!AppData.courses.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:rgba(255,255,255,0.5);">No courses yet.</div>'; return; }
+            grid.innerHTML = AppData.courses.map(course => {
+                const bgColor = getRandomCardColor();
+                const textColor = getTextColorForBg(bgColor);
+                const modules = AppData.modules.filter(m => m.courseId === course.id).sort((a,b)=>a.order-b.order).slice(0,3);
+                const totalLessons = getLessonCount(course.id);
+                return `<div class="course-card" style="background:${bgColor};color:${textColor};">
+                    <div class="course-card-header"><span class="cc-icon">${getCourseIcon(course)}</span><h3>${escHtml(course.name)}</h3></div>
+                    <div class="course-card-modules">
+                        ${modules.length ? modules.map(m => `
+                            <div class="course-module-item" onclick="event.stopPropagation();window.location.href='course.html?id=${course.id}&module=${m.id}'">
+                                <i class='bx bx-layer'></i> ${escHtml(m.name)}
+                                <span style="margin-left:auto;font-size:0.688rem;opacity:0.7;">${AppData.lessons.filter(l=>l.moduleId===m.id).length} lessons</span>
+                            </div>
+                        `).join('') : '<div class="course-module-item"><i class="bx bx-layer"></i> No modules yet</div>'}
+                        ${AppData.modules.filter(m=>m.courseId===course.id).length > 3 ? `<div class="course-module-item" onclick="event.stopPropagation();window.location.href='course.html?id=${course.id}'" style="opacity:0.7;">+${AppData.modules.filter(m=>m.courseId===course.id).length-3} more modules</div>` : ''}
+                    </div>
+                    <div class="course-card-footer" onclick="window.location.href='course.html?id=${course.id}'">
+                        <span><i class='bx bx-book-open'></i> ${totalLessons} lessons</span>
+                        <span style="cursor:pointer;">View Course →</span>
+                    </div>
+                </div>`;
             }).join('');
         }
 
-        function renderDropdowns() {
-            const cd = $('coursesDropdown'), ed = $('exercisesDropdown');
-            if (cd) cd.innerHTML = AppData.courses.length?AppData.courses.map(c=>`<a href="course.html?id=${c.id}"><i class='bx bx-book-open'></i> ${escHtml(c.name)}</a>`).join('')+'<a href="course.html"><i class="bx bx-list-ul"></i> All Courses</a>':'<a href="course.html"><i class="bx bx-book-open"></i> All Courses</a>';
-            if (ed) ed.innerHTML = AppData.courses.length?AppData.courses.map(c=>`<a href="lesson.html?mode=exercise&course=${c.id}"><i class='bx bx-dumbbell'></i> ${escHtml(c.name)} Exercises</a>`).join(''):'<a href="lesson.html?mode=exercise"><i class="bx bx-dumbbell"></i> All Exercises</a>';
-        }
+        function renderDropdowns() { const cd=$('coursesDropdown'),ed=$('exercisesDropdown'); if(cd)cd.innerHTML=AppData.courses.length?AppData.courses.map(c=>`<a href="course.html?id=${c.id}"><i class='bx bx-book-open'></i> ${escHtml(c.name)}</a>`).join('')+'<a href="course.html"><i class="bx bx-list-ul"></i> All Courses</a>':'<a href="course.html"><i class="bx bx-book-open"></i> All Courses</a>'; if(ed)ed.innerHTML=AppData.courses.length?AppData.courses.map(c=>`<a href="lesson.html?mode=exercise&course=${c.id}"><i class='bx bx-dumbbell'></i> ${escHtml(c.name)} Exercises</a>`).join(''):'<a href="lesson.html?mode=exercise"><i class="bx bx-dumbbell"></i> All Exercises</a>'; }
 
-        function performSearch() {
-            const q = ($('universalSearch')?.value||'').toLowerCase().trim();
-            const container = $('searchResults');
-            if (!q||q.length<2) { container.classList.remove('show'); return; }
-            let results = [];
-            AppData.courses.forEach(c=>{const mf=AppData.activeFilter==='all'||c.topicId===AppData.activeFilter;if(mf&&(c.name?.toLowerCase().includes(q)||c.description?.toLowerCase().includes(q)))results.push({type:'course',name:c.name,meta:c.topicName,id:c.id,icon:getCourseIcon(c)});});
-            AppData.lessons.forEach(l=>{if(l.title?.toLowerCase().includes(q))results.push({type:'lesson',name:l.title,meta:l.moduleName,id:l.id,icon:'<i class="bx bx-video"></i>'});});
-            container.innerHTML = results.length?results.slice(0,8).map(r=>`<div class="sr-item" onclick="window.location.href='${r.type==='lesson'?'lesson.html':'course.html'}?id=${r.id}'"><div class="sr-icon">${r.icon}</div><div class="sr-info"><div class="sr-name">${escHtml(r.name)}</div><div class="sr-meta">${escHtml(r.meta||'')} • ${r.type}</div></div><i class='bx bx-chevron-right' style="color:var(--gray-400);"></i></div>`).join(''):`<div style="padding:2rem;text-align:center;color:var(--gray-400);">No results</div>`;
-            container.classList.add('show');
-        }
-
-        // ============ CHALLENGE SYSTEM ============
-        function renderChallengeCourses() {
-            const list = $('challengeCourseList');
-            if (!list) return;
-            list.innerHTML = AppData.courses.map(c=>`<button class="challenge-course-btn" data-course="${c.id}" onclick="selectChallengeCourse('${c.id}', this)">${escHtml(c.name)}</button>`).join('');
-        }
-
-        window.selectChallengeCourse = function(courseId, btn) {
-            document.querySelectorAll('.challenge-course-btn').forEach(b=>b.classList.remove('selected'));
-            btn.classList.add('selected');
-            AppData.selectedCourseId = courseId;
-            $('btnLoadQuestion').style.display = '';
-        };
-
-        window.challengeAnswer = function(answer) {
-            if (answer === 'no') {
-                document.getElementById('stepWelcome').classList.remove('active');
-                document.getElementById('stepResult').classList.add('active');
-                document.getElementById('resultIcon').innerHTML = '<i class="bx bx-smile" style="font-size:3.5rem;color:var(--primary);"></i>';
-                document.getElementById('resultMessage').textContent = 'No problem! Come back anytime.';
-                document.getElementById('resultSubtext').textContent = 'Explore our courses when you are ready.';
-                document.getElementById('btnMoreExercises').style.display = 'none';
-                return;
-            }
-            document.getElementById('stepWelcome').classList.remove('active');
-            document.getElementById('stepChooseCourse').classList.add('active');
-        };
-
-        window.loadChallengeQuestion = function() {
-            if (!AppData.selectedCourseId) { toast('Please select a course first','error'); return; }
-            const courseLessons = AppData.lessons.filter(l=>{
-                const m = AppData.modules.find(x=>x.id===l.moduleId);
-                return m && m.courseId === AppData.selectedCourseId;
-            });
-            // Find lessons with questions
-            const questions = [];
-            courseLessons.forEach(l => {
-                (l.pages||[]).forEach(p => {
-                    (p.blocks||[]).forEach(b => {
-                        if (b.type==='question' && b.question) {
-                            questions.push({ lessonTitle: l.title, ...b });
-                        }
-                    });
-                });
-            });
-            if (!questions.length) {
-                // Demo question
-                const course = AppData.courses.find(c=>c.id===AppData.selectedCourseId);
-                questions.push({
-                    question: `What does ${course?.name||'this course'} primarily teach?`,
-                    questionType: 'multiple-choice',
-                    options: ['Web Development', 'Data Science', 'Mobile Apps', 'Game Development'],
-                    correctAnswer: 0,
-                    points: 10
-                });
-            }
-            const q = questions[Math.floor(Math.random()*questions.length)];
-            AppData.currentQuestion = q;
-            document.getElementById('stepChooseCourse').classList.remove('active');
-            document.getElementById('stepQuestion').classList.add('active');
-            document.getElementById('challengeQuestionText').textContent = q.question;
-            const optsContainer = document.getElementById('challengeQuestionOptions');
-            if (q.questionType==='boolean') {
-                optsContainer.innerHTML = `
-                    <button class="challenge-option" onclick="submitChallengeAnswer(true)"><i class='bx bx-check'></i> True</button>
-                    <button class="challenge-option" onclick="submitChallengeAnswer(false)"><i class='bx bx-x'></i> False</button>`;
-            } else {
-                optsContainer.innerHTML = (q.options||['A','B','C','D']).map((o,i)=>`<button class="challenge-option" onclick="submitChallengeAnswer(${i})">${String.fromCharCode(65+i)}. ${escHtml(o)}</button>`).join('');
-            }
-            document.getElementById('challengeFeedback').classList.remove('show','correct','incorrect');
-        };
-
-        window.submitChallengeAnswer = function(selected) {
-            const q = AppData.currentQuestion;
-            const correct = selected === q.correctAnswer;
-            const fb = document.getElementById('challengeFeedback');
-            fb.textContent = correct ? '✅ Correct! Great job!' : '❌ Not quite. Keep learning!';
-            fb.className = 'challenge-feedback show ' + (correct?'correct':'incorrect');
-            
-            setTimeout(() => {
-                document.getElementById('stepQuestion').classList.remove('active');
-                document.getElementById('stepResult').classList.add('active');
-                document.getElementById('resultIcon').innerHTML = correct 
-                    ? '<i class="bx bx-trophy" style="font-size:3.5rem;color:#f59e0b;"></i>'
-                    : '<i class="bx bx-target-lock" style="font-size:3.5rem;color:var(--primary);"></i>';
-                document.getElementById('resultMessage').textContent = correct 
-                    ? 'Excellent! You are on the right track!'
-                    : 'Good try! Practice makes perfect.';
-                document.getElementById('resultSubtext').textContent = correct
-                    ? 'Ready for more challenges? Explore exercises to sharpen your skills.'
-                    : 'Keep practicing with more exercises to master this topic.';
-                document.getElementById('btnMoreExercises').style.display = '';
-                document.getElementById('btnMoreExercises').href = `exercise.html?course=${AppData.selectedCourseId}`;
-            }, 1500);
-        };
-
-        window.resetChallenge = function() {
-            document.querySelectorAll('.challenge-step').forEach(s=>s.classList.remove('active'));
-            document.getElementById('stepWelcome').classList.add('active');
-            document.querySelectorAll('.challenge-course-btn').forEach(b=>b.classList.remove('selected'));
-            AppData.selectedCourseId = null;
-            $('btnLoadQuestion').style.display = 'none';
-        };
+        // ============ CHALLENGE ============
+        function renderChallengeCourses() { const list=$('challengeCourseList'); if(!list)return; list.innerHTML=AppData.courses.map(c=>`<button class="challenge-course-btn" data-course="${c.id}" onclick="selectChallengeCourse('${c.id}',this)">${escHtml(c.name)}</button>`).join(''); }
+        window.selectChallengeCourse=function(courseId,btn){document.querySelectorAll('.challenge-course-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');AppData.selectedCourseId=courseId;$('btnLoadQuestion').style.display='';};
+        window.challengeAnswer=function(answer){if(answer==='no'){document.getElementById('stepWelcome').classList.remove('active');document.getElementById('stepResult').classList.add('active');document.getElementById('resultIcon').innerHTML='<i class="bx bx-smile" style="font-size:3.5rem;color:var(--primary);"></i>';document.getElementById('resultMessage').textContent='No problem! Come back anytime.';document.getElementById('resultSubtext').textContent='Explore our courses when you are ready.';document.getElementById('btnMoreExercises').style.display='none';return;}document.getElementById('stepWelcome').classList.remove('active');document.getElementById('stepChooseCourse').classList.add('active');};
+        window.loadChallengeQuestion=function(){if(!AppData.selectedCourseId){toast('Please select a course first','error');return;}const courseLessons=AppData.lessons.filter(l=>{const m=AppData.modules.find(x=>x.id===l.moduleId);return m&&m.courseId===AppData.selectedCourseId;});const questions=[];courseLessons.forEach(l=>{(l.pages||[]).forEach(p=>{(p.blocks||[]).forEach(b=>{if(b.type==='question'&&b.question)questions.push({lessonTitle:l.title,...b});});});});if(!questions.length){const course=AppData.courses.find(c=>c.id===AppData.selectedCourseId);questions.push({question:`What does ${course?.name||'this course'} primarily teach?`,questionType:'multiple-choice',options:['Web Development','Data Science','Mobile Apps','Game Development'],correctAnswer:0,points:10});}const q=questions[Math.floor(Math.random()*questions.length)];AppData.currentQuestion=q;document.getElementById('stepChooseCourse').classList.remove('active');document.getElementById('stepQuestion').classList.add('active');document.getElementById('challengeQuestionText').textContent=q.question;const oc=document.getElementById('challengeQuestionOptions');if(q.questionType==='boolean'){oc.innerHTML='<button class="challenge-option" onclick="submitChallengeAnswer(true)"><i class="bx bx-check"></i> True</button><button class="challenge-option" onclick="submitChallengeAnswer(false)"><i class="bx bx-x"></i> False</button>';}else{oc.innerHTML=(q.options||['A','B','C','D']).map((o,i)=>`<button class="challenge-option" onclick="submitChallengeAnswer(${i})">${String.fromCharCode(65+i)}. ${escHtml(o)}</button>`).join('');}document.getElementById('challengeFeedback').classList.remove('show','correct','incorrect');};
+        window.submitChallengeAnswer=function(selected){const q=AppData.currentQuestion;const correct=selected===q.correctAnswer;const fb=document.getElementById('challengeFeedback');fb.textContent=correct?'✅ Correct! Great job!':'❌ Not quite. Keep learning!';fb.className='challenge-feedback show '+(correct?'correct':'incorrect');setTimeout(()=>{document.getElementById('stepQuestion').classList.remove('active');document.getElementById('stepResult').classList.add('active');document.getElementById('resultIcon').innerHTML=correct?'<i class="bx bx-trophy" style="font-size:3.5rem;color:#f59e0b;"></i>':'<i class="bx bx-target-lock" style="font-size:3.5rem;color:var(--primary);"></i>';document.getElementById('resultMessage').textContent=correct?'Excellent! You are on the right track!':'Good try! Practice makes perfect.';document.getElementById('resultSubtext').textContent=correct?'Ready for more challenges?':'Keep practicing with more exercises.';document.getElementById('btnMoreExercises').style.display='';document.getElementById('btnMoreExercises').href=`exercise.html?course=${AppData.selectedCourseId}`;},1500);};
+        window.resetChallenge=function(){document.querySelectorAll('.challenge-step').forEach(s=>s.classList.remove('active'));document.getElementById('stepWelcome').classList.add('active');document.querySelectorAll('.challenge-course-btn').forEach(b=>b.classList.remove('selected'));AppData.selectedCourseId=null;$('btnLoadQuestion').style.display='none';};
 
         // Events
-        document.addEventListener('click', function(e) {
-            const filter = e.target.closest('.search-filter');
-            if (filter) { document.querySelectorAll('.search-filter').forEach(f=>f.classList.remove('active')); filter.classList.add('active'); AppData.activeFilter=filter.dataset.filter; performSearch(); }
-        });
-        $('universalSearch')?.addEventListener('input', performSearch);
-        $('universalSearch')?.addEventListener('focus', performSearch);
-        $('searchSubmitBtn')?.addEventListener('click', performSearch);
-        document.addEventListener('click', function(e) { if(!e.target.closest('.search-container'))$('searchResults').classList.remove('show'); });
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('.course-section');
-            const links = document.querySelectorAll('#subtopnav a');
-            let current = '';
-            sections.forEach(s=>{if(window.scrollY>=s.offsetTop-150)current=s.getAttribute('id');});
-            links.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+current)l.classList.add('active');});
-        });
+        window.addEventListener('scroll',function(){const sections=document.querySelectorAll('.course-section');const links=document.querySelectorAll('#subtopnav a');let current='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-150)current=s.getAttribute('id');});links.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+current)l.classList.add('active');});});
         $('hamburger')?.addEventListener('click',function(){$('navMenu')?.classList.toggle('active');});
         document.addEventListener('click',function(e){if(!e.target.closest('.nav-inner')&&$('navMenu')?.classList.contains('active'))$('navMenu').classList.remove('active');});
 
-        window.performSearch = performSearch;
         loadAllData();
-        console.log('🚀 Akademia 2026 - Refined & Enhanced!');
+        console.log('🚀 Akademia 2026 - Professional Enhanced!');
     </script>
 </body>
 </html>
