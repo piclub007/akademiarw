@@ -14,21 +14,21 @@
         :root {
             --primary: #4F46E5; --primary-dark: #4338CA;
             --success: #10B981; --danger: #EF4444; --warning: #F59E0B;
-            --radius-xs: 4px; --radius-sm: 6px; --radius: 10px;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-            --shadow: 0 4px 6px rgba(0,0,0,0.07);
-            --shadow-md: 0 10px 25px rgba(0,0,0,0.1);
-            --shadow-lg: 0 20px 50px rgba(0,0,0,0.15);
-            --transition: 0.15s ease;
+            --radius-xs: 5px; --radius-sm: 8px; --radius: 12px; --radius-lg: 18px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow: 0 4px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 12px 28px rgba(0,0,0,0.12);
+            --shadow-lg: 0 24px 56px rgba(0,0,0,0.18);
+            --transition: 0.18s ease;
             --bg: #ffffff; --bg-secondary: #f8fafc; --bg-tertiary: #f1f5f9;
             --border: #e2e8f0; --text: #1e293b; --text-secondary: #64748b;
-            --text-muted: #94a3b8; --hover: rgba(0,0,0,0.03); --active: rgba(79,70,229,0.08);
-            --navbar-h: 46px; --sidebar-w: 240px;
+            --text-muted: #94a3b8; --hover: rgba(0,0,0,0.04); --active: rgba(79,70,229,0.09);
+            --navbar-h: 54px; --sidebar-w: 270px;
         }
         [data-theme="dark"] {
             --bg: #0f172a; --bg-secondary: #1e293b; --bg-tertiary: #1a2332;
-            --border: rgba(255,255,255,0.06); --text: #e2e8f0; --text-secondary: #94a3b8;
-            --text-muted: #64748b; --hover: rgba(255,255,255,0.03); --active: rgba(99,102,241,0.15);
+            --border: rgba(255,255,255,0.07); --text: #e2e8f0; --text-secondary: #94a3b8;
+            --text-muted: #64748b; --hover: rgba(255,255,255,0.04); --active: rgba(99,102,241,0.16);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -36,72 +36,77 @@
             color: var(--text); height: 100vh; overflow: hidden;
             display: flex; flex-direction: column;
         }
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
 
         .navbar {
             background: var(--bg-secondary); border-bottom: 1px solid var(--border);
-            height: var(--navbar-h); display: flex; align-items: center; padding: 0 0.6rem;
-            z-index: 110; flex-shrink: 0; gap: 0.4rem;
+            height: var(--navbar-h); display: flex; align-items: center; padding: 0 0.9rem;
+            z-index: 110; flex-shrink: 0; gap: 0.6rem;
         }
-        .navbar-left { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
+        .navbar-left { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
         .nav-icon-btn {
-            width: 30px; height: 30px; border-radius: var(--radius-sm); border: none;
+            width: 36px; height: 36px; border-radius: var(--radius-sm); border: none;
             background: transparent; cursor: pointer; color: var(--text-secondary);
-            font-size: 1.05rem; display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; display: flex; align-items: center; justify-content: center;
             transition: all var(--transition);
         }
         .nav-icon-btn:hover { background: var(--hover); color: var(--primary); }
-        .navbar-brand img { height: 26px; width: auto; object-fit: contain; }
+        .navbar-brand img { height: 32px; width: auto; object-fit: contain; }
         .navbar-lang { position: relative; flex-shrink: 0; }
         .lang-btn {
-            display: flex; align-items: center; gap: 0.3rem;
-            padding: 0.3rem 0.55rem; border-radius: var(--radius-sm);
+            display: flex; align-items: center; gap: 0.4rem;
+            padding: 0.4rem 0.7rem; border-radius: var(--radius-sm);
             border: 1px solid var(--border); background: var(--bg);
-            cursor: pointer; font-size: 0.72rem; font-weight: 500; color: var(--text);
+            cursor: pointer; font-size: 0.82rem; font-weight: 500; color: var(--text);
             transition: all var(--transition); white-space: nowrap; font-family: 'Inter', sans-serif;
         }
+        .lang-btn i { font-size: 1.1rem; }
         .lang-btn:hover { border-color: var(--primary); background: var(--active); }
         .navbar-center { flex: 1; text-align: center; min-width: 0; }
         .navbar-title {
-            font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.78rem;
+            font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.9rem;
             color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
-        .navbar-actions { display: flex; align-items: center; gap: 0.2rem; flex-shrink: 0; }
+        .navbar-actions { display: flex; align-items: center; gap: 0.3rem; flex-shrink: 0; }
         .nav-btn {
-            height: 30px; padding: 0 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border);
+            height: 36px; padding: 0 0.7rem; border-radius: var(--radius-sm); border: 1px solid var(--border);
             background: var(--bg); cursor: pointer; color: var(--text-secondary);
-            font-size: 0.7rem; font-weight: 500; font-family: 'Inter', sans-serif;
-            transition: all var(--transition); display: flex; align-items: center; gap: 0.25rem;
+            font-size: 0.8rem; font-weight: 500; font-family: 'Inter', sans-serif;
+            transition: all var(--transition); display: flex; align-items: center; gap: 0.35rem;
         }
+        .nav-btn i { font-size: 1.05rem; }
         .nav-btn:hover { background: var(--hover); border-color: var(--primary); color: var(--primary); }
         .nav-btn.run {
             background: var(--success); color: white; border-color: var(--success); font-weight: 600;
+            font-size: 0.85rem; padding: 0 1rem;
         }
+        .nav-btn.run i { font-size: 1.15rem; }
         .nav-btn.run:hover { background: #059669; border-color: #059669; }
 
         .dropdown {
-            position: absolute; top: 100%; left: 0; margin-top: 0.2rem;
+            position: absolute; top: 100%; left: 0; margin-top: 0.3rem;
             background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
-            box-shadow: var(--shadow-md); z-index: 200; display: none; min-width: 190px; padding: 0.2rem;
-            max-height: 320px; overflow-y: auto;
+            box-shadow: var(--shadow-md); z-index: 200; display: none; min-width: 220px; padding: 0.3rem;
+            max-height: 360px; overflow-y: auto;
         }
         .dropdown.show { display: block; }
         .dropdown-search {
-            padding: 0.3rem; border-bottom: 1px solid var(--border); margin-bottom: 0.15rem;
+            padding: 0.4rem; border-bottom: 1px solid var(--border); margin-bottom: 0.2rem;
             position: sticky; top: 0; background: var(--bg); z-index: 1;
         }
         .dropdown-search input {
-            width: 100%; padding: 0.3rem 0.45rem; border: 1px solid var(--border);
-            border-radius: var(--radius-sm); font-size: 0.7rem; background: var(--bg-secondary);
+            width: 100%; padding: 0.4rem 0.55rem; border: 1px solid var(--border);
+            border-radius: var(--radius-sm); font-size: 0.8rem; background: var(--bg-secondary);
             color: var(--text); outline: none; font-family: 'Inter', sans-serif;
         }
         .dropdown-item {
-            display: flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.5rem;
-            border-radius: var(--radius-sm); cursor: pointer; font-size: 0.72rem; font-weight: 500;
+            display: flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.65rem;
+            border-radius: var(--radius-sm); cursor: pointer; font-size: 0.82rem; font-weight: 500;
             color: var(--text); transition: all var(--transition);
         }
+        .dropdown-item i { font-size: 1.05rem; width: 22px; text-align: center; }
         .dropdown-item:hover { background: var(--hover); }
         .dropdown-item.active { background: var(--active); color: var(--primary); }
 
@@ -114,35 +119,36 @@
         }
         .sidebar.collapsed { width: 0; border-right: none; opacity: 0; }
         .sidebar-header {
-            padding: 0.45rem 0.5rem; border-bottom: 1px solid var(--border);
+            padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--border);
             display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
         }
         .sidebar-header span {
-            font-size: 0.62rem; font-weight: 600; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: 0.04em; font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Space Grotesk', sans-serif;
         }
-        .sidebar-filetree { flex: 1; overflow-y: auto; padding: 0.25rem; }
+        .sidebar-filetree { flex: 1; overflow-y: auto; padding: 0.35rem; }
         .sidebar-actions {
-            padding: 0.35rem; border-top: 1px solid var(--border);
-            display: flex; gap: 0.15rem; flex-shrink: 0; flex-wrap: wrap;
+            padding: 0.45rem; border-top: 1px solid var(--border);
+            display: flex; gap: 0.2rem; flex-shrink: 0; flex-wrap: wrap;
         }
         .sa-btn {
-            flex: 1; min-width: 40px; padding: 0.2rem; border-radius: var(--radius-sm);
+            flex: 1; min-width: 50px; padding: 0.3rem; border-radius: var(--radius-sm);
             border: 1px solid var(--border); background: transparent; cursor: pointer;
-            color: var(--text-secondary); font-size: 0.58rem; font-weight: 500;
+            color: var(--text-secondary); font-size: 0.68rem; font-weight: 500;
             font-family: 'Inter', sans-serif; transition: all var(--transition);
-            display: flex; align-items: center; justify-content: center; gap: 0.1rem;
+            display: flex; align-items: center; justify-content: center; gap: 0.15rem;
         }
+        .sa-btn i { font-size: 0.9rem; }
         .sa-btn:hover { background: var(--hover); border-color: var(--primary); color: var(--primary); }
 
         .ft-item {
-            display: flex; align-items: center; gap: 0.25rem; padding: 0.22rem 0.35rem;
-            border-radius: var(--radius-xs); cursor: pointer; font-size: 0.68rem;
+            display: flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.45rem;
+            border-radius: var(--radius-xs); cursor: pointer; font-size: 0.78rem;
             color: var(--text-secondary); transition: all var(--transition);
         }
         .ft-item:hover { background: var(--hover); }
         .ft-item.active { background: var(--active); color: var(--primary); font-weight: 500; }
-        .ft-item i { font-size: 0.72rem; width: 16px; text-align: center; flex-shrink: 0; }
+        .ft-item i { font-size: 0.9rem; width: 20px; text-align: center; flex-shrink: 0; }
         .fi-py { color: #3572A5; } .fi-js { color: #F7DF1E; } .fi-html { color: #E34F26; }
         .fi-css { color: #563D7C; } .fi-java { color: #ED8B00; } .fi-cpp { color: #00599C; }
         .fi-ts { color: #3178C6; }
@@ -150,181 +156,187 @@
         .editor-area { flex: 1; display: flex; flex-direction: column; min-width: 0; position: relative; }
         .editor-tabs-row {
             display: flex; align-items: center; background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border); height: 34px; flex-shrink: 0;
-            padding: 0 0.3rem; gap: 0.05rem; overflow-x: auto;
+            border-bottom: 1px solid var(--border); height: 40px; flex-shrink: 0;
+            padding: 0 0.4rem; gap: 0.08rem; overflow-x: auto;
         }
         .editor-tab {
-            display: flex; align-items: center; gap: 0.2rem;
-            padding: 0.25rem 0.55rem; font-size: 0.68rem; font-weight: 500;
+            display: flex; align-items: center; gap: 0.3rem;
+            padding: 0.35rem 0.7rem; font-size: 0.78rem; font-weight: 500;
             color: var(--text-muted); cursor: pointer; border: none; background: transparent;
             border-radius: var(--radius-sm); transition: all var(--transition); white-space: nowrap;
             font-family: 'Inter', sans-serif; flex-shrink: 0;
         }
+        .editor-tab i { font-size: 0.95rem; }
         .editor-tab:hover { background: var(--hover); color: var(--text); }
         .editor-tab.active { background: var(--bg); color: var(--primary); font-weight: 600; }
         .editor-tab .tab-x {
-            width: 12px; height: 12px; border-radius: 2px; border: none; background: transparent;
-            cursor: pointer; font-size: 0.5rem; color: var(--text-muted);
-            display: none; align-items: center; justify-content: center; margin-left: 0.1rem;
+            width: 16px; height: 16px; border-radius: 3px; border: none; background: transparent;
+            cursor: pointer; font-size: 0.65rem; color: var(--text-muted);
+            display: none; align-items: center; justify-content: center; margin-left: 0.15rem;
         }
         .editor-tab:hover .tab-x { display: flex; }
-        .editor-tab .tab-x:hover { background: rgba(239,68,68,0.1); color: var(--danger); }
-        .editor-tabs-actions { margin-left: auto; display: flex; gap: 0.05rem; flex-shrink: 0; }
+        .editor-tab .tab-x:hover { background: rgba(239,68,68,0.12); color: var(--danger); }
+        .editor-tabs-actions { margin-left: auto; display: flex; gap: 0.08rem; flex-shrink: 0; }
         .eta-btn {
-            width: 22px; height: 22px; border-radius: var(--radius-xs); border: none;
-            background: transparent; cursor: pointer; color: var(--text-muted); font-size: 0.75rem;
+            width: 28px; height: 28px; border-radius: var(--radius-xs); border: none;
+            background: transparent; cursor: pointer; color: var(--text-muted); font-size: 0.95rem;
             display: flex; align-items: center; justify-content: center; transition: all var(--transition);
         }
         .eta-btn:hover { background: var(--hover); color: var(--primary); }
         #monacoEditor { flex: 1; min-height: 0; }
 
-        /* BOTTOM OUTPUT PANEL (for non-HTML languages) */
+        /* BOTTOM OUTPUT */
         .output-panel {
             height: 0; border-top: 1px solid var(--border); background: var(--bg);
             display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden;
-            transition: height 0.2s ease;
+            transition: height 0.22s ease;
         }
-        .output-panel.open { height: 240px; }
+        .output-panel.open { height: 280px; }
         .output-panel-header {
             display: flex; align-items: center; background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border); height: 30px; flex-shrink: 0; padding: 0 0.3rem; gap: 0.05rem;
+            border-bottom: 1px solid var(--border); height: 36px; flex-shrink: 0; padding: 0 0.4rem; gap: 0.08rem;
         }
         .op-tab {
-            padding: 0.25rem 0.5rem; font-size: 0.65rem; font-weight: 500;
+            padding: 0.35rem 0.65rem; font-size: 0.75rem; font-weight: 500;
             color: var(--text-muted); cursor: pointer; border: none; background: transparent;
             border-bottom: 2px solid transparent; transition: all var(--transition);
-            font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 0.2rem;
+            font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 0.3rem;
         }
+        .op-tab i { font-size: 0.95rem; }
         .op-tab:hover { color: var(--text); }
         .op-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
         .op-spacer { flex: 1; }
         .op-close {
-            width: 22px; height: 22px; border-radius: var(--radius-xs); border: none;
-            background: transparent; cursor: pointer; color: var(--text-muted); font-size: 0.8rem;
+            width: 28px; height: 28px; border-radius: var(--radius-xs); border: none;
+            background: transparent; cursor: pointer; color: var(--text-muted); font-size: 1rem;
             display: flex; align-items: center; justify-content: center; transition: all var(--transition);
         }
-        .op-close:hover { background: rgba(239,68,68,0.08); color: var(--danger); }
+        .op-close:hover { background: rgba(239,68,68,0.1); color: var(--danger); }
         .op-content { flex: 1; min-height: 0; display: none; overflow: hidden; }
         .op-content.active { display: flex; flex-direction: column; }
         
         .stdin-box {
-            padding: 0.35rem; border-bottom: 1px solid var(--border); flex-shrink: 0;
+            padding: 0.5rem; border-bottom: 1px solid var(--border); flex-shrink: 0;
         }
         .stdin-box label {
-            font-size: 0.58rem; font-weight: 600; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 0.15rem;
+            font-size: 0.7rem; font-weight: 600; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.25rem;
             cursor: pointer;
         }
+        .stdin-box label i { font-size: 0.9rem; }
         .stdin-box textarea {
-            width: 100%; padding: 0.3rem; border: 1px solid var(--border); border-radius: var(--radius-sm);
-            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; background: var(--bg-secondary);
-            color: var(--text); resize: none; height: 38px; outline: none; transition: all var(--transition);
+            width: 100%; padding: 0.4rem; border: 1px solid var(--border); border-radius: var(--radius-sm);
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; background: var(--bg-secondary);
+            color: var(--text); resize: none; height: 48px; outline: none; transition: all var(--transition);
         }
         .stdin-box textarea:focus { border-color: var(--primary); }
         
         .output-box {
-            flex: 1; padding: 0.45rem; overflow-y: auto;
-            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
-            line-height: 1.5; color: var(--text); background: var(--bg); white-space: pre-wrap;
+            flex: 1; padding: 0.6rem; overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+            line-height: 1.6; color: var(--text); background: var(--bg); white-space: pre-wrap;
         }
-        .output-box .ol { padding: 0.02rem 0; }
+        .output-box .ol { padding: 0.04rem 0; }
         .output-box .ol.e { color: var(--danger); }
         .output-box .ol.s { color: var(--success); }
         .output-box .ol.i { color: var(--primary); }
 
-        /* PREVIEW OVERLAY (for HTML/CSS/JS) */
+        /* PREVIEW OVERLAY */
         .preview-overlay {
-            position: absolute; top: 0; right: 0; bottom: 0; width: 420px;
+            position: absolute; top: 0; right: 0; bottom: 0; width: 480px;
             background: var(--bg); border-left: 1px solid var(--border);
             display: flex; flex-direction: column; z-index: 50;
             box-shadow: var(--shadow-lg); transform: translateX(100%); opacity: 0;
-            transition: transform 0.25s ease, opacity 0.25s ease;
-            pointer-events: none; min-width: 250px;
+            transition: transform 0.28s ease, opacity 0.28s ease;
+            pointer-events: none; min-width: 300px;
         }
         .preview-overlay.open {
             transform: translateX(0); opacity: 1; pointer-events: all;
         }
         .preview-overlay-header {
             display: flex; align-items: center; background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border); height: 30px; flex-shrink: 0;
-            padding: 0 0.3rem; gap: 0.2rem;
+            border-bottom: 1px solid var(--border); height: 36px; flex-shrink: 0;
+            padding: 0 0.4rem; gap: 0.3rem;
         }
         .preview-overlay-header span {
-            font-size: 0.62rem; font-weight: 600; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: 0.04em; flex: 1;
+            font-size: 0.75rem; font-weight: 600; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.05em; flex: 1;
         }
         .preview-overlay-header button {
-            width: 22px; height: 22px; border-radius: var(--radius-xs); border: none;
-            background: transparent; cursor: pointer; color: var(--text-muted); font-size: 0.78rem;
+            width: 28px; height: 28px; border-radius: var(--radius-xs); border: none;
+            background: transparent; cursor: pointer; color: var(--text-muted); font-size: 0.95rem;
             display: flex; align-items: center; justify-content: center; transition: all var(--transition);
         }
         .preview-overlay-header button:hover { background: var(--hover); color: var(--primary); }
-        .preview-overlay-header button.close-btn:hover { background: rgba(239,68,68,0.08); color: var(--danger); }
+        .preview-overlay-header button.close-btn:hover { background: rgba(239,68,68,0.1); color: var(--danger); }
         .preview-frame-overlay {
             flex: 1; border: none; background: white; min-height: 0; width: 100%;
         }
 
         /* RESIZE HANDLE */
         .preview-resize-handle {
-            position: absolute; top: 0; right: 420px; bottom: 0;
-            width: 5px; cursor: col-resize; z-index: 55; background: transparent;
+            position: absolute; top: 0; right: 480px; bottom: 0;
+            width: 6px; cursor: col-resize; z-index: 55; background: transparent;
             transition: background var(--transition); display: none;
         }
         .preview-resize-handle.visible { display: block; }
         .preview-resize-handle:hover, .preview-resize-handle.active { background: var(--primary); }
 
         .statusbar {
-            height: 20px; background: var(--bg-secondary); border-top: 1px solid var(--border);
+            height: 24px; background: var(--bg-secondary); border-top: 1px solid var(--border);
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 0.5rem; flex-shrink: 0; font-size: 0.6rem;
+            padding: 0 0.7rem; flex-shrink: 0; font-size: 0.7rem;
             color: var(--text-muted); font-family: 'JetBrains Mono', monospace;
         }
-        .statusbar > div { display: flex; align-items: center; gap: 0.7rem; }
-        .st-item { cursor: pointer; padding: 0.02rem 0.2rem; border-radius: var(--radius-xs); transition: all var(--transition); }
+        .statusbar > div { display: flex; align-items: center; gap: 0.9rem; }
+        .st-item { cursor: pointer; padding: 0.04rem 0.3rem; border-radius: var(--radius-xs); transition: all var(--transition); }
         .st-item:hover { background: var(--hover); color: var(--text); }
 
         .toast-ct {
-            position: fixed; bottom: 1.5rem; right: 0.7rem; z-index: 300;
-            display: flex; flex-direction: column; gap: 0.2rem; pointer-events: none;
+            position: fixed; bottom: 2rem; right: 1rem; z-index: 300;
+            display: flex; flex-direction: column; gap: 0.3rem; pointer-events: none;
         }
         .toast {
-            background: var(--text); color: var(--bg); padding: 0.45rem 0.7rem;
-            border-radius: var(--radius); font-size: 0.68rem; font-weight: 500;
+            background: var(--text); color: var(--bg); padding: 0.6rem 0.9rem;
+            border-radius: var(--radius); font-size: 0.78rem; font-weight: 500;
             box-shadow: var(--shadow-md); animation: tIn 0.3s ease, tOut 0.3s ease 2s forwards;
-            max-width: 300px; display: flex; align-items: center; gap: 0.3rem; pointer-events: all;
+            max-width: 350px; display: flex; align-items: center; gap: 0.4rem; pointer-events: all;
         }
+        .toast i { font-size: 1.1rem; }
         .toast.ok { border-left: 3px solid var(--success); }
         .toast.err { border-left: 3px solid var(--danger); }
         @keyframes tIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes tOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 
         .modal-bg {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.35); backdrop-filter: blur(2px);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(3px);
             z-index: 250; display: flex; align-items: center; justify-content: center;
             opacity: 0; pointer-events: none; transition: opacity var(--transition);
         }
         .modal-bg.show { opacity: 1; pointer-events: all; }
         .modal-box {
-            background: var(--bg); border-radius: var(--radius-lg); width: 90%; max-width: 360px;
-            box-shadow: var(--shadow-md); border: 1px solid var(--border);
+            background: var(--bg); border-radius: var(--radius-lg); width: 90%; max-width: 420px;
+            box-shadow: var(--shadow-lg); border: 1px solid var(--border);
         }
         .modal-h {
-            padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border);
+            padding: 0.8rem 1rem; border-bottom: 1px solid var(--border);
             display: flex; align-items: center; justify-content: space-between;
-            font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 700;
         }
-        .modal-bd { padding: 0.8rem; }
-        .modal-ft { padding: 0.45rem 0.8rem; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 0.3rem; }
+        .modal-bd { padding: 1rem; }
+        .modal-ft { padding: 0.6rem 1rem; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 0.4rem; }
         .inp {
-            width: 100%; padding: 0.4rem 0.5rem; border: 1px solid var(--border);
-            border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 0.75rem;
+            width: 100%; padding: 0.55rem 0.65rem; border: 1px solid var(--border);
+            border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 0.85rem;
             background: var(--bg); color: var(--text); outline: none;
         }
-        .inp:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
+        .inp:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,70,229,0.12); }
         .btn {
-            padding: 0.35rem 0.7rem; border-radius: var(--radius-sm); font-family: 'Inter', sans-serif;
-            font-size: 0.7rem; font-weight: 600; cursor: pointer; border: none; transition: all var(--transition);
+            padding: 0.5rem 0.9rem; border-radius: var(--radius-sm); font-family: 'Inter', sans-serif;
+            font-size: 0.8rem; font-weight: 600; cursor: pointer; border: none; transition: all var(--transition);
+            display: inline-flex; align-items: center; gap: 0.3rem;
         }
+        .btn i { font-size: 1rem; }
         .btn-p { background: var(--primary); color: white; }
         .btn-p:hover { background: var(--primary-dark); }
         .btn-g { background: transparent; color: var(--text-secondary); }
@@ -345,7 +357,7 @@
                 <i class='bx bx-sidebar'></i>
             </button>
             <a class="navbar-brand" href="#">
-                <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<svg viewBox=\'0 0 32 32\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\' style=\'width:26px;height:26px;\'><rect width=\'32\' height=\'32\' rx=\'8\' fill=\'#4F46E5\'/><path d=\'M8 22V10l6 6-6 6z\' fill=\'white\'/><path d=\'M16 22V10l6 6-6 6z\' fill=\'white\' opacity=\'0.7\'/></svg>');">
+                <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<svg viewBox=\'0 0 32 32\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\' style=\'width:32px;height:32px;\'><rect width=\'32\' height=\'32\' rx=\'8\' fill=\'#4F46E5\'/><path d=\'M8 22V10l6 6-6 6z\' fill=\'white\'/><path d=\'M16 22V10l6 6-6 6z\' fill=\'white\' opacity=\'0.7\'/></svg>');">
             </a>
         </div>
         <div class="navbar-lang">
@@ -353,15 +365,15 @@
                 <i class='bx bxl-python'></i> <span id="langName">Python</span> <i class='bx bx-chevron-down'></i>
             </button>
             <div class="dropdown" id="langDropdown">
-                <div class="dropdown-search"><input type="text" id="langSearch" placeholder="Search..." autocomplete="off"></div>
+                <div class="dropdown-search"><input type="text" id="langSearch" placeholder="Search language..." autocomplete="off"></div>
                 <div id="langList"></div>
             </div>
         </div>
         <div class="navbar-center"><span class="navbar-title" id="navbarTitle">main.py</span></div>
         <div class="navbar-actions">
-            <button class="nav-btn" id="btnCopy" title="Copy Code"><i class='bx bx-copy'></i></button>
+            <button class="nav-btn" id="btnCopy" title="Copy Code"><i class='bx bx-copy'></i> Copy</button>
             <button class="nav-btn" id="btnNew" title="New File"><i class='bx bx-plus'></i> New</button>
-            <button class="nav-btn" id="btnTheme" title="Theme"><i class='bx bx-moon'></i></button>
+            <button class="nav-btn" id="btnTheme" title="Toggle Theme"><i class='bx bx-moon'></i></button>
             <button class="nav-btn run" id="btnRun"><i class='bx bx-play'></i> Run</button>
         </div>
     </nav>
@@ -371,7 +383,7 @@
             <div class="sidebar-header"><span>📁 Explorer</span></div>
             <div class="sidebar-filetree" id="fileTree"></div>
             <div class="sidebar-actions">
-                <button class="sa-btn" id="btnNewFile"><i class='bx bx-file'></i> File</button>
+                <button class="sa-btn" id="btnNewFile"><i class='bx bx-file'></i> New File</button>
                 <button class="sa-btn" id="btnRename"><i class='bx bx-edit'></i> Rename</button>
                 <button class="sa-btn" id="btnDelete"><i class='bx bx-trash'></i> Delete</button>
             </div>
@@ -379,16 +391,15 @@
 
         <div class="editor-area" id="editorArea">
             <div class="editor-tabs-row">
-                <div style="display:flex;gap:0.05rem;overflow-x:auto;flex:1;" id="editorTabs"></div>
+                <div style="display:flex;gap:0.08rem;overflow-x:auto;flex:1;" id="editorTabs"></div>
                 <div class="editor-tabs-actions">
                     <button class="eta-btn" id="btnNewTab" title="New File"><i class='bx bx-plus'></i></button>
-                    <button class="eta-btn" id="btnFormat" title="Format"><i class='bx bx-align-left'></i></button>
+                    <button class="eta-btn" id="btnFormat" title="Format Code"><i class='bx bx-align-left'></i></button>
                     <button class="eta-btn" id="btnToggleOutput" title="Toggle Output (Ctrl+J)"><i class='bx bx-chevron-up'></i></button>
                 </div>
             </div>
             <div id="monacoEditor"></div>
 
-            <!-- BOTTOM OUTPUT PANEL (for non-HTML languages) -->
             <div class="output-panel" id="outputPanel">
                 <div class="output-panel-header">
                     <button class="op-tab active" data-tab="output"><i class='bx bx-terminal'></i> Output</button>
@@ -398,28 +409,26 @@
                 </div>
                 <div class="op-content active" id="opOutput">
                     <div class="stdin-box" id="stdinBox">
-                        <label id="stdinLabel"><i class='bx bx-keyboard'></i> STDIN <i class='bx bx-chevron-up' id="stdinIcon"></i></label>
-                        <textarea id="stdinInput" placeholder="Program input..."></textarea>
+                        <label id="stdinLabel"><i class='bx bx-keyboard'></i> Standard Input (STDIN) <i class='bx bx-chevron-up' id="stdinIcon"></i></label>
+                        <textarea id="stdinInput" placeholder="Enter program input here..."></textarea>
                     </div>
-                    <div class="output-box" id="outputBox"><span class="ol i">▶ Press Run or Ctrl+Enter to execute</span></div>
+                    <div class="output-box" id="outputBox"><span class="ol i">▶ Press Run or Ctrl+Enter to execute your code</span></div>
                 </div>
                 <div class="op-content" id="opProblems">
-                    <div class="output-box" id="problemsBox"><span class="ol s">✅ No problems</span></div>
+                    <div class="output-box" id="problemsBox"><span class="ol s">✅ No problems detected</span></div>
                 </div>
             </div>
 
-            <!-- PREVIEW OVERLAY (for HTML/CSS/JS) -->
             <div class="preview-overlay" id="previewOverlay">
                 <div class="preview-overlay-header">
-                    <span><i class='bx bx-desktop'></i> Preview</span>
-                    <button id="btnRefreshPreview" title="Refresh"><i class='bx bx-refresh'></i></button>
-                    <button id="btnOpenExternal" title="Open in new tab"><i class='bx bx-link-external'></i></button>
-                    <button class="close-btn" id="btnClosePreview" title="Close"><i class='bx bx-x'></i></button>
+                    <span><i class='bx bx-desktop'></i> Live Preview</span>
+                    <button id="btnRefreshPreview" title="Refresh Preview"><i class='bx bx-refresh'></i></button>
+                    <button id="btnOpenExternal" title="Open in New Tab"><i class='bx bx-link-external'></i></button>
+                    <button class="close-btn" id="btnClosePreview" title="Close Preview"><i class='bx bx-x'></i></button>
                 </div>
                 <iframe class="preview-frame-overlay" id="previewFrame" sandbox="allow-scripts"></iframe>
             </div>
 
-            <!-- RESIZE HANDLE -->
             <div class="preview-resize-handle" id="previewResizeHandle"></div>
         </div>
     </div>
@@ -437,13 +446,13 @@
 
     <div class="modal-bg" id="modalBg">
         <div class="modal-box">
-            <div class="modal-h"><span id="modalTitle">New File</span><button class="btn btn-g" id="btnCloseModal" style="padding:0.1rem 0.3rem;"><i class='bx bx-x'></i></button></div>
+            <div class="modal-h"><span id="modalTitle">Create New File</span><button class="btn btn-g" id="btnCloseModal" style="padding:0.2rem 0.4rem;"><i class='bx bx-x'></i></button></div>
             <div class="modal-bd">
-                <input type="text" class="inp" id="modalInput" placeholder="filename.ext" autocomplete="off">
+                <input type="text" class="inp" id="modalInput" placeholder="filename.ext (e.g., app.py, style.css)" autocomplete="off">
             </div>
             <div class="modal-ft">
                 <button class="btn btn-g" id="btnCancelModal">Cancel</button>
-                <button class="btn btn-p" id="btnConfirmModal">Create</button>
+                <button class="btn btn-p" id="btnConfirmModal"><i class='bx bx-check'></i> Create</button>
             </div>
         </div>
     </div>
@@ -489,7 +498,7 @@
             previewOpen: false,
             sidebarOpen: true,
             stdinVisible: true,
-            previewWidth: 420
+            previewWidth: 480
         };
 
         function $(id) { return document.getElementById(id); }
@@ -521,9 +530,7 @@
             dom.stdinInput = $('stdinInput');
         }
 
-        function getLangConfig() {
-            return LANG_CONFIG[state.lang];
-        }
+        function getLangConfig() { return LANG_CONFIG[state.lang]; }
 
         function toast(msg, ok) {
             if (ok === undefined) ok = true;
@@ -545,7 +552,7 @@
                 var isActive = f === state.activeFile ? ' active' : '';
                 h += '<div class="ft-item' + isActive + '" data-file="' + f + '"><i class=\'bx ' + (ico[ext] || 'bx-file') + ' ' + (cls[ext] || '') + '\'></i>' + f + '</div>';
             }
-            dom.fileTree.innerHTML = h || '<div style="padding:0.4rem;font-size:0.68rem;color:var(--text-muted);">No files</div>';
+            dom.fileTree.innerHTML = h || '<div style="padding:0.5rem;font-size:0.78rem;color:var(--text-muted);">No files yet</div>';
         }
 
         function buildLangList() {
@@ -587,24 +594,11 @@
             dom.outputBox.scrollTop = dom.outputBox.scrollHeight;
         }
 
-        function clearOutput() {
-            dom.outputBox.innerHTML = '';
-        }
+        function clearOutput() { dom.outputBox.innerHTML = ''; }
 
-        function openBottomOutput() {
-            state.outputOpen = true;
-            dom.outputPanel.classList.add('open');
-        }
-
-        function closeBottomOutput() {
-            state.outputOpen = false;
-            dom.outputPanel.classList.remove('open');
-        }
-
-        function toggleBottomOutput() {
-            if (state.outputOpen) closeBottomOutput();
-            else openBottomOutput();
-        }
+        function openBottomOutput() { state.outputOpen = true; dom.outputPanel.classList.add('open'); }
+        function closeBottomOutput() { state.outputOpen = false; dom.outputPanel.classList.remove('open'); }
+        function toggleBottomOutput() { state.outputOpen ? closeBottomOutput() : openBottomOutput(); }
 
         function openPreview() {
             state.previewOpen = true;
@@ -613,7 +607,6 @@
             dom.previewResizeHandle.classList.add('visible');
             dom.previewResizeHandle.style.right = state.previewWidth + 'px';
         }
-
         function closePreview() {
             state.previewOpen = false;
             dom.previewOverlay.classList.remove('open');
@@ -625,7 +618,6 @@
             for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
             var contents = document.querySelectorAll('.op-content');
             for (var j = 0; j < contents.length; j++) contents[j].classList.remove('active');
-            
             var tab = document.querySelector('.op-tab[data-tab="' + name + '"]');
             var content = $('op' + name.charAt(0).toUpperCase() + name.slice(1));
             if (tab) tab.classList.add('active');
@@ -634,21 +626,15 @@
 
         function switchFile(filename) {
             if (state.activeFile === filename) return;
-            
-            if (state.editor && state.activeFile) {
-                state.files[state.activeFile] = state.editor.getValue();
-            }
-            
+            if (state.editor && state.activeFile) state.files[state.activeFile] = state.editor.getValue();
             state.activeFile = filename;
             if (state.openFiles.indexOf(filename) === -1) state.openFiles.push(filename);
-            
             if (state.editor) {
                 state.editor.setValue(state.files[filename] || '');
                 var ext = filename.split('.').pop();
                 var langMap = { py: 'python', js: 'javascript', html: 'html', css: 'css', java: 'java', cpp: 'cpp', ts: 'typescript' };
                 monaco.editor.setModelLanguage(state.editor.getModel(), langMap[ext] || 'plaintext');
             }
-            
             dom.navbarTitle.textContent = filename;
             renderTabs();
             buildFileTree();
@@ -657,7 +643,6 @@
         function createFile(name) {
             if (!name || name.indexOf('.') === -1) { toast('Need extension (.py, .js, etc)', false); return; }
             if (state.files[name]) { toast('File already exists', false); return; }
-            
             var ext = name.split('.').pop();
             var templates = { py: '# New Python file\nprint("Hello!")\n', js: '// New JS file\nconsole.log("Hello!");\n', html: '<!DOCTYPE html>\n<html>\n<head><title>New</title></head>\n<body></body>\n</html>', css: '/* Styles */\n', java: 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello");\n    }\n}', cpp: '#include <iostream>\nusing namespace std;\nint main() { return 0; }', ts: '// TypeScript\nconsole.log("Hello!");\n' };
             state.files[name] = templates[ext] || '';
@@ -668,120 +653,56 @@
         function deleteFile(name) {
             if (!state.files[name]) return;
             if (Object.keys(state.files).length <= 1) { toast('Cannot delete last file', false); return; }
-            
             delete state.files[name];
             state.openFiles = state.openFiles.filter(function(f) { return f !== name; });
-            
-            if (state.activeFile === name) {
-                state.activeFile = Object.keys(state.files)[0];
-                if (state.editor) state.editor.setValue(state.files[state.activeFile] || '');
-            }
-            
-            renderTabs();
-            buildFileTree();
+            if (state.activeFile === name) { state.activeFile = Object.keys(state.files)[0]; if (state.editor) state.editor.setValue(state.files[state.activeFile] || ''); }
+            renderTabs(); buildFileTree();
             toast('Deleted ' + name);
         }
 
         function renameFile(oldName, newName) {
             if (!newName || newName.indexOf('.') === -1) { toast('Need extension', false); return; }
             if (state.files[newName] && oldName !== newName) { toast('Already exists', false); return; }
-            
-            state.files[newName] = state.files[oldName];
-            delete state.files[oldName];
-            
+            state.files[newName] = state.files[oldName]; delete state.files[oldName];
             state.openFiles = state.openFiles.map(function(f) { return f === oldName ? newName : f; });
             if (state.activeFile === oldName) state.activeFile = newName;
-            
-            if (state.editor && state.activeFile === newName) {
-                state.editor.setValue(state.files[newName] || '');
-            }
-            
-            renderTabs();
-            buildFileTree();
+            if (state.editor && state.activeFile === newName) state.editor.setValue(state.files[newName] || '');
+            renderTabs(); buildFileTree();
             toast('Renamed to ' + newName);
         }
 
         function runCode() {
             var lc = getLangConfig();
-            
-            if (state.editor && state.activeFile) {
-                state.files[state.activeFile] = state.editor.getValue();
-            }
-            
-            if (lc.prev) {
-                // HTML/CSS/JS - show preview overlay
-                closeBottomOutput();
-                buildPreview();
-                openPreview();
-            } else {
-                // Other languages - show bottom output panel
-                closePreview();
-                clearOutput();
-                openBottomOutput();
-                switchOpTab('output');
-                
+            if (state.editor && state.activeFile) state.files[state.activeFile] = state.editor.getValue();
+            if (lc.prev) { closeBottomOutput(); buildPreview(); openPreview(); }
+            else {
+                closePreview(); clearOutput(); openBottomOutput(); switchOpTab('output');
                 var code = state.files[state.activeFile] || '';
-                var stdin = dom.stdinInput ? dom.stdinInput.value : '';
-                
                 addOutput('▶ Executing ' + state.activeFile + '...', 'i');
-                addOutput('═'.repeat(35), 'i');
-                executeCode(code, stdin);
-                addOutput('═'.repeat(35), 'i');
-                addOutput('✓ Complete', 's');
+                addOutput('═'.repeat(40), 'i');
+                executeCode(code, dom.stdinInput ? dom.stdinInput.value : '');
+                addOutput('═'.repeat(40), 'i');
+                addOutput('✓ Execution complete', 's');
             }
         }
 
         function executeCode(code, stdin) {
             var lines = code.split('\n');
-            
             switch(state.lang) {
                 case 'python':
                     var vars = {};
                     for (var i = 0; i < lines.length; i++) {
                         var t = lines[i].trim();
-                        if (t.indexOf('print(') !== -1) {
-                            var m = t.match(/print\((.*)\)/);
-                            if (m) {
-                                var val = m[1];
-                                val = val.replace(/f["'](.+?)["']/g, function(_, s) {
-                                    return s.replace(/\{([^}]+)\}/g, function(__, e) { return evalExpr(e, vars); });
-                                });
-                                val = evalExpr(val, vars);
-                                addOutput(String(val), 's');
-                            }
-                        }
-                        if (t.indexOf('=') !== -1 && t.indexOf('==') === -1 && t.indexOf('!=') === -1) {
-                            var parts = t.split('=');
-                            if (parts.length === 2) {
-                                try { vars[parts[0].trim()] = evalExpr(parts[1].trim(), vars); } catch(e) {}
-                            }
-                        }
+                        if (t.indexOf('print(') !== -1) { var m = t.match(/print\((.*)\)/); if (m) { var val = m[1]; val = val.replace(/f["'](.+?)["']/g, function(_, s) { return s.replace(/\{([^}]+)\}/g, function(__, e) { return evalExpr(e, vars); }); }); val = evalExpr(val, vars); addOutput(String(val), 's'); } }
+                        if (t.indexOf('=') !== -1 && t.indexOf('==') === -1 && t.indexOf('!=') === -1) { var parts = t.split('='); if (parts.length === 2) { try { vars[parts[0].trim()] = evalExpr(parts[1].trim(), vars); } catch(e) {} } }
                     }
                     if (stdin) addOutput('Input: ' + stdin, 'i');
                     break;
-                    
-                case 'javascript':
-                case 'typescript':
-                    for (var j = 0; j < lines.length; j++) {
-                        var t2 = lines[j].trim();
-                        if (t2.indexOf('console.log(') !== -1) {
-                            var m2 = t2.match(/console\.log\((.*)\)/);
-                            if (m2) addOutput(m2[1].replace(/['"]/g, '').replace(/greet\(["'](.+?)["']\)/g, 'Hello, $1!'), 's');
-                        }
-                    }
+                case 'javascript': case 'typescript':
+                    for (var j = 0; j < lines.length; j++) { var t2 = lines[j].trim(); if (t2.indexOf('console.log(') !== -1) { var m2 = t2.match(/console\.log\((.*)\)/); if (m2) addOutput(m2[1].replace(/['"]/g, '').replace(/greet\(["'](.+?)["']\)/g, 'Hello, $1!'), 's'); } }
                     break;
-                    
-                case 'java':
-                    addOutput('Hello, World!', 's');
-                    addOutput('Welcome to Akademia Code Studio', 's');
-                    addOutput('Fibonacci(10): 0 1 1 2 3 5 8 13 21 34', 's');
-                    break;
-                    
-                case 'cpp':
-                    addOutput('Hello, World!', 's');
-                    addOutput('Welcome to Akademia Code Studio', 's');
-                    addOutput('Fibonacci(10): 0 1 1 2 3 5 8 13 21 34', 's');
-                    break;
+                case 'java': addOutput('Hello, World!', 's'); addOutput('Welcome to Akademia Code Studio', 's'); addOutput('Fibonacci(10): 0 1 1 2 3 5 8 13 21 34', 's'); break;
+                case 'cpp': addOutput('Hello, World!', 's'); addOutput('Welcome to Akademia Code Studio', 's'); addOutput('Fibonacci(10): 0 1 1 2 3 5 8 13 21 34', 's'); break;
             }
         }
 
@@ -789,339 +710,114 @@
             expr = String(expr).replace(/['"]/g, '');
             if (expr.indexOf('fib') !== -1) return '[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]';
             if (expr.indexOf('[x**2 for x in range(10)]') !== -1) return '[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]';
-            if (/^[\d\s+\-*/().]+$/.test(expr)) {
-                try { return Function('"use strict"; return (' + expr + ')')(); } catch(e) {}
-            }
+            if (/^[\d\s+\-*/().]+$/.test(expr)) { try { return Function('"use strict"; return (' + expr + ')')(); } catch(e) {} }
             return expr;
         }
 
         function buildPreview() {
-            var frame = dom.previewFrame;
-            if (!frame) return;
-            
-            var html = state.files['index.html'] || '';
-            var css = state.files['style.css'] || '';
-            var js = state.files['script.js'] || '';
-            
-            html = html.replace(/<link[^>]*href=["']style\.css["'][^>]*>/gi, '');
-            html = html.replace(/<script[^>]*src=["']script\.js["'][^>]*>\s*<\/script>/gi, '');
-            
-            if (css) {
-                var styleTag = '<style>\n' + css + '\n</style>';
-                if (html.indexOf('</head>') !== -1) html = html.replace('</head>', styleTag + '\n</head>');
-                else html = styleTag + '\n' + html;
-            }
-            
-            if (js) {
-                var scriptTag = '<script>\n' + js + '\n<\/script>';
-                if (html.indexOf('</body>') !== -1) html = html.replace('</body>', scriptTag + '\n</body>');
-                else html += '\n' + scriptTag;
-            }
-            
+            var frame = dom.previewFrame; if (!frame) return;
+            var html = state.files['index.html'] || '', css = state.files['style.css'] || '', js = state.files['script.js'] || '';
+            html = html.replace(/<link[^>]*href=["']style\.css["'][^>]*>/gi, '').replace(/<script[^>]*src=["']script\.js["'][^>]*>\s*<\/script>/gi, '');
+            if (css) { var styleTag = '<style>\n' + css + '\n</style>'; html = html.indexOf('</head>') !== -1 ? html.replace('</head>', styleTag + '\n</head>') : styleTag + '\n' + html; }
+            if (js) { var scriptTag = '<script>\n' + js + '\n<\/script>'; html = html.indexOf('</body>') !== -1 ? html.replace('</body>', scriptTag + '\n</body>') : html + '\n' + scriptTag; }
             frame.srcdoc = html;
         }
 
-        function openExternalPreview() {
-            buildPreview();
-            var w = window.open('', '_blank', 'width=1024,height=768');
-            if (w) {
-                w.document.write(dom.previewFrame.srcdoc);
-                w.document.close();
-            } else {
-                toast('Allow popups!', false);
-            }
-        }
-
-        function formatCode() {
-            if (!state.editor) return;
-            try { state.editor.getAction('editor.action.formatDocument').run(); toast('Formatted'); } catch(e) {}
-        }
+        function openExternalPreview() { buildPreview(); var w = window.open('', '_blank', 'width=1200,height=800'); if (w) { w.document.write(dom.previewFrame.srcdoc); w.document.close(); } else toast('Allow popups!', false); }
+        function formatCode() { if (!state.editor) return; try { state.editor.getAction('editor.action.formatDocument').run(); toast('Formatted'); } catch(e) {} }
 
         function setTheme(t) {
-            state.theme = t;
-            document.body.dataset.theme = t;
+            state.theme = t; document.body.dataset.theme = t;
             if (state.editor) monaco.editor.setTheme(t === 'dark' ? 'vs-dark' : 'vs');
-            var icon = $('btnTheme').querySelector('i');
-            if (icon) icon.className = 'bx bx-' + (t === 'dark' ? 'sun' : 'moon');
+            var icon = $('btnTheme').querySelector('i'); if (icon) icon.className = 'bx bx-' + (t === 'dark' ? 'sun' : 'moon');
             localStorage.setItem('cs-theme', t);
         }
 
         function switchLanguage(lang) {
             if (state.lang === lang) return;
-            
-            if (state.editor && state.activeFile) {
-                state.files[state.activeFile] = state.editor.getValue();
-            }
-            
-            state.lang = lang;
-            state.files = {};
-            var newFiles = DEFAULT_FILES[lang];
-            var keys = Object.keys(newFiles);
-            for (var i = 0; i < keys.length; i++) {
-                state.files[keys[i]] = newFiles[keys[i]];
-            }
-            state.activeFile = Object.keys(state.files)[0];
-            state.openFiles = [state.activeFile];
-            
-            // Close any open panels
-            closeBottomOutput();
-            closePreview();
-            
+            if (state.editor && state.activeFile) state.files[state.activeFile] = state.editor.getValue();
+            state.lang = lang; state.files = {}; var newFiles = DEFAULT_FILES[lang]; var keys = Object.keys(newFiles);
+            for (var i = 0; i < keys.length; i++) state.files[keys[i]] = newFiles[keys[i]];
+            state.activeFile = Object.keys(state.files)[0]; state.openFiles = [state.activeFile];
+            closeBottomOutput(); closePreview();
             localStorage.setItem('cs-lang', lang);
-            buildLangList();
-            buildFileTree();
-            renderTabs();
-            updateStatusBar();
-            
-            if (state.editor) {
-                state.editor.setValue(state.files[state.activeFile] || '');
-                var lc = getLangConfig();
-                monaco.editor.setModelLanguage(state.editor.getModel(), lc.ml);
-                state.editor.updateOptions({ tabSize: lc.ts });
-            }
-            
+            buildLangList(); buildFileTree(); renderTabs(); updateStatusBar();
+            if (state.editor) { state.editor.setValue(state.files[state.activeFile] || ''); var lc = getLangConfig(); monaco.editor.setModelLanguage(state.editor.getModel(), lc.ml); state.editor.updateOptions({ tabSize: lc.ts }); }
             dom.langDropdown.classList.remove('show');
             toast('Switched to ' + getLangConfig().name);
         }
 
         function initEditor() {
             require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' } });
-            
             require(['vs/editor/editor.main'], function() {
                 var lc = getLangConfig();
-                
                 state.editor = monaco.editor.create(dom.monacoEditor, {
-                    value: state.files[state.activeFile] || '',
-                    language: lc.ml,
+                    value: state.files[state.activeFile] || '', language: lc.ml,
                     theme: state.theme === 'dark' ? 'vs-dark' : 'vs',
-                    fontSize: 14,
-                    fontFamily: "'JetBrains Mono', monospace",
-                    minimap: { enabled: true },
-                    automaticLayout: true,
-                    scrollBeyondLastLine: false,
-                    padding: { top: 10 },
-                    tabSize: lc.ts,
-                    insertSpaces: true,
-                    wordWrap: 'on',
-                    smoothScrolling: true,
+                    fontSize: 15, fontFamily: "'JetBrains Mono', monospace",
+                    minimap: { enabled: true }, automaticLayout: true,
+                    scrollBeyondLastLine: false, padding: { top: 12 },
+                    tabSize: lc.ts, insertSpaces: true, wordWrap: 'on', smoothScrolling: true,
                 });
-                
-                state.editor.onDidChangeCursorPosition(function(e) {
-                    dom.statusLine.textContent = 'Ln ' + e.position.lineNumber + ', Col ' + e.position.column;
-                });
-                
-                state.editor.addAction({
-                    id: 'run-code',
-                    label: 'Run',
-                    keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter],
-                    run: function() { runCode(); }
-                });
-                
-                state.editor.addAction({
-                    id: 'format-code',
-                    label: 'Format',
-                    keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyF],
-                    run: function() { formatCode(); }
-                });
-                
+                state.editor.onDidChangeCursorPosition(function(e) { dom.statusLine.textContent = 'Ln ' + e.position.lineNumber + ', Col ' + e.position.column; });
+                state.editor.addAction({ id: 'run-code', label: 'Run', keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter], run: function() { runCode(); } });
+                state.editor.addAction({ id: 'format-code', label: 'Format', keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyF], run: function() { formatCode(); } });
                 updateStatusBar();
             });
         }
 
         function setupEvents() {
-            // Language dropdown
             $('langBtn').addEventListener('click', function(e) { e.stopPropagation(); dom.langDropdown.classList.toggle('show'); });
+            dom.langList.addEventListener('click', function(e) { var item = e.target.closest('.dropdown-item[data-lang]'); if (item) switchLanguage(item.dataset.lang); });
+            dom.langSearch.addEventListener('input', function() { var q = this.value.toLowerCase(); var items = dom.langList.querySelectorAll('.dropdown-item'); for (var i = 0; i < items.length; i++) items[i].style.display = items[i].textContent.toLowerCase().indexOf(q) !== -1 ? '' : 'none'; });
+            dom.fileTree.addEventListener('click', function(e) { var item = e.target.closest('.ft-item'); if (item && item.dataset.file) switchFile(item.dataset.file); });
+            dom.editorTabs.addEventListener('click', function(e) { var close = e.target.closest('.tab-x'); if (close) { e.stopPropagation(); deleteFile(close.dataset.file); return; } var tab = e.target.closest('.editor-tab'); if (tab && tab.dataset.file) switchFile(tab.dataset.file); });
+            document.querySelector('.output-panel-header').addEventListener('click', function(e) { var tab = e.target.closest('.op-tab'); if (tab) switchOpTab(tab.dataset.tab); });
             
-            dom.langList.addEventListener('click', function(e) {
-                var item = e.target.closest('.dropdown-item[data-lang]');
-                if (item) switchLanguage(item.dataset.lang);
-            });
-            
-            dom.langSearch.addEventListener('input', function() {
-                var q = this.value.toLowerCase();
-                var items = dom.langList.querySelectorAll('.dropdown-item');
-                for (var i = 0; i < items.length; i++) {
-                    items[i].style.display = items[i].textContent.toLowerCase().indexOf(q) !== -1 ? '' : 'none';
-                }
-            });
-            
-            // File tree
-            dom.fileTree.addEventListener('click', function(e) {
-                var item = e.target.closest('.ft-item');
-                if (item && item.dataset.file) switchFile(item.dataset.file);
-            });
-            
-            // Editor tabs
-            dom.editorTabs.addEventListener('click', function(e) {
-                var close = e.target.closest('.tab-x');
-                if (close) {
-                    e.stopPropagation();
-                    deleteFile(close.dataset.file);
-                    return;
-                }
-                var tab = e.target.closest('.editor-tab');
-                if (tab && tab.dataset.file) switchFile(tab.dataset.file);
-            });
-            
-            // Output panel tabs
-            document.querySelector('.output-panel-header').addEventListener('click', function(e) {
-                var tab = e.target.closest('.op-tab');
-                if (tab) switchOpTab(tab.dataset.tab);
-            });
-            
-            // Buttons
             $('btnRun').addEventListener('click', runCode);
             $('btnFormat').addEventListener('click', formatCode);
             $('btnTheme').addEventListener('click', function() { setTheme(state.theme === 'light' ? 'dark' : 'light'); });
-            $('btnToggleSidebar').addEventListener('click', function() {
-                state.sidebarOpen = !state.sidebarOpen;
-                dom.sidebar.classList.toggle('collapsed', !state.sidebarOpen);
-                setTimeout(function() { if (state.editor) state.editor.layout(); }, 250);
-            });
-            $('btnToggleOutput').addEventListener('click', function() {
-                if (getLangConfig().prev) {
-                    // For HTML, toggle preview overlay
-                    if (state.previewOpen) closePreview();
-                    else { buildPreview(); openPreview(); }
-                } else {
-                    toggleBottomOutput();
-                }
-            });
+            $('btnToggleSidebar').addEventListener('click', function() { state.sidebarOpen = !state.sidebarOpen; dom.sidebar.classList.toggle('collapsed', !state.sidebarOpen); setTimeout(function() { if (state.editor) state.editor.layout(); }, 250); });
+            $('btnToggleOutput').addEventListener('click', function() { if (getLangConfig().prev) { state.previewOpen ? closePreview() : (buildPreview(), openPreview()); } else toggleBottomOutput(); });
             $('btnCloseOutput').addEventListener('click', closeBottomOutput);
             $('btnClosePreview').addEventListener('click', closePreview);
-            
-            $('btnCopy').addEventListener('click', function() {
-                if (state.editor) state.files[state.activeFile] = state.editor.getValue();
-                navigator.clipboard.writeText(state.files[state.activeFile] || '').then(function() { toast('Copied!'); });
-            });
-            
+            $('btnCopy').addEventListener('click', function() { if (state.editor) state.files[state.activeFile] = state.editor.getValue(); navigator.clipboard.writeText(state.files[state.activeFile] || '').then(function() { toast('Copied!'); }); });
             $('btnRefreshPreview').addEventListener('click', buildPreview);
             $('btnOpenExternal').addEventListener('click', openExternalPreview);
             
-            // New/Rename/Delete
-            function openModal(mode) {
-                dom.modalTitle.textContent = mode === 'rename' ? 'Rename File' : 'New File';
-                dom.modalInput.value = mode === 'rename' ? state.activeFile : '';
-                dom.modalBg.classList.add('show');
-                setTimeout(function() { dom.modalInput.focus(); }, 100);
-            }
-            
+            function openModal(mode) { dom.modalTitle.textContent = mode === 'rename' ? 'Rename File' : 'Create New File'; dom.modalInput.value = mode === 'rename' ? state.activeFile : ''; dom.modalBg.classList.add('show'); setTimeout(function() { dom.modalInput.focus(); }, 100); }
             $('btnNew').addEventListener('click', function() { openModal('new'); });
             $('btnNewTab').addEventListener('click', function() { openModal('new'); });
             $('btnNewFile').addEventListener('click', function() { openModal('new'); });
             $('btnRename').addEventListener('click', function() { openModal('rename'); });
+            $('btnDelete').addEventListener('click', function() { if (confirm('Delete "' + state.activeFile + '"?')) deleteFile(state.activeFile); });
             
-            $('btnDelete').addEventListener('click', function() {
-                if (confirm('Delete "' + state.activeFile + '"?')) deleteFile(state.activeFile);
-            });
-            
-            // Modal
-            $('btnConfirmModal').addEventListener('click', function() {
-                var name = dom.modalInput.value.trim();
-                if (!name) return;
-                
-                if (dom.modalTitle.textContent === 'Rename File') {
-                    renameFile(state.activeFile, name);
-                } else {
-                    createFile(name);
-                }
-                dom.modalBg.classList.remove('show');
-            });
-            
+            $('btnConfirmModal').addEventListener('click', function() { var name = dom.modalInput.value.trim(); if (!name) return; if (dom.modalTitle.textContent === 'Rename File') renameFile(state.activeFile, name); else createFile(name); dom.modalBg.classList.remove('show'); });
             $('btnCancelModal').addEventListener('click', function() { dom.modalBg.classList.remove('show'); });
             $('btnCloseModal').addEventListener('click', function() { dom.modalBg.classList.remove('show'); });
+            dom.modalBg.addEventListener('click', function(e) { if (e.target === dom.modalBg) dom.modalBg.classList.remove('show'); });
+            dom.modalInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') $('btnConfirmModal').click(); if (e.key === 'Escape') dom.modalBg.classList.remove('show'); });
             
-            dom.modalBg.addEventListener('click', function(e) {
-                if (e.target === dom.modalBg) dom.modalBg.classList.remove('show');
-            });
-            
-            dom.modalInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') $('btnConfirmModal').click();
-                if (e.key === 'Escape') dom.modalBg.classList.remove('show');
-            });
-            
-            // STDIN toggle
-            $('stdinLabel').addEventListener('click', function() {
-                state.stdinVisible = !state.stdinVisible;
-                $('stdinInput').style.display = state.stdinVisible ? '' : 'none';
-                $('stdinIcon').className = 'bx bx-chevron-' + (state.stdinVisible ? 'up' : 'down');
-            });
-            
-            // Close dropdowns
+            $('stdinLabel').addEventListener('click', function() { state.stdinVisible = !state.stdinVisible; $('stdinInput').style.display = state.stdinVisible ? '' : 'none'; $('stdinIcon').className = 'bx bx-chevron-' + (state.stdinVisible ? 'up' : 'down'); });
             document.addEventListener('click', function() { dom.langDropdown.classList.remove('show'); });
             dom.langDropdown.addEventListener('click', function(e) { e.stopPropagation(); });
             
-            // PREVIEW RESIZE
             var resizing = false, startX = 0, startW = 0;
+            dom.previewResizeHandle.addEventListener('mousedown', function(e) { if (!state.previewOpen) return; resizing = true; startX = e.clientX; startW = state.previewWidth; document.body.style.cursor = 'col-resize'; document.body.style.userSelect = 'none'; dom.previewResizeHandle.classList.add('active'); });
+            document.addEventListener('mousemove', function(e) { if (!resizing) return; var diff = startX - e.clientX; var newW = Math.max(300, Math.min(800, startW + diff)); state.previewWidth = newW; dom.previewOverlay.style.width = newW + 'px'; dom.previewResizeHandle.style.right = newW + 'px'; if (state.editor) state.editor.layout(); });
+            document.addEventListener('mouseup', function() { if (resizing) { resizing = false; document.body.style.cursor = ''; document.body.style.userSelect = ''; dom.previewResizeHandle.classList.remove('active'); } });
             
-            dom.previewResizeHandle.addEventListener('mousedown', function(e) {
-                if (!state.previewOpen) return;
-                resizing = true;
-                startX = e.clientX;
-                startW = state.previewWidth;
-                document.body.style.cursor = 'col-resize';
-                document.body.style.userSelect = 'none';
-                dom.previewResizeHandle.classList.add('active');
-            });
-            
-            document.addEventListener('mousemove', function(e) {
-                if (!resizing) return;
-                var diff = startX - e.clientX;
-                var newW = Math.max(250, Math.min(700, startW + diff));
-                state.previewWidth = newW;
-                dom.previewOverlay.style.width = newW + 'px';
-                dom.previewResizeHandle.style.right = newW + 'px';
-                if (state.editor) state.editor.layout();
-            });
-            
-            document.addEventListener('mouseup', function() {
-                if (resizing) {
-                    resizing = false;
-                    document.body.style.cursor = '';
-                    document.body.style.userSelect = '';
-                    dom.previewResizeHandle.classList.remove('active');
-                }
-            });
-            
-            // Keyboard shortcuts
-            document.addEventListener('keydown', function(e) {
-                if ((e.ctrlKey || e.metaKey) && e.key === 'b') { e.preventDefault(); $('btnToggleSidebar').click(); }
-                if ((e.ctrlKey || e.metaKey) && e.key === 'j') { e.preventDefault(); $('btnToggleOutput').click(); }
-                if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); openModal('new'); }
-            });
-            
-            // Status bar
-            $('statusIndent').addEventListener('click', function() {
-                if (!state.editor) return;
-                var s = state.editor.getOption(monaco.editor.EditorOption.tabSize) || 2;
-                var ns = s === 2 ? 4 : 2;
-                state.editor.updateOptions({ tabSize: ns });
-                $('statusIndent').textContent = 'Spaces: ' + ns;
-            });
-            
-            window.addEventListener('resize', function() {
-                if (state.editor) state.editor.layout();
-            });
+            document.addEventListener('keydown', function(e) { if ((e.ctrlKey || e.metaKey) && e.key === 'b') { e.preventDefault(); $('btnToggleSidebar').click(); } if ((e.ctrlKey || e.metaKey) && e.key === 'j') { e.preventDefault(); $('btnToggleOutput').click(); } if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); openModal('new'); } });
+            $('statusIndent').addEventListener('click', function() { if (!state.editor) return; var s = state.editor.getOption(monaco.editor.EditorOption.tabSize) || 2; var ns = s === 2 ? 4 : 2; state.editor.updateOptions({ tabSize: ns }); $('statusIndent').textContent = 'Spaces: ' + ns; });
+            window.addEventListener('resize', function() { if (state.editor) state.editor.layout(); });
         }
 
         function init() {
             cacheDom();
-            
-            state.files = {};
-            var defFiles = DEFAULT_FILES[state.lang];
-            var fileKeys = Object.keys(defFiles);
-            for (var i = 0; i < fileKeys.length; i++) {
-                state.files[fileKeys[i]] = defFiles[fileKeys[i]];
-            }
-            state.activeFile = Object.keys(state.files)[0];
-            state.openFiles = [state.activeFile];
-            
-            buildLangList();
-            buildFileTree();
-            renderTabs();
-            setupEvents();
-            initEditor();
-            setTheme(state.theme);
+            state.files = {}; var defFiles = DEFAULT_FILES[state.lang]; var fileKeys = Object.keys(defFiles);
+            for (var i = 0; i < fileKeys.length; i++) state.files[fileKeys[i]] = defFiles[fileKeys[i]];
+            state.activeFile = Object.keys(state.files)[0]; state.openFiles = [state.activeFile];
+            buildLangList(); buildFileTree(); renderTabs(); setupEvents(); initEditor(); setTheme(state.theme);
         }
 
         document.addEventListener('DOMContentLoaded', init);
