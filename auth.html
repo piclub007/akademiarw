@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akademia - Sign In / Sign Up</title>
-    <meta name="robots" content="noindex, nofollow">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,148 +14,106 @@
         :root {
             --primary: #2563EB; --primary-dark: #1D4ED8; --primary-bg: #EFF6FF;
             --accent: #8B5CF6; --accent-dark: #7C3AED;
-            --success: #04AA6D; --success-dark: #038857;
-            --warning: #F59E0B; --danger: #EF4444; --danger-bg: #FEF2F2;
-            --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
-            --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
-            --gray-800: #1f2937; --gray-900: #111827;
-            --radius-sm: 6px; --radius: 8px; --radius-lg: 12px; --radius-xl: 16px;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04); --shadow: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.06); --shadow-lg: 0 10px 30px rgba(0,0,0,0.08);
-            --shadow-xl: 0 20px 50px rgba(0,0,0,0.1);
-            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --success: #04AA6D; --danger: #EF4444; --danger-bg: #FEF2F2;
+            --warning: #F59E0B; --white: #ffffff;
+            --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb;
+            --gray-300: #d1d5db; --gray-400: #9ca3af; --gray-500: #6b7280;
+            --gray-600: #4b5563; --gray-700: #374151; --gray-800: #1f2937;
+            --gray-900: #111827;
+            --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px;
+            --shadow-lg: 0 25px 60px rgba(0,0,0,0.12);
+            --transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { height: 100%; overflow: hidden; }
         body {
-            font-family: 'Inter', sans-serif; background: var(--gray-50);
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: #f0f2f5; -webkit-font-smoothing: antialiased; padding: 1.5rem;
+            overflow-x: hidden;
         }
 
-        /* PAGE LOADER */
-        .page-loader {
-            position: fixed; inset: 0; background: var(--white); z-index: 9999;
-            display: flex; align-items: center; justify-content: center;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+        /* ============ FLOATING BG SHAPES ============ */
+        .bg-shapes { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+        .bg-shape {
+            position: absolute; border-radius: 50%; opacity: 0.08;
+            animation: floatShape 20s ease-in-out infinite;
         }
-        .page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .loader-spinner {
-            width: 48px; height: 48px; color: var(--primary);
-            animation: spin 1.2s linear infinite;
-        }
-        .loader-spinner svg { display: block; }
-        .loader-spinner circle {
-            stroke: currentColor; stroke-dasharray: 80px, 200px;
-            stroke-dashoffset: 0; animation: dash 1.4s ease-in-out infinite;
-            fill: none; stroke-width: 3;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes dash {
-            0% { stroke-dasharray: 1px, 200px; stroke-dashoffset: 0; }
-            50% { stroke-dasharray: 100px, 200px; stroke-dashoffset: -15px; }
-            100% { stroke-dasharray: 100px, 200px; stroke-dashoffset: -125px; }
+        .bg-shape:nth-child(1) { width: 400px; height: 400px; background: var(--primary); top: -100px; right: -100px; animation-delay: 0s; }
+        .bg-shape:nth-child(2) { width: 300px; height: 300px; background: var(--accent); bottom: -80px; left: -80px; animation-delay: -7s; }
+        .bg-shape:nth-child(3) { width: 200px; height: 200px; background: var(--success); top: 50%; left: 60%; animation-delay: -14s; }
+        @keyframes floatShape {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, -30px) scale(1.1); }
+            50% { transform: translate(-20px, 40px) scale(0.9); }
+            75% { transform: translate(-40px, -20px) scale(1.05); }
         }
 
-        /* FULL PAGE CONTAINER */
-        .auth-fullpage {
-            display: flex; height: 100vh; width: 100%;
-            position: relative; overflow: hidden;
+        /* ============ MAIN CARD ============ */
+        .auth-card {
+            width: 100%; max-width: 480px; position: relative; z-index: 1;
+            perspective: 1500px;
         }
-
-        /* HALF PANELS */
-        .auth-half {
-            width: 50%; height: 100%; display: flex; align-items: center; justify-content: center;
-            position: relative; transition: all var(--transition);
+        .auth-card-inner {
+            position: relative; width: 100%; transition: transform var(--transition);
+            transform-style: preserve-3d; min-height: 580px;
         }
+        .auth-card.flipped .auth-card-inner { transform: rotateY(180deg); }
 
-        /* LEFT HALF - SIGN IN (DEFAULT VISIBLE) */
-        .half-signin {
-            background: var(--white); z-index: 2;
+        .card-face {
+            position: absolute; inset: 0; backface-visibility: hidden;
+            background: var(--white); border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-lg); overflow: hidden;
+            display: flex; flex-direction: column;
         }
-        .half-signin.slide-right {
-            transform: translateX(100%);
+        .card-back { transform: rotateY(180deg); }
+
+        /* ============ CARD HEADER ============ */
+        .card-header {
+            padding: 2rem 2rem 0; text-align: center;
         }
-
-        /* RIGHT HALF - SIGN UP (SLIDES IN) */
-        .half-signup {
-            background: linear-gradient(160deg, #0f172a 0%, #1a1f2e 40%, #1a1a2e 100%);
-            color: white; position: absolute; right: 0; top: 0; z-index: 1;
+        .card-logo { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; margin-bottom: 1.25rem; }
+        .card-logo img { height: 36px; width: auto; }
+        .card-logo span { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--gray-900); }
+        .card-icon {
+            width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 1rem;
+            display: flex; align-items: center; justify-content: center; font-size: 2rem;
         }
-        .half-signup.slide-left {
-            transform: translateX(-100%);
-        }
+        .card-icon.signin { background: var(--primary-bg); color: var(--primary); }
+        .card-icon.signup { background: #F5F3FF; color: var(--accent); }
+        .card-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.25rem; }
+        .card-subtitle { font-size: 0.813rem; color: var(--gray-500); }
 
-        /* FORM CONTAINER */
-        .form-container {
-            width: 100%; max-width: 440px; padding: 2rem;
-            animation: fadeSlideIn 0.5s ease;
-        }
-        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        /* ============ CARD BODY ============ */
+        .card-body { flex: 1; padding: 1.5rem 2rem; overflow-y: auto; }
 
-        .form-logo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; }
-        .form-logo img { height: 36px; width: auto; }
-        .form-logo span { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.3px; }
-        .half-signin .form-logo span { color: var(--gray-900); }
-        .half-signup .form-logo span { color: white; }
-        .half-signup .form-logo img { filter: brightness(0) invert(1); }
-
-        .form-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
-        .half-signin .form-title { color: var(--gray-900); }
-        .half-signup .form-title { color: white; }
-        .form-subtitle { font-size: 0.875rem; margin-bottom: 2rem; line-height: 1.5; }
-        .half-signin .form-subtitle { color: var(--gray-500); }
-        .half-signup .form-subtitle { color: #9ca3af; }
-
-        /* FORM ELEMENTS */
-        .form-group { margin-bottom: 1rem; }
-        .form-row { display: flex; gap: 0.75rem; }
+        .form-group { margin-bottom: 0.875rem; }
+        .form-row { display: flex; gap: 0.625rem; }
         .form-row .form-group { flex: 1; }
-        .form-label { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.25rem; }
-        .half-signin .form-label { color: var(--gray-700); }
-        .half-signup .form-label { color: #d1d5db; }
+        .form-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.25rem; }
         .form-label .req { color: var(--danger); }
 
         .input-wrap { position: relative; }
-        .input-icon {
+        .input-wrap .input-icon {
             position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%);
-            font-size: 0.938rem; pointer-events: none; z-index: 1;
+            color: var(--gray-400); font-size: 0.938rem; pointer-events: none; z-index: 1;
         }
-        .half-signin .input-icon { color: var(--gray-400); }
-        .half-signup .input-icon { color: #6b7280; }
-
         .form-input {
-            width: 100%; padding: 0.625rem 0.875rem 0.625rem 2.5rem;
-            border-radius: var(--radius-sm); font-family: 'Inter', sans-serif;
-            font-size: 0.875rem; transition: all var(--transition); outline: none; line-height: 1.5;
+            width: 100%; padding: 0.5625rem 0.75rem 0.5625rem 2.375rem;
+            border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif; font-size: 0.813rem; color: var(--gray-900);
+            transition: all 0.2s ease; background: var(--gray-50); outline: none;
         }
-        .half-signin .form-input {
-            border: 1px solid var(--gray-300); background: var(--white); color: var(--gray-900);
-        }
-        .half-signin .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.06); }
-        .half-signin .form-input.error { border-color: var(--danger); }
-
-        .half-signup .form-input {
-            border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05);
-            color: white;
-        }
-        .half-signup .form-input::placeholder { color: #6b7280; }
-        .half-signup .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139,92,246,0.15); background: rgba(255,255,255,0.08); }
-        .half-signup .form-input.error { border-color: var(--danger); }
-
+        .form-input:focus { border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 3px rgba(37,99,235,0.06); }
+        .form-input.error { border-color: var(--danger); background: var(--white); }
         .toggle-pw {
             position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
-            cursor: pointer; font-size: 0.875rem; z-index: 1;
+            cursor: pointer; color: var(--gray-400); font-size: 0.875rem; z-index: 1;
             background: none; border: none; padding: 0;
         }
-        .half-signin .toggle-pw { color: var(--gray-400); }
-        .half-signup .toggle-pw { color: #6b7280; }
         .toggle-pw:hover { color: var(--gray-600); }
 
-        .form-error { font-size: 0.688rem; margin-top: 0.1875rem; display: none; align-items: center; gap: 0.25rem; }
-        .half-signin .form-error { color: var(--danger); }
-        .half-signup .form-error { color: #fca5a5; }
+        .form-error { font-size: 0.688rem; color: var(--danger); margin-top: 0.1875rem; display: none; align-items: center; gap: 0.25rem; }
         .form-error.show { display: flex; }
 
         .username-status { display: flex; align-items: center; gap: 0.25rem; font-size: 0.688rem; margin-top: 0.1875rem; }
@@ -165,217 +122,199 @@
         .username-status.checking { color: var(--warning); }
 
         /* Profile Upload */
-        .profile-upload { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .profile-upload { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
         .profile-preview {
-            width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; cursor: pointer; overflow: hidden; transition: all var(--transition);
-            flex-shrink: 0;
+            width: 52px; height: 52px; border-radius: 50%; border: 2px dashed var(--gray-300);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; overflow: hidden; transition: all 0.2s ease;
+            flex-shrink: 0; background: var(--gray-50);
         }
-        .half-signin .profile-preview { border: 2px dashed var(--gray-300); background: var(--gray-50); }
-        .half-signup .profile-preview { border: 2px dashed rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
         .profile-preview:hover { border-color: var(--primary); }
         .profile-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .profile-preview i { font-size: 1.25rem; }
-        .half-signin .profile-preview i { color: var(--gray-400); }
-        .half-signup .profile-preview i { color: #6b7280; }
-        .profile-upload-text { font-size: 0.688rem; }
-        .half-signin .profile-upload-text { color: var(--gray-500); }
-        .half-signup .profile-upload-text { color: #9ca3af; }
+        .profile-preview i { font-size: 1.125rem; color: var(--gray-400); }
+        .profile-upload-text { font-size: 0.688rem; color: var(--gray-500); }
         .profile-upload-text span { color: var(--primary); cursor: pointer; font-weight: 500; }
-        .profile-upload-text span:hover { text-decoration: underline; }
 
-        /* SUBMIT BUTTON */
+        /* Submit Button */
         .submit-btn {
-            width: 100%; padding: 0.6875rem 1.25rem; border-radius: var(--radius-sm);
+            width: 100%; padding: 0.6875rem; border-radius: var(--radius-sm);
             font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600;
-            transition: all var(--transition); cursor: pointer; border: none;
-            display: flex; align-items: center; justify-content: center; gap: 0.375rem; margin-top: 0.5rem;
+            transition: all 0.2s ease; cursor: pointer; border: none;
+            display: flex; align-items: center; justify-content: center; gap: 0.375rem;
+            margin-top: 0.5rem; letter-spacing: 0.2px;
         }
         .submit-btn.primary { background: var(--primary); color: white; }
-        .submit-btn.primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+        .submit-btn.primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(37,99,235,0.3); }
         .submit-btn.primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
         .submit-btn.accent { background: var(--accent); color: white; }
-        .submit-btn.accent:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(139,92,246,0.3); }
+        .submit-btn.accent:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(139,92,246,0.3); }
         .submit-btn.accent:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        /* SWITCH LINK */
-        .switch-link { text-align: center; margin-top: 1.25rem; font-size: 0.813rem; }
-        .half-signin .switch-link { color: var(--gray-500); }
-        .half-signup .switch-link { color: #9ca3af; }
-        .switch-link a { font-weight: 600; cursor: pointer; text-decoration: none; }
-        .switch-link a:hover { text-decoration: underline; }
-        .half-signin .switch-link a { color: var(--primary); }
-        .half-signup .switch-link a { color: var(--primary-light, #60a5fa); }
+        /* ============ CARD FOOTER ============ */
+        .card-footer {
+            padding: 1rem 2rem; text-align: center; border-top: 1px solid var(--gray-100);
+            background: var(--gray-50); border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
+        }
+        .card-footer p { font-size: 0.813rem; color: var(--gray-500); }
+        .card-footer a {
+            color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer;
+        }
+        .card-footer a:hover { text-decoration: underline; }
+        .back-link { display: inline-flex; align-items: center; gap: 0.25rem; color: var(--gray-400); text-decoration: none; font-size: 0.75rem; margin-bottom: 0.5rem; }
+        .back-link:hover { color: var(--primary); }
 
-        .back-home { display: inline-flex; align-items: center; gap: 0.25rem; text-decoration: none; font-size: 0.813rem; margin-bottom: 1.5rem; }
-        .half-signin .back-home { color: var(--gray-500); } .half-signin .back-home:hover { color: var(--primary); }
-        .half-signup .back-home { color: #9ca3af; } .half-signup .back-home:hover { color: white; }
-
-        /* FEATURES LIST (ON SIGN UP SIDE) */
-        .features-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 2rem 0 0; }
-        .feat-item { display: flex; align-items: center; gap: 0.625rem; font-size: 0.813rem; }
-        .half-signin .feat-item { color: var(--gray-600); }
-        .half-signup .feat-item { color: #d1d5db; }
-        .feat-dot { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .half-signin .feat-dot { background: var(--primary-bg); color: var(--primary); }
-        .half-signup .feat-dot { background: rgba(4,170,109,0.15); color: var(--success); }
-        .feat-dot i { font-size: 0.813rem; }
-
-        /* TOAST */
+        /* ============ TOAST ============ */
         .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
-        .toast { background: var(--gray-900); color: white; padding: 0.75rem 1.125rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; max-width: 360px; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+        .toast { background: var(--gray-900); color: white; padding: 0.75rem 1.125rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: 0 10px 30px rgba(0,0,0,0.15); animation: toastIn 0.3s ease; max-width: 360px; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
         .toast.success { background: #059669; } .toast.error { background: #DC2626; } .toast.info { background: var(--primary); }
         @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        @media (max-width: 768px) {
-            .half-signin, .half-signup { width: 100%; position: absolute; }
-            .half-signin.slide-right { transform: translateX(0); }
-            .half-signup { transform: translateX(100%); }
-            .half-signup.slide-left { transform: translateX(0); }
-            .form-container { max-width: 100%; padding: 1.5rem; }
+        @media (max-width: 500px) {
+            .card-header { padding: 1.5rem 1.25rem 0; }
+            .card-body { padding: 1rem 1.25rem; }
+            .card-footer { padding: 0.75rem 1.25rem; }
             .form-row { flex-direction: column; }
-            .features-list { display: none; }
         }
     </style>
 </head>
 <body>
-    <!-- PAGE LOADER -->
-    <div class="page-loader" id="pageLoader">
-        <span class="loader-spinner">
-            <svg viewBox="22 22 44 44"><circle cx="44" cy="44" r="20" fill="none" stroke-width="3"></circle></svg>
-        </span>
+    <!-- BACKGROUND SHAPES -->
+    <div class="bg-shapes">
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
+        <div class="bg-shape"></div>
     </div>
 
-    <!-- FULL PAGE AUTH -->
-    <div class="auth-fullpage">
-        <!-- LEFT HALF: SIGN IN -->
-        <div class="auth-half half-signin" id="halfSignin">
-            <div class="form-container">
-                <a href="index.html" class="back-home"><i class='bx bx-arrow-back'></i> Back to Home</a>
-                <div class="form-logo">
-                    <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
-                    <span>Akademia</span>
-                </div>
-                <h1 class="form-title">Welcome Back</h1>
-                <p class="form-subtitle">Sign in to continue your learning journey and track your progress.</p>
-
-                <form id="signinForm" autocomplete="off">
-                    <div class="form-group">
-                        <label class="form-label">Email or Username</label>
-                        <div class="input-wrap">
-                            <i class='bx bx-envelope input-icon'></i>
-                            <input type="text" class="form-input" id="signinEmail" placeholder="you@example.com">
-                        </div>
-                        <div class="form-error" id="signinEmailError"><i class='bx bx-error-circle'></i> Please enter your email or username</div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <div class="input-wrap">
-                            <i class='bx bx-lock-alt input-icon'></i>
-                            <input type="password" class="form-input" id="signinPassword" placeholder="Enter password">
-                            <button type="button" class="toggle-pw" onclick="togglePW('signinPassword', this)"><i class='bx bx-hide'></i></button>
-                        </div>
-                        <div class="form-error" id="signinPasswordError"><i class='bx bx-error-circle'></i> Please enter your password</div>
-                    </div>
-                    <button type="submit" class="submit-btn primary" id="signinBtn">
-                        <i class='bx bx-log-in'></i> Sign In
-                    </button>
-                </form>
-
-                <div class="features-list">
-                    <div class="feat-item"><div class="feat-dot"><i class='bx bx-check'></i></div> Track your learning progress</div>
-                    <div class="feat-item"><div class="feat-dot"><i class='bx bx-check'></i></div> Access all your courses</div>
-                    <div class="feat-item"><div class="feat-dot"><i class='bx bx-check'></i></div> Earn certificates</div>
+    <!-- AUTH CARD -->
+    <div class="auth-card" id="authCard">
+        <div class="auth-card-inner">
+            <!-- FRONT FACE: SIGN IN -->
+            <div class="card-face card-front">
+                <div class="card-header">
+                    <a href="index.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Home</a>
+                    <a href="index.html" class="card-logo">
+                        <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
+                        <span>Akademia</span>
+                    </a>
+                    <div class="card-icon signin"><i class='bx bx-log-in'></i></div>
+                    <h2 class="card-title">Welcome Back</h2>
+                    <p class="card-subtitle">Sign in to continue your learning journey</p>
                 </div>
 
-                <p class="switch-link">Don't have an account? <a onclick="slideTo('signup')">Create one →</a></p>
+                <div class="card-body">
+                    <form id="signinForm" autocomplete="off">
+                        <div class="form-group">
+                            <label class="form-label">Email or Username</label>
+                            <div class="input-wrap">
+                                <i class='bx bx-envelope input-icon'></i>
+                                <input type="text" class="form-input" id="signinEmail" placeholder="you@example.com">
+                            </div>
+                            <div class="form-error" id="signinEmailError"><i class='bx bx-error-circle'></i> Required</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <div class="input-wrap">
+                                <i class='bx bx-lock-alt input-icon'></i>
+                                <input type="password" class="form-input" id="signinPassword" placeholder="Enter password">
+                                <button type="button" class="toggle-pw" onclick="togglePW('signinPassword', this)"><i class='bx bx-hide'></i></button>
+                            </div>
+                            <div class="form-error" id="signinPasswordError"><i class='bx bx-error-circle'></i> Required</div>
+                        </div>
+                        <button type="submit" class="submit-btn primary" id="signinBtn">
+                            <i class='bx bx-log-in'></i> Sign In
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card-footer">
+                    <p>Don't have an account? <a onclick="flipCard()">Create one →</a></p>
+                </div>
             </div>
-        </div>
 
-        <!-- RIGHT HALF: SIGN UP -->
-        <div class="auth-half half-signup" id="halfSignup">
-            <div class="form-container">
-                <a href="index.html" class="back-home"><i class='bx bx-arrow-back'></i> Back to Home</a>
-                <div class="form-logo">
-                    <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
-                    <span>Akademia</span>
-                </div>
-                <h1 class="form-title">Create Account</h1>
-                <p class="form-subtitle">Join Akademia and unlock 500+ courses with AI-powered tutoring.</p>
-
-                <form id="signupForm" autocomplete="off">
-                    <div class="profile-upload">
-                        <div class="profile-preview" id="profilePreview" onclick="document.getElementById('profileImageInput').click()">
-                            <i class='bx bx-camera'></i>
-                        </div>
-                        <div class="profile-upload-text">
-                            <span onclick="document.getElementById('profileImageInput').click()">Upload photo</span><br>PNG, JPG (max 2MB)
-                        </div>
-                        <input type="file" id="profileImageInput" accept="image/*" style="display:none;" onchange="previewProfile(this)">
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Full Name <span class="req">*</span></label>
-                            <div class="input-wrap">
-                                <i class='bx bx-user input-icon'></i>
-                                <input type="text" class="form-input" id="signupName" placeholder="John Doe">
-                            </div>
-                            <div class="form-error" id="signupNameError"><i class='bx bx-error-circle'></i> Required</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Username <span class="req">*</span></label>
-                            <div class="input-wrap">
-                                <i class='bx bx-at input-icon'></i>
-                                <input type="text" class="form-input" id="signupUsername" placeholder="johndoe" oninput="checkUsername()">
-                            </div>
-                            <div class="username-status" id="usernameStatus"></div>
-                            <div class="form-error" id="signupUsernameError"><i class='bx bx-error-circle'></i> Min 3 characters</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Email Address <span class="req">*</span></label>
-                        <div class="input-wrap">
-                            <i class='bx bx-envelope input-icon'></i>
-                            <input type="email" class="form-input" id="signupEmail" placeholder="you@example.com">
-                        </div>
-                        <div class="form-error" id="signupEmailError"><i class='bx bx-error-circle'></i> Valid email required</div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Password <span class="req">*</span></label>
-                            <div class="input-wrap">
-                                <i class='bx bx-lock-alt input-icon'></i>
-                                <input type="password" class="form-input" id="signupPassword" placeholder="Min. 8 characters">
-                                <button type="button" class="toggle-pw" onclick="togglePW('signupPassword', this)"><i class='bx bx-hide'></i></button>
-                            </div>
-                            <div class="form-error" id="signupPasswordError"><i class='bx bx-error-circle'></i> Min 8 characters</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Confirm <span class="req">*</span></label>
-                            <div class="input-wrap">
-                                <i class='bx bx-lock-alt input-icon'></i>
-                                <input type="password" class="form-input" id="signupConfirmPassword" placeholder="Re-enter">
-                                <button type="button" class="toggle-pw" onclick="togglePW('signupConfirmPassword', this)"><i class='bx bx-hide'></i></button>
-                            </div>
-                            <div class="form-error" id="signupConfirmError"><i class='bx bx-error-circle'></i> Must match</div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="submit-btn accent" id="signupBtn">
-                        <i class='bx bx-user-plus'></i> Create Account
-                    </button>
-                </form>
-
-                <div class="features-list">
-                    <div class="feat-item"><div class="feat-dot"><i class='bx bx-check'></i></div> 500+ Expert-led Courses</div>
-                    <div class="feat-item"><div class="feat-dot"><i class='bx bx-check'></i></div> AI-Powered Tutoring 24/7</div>
-                    <div class="feat-item"><div class="feat-dot"><i class='bx bx-check'></i></div> Industry Certificates</div>
+            <!-- BACK FACE: SIGN UP -->
+            <div class="card-face card-back">
+                <div class="card-header">
+                    <a href="index.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Home</a>
+                    <a href="index.html" class="card-logo">
+                        <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
+                        <span>Akademia</span>
+                    </a>
+                    <div class="card-icon signup"><i class='bx bx-user-plus'></i></div>
+                    <h2 class="card-title">Create Account</h2>
+                    <p class="card-subtitle">Join Akademia and start learning today</p>
                 </div>
 
-                <p class="switch-link">Already have an account? <a onclick="slideTo('signin')">Sign in →</a></p>
+                <div class="card-body">
+                    <form id="signupForm" autocomplete="off">
+                        <div class="profile-upload">
+                            <div class="profile-preview" id="profilePreview" onclick="document.getElementById('profileImageInput').click()">
+                                <i class='bx bx-camera'></i>
+                            </div>
+                            <div class="profile-upload-text">
+                                <span onclick="document.getElementById('profileImageInput').click()">Upload photo</span><br>PNG, JPG (max 2MB)
+                            </div>
+                            <input type="file" id="profileImageInput" accept="image/*" style="display:none;" onchange="previewProfile(this)">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Full Name <span class="req">*</span></label>
+                                <div class="input-wrap">
+                                    <i class='bx bx-user input-icon'></i>
+                                    <input type="text" class="form-input" id="signupName" placeholder="John Doe">
+                                </div>
+                                <div class="form-error" id="signupNameError"><i class='bx bx-error-circle'></i> Required</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Username <span class="req">*</span></label>
+                                <div class="input-wrap">
+                                    <i class='bx bx-at input-icon'></i>
+                                    <input type="text" class="form-input" id="signupUsername" placeholder="johndoe" oninput="checkUsername()">
+                                </div>
+                                <div class="username-status" id="usernameStatus"></div>
+                                <div class="form-error" id="signupUsernameError"><i class='bx bx-error-circle'></i> Min 3 characters</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email Address <span class="req">*</span></label>
+                            <div class="input-wrap">
+                                <i class='bx bx-envelope input-icon'></i>
+                                <input type="email" class="form-input" id="signupEmail" placeholder="you@example.com">
+                            </div>
+                            <div class="form-error" id="signupEmailError"><i class='bx bx-error-circle'></i> Valid email required</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Password <span class="req">*</span></label>
+                                <div class="input-wrap">
+                                    <i class='bx bx-lock-alt input-icon'></i>
+                                    <input type="password" class="form-input" id="signupPassword" placeholder="Min. 8 chars">
+                                    <button type="button" class="toggle-pw" onclick="togglePW('signupPassword', this)"><i class='bx bx-hide'></i></button>
+                                </div>
+                                <div class="form-error" id="signupPasswordError"><i class='bx bx-error-circle'></i> Min 8 characters</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Confirm <span class="req">*</span></label>
+                                <div class="input-wrap">
+                                    <i class='bx bx-lock-alt input-icon'></i>
+                                    <input type="password" class="form-input" id="signupConfirmPassword" placeholder="Re-enter">
+                                    <button type="button" class="toggle-pw" onclick="togglePW('signupConfirmPassword', this)"><i class='bx bx-hide'></i></button>
+                                </div>
+                                <div class="form-error" id="signupConfirmError"><i class='bx bx-error-circle'></i> Must match</div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn accent" id="signupBtn">
+                            <i class='bx bx-user-plus'></i> Create Account
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card-footer">
+                    <p>Already have an account? <a onclick="flipCard()">Sign in →</a></p>
+                </div>
             </div>
         </div>
     </div>
@@ -399,25 +338,14 @@
         const IMGBB_API_KEY = 'ba8023ca74166460c442e8e703d2a1b0';
         let profileImageFile = null, isUsernameAvailable = false, checkTimer = null, allUsernames = [];
 
-        // ============ PAGE LOADER ============
-        window.addEventListener('load', () => { setTimeout(() => $('pageLoader')?.classList.add('hidden'), 500); });
-
-        // ============ SLIDE ANIMATION ============
-        window.slideTo = function(form) {
-            const signin = $('halfSignin');
-            const signup = $('halfSignup');
-            if (form === 'signup') {
-                signin.classList.add('slide-right');
-                signup.classList.add('slide-left');
-            } else {
-                signin.classList.remove('slide-right');
-                signup.classList.remove('slide-left');
-            }
+        // ============ FLIP CARD ============
+        window.flipCard = function() {
+            $('authCard').classList.toggle('flipped');
         };
 
         const params = new URLSearchParams(window.location.search);
         if (params.get('mode') === 'register' || params.get('mode') === 'signup') {
-            setTimeout(() => slideTo('signup'), 400);
+            setTimeout(() => flipCard(), 400);
         }
 
         // ============ PASSWORD TOGGLE ============
@@ -427,7 +355,7 @@
             else { input.type = 'password'; icon.className = 'bx bx-hide'; }
         };
 
-        // ============ PROFILE PREVIEW ============
+        // ============ PROFILE ============
         window.previewProfile = function(input) {
             const file = input.files?.[0];
             if (!file) return;
@@ -489,7 +417,7 @@
                         const snap = await getDocs(q);
                         if (!snap.empty) email = snap.docs[0].data().email;
                         else { const lu = JSON.parse(localStorage.getItem('ak_users') || '[]'); const f = lu.find(u => u.username === emailOrUser.toLowerCase()); if (f) email = f.email; else throw new Error('User not found'); }
-                    } catch (err) { throw new Error('Username not found. Use your email.'); }
+                    } catch (er) { throw new Error('Username not found. Use your email.'); }
                 }
                 const uc = await signInWithEmailAndPassword(auth, email, password);
                 localStorage.setItem('ak_user', JSON.stringify({ uid: uc.user.uid, email: uc.user.email, displayName: uc.user.displayName, photoURL: uc.user.photoURL }));
@@ -540,7 +468,7 @@
         });
 
         loadUsernames();
-        console.log('🚀 Akademia Full-Page Auth loaded!');
+        console.log('🚀 Akademia Flip Card Auth loaded!');
     </script>
 </body>
 </html>
