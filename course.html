@@ -17,7 +17,7 @@
             --success: #04AA6D; --success-dark: #038857; --success-bg: rgba(4,170,109,0.07);
             --warning: #F59E0B; --warning-bg: #FFFBEB;
             --danger: #EF4444; --danger-bg: #FEF2F2;
-            --purple: #7C3AED; --purple-bg: #F5F3FF;
+            --purple: #7C3AED; --purple-bg: #F5F3FF; --orange: #F97316;
             --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
             --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
             --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
@@ -41,14 +41,12 @@
         ::-webkit-scrollbar-track { background: var(--gray-100); }
         ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
 
-        /* TOP BAR */
         .topbar { background: var(--gray-900); color: white; padding: 0.5rem 0; font-size: 0.813rem; z-index: 1001; }
         .topbar-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
         .topbar-links { display: flex; gap: 1.5rem; }
         .topbar-links a { color: #9ca3af; text-decoration: none; transition: color var(--transition); display: flex; align-items: center; gap: 0.25rem; }
         .topbar-links a:hover { color: white; }
 
-        /* NAVBAR */
         .navbar { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-sm); }
         .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
         .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
@@ -62,10 +60,8 @@
         .btn:active { transform: scale(0.97); }
         .btn-primary { background: var(--primary); color: white; box-shadow: 0 1px 2px rgba(37,99,235,0.2); } .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
         .btn-success { background: var(--success); color: white; } .btn-success:hover { background: var(--success-dark); }
-        .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); }
-        .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
-        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
-        .btn-xs { padding: 0.25rem 0.5rem; font-size: 0.688rem; border-radius: var(--radius-xs); }
+        .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); } .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
+        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; } .btn-xs { padding: 0.25rem 0.5rem; font-size: 0.688rem; border-radius: var(--radius-xs); }
 
         .profile-dropdown { position: relative; }
         .profile-trigger { display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.75rem; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid var(--gray-200); background: white; }
@@ -79,13 +75,10 @@
         .profile-dropdown-menu .divider { height: 1px; background: var(--gray-200); margin: 0.375rem 0; }
         .profile-dropdown-menu .logout-btn { color: var(--danger); cursor: pointer; }
 
-        /* BREADCRUMB */
         .breadcrumb-bar { background: var(--gray-50); border-bottom: 1px solid var(--gray-200); padding: 0.625rem 0; font-size: 0.813rem; }
         .breadcrumb-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 0.375rem; color: var(--gray-500); }
-        .breadcrumb-inner a { color: var(--primary); text-decoration: none; }
-        .breadcrumb-inner a:hover { text-decoration: underline; }
+        .breadcrumb-inner a { color: var(--primary); text-decoration: none; } .breadcrumb-inner a:hover { text-decoration: underline; }
 
-        /* MAIN */
         .main-layout { display: flex; gap: 0; max-width: 1280px; margin: 0 auto; flex: 1; }
         .sidebar { width: 260px; flex-shrink: 0; background: white; border-right: 1px solid var(--gray-200); padding: 1.25rem 0; position: sticky; top: 60px; max-height: calc(100vh - 60px); overflow-y: auto; }
         .sidebar-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; font-weight: 700; padding: 0 1.25rem; margin-bottom: 0.75rem; color: var(--gray-900); }
@@ -99,131 +92,110 @@
         .sidebar-lesson { display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 1.25rem 0.375rem 2.5rem; font-size: 0.75rem; color: var(--gray-600); cursor: pointer; text-decoration: none; }
         .sidebar-lesson:hover { background: var(--primary-bg); color: var(--primary); }
         .sidebar-lesson.active { background: var(--primary-bg); color: var(--primary); font-weight: 600; }
-        .sidebar-lesson.locked { opacity: 0.5; cursor: not-allowed; }
-        .sidebar-lesson.locked:hover { background: transparent; color: var(--gray-600); }
+        .sidebar-lesson.locked { opacity: 0.5; cursor: not-allowed; } .sidebar-lesson.locked:hover { background: transparent; color: var(--gray-600); }
         .sidebar-lesson .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gray-300); flex-shrink: 0; }
         .sidebar-lesson.active .dot { background: var(--primary); }
         .sidebar-lesson .lock-icon { font-size: 0.625rem; color: var(--warning); margin-left: auto; }
         .sidebar-lesson.completed .dot { background: var(--success); }
         .sidebar-lesson .check-icon { font-size: 0.625rem; color: var(--success); margin-left: auto; }
 
-        .content-area { flex: 1; padding: 1.5rem 2rem; min-width: 0; }
+        /* TREE EXPLORER */
+        .tree-explorer { padding: 0; }
+        .tree-folder { cursor: pointer; user-select: none; }
+        .tree-folder-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.4375rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.813rem; font-weight: 500; color: var(--gray-700); }
+        .tree-folder-header:hover { background: var(--gray-100); }
+        .tree-folder-header i.chevron { font-size: 0.688rem; color: var(--gray-400); transition: transform var(--transition); width: 12px; text-align: center; }
+        .tree-folder.open > .tree-folder-header i.chevron { transform: rotate(90deg); }
+        .tree-children { display: none; padding-left: 1.25rem; }
+        .tree-folder.open > .tree-children { display: flex; flex-direction: column; gap: 0.125rem; }
+        .tree-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.5rem; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.75rem; color: var(--gray-600); text-decoration: none; }
+        .tree-item:hover { background: var(--primary-bg); color: var(--primary); }
+        .tree-item .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gray-300); flex-shrink: 0; }
 
-        /* RIGHT PANEL */
+        .content-area { flex: 1; padding: 1.5rem 2rem; min-width: 0; display: flex; flex-direction: column; }
+
         .right-panel { width: 280px; flex-shrink: 0; background: var(--gray-50); border-left: 1px solid var(--gray-200); padding: 1.25rem; position: sticky; top: 60px; max-height: calc(100vh - 60px); overflow-y: auto; }
         .right-panel-section { background: white; border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1rem; border: 1px solid var(--gray-200); }
         .right-panel-section h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.813rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--gray-900); }
         .rp-exercise-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--purple); text-decoration: none; background: var(--purple-bg); margin-bottom: 0.375rem; transition: all var(--transition); }
         .rp-exercise-link:hover { background: #EDE9FE; }
-        .rp-cert-card { text-align: center; }
-        .rp-cert-card i { font-size: 2.5rem; color: var(--success); margin-bottom: 0.5rem; display: block; }
+        .rp-progress-card { text-align: center; }
+        .rp-progress-card .rp-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem; margin: 0 auto 0.5rem; }
+        .progress-ring { position: relative; width: 64px; height: 64px; margin: 0 auto 0.5rem; }
+        .progress-ring svg { transform: rotate(-90deg); }
+        .progress-ring .bg { fill: none; stroke: var(--gray-200); stroke-width: 6; }
+        .progress-ring .fill { fill: none; stroke: var(--success); stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 0.5s ease; }
+        .progress-ring .text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: var(--gray-900); }
 
-        /* COURSE HEADER */
         .course-header { margin-bottom: 2rem; }
         .course-header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem; }
         .course-header .course-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.813rem; color: var(--gray-500); }
         .course-header .course-meta span { display: flex; align-items: center; gap: 0.375rem; }
-        .progress-bar-wrap { margin-top: 1rem; background: var(--gray-200); border-radius: var(--radius-full); height: 6px; overflow: hidden; max-width: 400px; }
-        .progress-bar-fill { height: 100%; background: var(--success); border-radius: var(--radius-full); transition: width 0.5s ease; }
+        .progress-bar-wrap { margin-top: 1rem; background: var(--gray-200); border-radius: 9999px; height: 6px; overflow: hidden; max-width: 400px; }
+        .progress-bar-fill { height: 100%; background: var(--success); border-radius: 9999px; transition: width 0.5s ease; }
 
-        /* LESSON CONTENT */
-        .lesson-content { animation: fadeIn 0.3s ease; }
+        .lesson-content { animation: fadeIn 0.3s ease; flex: 1; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .lesson-content h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
         .lesson-content p { font-family: 'Manrope', sans-serif; font-size: 0.938rem; line-height: 1.8; color: var(--gray-700); margin-bottom: 1rem; }
-
-        /* CODE BLOCK WITH COPY BUTTON */
         .code-block-wrapper { position: relative; margin: 1rem 0; }
-        .code-block-wrapper pre {
-            background: var(--code-bg); color: #cdd6f4; padding: 1.25rem;
-            border-radius: var(--radius); font-family: 'Source Code Pro', monospace;
-            font-size: 0.813rem; line-height: 1.7; overflow-x: auto; padding-right: 3rem;
-        }
-        .copy-btn {
-            position: absolute; top: 0.5rem; right: 0.5rem;
-            width: 32px; height: 32px; border-radius: var(--radius-sm);
-            border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1);
-            color: #cdd6f4; cursor: pointer; display: flex; align-items: center;
-            justify-content: center; font-size: 0.875rem; transition: all var(--transition);
-        }
-        .copy-btn:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.4); }
+        .code-block-wrapper pre { background: var(--code-bg); color: #cdd6f4; padding: 1.25rem; border-radius: var(--radius); font-family: 'Source Code Pro', monospace; font-size: 0.813rem; line-height: 1.7; overflow-x: auto; padding-right: 3rem; }
+        .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; width: 32px; height: 32px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #cdd6f4; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.875rem; transition: all var(--transition); }
+        .copy-btn:hover { background: rgba(255,255,255,0.2); }
         .copy-btn.copied { background: var(--success); border-color: var(--success); color: white; }
-
         .lesson-content .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: var(--gray-900); border-radius: var(--radius-lg); overflow: hidden; margin: 1rem 0; }
         .lesson-content .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         .lesson-content img { max-width: 100%; border-radius: var(--radius); margin: 1rem 0; }
         .lesson-content .remember-box { background: var(--warning-bg); border: 1px solid #FCD34D; border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1rem 0; }
-        .lesson-content .remember-box strong { color: #D97706; }
         .lesson-content .question-box { background: var(--purple-bg); border: 1px solid #C4B5FD; border-radius: var(--radius); padding: 1.25rem; margin: 1rem 0; }
         .lesson-content .question-box .q-title { font-weight: 700; margin-bottom: 0.75rem; }
         .lesson-content .question-box .q-option { display: block; padding: 0.5rem 0.75rem; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); margin-bottom: 0.375rem; cursor: pointer; background: white; transition: all var(--transition); }
         .lesson-content .question-box .q-option:hover { border-color: var(--primary); background: var(--primary-bg); }
 
-        /* LOCKED OVERLAY */
         .locked-overlay { background: var(--warning-bg); border: 2px dashed var(--warning); border-radius: var(--radius-xl); padding: 2rem; text-align: center; margin: 2rem 0; }
         .locked-overlay i { font-size: 3rem; color: var(--warning); display: block; margin-bottom: 0.75rem; }
         .locked-overlay h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin-bottom: 0.5rem; }
-        .locked-overlay p { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1rem; }
 
-        /* LESSON NAV */
         .lesson-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-200); }
         .lesson-nav a { display: flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; text-decoration: none; }
         .lesson-nav .prev { background: var(--gray-100); color: var(--gray-700); } .lesson-nav .prev:hover { background: var(--gray-200); }
         .lesson-nav .next { background: var(--success); color: white; } .lesson-nav .next:hover { background: var(--success-dark); }
 
-        /* CERTIFICATE SECTION */
+        /* CERT SECTION */
         .cert-section { display: flex; flex-wrap: wrap; border: 1px solid #dbe0e8; border-radius: var(--radius-xl); overflow: hidden; margin-top: 3rem; background: white; }
         .cert-card { flex: 1 1 280px; border-right: 1px solid #dbe0e8; padding: 24px; background: #fff; display: flex; flex-direction: column; }
         .cert-card-title { font-size: 30px; font-weight: 700; color: #000; margin: 7px 0 8px; }
         .cert-card-desc { font-size: 17px; color: #000; margin: 0 0 20px; line-height: 1.5; }
         .cert-card-btn { display: inline-block; padding: 12px 28px; background: var(--success); color: #fff; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: 600; margin-top: auto; align-self: flex-start; }
-        .cert-card-btn:hover { background: var(--success-dark); }
         .cert-info { flex: 1 1 320px; padding: 24px; background: var(--success-bg); display: flex; flex-direction: column; }
-        .cert-info-title { font-size: 30px; font-weight: 700; color: #000; margin: 8px 0 12px; }
-        .cert-info-title span { color: var(--success); }
+        .cert-info-title { font-size: 30px; font-weight: 700; color: #000; margin: 8px 0 12px; } .cert-info-title span { color: var(--success); }
         .cert-info-desc { font-size: 17px; color: #000; margin: 0 0 16px; line-height: 1.5; }
         .cert-info-price { font-size: 28px; font-weight: 700; color: #000; margin: 0 0 4px; }
         .cert-info-btn { display: inline-block; padding: 12px 28px; background: var(--success); color: #fff; text-decoration: none; border-radius: 6px; font-size: 18px; font-weight: 600; }
-        .cert-info-btn:hover { background: var(--success-dark); }
         .cert-preview { flex: 1 1 auto; display: flex; align-items: center; justify-content: center; padding: 16px; }
 
-        /* NOT FOUND HERO */
-        .notfound-hero { text-align: center; padding: 4rem 2rem; }
-        .notfound-hero i { font-size: 5rem; color: var(--primary); opacity: 0.6; display: block; margin-bottom: 1rem; }
-        .notfound-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .notfound-hero p { color: var(--gray-500); font-size: 1rem; margin-bottom: 2rem; }
-        .notfound-search { max-width: 500px; margin: 0 auto 3rem; display: flex; gap: 0.5rem; }
-        .notfound-search input { flex: 1; padding: 0.75rem 1rem; border: 2px solid var(--gray-200); border-radius: var(--radius-xl); font-family: 'Inter', sans-serif; font-size: 0.938rem; outline: none; }
+        .notfound-hero { text-align: center; padding: 2rem 1rem; }
+        .notfound-hero i { font-size: 3rem; color: var(--primary); opacity: 0.6; display: block; margin-bottom: 0.5rem; }
+        .notfound-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .notfound-hero p { color: var(--gray-500); font-size: 0.875rem; margin-bottom: 1rem; }
+        .notfound-search { max-width: 400px; margin: 0 auto 2rem; display: flex; gap: 0.375rem; }
+        .notfound-search input { flex: 1; padding: 0.5625rem 0.875rem; border: 2px solid var(--gray-200); border-radius: var(--radius-xl); font-family: 'Inter', sans-serif; font-size: 0.875rem; outline: none; }
         .notfound-search input:focus { border-color: var(--primary); }
-        .notfound-search button { padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-xl); font-weight: 600; cursor: pointer; }
+        .notfound-search button { padding: 0.5625rem 1.125rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-xl); font-weight: 600; cursor: pointer; font-size: 0.813rem; }
 
-        /* SUGGESTIONS */
         .suggestions-section { margin-top: 1rem; }
-        .suggestions-section h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin-bottom: 1rem; }
-        .suggestions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
-        .suggestion-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1.25rem; transition: all var(--transition); cursor: pointer; text-decoration: none; color: inherit; display: block; }
+        .suggestions-section h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; margin-bottom: 0.75rem; }
+        .suggestions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; }
+        .suggestion-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1rem; transition: all var(--transition); cursor: pointer; text-decoration: none; color: inherit; display: block; }
         .suggestion-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); transform: translateY(-2px); }
-        .suggestion-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.375rem; }
-        .suggestion-card p { font-size: 0.813rem; color: var(--gray-500); }
+        .suggestion-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.938rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .suggestion-card p { font-size: 0.75rem; color: var(--gray-500); }
 
-        /* EMPTY STATE */
-        .empty-state { text-align: center; padding: 3rem 1rem; }
-        .empty-state i { font-size: 4rem; display: block; margin-bottom: 1rem; opacity: 0.4; color: var(--gray-400); }
-        .empty-state h2 { font-family: 'Space Grotesk', sans-serif; color: var(--gray-500); margin-bottom: 0.5rem; }
+        /* FOOTER IN CONTENT */
+        .content-footer { margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--gray-200); font-size: 0.75rem; color: var(--gray-500); text-align: center; }
+        .content-footer a { color: var(--primary); text-decoration: none; }
+        .content-footer a:hover { text-decoration: underline; }
 
-        /* FOOTER */
-        .footer { background: var(--dark-bg); color: #ddd; padding: 3rem 0 1.5rem; margin-top: auto; }
-        .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
-        .footer-col h5 { font-size: 0.875rem; font-weight: 600; color: #FFF4A3; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .footer-col a { display: block; color: #ddd; text-decoration: none; font-size: 0.813rem; margin-bottom: 0.625rem; transition: color var(--transition); }
-        .footer-col a:hover { color: #FFF4A3; }
-        .footer-social { text-align: center; padding: 1.5rem 0; border-top: 1px solid rgba(255,255,255,0.1); }
-        .footer-social a { color: #ddd; font-size: 1.5rem; margin: 0 0.75rem; text-decoration: none; }
-        .footer-social a:hover { color: #FFF4A3; }
-        .footer-bottom { text-align: center; font-size: 0.813rem; color: #9ca3af; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); }
-
-        /* TOAST */
         .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
         .toast { background: var(--gray-900); color: white; padding: 0.875rem 1.25rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease, toastOut 0.3s ease 3s forwards; max-width: 380px; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
         .toast.success { background: #059669; } .toast.error { background: #DC2626; } .toast.info { background: var(--primary); }
@@ -263,21 +235,25 @@
             <div class="lesson-nav" id="lessonNav" style="display:none;"></div>
             <div class="suggestions-section" id="suggestionsSection"></div>
             <div class="cert-section" id="certSection" style="display:none;"></div>
+            <!-- FOOTER IN CONTENT -->
+            <div class="content-footer" id="contentFooter">
+                <p><a href="index.html">Akademia</a> • <a href="course.html">Courses</a> • <a href="Editor.html">Code Editor</a> • &copy; 2026</p>
+            </div>
         </div>
         <aside class="right-panel" id="rightPanel">
-            <div class="right-panel-section rp-cert-card"><h4><i class='bx bx-certification'></i> Get Certified</h4><i class='bx bx-award'></i><p style="font-size:0.75rem;color:var(--gray-500);margin-bottom:0.75rem;">Earn an official certificate.</p><a href="certificate.html" class="btn btn-success btn-sm" style="width:100%;justify-content:center;">View Certificates</a></div>
+            <!-- Progress Card -->
+            <div class="right-panel-section rp-progress-card" id="rpProgressCard">
+                <h4><i class='bx bx-trending-up'></i> Your Progress</h4>
+                <div id="rpProgressContent">
+                    <div class="progress-ring"><svg width="64" height="64" viewBox="0 0 64 64"><circle class="bg" cx="32" cy="32" r="28"/><circle class="fill" cx="32" cy="32" r="28" stroke-dasharray="175.93" stroke-dashoffset="175.93" id="progressCircle"/></svg><div class="text" id="progressPercent">0%</div></div>
+                    <p style="font-size:0.75rem;color:var(--gray-500);" id="progressText">Sign in to track progress</p>
+                    <a href="auth.html?mode=signin" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;margin-top:0.5rem;" id="rpLoginBtn"><i class='bx bx-log-in'></i> Sign In</a>
+                </div>
+            </div>
             <div class="right-panel-section"><h4><i class='bx bx-dumbbell'></i> Try an Exercise</h4><div id="rpExerciseLinks"><p style="font-size:0.75rem;color:var(--gray-400);">Select a lesson</p></div></div>
-            <div class="right-panel-section"><h4><i class='bx bx-link'></i> Quick Links</h4><a href="Editor.html" class="rp-exercise-link"><i class='bx bx-code-alt'></i> Code Editor</a><a href="documentation.html" class="rp-exercise-link"><i class='bx bx-book'></i> Documentation</a></div>
+            <div class="right-panel-section"><h4><i class='bx bx-certification'></i> Get Certified</h4><div style="text-align:center;"><i class='bx bx-award' style="font-size:2rem;color:var(--success);display:block;margin-bottom:0.5rem;"></i><p style="font-size:0.75rem;color:var(--gray-500);margin-bottom:0.5rem;">Earn an official certificate</p><a href="certificate.html" class="btn btn-outline btn-sm" style="width:100%;justify-content:center;">View Certificates</a></div></div>
         </aside>
     </div>
-
-    <footer class="footer">
-        <div class="footer-inner">
-            <div class="footer-grid"><div class="footer-col"><h5>Platform</h5><a href="course.html">Courses</a><a href="Editor.html">Code Editor</a><a href="exercise.html">Exercises</a><a href="certificate.html">Certificates</a></div><div class="footer-col"><h5>Support</h5><a href="documentation.html">Documentation</a><a href="help-center.html">Help Center</a><a href="contact.html">Contact</a></div><div class="footer-col"><h5>Company</h5><a href="#">About Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div></div>
-            <div class="footer-social"><a href="#"><i class='bx bxl-youtube'></i></a><a href="#"><i class='bx bxl-github'></i></a><a href="#"><i class='bx bxl-discord-alt'></i></a><a href="#"><i class='bx bxl-twitter'></i></a></div>
-            <div class="footer-bottom"><p>&copy; 2026 Akademia. Built with <i class='bx bx-heart' style='color:#ef4444;'></i> for learners worldwide.</p></div>
-        </div>
-    </footer>
 
     <div class="toast-container" id="toastContainer"></div>
 
@@ -291,11 +267,15 @@
         const toast = (msg, type = 'success') => {
             const c = $('toastContainer'); const t = document.createElement('div');
             t.className = `toast ${type}`; t.innerHTML = `<i class='bx ${type==='success'?'bx-check-circle':type==='error'?'bx-x-circle':'bx-info-circle'}'></i> ${msg}`;
-            t.addEventListener('click', () => t.remove());
-            c.appendChild(t); setTimeout(() => { if (t.parentElement) t.remove(); }, 3500);
+            t.addEventListener('click', () => t.remove()); c.appendChild(t);
+            setTimeout(() => { if (t.parentElement) t.remove(); }, 3500);
         };
 
-        const AppState = { course: null, modules: [], lessons: [], allCourses: [], allModules: [], allLessons: [], currentModuleId: null, currentLessonId: null, currentUser: null, freeLessonLimit: 3, completedLessons: {} };
+        const AppState = {
+            course: null, modules: [], lessons: [], allCourses: [], allModules: [], allLessons: [],
+            currentModuleId: null, currentLessonId: null, currentUser: null,
+            freeLessonLimit: 3, completedLessons: {}, searchTimer: null
+        };
 
         function getParams() { const p = new URLSearchParams(window.location.search); return { courseId: p.get('id'), moduleId: p.get('module'), lessonId: p.get('lesson') }; }
 
@@ -303,17 +283,51 @@
         function updateAuthUI(user) {
             AppState.currentUser = user;
             const si = $('btnSignIn'), sr = $('btnRegister'), pd = $('profileDropdown');
-            if (user) { if (si) si.style.display = 'none'; if (sr) sr.style.display = 'none'; if (pd) pd.style.display = 'block';
+            if (user) {
+                if (si) si.style.display = 'none'; if (sr) sr.style.display = 'none'; if (pd) pd.style.display = 'block';
                 $('profileAvatar').textContent = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
                 $('profileName').textContent = user.displayName || user.email?.split('@')[0] || 'User';
                 localStorage.setItem('ak_user', JSON.stringify({ uid: user.uid, email: user.email, displayName: user.displayName }));
-            } else { if (si) si.style.display = ''; if (sr) sr.style.display = ''; if (pd) pd.style.display = 'none'; localStorage.removeItem('ak_user'); }
+                // Update right panel
+                if ($('rpLoginBtn')) $('rpLoginBtn').style.display = 'none';
+                if ($('progressText')) $('progressText').textContent = 'Keep learning!';
+                updateProgressRing();
+            } else {
+                if (si) si.style.display = ''; if (sr) sr.style.display = ''; if (pd) pd.style.display = 'none';
+                if ($('rpLoginBtn')) $('rpLoginBtn').style.display = '';
+                if ($('progressText')) $('progressText').textContent = 'Sign in to track progress';
+                if ($('progressPercent')) $('progressPercent').textContent = '0%';
+                if ($('progressCircle')) $('progressCircle').style.strokeDashoffset = '175.93';
+                localStorage.removeItem('ak_user');
+            }
         }
         onAuthStateChanged(auth, updateAuthUI);
-        (function() { const c = JSON.parse(localStorage.getItem('ak_user') || 'null'); if (c && !AppState.currentUser) { if ($('btnSignIn')) $('btnSignIn').style.display = 'none'; if ($('btnRegister')) $('btnRegister').style.display = 'none'; if ($('profileDropdown')) $('profileDropdown').style.display = 'block'; $('profileAvatar').textContent = (c.displayName || c.email || 'U').charAt(0).toUpperCase(); $('profileName').textContent = c.displayName || c.email?.split('@')[0] || 'User'; } })();
+        (function() {
+            const c = JSON.parse(localStorage.getItem('ak_user') || 'null');
+            if (c && !AppState.currentUser) {
+                if ($('btnSignIn')) $('btnSignIn').style.display = 'none'; if ($('btnRegister')) $('btnRegister').style.display = 'none';
+                if ($('profileDropdown')) $('profileDropdown').style.display = 'block';
+                $('profileAvatar').textContent = (c.displayName || c.email || 'U').charAt(0).toUpperCase();
+                $('profileName').textContent = c.displayName || c.email?.split('@')[0] || 'User';
+                if ($('rpLoginBtn')) $('rpLoginBtn').style.display = 'none';
+                if ($('progressText')) $('progressText').textContent = 'Keep learning!';
+                updateProgressRing();
+            }
+        })();
         $('profileTriggerBtn')?.addEventListener('click', function(e) { e.stopPropagation(); $('profileMenu')?.classList.toggle('show'); });
         $('logoutBtn')?.addEventListener('click', async function(e) { e.preventDefault(); try { await signOut(auth); } catch(ex) { localStorage.removeItem('ak_user'); } updateAuthUI(null); toast('Signed out', 'success'); });
         document.addEventListener('click', function(e) { if (!e.target.closest('.profile-dropdown')) $('profileMenu')?.classList.remove('show'); });
+
+        function updateProgressRing() {
+            if (!AppState.course) return;
+            const total = AppState.lessons.length;
+            const completed = AppState.lessons.filter(l => AppState.completedLessons[l.id]).length;
+            const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+            const circumference = 175.93;
+            const offset = circumference - (pct / 100) * circumference;
+            if ($('progressPercent')) $('progressPercent').textContent = pct + '%';
+            if ($('progressCircle')) $('progressCircle').style.strokeDashoffset = offset;
+        }
 
         // ============ LOAD DATA ============
         async function loadAllData() {
@@ -323,10 +337,7 @@
                 AppState.allModules = mSnap.docs.map(d=>({id:d.id,...d.data()}));
                 AppState.allLessons = lSnap.docs.map(d=>({id:d.id,...d.data()}));
             } catch(e) { AppState.allCourses=JSON.parse(localStorage.getItem('ak_courses')||'[]'); AppState.allModules=JSON.parse(localStorage.getItem('ak_modules')||'[]'); AppState.allLessons=JSON.parse(localStorage.getItem('ak_lessons')||'[]'); }
-            
-            // Load completed lessons from localStorage
             try { AppState.completedLessons = JSON.parse(localStorage.getItem('ak_completed') || '{}'); } catch(e) { AppState.completedLessons = {}; }
-
             const { courseId, moduleId, lessonId } = getParams();
             if (courseId) {
                 AppState.course = AppState.allCourses.find(c => c.id === courseId);
@@ -341,68 +352,125 @@
             renderAll();
         }
 
-        function isLessonLocked(lessonIndex) { return !AppState.currentUser && lessonIndex >= AppState.freeLessonLimit; }
-        function isLessonCompleted(lessonId) { return !!AppState.completedLessons[lessonId]; }
-        function markLessonCompleted(lessonId) { AppState.completedLessons[lessonId] = true; localStorage.setItem('ak_completed', JSON.stringify(AppState.completedLessons)); }
+        function isLessonLocked(idx) { return !AppState.currentUser && idx >= AppState.freeLessonLimit; }
+        function markCompleted(id) { AppState.completedLessons[id] = true; localStorage.setItem('ak_completed', JSON.stringify(AppState.completedLessons)); updateProgressRing(); renderCourseHeader(); }
 
         function renderAll() {
             if (!AppState.course) { renderNotFoundPage(); }
             else { renderSidebar(); renderCourseHeader(); renderLessonContent(); renderCertSection(); }
-            renderRightPanel();
+            renderRightPanel(); updateProgressRing();
             $('breadCourse').textContent = AppState.course ? AppState.course.name : 'Explore Courses';
         }
 
-        // ============ NOT FOUND ============
+        // ============ NOT FOUND WITH TREE EXPLORER ============
         function renderNotFoundPage() {
-            $('sidebarTitle').textContent = '📚 Browse Courses';
-            $('sidebarContent').innerHTML = AppState.allCourses.length ? AppState.allCourses.map(c => `<div class="sidebar-module open"><div class="sidebar-module-header" onclick="window.location.href='course.html?id=${c.id}'"><i class='bx bx-book-open'></i> ${escHtml(c.name)}</div></div>`).join('') : '<p style="padding:1rem;font-size:0.75rem;color:var(--gray-400);">No courses yet</p>';
+            $('sidebarTitle').textContent = '📁 Course Explorer';
+            // Tree explorer in sidebar
+            let treeHTML = '<div class="tree-explorer">';
+            treeHTML += '<div class="tree-folder open"><div class="tree-folder-header" onclick="this.parentElement.classList.toggle(\'open\')"><i class="bx bx-chevron-right chevron"></i><i class="bx bx-folder" style="color:var(--warning);"></i> All Courses</div><div class="tree-children">';
+            AppState.allCourses.forEach(c => {
+                const cMods = AppState.allModules.filter(m => m.courseId === c.id).sort((a,b)=>(a.order||0)-(b.order||0));
+                treeHTML += `<div class="tree-folder"><div class="tree-folder-header" onclick="this.parentElement.classList.toggle('open')"><i class="bx bx-chevron-right chevron"></i><i class="bx bx-book-open" style="color:var(--primary);"></i> ${escHtml(c.name)}</div><div class="tree-children">`;
+                cMods.forEach(m => {
+                    const mLessons = AppState.allLessons.filter(l => l.moduleId === m.id);
+                    treeHTML += `<div class="tree-folder"><div class="tree-folder-header" onclick="this.parentElement.classList.toggle('open')"><i class="bx bx-chevron-right chevron"></i><i class="bx bx-layer" style="color:var(--success);"></i> ${escHtml(m.name)}</div><div class="tree-children">`;
+                    mLessons.slice(0,5).forEach(l => {
+                        treeHTML += `<a href="course.html?id=${c.id}&module=${m.id}&lesson=${l.id}" class="tree-item"><span class="dot"></span><i class="bx bx-video" style="font-size:0.688rem;color:var(--gray-400);"></i> ${escHtml(l.title||'Untitled')}</a>`;
+                    });
+                    if (mLessons.length > 5) treeHTML += `<div class="tree-item" style="color:var(--primary);cursor:pointer;" onclick="window.location.href='course.html?id=${c.id}'">+${mLessons.length-5} more</div>`;
+                    treeHTML += '</div></div>';
+                });
+                treeHTML += '</div></div>';
+            });
+            treeHTML += '</div></div></div>';
+            $('sidebarContent').innerHTML = treeHTML || '<p style="padding:1rem;font-size:0.75rem;color:var(--gray-400);">No courses</p>';
+
             $('courseHeader').innerHTML = '';
-            $('lessonContent').innerHTML = `<div class="notfound-hero"><i class='bx bx-compass'></i><h1>Discover Your Learning Path</h1><p>Browse our collection of courses or search for what you want to learn</p><div class="notfound-search"><input type="text" id="notfoundSearch" placeholder="Search courses, modules, lessons..." autocomplete="off"><button onclick="searchNotFound()"><i class='bx bx-search'></i> Search</button></div><div id="notfoundResults" style="max-width:500px;margin:0 auto;text-align:left;"></div></div>`;
+            $('lessonContent').innerHTML = `
+                <div class="notfound-hero">
+                    <i class='bx bx-compass'></i>
+                    <h1>Discover Your Learning Path</h1>
+                    <p>Browse our collection or search below</p>
+                    <div class="notfound-search">
+                        <input type="text" id="notfoundSearch" placeholder="Search courses..." autocomplete="off">
+                        <button id="notfoundSearchBtn"><i class='bx bx-search'></i></button>
+                    </div>
+                    <div id="notfoundResults" style="max-width:400px;margin:0 auto;text-align:left;"></div>
+                </div>`;
             $('lessonNav').style.display = 'none'; $('certSection').style.display = 'none';
+
+            // Suggestions - randomized order
+            const shuffledCourses = [...AppState.allCourses].sort(() => Math.random() - 0.5);
             const sg = $('suggestionsSection');
-            sg.innerHTML = `<h3><i class='bx bx-star'></i> Recommended Courses</h3><div class="suggestions-grid">${AppState.allCourses.length ? AppState.allCourses.slice(0,6).map(c => `<a href="course.html?id=${c.id}" class="suggestion-card"><h4><i class='bx bx-book-open'></i> ${escHtml(c.name)}</h4><p>${escHtml(c.description||'')} • ${c.difficulty||'All Levels'}</p></a>`).join('') : '<div class="suggestion-card"><h4>No courses yet</h4></div>'}</div>`;
-            if (AppState.allModules.length) sg.innerHTML += `<h3 style="margin-top:2rem;"><i class='bx bx-layer'></i> Popular Modules</h3><div class="suggestions-grid">${AppState.allModules.slice(0,6).map(m=>{const c=AppState.allCourses.find(x=>x.id===m.courseId);return `<a href="course.html?id=${m.courseId}&module=${m.id}" class="suggestion-card"><h4><i class='bx bx-layer'></i> ${escHtml(m.name)}</h4><p>${escHtml(c?.name||'')}</p></a>`;}).join('')}</div>`;
+            sg.innerHTML = `
+                <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+                    <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia" style="height:28px;">
+                    <h3 style="margin:0;">Available Courses</h3>
+                </div>
+                <div class="suggestions-grid">${shuffledCourses.length ? shuffledCourses.slice(0,8).map(c => `
+                    <a href="course.html?id=${c.id}" class="suggestion-card">
+                        <h4><i class='bx bx-book-open'></i> ${escHtml(c.name)}</h4>
+                        <p>${escHtml(c.description||'')} • ${c.difficulty||'All Levels'}</p>
+                    </a>`).join('') : '<div class="suggestion-card"><h4>No courses yet</h4></div>'}</div>`;
+
+            // Popular modules (randomized)
+            if (AppState.allModules.length) {
+                const shuffledMods = [...AppState.allModules].sort(() => Math.random() - 0.5);
+                sg.innerHTML += `<h3 style="margin-top:2rem;"><i class='bx bx-trending-up'></i> Popular Modules</h3><div class="suggestions-grid">${shuffledMods.slice(0,6).map(m=>{const c=AppState.allCourses.find(x=>x.id===m.courseId);return `<a href="course.html?id=${m.courseId}&module=${m.id}" class="suggestion-card"><h4><i class='bx bx-layer'></i> ${escHtml(m.name)}</h4><p>${escHtml(c?.name||'')}</p></a>`;}).join('')}</div>`;
+            }
+
+            // Debounced search
+            const searchInput = $('notfoundSearch');
+            const searchBtn = $('notfoundSearchBtn');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(AppState.searchTimer);
+                    AppState.searchTimer = setTimeout(() => performNotFoundSearch(this.value), 300);
+                });
+            }
+            if (searchBtn) searchBtn.addEventListener('click', () => performNotFoundSearch($('notfoundSearch')?.value||''));
         }
 
-        window.searchNotFound = function() {
-            const q = ($('notfoundSearch')?.value||'').toLowerCase().trim();
-            const container = $('notfoundResults'); if (!q) { container.innerHTML = ''; return; }
+        function performNotFoundSearch(q) {
+            const container = $('notfoundResults');
+            q = (q||'').toLowerCase().trim();
+            if (!q) { container.innerHTML = ''; return; }
             const results = [];
-            AppState.allCourses.forEach(c => { if(c.name?.toLowerCase().includes(q)||c.description?.toLowerCase().includes(q)) results.push({type:'course',name:c.name,id:c.id,icon:'bx-book-open'}); });
+            AppState.allCourses.forEach(c => { if(c.name?.toLowerCase().includes(q)) results.push({type:'course',name:c.name,id:c.id,icon:'bx-book-open'}); });
             AppState.allModules.forEach(m => { if(m.name?.toLowerCase().includes(q)) results.push({type:'module',name:m.name,id:m.courseId,mid:m.id,icon:'bx-layer'}); });
             AppState.allLessons.forEach(l => { if(l.title?.toLowerCase().includes(q)) results.push({type:'lesson',name:l.title,id:l.courseId||'',mid:l.moduleId,lid:l.id,icon:'bx-video'}); });
-            container.innerHTML = results.length ? results.slice(0,8).map(r => `<div style="padding:0.75rem;border:1px solid var(--gray-200);border-radius:var(--radius-sm);margin-bottom:0.375rem;cursor:pointer;background:white;" onclick="window.location.href='course.html?id=${r.id}${r.mid?'&module='+r.mid:''}${r.lid?'&lesson='+r.lid:''}'"><i class='bx ${r.icon}'></i> <strong>${escHtml(r.name)}</strong> <span style="color:var(--gray-400);font-size:0.75rem;">• ${r.type}</span></div>`).join('') : '<p style="color:var(--gray-400);text-align:center;padding:1rem;">No results</p>';
-        };
+            container.innerHTML = results.length ? results.slice(0,8).map(r => `<div style="padding:0.625rem;border:1px solid var(--gray-200);border-radius:var(--radius-sm);margin-bottom:0.25rem;cursor:pointer;background:white;font-size:0.813rem;" onclick="window.location.href='course.html?id=${r.id}${r.mid?'&module='+r.mid:''}${r.lid?'&lesson='+r.lid:''}'"><i class='bx ${r.icon}'></i> <strong>${escHtml(r.name)}</strong> <span style="color:var(--gray-400);">• ${r.type}</span></div>`).join('') : '<p style="text-align:center;padding:0.5rem;color:var(--gray-400);font-size:0.75rem;">No results</p>';
+        }
 
         // ============ SIDEBAR ============
         function renderSidebar() {
             const container = $('sidebarContent');
             $('sidebarTitle').textContent = '📚 ' + AppState.course.name;
             if (!AppState.modules.length) { container.innerHTML = '<p style="padding:1rem;font-size:0.75rem;color:var(--gray-400);">No modules yet</p>'; return; }
-            let lessonCount = 0;
+            let lc = 0;
             container.innerHTML = AppState.modules.map(mod => {
                 const ml = AppState.lessons.filter(l => l.moduleId === mod.id);
                 const isOpen = AppState.currentModuleId === mod.id || (!AppState.currentModuleId && AppState.modules.indexOf(mod) === 0);
                 return `<div class="sidebar-module ${isOpen?'open':''}" data-module="${mod.id}">
-                    <div class="sidebar-module-header" onclick="toggleModule('${mod.id}')"><i class='bx bx-chevron-right'></i> ${escHtml(mod.name)}<span style="margin-left:auto;font-size:0.625rem;color:var(--gray-400);">${ml.length}</span></div>
-                    <div class="sidebar-lessons">${ml.map((l,i)=>{ lessonCount++; const locked = isLessonLocked(lessonCount-1); const completed = isLessonCompleted(l.id);
-                        return `<a href="${locked?'#':`?id=${AppState.course.id}&module=${mod.id}&lesson=${l.id}`}" class="sidebar-lesson ${l.id===AppState.currentLessonId?'active':''} ${locked?'locked':''} ${completed?'completed':''}" onclick="${locked?'event.preventDefault();showLockMessage();':'event.preventDefault();loadLesson(\''+mod.id+'\',\''+l.id+'\')'}"><span class="dot"></span> ${escHtml(l.title||'Lesson '+(i+1))}${locked?' <i class="bx bx-lock-alt lock-icon"></i>':''}${completed&&!locked?' <i class="bx bx-check-circle check-icon"></i>':''}</a>`;
+                    <div class="sidebar-module-header" onclick="toggleModule('${mod.id}')"><i class='bx bx-chevron-right'></i> ${escHtml(mod.name)}<span style="margin-left:auto;font-size:0.625rem;">${ml.length}</span></div>
+                    <div class="sidebar-lessons">${ml.map(l=>{ lc++; const locked=isLessonLocked(lc-1), completed=!!AppState.completedLessons[l.id];
+                        return `<a href="${locked?'#':`?id=${AppState.course.id}&module=${mod.id}&lesson=${l.id}`}" class="sidebar-lesson ${l.id===AppState.currentLessonId?'active':''} ${locked?'locked':''} ${completed?'completed':''}" onclick="${locked?'event.preventDefault();showLockMessage();':'event.preventDefault();loadLesson(\''+mod.id+'\',\''+l.id+'\')'}"><span class="dot"></span> ${escHtml(l.title||'Lesson')}${locked?' <i class="bx bx-lock-alt lock-icon"></i>':''}${completed&&!locked?' <i class="bx bx-check-circle check-icon"></i>':''}</a>`;
                     }).join('')}</div></div>`;
             }).join('');
         }
 
         window.toggleModule = function(id) { document.querySelector(`.sidebar-module[data-module="${id}"]`)?.classList.toggle('open'); };
         window.showLockMessage = function() {
-            $('lessonContent').innerHTML = `<div class="locked-overlay"><i class='bx bx-lock-alt'></i><h3>Unlock Full Access</h3><p>You've reached the free lesson limit. Sign in to unlock all lessons!</p><a href="auth.html?mode=signin" class="btn btn-primary"><i class='bx bx-log-in'></i> Sign In</a><a href="auth.html?mode=register" class="btn btn-outline" style="margin-left:0.5rem;"><i class='bx bx-user-plus'></i> Register</a></div>`;
+            $('lessonContent').innerHTML = `<div class="locked-overlay"><i class='bx bx-lock-alt'></i><h3>Unlock Full Access</h3><p>Sign in to unlock all lessons!</p><a href="auth.html?mode=signin" class="btn btn-primary"><i class='bx bx-log-in'></i> Sign In</a></div>`;
             $('lessonNav').style.display = 'none';
         };
 
         // ============ COURSE HEADER ============
         function renderCourseHeader() {
-            const totalLessons = AppState.lessons.length;
-            const completedCount = AppState.lessons.filter(l => isLessonCompleted(l.id)).length;
-            const progress = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
-            $('courseHeader').innerHTML = `<h1>${escHtml(AppState.course.name)}</h1><div class="course-meta"><span><i class='bx bx-book-open'></i> ${AppState.modules.length} modules</span><span><i class='bx bx-video'></i> ${totalLessons} lessons</span><span><i class='bx bx-time'></i> ${AppState.course.duration||totalLessons*5} min</span><span><i class='bx bx-bar-chart-alt-2'></i> ${AppState.course.difficulty||'All Levels'}</span></div>${AppState.course.description?`<p style="margin-top:0.75rem;color:var(--gray-600);">${escHtml(AppState.course.description)}</p>`:''}${AppState.currentUser?`<div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${progress}%;"></div><span style="font-size:0.688rem;color:var(--gray-500);">${completedCount}/${totalLessons} lessons completed (${progress}%)</span></div>`:''}`;
+            const total = AppState.lessons.length;
+            const comp = AppState.lessons.filter(l => AppState.completedLessons[l.id]).length;
+            const pct = total > 0 ? Math.round((comp / total) * 100) : 0;
+            $('courseHeader').innerHTML = `<h1>${escHtml(AppState.course.name)}</h1><div class="course-meta"><span><i class='bx bx-book-open'></i> ${AppState.modules.length} modules</span><span><i class='bx bx-video'></i> ${total} lessons</span><span><i class='bx bx-time'></i> ${AppState.course.duration||total*5} min</span><span><i class='bx bx-bar-chart-alt-2'></i> ${AppState.course.difficulty||'All Levels'}</span></div>${AppState.course.description?`<p style="margin-top:0.75rem;color:var(--gray-600);">${escHtml(AppState.course.description)}</p>`:''}${AppState.currentUser?`<div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%;"></div><span style="font-size:0.688rem;color:var(--gray-500);">${comp}/${total} completed (${pct}%)</span></div>`:''}`;
         }
 
         // ============ LESSON CONTENT ============
@@ -413,19 +481,15 @@
                     const fm = AppState.modules[0], fl = AppState.lessons.filter(l=>l.moduleId===fm.id)[0];
                     if (fl) { loadLesson(fm.id, fl.id, true); return; }
                 }
-                container.innerHTML = '<div class="empty-state"><i class="bx bx-book-open"></i><h2>Select a Lesson</h2><p>Choose from the sidebar</p></div>';
+                container.innerHTML = '<div class="empty-state" style="text-align:center;padding:3rem;"><i class="bx bx-book-open" style="font-size:4rem;opacity:0.4;color:var(--gray-400);"></i><h2>Select a Lesson</h2></div>';
                 nav.style.display = 'none'; return;
             }
             const lesson = AppState.lessons.find(l=>l.id===AppState.currentLessonId);
             if (!lesson) { container.innerHTML = '<div class="empty-state"><i class="bx bx-error"></i><h2>Not Found</h2></div>'; nav.style.display='none'; return; }
-            
             const flat = []; AppState.modules.forEach(m=>{AppState.lessons.filter(l=>l.moduleId===m.id).forEach(l=>flat.push({...l,moduleId:m.id}));});
             const ci = flat.findIndex(l=>l.id===AppState.currentLessonId);
             if (isLessonLocked(ci)) { showLockMessage(); return; }
-
-            // Mark as completed
-            markLessonCompleted(AppState.currentLessonId);
-
+            markCompleted(AppState.currentLessonId);
             const blocks = lesson.pages?.[0]?.blocks||[];
             let h = `<h2>${escHtml(lesson.title||'Untitled')}</h2>`;
             if (!blocks.length) h += '<p style="color:var(--gray-400);">No content yet.</p>';
@@ -436,34 +500,26 @@
                     case 'remember': h+=`<div class="remember-box"><strong>🧠 Remember:</strong> ${escHtml(b.text||'')}</div>`; break;
                     case 'question': h+=`<div class="question-box"><div class="q-title">❓ ${escHtml(b.question||'Question')}</div>${(b.options||[]).map((o,i)=>`<div class="q-option">${String.fromCharCode(65+i)}. ${escHtml(o||'')}</div>`).join('')}</div>`; break;
                     case 'image': if(b.url)h+=`<img src="${b.url}" alt="${escHtml(b.alt||'')}" onerror="this.style.display='none';">`; break;
-                    case 'code': h+=`<div class="code-block-wrapper"><pre><code>${escHtml(b.code||'')}</code></pre><button class="copy-btn" onclick="copyCode(this)" title="Copy code"><i class='bx bx-copy'></i></button></div>${b.caption?`<p style="font-size:0.813rem;color:var(--gray-500);text-align:center;">${escHtml(b.caption)}</p>`:''}`; break;
+                    case 'code': h+=`<div class="code-block-wrapper"><pre><code>${escHtml(b.code||'')}</code></pre><button class="copy-btn" onclick="copyCode(this)" title="Copy"><i class='bx bx-copy'></i></button></div>${b.caption?`<p style="font-size:0.813rem;color:var(--gray-500);text-align:center;">${escHtml(b.caption)}</p>`:''}`; break;
                 }
             });
             container.innerHTML = h;
-
             const prev = ci>0?flat[ci-1]:null, next = ci<flat.length-1?flat[ci+1]:null;
             nav.style.display='flex';
             nav.innerHTML = `${prev?`<a href="?id=${AppState.course.id}&module=${prev.moduleId}&lesson=${prev.id}" class="prev" onclick="event.preventDefault();loadLesson('${prev.moduleId}','${prev.id}')"><i class='bx bx-chevron-left'></i> Previous</a>`:'<span></span>'}<span style="font-size:0.75rem;color:var(--gray-400);">${ci+1}/${flat.length}</span>${next?`<a href="?id=${AppState.course.id}&module=${next.moduleId}&lesson=${next.id}" class="next" onclick="event.preventDefault();loadLesson('${next.moduleId}','${next.id}')">Next <i class='bx bx-chevron-right'></i></a>`:'<span></span>'}`;
-
-            // Update sidebar and header
             renderSidebar(); renderCourseHeader();
         }
 
         function getYTId(url) { if(!url)return null; const m=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\s]{11})/); return m?m[1]:null; }
 
-        // ============ COPY CODE BUTTON ============
         window.copyCode = function(btn) {
             const pre = btn.parentElement.querySelector('pre code');
             if (!pre) return;
-            const text = pre.textContent || '';
-            navigator.clipboard.writeText(text).then(() => {
-                btn.classList.add('copied');
-                btn.innerHTML = '<i class="bx bx-check"></i>';
+            navigator.clipboard.writeText(pre.textContent||'').then(() => {
+                btn.classList.add('copied'); btn.innerHTML = '<i class="bx bx-check"></i>';
                 toast('Code copied!', 'success');
                 setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="bx bx-copy"></i>'; }, 2000);
-            }).catch(() => {
-                toast('Failed to copy', 'error');
-            });
+            }).catch(() => toast('Failed to copy', 'error'));
         };
 
         window.loadLesson = function(moduleId, lessonId, silent=false) {
@@ -475,7 +531,7 @@
         // ============ CERT SECTION ============
         function renderCertSection() {
             const s = $('certSection'); s.style.display = 'flex';
-            s.innerHTML = `<div class="cert-card"><div class="cert-card-title">${escHtml(AppState.course.name)} Certificate</div><div class="cert-card-desc">Prove your skills with an official certificate</div><a href="certificate.html" class="cert-card-btn">Learn More</a></div><div class="cert-info"><div class="cert-info-title">Get <span>Certified</span></div><div class="cert-info-desc">Earn an official certificate</div><div class="cert-info-price">$45<span>.00</span></div><a href="certificate.html" class="cert-info-btn" style="margin-top:8px;">Get Certified</a></div><div class="cert-preview"><i class='bx bx-certification' style='font-size:5rem;color:var(--success);opacity:0.3;'></i></div>`;
+            s.innerHTML = `<div class="cert-card"><div class="cert-card-title">${escHtml(AppState.course.name)} Certificate</div><div class="cert-card-desc">Prove your skills</div><a href="certificate.html" class="cert-card-btn">Learn More</a></div><div class="cert-info"><div class="cert-info-title">Get <span>Certified</span></div><div class="cert-info-desc">Earn an official certificate</div><div class="cert-info-price">$45<span>.00</span></div><a href="certificate.html" class="cert-info-btn" style="margin-top:8px;">Get Certified</a></div><div class="cert-preview"><i class='bx bx-certification' style='font-size:5rem;color:var(--success);opacity:0.3;'></i></div>`;
         }
 
         // ============ RIGHT PANEL ============
@@ -485,16 +541,14 @@
                 const lesson = AppState.lessons.find(l=>l.id===AppState.currentLessonId);
                 const mod = AppState.modules.find(m=>m.id===AppState.currentModuleId);
                 if (lesson) {
-                    el.innerHTML = `<div style="background:linear-gradient(135deg,var(--purple-bg),#EDE9FE);border-radius:var(--radius);padding:0.75rem;margin-bottom:0.5rem;text-align:center;"><i class='bx bx-dumbbell' style="font-size:2rem;color:var(--purple);display:block;margin-bottom:0.25rem;"></i><p style="font-size:0.75rem;font-weight:600;color:var(--purple);margin-bottom:0.5rem;">Practice "${escHtml(lesson.title||'this lesson')}"</p><a href="exercise.html?course=${AppState.course.id}&module=${mod?.id||''}&lesson=${lesson.id}" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;background:var(--purple);"><i class='bx bx-play-circle'></i> Start Exercise</a></div><a href="exercise.html?course=${AppState.course.id}" class="rp-exercise-link"><i class='bx bx-dumbbell'></i> All ${escHtml(AppState.course.name)} Exercises</a>`;
+                    el.innerHTML = `<div style="background:linear-gradient(135deg,var(--purple-bg),#EDE9FE);border-radius:var(--radius);padding:0.75rem;margin-bottom:0.5rem;text-align:center;"><i class='bx bx-dumbbell' style="font-size:2rem;color:var(--purple);display:block;margin-bottom:0.25rem;"></i><p style="font-size:0.75rem;font-weight:600;color:var(--purple);margin-bottom:0.5rem;">Practice "${escHtml(lesson.title||'')}"</p><a href="exercise.html?course=${AppState.course.id}&module=${mod?.id||''}&lesson=${lesson.id}" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;background:var(--purple);"><i class='bx bx-play-circle'></i> Start Exercise</a></div><a href="exercise.html?course=${AppState.course.id}" class="rp-exercise-link"><i class='bx bx-dumbbell'></i> All ${escHtml(AppState.course.name)} Exercises</a>`;
                 }
-            } else if (AppState.course) {
-                el.innerHTML = `<div style="text-align:center;padding:0.5rem;"><i class='bx bx-dumbbell' style="font-size:2rem;color:var(--purple);opacity:0.5;display:block;margin-bottom:0.25rem;"></i><p style="font-size:0.75rem;color:var(--gray-400);">Select a lesson</p></div>`;
             }
         }
 
         // ============ INIT ============
         loadAllData();
-        console.log('🚀 Akademia Course Page Professional loaded!');
+        console.log('🚀 Akademia Course Page Ultimate Enhanced!');
     </script>
 </body>
 </html>
