@@ -17,12 +17,13 @@
             --success: #04AA6D; --success-dark: #038857; --success-bg: rgba(4,170,109,0.07);
             --warning: #F59E0B; --warning-bg: #FFFBEB;
             --danger: #EF4444; --danger-bg: #FEF2F2;
+            --purple: #7C3AED; --purple-bg: #F5F3FF;
             --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
             --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
             --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
             --gray-800: #1f2937; --gray-900: #111827;
             --dark-bg: #282A35; --code-bg: #1e1e2e;
-            --radius-sm: 6px; --radius: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-2xl: 20px;
+            --radius-xs: 4px; --radius-sm: 6px; --radius: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-2xl: 20px;
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.05); --shadow: 0 1px 3px rgba(0,0,0,0.1);
             --shadow-md: 0 4px 12px rgba(0,0,0,0.08); --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
             --shadow-xl: 0 20px 50px rgba(0,0,0,0.12);
@@ -58,11 +59,13 @@
         .nav-links a:hover { background: var(--gray-100); }
         .nav-right { display: flex; align-items: center; gap: 0.75rem; }
         .btn { font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.5rem 1.125rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 600; transition: all var(--transition); cursor: pointer; border: none; text-decoration: none; white-space: nowrap; }
-        .btn-primary { background: var(--primary); color: white; } .btn-primary:hover { background: var(--primary-dark); }
+        .btn:active { transform: scale(0.97); }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 1px 2px rgba(37,99,235,0.2); } .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
         .btn-success { background: var(--success); color: white; } .btn-success:hover { background: var(--success-dark); }
         .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); }
         .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
         .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
+        .btn-xs { padding: 0.25rem 0.5rem; font-size: 0.688rem; border-radius: var(--radius-xs); }
 
         .profile-dropdown { position: relative; }
         .profile-trigger { display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.75rem; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid var(--gray-200); background: white; }
@@ -101,6 +104,8 @@
         .sidebar-lesson .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gray-300); flex-shrink: 0; }
         .sidebar-lesson.active .dot { background: var(--primary); }
         .sidebar-lesson .lock-icon { font-size: 0.625rem; color: var(--warning); margin-left: auto; }
+        .sidebar-lesson.completed .dot { background: var(--success); }
+        .sidebar-lesson .check-icon { font-size: 0.625rem; color: var(--success); margin-left: auto; }
 
         .content-area { flex: 1; padding: 1.5rem 2rem; min-width: 0; }
 
@@ -108,38 +113,54 @@
         .right-panel { width: 280px; flex-shrink: 0; background: var(--gray-50); border-left: 1px solid var(--gray-200); padding: 1.25rem; position: sticky; top: 60px; max-height: calc(100vh - 60px); overflow-y: auto; }
         .right-panel-section { background: white; border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1rem; border: 1px solid var(--gray-200); }
         .right-panel-section h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.813rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--gray-900); }
-        .rp-exercise-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.75rem; color: #7C3AED; text-decoration: none; background: #F5F3FF; margin-bottom: 0.375rem; transition: all var(--transition); }
+        .rp-exercise-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--purple); text-decoration: none; background: var(--purple-bg); margin-bottom: 0.375rem; transition: all var(--transition); }
         .rp-exercise-link:hover { background: #EDE9FE; }
         .rp-cert-card { text-align: center; }
         .rp-cert-card i { font-size: 2.5rem; color: var(--success); margin-bottom: 0.5rem; display: block; }
-        .rp-cert-card p { font-size: 0.75rem; color: var(--gray-500); margin-bottom: 0.75rem; }
 
         /* COURSE HEADER */
         .course-header { margin-bottom: 2rem; }
         .course-header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem; }
         .course-header .course-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.813rem; color: var(--gray-500); }
         .course-header .course-meta span { display: flex; align-items: center; gap: 0.375rem; }
+        .progress-bar-wrap { margin-top: 1rem; background: var(--gray-200); border-radius: var(--radius-full); height: 6px; overflow: hidden; max-width: 400px; }
+        .progress-bar-fill { height: 100%; background: var(--success); border-radius: var(--radius-full); transition: width 0.5s ease; }
 
         /* LESSON CONTENT */
         .lesson-content { animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .lesson-content h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
         .lesson-content p { font-family: 'Manrope', sans-serif; font-size: 0.938rem; line-height: 1.8; color: var(--gray-700); margin-bottom: 1rem; }
-        .lesson-content pre { background: var(--code-bg); color: #cdd6f4; padding: 1.25rem; border-radius: var(--radius); font-family: 'Source Code Pro', monospace; font-size: 0.813rem; line-height: 1.7; overflow-x: auto; margin: 1rem 0; }
+
+        /* CODE BLOCK WITH COPY BUTTON */
+        .code-block-wrapper { position: relative; margin: 1rem 0; }
+        .code-block-wrapper pre {
+            background: var(--code-bg); color: #cdd6f4; padding: 1.25rem;
+            border-radius: var(--radius); font-family: 'Source Code Pro', monospace;
+            font-size: 0.813rem; line-height: 1.7; overflow-x: auto; padding-right: 3rem;
+        }
+        .copy-btn {
+            position: absolute; top: 0.5rem; right: 0.5rem;
+            width: 32px; height: 32px; border-radius: var(--radius-sm);
+            border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1);
+            color: #cdd6f4; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; font-size: 0.875rem; transition: all var(--transition);
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.4); }
+        .copy-btn.copied { background: var(--success); border-color: var(--success); color: white; }
+
         .lesson-content .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: var(--gray-900); border-radius: var(--radius-lg); overflow: hidden; margin: 1rem 0; }
         .lesson-content .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         .lesson-content img { max-width: 100%; border-radius: var(--radius); margin: 1rem 0; }
         .lesson-content .remember-box { background: var(--warning-bg); border: 1px solid #FCD34D; border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1rem 0; }
-        .lesson-content .question-box { background: #F5F3FF; border: 1px solid #C4B5FD; border-radius: var(--radius); padding: 1.25rem; margin: 1rem 0; }
+        .lesson-content .remember-box strong { color: #D97706; }
+        .lesson-content .question-box { background: var(--purple-bg); border: 1px solid #C4B5FD; border-radius: var(--radius); padding: 1.25rem; margin: 1rem 0; }
         .lesson-content .question-box .q-title { font-weight: 700; margin-bottom: 0.75rem; }
-        .lesson-content .question-box .q-option { display: block; padding: 0.5rem 0.75rem; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); margin-bottom: 0.375rem; cursor: pointer; background: white; }
+        .lesson-content .question-box .q-option { display: block; padding: 0.5rem 0.75rem; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); margin-bottom: 0.375rem; cursor: pointer; background: white; transition: all var(--transition); }
         .lesson-content .question-box .q-option:hover { border-color: var(--primary); background: var(--primary-bg); }
 
         /* LOCKED OVERLAY */
-        .locked-overlay {
-            background: var(--warning-bg); border: 2px dashed var(--warning);
-            border-radius: var(--radius-xl); padding: 2rem; text-align: center; margin: 2rem 0;
-        }
+        .locked-overlay { background: var(--warning-bg); border: 2px dashed var(--warning); border-radius: var(--radius-xl); padding: 2rem; text-align: center; margin: 2rem 0; }
         .locked-overlay i { font-size: 3rem; color: var(--warning); display: block; margin-bottom: 0.75rem; }
         .locked-overlay h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin-bottom: 0.5rem; }
         .locked-overlay p { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1rem; }
@@ -202,10 +223,12 @@
         .footer-social a:hover { color: #FFF4A3; }
         .footer-bottom { text-align: center; font-size: 0.813rem; color: #9ca3af; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); }
 
+        /* TOAST */
         .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
-        .toast { background: var(--gray-900); color: white; padding: 0.875rem 1.25rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; max-width: 380px; }
-        .toast.success { background: #059669; } .toast.error { background: #DC2626; }
+        .toast { background: var(--gray-900); color: white; padding: 0.875rem 1.25rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease, toastOut 0.3s ease 3s forwards; max-width: 380px; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+        .toast.success { background: #059669; } .toast.error { background: #DC2626; } .toast.info { background: var(--primary); }
         @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes toastOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 
         @media (max-width: 1200px) { .right-panel { display: none; } }
         @media (max-width: 1024px) { .main-layout { flex-direction: column; } .sidebar { width: 100%; position: static; max-height: none; border-right: none; border-bottom: 1px solid var(--gray-200); } .content-area { padding: 1rem; } }
@@ -213,10 +236,8 @@
     </style>
 </head>
 <body>
-    <!-- TOP BAR -->
     <div class="topbar"><div class="topbar-inner"><div class="topbar-links"><a href="Editor.html"><i class='bx bx-code-alt'></i> Code Editor</a><a href="documentation.html"><i class='bx bx-book'></i> Documentation</a><a href="index.html"><i class='bx bx-home'></i> Home</a></div></div></div>
 
-    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-inner">
             <a href="index.html" class="nav-logo"><img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia"><span>Akademia</span></a>
@@ -232,10 +253,8 @@
         </div>
     </nav>
 
-    <!-- BREADCRUMB -->
     <div class="breadcrumb-bar"><div class="breadcrumb-inner" id="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span><span id="breadCourse">Course</span></div></div>
 
-    <!-- MAIN LAYOUT -->
     <div class="main-layout">
         <aside class="sidebar" id="sidebar"><div class="sidebar-title" id="sidebarTitle">📚 Course Modules</div><div id="sidebarContent"></div></aside>
         <div class="content-area">
@@ -246,22 +265,17 @@
             <div class="cert-section" id="certSection" style="display:none;"></div>
         </div>
         <aside class="right-panel" id="rightPanel">
-            <div class="right-panel-section rp-cert-card"><h4><i class='bx bx-certification'></i> Get Certified</h4><i class='bx bx-award'></i><p>Earn an official certificate to showcase your skills.</p><a href="certificate.html" class="btn btn-success btn-sm" style="width:100%;justify-content:center;">View Certificates</a></div>
-            <div class="right-panel-section"><h4><i class='bx bx-dumbbell'></i> Try an Exercise</h4><div id="rpExerciseLinks"><p style="font-size:0.75rem;color:var(--gray-400);">Select a lesson to see exercises</p></div></div>
+            <div class="right-panel-section rp-cert-card"><h4><i class='bx bx-certification'></i> Get Certified</h4><i class='bx bx-award'></i><p style="font-size:0.75rem;color:var(--gray-500);margin-bottom:0.75rem;">Earn an official certificate.</p><a href="certificate.html" class="btn btn-success btn-sm" style="width:100%;justify-content:center;">View Certificates</a></div>
+            <div class="right-panel-section"><h4><i class='bx bx-dumbbell'></i> Try an Exercise</h4><div id="rpExerciseLinks"><p style="font-size:0.75rem;color:var(--gray-400);">Select a lesson</p></div></div>
             <div class="right-panel-section"><h4><i class='bx bx-link'></i> Quick Links</h4><a href="Editor.html" class="rp-exercise-link"><i class='bx bx-code-alt'></i> Code Editor</a><a href="documentation.html" class="rp-exercise-link"><i class='bx bx-book'></i> Documentation</a></div>
         </aside>
     </div>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-inner">
-            <div class="footer-grid">
-                <div class="footer-col"><h5>Platform</h5><a href="course.html">Courses</a><a href="Editor.html">Code Editor</a><a href="exercise.html">Exercises</a><a href="certificate.html">Certificates</a></div>
-                <div class="footer-col"><h5>Support</h5><a href="documentation.html">Documentation</a><a href="help-center.html">Help Center</a><a href="contact.html">Contact</a></div>
-                <div class="footer-col"><h5>Company</h5><a href="#">About Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
-            </div>
+            <div class="footer-grid"><div class="footer-col"><h5>Platform</h5><a href="course.html">Courses</a><a href="Editor.html">Code Editor</a><a href="exercise.html">Exercises</a><a href="certificate.html">Certificates</a></div><div class="footer-col"><h5>Support</h5><a href="documentation.html">Documentation</a><a href="help-center.html">Help Center</a><a href="contact.html">Contact</a></div><div class="footer-col"><h5>Company</h5><a href="#">About Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div></div>
             <div class="footer-social"><a href="#"><i class='bx bxl-youtube'></i></a><a href="#"><i class='bx bxl-github'></i></a><a href="#"><i class='bx bxl-discord-alt'></i></a><a href="#"><i class='bx bxl-twitter'></i></a></div>
-            <div class="footer-bottom"><p>&copy; 2026 Akademia. All rights reserved. Built with <i class='bx bx-heart' style='color:#ef4444;'></i> for learners worldwide.</p></div>
+            <div class="footer-bottom"><p>&copy; 2026 Akademia. Built with <i class='bx bx-heart' style='color:#ef4444;'></i> for learners worldwide.</p></div>
         </div>
     </footer>
 
@@ -276,11 +290,12 @@
         const escHtml = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
         const toast = (msg, type = 'success') => {
             const c = $('toastContainer'); const t = document.createElement('div');
-            t.className = `toast ${type}`; t.innerHTML = `<i class='bx ${type==='success'?'bx-check-circle':'bx-x-circle'}'></i> ${msg}`;
-            c.appendChild(t); setTimeout(() => t.remove(), 3000);
+            t.className = `toast ${type}`; t.innerHTML = `<i class='bx ${type==='success'?'bx-check-circle':type==='error'?'bx-x-circle':'bx-info-circle'}'></i> ${msg}`;
+            t.addEventListener('click', () => t.remove());
+            c.appendChild(t); setTimeout(() => { if (t.parentElement) t.remove(); }, 3500);
         };
 
-        const AppState = { course: null, modules: [], lessons: [], allCourses: [], allModules: [], allLessons: [], currentModuleId: null, currentLessonId: null, currentUser: null, freeLessonLimit: 3 };
+        const AppState = { course: null, modules: [], lessons: [], allCourses: [], allModules: [], allLessons: [], currentModuleId: null, currentLessonId: null, currentUser: null, freeLessonLimit: 3, completedLessons: {} };
 
         function getParams() { const p = new URLSearchParams(window.location.search); return { courseId: p.get('id'), moduleId: p.get('module'), lessonId: p.get('lesson') }; }
 
@@ -308,6 +323,10 @@
                 AppState.allModules = mSnap.docs.map(d=>({id:d.id,...d.data()}));
                 AppState.allLessons = lSnap.docs.map(d=>({id:d.id,...d.data()}));
             } catch(e) { AppState.allCourses=JSON.parse(localStorage.getItem('ak_courses')||'[]'); AppState.allModules=JSON.parse(localStorage.getItem('ak_modules')||'[]'); AppState.allLessons=JSON.parse(localStorage.getItem('ak_lessons')||'[]'); }
+            
+            // Load completed lessons from localStorage
+            try { AppState.completedLessons = JSON.parse(localStorage.getItem('ak_completed') || '{}'); } catch(e) { AppState.completedLessons = {}; }
+
             const { courseId, moduleId, lessonId } = getParams();
             if (courseId) {
                 AppState.course = AppState.allCourses.find(c => c.id === courseId);
@@ -322,71 +341,37 @@
             renderAll();
         }
 
-        function isLessonLocked(lessonIndex) {
-            return !AppState.currentUser && lessonIndex >= AppState.freeLessonLimit;
-        }
+        function isLessonLocked(lessonIndex) { return !AppState.currentUser && lessonIndex >= AppState.freeLessonLimit; }
+        function isLessonCompleted(lessonId) { return !!AppState.completedLessons[lessonId]; }
+        function markLessonCompleted(lessonId) { AppState.completedLessons[lessonId] = true; localStorage.setItem('ak_completed', JSON.stringify(AppState.completedLessons)); }
 
         function renderAll() {
             if (!AppState.course) { renderNotFoundPage(); }
-            else {
-                renderSidebar();
-                renderCourseHeader();
-                renderLessonContent();
-                renderCertSection();
-            }
+            else { renderSidebar(); renderCourseHeader(); renderLessonContent(); renderCertSection(); }
             renderRightPanel();
             $('breadCourse').textContent = AppState.course ? AppState.course.name : 'Explore Courses';
         }
 
-        // ============ NOT FOUND - BEAUTIFUL PAGE ============
+        // ============ NOT FOUND ============
         function renderNotFoundPage() {
             $('sidebarTitle').textContent = '📚 Browse Courses';
             $('sidebarContent').innerHTML = AppState.allCourses.length ? AppState.allCourses.map(c => `<div class="sidebar-module open"><div class="sidebar-module-header" onclick="window.location.href='course.html?id=${c.id}'"><i class='bx bx-book-open'></i> ${escHtml(c.name)}</div></div>`).join('') : '<p style="padding:1rem;font-size:0.75rem;color:var(--gray-400);">No courses yet</p>';
-
             $('courseHeader').innerHTML = '';
-            $('lessonContent').innerHTML = `
-                <div class="notfound-hero">
-                    <i class='bx bx-compass'></i>
-                    <h1>Discover Your Learning Path</h1>
-                    <p>Browse our collection of courses or search for what you want to learn</p>
-                    <div class="notfound-search">
-                        <input type="text" id="notfoundSearch" placeholder="Search courses, modules, lessons..." autocomplete="off">
-                        <button onclick="searchNotFound()"><i class='bx bx-search'></i> Search</button>
-                    </div>
-                    <div id="notfoundResults" style="max-width:500px;margin:0 auto;text-align:left;"></div>
-                </div>`;
-            $('lessonNav').style.display = 'none';
-            $('certSection').style.display = 'none';
-
-            // Suggestions
+            $('lessonContent').innerHTML = `<div class="notfound-hero"><i class='bx bx-compass'></i><h1>Discover Your Learning Path</h1><p>Browse our collection of courses or search for what you want to learn</p><div class="notfound-search"><input type="text" id="notfoundSearch" placeholder="Search courses, modules, lessons..." autocomplete="off"><button onclick="searchNotFound()"><i class='bx bx-search'></i> Search</button></div><div id="notfoundResults" style="max-width:500px;margin:0 auto;text-align:left;"></div></div>`;
+            $('lessonNav').style.display = 'none'; $('certSection').style.display = 'none';
             const sg = $('suggestionsSection');
-            sg.innerHTML = `
-                <h3><i class='bx bx-star'></i> Recommended Courses</h3>
-                <div class="suggestions-grid">
-                    ${AppState.allCourses.length ? AppState.allCourses.slice(0, 6).map(c => `
-                        <a href="course.html?id=${c.id}" class="suggestion-card">
-                            <h4><i class='bx bx-book-open'></i> ${escHtml(c.name)}</h4>
-                            <p>${escHtml(c.description || 'Start learning today')} • ${c.difficulty || 'All Levels'}</p>
-                        </a>
-                    `).join('') : '<div class="suggestion-card"><h4>No courses yet</h4><p>Create courses in the <a href="admin.html" style="color:var(--primary);">Admin Panel</a></p></div>'}
-                </div>`;
-            if (AppState.allModules.length) {
-                sg.innerHTML += `<h3 style="margin-top:2rem;"><i class='bx bx-layer'></i> Popular Modules</h3><div class="suggestions-grid">${AppState.allModules.slice(0,6).map(m=>{const c=AppState.allCourses.find(x=>x.id===m.courseId);return `<a href="course.html?id=${m.courseId}&module=${m.id}" class="suggestion-card"><h4><i class='bx bx-layer'></i> ${escHtml(m.name)}</h4><p>Course: ${escHtml(c?.name||'Unknown')}</p></a>`;}).join('')}</div>`;
-            }
+            sg.innerHTML = `<h3><i class='bx bx-star'></i> Recommended Courses</h3><div class="suggestions-grid">${AppState.allCourses.length ? AppState.allCourses.slice(0,6).map(c => `<a href="course.html?id=${c.id}" class="suggestion-card"><h4><i class='bx bx-book-open'></i> ${escHtml(c.name)}</h4><p>${escHtml(c.description||'')} • ${c.difficulty||'All Levels'}</p></a>`).join('') : '<div class="suggestion-card"><h4>No courses yet</h4></div>'}</div>`;
+            if (AppState.allModules.length) sg.innerHTML += `<h3 style="margin-top:2rem;"><i class='bx bx-layer'></i> Popular Modules</h3><div class="suggestions-grid">${AppState.allModules.slice(0,6).map(m=>{const c=AppState.allCourses.find(x=>x.id===m.courseId);return `<a href="course.html?id=${m.courseId}&module=${m.id}" class="suggestion-card"><h4><i class='bx bx-layer'></i> ${escHtml(m.name)}</h4><p>${escHtml(c?.name||'')}</p></a>`;}).join('')}</div>`;
         }
 
         window.searchNotFound = function() {
             const q = ($('notfoundSearch')?.value||'').toLowerCase().trim();
-            const container = $('notfoundResults');
-            if (!q) { container.innerHTML = ''; return; }
+            const container = $('notfoundResults'); if (!q) { container.innerHTML = ''; return; }
             const results = [];
             AppState.allCourses.forEach(c => { if(c.name?.toLowerCase().includes(q)||c.description?.toLowerCase().includes(q)) results.push({type:'course',name:c.name,id:c.id,icon:'bx-book-open'}); });
             AppState.allModules.forEach(m => { if(m.name?.toLowerCase().includes(q)) results.push({type:'module',name:m.name,id:m.courseId,mid:m.id,icon:'bx-layer'}); });
             AppState.allLessons.forEach(l => { if(l.title?.toLowerCase().includes(q)) results.push({type:'lesson',name:l.title,id:l.courseId||'',mid:l.moduleId,lid:l.id,icon:'bx-video'}); });
-            container.innerHTML = results.length ? results.slice(0,8).map(r => `
-                <div style="padding:0.75rem;border:1px solid var(--gray-200);border-radius:var(--radius-sm);margin-bottom:0.375rem;cursor:pointer;background:white;" onclick="window.location.href='course.html?id=${r.id}${r.mid?'&module='+r.mid:''}${r.lid?'&lesson='+r.lid:''}'">
-                    <i class='bx ${r.icon}'></i> <strong>${escHtml(r.name)}</strong> <span style="color:var(--gray-400);font-size:0.75rem;">• ${r.type}</span>
-                </div>`).join('') : '<p style="color:var(--gray-400);text-align:center;padding:1rem;">No results found</p>';
+            container.innerHTML = results.length ? results.slice(0,8).map(r => `<div style="padding:0.75rem;border:1px solid var(--gray-200);border-radius:var(--radius-sm);margin-bottom:0.375rem;cursor:pointer;background:white;" onclick="window.location.href='course.html?id=${r.id}${r.mid?'&module='+r.mid:''}${r.lid?'&lesson='+r.lid:''}'"><i class='bx ${r.icon}'></i> <strong>${escHtml(r.name)}</strong> <span style="color:var(--gray-400);font-size:0.75rem;">• ${r.type}</span></div>`).join('') : '<p style="color:var(--gray-400);text-align:center;padding:1rem;">No results</p>';
         };
 
         // ============ SIDEBAR ============
@@ -400,21 +385,24 @@
                 const isOpen = AppState.currentModuleId === mod.id || (!AppState.currentModuleId && AppState.modules.indexOf(mod) === 0);
                 return `<div class="sidebar-module ${isOpen?'open':''}" data-module="${mod.id}">
                     <div class="sidebar-module-header" onclick="toggleModule('${mod.id}')"><i class='bx bx-chevron-right'></i> ${escHtml(mod.name)}<span style="margin-left:auto;font-size:0.625rem;color:var(--gray-400);">${ml.length}</span></div>
-                    <div class="sidebar-lessons">${ml.map((l,i)=>{ lessonCount++; const locked = isLessonLocked(lessonCount-1);
-                        return `<a href="${locked?'#':`?id=${AppState.course.id}&module=${mod.id}&lesson=${l.id}`}" class="sidebar-lesson ${l.id===AppState.currentLessonId?'active':''} ${locked?'locked':''}" onclick="${locked?'event.preventDefault();showLockMessage();':'event.preventDefault();loadLesson(\''+mod.id+'\',\''+l.id+'\')'}"><span class="dot"></span> ${escHtml(l.title||'Lesson '+(i+1))}${locked?' <i class="bx bx-lock-alt lock-icon"></i>':''}</a>`;
+                    <div class="sidebar-lessons">${ml.map((l,i)=>{ lessonCount++; const locked = isLessonLocked(lessonCount-1); const completed = isLessonCompleted(l.id);
+                        return `<a href="${locked?'#':`?id=${AppState.course.id}&module=${mod.id}&lesson=${l.id}`}" class="sidebar-lesson ${l.id===AppState.currentLessonId?'active':''} ${locked?'locked':''} ${completed?'completed':''}" onclick="${locked?'event.preventDefault();showLockMessage();':'event.preventDefault();loadLesson(\''+mod.id+'\',\''+l.id+'\')'}"><span class="dot"></span> ${escHtml(l.title||'Lesson '+(i+1))}${locked?' <i class="bx bx-lock-alt lock-icon"></i>':''}${completed&&!locked?' <i class="bx bx-check-circle check-icon"></i>':''}</a>`;
                     }).join('')}</div></div>`;
             }).join('');
         }
 
         window.toggleModule = function(id) { document.querySelector(`.sidebar-module[data-module="${id}"]`)?.classList.toggle('open'); };
         window.showLockMessage = function() {
-            $('lessonContent').innerHTML = `<div class="locked-overlay"><i class='bx bx-lock-alt'></i><h3>Unlock Full Access</h3><p>You've reached the free lesson limit. Sign in to unlock all lessons and continue learning!</p><a href="auth.html?mode=signin" class="btn btn-primary"><i class='bx bx-log-in'></i> Sign In to Continue</a><a href="auth.html?mode=register" class="btn btn-outline" style="margin-left:0.5rem;"><i class='bx bx-user-plus'></i> Create Free Account</a></div>`;
+            $('lessonContent').innerHTML = `<div class="locked-overlay"><i class='bx bx-lock-alt'></i><h3>Unlock Full Access</h3><p>You've reached the free lesson limit. Sign in to unlock all lessons!</p><a href="auth.html?mode=signin" class="btn btn-primary"><i class='bx bx-log-in'></i> Sign In</a><a href="auth.html?mode=register" class="btn btn-outline" style="margin-left:0.5rem;"><i class='bx bx-user-plus'></i> Register</a></div>`;
             $('lessonNav').style.display = 'none';
         };
 
         // ============ COURSE HEADER ============
         function renderCourseHeader() {
-            $('courseHeader').innerHTML = `<h1>${escHtml(AppState.course.name)}</h1><div class="course-meta"><span><i class='bx bx-book-open'></i> ${AppState.modules.length} modules</span><span><i class='bx bx-video'></i> ${AppState.lessons.length} lessons</span><span><i class='bx bx-time'></i> ${AppState.course.duration||AppState.lessons.length*5} min</span><span><i class='bx bx-bar-chart-alt-2'></i> ${AppState.course.difficulty||'All Levels'}</span></div>${AppState.course.description?`<p style="margin-top:0.75rem;color:var(--gray-600);">${escHtml(AppState.course.description)}</p>`:''}`;
+            const totalLessons = AppState.lessons.length;
+            const completedCount = AppState.lessons.filter(l => isLessonCompleted(l.id)).length;
+            const progress = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
+            $('courseHeader').innerHTML = `<h1>${escHtml(AppState.course.name)}</h1><div class="course-meta"><span><i class='bx bx-book-open'></i> ${AppState.modules.length} modules</span><span><i class='bx bx-video'></i> ${totalLessons} lessons</span><span><i class='bx bx-time'></i> ${AppState.course.duration||totalLessons*5} min</span><span><i class='bx bx-bar-chart-alt-2'></i> ${AppState.course.difficulty||'All Levels'}</span></div>${AppState.course.description?`<p style="margin-top:0.75rem;color:var(--gray-600);">${escHtml(AppState.course.description)}</p>`:''}${AppState.currentUser?`<div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${progress}%;"></div><span style="font-size:0.688rem;color:var(--gray-500);">${completedCount}/${totalLessons} lessons completed (${progress}%)</span></div>`:''}`;
         }
 
         // ============ LESSON CONTENT ============
@@ -425,16 +413,18 @@
                     const fm = AppState.modules[0], fl = AppState.lessons.filter(l=>l.moduleId===fm.id)[0];
                     if (fl) { loadLesson(fm.id, fl.id, true); return; }
                 }
-                container.innerHTML = '<div class="empty-state"><i class="bx bx-book-open"></i><h2>Select a Lesson</h2><p>Choose a module and lesson from the sidebar</p></div>';
+                container.innerHTML = '<div class="empty-state"><i class="bx bx-book-open"></i><h2>Select a Lesson</h2><p>Choose from the sidebar</p></div>';
                 nav.style.display = 'none'; return;
             }
             const lesson = AppState.lessons.find(l=>l.id===AppState.currentLessonId);
-            if (!lesson) { container.innerHTML = '<div class="empty-state"><i class="bx bx-error"></i><h2>Lesson Not Found</h2></div>'; nav.style.display='none'; return; }
+            if (!lesson) { container.innerHTML = '<div class="empty-state"><i class="bx bx-error"></i><h2>Not Found</h2></div>'; nav.style.display='none'; return; }
             
-            // Check lock
             const flat = []; AppState.modules.forEach(m=>{AppState.lessons.filter(l=>l.moduleId===m.id).forEach(l=>flat.push({...l,moduleId:m.id}));});
             const ci = flat.findIndex(l=>l.id===AppState.currentLessonId);
             if (isLessonLocked(ci)) { showLockMessage(); return; }
+
+            // Mark as completed
+            markLessonCompleted(AppState.currentLessonId);
 
             const blocks = lesson.pages?.[0]?.blocks||[];
             let h = `<h2>${escHtml(lesson.title||'Untitled')}</h2>`;
@@ -446,7 +436,7 @@
                     case 'remember': h+=`<div class="remember-box"><strong>🧠 Remember:</strong> ${escHtml(b.text||'')}</div>`; break;
                     case 'question': h+=`<div class="question-box"><div class="q-title">❓ ${escHtml(b.question||'Question')}</div>${(b.options||[]).map((o,i)=>`<div class="q-option">${String.fromCharCode(65+i)}. ${escHtml(o||'')}</div>`).join('')}</div>`; break;
                     case 'image': if(b.url)h+=`<img src="${b.url}" alt="${escHtml(b.alt||'')}" onerror="this.style.display='none';">`; break;
-                    case 'code': h+=`<pre>${escHtml(b.code||'')}</pre>${b.caption?`<p style="font-size:0.813rem;color:var(--gray-500);text-align:center;">${escHtml(b.caption)}</p>`:''}`; break;
+                    case 'code': h+=`<div class="code-block-wrapper"><pre><code>${escHtml(b.code||'')}</code></pre><button class="copy-btn" onclick="copyCode(this)" title="Copy code"><i class='bx bx-copy'></i></button></div>${b.caption?`<p style="font-size:0.813rem;color:var(--gray-500);text-align:center;">${escHtml(b.caption)}</p>`:''}`; break;
                 }
             });
             container.innerHTML = h;
@@ -454,14 +444,32 @@
             const prev = ci>0?flat[ci-1]:null, next = ci<flat.length-1?flat[ci+1]:null;
             nav.style.display='flex';
             nav.innerHTML = `${prev?`<a href="?id=${AppState.course.id}&module=${prev.moduleId}&lesson=${prev.id}" class="prev" onclick="event.preventDefault();loadLesson('${prev.moduleId}','${prev.id}')"><i class='bx bx-chevron-left'></i> Previous</a>`:'<span></span>'}<span style="font-size:0.75rem;color:var(--gray-400);">${ci+1}/${flat.length}</span>${next?`<a href="?id=${AppState.course.id}&module=${next.moduleId}&lesson=${next.id}" class="next" onclick="event.preventDefault();loadLesson('${next.moduleId}','${next.id}')">Next <i class='bx bx-chevron-right'></i></a>`:'<span></span>'}`;
+
+            // Update sidebar and header
+            renderSidebar(); renderCourseHeader();
         }
 
         function getYTId(url) { if(!url)return null; const m=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\s]{11})/); return m?m[1]:null; }
 
+        // ============ COPY CODE BUTTON ============
+        window.copyCode = function(btn) {
+            const pre = btn.parentElement.querySelector('pre code');
+            if (!pre) return;
+            const text = pre.textContent || '';
+            navigator.clipboard.writeText(text).then(() => {
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="bx bx-check"></i>';
+                toast('Code copied!', 'success');
+                setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="bx bx-copy"></i>'; }, 2000);
+            }).catch(() => {
+                toast('Failed to copy', 'error');
+            });
+        };
+
         window.loadLesson = function(moduleId, lessonId, silent=false) {
             AppState.currentModuleId = moduleId; AppState.currentLessonId = lessonId;
             if (!silent) window.history.pushState({}, '', `?id=${AppState.course.id}&module=${moduleId}&lesson=${lessonId}`);
-            renderSidebar(); renderLessonContent(); renderRightPanel(); window.scrollTo({top:0,behavior:'smooth'});
+            renderLessonContent(); renderRightPanel(); window.scrollTo({top:0,behavior:'smooth'});
         };
 
         // ============ CERT SECTION ============
@@ -470,33 +478,23 @@
             s.innerHTML = `<div class="cert-card"><div class="cert-card-title">${escHtml(AppState.course.name)} Certificate</div><div class="cert-card-desc">Prove your skills with an official certificate</div><a href="certificate.html" class="cert-card-btn">Learn More</a></div><div class="cert-info"><div class="cert-info-title">Get <span>Certified</span></div><div class="cert-info-desc">Earn an official certificate</div><div class="cert-info-price">$45<span>.00</span></div><a href="certificate.html" class="cert-info-btn" style="margin-top:8px;">Get Certified</a></div><div class="cert-preview"><i class='bx bx-certification' style='font-size:5rem;color:var(--success);opacity:0.3;'></i></div>`;
         }
 
-        // ============ RIGHT PANEL - EXERCISE PROMPTS ============
+        // ============ RIGHT PANEL ============
         function renderRightPanel() {
             const el = $('rpExerciseLinks'); if (!el) return;
             if (AppState.course && AppState.currentLessonId) {
                 const lesson = AppState.lessons.find(l=>l.id===AppState.currentLessonId);
                 const mod = AppState.modules.find(m=>m.id===AppState.currentModuleId);
                 if (lesson) {
-                    el.innerHTML = `
-                        <div style="background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border-radius:var(--radius);padding:0.75rem;margin-bottom:0.5rem;text-align:center;">
-                            <i class='bx bx-dumbbell' style="font-size:2rem;color:#7C3AED;display:block;margin-bottom:0.25rem;"></i>
-                            <p style="font-size:0.75rem;font-weight:600;color:#7C3AED;margin-bottom:0.5rem;">Ready to practice "${escHtml(lesson.title||'this lesson')}"?</p>
-                            <a href="exercise.html?course=${AppState.course.id}&module=${mod?.id||''}&lesson=${lesson.id}" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;background:#7C3AED;">
-                                <i class='bx bx-play-circle'></i> Start Exercise
-                            </a>
-                        </div>
-                        <a href="exercise.html?course=${AppState.course.id}" class="rp-exercise-link"><i class='bx bx-dumbbell'></i> All ${escHtml(AppState.course.name)} Exercises</a>`;
+                    el.innerHTML = `<div style="background:linear-gradient(135deg,var(--purple-bg),#EDE9FE);border-radius:var(--radius);padding:0.75rem;margin-bottom:0.5rem;text-align:center;"><i class='bx bx-dumbbell' style="font-size:2rem;color:var(--purple);display:block;margin-bottom:0.25rem;"></i><p style="font-size:0.75rem;font-weight:600;color:var(--purple);margin-bottom:0.5rem;">Practice "${escHtml(lesson.title||'this lesson')}"</p><a href="exercise.html?course=${AppState.course.id}&module=${mod?.id||''}&lesson=${lesson.id}" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;background:var(--purple);"><i class='bx bx-play-circle'></i> Start Exercise</a></div><a href="exercise.html?course=${AppState.course.id}" class="rp-exercise-link"><i class='bx bx-dumbbell'></i> All ${escHtml(AppState.course.name)} Exercises</a>`;
                 }
             } else if (AppState.course) {
-                el.innerHTML = `<div style="text-align:center;padding:0.5rem;"><i class='bx bx-dumbbell' style="font-size:2rem;color:#7C3AED;opacity:0.5;display:block;margin-bottom:0.25rem;"></i><p style="font-size:0.75rem;color:var(--gray-400);">Select a lesson to practice</p></div>`;
-            } else {
-                el.innerHTML = '<p style="font-size:0.75rem;color:var(--gray-400);">No exercises available</p>';
+                el.innerHTML = `<div style="text-align:center;padding:0.5rem;"><i class='bx bx-dumbbell' style="font-size:2rem;color:var(--purple);opacity:0.5;display:block;margin-bottom:0.25rem;"></i><p style="font-size:0.75rem;color:var(--gray-400);">Select a lesson</p></div>`;
             }
         }
 
         // ============ INIT ============
         loadAllData();
-        console.log('🚀 Akademia Course Page Ultimate loaded!');
+        console.log('🚀 Akademia Course Page Professional loaded!');
     </script>
 </body>
 </html>
