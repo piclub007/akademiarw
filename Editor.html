@@ -18,6 +18,7 @@
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
             --shadow: 0 4px 6px rgba(0,0,0,0.07);
             --shadow-md: 0 10px 25px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 50px rgba(0,0,0,0.15);
             --transition: 0.15s ease;
             --bg: #ffffff; --bg-secondary: #f8fafc; --bg-tertiary: #f1f5f9;
             --border: #e2e8f0; --text: #1e293b; --text-secondary: #64748b;
@@ -42,7 +43,7 @@
         .navbar {
             background: var(--bg-secondary); border-bottom: 1px solid var(--border);
             height: var(--navbar-h); display: flex; align-items: center; padding: 0 0.6rem;
-            z-index: 100; flex-shrink: 0; gap: 0.4rem;
+            z-index: 110; flex-shrink: 0; gap: 0.4rem;
         }
         .navbar-left { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
         .nav-icon-btn {
@@ -177,18 +178,19 @@
         .eta-btn:hover { background: var(--hover); color: var(--primary); }
         #monacoEditor { flex: 1; min-height: 0; }
 
+        /* BOTTOM OUTPUT PANEL (for non-HTML languages) */
         .output-panel {
             height: 0; border-top: 1px solid var(--border); background: var(--bg);
             display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden;
             transition: height 0.2s ease;
         }
-        .output-panel.open { height: 260px; }
+        .output-panel.open { height: 240px; }
         .output-panel-header {
             display: flex; align-items: center; background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border); height: 32px; flex-shrink: 0; padding: 0 0.3rem; gap: 0.05rem;
+            border-bottom: 1px solid var(--border); height: 30px; flex-shrink: 0; padding: 0 0.3rem; gap: 0.05rem;
         }
         .op-tab {
-            padding: 0.3rem 0.55rem; font-size: 0.65rem; font-weight: 500;
+            padding: 0.25rem 0.5rem; font-size: 0.65rem; font-weight: 500;
             color: var(--text-muted); cursor: pointer; border: none; background: transparent;
             border-bottom: 2px solid transparent; transition: all var(--transition);
             font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 0.2rem;
@@ -197,8 +199,8 @@
         .op-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
         .op-spacer { flex: 1; }
         .op-close {
-            width: 24px; height: 24px; border-radius: var(--radius-xs); border: none;
-            background: transparent; cursor: pointer; color: var(--text-muted); font-size: 0.85rem;
+            width: 22px; height: 22px; border-radius: var(--radius-xs); border: none;
+            background: transparent; cursor: pointer; color: var(--text-muted); font-size: 0.8rem;
             display: flex; align-items: center; justify-content: center; transition: all var(--transition);
         }
         .op-close:hover { background: rgba(239,68,68,0.08); color: var(--danger); }
@@ -206,44 +208,70 @@
         .op-content.active { display: flex; flex-direction: column; }
         
         .stdin-box {
-            padding: 0.4rem; border-bottom: 1px solid var(--border); flex-shrink: 0;
+            padding: 0.35rem; border-bottom: 1px solid var(--border); flex-shrink: 0;
         }
         .stdin-box label {
-            font-size: 0.6rem; font-weight: 600; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 0.2rem;
+            font-size: 0.58rem; font-weight: 600; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-bottom: 0.15rem;
             cursor: pointer;
         }
         .stdin-box textarea {
-            width: 100%; padding: 0.35rem; border: 1px solid var(--border); border-radius: var(--radius-sm);
-            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; background: var(--bg-secondary);
-            color: var(--text); resize: none; height: 40px; outline: none; transition: all var(--transition);
+            width: 100%; padding: 0.3rem; border: 1px solid var(--border); border-radius: var(--radius-sm);
+            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; background: var(--bg-secondary);
+            color: var(--text); resize: none; height: 38px; outline: none; transition: all var(--transition);
         }
         .stdin-box textarea:focus { border-color: var(--primary); }
         
         .output-box {
-            flex: 1; padding: 0.5rem; overflow-y: auto;
-            font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
-            line-height: 1.55; color: var(--text); background: var(--bg); white-space: pre-wrap;
+            flex: 1; padding: 0.45rem; overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+            line-height: 1.5; color: var(--text); background: var(--bg); white-space: pre-wrap;
         }
-        .output-box .ol { padding: 0.03rem 0; }
+        .output-box .ol { padding: 0.02rem 0; }
         .output-box .ol.e { color: var(--danger); }
         .output-box .ol.s { color: var(--success); }
         .output-box .ol.i { color: var(--primary); }
 
-        .preview-frame {
-            flex: 1; border: none; background: white; min-height: 0; width: 100%;
+        /* PREVIEW OVERLAY (for HTML/CSS/JS) */
+        .preview-overlay {
+            position: absolute; top: 0; right: 0; bottom: 0; width: 420px;
+            background: var(--bg); border-left: 1px solid var(--border);
+            display: flex; flex-direction: column; z-index: 50;
+            box-shadow: var(--shadow-lg); transform: translateX(100%); opacity: 0;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+            pointer-events: none; min-width: 250px;
         }
-        .preview-bar {
-            display: flex; align-items: center; gap: 0.25rem; padding: 0.25rem 0.4rem;
-            background: var(--bg-secondary); border-bottom: 1px solid var(--border); flex-shrink: 0;
+        .preview-overlay.open {
+            transform: translateX(0); opacity: 1; pointer-events: all;
         }
-        .preview-bar span { font-size: 0.62rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; flex: 1; }
-        .preview-bar button {
+        .preview-overlay-header {
+            display: flex; align-items: center; background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border); height: 30px; flex-shrink: 0;
+            padding: 0 0.3rem; gap: 0.2rem;
+        }
+        .preview-overlay-header span {
+            font-size: 0.62rem; font-weight: 600; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.04em; flex: 1;
+        }
+        .preview-overlay-header button {
             width: 22px; height: 22px; border-radius: var(--radius-xs); border: none;
             background: transparent; cursor: pointer; color: var(--text-muted); font-size: 0.78rem;
             display: flex; align-items: center; justify-content: center; transition: all var(--transition);
         }
-        .preview-bar button:hover { background: var(--hover); color: var(--primary); }
+        .preview-overlay-header button:hover { background: var(--hover); color: var(--primary); }
+        .preview-overlay-header button.close-btn:hover { background: rgba(239,68,68,0.08); color: var(--danger); }
+        .preview-frame-overlay {
+            flex: 1; border: none; background: white; min-height: 0; width: 100%;
+        }
+
+        /* RESIZE HANDLE */
+        .preview-resize-handle {
+            position: absolute; top: 0; right: 420px; bottom: 0;
+            width: 5px; cursor: col-resize; z-index: 55; background: transparent;
+            transition: background var(--transition); display: none;
+        }
+        .preview-resize-handle.visible { display: block; }
+        .preview-resize-handle:hover, .preview-resize-handle.active { background: var(--primary); }
 
         .statusbar {
             height: 20px; background: var(--bg-secondary); border-top: 1px solid var(--border);
@@ -305,6 +333,7 @@
         @media (max-width: 768px) {
             .sidebar { position: absolute; left: 0; top: 0; bottom: 0; z-index: 60; }
             .sidebar.collapsed { display: none; }
+            .preview-overlay { width: 100% !important; }
         }
     </style>
 </head>
@@ -359,11 +388,11 @@
             </div>
             <div id="monacoEditor"></div>
 
+            <!-- BOTTOM OUTPUT PANEL (for non-HTML languages) -->
             <div class="output-panel" id="outputPanel">
                 <div class="output-panel-header">
                     <button class="op-tab active" data-tab="output"><i class='bx bx-terminal'></i> Output</button>
                     <button class="op-tab" data-tab="problems"><i class='bx bx-error'></i> Problems</button>
-                    <button class="op-tab" data-tab="preview" id="tabPreviewBtn" style="display:none;"><i class='bx bx-desktop'></i> Preview</button>
                     <span class="op-spacer"></span>
                     <button class="op-close" id="btnCloseOutput" title="Close (Ctrl+J)"><i class='bx bx-x'></i></button>
                 </div>
@@ -377,15 +406,21 @@
                 <div class="op-content" id="opProblems">
                     <div class="output-box" id="problemsBox"><span class="ol s">✅ No problems</span></div>
                 </div>
-                <div class="op-content" id="opPreview">
-                    <div class="preview-bar">
-                        <span>Preview</span>
-                        <button id="btnRefreshPreview" title="Refresh"><i class='bx bx-refresh'></i></button>
-                        <button id="btnOpenExternal" title="Open in new tab"><i class='bx bx-link-external'></i></button>
-                    </div>
-                    <iframe class="preview-frame" id="previewFrame" sandbox="allow-scripts"></iframe>
-                </div>
             </div>
+
+            <!-- PREVIEW OVERLAY (for HTML/CSS/JS) -->
+            <div class="preview-overlay" id="previewOverlay">
+                <div class="preview-overlay-header">
+                    <span><i class='bx bx-desktop'></i> Preview</span>
+                    <button id="btnRefreshPreview" title="Refresh"><i class='bx bx-refresh'></i></button>
+                    <button id="btnOpenExternal" title="Open in new tab"><i class='bx bx-link-external'></i></button>
+                    <button class="close-btn" id="btnClosePreview" title="Close"><i class='bx bx-x'></i></button>
+                </div>
+                <iframe class="preview-frame-overlay" id="previewFrame" sandbox="allow-scripts"></iframe>
+            </div>
+
+            <!-- RESIZE HANDLE -->
+            <div class="preview-resize-handle" id="previewResizeHandle"></div>
         </div>
     </div>
 
@@ -421,7 +456,6 @@
     (function() {
         'use strict';
         
-        // ============ CONFIGURATION ============
         var LANG_CONFIG = {
             python: { name: 'Python', icon: 'bxl-python', clr: '#3572A5', ml: 'python', ts: 4, ver: 'Python 3', prev: false },
             javascript: { name: 'JavaScript', icon: 'bxl-javascript', clr: '#F7DF1E', ml: 'javascript', ts: 2, ver: 'Node.js', prev: false },
@@ -432,7 +466,7 @@
         };
 
         var DEFAULT_FILES = {
-            python: { 'main.py': '# Python\nprint("Hello, World!")\nprint("Welcome to Akademia Code Studio")\n\n# Fibonacci\nfib = [0, 1]\nfor i in range(2, 10):\n    fib.append(fib[i-1] + fib[i-2])\nprint(f"Fibonacci(10): {fib}")\nprint(f"Squares: {[x**2 for x in range(10)]}")' },
+            python: { 'main.py': '# Python\nprint("Hello, World!")\nprint("Welcome to Akademia Code Studio")\n\nfib = [0, 1]\nfor i in range(2, 10):\n    fib.append(fib[i-1] + fib[i-2])\nprint(f"Fibonacci(10): {fib}")\nprint(f"Squares: {[x**2 for x in range(10)]}")' },
             javascript: { 'script.js': '// JavaScript\nconsole.log("Hello, World!");\nconsole.log("Welcome to Akademia Code Studio");\n\nconst fib = [0, 1];\nfor (let i = 2; i < 10; i++) fib.push(fib[i-1] + fib[i-2]);\nconsole.log("Fibonacci(10):", fib);\nconsole.log("Squares:", Array.from({length:10}, (_,i) => i**2));' },
             html: {
                 'index.html': '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <title>Preview</title>\n</head>\n<body>\n  <div id="app">\n    <h1>🚀 Live Preview</h1>\n    <p>Edit files and click Run!</p>\n    <button onclick="runDemo()">Click Me</button>\n    <div id="out"></div>\n  </div>\n</body>\n</html>',
@@ -444,7 +478,6 @@
             typescript: { 'main.ts': '// TypeScript\nconst greet = (name: string): string => `Hello, ${name}!`;\nconsole.log(greet("World"));\nconsole.log("Welcome to Akademia Code Studio");' }
         };
 
-        // ============ APPLICATION STATE ============
         var state = {
             lang: localStorage.getItem('cs-lang') || 'python',
             theme: localStorage.getItem('cs-theme') || 'light',
@@ -453,11 +486,12 @@
             files: {},
             editor: null,
             outputOpen: false,
+            previewOpen: false,
             sidebarOpen: true,
-            stdinVisible: true
+            stdinVisible: true,
+            previewWidth: 420
         };
 
-        // ============ DOM CACHE ============
         function $(id) { return document.getElementById(id); }
         
         var dom = {};
@@ -469,7 +503,9 @@
             dom.outputPanel = $('outputPanel');
             dom.outputBox = $('outputBox');
             dom.problemsBox = $('problemsBox');
+            dom.previewOverlay = $('previewOverlay');
             dom.previewFrame = $('previewFrame');
+            dom.previewResizeHandle = $('previewResizeHandle');
             dom.langName = $('langName');
             dom.langDropdown = $('langDropdown');
             dom.langList = $('langList');
@@ -478,7 +514,6 @@
             dom.statusLang = $('statusLang');
             dom.statusLine = $('statusLine');
             dom.statusIndent = $('statusIndent');
-            dom.tabPreviewBtn = $('tabPreviewBtn');
             dom.toastCt = $('toastCt');
             dom.modalBg = $('modalBg');
             dom.modalTitle = $('modalTitle');
@@ -486,12 +521,10 @@
             dom.stdinInput = $('stdinInput');
         }
 
-        // ============ HELPER: Get current language config ============
         function getLangConfig() {
             return LANG_CONFIG[state.lang];
         }
 
-        // ============ TOAST ============
         function toast(msg, ok) {
             if (ok === undefined) ok = true;
             var t = document.createElement('div');
@@ -501,7 +534,6 @@
             setTimeout(function() { t.remove(); }, 2000);
         }
 
-        // ============ FILE TREE ============
         function buildFileTree() {
             var h = '';
             var fileNames = Object.keys(state.files).sort();
@@ -545,14 +577,8 @@
             dom.statusIndent.textContent = 'Spaces: ' + lc.ts;
             dom.navbarTitle.textContent = state.activeFile;
             dom.langName.textContent = lc.name;
-            dom.tabPreviewBtn.style.display = lc.prev ? '' : 'none';
-            if (!lc.prev) {
-                var activeTab = document.querySelector('.op-tab.active');
-                if (activeTab && activeTab.dataset.tab === 'preview') switchOpTab('output');
-            }
         }
 
-        // ============ OUTPUT ============
         function addOutput(text, cls) {
             var span = document.createElement('span');
             span.className = 'ol ' + (cls || '');
@@ -565,19 +591,33 @@
             dom.outputBox.innerHTML = '';
         }
 
-        function openOutput() {
+        function openBottomOutput() {
             state.outputOpen = true;
             dom.outputPanel.classList.add('open');
         }
 
-        function closeOutput() {
+        function closeBottomOutput() {
             state.outputOpen = false;
             dom.outputPanel.classList.remove('open');
         }
 
-        function toggleOutput() {
-            if (state.outputOpen) closeOutput();
-            else openOutput();
+        function toggleBottomOutput() {
+            if (state.outputOpen) closeBottomOutput();
+            else openBottomOutput();
+        }
+
+        function openPreview() {
+            state.previewOpen = true;
+            dom.previewOverlay.classList.add('open');
+            dom.previewOverlay.style.width = state.previewWidth + 'px';
+            dom.previewResizeHandle.classList.add('visible');
+            dom.previewResizeHandle.style.right = state.previewWidth + 'px';
+        }
+
+        function closePreview() {
+            state.previewOpen = false;
+            dom.previewOverlay.classList.remove('open');
+            dom.previewResizeHandle.classList.remove('visible');
         }
 
         function switchOpTab(name) {
@@ -592,7 +632,6 @@
             if (content) content.classList.add('active');
         }
 
-        // ============ FILE OPERATIONS ============
         function switchFile(filename) {
             if (state.activeFile === filename) return;
             
@@ -662,7 +701,6 @@
             toast('Renamed to ' + newName);
         }
 
-        // ============ CODE EXECUTION ============
         function runCode() {
             var lc = getLangConfig();
             
@@ -670,16 +708,18 @@
                 state.files[state.activeFile] = state.editor.getValue();
             }
             
-            clearOutput();
-            openOutput();
-            
             if (lc.prev) {
+                // HTML/CSS/JS - show preview overlay
+                closeBottomOutput();
                 buildPreview();
-                switchOpTab('preview');
-                addOutput('▶ Preview rendered', 'i');
-                addOutput('✓ Check the Preview tab', 's');
+                openPreview();
             } else {
+                // Other languages - show bottom output panel
+                closePreview();
+                clearOutput();
+                openBottomOutput();
                 switchOpTab('output');
+                
                 var code = state.files[state.activeFile] || '';
                 var stdin = dom.stdinInput ? dom.stdinInput.value : '';
                 
@@ -797,7 +837,6 @@
             try { state.editor.getAction('editor.action.formatDocument').run(); toast('Formatted'); } catch(e) {}
         }
 
-        // ============ THEME ============
         function setTheme(t) {
             state.theme = t;
             document.body.dataset.theme = t;
@@ -807,7 +846,6 @@
             localStorage.setItem('cs-theme', t);
         }
 
-        // ============ LANGUAGE SWITCHING ============
         function switchLanguage(lang) {
             if (state.lang === lang) return;
             
@@ -825,6 +863,10 @@
             state.activeFile = Object.keys(state.files)[0];
             state.openFiles = [state.activeFile];
             
+            // Close any open panels
+            closeBottomOutput();
+            closePreview();
+            
             localStorage.setItem('cs-lang', lang);
             buildLangList();
             buildFileTree();
@@ -838,13 +880,10 @@
                 state.editor.updateOptions({ tabSize: lc.ts });
             }
             
-            clearOutput();
-            if (state.outputOpen) switchOpTab('output');
             dom.langDropdown.classList.remove('show');
             toast('Switched to ' + getLangConfig().name);
         }
 
-        // ============ INIT EDITOR ============
         function initEditor() {
             require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' } });
             
@@ -889,7 +928,6 @@
             });
         }
 
-        // ============ EVENT SETUP ============
         function setupEvents() {
             // Language dropdown
             $('langBtn').addEventListener('click', function(e) { e.stopPropagation(); dom.langDropdown.classList.toggle('show'); });
@@ -940,8 +978,17 @@
                 dom.sidebar.classList.toggle('collapsed', !state.sidebarOpen);
                 setTimeout(function() { if (state.editor) state.editor.layout(); }, 250);
             });
-            $('btnToggleOutput').addEventListener('click', toggleOutput);
-            $('btnCloseOutput').addEventListener('click', closeOutput);
+            $('btnToggleOutput').addEventListener('click', function() {
+                if (getLangConfig().prev) {
+                    // For HTML, toggle preview overlay
+                    if (state.previewOpen) closePreview();
+                    else { buildPreview(); openPreview(); }
+                } else {
+                    toggleBottomOutput();
+                }
+            });
+            $('btnCloseOutput').addEventListener('click', closeBottomOutput);
+            $('btnClosePreview').addEventListener('click', closePreview);
             
             $('btnCopy').addEventListener('click', function() {
                 if (state.editor) state.files[state.activeFile] = state.editor.getValue();
@@ -1004,10 +1051,42 @@
             document.addEventListener('click', function() { dom.langDropdown.classList.remove('show'); });
             dom.langDropdown.addEventListener('click', function(e) { e.stopPropagation(); });
             
+            // PREVIEW RESIZE
+            var resizing = false, startX = 0, startW = 0;
+            
+            dom.previewResizeHandle.addEventListener('mousedown', function(e) {
+                if (!state.previewOpen) return;
+                resizing = true;
+                startX = e.clientX;
+                startW = state.previewWidth;
+                document.body.style.cursor = 'col-resize';
+                document.body.style.userSelect = 'none';
+                dom.previewResizeHandle.classList.add('active');
+            });
+            
+            document.addEventListener('mousemove', function(e) {
+                if (!resizing) return;
+                var diff = startX - e.clientX;
+                var newW = Math.max(250, Math.min(700, startW + diff));
+                state.previewWidth = newW;
+                dom.previewOverlay.style.width = newW + 'px';
+                dom.previewResizeHandle.style.right = newW + 'px';
+                if (state.editor) state.editor.layout();
+            });
+            
+            document.addEventListener('mouseup', function() {
+                if (resizing) {
+                    resizing = false;
+                    document.body.style.cursor = '';
+                    document.body.style.userSelect = '';
+                    dom.previewResizeHandle.classList.remove('active');
+                }
+            });
+            
             // Keyboard shortcuts
             document.addEventListener('keydown', function(e) {
                 if ((e.ctrlKey || e.metaKey) && e.key === 'b') { e.preventDefault(); $('btnToggleSidebar').click(); }
-                if ((e.ctrlKey || e.metaKey) && e.key === 'j') { e.preventDefault(); toggleOutput(); }
+                if ((e.ctrlKey || e.metaKey) && e.key === 'j') { e.preventDefault(); $('btnToggleOutput').click(); }
                 if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); openModal('new'); }
             });
             
@@ -1025,11 +1104,9 @@
             });
         }
 
-        // ============ INITIALIZATION ============
         function init() {
             cacheDom();
             
-            // Initialize files from default
             state.files = {};
             var defFiles = DEFAULT_FILES[state.lang];
             var fileKeys = Object.keys(defFiles);
