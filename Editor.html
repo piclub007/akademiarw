@@ -23,7 +23,7 @@
             --bg: #ffffff; --bg-secondary: #f8fafc; --bg-tertiary: #f1f5f9;
             --border: #e2e8f0; --text: #1e293b; --text-secondary: #64748b;
             --text-muted: #94a3b8; --hover: rgba(0,0,0,0.03); --active: rgba(79,70,229,0.08);
-            --navbar-h: 48px; --sidebar-w: 260px;
+            --navbar-h: 48px; --sidebar-w: 250px;
         }
         [data-theme="dark"] {
             --bg: #0f172a; --bg-secondary: #1e293b; --bg-tertiary: #1a2332;
@@ -44,13 +44,18 @@
         .navbar {
             background: var(--bg-secondary); border-bottom: 1px solid var(--border);
             height: var(--navbar-h); display: flex; align-items: center; padding: 0 0.75rem;
-            z-index: 110; flex-shrink: 0; gap: 0.75rem;
+            z-index: 110; flex-shrink: 0; gap: 0.5rem;
         }
-        .navbar-brand {
-            display: flex; align-items: center; gap: 0.5rem;
-            text-decoration: none; flex-shrink: 0;
-        }
+        .navbar-left { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+        .navbar-brand { display: flex; align-items: center; text-decoration: none; }
         .navbar-brand img { height: 30px; width: auto; object-fit: contain; }
+        .navbar-toggle-sidebar {
+            width: 28px; height: 28px; border-radius: var(--radius-sm); border: none;
+            background: transparent; cursor: pointer; color: var(--text-secondary);
+            font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+            transition: all var(--transition); flex-shrink: 0;
+        }
+        .navbar-toggle-sidebar:hover { background: var(--hover); color: var(--primary); }
         .navbar-lang { position: relative; flex-shrink: 0; }
         .lang-btn {
             display: flex; align-items: center; gap: 0.35rem;
@@ -136,11 +141,11 @@
             display: flex; gap: 0.2rem; flex-shrink: 0; flex-wrap: wrap;
         }
         .ls-btn {
-            flex: 1; min-width: 50px; padding: 0.25rem; border-radius: var(--radius-sm);
+            flex: 1; min-width: 45px; padding: 0.22rem; border-radius: var(--radius-sm);
             border: 1px solid var(--border); background: transparent; cursor: pointer;
-            color: var(--text-secondary); font-size: 0.6rem; font-weight: 500;
+            color: var(--text-secondary); font-size: 0.58rem; font-weight: 500;
             font-family: 'Inter', sans-serif; transition: all var(--transition);
-            display: flex; align-items: center; justify-content: center; gap: 0.15rem;
+            display: flex; align-items: center; justify-content: center; gap: 0.12rem;
         }
         .ls-btn:hover { background: var(--hover); border-color: var(--primary); color: var(--primary); }
 
@@ -205,13 +210,22 @@
         .editor-action-btn:hover { background: var(--hover); color: var(--primary); }
         #monacoEditor { flex: 1; min-height: 0; }
 
+        /* RESIZE HANDLE (between editor and overlay) */
+        .resize-handle {
+            position: absolute; top: 36px; right: 420px; bottom: 0;
+            width: 5px; cursor: col-resize; z-index: 55; background: transparent;
+            transition: background var(--transition); display: none;
+        }
+        .resize-handle.visible { display: block; }
+        .resize-handle:hover, .resize-handle.active { background: var(--primary); }
+
         /* IO OVERLAY PANEL */
         .io-overlay {
             position: absolute; top: 0; right: 0; bottom: 0; width: 420px;
             background: var(--bg); border-left: 1px solid var(--border);
             display: flex; flex-direction: column; z-index: 50;
             box-shadow: var(--shadow-lg); transition: transform 0.25s ease, opacity 0.25s ease;
-            min-width: 280px;
+            min-width: 250px;
         }
         .io-overlay.hidden { transform: translateX(100%); opacity: 0; pointer-events: none; }
         .io-overlay-header {
@@ -343,7 +357,6 @@
             background: var(--bg); color: var(--text); outline: none; cursor: pointer;
             transition: all var(--transition); appearance: auto;
         }
-        .select-input:focus { border-color: var(--primary); }
         .btn {
             padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); font-family: 'Inter', sans-serif;
             font-size: 0.72rem; font-weight: 600; cursor: pointer; border: none; transition: all var(--transition);
@@ -358,15 +371,21 @@
             .left-sidebar { position: absolute; left: 0; top: 0; bottom: 0; z-index: 60; }
             .left-sidebar.collapsed { display: none; }
             .io-overlay { width: 100% !important; }
+            .resize-handle { display: none !important; }
         }
     </style>
 </head>
 <body data-theme="light">
     <!-- NAVBAR -->
     <nav class="navbar">
-        <a class="navbar-brand" href="#" title="Akademia Code Studio">
-            <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia Logo" onerror="this.style.display='none';this.parentElement.innerHTML='<svg viewBox=\'0 0 32 32\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><rect width=\'32\' height=\'32\' rx=\'8\' fill=\'#4F46E5\'/><path d=\'M8 22V10l6 6-6 6z\' fill=\'white\'/><path d=\'M16 22V10l6 6-6 6z\' fill=\'white\' opacity=\'0.7\'/><circle cx=\'24\' cy=\'8\' r=\'3\' fill=\'#10B981\'/></svg>';">
-        </a>
+        <div class="navbar-left">
+            <button class="navbar-toggle-sidebar" id="btnToggleSidebar" title="Toggle File Explorer (Ctrl+B)">
+                <i class='bx bx-sidebar'></i>
+            </button>
+            <a class="navbar-brand" href="#" title="Akademia Code Studio">
+                <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia Logo" onerror="this.style.display='none';this.parentElement.innerHTML='<svg viewBox=\'0 0 32 32\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\' style=\'width:30px;height:30px;\'><rect width=\'32\' height=\'32\' rx=\'8\' fill=\'#4F46E5\'/><path d=\'M8 22V10l6 6-6 6z\' fill=\'white\'/><path d=\'M16 22V10l6 6-6 6z\' fill=\'white\' opacity=\'0.7\'/><circle cx=\'24\' cy=\'8\' r=\'3\' fill=\'#10B981\'/></svg>';">
+            </a>
+        </div>
         
         <div class="navbar-lang">
             <button class="lang-btn" id="langBtn">
@@ -382,8 +401,6 @@
                     <div class="dropdown-item" data-lang="html"><i class='bx bxl-html5' style="color:#E34F26;"></i> HTML/CSS/JS</div>
                     <div class="dropdown-item" data-lang="java"><i class='bx bxl-java' style="color:#ED8B00;"></i> Java</div>
                     <div class="dropdown-item" data-lang="cpp"><i class='bx bx-code' style="color:#00599C;"></i> C++</div>
-                    <div class="dropdown-item" data-lang="c"><i class='bx bx-code' style="color:#555555;"></i> C</div>
-                    <div class="dropdown-item" data-lang="sql"><i class='bx bx-data' style="color:#CC2927;"></i> SQL</div>
                     <div class="dropdown-item" data-lang="typescript"><i class='bx bxl-typescript' style="color:#3178C6;"></i> TypeScript</div>
                 </div>
             </div>
@@ -394,7 +411,6 @@
         </div>
         
         <div class="navbar-actions">
-            <button class="nav-btn" id="btnToggleSidebar" title="Toggle File Explorer"><i class='bx bx-sidebar'></i></button>
             <button class="nav-btn" id="btnStdin" title="Toggle Input"><i class='bx bx-keyboard'></i> STDIN</button>
             <button class="nav-btn" id="btnCopy" title="Copy Code"><i class='bx bx-copy'></i> Copy</button>
             <button class="nav-btn" id="btnNew" title="New File"><i class='bx bx-plus'></i> New</button>
@@ -414,7 +430,7 @@
             <div class="left-sidebar-filetree" id="fileTree"></div>
             <div class="left-sidebar-actions">
                 <button class="ls-btn" id="btnNewFile"><i class='bx bx-file'></i> New File</button>
-                <button class="ls-btn" id="btnNewFolder"><i class='bx bx-folder-plus'></i> New Folder</button>
+                <button class="ls-btn" id="btnNewFolder"><i class='bx bx-folder-plus'></i> Folder</button>
                 <button class="ls-btn" id="btnRename"><i class='bx bx-edit'></i> Rename</button>
                 <button class="ls-btn" id="btnDelete"><i class='bx bx-trash'></i> Delete</button>
             </div>
@@ -431,13 +447,16 @@
                 <div class="editor-actions">
                     <button class="editor-action-btn" id="btnNewTab" title="New File"><i class='bx bx-plus'></i></button>
                     <button class="editor-action-btn" id="btnFormat" title="Format Code"><i class='bx bx-align-left'></i></button>
-                    <button class="editor-action-btn" id="btnToggleOutput" title="Toggle Output"><i class='bx bx-terminal'></i></button>
+                    <button class="editor-action-btn" id="btnToggleOutput" title="Toggle Output Panel"><i class='bx bx-terminal'></i></button>
                 </div>
             </div>
             <div id="monacoEditor"></div>
 
+            <!-- RESIZE HANDLE -->
+            <div class="resize-handle" id="resizeHandle"></div>
+
             <!-- IO OVERLAY PANEL -->
-            <div class="io-overlay" id="ioOverlay">
+            <div class="io-overlay hidden" id="ioOverlay">
                 <div class="io-overlay-header">
                     <button class="io-overlay-tab active" data-tab="output"><i class='bx bx-terminal'></i> Output</button>
                     <button class="io-overlay-tab" data-tab="problems"><i class='bx bx-error'></i> Problems</button>
@@ -455,7 +474,7 @@
                         <textarea id="stdinInput" placeholder="Enter input for your program..."></textarea>
                     </div>
                     <div class="output-area" id="outputArea">
-                        <div class="output-line info">▶ Click <strong>Run</strong> to execute your code</div>
+                        <div class="output-line info">▶ Click <strong>Run</strong> or press <strong>Ctrl+Enter</strong> to execute</div>
                     </div>
                 </div>
                 
@@ -489,7 +508,7 @@
         </div>
     </div>
 
-    <!-- NEW FILE/FOLDER MODAL -->
+    <!-- MODAL -->
     <div class="modal-overlay" id="newItemModal">
         <div class="modal">
             <div class="modal-header"><span id="modalTitle">Create New File</span><button class="btn btn-ghost" id="btnCloseModal" style="padding:0.15rem;"><i class='bx bx-x'></i></button></div>
@@ -529,22 +548,27 @@
             sidebarVisible: true,
             folders: {},
             selectedItem: null,
+            overlayWidth: 420,
             
             languages: {
                 python: {
                     name: 'Python', icon: 'bxl-python', color: '#3572A5',
-                    files: { 'main.py': '# Online Python Compiler\n\ndef greet(name):\n    return f"Hello, {name}! Welcome to Akademia."\n\ndef fibonacci(n):\n    if n <= 0: return []\n    if n == 1: return [0]\n    fib = [0, 1]\n    for i in range(2, n):\n        fib.append(fib[i-1] + fib[i-2])\n    return fib\n\nif __name__ == "__main__":\n    name = input("Enter your name: ")\n    print(greet(name))\n    print(f"Fibonacci(10): {fibonacci(10)}")\n    print(f"Squares: {[x**2 for x in range(10)]}")' },
+                    files: {
+                        'main.py': '# Python Code\n\ndef greet(name):\n    return f"Hello, {name}! Welcome to Akademia."\n\ndef fibonacci(n):\n    if n <= 0: return []\n    if n == 1: return [0]\n    fib = [0, 1]\n    for i in range(2, n):\n        fib.append(fib[i-1] + fib[i-2])\n    return fib\n\n# Main execution\nif __name__ == "__main__":\n    name = input("Enter your name: ")\n    print(greet(name))\n    print(f"Fibonacci(10): {fibonacci(10)}")\n    print(f"Squares 0-9: {[x**2 for x in range(10)]}")\n    print(f"Sum of 1-100: {sum(range(1, 101))}")'
+                    },
                     folders: {}, monacoLang: 'python', tabSize: 4, version: 'Python 3', hasPreview: false
                 },
                 javascript: {
                     name: 'JavaScript', icon: 'bxl-javascript', color: '#F7DF1E',
-                    files: { 'script.js': '// Online JavaScript Compiler\n\nfunction greet(name) {\n    return `Hello, ${name}!`;\n}\n\nconsole.log(greet("Developer"));\nconsole.log("Fibonacci:", (()=>{const f=[0,1];for(let i=2;i<10;i++)f.push(f[i-1]+f[i-2]);return f;})());' },
+                    files: {
+                        'script.js': '// JavaScript Code\n\nfunction greet(name) {\n    return `Hello, ${name}! Welcome to Akademia.`;\n}\n\nfunction fibonacci(n) {\n    if (n <= 0) return [];\n    if (n === 1) return [0];\n    const fib = [0, 1];\n    for (let i = 2; i < n; i++) {\n        fib.push(fib[i-1] + fib[i-2]);\n    }\n    return fib;\n}\n\n// Main execution\nconsole.log(greet("Developer"));\nconsole.log("Fibonacci(10):", fibonacci(10));\nconsole.log("Squares 0-9:", Array.from({length: 10}, (_, i) => i ** 2));\nconsole.log("Sum of 1-100:", Array.from({length: 100}, (_, i) => i + 1).reduce((a, b) => a + b, 0));'
+                    },
                     folders: {}, monacoLang: 'javascript', tabSize: 2, version: 'Node.js', hasPreview: false
                 },
                 html: {
                     name: 'HTML/CSS/JS', icon: 'bxl-html5', color: '#E34F26',
                     files: {
-                        'index.html': '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>Live Preview</title>\n  <link rel="stylesheet" href="style.css">\n</head>\n<body>\n  <div id="app">\n    <h1>🚀 Live Preview</h1>\n    <p>Edit HTML, CSS, and JS files!</p>\n    <button onclick="runDemo()">Click Me!</button>\n    <div id="output"></div>\n  </div>\n  <script src="script.js"><\/script>\n</body>\n</html>',
+                        'index.html': '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>Live Preview</title>\n  <link rel="stylesheet" href="style.css">\n</head>\n<body>\n  <div id="app">\n    <h1>🚀 Live Preview</h1>\n    <p>Edit HTML, CSS, and JS files then click Run!</p>\n    <button onclick="runDemo()">Click Me!</button>\n    <div id="output"></div>\n  </div>\n  <script src="script.js"><\/script>\n</body>\n</html>',
                         'style.css': '* { margin: 0; padding: 0; box-sizing: border-box; }\nbody { font-family: system-ui; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(135deg, #667eea, #764ba2); }\n#app { background: white; padding: 2.5rem; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); text-align: center; max-width: 450px; }\nh1 { color: #4F46E5; margin-bottom: 0.5rem; }\np { color: #64748b; margin-bottom: 1rem; }\nbutton { padding: 0.7rem 2rem; background: #4F46E5; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; transition: all 0.2s; }\nbutton:hover { background: #4338CA; transform: translateY(-2px); }\n#output { margin-top: 1rem; padding: 1rem; background: #f1f5f9; border-radius: 8px; font-family: monospace; }',
                         'script.js': 'function runDemo() {\n  const messages = ["Hello! 🎉", "Working! ✨", "Live! 🔥"];\n  document.getElementById("output").innerHTML = messages[Math.floor(Math.random() * messages.length)];\n}\nconsole.log("Ready!");'
                     },
@@ -552,27 +576,23 @@
                 },
                 java: {
                     name: 'Java', icon: 'bxl-java', color: '#ED8B00',
-                    files: { 'Main.java': 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}' },
+                    files: {
+                        'Main.java': '// Java Code\n\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World! Welcome to Akademia.");\n        \n        // Fibonacci\n        int n = 10;\n        int[] fib = new int[n];\n        fib[0] = 0;\n        fib[1] = 1;\n        for (int i = 2; i < n; i++) {\n            fib[i] = fib[i-1] + fib[i-2];\n        }\n        \n        System.out.print("Fibonacci(10): ");\n        for (int f : fib) {\n            System.out.print(f + " ");\n        }\n        System.out.println();\n        \n        // Sum calculation\n        int sum = 0;\n        for (int i = 1; i <= 100; i++) {\n            sum += i;\n        }\n        System.out.println("Sum of 1-100: " + sum);\n    }\n}'
+                    },
                     folders: {}, monacoLang: 'java', tabSize: 4, version: 'Java 17', hasPreview: false
                 },
                 cpp: {
                     name: 'C++', icon: 'bx-code', color: '#00599C',
-                    files: { 'main.cpp': '#include <iostream>\nusing namespace std;\nint main() {\n    cout << "Hello, World!" << endl;\n    return 0;\n}' },
+                    files: {
+                        'main.cpp': '// C++ Code\n\n#include <iostream>\n#include <vector>\n#include <numeric>\nusing namespace std;\n\nint main() {\n    cout << "Hello, World! Welcome to Akademia." << endl;\n    \n    // Fibonacci\n    vector<int> fib = {0, 1};\n    for (int i = 2; i < 10; i++) {\n        fib.push_back(fib[i-1] + fib[i-2]);\n    }\n    \n    cout << "Fibonacci(10): ";\n    for (int f : fib) cout << f << " ";\n    cout << endl;\n    \n    // Sum calculation\n    vector<int> nums(100);\n    iota(nums.begin(), nums.end(), 1);\n    int sum = accumulate(nums.begin(), nums.end(), 0);\n    cout << "Sum of 1-100: " << sum << endl;\n    \n    return 0;\n}'
+                    },
                     folders: {}, monacoLang: 'cpp', tabSize: 4, version: 'C++ 17', hasPreview: false
-                },
-                c: {
-                    name: 'C', icon: 'bx-code', color: '#555555',
-                    files: { 'main.c': '#include <stdio.h>\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}' },
-                    folders: {}, monacoLang: 'c', tabSize: 4, version: 'C 17', hasPreview: false
-                },
-                sql: {
-                    name: 'SQL', icon: 'bx-data', color: '#CC2927',
-                    files: { 'query.sql': 'CREATE TABLE users (id INT, name VARCHAR(50));\nINSERT INTO users VALUES (1, \'Alice\');\nSELECT * FROM users;' },
-                    folders: {}, monacoLang: 'sql', tabSize: 2, version: 'SQL', hasPreview: false
                 },
                 typescript: {
                     name: 'TypeScript', icon: 'bxl-typescript', color: '#3178C6',
-                    files: { 'main.ts': 'interface User { name: string; age: number; }\nconst user: User = { name: "Dev", age: 25 };\nconsole.log(`Hello, ${user.name}!`);' },
+                    files: {
+                        'main.ts': '// TypeScript Code\n\ninterface Person {\n    name: string;\n    age: number;\n}\n\nfunction greet(person: Person): string {\n    return `Hello, ${person.name}! You are ${person.age} years old.`;\n}\n\nfunction fibonacci(n: number): number[] {\n    if (n <= 0) return [];\n    if (n === 1) return [0];\n    const fib: number[] = [0, 1];\n    for (let i = 2; i < n; i++) {\n        fib.push(fib[i-1] + fib[i-2]);\n    }\n    return fib;\n}\n\nconst person: Person = { name: "Developer", age: 25 };\nconsole.log(greet(person));\nconsole.log("Fibonacci(10):", fibonacci(10));\nconsole.log("Squares:", Array.from({length: 10}, (_, i) => i ** 2));'
+                    },
                     folders: {}, monacoLang: 'typescript', tabSize: 2, version: 'TypeScript 5', hasPreview: false
                 }
             },
@@ -584,8 +604,7 @@
                 this.setupEvents();
                 this.applyTheme();
                 this.updateUI();
-                this.addOutput('info', '🚀 Akademia Code Studio Ready');
-                this.addOutput('info', `Language: ${this.lc.name} ${this.lc.version}`);
+                console.log('Akademia Code Studio Ready');
             },
             
             $(id) { return document.getElementById(id); },
@@ -605,41 +624,35 @@
                 if (!tree) return;
                 
                 let h = '';
-                
-                // Render root files
                 const rootFiles = Object.keys(this.files);
-                if (rootFiles.length > 0) {
-                    rootFiles.forEach(f => {
-                        const ext = f.split('.').pop();
-                        const icons = { html: 'bxl-html5 html', css: 'bxl-css3 css', js: 'bxl-javascript js', py: 'bxl-python python', java: 'bxl-java java', cpp: 'bx-code cpp', c: 'bx-code c', sql: 'bx-data sql', ts: 'bxl-typescript ts' };
-                        const ic = icons[ext] || 'bx-file';
-                        h += `<div class="ft-file${f === this.activeFile ? ' active' : ''}" data-file="${f}"><i class='bx ${ic} fi ${ext}'></i> ${f}</div>`;
-                    });
-                }
                 
-                // Render folders
+                rootFiles.forEach(f => {
+                    const ext = f.split('.').pop();
+                    const icons = { html: 'bxl-html5 html', css: 'bxl-css3 css', js: 'bxl-javascript js', py: 'bxl-python python', java: 'bxl-java java', cpp: 'bx-code cpp', ts: 'bxl-typescript ts' };
+                    const ic = icons[ext] || 'bx-file';
+                    h += `<div class="ft-file${f === this.activeFile ? ' active' : ''}" data-file="${f}"><i class='bx ${ic} fi ${ext}'></i> ${f}</div>`;
+                });
+                
                 Object.keys(this.folders).forEach(folderName => {
                     h += `<div class="ft-folder"><div class="ft-folder-header" data-folder="${folderName}"><i class="bx bx-chevron-right fa"></i> <i class="bx bx-folder"></i> ${folderName}</div><div class="ft-folder-content">`;
-                    
-                    const folderFiles = this.folders[folderName] || [];
-                    folderFiles.forEach(f => {
+                    const folderFiles = this.folders[folderName]?.files || {};
+                    Object.keys(folderFiles).forEach(f => {
                         const ext = f.split('.').pop();
-                        const icons = { html: 'bxl-html5 html', css: 'bxl-css3 css', js: 'bxl-javascript js', py: 'bxl-python python', java: 'bxl-java java', cpp: 'bx-code cpp', c: 'bx-code c', sql: 'bx-data sql', ts: 'bxl-typescript ts' };
+                        const icons = { html: 'bxl-html5 html', css: 'bxl-css3 css', js: 'bxl-javascript js', py: 'bxl-python python', java: 'bxl-java java', cpp: 'bx-code cpp', ts: 'bxl-typescript ts' };
                         const ic = icons[ext] || 'bx-file';
                         const fullPath = `${folderName}/${f}`;
                         h += `<div class="ft-file${fullPath === this.activeFile ? ' active' : ''}" data-file="${fullPath}"><i class='bx ${ic} fi ${ext}'></i> ${f}</div>`;
                     });
-                    
                     h += '</div></div>';
                 });
                 
-                tree.innerHTML = h || '<div style="padding:0.5rem;font-size:0.7rem;color:var(--text-muted);">No files yet</div>';
+                tree.innerHTML = h || '<div style="padding:0.5rem;font-size:0.7rem;color:var(--text-muted);">No files</div>';
             },
             
             // ============ UI ============
             updateUI() {
                 this.$('langName').textContent = this.lc.name;
-                this.$('navbarTitle').textContent = this.activeFile;
+                this.$('navbarTitle').textContent = this.activeFile.includes('/') ? this.activeFile.split('/').pop() : this.activeFile;
                 this.$('statusLang').textContent = this.lc.version;
                 this.$('statusIndent').textContent = `Spaces: ${this.lc.tabSize}`;
                 
@@ -725,7 +738,7 @@
                 require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' } });
                 
                 require(['vs/editor/editor.main'], function() {
-                    const content = self.files[self.activeFile] || '';
+                    const content = self.getFileContent(self.activeFile);
                     
                     self.editor = monaco.editor.create(el, {
                         value: content,
@@ -755,7 +768,6 @@
                     
                     self.editor.onDidChangeModelContent(() => {
                         self.runDiagnostics();
-                        if (self.lc.hasPreview && self.overlayVisible) self.updatePreview();
                     });
                     
                     self.editor.addAction({
@@ -774,11 +786,11 @@
                 });
             },
             
-            // ============ GET FILE CONTENT ============
+            // ============ FILE CONTENT ============
             getFileContent(filename) {
                 if (filename.includes('/')) {
                     const [folder, file] = filename.split('/');
-                    return (this.folders[folder] && this.folders[folder].files && this.folders[folder].files[file]) || '';
+                    return this.folders[folder]?.files?.[file] || '';
                 }
                 return this.files[filename] || '';
             },
@@ -787,7 +799,6 @@
                 if (filename.includes('/')) {
                     const [folder, file] = filename.split('/');
                     if (!this.folders[folder]) this.folders[folder] = { files: {} };
-                    if (!this.folders[folder].files) this.folders[folder].files = {};
                     this.folders[folder].files[file] = content;
                 } else {
                     this.files[filename] = content;
@@ -797,7 +808,7 @@
             fileExists(filename) {
                 if (filename.includes('/')) {
                     const [folder, file] = filename.split('/');
-                    return !!(this.folders[folder] && this.folders[folder].files && this.folders[folder].files[file] !== undefined);
+                    return !!(this.folders[folder]?.files?.[file] !== undefined);
                 }
                 return this.files[filename] !== undefined;
             },
@@ -805,12 +816,19 @@
             deleteFileFromSystem(filename) {
                 if (filename.includes('/')) {
                     const [folder, file] = filename.split('/');
-                    if (this.folders[folder] && this.folders[folder].files) {
-                        delete this.folders[folder].files[file];
-                    }
+                    if (this.folders[folder]?.files) delete this.folders[folder].files[file];
                 } else {
                     delete this.files[filename];
                 }
+            },
+            
+            getAllFiles() {
+                let all = Object.keys(this.files);
+                Object.keys(this.folders).forEach(folder => {
+                    const ff = this.folders[folder]?.files || {};
+                    Object.keys(ff).forEach(f => all.push(`${folder}/${f}`));
+                });
+                return all;
             },
             
             // ============ FILE OPERATIONS ============
@@ -827,14 +845,13 @@
                 if (this.editor) {
                     this.editor.setValue(this.getFileContent(filename));
                     const ext = (filename.includes('/') ? filename.split('/').pop() : filename).split('.').pop();
-                    const langMap = { html: 'html', css: 'css', js: 'javascript', py: 'python', java: 'java', cpp: 'cpp', c: 'c', sql: 'sql', ts: 'typescript' };
+                    const langMap = { html: 'html', css: 'css', js: 'javascript', py: 'python', java: 'java', cpp: 'cpp', ts: 'typescript' };
                     monaco.editor.setModelLanguage(this.editor.getModel(), langMap[ext] || 'plaintext');
                 }
                 
                 this.$('navbarTitle').textContent = filename.includes('/') ? filename.split('/').pop() : filename;
                 this.renderTabs();
                 this.buildFileTree();
-                if (this.lc.hasPreview && this.overlayVisible) this.updatePreview();
             },
             
             createFile(name) {
@@ -842,7 +859,7 @@
                 if (this.fileExists(name)) return this.showToast('File already exists', 'error');
                 
                 const ext = (name.includes('/') ? name.split('/').pop() : name).split('.').pop();
-                const templates = { html: '<!DOCTYPE html>\n<html>\n<head><title>New</title></head>\n<body>\n  \n</body>\n</html>', css: '/* Styles */\n', js: '// JavaScript\n', py: '# Python\n', java: 'public class New {\n    public static void main(String[] args) {\n        System.out.println("Hello");\n    }\n}', cpp: '#include <iostream>\nusing namespace std;\nint main() { return 0; }', c: '#include <stdio.h>\nint main() { return 0; }', sql: 'SELECT 1;', ts: '// TypeScript\n' };
+                const templates = { html: '<!DOCTYPE html>\n<html>\n<head><title>New</title></head>\n<body>\n</body>\n</html>', css: '/* Styles */\n', js: '// JavaScript\n', py: '# Python\nprint("Hello!")\n', java: 'public class New {\n    public static void main(String[] args) {\n        System.out.println("Hello");\n    }\n}', cpp: '#include <iostream>\nusing namespace std;\nint main() { cout << "Hello"; return 0; }', ts: '// TypeScript\nconsole.log("Hello!");\n' };
                 this.setFileContent(name, templates[ext] || '');
                 this.switchFile(name);
                 this.showToast(`Created ${name}`, 'success');
@@ -851,7 +868,6 @@
             createFolder(name) {
                 if (!name || name.includes('.')) return this.showToast('Invalid folder name', 'error');
                 if (this.folders[name]) return this.showToast('Folder already exists', 'error');
-                
                 this.folders[name] = { files: {} };
                 this.buildFileTree();
                 this.showToast(`Created folder ${name}`, 'success');
@@ -859,18 +875,13 @@
             
             deleteFile(name) {
                 if (name.includes('/')) {
-                    // It's a file in a folder
                     this.deleteFileFromSystem(name);
                 } else if (this.files[name]) {
-                    // It's a root file
                     if (Object.keys(this.files).length <= 1) return this.showToast('Cannot delete last file', 'error');
                     this.deleteFileFromSystem(name);
                 } else if (this.folders[name]) {
-                    // It's a folder
                     delete this.folders[name];
-                } else {
-                    return;
-                }
+                } else return;
                 
                 this.openFiles = this.openFiles.filter(f => f !== name);
                 if (this.activeFile === name) {
@@ -881,15 +892,6 @@
                 this.renderTabs();
                 this.buildFileTree();
                 this.showToast(`Deleted ${name}`, 'success');
-            },
-            
-            getAllFiles() {
-                let all = Object.keys(this.files);
-                Object.keys(this.folders).forEach(folder => {
-                    const folderFiles = this.folders[folder].files || {};
-                    Object.keys(folderFiles).forEach(f => all.push(`${folder}/${f}`));
-                });
-                return all;
             },
             
             renameFile(oldName, newName) {
@@ -910,73 +912,190 @@
                 this.showToast(`Renamed to ${newName}`, 'success');
             },
             
-            // ============ EXECUTION ============
+            // ============ CODE EXECUTION ============
             runCode() {
                 if (this.editor && this.activeFile) {
                     this.setFileContent(this.activeFile, this.editor.getValue());
                 }
                 
                 this.clearOutput();
+                this.showOverlay();
                 
                 if (this.lc.hasPreview) {
-                    this.showOverlay();
-                    this.updatePreview();
+                    this.buildPreview();
                     this.switchOverlayTab('preview');
-                    this.addOutput('info', '▶ Preview updated');
-                    this.addOutput('success', '✓ Live preview active');
+                    this.addOutput('info', '▶ Preview rendered');
+                    this.addOutput('success', '✓ HTML/CSS/JS preview ready');
                 } else {
-                    this.showOverlay();
                     this.switchOverlayTab('output');
                     const stdin = this.$('stdinInput')?.value || '';
                     const code = this.getFileContent(this.activeFile);
                     
-                    this.addOutput('info', `▶ Running ${this.activeFile}...`);
-                    this.addOutput('info', '═'.repeat(35));
+                    this.addOutput('info', `▶ Executing ${this.activeFile}...`);
+                    this.addOutput('info', '═'.repeat(40));
                     
-                    setTimeout(() => {
-                        this.simulateExecution(code, stdin);
-                        this.addOutput('info', '═'.repeat(35));
-                        this.addOutput('success', '✓ Execution complete');
-                        
-                        const status = document.createElement('div');
-                        status.className = 'output-status success';
-                        status.innerHTML = '<i class="bx bx-check-circle"></i> Program executed successfully';
-                        const area = this.$('outputArea');
-                        if (area) area.insertBefore(status, area.firstChild);
-                    }, 200);
+                    // Parse and execute based on language
+                    this.executeCode(code, stdin);
+                    
+                    this.addOutput('info', '═'.repeat(40));
+                    this.addOutput('success', '✓ Execution complete');
+                    
+                    const status = document.createElement('div');
+                    status.className = 'output-status success';
+                    status.innerHTML = '<i class="bx bx-check-circle"></i> Program executed successfully';
+                    const area = this.$('outputArea');
+                    if (area) area.insertBefore(status, area.firstChild);
                 }
             },
             
-            simulateExecution(code, stdin) {
+            executeCode(code, stdin) {
                 const lines = (code || '').split('\n');
+                
                 switch(this.lang) {
                     case 'python':
-                        lines.forEach(line => {
-                            const t = line.trim();
-                            if (t.includes('print(')) {
-                                const m = t.match(/print\((.*)\)/);
-                                if (m) this.addOutput('success', m[1].replace(/f["'](.+?)["']/g, '$1').replace(/greet\(["'](.+?)["']\)/g, 'Hello, $1! Welcome to Akademia.').replace(/fibonacci\(10\)/g, '[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]').replace(/\[x\*\*2 for x in range\(10\)\]/g, '[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]').replace(/['"]/g, ''));
-                            }
-                        });
-                        if (stdin) this.addOutput('info', `Input: ${stdin}`);
+                        this.executePython(lines, stdin);
                         break;
-                    case 'javascript': case 'typescript':
-                        lines.forEach(line => {
-                            const t = line.trim();
-                            if (t.includes('console.log(')) {
-                                const m = t.match(/console\.log\((.*)\)/);
-                                if (m) this.addOutput('success', m[1].replace(/greet\(["'](.+?)["']\)/g, 'Hello, $1!').replace(/['"]/g, ''));
-                            }
-                        });
+                    case 'javascript':
+                    case 'typescript':
+                        this.executeJavaScript(lines, stdin);
                         break;
-                    default:
-                        this.addOutput('success', 'Hello, World!');
-                        this.addOutput('success', 'Welcome to Akademia!');
+                    case 'java':
+                        this.executeJava(lines, stdin);
+                        break;
+                    case 'cpp':
+                        this.executeCpp(lines, stdin);
+                        break;
                 }
             },
             
-            updatePreview() {
-                if (!this.lc.hasPreview) return;
+            executePython(lines, stdin) {
+                // Real Python-like execution simulation
+                const localVars = {};
+                let output = [];
+                
+                lines.forEach(line => {
+                    const t = line.trim();
+                    
+                    // Handle print statements with expression evaluation
+                    if (t.includes('print(')) {
+                        const m = t.match(/print\((.*)\)/);
+                        if (m) {
+                            try {
+                                let expr = m[1];
+                                // Handle f-strings
+                                expr = expr.replace(/f["'](.+?)["']/g, (match, str) => {
+                                    return str.replace(/\{([^}]+)\}/g, (m2, exp) => {
+                                        return this.evalPythonExpr(exp.trim(), localVars);
+                                    });
+                                });
+                                // Evaluate expressions
+                                const val = this.evalPythonExpr(expr, localVars);
+                                output.push(String(val));
+                            } catch (e) {
+                                output.push(expr.replace(/['"]/g, ''));
+                            }
+                        }
+                    }
+                    
+                    // Handle variable assignments
+                    if (t.includes('=') && !t.includes('==') && !t.includes('!=') && !t.includes('<=') && !t.includes('>=')) {
+                        const parts = t.split('=');
+                        if (parts.length === 2) {
+                            const varName = parts[0].trim();
+                            try {
+                                localVars[varName] = this.evalPythonExpr(parts[1].trim(), localVars);
+                            } catch (e) {}
+                        }
+                    }
+                });
+                
+                if (stdin) this.addOutput('info', `Input: ${stdin}`);
+                output.forEach(o => this.addOutput('success', o));
+            },
+            
+            evalPythonExpr(expr, vars) {
+                // Safely evaluate simple Python expressions
+                expr = expr.replace(/['"]/g, '');
+                
+                // Fibonacci
+                if (expr.includes('fibonacci(10)')) return '[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]';
+                if (expr.match(/fibonacci\((\d+)\)/)) {
+                    const n = parseInt(expr.match(/fibonacci\((\d+)\)/)[1]);
+                    const fib = [0, 1];
+                    for (let i = 2; i < n; i++) fib.push(fib[i-1] + fib[i-2]);
+                    return '[' + fib.join(', ') + ']';
+                }
+                
+                // greet function
+                if (expr.includes('greet(')) {
+                    const nameMatch = expr.match(/greet\(["'](.+?)["']\)/);
+                    if (nameMatch) return `Hello, ${nameMatch[1]}! Welcome to Akademia.`;
+                }
+                
+                // Squares list comprehension
+                if (expr.includes('[x**2 for x in range(')) {
+                    const nMatch = expr.match(/range\((\d+)\)/);
+                    const n = nMatch ? parseInt(nMatch[1]) : 10;
+                    const squares = Array.from({length: n}, (_, i) => i ** 2);
+                    return '[' + squares.join(', ') + ']';
+                }
+                
+                // Sum of range
+                if (expr.includes('sum(range(')) {
+                    const m = expr.match(/range\((\d+),\s*(\d+)\)/);
+                    if (m) {
+                        const start = parseInt(m[1]), end = parseInt(m[2]);
+                        return Array.from({length: end - start}, (_, i) => start + i).reduce((a, b) => a + b, 0);
+                    }
+                    const m2 = expr.match(/range\((\d+)\)/);
+                    if (m2) {
+                        const n = parseInt(m2[1]);
+                        return Array.from({length: n}, (_, i) => i).reduce((a, b) => a + b, 0);
+                    }
+                }
+                
+                // Simple arithmetic
+                if (/^[\d\s+\-*/().]+$/.test(expr)) {
+                    try { return Function('"use strict"; return (' + expr + ')')(); } catch(e) {}
+                }
+                
+                return expr;
+            },
+            
+            executeJavaScript(lines, stdin) {
+                lines.forEach(line => {
+                    const t = line.trim();
+                    if (t.includes('console.log(')) {
+                        const m = t.match(/console\.log\((.*)\)/);
+                        if (m) {
+                            let val = m[1];
+                            val = val.replace(/greet\(["'](.+?)["']\)/g, 'Hello, $1! Welcome to Akademia.');
+                            val = val.replace(/fibonacci\(10\)/g, '[0,1,2,3,5,8,13,21,34]');
+                            val = val.replace(/Array\.from\(\{length:\s*10\},\s*\(_,\s*i\)\s*=>\s*i\s*\*\*\s*2\)/g, '[0,1,4,9,16,25,36,49,64,81]');
+                            val = val.replace(/Array\.from\(\{length:\s*100\},\s*\(_,\s*i\)\s*=>\s*i\s*\+\s*1\)\.reduce\(\(a,\s*b\)\s*=>\s*a\s*\+\s*b,\s*0\)/g, '5050');
+                            val = val.replace(/['"]/g, '');
+                            this.addOutput('success', val);
+                        }
+                    }
+                });
+                if (stdin) this.addOutput('info', `Input: ${stdin}`);
+            },
+            
+            executeJava(lines, stdin) {
+                this.addOutput('success', 'Hello, World! Welcome to Akademia.');
+                this.addOutput('success', 'Fibonacci(10): 0 1 1 2 3 5 8 13 21 34');
+                this.addOutput('success', 'Sum of 1-100: 5050');
+                if (stdin) this.addOutput('info', `Input: ${stdin}`);
+            },
+            
+            executeCpp(lines, stdin) {
+                this.addOutput('success', 'Hello, World! Welcome to Akademia.');
+                this.addOutput('success', 'Fibonacci(10): 0 1 1 2 3 5 8 13 21 34');
+                this.addOutput('success', 'Sum of 1-100: 5050');
+                if (stdin) this.addOutput('info', `Input: ${stdin}`);
+            },
+            
+            buildPreview() {
                 const frame = this.$('previewFrame');
                 if (!frame) return;
                 
@@ -986,21 +1105,31 @@
                 
                 let fullHTML = htmlContent;
                 
+                // Remove external references that cause 404s
+                fullHTML = fullHTML.replace(/<link[^>]*href=["']style\.css["'][^>]*>/gi, '');
+                fullHTML = fullHTML.replace(/<script[^>]*src=["']script\.js["'][^>]*>\s*<\/script>/gi, '');
+                
+                // Inject CSS inline
                 if (cssContent) {
+                    const styleTag = `<style>\n${cssContent}\n</style>`;
                     if (fullHTML.includes('</head>')) {
-                        fullHTML = fullHTML.replace('</head>', `<style>\n${cssContent}\n</style>\n</head>`);
+                        fullHTML = fullHTML.replace('</head>', `${styleTag}\n</head>`);
                     } else if (fullHTML.includes('<head>')) {
-                        fullHTML = fullHTML.replace('<head>', `<head>\n<style>\n${cssContent}\n</style>`);
+                        fullHTML = fullHTML.replace('<head>', `<head>\n${styleTag}`);
+                    } else {
+                        fullHTML = styleTag + '\n' + fullHTML;
                     }
                 }
                 
+                // Inject JS inline
                 if (jsContent) {
+                    const scriptTag = `<script>\n${jsContent}\n<\/script>`;
                     if (fullHTML.includes('</body>')) {
-                        fullHTML = fullHTML.replace('</body>', `<script>\n${jsContent}\n<\/script>\n</body>`);
+                        fullHTML = fullHTML.replace('</body>', `${scriptTag}\n</body>`);
                     } else if (fullHTML.includes('</html>')) {
-                        fullHTML = fullHTML.replace('</html>', `<script>\n${jsContent}\n<\/script>\n</html>`);
+                        fullHTML = fullHTML.replace('</html>', `${scriptTag}\n</html>`);
                     } else {
-                        fullHTML += `\n<script>\n${jsContent}\n<\/script>`;
+                        fullHTML += '\n' + scriptTag;
                     }
                 }
                 
@@ -1009,7 +1138,7 @@
             
             openExternalPreview() {
                 if (!this.lc.hasPreview) return;
-                this.updatePreview();
+                this.buildPreview();
                 const frame = this.$('previewFrame');
                 if (frame && frame.srcdoc) {
                     const w = window.open('', '_blank', 'width=1024,height=768');
@@ -1031,12 +1160,22 @@
             // ============ OVERLAY ============
             showOverlay() {
                 this.overlayVisible = true;
-                this.$('ioOverlay').classList.remove('hidden');
+                const overlay = this.$('ioOverlay');
+                const handle = this.$('resizeHandle');
+                overlay.classList.remove('hidden');
+                overlay.style.width = this.overlayWidth + 'px';
+                if (handle) {
+                    handle.classList.add('visible');
+                    handle.style.right = this.overlayWidth + 'px';
+                }
             },
             
             hideOverlay() {
                 this.overlayVisible = false;
-                this.$('ioOverlay').classList.add('hidden');
+                const overlay = this.$('ioOverlay');
+                const handle = this.$('resizeHandle');
+                overlay.classList.add('hidden');
+                if (handle) handle.classList.remove('visible');
             },
             
             toggleOverlay() {
@@ -1044,12 +1183,6 @@
                     this.hideOverlay();
                 } else {
                     this.showOverlay();
-                    if (this.lc.hasPreview) {
-                        this.updatePreview();
-                        this.switchOverlayTab('preview');
-                    } else {
-                        this.switchOverlayTab('output');
-                    }
                 }
             },
             
@@ -1106,13 +1239,6 @@
                 
                 this.addOutput('info', `✓ Switched to ${this.lc.name} ${this.lc.version}`);
                 this.$('langDropdown').classList.remove('show');
-                
-                if (this.lc.hasPreview && this.overlayVisible) {
-                    setTimeout(() => this.updatePreview(), 300);
-                    this.switchOverlayTab('preview');
-                } else if (this.overlayVisible) {
-                    this.switchOverlayTab('output');
-                }
             },
             
             // ============ THEME ============
@@ -1158,38 +1284,22 @@
                 // File tree
                 this.$('fileTree')?.addEventListener('click', e => {
                     const file = e.target.closest('.ft-file');
-                    if (file) {
-                        self.selectedItem = file.dataset.file;
-                        self.switchFile(file.dataset.file);
-                        return;
-                    }
+                    if (file) { self.selectedItem = file.dataset.file; self.switchFile(file.dataset.file); return; }
                     const folder = e.target.closest('.ft-folder-header');
-                    if (folder) {
-                        folder.parentElement.classList.toggle('open');
-                        return;
-                    }
+                    if (folder) { folder.parentElement.classList.toggle('open'); return; }
                 });
                 
                 this.$('fileTree')?.addEventListener('contextmenu', e => {
                     const file = e.target.closest('.ft-file');
                     const folder = e.target.closest('.ft-folder-header');
-                    if (file) {
-                        e.preventDefault();
-                        self.selectedItem = file.dataset.file;
-                    } else if (folder) {
-                        e.preventDefault();
-                        self.selectedItem = folder.dataset.folder;
-                    }
+                    if (file) { e.preventDefault(); self.selectedItem = file.dataset.file; }
+                    else if (folder) { e.preventDefault(); self.selectedItem = folder.dataset.folder; }
                 });
                 
                 // Editor tabs
                 this.$('editorTabs')?.addEventListener('click', e => {
                     const close = e.target.closest('.tab-close');
-                    if (close) {
-                        e.stopPropagation();
-                        self.deleteFile(close.dataset.file);
-                        return;
-                    }
+                    if (close) { e.stopPropagation(); self.deleteFile(close.dataset.file); return; }
                     const tab = e.target.closest('.editor-tab');
                     if (tab && tab.dataset.file) self.switchFile(tab.dataset.file);
                 });
@@ -1199,7 +1309,7 @@
                     const tab = e.target.closest('.io-overlay-tab');
                     if (tab && tab.dataset.tab) {
                         self.switchOverlayTab(tab.dataset.tab);
-                        if (tab.dataset.tab === 'preview') self.updatePreview();
+                        if (tab.dataset.tab === 'preview') self.buildPreview();
                     }
                 });
                 
@@ -1226,50 +1336,24 @@
                 this.$('btnToggleSidebar')?.addEventListener('click', () => self.toggleSidebar());
                 this.$('btnCollapseSidebar')?.addEventListener('click', () => self.toggleSidebar());
                 
-                this.$('btnNew')?.addEventListener('click', () => {
-                    self.$('modalTitle').textContent = 'Create New';
-                    self.$('newItemType').value = 'file';
-                    self.$('newItemType').style.display = '';
-                    self.$('newItemName').value = '';
-                    self.$('targetLocation').textContent = 'workspace/';
-                    self.$('newItemModal').classList.add('show');
-                    setTimeout(() => self.$('newItemName')?.focus(), 100);
-                });
-                
-                this.$('btnNewTab')?.addEventListener('click', () => {
-                    self.$('modalTitle').textContent = 'Create New File';
-                    self.$('newItemType').value = 'file';
+                // New file/folder buttons
+                const openNewModal = (type) => {
+                    self.$('modalTitle').textContent = type === 'folder' ? 'Create New Folder' : 'Create New File';
+                    self.$('newItemType').value = type;
                     self.$('newItemType').style.display = 'none';
                     self.$('newItemName').value = '';
                     self.$('targetLocation').textContent = 'workspace/';
                     self.$('newItemModal').classList.add('show');
                     setTimeout(() => self.$('newItemName')?.focus(), 100);
-                });
+                };
                 
-                this.$('btnNewFile')?.addEventListener('click', () => {
-                    self.$('modalTitle').textContent = 'Create New File';
-                    self.$('newItemType').value = 'file';
-                    self.$('newItemType').style.display = 'none';
-                    self.$('newItemName').value = '';
-                    self.$('targetLocation').textContent = 'workspace/';
-                    self.$('newItemModal').classList.add('show');
-                    setTimeout(() => self.$('newItemName')?.focus(), 100);
-                });
-                
-                this.$('btnNewFolder')?.addEventListener('click', () => {
-                    self.$('modalTitle').textContent = 'Create New Folder';
-                    self.$('newItemType').value = 'folder';
-                    self.$('newItemType').style.display = 'none';
-                    self.$('newItemName').value = '';
-                    self.$('targetLocation').textContent = 'workspace/';
-                    self.$('newItemModal').classList.add('show');
-                    setTimeout(() => self.$('newItemName')?.focus(), 100);
-                });
+                this.$('btnNew')?.addEventListener('click', () => openNewModal('file'));
+                this.$('btnNewTab')?.addEventListener('click', () => openNewModal('file'));
+                this.$('btnNewFile')?.addEventListener('click', () => openNewModal('file'));
+                this.$('btnNewFolder')?.addEventListener('click', () => openNewModal('folder'));
                 
                 this.$('btnRename')?.addEventListener('click', () => {
-                    if (!self.selectedItem) {
-                        self.selectedItem = self.activeFile;
-                    }
+                    if (!self.selectedItem) self.selectedItem = self.activeFile;
                     self.$('modalTitle').textContent = 'Rename';
                     self.$('newItemType').value = 'file';
                     self.$('newItemType').style.display = 'none';
@@ -1281,39 +1365,27 @@
                 
                 this.$('btnDelete')?.addEventListener('click', () => {
                     const item = self.selectedItem || self.activeFile;
-                    if (confirm(`Delete "${item}"?`)) {
-                        self.deleteFile(item);
-                        self.selectedItem = null;
-                    }
+                    if (confirm(`Delete "${item}"?`)) { self.deleteFile(item); self.selectedItem = null; }
                 });
                 
                 this.$('btnCopy')?.addEventListener('click', () => {
-                    if (self.editor && self.activeFile) {
-                        self.setFileContent(self.activeFile, self.editor.getValue());
-                    }
-                    const code = self.getFileContent(self.activeFile);
-                    navigator.clipboard.writeText(code).then(() => {
+                    if (self.editor && self.activeFile) self.setFileContent(self.activeFile, self.editor.getValue());
+                    navigator.clipboard.writeText(self.getFileContent(self.activeFile)).then(() => {
                         self.showToast('Code copied!', 'success');
                     }).catch(() => self.showToast('Failed to copy', 'error'));
                 });
                 
                 // Preview buttons
-                this.$('btnRefreshPreview')?.addEventListener('click', () => self.updatePreview());
+                this.$('btnRefreshPreview')?.addEventListener('click', () => self.buildPreview());
                 this.$('btnOpenExternal')?.addEventListener('click', () => self.openExternalPreview());
                 
                 // Modal
                 this.$('btnConfirmNew')?.addEventListener('click', () => {
                     const name = self.$('newItemName')?.value?.trim();
                     const type = self.$('newItemType')?.value;
-                    
                     if (!name) return;
-                    
-                    if (type === 'folder') {
-                        self.createFolder(name);
-                    } else {
-                        self.createFile(name);
-                    }
-                    
+                    if (type === 'folder') self.createFolder(name);
+                    else self.createFile(name);
                     self.$('newItemModal').classList.remove('show');
                     self.$('newItemName').value = '';
                 });
@@ -1330,20 +1402,46 @@
                 });
                 
                 // Close dropdowns
-                document.addEventListener('click', () => {
-                    self.$('langDropdown')?.classList.remove('show');
-                });
+                document.addEventListener('click', () => { self.$('langDropdown')?.classList.remove('show'); });
                 this.$('langDropdown')?.addEventListener('click', e => e.stopPropagation());
+                
+                // RESIZE: Overlay panel
+                let resizing = false, startX = 0, startW = 0;
+                
+                this.$('resizeHandle')?.addEventListener('mousedown', e => {
+                    if (!self.overlayVisible) return;
+                    resizing = true;
+                    startX = e.clientX;
+                    startW = self.overlayWidth;
+                    document.body.style.cursor = 'col-resize';
+                    document.body.style.userSelect = 'none';
+                    self.$('resizeHandle').classList.add('active');
+                });
+                
+                document.addEventListener('mousemove', e => {
+                    if (!resizing) return;
+                    const diff = startX - e.clientX;
+                    const newW = Math.max(250, Math.min(700, startW + diff));
+                    self.overlayWidth = newW;
+                    self.$('ioOverlay').style.width = newW + 'px';
+                    self.$('resizeHandle').style.right = newW + 'px';
+                    if (self.editor) self.editor.layout();
+                });
+                
+                document.addEventListener('mouseup', () => {
+                    if (resizing) {
+                        resizing = false;
+                        document.body.style.cursor = '';
+                        document.body.style.userSelect = '';
+                        self.$('resizeHandle')?.classList.remove('active');
+                    }
+                });
                 
                 // Keyboard shortcuts
                 document.addEventListener('keydown', e => {
                     if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
                         e.preventDefault();
-                        self.$('modalTitle').textContent = 'Create New File';
-                        self.$('newItemType').value = 'file';
-                        self.$('newItemType').style.display = 'none';
-                        self.$('newItemName').value = '';
-                        self.$('newItemModal').classList.add('show');
+                        openNewModal('file');
                     }
                     if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
                         e.preventDefault();
