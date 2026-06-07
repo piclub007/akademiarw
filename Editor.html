@@ -18,7 +18,6 @@
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
             --shadow: 0 4px 6px rgba(0,0,0,0.07);
             --shadow-md: 0 10px 25px rgba(0,0,0,0.1);
-            --shadow-lg: 0 20px 50px rgba(0,0,0,0.15);
             --transition: 0.15s ease;
             --bg: #ffffff; --bg-secondary: #f8fafc; --bg-tertiary: #f1f5f9;
             --border: #e2e8f0; --text: #1e293b; --text-secondary: #64748b;
@@ -40,7 +39,6 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 2px; }
 
-        /* NAVBAR */
         .navbar {
             background: var(--bg-secondary); border-bottom: 1px solid var(--border);
             height: var(--navbar-h); display: flex; align-items: center; padding: 0 0.6rem;
@@ -82,7 +80,6 @@
         }
         .nav-btn.run:hover { background: #059669; border-color: #059669; }
 
-        /* DROPDOWN */
         .dropdown {
             position: absolute; top: 100%; left: 0; margin-top: 0.2rem;
             background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
@@ -107,10 +104,8 @@
         .dropdown-item:hover { background: var(--hover); }
         .dropdown-item.active { background: var(--active); color: var(--primary); }
 
-        /* MAIN LAYOUT */
         .main-container { flex: 1; display: flex; min-height: 0; position: relative; }
 
-        /* SIDEBAR */
         .sidebar {
             width: var(--sidebar-w); background: var(--bg-secondary); border-right: 1px solid var(--border);
             display: flex; flex-direction: column; flex-shrink: 0;
@@ -139,7 +134,6 @@
         }
         .sa-btn:hover { background: var(--hover); border-color: var(--primary); color: var(--primary); }
 
-        /* FILE TREE */
         .ft-item {
             display: flex; align-items: center; gap: 0.25rem; padding: 0.22rem 0.35rem;
             border-radius: var(--radius-xs); cursor: pointer; font-size: 0.68rem;
@@ -152,7 +146,6 @@
         .fi-css { color: #563D7C; } .fi-java { color: #ED8B00; } .fi-cpp { color: #00599C; }
         .fi-ts { color: #3178C6; }
 
-        /* EDITOR AREA */
         .editor-area { flex: 1; display: flex; flex-direction: column; min-width: 0; position: relative; }
         .editor-tabs-row {
             display: flex; align-items: center; background: var(--bg-secondary);
@@ -184,7 +177,6 @@
         .eta-btn:hover { background: var(--hover); color: var(--primary); }
         #monacoEditor { flex: 1; min-height: 0; }
 
-        /* OUTPUT PANEL (Bottom) */
         .output-panel {
             height: 0; border-top: 1px solid var(--border); background: var(--bg);
             display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden;
@@ -253,7 +245,6 @@
         }
         .preview-bar button:hover { background: var(--hover); color: var(--primary); }
 
-        /* STATUSBAR */
         .statusbar {
             height: 20px; background: var(--bg-secondary); border-top: 1px solid var(--border);
             display: flex; align-items: center; justify-content: space-between;
@@ -264,7 +255,6 @@
         .st-item { cursor: pointer; padding: 0.02rem 0.2rem; border-radius: var(--radius-xs); transition: all var(--transition); }
         .st-item:hover { background: var(--hover); color: var(--text); }
 
-        /* TOAST */
         .toast-ct {
             position: fixed; bottom: 1.5rem; right: 0.7rem; z-index: 300;
             display: flex; flex-direction: column; gap: 0.2rem; pointer-events: none;
@@ -280,7 +270,6 @@
         @keyframes tIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes tOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 
-        /* MODAL */
         .modal-bg {
             position: fixed; inset: 0; background: rgba(0,0,0,0.35); backdrop-filter: blur(2px);
             z-index: 250; display: flex; align-items: center; justify-content: center;
@@ -316,12 +305,11 @@
         @media (max-width: 768px) {
             .sidebar { position: absolute; left: 0; top: 0; bottom: 0; z-index: 60; }
             .sidebar.collapsed { display: none; }
-            .output-panel.open { height: 100%; position: absolute; bottom: 0; left: 0; right: 0; z-index: 50; }
         }
     </style>
 </head>
 <body data-theme="light">
-    <!-- NAVBAR -->
+
     <nav class="navbar">
         <div class="navbar-left">
             <button class="nav-icon-btn" id="btnToggleSidebar" title="Toggle Explorer (Ctrl+B)">
@@ -349,14 +337,12 @@
         </div>
     </nav>
 
-    <!-- MAIN -->
     <div class="main-container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header"><span>📁 Explorer</span></div>
             <div class="sidebar-filetree" id="fileTree"></div>
             <div class="sidebar-actions">
                 <button class="sa-btn" id="btnNewFile"><i class='bx bx-file'></i> File</button>
-                <button class="sa-btn" id="btnNewFolder"><i class='bx bx-folder-plus'></i> Folder</button>
                 <button class="sa-btn" id="btnRename"><i class='bx bx-edit'></i> Rename</button>
                 <button class="sa-btn" id="btnDelete"><i class='bx bx-trash'></i> Delete</button>
             </div>
@@ -419,7 +405,6 @@
             <div class="modal-h"><span id="modalTitle">New File</span><button class="btn btn-g" id="btnCloseModal" style="padding:0.1rem 0.3rem;"><i class='bx bx-x'></i></button></div>
             <div class="modal-bd">
                 <input type="text" class="inp" id="modalInput" placeholder="filename.ext" autocomplete="off">
-                <select class="inp" id="modalType" style="margin-top:0.4rem;cursor:pointer;"><option value="file">File</option><option value="folder">Folder</option></select>
             </div>
             <div class="modal-ft">
                 <button class="btn btn-g" id="btnCancelModal">Cancel</button>
@@ -433,10 +418,11 @@
     <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
     
     <script>
-    (() => {
+    (function() {
         'use strict';
         
-        const LANG_CONFIG = {
+        // ============ CONFIGURATION ============
+        var LANG_CONFIG = {
             python: { name: 'Python', icon: 'bxl-python', clr: '#3572A5', ml: 'python', ts: 4, ver: 'Python 3', prev: false },
             javascript: { name: 'JavaScript', icon: 'bxl-javascript', clr: '#F7DF1E', ml: 'javascript', ts: 2, ver: 'Node.js', prev: false },
             html: { name: 'HTML/CSS/JS', icon: 'bxl-html5', clr: '#E34F26', ml: 'html', ts: 2, ver: 'Live Preview', prev: true },
@@ -445,7 +431,7 @@
             typescript: { name: 'TypeScript', icon: 'bxl-typescript', clr: '#3178C6', ml: 'typescript', ts: 2, ver: 'TypeScript 5', prev: false }
         };
 
-        const DEFAULT_FILES = {
+        var DEFAULT_FILES = {
             python: { 'main.py': '# Python\nprint("Hello, World!")\nprint("Welcome to Akademia Code Studio")\n\n# Fibonacci\nfib = [0, 1]\nfor i in range(2, 10):\n    fib.append(fib[i-1] + fib[i-2])\nprint(f"Fibonacci(10): {fib}")\nprint(f"Squares: {[x**2 for x in range(10)]}")' },
             javascript: { 'script.js': '// JavaScript\nconsole.log("Hello, World!");\nconsole.log("Welcome to Akademia Code Studio");\n\nconst fib = [0, 1];\nfor (let i = 2; i < 10; i++) fib.push(fib[i-1] + fib[i-2]);\nconsole.log("Fibonacci(10):", fib);\nconsole.log("Squares:", Array.from({length:10}, (_,i) => i**2));' },
             html: {
@@ -458,8 +444,8 @@
             typescript: { 'main.ts': '// TypeScript\nconst greet = (name: string): string => `Hello, ${name}!`;\nconsole.log(greet("World"));\nconsole.log("Welcome to Akademia Code Studio");' }
         };
 
-        // ============ STATE ============
-        const state = {
+        // ============ APPLICATION STATE ============
+        var state = {
             lang: localStorage.getItem('cs-lang') || 'python',
             theme: localStorage.getItem('cs-theme') || 'light',
             activeFile: '',
@@ -468,12 +454,13 @@
             editor: null,
             outputOpen: false,
             sidebarOpen: true,
-            stdinVisible: true,
+            stdinVisible: true
         };
 
-        // ============ DOM ============
-        const $ = (id) => document.getElementById(id);
-        const dom = {};
+        // ============ DOM CACHE ============
+        function $(id) { return document.getElementById(id); }
+        
+        var dom = {};
         function cacheDom() {
             dom.sidebar = $('sidebar');
             dom.fileTree = $('fileTree');
@@ -483,7 +470,6 @@
             dom.outputBox = $('outputBox');
             dom.problemsBox = $('problemsBox');
             dom.previewFrame = $('previewFrame');
-            dom.langBtn = $('langBtn');
             dom.langName = $('langName');
             dom.langDropdown = $('langDropdown');
             dom.langList = $('langList');
@@ -497,69 +483,79 @@
             dom.modalBg = $('modalBg');
             dom.modalTitle = $('modalTitle');
             dom.modalInput = $('modalInput');
-            dom.modalType = $('modalType');
             dom.stdinInput = $('stdinInput');
         }
 
-        function get lc() { return LANG_CONFIG[state.lang]; }
-        function get files() { return state.files; }
+        // ============ HELPER: Get current language config ============
+        function getLangConfig() {
+            return LANG_CONFIG[state.lang];
+        }
 
         // ============ TOAST ============
-        function toast(msg, ok = true) {
-            const t = document.createElement('div');
-            t.className = `toast ${ok ? 'ok' : 'err'}`;
-            t.innerHTML = `<i class='bx bx-${ok ? 'check' : 'x'}-circle'></i> ${msg}`;
+        function toast(msg, ok) {
+            if (ok === undefined) ok = true;
+            var t = document.createElement('div');
+            t.className = 'toast ' + (ok ? 'ok' : 'err');
+            t.innerHTML = '<i class=\'bx bx-' + (ok ? 'check' : 'x') + '-circle\'></i> ' + msg;
             dom.toastCt.appendChild(t);
-            setTimeout(() => t.remove(), 2000);
+            setTimeout(function() { t.remove(); }, 2000);
         }
 
         // ============ FILE TREE ============
         function buildFileTree() {
-            let h = '';
-            const fileNames = Object.keys(files).sort();
-            fileNames.forEach(f => {
-                const ext = f.split('.').pop();
-                const cls = { py: 'fi-py', js: 'fi-js', html: 'fi-html', css: 'fi-css', java: 'fi-java', cpp: 'fi-cpp', ts: 'fi-ts' };
-                const ico = { py: 'bxl-python', js: 'bxl-javascript', html: 'bxl-html5', css: 'bxl-css3', java: 'bxl-java', cpp: 'bx-code', ts: 'bxl-typescript' };
-                h += `<div class="ft-item${f === state.activeFile ? ' active' : ''}" data-file="${f}"><i class='bx ${ico[ext] || 'bx-file'} ${cls[ext] || ''}'></i>${f}</div>`;
-            });
+            var h = '';
+            var fileNames = Object.keys(state.files).sort();
+            for (var i = 0; i < fileNames.length; i++) {
+                var f = fileNames[i];
+                var ext = f.split('.').pop();
+                var cls = { py: 'fi-py', js: 'fi-js', html: 'fi-html', css: 'fi-css', java: 'fi-java', cpp: 'fi-cpp', ts: 'fi-ts' };
+                var ico = { py: 'bxl-python', js: 'bxl-javascript', html: 'bxl-html5', css: 'bxl-css3', java: 'bxl-java', cpp: 'bx-code', ts: 'bxl-typescript' };
+                var isActive = f === state.activeFile ? ' active' : '';
+                h += '<div class="ft-item' + isActive + '" data-file="' + f + '"><i class=\'bx ' + (ico[ext] || 'bx-file') + ' ' + (cls[ext] || '') + '\'></i>' + f + '</div>';
+            }
             dom.fileTree.innerHTML = h || '<div style="padding:0.4rem;font-size:0.68rem;color:var(--text-muted);">No files</div>';
         }
 
         function buildLangList() {
-            let h = '';
-            Object.entries(LANG_CONFIG).forEach(([k, v]) => {
-                h += `<div class="dropdown-item${state.lang === k ? ' active' : ''}" data-lang="${k}"><i class='bx ${v.icon}' style="color:${v.clr};"></i> ${v.name}</div>`;
-            });
+            var h = '';
+            var keys = Object.keys(LANG_CONFIG);
+            for (var i = 0; i < keys.length; i++) {
+                var k = keys[i];
+                var v = LANG_CONFIG[k];
+                var isActive = state.lang === k ? ' active' : '';
+                h += '<div class="dropdown-item' + isActive + '" data-lang="' + k + '"><i class=\'bx ' + v.icon + '\' style="color:' + v.clr + ';"></i> ' + v.name + '</div>';
+            }
             dom.langList.innerHTML = h;
         }
 
         function renderTabs() {
-            dom.editorTabs.innerHTML = state.openFiles.map(f => {
-                const isActive = f === state.activeFile;
-                return `<button class="editor-tab${isActive ? ' active' : ''}" data-file="${f}">
-                    <i class='bx ${lc.icon}'></i> ${f}
-                    <span class="tab-x" data-file="${f}"><i class='bx bx-x'></i></span>
-                </button>`;
-            }).join('');
+            var lc = getLangConfig();
+            var h = '';
+            for (var i = 0; i < state.openFiles.length; i++) {
+                var f = state.openFiles[i];
+                var isActive = f === state.activeFile ? ' active' : '';
+                h += '<button class="editor-tab' + isActive + '" data-file="' + f + '"><i class=\'bx ' + lc.icon + '\'></i> ' + f + '<span class="tab-x" data-file="' + f + '"><i class=\'bx bx-x\'></i></span></button>';
+            }
+            dom.editorTabs.innerHTML = h;
         }
 
         function updateStatusBar() {
+            var lc = getLangConfig();
             dom.statusLang.textContent = lc.ver;
-            dom.statusIndent.textContent = `Spaces: ${lc.ts}`;
+            dom.statusIndent.textContent = 'Spaces: ' + lc.ts;
             dom.navbarTitle.textContent = state.activeFile;
             dom.langName.textContent = lc.name;
             dom.tabPreviewBtn.style.display = lc.prev ? '' : 'none';
             if (!lc.prev) {
-                const activeTab = document.querySelector('.op-tab.active');
+                var activeTab = document.querySelector('.op-tab.active');
                 if (activeTab && activeTab.dataset.tab === 'preview') switchOpTab('output');
             }
         }
 
         // ============ OUTPUT ============
-        function addOutput(text, cls = '') {
-            const span = document.createElement('span');
-            span.className = `ol ${cls}`;
+        function addOutput(text, cls) {
+            var span = document.createElement('span');
+            span.className = 'ol ' + (cls || '');
             span.textContent = text + '\n';
             dom.outputBox.appendChild(span);
             dom.outputBox.scrollTop = dom.outputBox.scrollHeight;
@@ -580,14 +576,18 @@
         }
 
         function toggleOutput() {
-            state.outputOpen ? closeOutput() : openOutput();
+            if (state.outputOpen) closeOutput();
+            else openOutput();
         }
 
         function switchOpTab(name) {
-            document.querySelectorAll('.op-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.op-content').forEach(c => c.classList.remove('active'));
-            const tab = document.querySelector(`.op-tab[data-tab="${name}"]`);
-            const content = $(`op${name.charAt(0).toUpperCase() + name.slice(1)}`);
+            var tabs = document.querySelectorAll('.op-tab');
+            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+            var contents = document.querySelectorAll('.op-content');
+            for (var j = 0; j < contents.length; j++) contents[j].classList.remove('active');
+            
+            var tab = document.querySelector('.op-tab[data-tab="' + name + '"]');
+            var content = $('op' + name.charAt(0).toUpperCase() + name.slice(1));
             if (tab) tab.classList.add('active');
             if (content) content.classList.add('active');
         }
@@ -596,18 +596,17 @@
         function switchFile(filename) {
             if (state.activeFile === filename) return;
             
-            // Save current
             if (state.editor && state.activeFile) {
-                files[state.activeFile] = state.editor.getValue();
+                state.files[state.activeFile] = state.editor.getValue();
             }
             
             state.activeFile = filename;
-            if (!state.openFiles.includes(filename)) state.openFiles.push(filename);
+            if (state.openFiles.indexOf(filename) === -1) state.openFiles.push(filename);
             
             if (state.editor) {
-                state.editor.setValue(files[filename] || '');
-                const ext = filename.split('.').pop();
-                const langMap = { py: 'python', js: 'javascript', html: 'html', css: 'css', java: 'java', cpp: 'cpp', ts: 'typescript' };
+                state.editor.setValue(state.files[filename] || '');
+                var ext = filename.split('.').pop();
+                var langMap = { py: 'python', js: 'javascript', html: 'html', css: 'css', java: 'java', cpp: 'cpp', ts: 'typescript' };
                 monaco.editor.setModelLanguage(state.editor.getModel(), langMap[ext] || 'plaintext');
             }
             
@@ -617,57 +616,58 @@
         }
 
         function createFile(name) {
-            if (!name || !name.includes('.')) { toast('Need extension (.py, .js, etc)', false); return; }
-            if (files[name]) { toast('File already exists', false); return; }
+            if (!name || name.indexOf('.') === -1) { toast('Need extension (.py, .js, etc)', false); return; }
+            if (state.files[name]) { toast('File already exists', false); return; }
             
-            const ext = name.split('.').pop();
-            const templates = { py: '# New Python file\nprint("Hello!")\n', js: '// New JS file\nconsole.log("Hello!");\n', html: '<!DOCTYPE html>\n<html>\n<head><title>New</title></head>\n<body></body>\n</html>', css: '/* Styles */\n', java: 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello");\n    }\n}', cpp: '#include <iostream>\nusing namespace std;\nint main() { return 0; }', ts: '// TypeScript\nconsole.log("Hello!");\n' };
-            files[name] = templates[ext] || '';
+            var ext = name.split('.').pop();
+            var templates = { py: '# New Python file\nprint("Hello!")\n', js: '// New JS file\nconsole.log("Hello!");\n', html: '<!DOCTYPE html>\n<html>\n<head><title>New</title></head>\n<body></body>\n</html>', css: '/* Styles */\n', java: 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello");\n    }\n}', cpp: '#include <iostream>\nusing namespace std;\nint main() { return 0; }', ts: '// TypeScript\nconsole.log("Hello!");\n' };
+            state.files[name] = templates[ext] || '';
             switchFile(name);
-            toast(`Created ${name}`);
+            toast('Created ' + name);
         }
 
         function deleteFile(name) {
-            if (!files[name]) return;
-            if (Object.keys(files).length <= 1) { toast('Cannot delete last file', false); return; }
+            if (!state.files[name]) return;
+            if (Object.keys(state.files).length <= 1) { toast('Cannot delete last file', false); return; }
             
-            delete files[name];
-            state.openFiles = state.openFiles.filter(f => f !== name);
+            delete state.files[name];
+            state.openFiles = state.openFiles.filter(function(f) { return f !== name; });
             
             if (state.activeFile === name) {
-                state.activeFile = Object.keys(files)[0];
-                if (state.editor) state.editor.setValue(files[state.activeFile] || '');
+                state.activeFile = Object.keys(state.files)[0];
+                if (state.editor) state.editor.setValue(state.files[state.activeFile] || '');
             }
             
             renderTabs();
             buildFileTree();
-            toast(`Deleted ${name}`);
+            toast('Deleted ' + name);
         }
 
         function renameFile(oldName, newName) {
-            if (!newName || !newName.includes('.')) { toast('Need extension', false); return; }
-            if (files[newName] && oldName !== newName) { toast('Already exists', false); return; }
+            if (!newName || newName.indexOf('.') === -1) { toast('Need extension', false); return; }
+            if (state.files[newName] && oldName !== newName) { toast('Already exists', false); return; }
             
-            files[newName] = files[oldName];
-            delete files[oldName];
+            state.files[newName] = state.files[oldName];
+            delete state.files[oldName];
             
-            state.openFiles = state.openFiles.map(f => f === oldName ? newName : f);
+            state.openFiles = state.openFiles.map(function(f) { return f === oldName ? newName : f; });
             if (state.activeFile === oldName) state.activeFile = newName;
             
             if (state.editor && state.activeFile === newName) {
-                state.editor.setValue(files[newName] || '');
+                state.editor.setValue(state.files[newName] || '');
             }
             
             renderTabs();
             buildFileTree();
-            toast(`Renamed to ${newName}`);
+            toast('Renamed to ' + newName);
         }
 
         // ============ CODE EXECUTION ============
         function runCode() {
-            // Save current file
+            var lc = getLangConfig();
+            
             if (state.editor && state.activeFile) {
-                files[state.activeFile] = state.editor.getValue();
+                state.files[state.activeFile] = state.editor.getValue();
             }
             
             clearOutput();
@@ -680,10 +680,10 @@
                 addOutput('✓ Check the Preview tab', 's');
             } else {
                 switchOpTab('output');
-                const code = files[state.activeFile] || '';
-                const stdin = dom.stdinInput?.value || '';
+                var code = state.files[state.activeFile] || '';
+                var stdin = dom.stdinInput ? dom.stdinInput.value : '';
                 
-                addOutput(`▶ Executing ${state.activeFile}...`, 'i');
+                addOutput('▶ Executing ' + state.activeFile + '...', 'i');
                 addOutput('═'.repeat(35), 'i');
                 executeCode(code, stdin);
                 addOutput('═'.repeat(35), 'i');
@@ -692,41 +692,43 @@
         }
 
         function executeCode(code, stdin) {
-            const lines = code.split('\n');
+            var lines = code.split('\n');
             
             switch(state.lang) {
                 case 'python':
-                    let vars = {};
-                    lines.forEach(line => {
-                        const t = line.trim();
-                        if (t.includes('print(')) {
-                            const m = t.match(/print\((.*)\)/);
+                    var vars = {};
+                    for (var i = 0; i < lines.length; i++) {
+                        var t = lines[i].trim();
+                        if (t.indexOf('print(') !== -1) {
+                            var m = t.match(/print\((.*)\)/);
                             if (m) {
-                                let val = m[1];
-                                val = val.replace(/f["'](.+?)["']/g, (_, s) => s.replace(/\{([^}]+)\}/g, (__, e) => evalExpr(e, vars)));
+                                var val = m[1];
+                                val = val.replace(/f["'](.+?)["']/g, function(_, s) {
+                                    return s.replace(/\{([^}]+)\}/g, function(__, e) { return evalExpr(e, vars); });
+                                });
                                 val = evalExpr(val, vars);
                                 addOutput(String(val), 's');
                             }
                         }
-                        if (t.includes('=') && !t.includes('==') && !t.includes('!=')) {
-                            const parts = t.split('=');
+                        if (t.indexOf('=') !== -1 && t.indexOf('==') === -1 && t.indexOf('!=') === -1) {
+                            var parts = t.split('=');
                             if (parts.length === 2) {
                                 try { vars[parts[0].trim()] = evalExpr(parts[1].trim(), vars); } catch(e) {}
                             }
                         }
-                    });
-                    if (stdin) addOutput(`Input: ${stdin}`, 'i');
+                    }
+                    if (stdin) addOutput('Input: ' + stdin, 'i');
                     break;
                     
                 case 'javascript':
                 case 'typescript':
-                    lines.forEach(line => {
-                        const t = line.trim();
-                        if (t.includes('console.log(')) {
-                            const m = t.match(/console\.log\((.*)\)/);
-                            if (m) addOutput(m[1].replace(/['"]/g, '').replace(/greet\(["'](.+?)["']\)/g, 'Hello, $1!'), 's');
+                    for (var j = 0; j < lines.length; j++) {
+                        var t2 = lines[j].trim();
+                        if (t2.indexOf('console.log(') !== -1) {
+                            var m2 = t2.match(/console\.log\((.*)\)/);
+                            if (m2) addOutput(m2[1].replace(/['"]/g, '').replace(/greet\(["'](.+?)["']\)/g, 'Hello, $1!'), 's');
                         }
-                    });
+                    }
                     break;
                     
                 case 'java':
@@ -745,35 +747,34 @@
 
         function evalExpr(expr, vars) {
             expr = String(expr).replace(/['"]/g, '');
-            if (expr.includes('fib')) return '[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]';
-            if (expr.includes('[x**2 for x in range(10)]')) return '[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]';
-            if (/^[\d\s+\-*/().]+$/.test(expr)) try { return Function('"use strict"; return (' + expr + ')')(); } catch(e) {}
+            if (expr.indexOf('fib') !== -1) return '[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]';
+            if (expr.indexOf('[x**2 for x in range(10)]') !== -1) return '[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]';
+            if (/^[\d\s+\-*/().]+$/.test(expr)) {
+                try { return Function('"use strict"; return (' + expr + ')')(); } catch(e) {}
+            }
             return expr;
         }
 
         function buildPreview() {
-            const frame = dom.previewFrame;
+            var frame = dom.previewFrame;
             if (!frame) return;
             
-            let html = files['index.html'] || '';
-            const css = files['style.css'] || '';
-            const js = files['script.js'] || '';
+            var html = state.files['index.html'] || '';
+            var css = state.files['style.css'] || '';
+            var js = state.files['script.js'] || '';
             
-            // Strip external refs
             html = html.replace(/<link[^>]*href=["']style\.css["'][^>]*>/gi, '');
             html = html.replace(/<script[^>]*src=["']script\.js["'][^>]*>\s*<\/script>/gi, '');
             
-            // Inject CSS
             if (css) {
-                const styleTag = `<style>\n${css}\n</style>`;
-                if (html.includes('</head>')) html = html.replace('</head>', `${styleTag}\n</head>`);
+                var styleTag = '<style>\n' + css + '\n</style>';
+                if (html.indexOf('</head>') !== -1) html = html.replace('</head>', styleTag + '\n</head>');
                 else html = styleTag + '\n' + html;
             }
             
-            // Inject JS
             if (js) {
-                const scriptTag = `<script>\n${js}\n<\/script>`;
-                if (html.includes('</body>')) html = html.replace('</body>', `${scriptTag}\n</body>`);
+                var scriptTag = '<script>\n' + js + '\n<\/script>';
+                if (html.indexOf('</body>') !== -1) html = html.replace('</body>', scriptTag + '\n</body>');
                 else html += '\n' + scriptTag;
             }
             
@@ -782,14 +783,18 @@
 
         function openExternalPreview() {
             buildPreview();
-            const w = window.open('', '_blank', 'width=1024,height=768');
-            if (w) { w.document.write(dom.previewFrame.srcdoc); w.document.close(); }
-            else toast('Allow popups!', false);
+            var w = window.open('', '_blank', 'width=1024,height=768');
+            if (w) {
+                w.document.write(dom.previewFrame.srcdoc);
+                w.document.close();
+            } else {
+                toast('Allow popups!', false);
+            }
         }
 
         function formatCode() {
             if (!state.editor) return;
-            try { state.editor.getAction('editor.action.formatDocument')?.run(); toast('Formatted'); } catch(e) {}
+            try { state.editor.getAction('editor.action.formatDocument').run(); toast('Formatted'); } catch(e) {}
         }
 
         // ============ THEME ============
@@ -797,21 +802,26 @@
             state.theme = t;
             document.body.dataset.theme = t;
             if (state.editor) monaco.editor.setTheme(t === 'dark' ? 'vs-dark' : 'vs');
-            const icon = $('btnTheme')?.querySelector('i');
-            if (icon) icon.className = `bx bx-${t === 'dark' ? 'sun' : 'moon'}`;
+            var icon = $('btnTheme').querySelector('i');
+            if (icon) icon.className = 'bx bx-' + (t === 'dark' ? 'sun' : 'moon');
             localStorage.setItem('cs-theme', t);
         }
 
-        // ============ SWITCH LANGUAGE ============
+        // ============ LANGUAGE SWITCHING ============
         function switchLanguage(lang) {
             if (state.lang === lang) return;
             
             if (state.editor && state.activeFile) {
-                files[state.activeFile] = state.editor.getValue();
+                state.files[state.activeFile] = state.editor.getValue();
             }
             
             state.lang = lang;
-            state.files = { ...DEFAULT_FILES[lang] };
+            state.files = {};
+            var newFiles = DEFAULT_FILES[lang];
+            var keys = Object.keys(newFiles);
+            for (var i = 0; i < keys.length; i++) {
+                state.files[keys[i]] = newFiles[keys[i]];
+            }
             state.activeFile = Object.keys(state.files)[0];
             state.openFiles = [state.activeFile];
             
@@ -823,6 +833,7 @@
             
             if (state.editor) {
                 state.editor.setValue(state.files[state.activeFile] || '');
+                var lc = getLangConfig();
                 monaco.editor.setModelLanguage(state.editor.getModel(), lc.ml);
                 state.editor.updateOptions({ tabSize: lc.ts });
             }
@@ -830,7 +841,7 @@
             clearOutput();
             if (state.outputOpen) switchOpTab('output');
             dom.langDropdown.classList.remove('show');
-            toast(`Switched to ${lc.name}`);
+            toast('Switched to ' + getLangConfig().name);
         }
 
         // ============ INIT EDITOR ============
@@ -838,8 +849,10 @@
             require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' } });
             
             require(['vs/editor/editor.main'], function() {
+                var lc = getLangConfig();
+                
                 state.editor = monaco.editor.create(dom.monacoEditor, {
-                    value: files[state.activeFile] || '',
+                    value: state.files[state.activeFile] || '',
                     language: lc.ml,
                     theme: state.theme === 'dark' ? 'vs-dark' : 'vs',
                     fontSize: 14,
@@ -854,173 +867,175 @@
                     smoothScrolling: true,
                 });
                 
-                state.editor.onDidChangeCursorPosition(e => {
-                    dom.statusLine.textContent = `Ln ${e.position.lineNumber}, Col ${e.position.column}`;
+                state.editor.onDidChangeCursorPosition(function(e) {
+                    dom.statusLine.textContent = 'Ln ' + e.position.lineNumber + ', Col ' + e.position.column;
                 });
                 
                 state.editor.addAction({
                     id: 'run-code',
                     label: 'Run',
                     keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter],
-                    run: () => runCode()
+                    run: function() { runCode(); }
                 });
                 
                 state.editor.addAction({
                     id: 'format-code',
                     label: 'Format',
                     keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyF],
-                    run: () => formatCode()
+                    run: function() { formatCode(); }
                 });
                 
                 updateStatusBar();
             });
         }
 
-        // ============ EVENTS ============
+        // ============ EVENT SETUP ============
         function setupEvents() {
             // Language dropdown
-            dom.langBtn.addEventListener('click', e => { e.stopPropagation(); dom.langDropdown.classList.toggle('show'); });
-            dom.langList.addEventListener('click', e => {
-                const item = e.target.closest('.dropdown-item[data-lang]');
+            $('langBtn').addEventListener('click', function(e) { e.stopPropagation(); dom.langDropdown.classList.toggle('show'); });
+            
+            dom.langList.addEventListener('click', function(e) {
+                var item = e.target.closest('.dropdown-item[data-lang]');
                 if (item) switchLanguage(item.dataset.lang);
             });
+            
             dom.langSearch.addEventListener('input', function() {
-                const q = this.value.toLowerCase();
-                dom.langList.querySelectorAll('.dropdown-item').forEach(el => {
-                    el.style.display = el.textContent.toLowerCase().includes(q) ? '' : 'none';
-                });
+                var q = this.value.toLowerCase();
+                var items = dom.langList.querySelectorAll('.dropdown-item');
+                for (var i = 0; i < items.length; i++) {
+                    items[i].style.display = items[i].textContent.toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+                }
             });
             
             // File tree
-            dom.fileTree.addEventListener('click', e => {
-                const item = e.target.closest('.ft-item');
+            dom.fileTree.addEventListener('click', function(e) {
+                var item = e.target.closest('.ft-item');
                 if (item && item.dataset.file) switchFile(item.dataset.file);
             });
             
             // Editor tabs
-            dom.editorTabs.addEventListener('click', e => {
-                const close = e.target.closest('.tab-x');
+            dom.editorTabs.addEventListener('click', function(e) {
+                var close = e.target.closest('.tab-x');
                 if (close) {
                     e.stopPropagation();
                     deleteFile(close.dataset.file);
                     return;
                 }
-                const tab = e.target.closest('.editor-tab');
+                var tab = e.target.closest('.editor-tab');
                 if (tab && tab.dataset.file) switchFile(tab.dataset.file);
             });
             
             // Output panel tabs
-            document.querySelector('.output-panel-header').addEventListener('click', e => {
-                const tab = e.target.closest('.op-tab');
+            document.querySelector('.output-panel-header').addEventListener('click', function(e) {
+                var tab = e.target.closest('.op-tab');
                 if (tab) switchOpTab(tab.dataset.tab);
             });
             
             // Buttons
             $('btnRun').addEventListener('click', runCode);
             $('btnFormat').addEventListener('click', formatCode);
-            $('btnTheme').addEventListener('click', () => setTheme(state.theme === 'light' ? 'dark' : 'light'));
-            $('btnToggleSidebar').addEventListener('click', () => {
+            $('btnTheme').addEventListener('click', function() { setTheme(state.theme === 'light' ? 'dark' : 'light'); });
+            $('btnToggleSidebar').addEventListener('click', function() {
                 state.sidebarOpen = !state.sidebarOpen;
                 dom.sidebar.classList.toggle('collapsed', !state.sidebarOpen);
-                setTimeout(() => state.editor?.layout(), 250);
+                setTimeout(function() { if (state.editor) state.editor.layout(); }, 250);
             });
             $('btnToggleOutput').addEventListener('click', toggleOutput);
             $('btnCloseOutput').addEventListener('click', closeOutput);
             
-            $('btnCopy').addEventListener('click', () => {
-                if (state.editor) files[state.activeFile] = state.editor.getValue();
-                navigator.clipboard.writeText(files[state.activeFile] || '').then(() => toast('Copied!'));
+            $('btnCopy').addEventListener('click', function() {
+                if (state.editor) state.files[state.activeFile] = state.editor.getValue();
+                navigator.clipboard.writeText(state.files[state.activeFile] || '').then(function() { toast('Copied!'); });
             });
             
             $('btnRefreshPreview').addEventListener('click', buildPreview);
             $('btnOpenExternal').addEventListener('click', openExternalPreview);
             
-            // New/File/Folder
-            const openModal = (type) => {
-                dom.modalTitle.textContent = type === 'folder' ? 'New Folder' : 'New File';
-                dom.modalType.value = type;
-                dom.modalType.style.display = 'none';
-                dom.modalInput.value = '';
+            // New/Rename/Delete
+            function openModal(mode) {
+                dom.modalTitle.textContent = mode === 'rename' ? 'Rename File' : 'New File';
+                dom.modalInput.value = mode === 'rename' ? state.activeFile : '';
                 dom.modalBg.classList.add('show');
-                setTimeout(() => dom.modalInput.focus(), 100);
-            };
+                setTimeout(function() { dom.modalInput.focus(); }, 100);
+            }
             
-            $('btnNew').addEventListener('click', () => openModal('file'));
-            $('btnNewTab').addEventListener('click', () => openModal('file'));
-            $('btnNewFile').addEventListener('click', () => openModal('file'));
-            $('btnNewFolder').addEventListener('click', () => openModal('folder'));
+            $('btnNew').addEventListener('click', function() { openModal('new'); });
+            $('btnNewTab').addEventListener('click', function() { openModal('new'); });
+            $('btnNewFile').addEventListener('click', function() { openModal('new'); });
+            $('btnRename').addEventListener('click', function() { openModal('rename'); });
             
-            $('btnRename').addEventListener('click', () => {
-                dom.modalTitle.textContent = 'Rename';
-                dom.modalType.style.display = 'none';
-                dom.modalInput.value = state.activeFile;
-                dom.modalBg.classList.add('show');
-                setTimeout(() => dom.modalInput.focus(), 100);
-            });
-            
-            $('btnDelete').addEventListener('click', () => {
-                if (confirm(`Delete "${state.activeFile}"?`)) deleteFile(state.activeFile);
+            $('btnDelete').addEventListener('click', function() {
+                if (confirm('Delete "' + state.activeFile + '"?')) deleteFile(state.activeFile);
             });
             
             // Modal
-            $('btnConfirmModal').addEventListener('click', () => {
-                const name = dom.modalInput.value.trim();
-                const type = dom.modalType.value;
+            $('btnConfirmModal').addEventListener('click', function() {
+                var name = dom.modalInput.value.trim();
                 if (!name) return;
                 
-                if (dom.modalTitle.textContent === 'Rename') {
+                if (dom.modalTitle.textContent === 'Rename File') {
                     renameFile(state.activeFile, name);
-                } else if (type === 'folder') {
-                    toast('Folders not supported in this version', false);
                 } else {
                     createFile(name);
                 }
                 dom.modalBg.classList.remove('show');
             });
             
-            $('btnCancelModal').addEventListener('click', () => dom.modalBg.classList.remove('show'));
-            $('btnCloseModal').addEventListener('click', () => dom.modalBg.classList.remove('show'));
-            dom.modalBg.addEventListener('click', e => { if (e.target === dom.modalBg) dom.modalBg.classList.remove('show'); });
+            $('btnCancelModal').addEventListener('click', function() { dom.modalBg.classList.remove('show'); });
+            $('btnCloseModal').addEventListener('click', function() { dom.modalBg.classList.remove('show'); });
             
-            dom.modalInput.addEventListener('keydown', e => {
+            dom.modalBg.addEventListener('click', function(e) {
+                if (e.target === dom.modalBg) dom.modalBg.classList.remove('show');
+            });
+            
+            dom.modalInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') $('btnConfirmModal').click();
                 if (e.key === 'Escape') dom.modalBg.classList.remove('show');
             });
             
             // STDIN toggle
-            $('stdinLabel').addEventListener('click', () => {
+            $('stdinLabel').addEventListener('click', function() {
                 state.stdinVisible = !state.stdinVisible;
                 $('stdinInput').style.display = state.stdinVisible ? '' : 'none';
-                $('stdinIcon').className = `bx bx-chevron-${state.stdinVisible ? 'up' : 'down'}`;
+                $('stdinIcon').className = 'bx bx-chevron-' + (state.stdinVisible ? 'up' : 'down');
             });
             
             // Close dropdowns
-            document.addEventListener('click', () => dom.langDropdown.classList.remove('show'));
-            dom.langDropdown.addEventListener('click', e => e.stopPropagation());
+            document.addEventListener('click', function() { dom.langDropdown.classList.remove('show'); });
+            dom.langDropdown.addEventListener('click', function(e) { e.stopPropagation(); });
             
             // Keyboard shortcuts
-            document.addEventListener('keydown', e => {
+            document.addEventListener('keydown', function(e) {
                 if ((e.ctrlKey || e.metaKey) && e.key === 'b') { e.preventDefault(); $('btnToggleSidebar').click(); }
                 if ((e.ctrlKey || e.metaKey) && e.key === 'j') { e.preventDefault(); toggleOutput(); }
-                if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); openModal('file'); }
+                if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); openModal('new'); }
             });
             
             // Status bar
-            $('statusIndent').addEventListener('click', () => {
+            $('statusIndent').addEventListener('click', function() {
                 if (!state.editor) return;
-                const s = state.editor.getOption(monaco.editor.EditorOption.tabSize) || 2;
-                const ns = s === 2 ? 4 : 2;
+                var s = state.editor.getOption(monaco.editor.EditorOption.tabSize) || 2;
+                var ns = s === 2 ? 4 : 2;
                 state.editor.updateOptions({ tabSize: ns });
-                $('statusIndent').textContent = `Spaces: ${ns}`;
+                $('statusIndent').textContent = 'Spaces: ' + ns;
             });
             
-            window.addEventListener('resize', () => state.editor?.layout());
+            window.addEventListener('resize', function() {
+                if (state.editor) state.editor.layout();
+            });
         }
 
-        // ============ INIT ============
+        // ============ INITIALIZATION ============
         function init() {
             cacheDom();
-            state.files = { ...DEFAULT_FILES[state.lang] };
+            
+            // Initialize files from default
+            state.files = {};
+            var defFiles = DEFAULT_FILES[state.lang];
+            var fileKeys = Object.keys(defFiles);
+            for (var i = 0; i < fileKeys.length; i++) {
+                state.files[fileKeys[i]] = defFiles[fileKeys[i]];
+            }
             state.activeFile = Object.keys(state.files)[0];
             state.openFiles = [state.activeFile];
             
