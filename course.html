@@ -34,13 +34,11 @@
         body {
             font-family: 'Inter', sans-serif; background: var(--white);
             color: var(--gray-800); line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; min-height: 100vh;
         }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--gray-100); }
         ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
-
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
 
         /* TOP BAR */
         .topbar { background: var(--gray-900); color: white; padding: 0.5rem 0; font-size: 0.813rem; z-index: 1001; }
@@ -67,13 +65,13 @@
         .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
 
         .profile-dropdown { position: relative; }
-        .profile-trigger { display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.75rem; border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition); border: 1px solid var(--gray-200); background: white; }
+        .profile-trigger { display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.75rem; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid var(--gray-200); background: white; }
         .profile-trigger:hover { border-color: var(--primary); background: var(--primary-bg); }
         .profile-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.813rem; }
         .profile-name { font-size: 0.813rem; font-weight: 600; color: var(--gray-900); }
         .profile-dropdown-menu { position: absolute; top: calc(100% + 4px); right: 0; background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200); min-width: 220px; padding: 0.5rem; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all var(--transition); z-index: 100; }
         .profile-dropdown:hover .profile-dropdown-menu, .profile-dropdown-menu.show { opacity: 1; visibility: visible; transform: translateY(0); }
-        .profile-dropdown-menu a { display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.875rem; border-radius: var(--radius-sm); font-size: 0.813rem; color: var(--gray-700); text-decoration: none; transition: all var(--transition); }
+        .profile-dropdown-menu a { display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.875rem; border-radius: var(--radius-sm); font-size: 0.813rem; color: var(--gray-700); text-decoration: none; }
         .profile-dropdown-menu a:hover { background: var(--primary-bg); color: var(--primary); }
         .profile-dropdown-menu .divider { height: 1px; background: var(--gray-200); margin: 0.375rem 0; }
         .profile-dropdown-menu .logout-btn { color: var(--danger); cursor: pointer; }
@@ -84,22 +82,25 @@
         .breadcrumb-inner a { color: var(--primary); text-decoration: none; }
         .breadcrumb-inner a:hover { text-decoration: underline; }
 
-        /* MAIN LAYOUT */
-        .main-layout { display: flex; gap: 0; max-width: 1280px; margin: 0 auto; }
+        /* MAIN */
+        .main-layout { display: flex; gap: 0; max-width: 1280px; margin: 0 auto; flex: 1; }
         .sidebar { width: 260px; flex-shrink: 0; background: white; border-right: 1px solid var(--gray-200); padding: 1.25rem 0; position: sticky; top: 60px; max-height: calc(100vh - 60px); overflow-y: auto; }
         .sidebar-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; font-weight: 700; padding: 0 1.25rem; margin-bottom: 0.75rem; color: var(--gray-900); }
         .sidebar-module { margin-bottom: 0.125rem; }
-        .sidebar-module-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.25rem; cursor: pointer; font-size: 0.813rem; font-weight: 600; color: var(--gray-700); transition: all var(--transition); }
+        .sidebar-module-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.25rem; cursor: pointer; font-size: 0.813rem; font-weight: 600; color: var(--gray-700); }
         .sidebar-module-header:hover { background: var(--gray-100); }
         .sidebar-module-header i { font-size: 0.75rem; color: var(--gray-400); transition: transform var(--transition); }
         .sidebar-module.open .sidebar-module-header i { transform: rotate(90deg); }
         .sidebar-lessons { display: none; }
         .sidebar-module.open .sidebar-lessons { display: block; }
-        .sidebar-lesson { display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 1.25rem 0.375rem 2.5rem; font-size: 0.75rem; color: var(--gray-600); cursor: pointer; transition: all var(--transition); text-decoration: none; }
+        .sidebar-lesson { display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 1.25rem 0.375rem 2.5rem; font-size: 0.75rem; color: var(--gray-600); cursor: pointer; text-decoration: none; }
         .sidebar-lesson:hover { background: var(--primary-bg); color: var(--primary); }
         .sidebar-lesson.active { background: var(--primary-bg); color: var(--primary); font-weight: 600; }
+        .sidebar-lesson.locked { opacity: 0.5; cursor: not-allowed; }
+        .sidebar-lesson.locked:hover { background: transparent; color: var(--gray-600); }
         .sidebar-lesson .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gray-300); flex-shrink: 0; }
         .sidebar-lesson.active .dot { background: var(--primary); }
+        .sidebar-lesson .lock-icon { font-size: 0.625rem; color: var(--warning); margin-left: auto; }
 
         .content-area { flex: 1; padding: 1.5rem 2rem; min-width: 0; }
 
@@ -107,13 +108,11 @@
         .right-panel { width: 280px; flex-shrink: 0; background: var(--gray-50); border-left: 1px solid var(--gray-200); padding: 1.25rem; position: sticky; top: 60px; max-height: calc(100vh - 60px); overflow-y: auto; }
         .right-panel-section { background: white; border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1rem; border: 1px solid var(--gray-200); }
         .right-panel-section h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.813rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--gray-900); }
+        .rp-exercise-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.75rem; color: #7C3AED; text-decoration: none; background: #F5F3FF; margin-bottom: 0.375rem; transition: all var(--transition); }
+        .rp-exercise-link:hover { background: #EDE9FE; }
         .rp-cert-card { text-align: center; }
         .rp-cert-card i { font-size: 2.5rem; color: var(--success); margin-bottom: 0.5rem; display: block; }
         .rp-cert-card p { font-size: 0.75rem; color: var(--gray-500); margin-bottom: 0.75rem; }
-        .rp-profile-card { text-align: center; }
-        .rp-profile-card .rp-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem; margin: 0 auto 0.5rem; }
-        .rp-exercise-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--purple, #7C3AED); text-decoration: none; transition: all var(--transition); background: #F5F3FF; margin-bottom: 0.375rem; }
-        .rp-exercise-link:hover { background: #EDE9FE; }
 
         /* COURSE HEADER */
         .course-header { margin-bottom: 2rem; }
@@ -124,35 +123,41 @@
         /* LESSON CONTENT */
         .lesson-content { animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .lesson-content h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--gray-900); }
+        .lesson-content h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
         .lesson-content p { font-family: 'Manrope', sans-serif; font-size: 0.938rem; line-height: 1.8; color: var(--gray-700); margin-bottom: 1rem; }
         .lesson-content pre { background: var(--code-bg); color: #cdd6f4; padding: 1.25rem; border-radius: var(--radius); font-family: 'Source Code Pro', monospace; font-size: 0.813rem; line-height: 1.7; overflow-x: auto; margin: 1rem 0; }
         .lesson-content .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: var(--gray-900); border-radius: var(--radius-lg); overflow: hidden; margin: 1rem 0; }
         .lesson-content .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         .lesson-content img { max-width: 100%; border-radius: var(--radius); margin: 1rem 0; }
         .lesson-content .remember-box { background: var(--warning-bg); border: 1px solid #FCD34D; border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1rem 0; }
-        .lesson-content .remember-box strong { color: #D97706; }
         .lesson-content .question-box { background: #F5F3FF; border: 1px solid #C4B5FD; border-radius: var(--radius); padding: 1.25rem; margin: 1rem 0; }
         .lesson-content .question-box .q-title { font-weight: 700; margin-bottom: 0.75rem; }
-        .lesson-content .question-box .q-option { display: block; padding: 0.5rem 0.75rem; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); margin-bottom: 0.375rem; cursor: pointer; transition: all var(--transition); background: white; }
+        .lesson-content .question-box .q-option { display: block; padding: 0.5rem 0.75rem; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); margin-bottom: 0.375rem; cursor: pointer; background: white; }
         .lesson-content .question-box .q-option:hover { border-color: var(--primary); background: var(--primary-bg); }
+
+        /* LOCKED OVERLAY */
+        .locked-overlay {
+            background: var(--warning-bg); border: 2px dashed var(--warning);
+            border-radius: var(--radius-xl); padding: 2rem; text-align: center; margin: 2rem 0;
+        }
+        .locked-overlay i { font-size: 3rem; color: var(--warning); display: block; margin-bottom: 0.75rem; }
+        .locked-overlay h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .locked-overlay p { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1rem; }
 
         /* LESSON NAV */
         .lesson-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-200); }
-        .lesson-nav a { display: flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; text-decoration: none; transition: all var(--transition); }
+        .lesson-nav a { display: flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; text-decoration: none; }
         .lesson-nav .prev { background: var(--gray-100); color: var(--gray-700); } .lesson-nav .prev:hover { background: var(--gray-200); }
         .lesson-nav .next { background: var(--success); color: white; } .lesson-nav .next:hover { background: var(--success-dark); }
 
         /* CERTIFICATE SECTION */
         .cert-section { display: flex; flex-wrap: wrap; border: 1px solid #dbe0e8; border-radius: var(--radius-xl); overflow: hidden; margin-top: 3rem; background: white; }
-        .cert-card { flex: 1 1 280px; border-right: 1px solid #dbe0e8; padding: 24px; text-align: left; background: #fff; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
-        .cert-card-header { display: flex; align-items: center; gap: 16px; margin: 0 0 8px; }
-        .cert-card-icon { width: 30px; height: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--success); }
+        .cert-card { flex: 1 1 280px; border-right: 1px solid #dbe0e8; padding: 24px; background: #fff; display: flex; flex-direction: column; }
         .cert-card-title { font-size: 30px; font-weight: 700; color: #000; margin: 7px 0 8px; }
         .cert-card-desc { font-size: 17px; color: #000; margin: 0 0 20px; line-height: 1.5; }
         .cert-card-btn { display: inline-block; padding: 12px 28px; background: var(--success); color: #fff; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: 600; margin-top: auto; align-self: flex-start; }
         .cert-card-btn:hover { background: var(--success-dark); }
-        .cert-info { flex: 1 1 320px; padding: 24px; border: none; background: var(--success-bg); display: flex; flex-direction: column; }
+        .cert-info { flex: 1 1 320px; padding: 24px; background: var(--success-bg); display: flex; flex-direction: column; }
         .cert-info-title { font-size: 30px; font-weight: 700; color: #000; margin: 8px 0 12px; }
         .cert-info-title span { color: var(--success); }
         .cert-info-desc { font-size: 17px; color: #000; margin: 0 0 16px; line-height: 1.5; }
@@ -160,10 +165,19 @@
         .cert-info-btn { display: inline-block; padding: 12px 28px; background: var(--success); color: #fff; text-decoration: none; border-radius: 6px; font-size: 18px; font-weight: 600; }
         .cert-info-btn:hover { background: var(--success-dark); }
         .cert-preview { flex: 1 1 auto; display: flex; align-items: center; justify-content: center; padding: 16px; }
-        .cert-preview-img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+
+        /* NOT FOUND HERO */
+        .notfound-hero { text-align: center; padding: 4rem 2rem; }
+        .notfound-hero i { font-size: 5rem; color: var(--primary); opacity: 0.6; display: block; margin-bottom: 1rem; }
+        .notfound-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .notfound-hero p { color: var(--gray-500); font-size: 1rem; margin-bottom: 2rem; }
+        .notfound-search { max-width: 500px; margin: 0 auto 3rem; display: flex; gap: 0.5rem; }
+        .notfound-search input { flex: 1; padding: 0.75rem 1rem; border: 2px solid var(--gray-200); border-radius: var(--radius-xl); font-family: 'Inter', sans-serif; font-size: 0.938rem; outline: none; }
+        .notfound-search input:focus { border-color: var(--primary); }
+        .notfound-search button { padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-xl); font-weight: 600; cursor: pointer; }
 
         /* SUGGESTIONS */
-        .suggestions-section { margin-top: 2rem; }
+        .suggestions-section { margin-top: 1rem; }
         .suggestions-section h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin-bottom: 1rem; }
         .suggestions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
         .suggestion-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1.25rem; transition: all var(--transition); cursor: pointer; text-decoration: none; color: inherit; display: block; }
@@ -175,9 +189,19 @@
         .empty-state { text-align: center; padding: 3rem 1rem; }
         .empty-state i { font-size: 4rem; display: block; margin-bottom: 1rem; opacity: 0.4; color: var(--gray-400); }
         .empty-state h2 { font-family: 'Space Grotesk', sans-serif; color: var(--gray-500); margin-bottom: 0.5rem; }
-        .empty-state p { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1.5rem; }
 
-        /* TOAST */
+        /* FOOTER */
+        .footer { background: var(--dark-bg); color: #ddd; padding: 3rem 0 1.5rem; margin-top: auto; }
+        .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-col h5 { font-size: 0.875rem; font-weight: 600; color: #FFF4A3; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-col a { display: block; color: #ddd; text-decoration: none; font-size: 0.813rem; margin-bottom: 0.625rem; transition: color var(--transition); }
+        .footer-col a:hover { color: #FFF4A3; }
+        .footer-social { text-align: center; padding: 1.5rem 0; border-top: 1px solid rgba(255,255,255,0.1); }
+        .footer-social a { color: #ddd; font-size: 1.5rem; margin: 0 0.75rem; text-decoration: none; }
+        .footer-social a:hover { color: #FFF4A3; }
+        .footer-bottom { text-align: center; font-size: 0.813rem; color: #9ca3af; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); }
+
         .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
         .toast { background: var(--gray-900); color: white; padding: 0.875rem 1.25rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; max-width: 380px; }
         .toast.success { background: #059669; } .toast.error { background: #DC2626; }
@@ -213,53 +237,33 @@
 
     <!-- MAIN LAYOUT -->
     <div class="main-layout">
-        <!-- SIDEBAR -->
         <aside class="sidebar" id="sidebar"><div class="sidebar-title" id="sidebarTitle">📚 Course Modules</div><div id="sidebarContent"></div></aside>
-
-        <!-- CONTENT -->
         <div class="content-area">
             <div class="course-header" id="courseHeader"></div>
             <div class="lesson-content" id="lessonContent"></div>
             <div class="lesson-nav" id="lessonNav" style="display:none;"></div>
-            <div class="suggestions-section" id="suggestionsSection" style="display:none;"></div>
+            <div class="suggestions-section" id="suggestionsSection"></div>
             <div class="cert-section" id="certSection" style="display:none;"></div>
         </div>
-
-        <!-- RIGHT PANEL -->
         <aside class="right-panel" id="rightPanel">
-            <!-- Profile Card -->
-            <div class="right-panel-section rp-profile-card" id="rpProfileCard">
-                <h4><i class='bx bx-user-circle'></i> Your Profile</h4>
-                <div class="rp-avatar" id="rpAvatar">?</div>
-                <p style="font-weight:600;font-size:0.875rem;margin:0.25rem 0;" id="rpName">Guest</p>
-                <p style="font-size:0.75rem;color:var(--gray-500);" id="rpEmail">Sign in to track progress</p>
-                <a href="auth.html?mode=signin" class="btn btn-primary btn-sm" style="width:100%;margin-top:0.5rem;justify-content:center;" id="rpSignInBtn">Sign In</a>
-                <a href="auth.html?mode=register" class="btn btn-outline btn-sm" style="width:100%;margin-top:0.25rem;justify-content:center;" id="rpRegisterBtn">Register</a>
-            </div>
-
-            <!-- Certificate Ad -->
-            <div class="right-panel-section rp-cert-card">
-                <h4><i class='bx bx-certification'></i> Get Certified</h4>
-                <i class='bx bx-award'></i>
-                <p>Earn an official certificate to showcase your skills to employers.</p>
-                <a href="certificate.html" class="btn btn-success btn-sm" style="width:100%;justify-content:center;">View Certificates</a>
-            </div>
-
-            <!-- Exercise Links -->
-            <div class="right-panel-section" id="rpExercises">
-                <h4><i class='bx bx-dumbbell'></i> Practice Exercises</h4>
-                <div id="rpExerciseLinks"><p style="font-size:0.75rem;color:var(--gray-400);">Select a course to see exercises</p></div>
-            </div>
-
-            <!-- Quick Links -->
-            <div class="right-panel-section">
-                <h4><i class='bx bx-link'></i> Quick Links</h4>
-                <a href="Editor.html" class="rp-exercise-link"><i class='bx bx-code-alt'></i> Code Editor</a>
-                <a href="documentation.html" class="rp-exercise-link"><i class='bx bx-book'></i> Documentation</a>
-                <a href="help-center.html" class="rp-exercise-link"><i class='bx bx-support'></i> Help Center</a>
-            </div>
+            <div class="right-panel-section rp-cert-card"><h4><i class='bx bx-certification'></i> Get Certified</h4><i class='bx bx-award'></i><p>Earn an official certificate to showcase your skills.</p><a href="certificate.html" class="btn btn-success btn-sm" style="width:100%;justify-content:center;">View Certificates</a></div>
+            <div class="right-panel-section"><h4><i class='bx bx-dumbbell'></i> Try an Exercise</h4><div id="rpExerciseLinks"><p style="font-size:0.75rem;color:var(--gray-400);">Select a lesson to see exercises</p></div></div>
+            <div class="right-panel-section"><h4><i class='bx bx-link'></i> Quick Links</h4><a href="Editor.html" class="rp-exercise-link"><i class='bx bx-code-alt'></i> Code Editor</a><a href="documentation.html" class="rp-exercise-link"><i class='bx bx-book'></i> Documentation</a></div>
         </aside>
     </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-col"><h5>Platform</h5><a href="course.html">Courses</a><a href="Editor.html">Code Editor</a><a href="exercise.html">Exercises</a><a href="certificate.html">Certificates</a></div>
+                <div class="footer-col"><h5>Support</h5><a href="documentation.html">Documentation</a><a href="help-center.html">Help Center</a><a href="contact.html">Contact</a></div>
+                <div class="footer-col"><h5>Company</h5><a href="#">About Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+            </div>
+            <div class="footer-social"><a href="#"><i class='bx bxl-youtube'></i></a><a href="#"><i class='bx bxl-github'></i></a><a href="#"><i class='bx bxl-discord-alt'></i></a><a href="#"><i class='bx bxl-twitter'></i></a></div>
+            <div class="footer-bottom"><p>&copy; 2026 Akademia. All rights reserved. Built with <i class='bx bx-heart' style='color:#ef4444;'></i> for learners worldwide.</p></div>
+        </div>
+    </footer>
 
     <div class="toast-container" id="toastContainer"></div>
 
@@ -276,7 +280,7 @@
             c.appendChild(t); setTimeout(() => t.remove(), 3000);
         };
 
-        const AppState = { course: null, modules: [], lessons: [], allCourses: [], allModules: [], allLessons: [], currentModuleId: null, currentLessonId: null, currentUser: null };
+        const AppState = { course: null, modules: [], lessons: [], allCourses: [], allModules: [], allLessons: [], currentModuleId: null, currentLessonId: null, currentUser: null, freeLessonLimit: 3 };
 
         function getParams() { const p = new URLSearchParams(window.location.search); return { courseId: p.get('id'), moduleId: p.get('module'), lessonId: p.get('lesson') }; }
 
@@ -284,25 +288,14 @@
         function updateAuthUI(user) {
             AppState.currentUser = user;
             const si = $('btnSignIn'), sr = $('btnRegister'), pd = $('profileDropdown');
-            const rpSi = $('rpSignInBtn'), rpRg = $('rpRegisterBtn');
-            if (user) {
-                if (si) si.style.display = 'none'; if (sr) sr.style.display = 'none'; if (pd) pd.style.display = 'block';
-                if (rpSi) rpSi.style.display = 'none'; if (rpRg) rpRg.style.display = 'none';
+            if (user) { if (si) si.style.display = 'none'; if (sr) sr.style.display = 'none'; if (pd) pd.style.display = 'block';
                 $('profileAvatar').textContent = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
                 $('profileName').textContent = user.displayName || user.email?.split('@')[0] || 'User';
-                $('rpAvatar').textContent = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
-                $('rpName').textContent = user.displayName || user.email?.split('@')[0] || 'User';
-                $('rpEmail').textContent = user.email || '';
                 localStorage.setItem('ak_user', JSON.stringify({ uid: user.uid, email: user.email, displayName: user.displayName }));
-            } else {
-                if (si) si.style.display = ''; if (sr) sr.style.display = ''; if (pd) pd.style.display = 'none';
-                if (rpSi) rpSi.style.display = ''; if (rpRg) rpRg.style.display = '';
-                $('rpAvatar').textContent = '?'; $('rpName').textContent = 'Guest'; $('rpEmail').textContent = 'Sign in to track progress';
-                localStorage.removeItem('ak_user');
-            }
+            } else { if (si) si.style.display = ''; if (sr) sr.style.display = ''; if (pd) pd.style.display = 'none'; localStorage.removeItem('ak_user'); }
         }
         onAuthStateChanged(auth, updateAuthUI);
-        (function() { const c = JSON.parse(localStorage.getItem('ak_user') || 'null'); if (c && !AppState.currentUser) { if ($('btnSignIn')) $('btnSignIn').style.display = 'none'; if ($('btnRegister')) $('btnRegister').style.display = 'none'; if ($('profileDropdown')) $('profileDropdown').style.display = 'block'; $('profileAvatar').textContent = (c.displayName || c.email || 'U').charAt(0).toUpperCase(); $('profileName').textContent = c.displayName || c.email?.split('@')[0] || 'User'; $('rpAvatar').textContent = (c.displayName || c.email || 'U').charAt(0).toUpperCase(); $('rpName').textContent = c.displayName || c.email?.split('@')[0] || 'User'; $('rpEmail').textContent = c.email || ''; if ($('rpSignInBtn')) $('rpSignInBtn').style.display = 'none'; if ($('rpRegisterBtn')) $('rpRegisterBtn').style.display = 'none'; } })();
+        (function() { const c = JSON.parse(localStorage.getItem('ak_user') || 'null'); if (c && !AppState.currentUser) { if ($('btnSignIn')) $('btnSignIn').style.display = 'none'; if ($('btnRegister')) $('btnRegister').style.display = 'none'; if ($('profileDropdown')) $('profileDropdown').style.display = 'block'; $('profileAvatar').textContent = (c.displayName || c.email || 'U').charAt(0).toUpperCase(); $('profileName').textContent = c.displayName || c.email?.split('@')[0] || 'User'; } })();
         $('profileTriggerBtn')?.addEventListener('click', function(e) { e.stopPropagation(); $('profileMenu')?.classList.toggle('show'); });
         $('logoutBtn')?.addEventListener('click', async function(e) { e.preventDefault(); try { await signOut(auth); } catch(ex) { localStorage.removeItem('ak_user'); } updateAuthUI(null); toast('Signed out', 'success'); });
         document.addEventListener('click', function(e) { if (!e.target.closest('.profile-dropdown')) $('profileMenu')?.classList.remove('show'); });
@@ -315,7 +308,6 @@
                 AppState.allModules = mSnap.docs.map(d=>({id:d.id,...d.data()}));
                 AppState.allLessons = lSnap.docs.map(d=>({id:d.id,...d.data()}));
             } catch(e) { AppState.allCourses=JSON.parse(localStorage.getItem('ak_courses')||'[]'); AppState.allModules=JSON.parse(localStorage.getItem('ak_modules')||'[]'); AppState.allLessons=JSON.parse(localStorage.getItem('ak_lessons')||'[]'); }
-            
             const { courseId, moduleId, lessonId } = getParams();
             if (courseId) {
                 AppState.course = AppState.allCourses.find(c => c.id === courseId);
@@ -323,92 +315,106 @@
                 if (AppState.course) {
                     AppState.modules = AppState.allModules.filter(m => m.courseId === courseId).sort((a,b)=>(a.order||0)-(b.order||0));
                     AppState.lessons = AppState.allLessons.filter(l => AppState.modules.find(m => m.id === l.moduleId));
-                    if (moduleId) { AppState.currentModuleId = moduleId; }
-                    if (lessonId) { AppState.currentLessonId = lessonId; }
+                    if (moduleId) AppState.currentModuleId = moduleId;
+                    if (lessonId) AppState.currentLessonId = lessonId;
                 }
             }
             renderAll();
         }
 
+        function isLessonLocked(lessonIndex) {
+            return !AppState.currentUser && lessonIndex >= AppState.freeLessonLimit;
+        }
+
         function renderAll() {
-            if (!AppState.course) {
-                renderNotFoundState();
-            } else {
+            if (!AppState.course) { renderNotFoundPage(); }
+            else {
                 renderSidebar();
                 renderCourseHeader();
                 renderLessonContent();
                 renderCertSection();
             }
             renderRightPanel();
-            $('breadCourse').textContent = AppState.course ? AppState.course.name : 'Course';
+            $('breadCourse').textContent = AppState.course ? AppState.course.name : 'Explore Courses';
         }
 
-        // ============ NOT FOUND STATE ============
-        function renderNotFoundState() {
-            $('sidebarTitle').textContent = '📚 Available Courses';
-            $('sidebarContent').innerHTML = AppState.allCourses.length ? AppState.allCourses.map(c => `
-                <div class="sidebar-module open"><div class="sidebar-module-header" onclick="window.location.href='course.html?id=${c.id}'"><i class='bx bx-book-open'></i> ${escHtml(c.name)}</div></div>
-            `).join('') : '<p style="padding:1rem;font-size:0.75rem;color:var(--gray-400);">No courses available</p>';
+        // ============ NOT FOUND - BEAUTIFUL PAGE ============
+        function renderNotFoundPage() {
+            $('sidebarTitle').textContent = '📚 Browse Courses';
+            $('sidebarContent').innerHTML = AppState.allCourses.length ? AppState.allCourses.map(c => `<div class="sidebar-module open"><div class="sidebar-module-header" onclick="window.location.href='course.html?id=${c.id}'"><i class='bx bx-book-open'></i> ${escHtml(c.name)}</div></div>`).join('') : '<p style="padding:1rem;font-size:0.75rem;color:var(--gray-400);">No courses yet</p>';
 
-            $('courseHeader').innerHTML = '<h1>Course Not Found</h1><p style="color:var(--gray-500);">The requested course could not be loaded. Here are some suggestions:</p>';
-            
-            $('lessonContent').innerHTML = '';
+            $('courseHeader').innerHTML = '';
+            $('lessonContent').innerHTML = `
+                <div class="notfound-hero">
+                    <i class='bx bx-compass'></i>
+                    <h1>Discover Your Learning Path</h1>
+                    <p>Browse our collection of courses or search for what you want to learn</p>
+                    <div class="notfound-search">
+                        <input type="text" id="notfoundSearch" placeholder="Search courses, modules, lessons..." autocomplete="off">
+                        <button onclick="searchNotFound()"><i class='bx bx-search'></i> Search</button>
+                    </div>
+                    <div id="notfoundResults" style="max-width:500px;margin:0 auto;text-align:left;"></div>
+                </div>`;
             $('lessonNav').style.display = 'none';
             $('certSection').style.display = 'none';
 
-            // Show suggestions
-            const suggestions = $('suggestionsSection');
-            suggestions.style.display = 'block';
-            suggestions.innerHTML = `
-                <h3>📚 Explore Available Courses</h3>
+            // Suggestions
+            const sg = $('suggestionsSection');
+            sg.innerHTML = `
+                <h3><i class='bx bx-star'></i> Recommended Courses</h3>
                 <div class="suggestions-grid">
                     ${AppState.allCourses.length ? AppState.allCourses.slice(0, 6).map(c => `
                         <a href="course.html?id=${c.id}" class="suggestion-card">
-                            <h4>${escHtml(c.name)}</h4>
+                            <h4><i class='bx bx-book-open'></i> ${escHtml(c.name)}</h4>
                             <p>${escHtml(c.description || 'Start learning today')} • ${c.difficulty || 'All Levels'}</p>
                         </a>
-                    `).join('') : `
-                        <div class="suggestion-card" style="text-align:center;">
-                            <h4>No courses yet</h4>
-                            <p>Create courses in the <a href="admin.html" style="color:var(--primary);">Admin Panel</a></p>
-                        </div>
-                    `}
-                </div>
-            `;
-
-            // Also show modules in sidebar
-            if (AppState.allModules.length && AppState.allCourses.length) {
-                $('sidebarContent').innerHTML += '<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--gray-200);"><div class="sidebar-title">🔍 Browse Modules</div>' + 
-                    AppState.allModules.slice(0, 10).map(m => {
-                        const course = AppState.allCourses.find(c => c.id === m.courseId);
-                        return `<div class="sidebar-module"><div class="sidebar-module-header" onclick="window.location.href='course.html?id=${m.courseId}&module=${m.id}'"><i class='bx bx-layer'></i> ${escHtml(m.name)} <span style="font-size:0.625rem;color:var(--gray-400);margin-left:auto;">${course?.name||''}</span></div></div>`;
-                    }).join('') + '</div>';
+                    `).join('') : '<div class="suggestion-card"><h4>No courses yet</h4><p>Create courses in the <a href="admin.html" style="color:var(--primary);">Admin Panel</a></p></div>'}
+                </div>`;
+            if (AppState.allModules.length) {
+                sg.innerHTML += `<h3 style="margin-top:2rem;"><i class='bx bx-layer'></i> Popular Modules</h3><div class="suggestions-grid">${AppState.allModules.slice(0,6).map(m=>{const c=AppState.allCourses.find(x=>x.id===m.courseId);return `<a href="course.html?id=${m.courseId}&module=${m.id}" class="suggestion-card"><h4><i class='bx bx-layer'></i> ${escHtml(m.name)}</h4><p>Course: ${escHtml(c?.name||'Unknown')}</p></a>`;}).join('')}</div>`;
             }
         }
+
+        window.searchNotFound = function() {
+            const q = ($('notfoundSearch')?.value||'').toLowerCase().trim();
+            const container = $('notfoundResults');
+            if (!q) { container.innerHTML = ''; return; }
+            const results = [];
+            AppState.allCourses.forEach(c => { if(c.name?.toLowerCase().includes(q)||c.description?.toLowerCase().includes(q)) results.push({type:'course',name:c.name,id:c.id,icon:'bx-book-open'}); });
+            AppState.allModules.forEach(m => { if(m.name?.toLowerCase().includes(q)) results.push({type:'module',name:m.name,id:m.courseId,mid:m.id,icon:'bx-layer'}); });
+            AppState.allLessons.forEach(l => { if(l.title?.toLowerCase().includes(q)) results.push({type:'lesson',name:l.title,id:l.courseId||'',mid:l.moduleId,lid:l.id,icon:'bx-video'}); });
+            container.innerHTML = results.length ? results.slice(0,8).map(r => `
+                <div style="padding:0.75rem;border:1px solid var(--gray-200);border-radius:var(--radius-sm);margin-bottom:0.375rem;cursor:pointer;background:white;" onclick="window.location.href='course.html?id=${r.id}${r.mid?'&module='+r.mid:''}${r.lid?'&lesson='+r.lid:''}'">
+                    <i class='bx ${r.icon}'></i> <strong>${escHtml(r.name)}</strong> <span style="color:var(--gray-400);font-size:0.75rem;">• ${r.type}</span>
+                </div>`).join('') : '<p style="color:var(--gray-400);text-align:center;padding:1rem;">No results found</p>';
+        };
 
         // ============ SIDEBAR ============
         function renderSidebar() {
             const container = $('sidebarContent');
             $('sidebarTitle').textContent = '📚 ' + AppState.course.name;
             if (!AppState.modules.length) { container.innerHTML = '<p style="padding:1rem;font-size:0.75rem;color:var(--gray-400);">No modules yet</p>'; return; }
+            let lessonCount = 0;
             container.innerHTML = AppState.modules.map(mod => {
                 const ml = AppState.lessons.filter(l => l.moduleId === mod.id);
                 const isOpen = AppState.currentModuleId === mod.id || (!AppState.currentModuleId && AppState.modules.indexOf(mod) === 0);
                 return `<div class="sidebar-module ${isOpen?'open':''}" data-module="${mod.id}">
                     <div class="sidebar-module-header" onclick="toggleModule('${mod.id}')"><i class='bx bx-chevron-right'></i> ${escHtml(mod.name)}<span style="margin-left:auto;font-size:0.625rem;color:var(--gray-400);">${ml.length}</span></div>
-                    <div class="sidebar-lessons">${ml.map((l,i)=>`<a href="?id=${AppState.course.id}&module=${mod.id}&lesson=${l.id}" class="sidebar-lesson ${l.id===AppState.currentLessonId?'active':''}" onclick="event.preventDefault();loadLesson('${mod.id}','${l.id}')"><span class="dot"></span> ${escHtml(l.title||'Lesson '+(i+1))}</a>`).join('')}</div>
-                </div>`;
+                    <div class="sidebar-lessons">${ml.map((l,i)=>{ lessonCount++; const locked = isLessonLocked(lessonCount-1);
+                        return `<a href="${locked?'#':`?id=${AppState.course.id}&module=${mod.id}&lesson=${l.id}`}" class="sidebar-lesson ${l.id===AppState.currentLessonId?'active':''} ${locked?'locked':''}" onclick="${locked?'event.preventDefault();showLockMessage();':'event.preventDefault();loadLesson(\''+mod.id+'\',\''+l.id+'\')'}"><span class="dot"></span> ${escHtml(l.title||'Lesson '+(i+1))}${locked?' <i class="bx bx-lock-alt lock-icon"></i>':''}</a>`;
+                    }).join('')}</div></div>`;
             }).join('');
         }
 
         window.toggleModule = function(id) { document.querySelector(`.sidebar-module[data-module="${id}"]`)?.classList.toggle('open'); };
+        window.showLockMessage = function() {
+            $('lessonContent').innerHTML = `<div class="locked-overlay"><i class='bx bx-lock-alt'></i><h3>Unlock Full Access</h3><p>You've reached the free lesson limit. Sign in to unlock all lessons and continue learning!</p><a href="auth.html?mode=signin" class="btn btn-primary"><i class='bx bx-log-in'></i> Sign In to Continue</a><a href="auth.html?mode=register" class="btn btn-outline" style="margin-left:0.5rem;"><i class='bx bx-user-plus'></i> Create Free Account</a></div>`;
+            $('lessonNav').style.display = 'none';
+        };
 
         // ============ COURSE HEADER ============
         function renderCourseHeader() {
-            const c = $('courseHeader');
-            c.innerHTML = `<h1>${escHtml(AppState.course.name)}</h1>
-                <div class="course-meta"><span><i class='bx bx-book-open'></i> ${AppState.modules.length} modules</span><span><i class='bx bx-video'></i> ${AppState.lessons.length} lessons</span><span><i class='bx bx-time'></i> ${AppState.course.duration||AppState.lessons.length*5} min</span><span><i class='bx bx-bar-chart-alt-2'></i> ${AppState.course.difficulty||'All Levels'}</span></div>
-                ${AppState.course.description?`<p style="margin-top:0.75rem;color:var(--gray-600);">${escHtml(AppState.course.description)}</p>`:''}`;
+            $('courseHeader').innerHTML = `<h1>${escHtml(AppState.course.name)}</h1><div class="course-meta"><span><i class='bx bx-book-open'></i> ${AppState.modules.length} modules</span><span><i class='bx bx-video'></i> ${AppState.lessons.length} lessons</span><span><i class='bx bx-time'></i> ${AppState.course.duration||AppState.lessons.length*5} min</span><span><i class='bx bx-bar-chart-alt-2'></i> ${AppState.course.difficulty||'All Levels'}</span></div>${AppState.course.description?`<p style="margin-top:0.75rem;color:var(--gray-600);">${escHtml(AppState.course.description)}</p>`:''}`;
         }
 
         // ============ LESSON CONTENT ============
@@ -424,6 +430,12 @@
             }
             const lesson = AppState.lessons.find(l=>l.id===AppState.currentLessonId);
             if (!lesson) { container.innerHTML = '<div class="empty-state"><i class="bx bx-error"></i><h2>Lesson Not Found</h2></div>'; nav.style.display='none'; return; }
+            
+            // Check lock
+            const flat = []; AppState.modules.forEach(m=>{AppState.lessons.filter(l=>l.moduleId===m.id).forEach(l=>flat.push({...l,moduleId:m.id}));});
+            const ci = flat.findIndex(l=>l.id===AppState.currentLessonId);
+            if (isLessonLocked(ci)) { showLockMessage(); return; }
+
             const blocks = lesson.pages?.[0]?.blocks||[];
             let h = `<h2>${escHtml(lesson.title||'Untitled')}</h2>`;
             if (!blocks.length) h += '<p style="color:var(--gray-400);">No content yet.</p>';
@@ -438,8 +450,7 @@
                 }
             });
             container.innerHTML = h;
-            const flat = []; AppState.modules.forEach(m=>{AppState.lessons.filter(l=>l.moduleId===m.id).forEach(l=>flat.push({...l,moduleId:m.id}));});
-            const ci = flat.findIndex(l=>l.id===AppState.currentLessonId);
+
             const prev = ci>0?flat[ci-1]:null, next = ci<flat.length-1?flat[ci+1]:null;
             nav.style.display='flex';
             nav.innerHTML = `${prev?`<a href="?id=${AppState.course.id}&module=${prev.moduleId}&lesson=${prev.id}" class="prev" onclick="event.preventDefault();loadLesson('${prev.moduleId}','${prev.id}')"><i class='bx bx-chevron-left'></i> Previous</a>`:'<span></span>'}<span style="font-size:0.75rem;color:var(--gray-400);">${ci+1}/${flat.length}</span>${next?`<a href="?id=${AppState.course.id}&module=${next.moduleId}&lesson=${next.id}" class="next" onclick="event.preventDefault();loadLesson('${next.moduleId}','${next.id}')">Next <i class='bx bx-chevron-right'></i></a>`:'<span></span>'}`;
@@ -450,27 +461,34 @@
         window.loadLesson = function(moduleId, lessonId, silent=false) {
             AppState.currentModuleId = moduleId; AppState.currentLessonId = lessonId;
             if (!silent) window.history.pushState({}, '', `?id=${AppState.course.id}&module=${moduleId}&lesson=${lessonId}`);
-            renderSidebar(); renderLessonContent(); window.scrollTo({top:0,behavior:'smooth'});
+            renderSidebar(); renderLessonContent(); renderRightPanel(); window.scrollTo({top:0,behavior:'smooth'});
         };
 
         // ============ CERT SECTION ============
         function renderCertSection() {
             const s = $('certSection'); s.style.display = 'flex';
-            s.innerHTML = `<div class="cert-card"><div class="cert-card-header"><div class="cert-card-icon"><i class='bx bx-certification'></i></div></div><div class="cert-card-title">${escHtml(AppState.course.name)} Certificate</div><div class="cert-card-desc">Prove your ${escHtml(AppState.course.name)} skills with an official certificate</div><a href="certificate.html" class="cert-card-btn">Learn More</a></div><div class="cert-info"><div class="cert-info-title">Get <span>Certified</span></div><div class="cert-info-desc">Earn an official certificate to showcase your achievement</div><div class="cert-info-price">$45<span>.00</span></div><a href="certificate.html" class="cert-info-btn" style="margin-top:8px;">Get Certified</a></div><div class="cert-preview"><i class='bx bx-certification' style='font-size:5rem;color:var(--success);opacity:0.3;'></i></div>`;
+            s.innerHTML = `<div class="cert-card"><div class="cert-card-title">${escHtml(AppState.course.name)} Certificate</div><div class="cert-card-desc">Prove your skills with an official certificate</div><a href="certificate.html" class="cert-card-btn">Learn More</a></div><div class="cert-info"><div class="cert-info-title">Get <span>Certified</span></div><div class="cert-info-desc">Earn an official certificate</div><div class="cert-info-price">$45<span>.00</span></div><a href="certificate.html" class="cert-info-btn" style="margin-top:8px;">Get Certified</a></div><div class="cert-preview"><i class='bx bx-certification' style='font-size:5rem;color:var(--success);opacity:0.3;'></i></div>`;
         }
 
-        // ============ RIGHT PANEL ============
+        // ============ RIGHT PANEL - EXERCISE PROMPTS ============
         function renderRightPanel() {
-            const el = $('rpExerciseLinks');
-            if (!el) return;
-            if (AppState.course && AppState.modules.length) {
-                el.innerHTML = AppState.modules.slice(0, 4).map(m => `
-                    <a href="exercise.html?course=${AppState.course.id}&module=${m.id}" class="rp-exercise-link"><i class='bx bx-dumbbell'></i> ${escHtml(m.name)} Exercises</a>
-                `).join('') + `<a href="exercise.html?course=${AppState.course.id}" class="rp-exercise-link" style="background:var(--success-bg);color:var(--success);"><i class='bx bx-dumbbell'></i> All ${escHtml(AppState.course.name)} Exercises</a>`;
-            } else if (AppState.allCourses.length) {
-                el.innerHTML = AppState.allCourses.slice(0, 4).map(c => `
-                    <a href="exercise.html?course=${c.id}" class="rp-exercise-link"><i class='bx bx-dumbbell'></i> ${escHtml(c.name)} Exercises</a>
-                `).join('');
+            const el = $('rpExerciseLinks'); if (!el) return;
+            if (AppState.course && AppState.currentLessonId) {
+                const lesson = AppState.lessons.find(l=>l.id===AppState.currentLessonId);
+                const mod = AppState.modules.find(m=>m.id===AppState.currentModuleId);
+                if (lesson) {
+                    el.innerHTML = `
+                        <div style="background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border-radius:var(--radius);padding:0.75rem;margin-bottom:0.5rem;text-align:center;">
+                            <i class='bx bx-dumbbell' style="font-size:2rem;color:#7C3AED;display:block;margin-bottom:0.25rem;"></i>
+                            <p style="font-size:0.75rem;font-weight:600;color:#7C3AED;margin-bottom:0.5rem;">Ready to practice "${escHtml(lesson.title||'this lesson')}"?</p>
+                            <a href="exercise.html?course=${AppState.course.id}&module=${mod?.id||''}&lesson=${lesson.id}" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;background:#7C3AED;">
+                                <i class='bx bx-play-circle'></i> Start Exercise
+                            </a>
+                        </div>
+                        <a href="exercise.html?course=${AppState.course.id}" class="rp-exercise-link"><i class='bx bx-dumbbell'></i> All ${escHtml(AppState.course.name)} Exercises</a>`;
+                }
+            } else if (AppState.course) {
+                el.innerHTML = `<div style="text-align:center;padding:0.5rem;"><i class='bx bx-dumbbell' style="font-size:2rem;color:#7C3AED;opacity:0.5;display:block;margin-bottom:0.25rem;"></i><p style="font-size:0.75rem;color:var(--gray-400);">Select a lesson to practice</p></div>`;
             } else {
                 el.innerHTML = '<p style="font-size:0.75rem;color:var(--gray-400);">No exercises available</p>';
             }
@@ -478,7 +496,7 @@
 
         // ============ INIT ============
         loadAllData();
-        console.log('🚀 Akademia Course Page Advanced loaded!');
+        console.log('🚀 Akademia Course Page Ultimate loaded!');
     </script>
 </body>
 </html>
