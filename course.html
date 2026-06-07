@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademia - Course</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <style>
+        :root {
+            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-bg: #EFF6FF;
+            --secondary: #06B6D4; --accent: #8B5CF6;
+            --success: #04AA6D; --success-dark: #038857; --success-bg: rgba(4,170,109,0.07);
+            --warning: #F59E0B; --warning-bg: #FFFBEB;
+            --danger: #EF4444; --danger-bg: #FEF2F2;
+            --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
+            --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
+            --gray-800: #1f2937; --gray-900: #111827;
+            --dark-bg: #282A35; --code-bg: #1e1e2e;
+            --radius-sm: 6px; --radius: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-2xl: 20px;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05); --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08); --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 50px rgba(0,0,0,0.12);
+            --transition: 0.2s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif; background: var(--white);
+            color: var(--gray-800); line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--gray-100); }
+        ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
+
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* TOP BAR */
+        .topbar { background: var(--gray-900); color: white; padding: 0.5rem 0; font-size: 0.813rem; z-index: 1001; }
+        .topbar-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+        .topbar-links { display: flex; gap: 1.5rem; }
+        .topbar-links a { color: #9ca3af; text-decoration: none; transition: color var(--transition); display: flex; align-items: center; gap: 0.25rem; }
+        .topbar-links a:hover { color: white; }
+
+        /* NAVBAR */
+        .navbar { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-sm); }
+        .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+        .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .nav-logo img { height: 32px; width: auto; }
+        .nav-logo span { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--gray-900); }
+        .nav-links { display: flex; align-items: center; gap: 0.5rem; }
+        .nav-links a { padding: 0.5rem 0.875rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500; color: var(--gray-700); text-decoration: none; transition: all var(--transition); }
+        .nav-links a:hover { background: var(--gray-100); }
+        .btn { font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.5rem 1.125rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 600; transition: all var(--transition); cursor: pointer; border: none; text-decoration: none; white-space: nowrap; }
+        .btn-primary { background: var(--primary); color: white; } .btn-primary:hover { background: var(--primary-dark); }
+        .btn-success { background: var(--success); color: white; } .btn-success:hover { background: var(--success-dark); }
+        .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
+        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
+
+        /* BREADCRUMB */
+        .breadcrumb-bar {
+            background: var(--gray-50); border-bottom: 1px solid var(--gray-200);
+            padding: 0.625rem 0; font-size: 0.813rem;
+        }
+        .breadcrumb-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 0.375rem; color: var(--gray-500); }
+        .breadcrumb-inner a { color: var(--primary); text-decoration: none; }
+        .breadcrumb-inner a:hover { text-decoration: underline; }
+        .breadcrumb-inner .sep { color: var(--gray-400); }
+
+        /* MAIN LAYOUT */
+        .main-layout { display: flex; gap: 0; max-width: 1280px; margin: 0 auto; }
+        .sidebar { width: 260px; flex-shrink: 0; background: white; border-right: 1px solid var(--gray-200); padding: 1.25rem 0; position: sticky; top: 60px; max-height: calc(100vh - 60px); overflow-y: auto; }
+        .sidebar-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; font-weight: 700; padding: 0 1.25rem; margin-bottom: 0.75rem; color: var(--gray-900); }
+        .sidebar-module { margin-bottom: 0.125rem; }
+        .sidebar-module-header {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 1.25rem; cursor: pointer;
+            font-size: 0.813rem; font-weight: 600; color: var(--gray-700);
+            transition: all var(--transition);
+        }
+        .sidebar-module-header:hover { background: var(--gray-100); }
+        .sidebar-module-header i { font-size: 0.75rem; color: var(--gray-400); transition: transform var(--transition); }
+        .sidebar-module.open .sidebar-module-header i { transform: rotate(90deg); }
+        .sidebar-lessons { display: none; }
+        .sidebar-module.open .sidebar-lessons { display: block; }
+        .sidebar-lesson {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.375rem 1.25rem 0.375rem 2.5rem;
+            font-size: 0.75rem; color: var(--gray-600); cursor: pointer;
+            transition: all var(--transition); text-decoration: none;
+        }
+        .sidebar-lesson:hover { background: var(--primary-bg); color: var(--primary); }
+        .sidebar-lesson.active { background: var(--primary-bg); color: var(--primary); font-weight: 600; }
+        .sidebar-lesson .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gray-300); flex-shrink: 0; }
+        .sidebar-lesson.active .dot { background: var(--primary); }
+
+        .content-area { flex: 1; padding: 1.5rem 2rem; min-width: 0; }
+
+        /* COURSE HEADER */
+        .course-header { margin-bottom: 2rem; }
+        .course-header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem; }
+        .course-header .course-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.813rem; color: var(--gray-500); }
+        .course-header .course-meta span { display: flex; align-items: center; gap: 0.375rem; }
+
+        /* LESSON CONTENT */
+        .lesson-content { animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .lesson-content h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--gray-900); }
+        .lesson-content p { font-family: 'Manrope', sans-serif; font-size: 0.938rem; line-height: 1.8; color: var(--gray-700); margin-bottom: 1rem; }
+        .lesson-content pre {
+            background: var(--code-bg); color: #cdd6f4; padding: 1.25rem;
+            border-radius: var(--radius); font-family: 'Source Code Pro', monospace;
+            font-size: 0.813rem; line-height: 1.7; overflow-x: auto; margin: 1rem 0;
+        }
+        .lesson-content code { background: var(--gray-100); padding: 0.125rem 0.375rem; border-radius: 3px; font-size: 0.813rem; color: var(--danger); }
+        .lesson-content .video-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0;
+            background: var(--gray-900); border-radius: var(--radius-lg);
+            overflow: hidden; margin: 1rem 0;
+        }
+        .lesson-content .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .lesson-content img { max-width: 100%; border-radius: var(--radius); margin: 1rem 0; }
+        .lesson-content .remember-box {
+            background: var(--warning-bg); border: 1px solid #FCD34D;
+            border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1rem 0;
+        }
+        .lesson-content .remember-box strong { color: #D97706; }
+        .lesson-content .question-box {
+            background: #F5F3FF; border: 1px solid #C4B5FD;
+            border-radius: var(--radius); padding: 1.25rem; margin: 1rem 0;
+        }
+        .lesson-content .question-box .q-title { font-weight: 700; margin-bottom: 0.75rem; }
+        .lesson-content .question-box .q-option {
+            display: block; padding: 0.5rem 0.75rem; border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm); margin-bottom: 0.375rem;
+            cursor: pointer; transition: all var(--transition); background: white;
+        }
+        .lesson-content .question-box .q-option:hover { border-color: var(--primary); background: var(--primary-bg); }
+
+        /* LESSON NAVIGATION */
+        .lesson-nav {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-200);
+        }
+        .lesson-nav a {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.625rem 1.25rem; border-radius: var(--radius);
+            font-weight: 600; font-size: 0.875rem; text-decoration: none;
+            transition: all var(--transition);
+        }
+        .lesson-nav .prev { background: var(--gray-100); color: var(--gray-700); }
+        .lesson-nav .prev:hover { background: var(--gray-200); }
+        .lesson-nav .next { background: var(--success); color: white; }
+        .lesson-nav .next:hover { background: var(--success-dark); }
+
+        /* ============ CERTIFICATE SECTION ============ */
+        .cert-section {
+            display: flex; flex-wrap: wrap; border: 1px solid #dbe0e8;
+            border-radius: var(--radius-xl); overflow: hidden; margin-top: 3rem;
+            background: white;
+        }
+        .cert-card {
+            flex: 1 1 280px; border-right: 1px solid #dbe0e8;
+            padding: 24px; text-align: left; background: #fff;
+            text-decoration: none; color: inherit; display: flex; flex-direction: column;
+        }
+        .cert-card-header { display: flex; align-items: center; gap: 16px; margin: 0 0 8px; }
+        .cert-card-icon { width: 30px; height: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--success); }
+        .cert-card-title { font-size: 30px; font-weight: 700; color: #000; margin: 7px 0 8px; }
+        .cert-card-desc { font-size: 17px; color: #000; margin: 0 0 20px; line-height: 1.5; }
+        .cert-card-btn {
+            display: inline-block; padding: 12px 28px; background: var(--success);
+            color: #fff; text-decoration: none; border-radius: 6px;
+            font-size: 16px; font-weight: 600; margin-top: auto; align-self: flex-start;
+        }
+        .cert-card-btn:hover { background: var(--success-dark); color: #fff; }
+        .cert-info {
+            flex: 1 1 320px; padding: 24px; border: none;
+            background: var(--success-bg); display: flex; flex-direction: column;
+        }
+        .cert-info-title { font-size: 30px; font-weight: 700; color: #000; margin: 8px 0 12px; }
+        .cert-info-title span { color: var(--success); }
+        .cert-info-desc { font-size: 17px; color: #000; margin: 0 0 16px; line-height: 1.5; }
+        .cert-info-price { font-size: 28px; font-weight: 700; color: #000; margin: 0 0 4px; }
+        .cert-info-price span { font-size: 14px; font-weight: 400; color: #000; }
+        .cert-info-btn {
+            display: inline-block; padding: 12px 28px; background: var(--success);
+            color: #fff; text-decoration: none; border-radius: 6px;
+            font-size: 18px; font-weight: 600;
+        }
+        .cert-info-btn:hover { background: var(--success-dark); }
+        .cert-preview {
+            flex: 1 1 auto; display: flex; align-items: center;
+            justify-content: center; padding: 16px;
+        }
+        .cert-preview-img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+
+        /* COURSE NAV CARDS */
+        .course-nav-section { margin-top: 2rem; }
+        .course-nav-section h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin-bottom: 1rem; }
+        .course-nav-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+        .course-nav-card {
+            display: flex; align-items: center; gap: 8px; padding: 10px 16px;
+            border: 1px solid var(--gray-200); border-radius: var(--radius);
+            text-decoration: none; color: var(--gray-700); font-size: 0.813rem;
+            font-weight: 500; transition: all var(--transition); background: white;
+        }
+        .course-nav-card:hover { border-color: var(--primary); background: var(--primary-bg); color: var(--primary); }
+        .course-nav-card i { font-size: 1rem; }
+
+        /* EMPTY STATE */
+        .empty-state { text-align: center; padding: 4rem 1rem; color: var(--gray-400); }
+        .empty-state i { font-size: 4rem; display: block; margin-bottom: 1rem; opacity: 0.4; }
+        .empty-state h2 { font-family: 'Space Grotesk', sans-serif; color: var(--gray-500); margin-bottom: 0.5rem; }
+        .empty-state p { font-size: 0.875rem; }
+
+        /* TOAST */
+        .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
+        .toast { background: var(--gray-900); color: white; padding: 0.875rem 1.25rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; max-width: 380px; }
+        .toast.success { background: #059669; } .toast.error { background: #DC2626; }
+        @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        @media (max-width: 1024px) {
+            .main-layout { flex-direction: column; }
+            .sidebar { width: 100%; position: static; max-height: none; border-right: none; border-bottom: 1px solid var(--gray-200); }
+            .content-area { padding: 1rem; }
+        }
+        @media (max-width: 600px) {
+            .cert-section { flex-direction: column; }
+            .cert-card { border-right: none; border-bottom: 1px solid #dbe0e8; }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <div class="topbar-inner">
+            <div class="topbar-links">
+                <a href="Editor.html"><i class='bx bx-code-alt'></i> Code Editor</a>
+                <a href="documentation.html"><i class='bx bx-book'></i> Documentation</a>
+                <a href="index.html"><i class='bx bx-home'></i> Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
+                <span>Akademia</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="course.html">Courses</a>
+                <a href="exercise.html">Exercises</a>
+                <a href="certificate.html">Certificates</a>
+            </div>
+            <a href="index.html" class="btn btn-primary btn-sm">Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb-bar">
+        <div class="breadcrumb-inner" id="breadcrumb">
+            <a href="index.html">Home</a><span class="sep">/</span><span id="breadCourse">Course</span>
+        </div>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="main-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-title" id="sidebarTitle">📚 Course Modules</div>
+            <div id="sidebarContent"></div>
+        </aside>
+
+        <!-- CONTENT -->
+        <div class="content-area">
+            <!-- Course Header -->
+            <div class="course-header" id="courseHeader"></div>
+
+            <!-- Lesson Content -->
+            <div class="lesson-content" id="lessonContent">
+                <div class="empty-state">
+                    <i class='bx bx-book-open'></i>
+                    <h2>Select a Lesson</h2>
+                    <p>Choose a module and lesson from the sidebar to start learning</p>
+                </div>
+            </div>
+
+            <!-- Lesson Navigation -->
+            <div class="lesson-nav" id="lessonNav" style="display:none;"></div>
+
+            <!-- Certificate Section -->
+            <div class="cert-section" id="certSection" style="display:none;">
+                <div class="cert-card">
+                    <div class="cert-card-header">
+                        <div class="cert-card-icon"><i class='bx bx-certification'></i></div>
+                    </div>
+                    <div class="cert-card-title" id="certTitle">Course Certificate</div>
+                    <div class="cert-card-desc" id="certDesc">Prove your skills with an official certificate</div>
+                    <a href="certificate.html" class="cert-card-btn">Learn More</a>
+                </div>
+                <div class="cert-info">
+                    <div class="cert-info-title">Get <span>Certified</span></div>
+                    <div class="cert-info-desc">Earn an official certificate to showcase your achievement</div>
+                    <div class="cert-info-price">$45<span>.00</span></div>
+                    <a href="certificate.html" class="cert-info-btn" style="margin-top:8px;">Get Certified</a>
+                </div>
+                <div class="cert-preview">
+                    <img src="" alt="Certificate Preview" class="cert-preview-img" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=&quot;bx bx-certification&quot; style=&quot;font-size:5rem;color:var(--success);opacity:0.5;&quot;></i>';">
+                </div>
+            </div>
+
+            <!-- Other Courses Nav -->
+            <div class="course-nav-section" id="otherCoursesSection">
+                <h3>📚 Explore Other Courses</h3>
+                <div class="course-nav-grid" id="otherCoursesGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script type="module">
+        import { db } from './js/firebase.js';
+        import { collection, getDocs, doc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+        const $ = id => document.getElementById(id);
+        const escHtml = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+        const toast = (msg, type = 'success') => {
+            const c = $('toastContainer'); const t = document.createElement('div');
+            t.className = `toast ${type}`; t.innerHTML = `<i class='bx ${type==='success'?'bx-check-circle':'bx-x-circle'}'></i> ${msg}`;
+            c.appendChild(t); setTimeout(() => t.remove(), 3000);
+        };
+
+        // ============ APP STATE ============
+        const AppState = {
+            course: null, modules: [], lessons: [], allCourses: [],
+            currentModuleId: null, currentLessonId: null,
+            currentLessonIndex: -1, currentModuleIndex: -1
+        };
+
+        // ============ PARSE URL PARAMS ============
+        function getParams() {
+            const p = new URLSearchParams(window.location.search);
+            return { courseId: p.get('id'), moduleId: p.get('module'), lessonId: p.get('lesson') };
+        }
+
+        // ============ LOAD ALL DATA ============
+        async function loadAllData() {
+            try {
+                const [cSnap, mSnap, lSnap] = await Promise.all([
+                    getDocs(query(collection(db, 'courses'), orderBy('createdAt', 'desc'))),
+                    getDocs(query(collection(db, 'modules'), orderBy('order'))),
+                    getDocs(query(collection(db, 'lessons'), orderBy('createdAt', 'desc')))
+                ]);
+                AppState.allCourses = cSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                const allModules = mSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                const allLessons = lSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+                const { courseId, moduleId, lessonId } = getParams();
+                
+                if (courseId) {
+                    AppState.course = AppState.allCourses.find(c => c.id === courseId);
+                    if (!AppState.course) {
+                        try {
+                            const snap = await getDoc(doc(db, 'courses', courseId));
+                            if (snap.exists()) AppState.course = { id: snap.id, ...snap.data() };
+                        } catch (e) {}
+                    }
+                    if (AppState.course) {
+                        AppState.modules = allModules.filter(m => m.courseId === courseId).sort((a, b) => (a.order || 0) - (b.order || 0));
+                        AppState.lessons = allLessons.filter(l => AppState.modules.find(m => m.id === l.moduleId));
+                        
+                        if (moduleId) {
+                            AppState.currentModuleId = moduleId;
+                            AppState.currentModuleIndex = AppState.modules.findIndex(m => m.id === moduleId);
+                        }
+                        if (lessonId) {
+                            AppState.currentLessonId = lessonId;
+                            const modLessons = allLessons.filter(l => l.moduleId === (moduleId || AppState.modules[0]?.id));
+                            AppState.currentLessonIndex = modLessons.findIndex(l => l.id === lessonId);
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn('Error loading data:', e.message);
+            }
+            renderAll();
+        }
+
+        // ============ RENDER ALL ============
+        function renderAll() {
+            renderSidebar();
+            renderCourseHeader();
+            renderLessonContent();
+            renderOtherCourses();
+            if (AppState.course) {
+                $('certSection').style.display = 'flex';
+                $('certTitle').textContent = AppState.course.name + ' Certificate';
+                $('certDesc').textContent = 'Prove your ' + (AppState.course.name || '') + ' skills with an official certificate';
+            }
+        }
+
+        // ============ SIDEBAR ============
+        function renderSidebar() {
+            const container = $('sidebarContent');
+            if (!AppState.course) {
+                container.innerHTML = '<p style="padding:1rem;font-size:0.813rem;color:var(--gray-400);">No course loaded</p>';
+                return;
+            }
+            $('sidebarTitle').textContent = '📚 ' + AppState.course.name;
+            if (!AppState.modules.length) {
+                container.innerHTML = '<p style="padding:1rem;font-size:0.813rem;color:var(--gray-400);">No modules yet</p>';
+                return;
+            }
+            container.innerHTML = AppState.modules.map(mod => {
+                const modLessons = AppState.lessons.filter(l => l.moduleId === mod.id);
+                const isOpen = AppState.currentModuleId === mod.id || (!AppState.currentModuleId && AppState.modules.indexOf(mod) === 0);
+                return `<div class="sidebar-module ${isOpen ? 'open' : ''}" data-module="${mod.id}">
+                    <div class="sidebar-module-header" onclick="toggleModule('${mod.id}')">
+                        <i class='bx bx-chevron-right'></i> ${escHtml(mod.name)}
+                        <span style="margin-left:auto;font-size:0.625rem;color:var(--gray-400);">${modLessons.length}</span>
+                    </div>
+                    <div class="sidebar-lessons">
+                        ${modLessons.map((l, i) => `
+                            <a href="?id=${AppState.course.id}&module=${mod.id}&lesson=${l.id}" 
+                               class="sidebar-lesson ${l.id === AppState.currentLessonId ? 'active' : ''}"
+                               onclick="event.preventDefault();loadLesson('${mod.id}','${l.id}')">
+                                <span class="dot"></span> ${escHtml(l.title || 'Lesson ' + (i+1))}
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        window.toggleModule = function(moduleId) {
+            const el = document.querySelector(`.sidebar-module[data-module="${moduleId}"]`);
+            if (el) el.classList.toggle('open');
+        };
+
+        // ============ COURSE HEADER ============
+        function renderCourseHeader() {
+            const container = $('courseHeader');
+            if (!AppState.course) {
+                container.innerHTML = '<h1>Course Not Found</h1><p style="color:var(--gray-500);">The requested course could not be loaded.</p>';
+                $('breadCourse').textContent = 'Course';
+                return;
+            }
+            $('breadCourse').textContent = AppState.course.name;
+            const totalLessons = AppState.lessons.length;
+            container.innerHTML = `
+                <h1>${escHtml(AppState.course.name)}</h1>
+                <div class="course-meta">
+                    <span><i class='bx bx-book-open'></i> ${AppState.modules.length} modules</span>
+                    <span><i class='bx bx-video'></i> ${totalLessons} lessons</span>
+                    <span><i class='bx bx-time'></i> ${AppState.course.duration || totalLessons * 5} min</span>
+                    <span><i class='bx bx-bar-chart-alt-2'></i> ${AppState.course.difficulty || 'All Levels'}</span>
+                </div>
+                ${AppState.course.description ? `<p style="margin-top:0.75rem;color:var(--gray-600);">${escHtml(AppState.course.description)}</p>` : ''}
+            `;
+        }
+
+        // ============ LESSON CONTENT ============
+        function renderLessonContent() {
+            const container = $('lessonContent');
+            const nav = $('lessonNav');
+            
+            if (!AppState.currentLessonId || !AppState.course) {
+                if (AppState.course && AppState.modules.length) {
+                    // Auto-load first lesson
+                    const firstMod = AppState.modules[0];
+                    const firstLesson = AppState.lessons.filter(l => l.moduleId === firstMod.id)[0];
+                    if (firstLesson) {
+                        loadLesson(firstMod.id, firstLesson.id, true);
+                        return;
+                    }
+                }
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class='bx bx-book-open'></i>
+                        <h2>${AppState.course ? 'Select a Lesson' : 'No Course Loaded'}</h2>
+                        <p>${AppState.course ? 'Choose a module and lesson from the sidebar to start learning' : 'Use the URL parameter ?id=COURSE_ID to load a course'}</p>
+                    </div>`;
+                nav.style.display = 'none';
+                return;
+            }
+
+            const lesson = AppState.lessons.find(l => l.id === AppState.currentLessonId);
+            if (!lesson) {
+                container.innerHTML = '<div class="empty-state"><i class="bx bx-error"></i><h2>Lesson Not Found</h2></div>';
+                nav.style.display = 'none';
+                return;
+            }
+
+            const blocks = lesson.pages?.[0]?.blocks || [];
+            let html = `<h2>${escHtml(lesson.title || 'Untitled Lesson')}</h2>`;
+            
+            if (!blocks.length) {
+                html += '<p style="color:var(--gray-400);">This lesson has no content yet.</p>';
+            } else {
+                blocks.forEach(block => {
+                    switch (block.type) {
+                        case 'text':
+                            if (block.contentType === 'title') html += `<h2 style="font-size:1.25rem;">${block.content || ''}</h2>`;
+                            else html += `<p>${block.content || ''}</p>`;
+                            break;
+                        case 'video':
+                            const ytId = getYouTubeId(block.url);
+                            if (ytId) html += `<div class="video-wrapper"><iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen></iframe></div>`;
+                            break;
+                        case 'remember':
+                            html += `<div class="remember-box"><strong>🧠 Remember:</strong> ${escHtml(block.text || '')}</div>`;
+                            break;
+                        case 'question':
+                            html += `<div class="question-box">
+                                <div class="q-title">❓ ${escHtml(block.question || 'Question')}</div>
+                                ${(block.options || []).map((o, i) => `<div class="q-option">${String.fromCharCode(65+i)}. ${escHtml(o || '')}</div>`).join('')}
+                            </div>`;
+                            break;
+                        case 'image':
+                            if (block.url) html += `<img src="${block.url}" alt="${escHtml(block.alt || '')}" onerror="this.style.display='none';">`;
+                            break;
+                        case 'code':
+                            html += `<pre>${escHtml(block.code || '')}</pre>`;
+                            if (block.caption) html += `<p style="font-size:0.813rem;color:var(--gray-500);text-align:center;">${escHtml(block.caption)}</p>`;
+                            break;
+                    }
+                });
+            }
+            
+            container.innerHTML = html;
+
+            // Navigation
+            const allLessonsFlat = [];
+            AppState.modules.forEach(mod => {
+                AppState.lessons.filter(l => l.moduleId === mod.id).forEach(l => {
+                    allLessonsFlat.push({ ...l, moduleId: mod.id });
+                });
+            });
+            const currentIdx = allLessonsFlat.findIndex(l => l.id === AppState.currentLessonId);
+            const prev = currentIdx > 0 ? allLessonsFlat[currentIdx - 1] : null;
+            const next = currentIdx < allLessonsFlat.length - 1 ? allLessonsFlat[currentIdx + 1] : null;
+
+            nav.style.display = 'flex';
+            nav.innerHTML = `
+                ${prev ? `<a href="?id=${AppState.course.id}&module=${prev.moduleId}&lesson=${prev.id}" class="prev" onclick="event.preventDefault();loadLesson('${prev.moduleId}','${prev.id}')"><i class='bx bx-chevron-left'></i> Previous</a>` : '<span></span>'}
+                <span style="font-size:0.75rem;color:var(--gray-400);">Lesson ${currentIdx+1} of ${allLessonsFlat.length}</span>
+                ${next ? `<a href="?id=${AppState.course.id}&module=${next.moduleId}&lesson=${next.id}" class="next" onclick="event.preventDefault();loadLesson('${next.moduleId}','${next.id}')">Next <i class='bx bx-chevron-right'></i></a>` : '<span></span>'}
+            `;
+        }
+
+        function getYouTubeId(url) {
+            if (!url) return null;
+            const m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\s]{11})/);
+            return m ? m[1] : null;
+        }
+
+        window.loadLesson = function(moduleId, lessonId, silent = false) {
+            AppState.currentModuleId = moduleId;
+            AppState.currentLessonId = lessonId;
+            AppState.currentModuleIndex = AppState.modules.findIndex(m => m.id === moduleId);
+            const modLessons = AppState.lessons.filter(l => l.moduleId === moduleId);
+            AppState.currentLessonIndex = modLessons.findIndex(l => l.id === lessonId);
+            
+            if (!silent) {
+                window.history.pushState({}, '', `?id=${AppState.course.id}&module=${moduleId}&lesson=${lessonId}`);
+            }
+            renderSidebar();
+            renderLessonContent();
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // ============ OTHER COURSES ============
+        function renderOtherCourses() {
+            const grid = $('otherCoursesGrid');
+            const otherCourses = AppState.allCourses.filter(c => c.id !== AppState.course?.id);
+            if (!otherCourses.length) {
+                grid.innerHTML = '<p style="font-size:0.813rem;color:var(--gray-400);">No other courses available</p>';
+                return;
+            }
+            grid.innerHTML = otherCourses.slice(0, 12).map(c => `
+                <a href="course.html?id=${c.id}" class="course-nav-card">
+                    <i class='bx bx-book-open'></i> ${escHtml(c.name)}
+                </a>
+            `).join('');
+        }
+
+        // ============ INIT ============
+        loadAllData();
+        console.log('🚀 Akademia Course Page loaded!');
+    </script>
+</body>
+</html>
