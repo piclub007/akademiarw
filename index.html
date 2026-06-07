@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akademia 2026 - Learn Without Limits</title>
-    <meta name="description" content="Akademia - Master new skills with interactive lessons, AI-powered tutoring, and hands-on projects. Learn to code, design, and build the future.">
+    <meta name="description" content="Akademia - Master HTML, CSS, JavaScript, and Python with interactive lessons and hands-on projects.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
     <style>
         :root {
-            --primary: #2563EB; --primary-dark: #1D4ED8;
-            --primary-bg: #EFF6FF; --secondary: #06B6D4;
-            --success: #10B981; --success-bg: #ECFDF5;
+            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-light: #3B82F6;
+            --primary-bg: #EFF6FF; --secondary: #06B6D4; --accent: #8B5CF6;
+            --success: #10B981; --success-bg: #ECFDF5; --success-dark: #059669;
             --warning: #F59E0B; --warning-bg: #FFFBEB;
-            --danger: #EF4444;
+            --danger: #EF4444; --danger-bg: #FEF2F2;
             --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
             --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
             --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
@@ -25,9 +25,10 @@
             --dark-bg: #282A35; --code-bg: #1e1e2e;
             --ws-green: #D9EEE1; --ws-yellow: #FFF4A3; --ws-pink: #FFC0C7;
             --ws-turquoise: #96D4D4; --ws-light-pink: #F3ECEA;
-            --radius-sm: 6px; --radius: 8px; --radius-lg: 12px; --radius-xl: 16px;
+            --radius-sm: 6px; --radius: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-2xl: 20px;
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.05); --shadow: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.07); --shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08); --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 50px rgba(0,0,0,0.12);
             --transition: 0.2s ease;
         }
 
@@ -44,10 +45,43 @@
 
         .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
 
+        /* ============ 3D FLOATING SHAPES ============ */
+        .floating-shapes {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; overflow: hidden;
+        }
+        .shape {
+            position: absolute; opacity: 0.08;
+            animation: floatShape 15s ease-in-out infinite;
+        }
+        .shape.triangle {
+            width: 0; height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 52px solid var(--primary);
+        }
+        .shape.circle {
+            width: 50px; height: 50px;
+            border-radius: 50%; background: var(--accent);
+        }
+        .shape.box {
+            width: 45px; height: 45px;
+            background: var(--secondary); border-radius: 8px;
+        }
+        .shape:nth-child(1) { top: 15%; left: 5%; animation-delay: 0s; }
+        .shape:nth-child(2) { top: 60%; left: 85%; animation-delay: -5s; }
+        .shape:nth-child(3) { top: 30%; left: 75%; animation-delay: -10s; }
+        @keyframes floatShape {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-40px) rotate(90deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            75% { transform: translateY(-60px) rotate(270deg); }
+        }
+
         /* ============ TOP BAR ============ */
         .topbar {
             background: var(--gray-900); color: white;
-            padding: 0.5rem 0; font-size: 0.813rem;
+            padding: 0.5rem 0; font-size: 0.813rem; position: relative; z-index: 1001;
         }
         .topbar-inner {
             max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
@@ -55,7 +89,7 @@
             flex-wrap: wrap; gap: 0.5rem;
         }
         .topbar-links { display: flex; gap: 1.5rem; }
-        .topbar-links a { color: #9ca3af; text-decoration: none; transition: color var(--transition); }
+        .topbar-links a { color: #9ca3af; text-decoration: none; transition: color var(--transition); display: flex; align-items: center; gap: 0.25rem; }
         .topbar-links a:hover { color: white; }
 
         /* ============ NAVBAR ============ */
@@ -66,22 +100,104 @@
         .nav-inner {
             max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
             display: flex; align-items: center; justify-content: space-between;
-            height: 60px;
+            height: 64px;
         }
-        .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
-        .nav-logo img { height: 32px; width: auto; }
+        .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; flex-shrink: 0; }
+        .nav-logo img { height: 36px; width: auto; }
         .nav-logo span {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem;
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem;
             font-weight: 700; color: var(--gray-900); letter-spacing: -0.3px;
         }
-        .nav-menu { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+        .nav-menu { display: flex; align-items: center; gap: 0.125rem; list-style: none; }
         .nav-item {
             padding: 0.5rem 0.875rem; border-radius: var(--radius-sm);
             font-size: 0.875rem; font-weight: 500; color: var(--gray-700);
             text-decoration: none; cursor: pointer; transition: all var(--transition);
+            white-space: nowrap;
         }
         .nav-item:hover { background: var(--gray-100); color: var(--gray-900); }
         .nav-item.active { background: var(--primary-bg); color: var(--primary); }
+
+        /* Dropdown */
+        .nav-dropdown {
+            position: relative;
+        }
+        .nav-dropdown-trigger {
+            display: flex; align-items: center; gap: 0.25rem;
+            padding: 0.5rem 0.875rem; border-radius: var(--radius-sm);
+            font-size: 0.875rem; font-weight: 500; color: var(--gray-700);
+            cursor: pointer; transition: all var(--transition); white-space: nowrap;
+            border: none; background: none; font-family: 'Inter', sans-serif;
+        }
+        .nav-dropdown-trigger:hover { background: var(--gray-100); color: var(--gray-900); }
+        .nav-dropdown-trigger i { font-size: 0.75rem; transition: transform var(--transition); }
+        .nav-dropdown:hover .nav-dropdown-trigger i { transform: rotate(180deg); }
+        .nav-dropdown-menu {
+            position: absolute; top: 100%; left: 0;
+            background: white; border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200);
+            min-width: 200px; padding: 0.5rem;
+            opacity: 0; visibility: hidden; transform: translateY(-8px);
+            transition: all var(--transition); z-index: 100;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu {
+            opacity: 1; visibility: visible; transform: translateY(0);
+        }
+        .nav-dropdown-menu a {
+            display: flex; align-items: center; gap: 0.625rem;
+            padding: 0.625rem 0.875rem; border-radius: var(--radius-sm);
+            font-size: 0.813rem; color: var(--gray-700); text-decoration: none;
+            transition: all var(--transition);
+        }
+        .nav-dropdown-menu a:hover { background: var(--primary-bg); color: var(--primary); }
+        .nav-dropdown-menu a i { font-size: 1rem; width: 20px; text-align: center; }
+
+        /* Profile Dropdown */
+        .profile-dropdown {
+            position: relative;
+        }
+        .profile-trigger {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.375rem 0.75rem; border-radius: var(--radius-sm);
+            cursor: pointer; transition: all var(--transition);
+            border: 1px solid var(--gray-200); background: white;
+            font-family: 'Inter', sans-serif;
+        }
+        .profile-trigger:hover { border-color: var(--primary); background: var(--primary-bg); }
+        .profile-avatar {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 0.813rem;
+        }
+        .profile-name { font-size: 0.813rem; font-weight: 600; color: var(--gray-900); }
+        .profile-dropdown-menu {
+            position: absolute; top: calc(100% + 4px); right: 0;
+            background: white; border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200);
+            min-width: 220px; padding: 0.5rem;
+            opacity: 0; visibility: hidden; transform: translateY(-8px);
+            transition: all var(--transition); z-index: 100;
+        }
+        .profile-dropdown:hover .profile-dropdown-menu,
+        .profile-dropdown-menu.show {
+            opacity: 1; visibility: visible; transform: translateY(0);
+        }
+        .profile-dropdown-menu a {
+            display: flex; align-items: center; gap: 0.625rem;
+            padding: 0.625rem 0.875rem; border-radius: var(--radius-sm);
+            font-size: 0.813rem; color: var(--gray-700); text-decoration: none;
+            transition: all var(--transition);
+        }
+        .profile-dropdown-menu a:hover { background: var(--primary-bg); color: var(--primary); }
+        .profile-dropdown-menu .divider {
+            height: 1px; background: var(--gray-200); margin: 0.375rem 0;
+        }
+        .profile-dropdown-menu .logout-btn {
+            color: var(--danger); cursor: pointer;
+        }
+        .profile-dropdown-menu .logout-btn:hover { background: var(--danger-bg); }
+
         .nav-right { display: flex; align-items: center; gap: 0.75rem; }
         .btn {
             font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.375rem;
@@ -94,11 +210,32 @@
         .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); }
         .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
         .btn-success { background: var(--success); color: white; }
-        .btn-success:hover { background: #059669; }
+        .btn-success:hover { background: var(--success-dark); }
         .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
         .btn-lg { padding: 0.75rem 1.5rem; font-size: 1rem; }
         .btn-xl { padding: 0.875rem 2rem; font-size: 1.0625rem; }
         .hamburger { display: none; background: none; border: none; font-size: 1.5rem; color: var(--gray-700); cursor: pointer; }
+
+        /* ============ SUBTOP NAV ============ */
+        .subtopnav-wrapper {
+            background: var(--dark-bg); position: sticky; top: 64px; z-index: 999;
+            height: 42px; overflow: hidden;
+        }
+        .subtopnav-scroll {
+            display: flex; align-items: center; overflow-x: auto;
+            white-space: nowrap; height: 42px;
+            scrollbar-width: none; -ms-overflow-style: none;
+        }
+        .subtopnav-scroll::-webkit-scrollbar { display: none; }
+        .subtopnav-scroll a {
+            display: inline-flex; align-items: center;
+            padding: 0 1.125rem; height: 42px;
+            color: #ffffff; text-decoration: none;
+            font-size: 0.813rem; font-weight: 500;
+            transition: background var(--transition); flex-shrink: 0;
+        }
+        .subtopnav-scroll a:hover { background: rgba(255,255,255,0.1); }
+        .subtopnav-scroll a.active { background: var(--success); color: white; }
 
         /* ============ HERO ============ */
         .hero {
@@ -107,18 +244,9 @@
         }
         .hero-inner {
             max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
-            display: flex; align-items: center; gap: 3rem;
+            display: flex; align-items: center; gap: 3rem; position: relative; z-index: 1;
         }
         .hero-content { flex: 1; }
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 0.375rem;
-            background: rgba(255,255,255,0.1); color: var(--secondary);
-            padding: 0.375rem 0.875rem; border-radius: 9999px;
-            font-size: 0.813rem; font-weight: 600; margin-bottom: 1.25rem;
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-        .hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); animation: pulse 2s infinite; }
-        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
         .hero-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: clamp(2rem, 4.5vw, 3.25rem); font-weight: 800;
@@ -139,8 +267,6 @@
         .hero-code .comment { color: #6b7280; }
         .hero-code .keyword { color: #c084fc; }
         .hero-code .string { color: #34d399; }
-        .hero-code .tag { color: #60a5fa; }
-        .hero-code .attr { color: #fbbf24; }
         .code-header {
             display: flex; align-items: center; gap: 0.5rem;
             margin-bottom: 1rem; padding-bottom: 0.75rem;
@@ -149,144 +275,188 @@
         .code-dot { width: 10px; height: 10px; border-radius: 50%; }
         .code-dot.red { background: #ef4444; } .code-dot.yellow { background: #f59e0b; } .code-dot.green { background: #10b981; }
 
-        /* ============ SUBTOP NAV ============ */
-        .subtopnav-wrapper {
-            background: var(--dark-bg); position: sticky; top: 60px; z-index: 999;
-            height: 42px; overflow: hidden;
-        }
-        .subtopnav-scroll {
-            display: flex; align-items: center; overflow-x: auto;
-            white-space: nowrap; height: 42px;
-            scrollbar-width: none; -ms-overflow-style: none;
-        }
-        .subtopnav-scroll::-webkit-scrollbar { display: none; }
-        .subtopnav-scroll a {
-            display: inline-flex; align-items: center;
-            padding: 0 1.125rem; height: 42px;
-            color: #ffffff; text-decoration: none;
-            font-size: 0.813rem; font-weight: 500;
-            transition: background var(--transition); flex-shrink: 0;
-        }
-        .subtopnav-scroll a:hover { background: rgba(255,255,255,0.1); }
-        .subtopnav-scroll a.active { background: var(--success); color: white; }
-        .subtopnav-scroll .scroll-btn {
-            position: absolute; top: 0; height: 42px;
-            width: 40px; display: flex; align-items: center;
-            justify-content: center; cursor: pointer; z-index: 2;
-            font-size: 1.25rem; color: white; user-select: none;
-        }
-        .subtopnav-scroll .scroll-left { left: 0; background: linear-gradient(to right, var(--dark-bg) 60%, transparent); display: none; }
-        .subtopnav-scroll .scroll-right { right: 0; background: linear-gradient(to left, var(--dark-bg) 60%, transparent); }
-
-        /* ============ SEARCH BAR ============ */
+        /* ============ ADVANCED SEARCH ============ */
         .search-section {
-            background: var(--gray-50); border-bottom: 1px solid var(--gray-200);
-            padding: 1rem 0;
+            background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+            padding: 2.5rem 0; position: relative; z-index: 1;
         }
-        .search-inner { max-width: 650px; margin: 0 auto; padding: 0 1.5rem; position: relative; }
-        .search-box {
-            display: flex; align-items: center; background: white;
-            border: 2px solid var(--gray-300); border-radius: 9999px;
-            overflow: hidden; box-shadow: var(--shadow-sm); transition: all var(--transition);
+        .search-container {
+            max-width: 750px; margin: 0 auto; padding: 0 1.5rem;
+            position: relative;
         }
-        .search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
-        .search-box input {
-            flex: 1; border: none; padding: 0.75rem 1.25rem;
-            font-family: 'Inter', sans-serif; font-size: 0.938rem; outline: none;
+        .search-wrapper {
+            background: white; border: 2px solid var(--gray-200);
+            border-radius: var(--radius-2xl); padding: 0.5rem;
+            display: flex; align-items: center; gap: 0.5rem;
+            box-shadow: var(--shadow-lg); transition: all 0.3s ease;
         }
-        .search-box input::placeholder { color: var(--gray-400); }
-        .search-box button {
+        .search-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 6px rgba(37,99,235,0.08), var(--shadow-xl);
+            transform: translateY(-2px);
+        }
+        .search-wrapper .search-icon {
+            font-size: 1.5rem; color: var(--gray-400);
+            padding: 0.5rem; flex-shrink: 0;
+        }
+        .search-wrapper input {
+            flex: 1; border: none; padding: 0.625rem 0;
+            font-family: 'Inter', sans-serif; font-size: 1.0625rem; outline: none;
+            color: var(--gray-900);
+        }
+        .search-wrapper input::placeholder { color: var(--gray-400); }
+        .search-wrapper .search-btn {
             padding: 0.75rem 1.5rem; background: var(--primary); color: white;
-            border: none; cursor: pointer; font-weight: 600; font-size: 0.875rem;
-            transition: background var(--transition);
+            border: none; border-radius: var(--radius-xl); cursor: pointer;
+            font-weight: 600; font-size: 0.938rem; transition: all var(--transition);
+            flex-shrink: 0;
         }
-        .search-box button:hover { background: var(--primary-dark); }
+        .search-wrapper .search-btn:hover { background: var(--primary-dark); }
+        .search-filters {
+            display: flex; gap: 0.5rem; margin-top: 0.75rem; justify-content: center;
+        }
+        .search-filter {
+            padding: 0.375rem 0.875rem; border-radius: 9999px;
+            font-size: 0.75rem; font-weight: 500; cursor: pointer;
+            transition: all var(--transition); border: 1px solid var(--gray-200);
+            background: white; color: var(--gray-600);
+        }
+        .search-filter:hover, .search-filter.active {
+            background: var(--primary-bg); border-color: var(--primary); color: var(--primary);
+        }
         .search-results {
-            position: absolute; top: calc(100% + 4px); left: 1.5rem; right: 1.5rem;
-            background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
-            border: 1px solid var(--gray-200); max-height: 350px; overflow-y: auto;
+            position: absolute; top: calc(100% + 8px); left: 1.5rem; right: 1.5rem;
+            background: white; border-radius: var(--radius-xl); box-shadow: var(--shadow-xl);
+            border: 1px solid var(--gray-200); max-height: 380px; overflow-y: auto;
             z-index: 50; display: none;
         }
-        .search-results.show { display: block; }
+        .search-results.show { display: block; animation: fadeInDown 0.2s ease; }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
         .sr-item {
-            display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem;
+            display: flex; align-items: center; gap: 0.875rem; padding: 0.875rem 1.25rem;
             cursor: pointer; transition: background var(--transition); border-bottom: 1px solid var(--gray-100);
         }
         .sr-item:hover { background: var(--primary-bg); }
+        .sr-item:last-child { border-bottom: none; }
         .sr-icon {
-            width: 36px; height: 36px; border-radius: var(--radius-sm);
+            width: 42px; height: 42px; border-radius: var(--radius);
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.125rem; flex-shrink: 0;
+            font-size: 1.25rem; flex-shrink: 0;
         }
-        .sr-icon.topic { background: var(--primary-bg); color: var(--primary); }
-        .sr-icon.course { background: var(--success-bg); color: var(--success); }
-        .sr-icon.lesson { background: var(--warning-bg); color: #D97706; }
+        .sr-icon.html { background: #FFF4A3; color: #e67e22; }
+        .sr-icon.css { background: #D9EEE1; color: #059669; }
+        .sr-icon.js { background: #FFC0C7; color: #dc2626; }
+        .sr-icon.python { background: #F3ECEA; color: #7C3AED; }
         .sr-info { flex: 1; }
-        .sr-name { font-weight: 600; font-size: 0.875rem; }
-        .sr-meta { font-size: 0.75rem; color: var(--gray-500); }
+        .sr-name { font-weight: 600; font-size: 0.938rem; }
+        .sr-meta { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.125rem; }
+        .sr-tag { font-size: 0.625rem; padding: 0.125rem 0.5rem; border-radius: 9999px; background: var(--gray-100); }
 
-        /* ============ LANGUAGE SECTIONS ============ */
-        .lang-section { padding: 3rem 0; }
-        .lang-section.green { background: var(--ws-green); }
-        .lang-section.yellow { background: var(--ws-yellow); }
-        .lang-section.black { background: var(--dark-bg); color: white; }
-        .lang-section.pink { background: var(--ws-pink); }
-        .lang-section.turquoise { background: var(--ws-turquoise); }
-        .lang-section.light { background: var(--ws-light-pink); }
-        .lang-inner {
+        /* ============ COURSE SECTIONS ============ */
+        .course-section { padding: 3rem 0; }
+        .course-section.green { background: var(--ws-green); }
+        .course-section.yellow { background: var(--ws-yellow); }
+        .course-section.black { background: var(--dark-bg); color: white; }
+        .course-section.pink { background: var(--ws-pink); }
+        .course-inner {
             max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
             display: flex; align-items: center; gap: 3rem;
         }
-        .lang-info { flex: 1; text-align: center; }
-        .lang-info h1 {
-            font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem;
+        .course-info { flex: 1; text-align: center; }
+        .course-info .course-logo {
+            width: 80px; height: 80px; border-radius: var(--radius-xl);
+            margin: 0 auto 1rem; display: flex; align-items: center;
+            justify-content: center; font-size: 2.5rem;
+            background: white; box-shadow: var(--shadow);
+        }
+        .course-info h1 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem;
             font-weight: 700; margin-bottom: 0.5rem;
         }
-        .lang-info p { font-size: 1.125rem; margin-bottom: 1.25rem; }
-        .lang-info .btn { margin: 0.25rem; }
-        .lang-code {
+        .course-info p { font-size: 1.0625rem; margin-bottom: 1rem; }
+        .course-info .course-desc { font-size: 0.875rem; opacity: 0.8; margin-bottom: 1.25rem; max-width: 400px; margin-left: auto; margin-right: auto; }
+        .course-info .btn { margin: 0.25rem; }
+        .course-code {
             flex: 1; background: #1a1a2e; color: #cdd6f4;
             border-radius: var(--radius-lg); padding: 1.5rem;
             font-family: 'Source Code Pro', monospace; font-size: 0.813rem;
             line-height: 1.8; border: 2px solid var(--success);
         }
-        .lang-code .example-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; }
-        .lang-code .try-btn {
+        .course-code .example-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .course-code .try-btn {
             display: inline-block; margin-top: 1rem; padding: 0.5rem 1.25rem;
             background: var(--success); color: white; border-radius: 9999px;
             text-decoration: none; font-family: 'Inter', sans-serif;
             font-weight: 600; font-size: 0.813rem; transition: all var(--transition);
         }
-        .lang-code .try-btn:hover { background: #059669; }
+        .course-code .try-btn:hover { background: var(--success-dark); }
 
-        /* ============ CARD GRID ============ */
-        .cards-section { padding: 3rem 0; background: var(--dark-bg); }
-        .cards-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-        .cards-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
+        /* ============ EMBEDDED EDITOR ============ */
+        .editor-embed-section {
+            background: var(--dark-bg); padding: 3rem 0;
         }
-        .tech-card {
-            background: white; color: var(--gray-900); border-radius: var(--radius-lg);
-            padding: 1.5rem; text-align: center; cursor: pointer;
-            transition: all var(--transition); text-decoration: none;
+        .editor-embed-inner {
+            max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
         }
-        .tech-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-        .tech-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; }
-        .tech-card p { font-size: 0.813rem; color: var(--gray-500); margin-top: 0.5rem; }
-        .tech-card.pink-bg { background: var(--ws-pink); }
-        .tech-card.yellow-bg { background: var(--ws-yellow); }
-        .tech-card.green-bg { background: var(--ws-green); }
-        .tech-card.turquoise-bg { background: var(--ws-turquoise); }
-        .tech-card.light-bg { background: var(--ws-light-pink); }
+        .editor-embed-inner h2 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
+            font-weight: 700; color: white; text-align: center; margin-bottom: 2rem;
+        }
+        .editor-frame-wrapper {
+            background: white; border-radius: var(--radius-xl); overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+        .editor-frame-wrapper iframe {
+            width: 100%; height: 500px; border: none;
+        }
+
+        /* ============ ALL COURSES CARDS ============ */
+        .all-courses-section { padding: 3rem 0; background: var(--gray-50); }
+        .all-courses-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+        .all-courses-inner h2 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
+            font-weight: 700; text-align: center; margin-bottom: 2rem;
+        }
+        .courses-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+        .course-card {
+            background: white; border-radius: var(--radius-xl); overflow: hidden;
+            border: 1px solid var(--gray-200); transition: all var(--transition);
+            cursor: pointer; text-decoration: none; color: inherit;
+        }
+        .course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .course-card-header {
+            height: 120px; display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; position: relative;
+        }
+        .course-card-header.html-bg { background: linear-gradient(135deg, #FFF4A3, #F39C12); }
+        .course-card-header.css-bg { background: linear-gradient(135deg, #D9EEE1, #059669); }
+        .course-card-header.js-bg { background: linear-gradient(135deg, #FFC0C7, #dc2626); }
+        .course-card-header.python-bg { background: linear-gradient(135deg, #F3ECEA, #7C3AED); }
+        .course-card-body { padding: 1.25rem; }
+        .course-card-body h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 600; margin-bottom: 0.375rem; }
+        .course-card-body p { font-size: 0.813rem; color: var(--gray-500); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .course-card-footer { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-top: 1px solid var(--gray-100); }
+        .course-card-rating { color: #f59e0b; font-weight: 600; font-size: 0.813rem; display: flex; align-items: center; gap: 0.25rem; }
+        .course-card-lessons { font-size: 0.75rem; color: var(--gray-500); display: flex; align-items: center; gap: 0.25rem; }
 
         /* ============ CTA ============ */
         .cta-section {
-            background: var(--dark-bg); color: white;
-            text-align: center; padding: 4rem 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white; text-align: center; padding: 5rem 0; position: relative; overflow: hidden;
         }
-        .cta-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
-        .cta-section p { font-size: 1.125rem; color: #9ca3af; margin-bottom: 2rem; }
+        .cta-section::before {
+            content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .cta-inner { position: relative; z-index: 1; }
+        .cta-inner h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .cta-inner p { font-size: 1.125rem; color: #9ca3af; margin-bottom: 2rem; }
+        .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
         /* ============ FOOTER ============ */
         .footer {
@@ -299,8 +469,7 @@
             gap: 2rem; margin-bottom: 2rem;
         }
         .footer-col h5 {
-            font-family: 'Source Sans Pro', sans-serif; font-size: 0.875rem;
-            font-weight: 600; color: var(--ws-yellow); margin-bottom: 1rem;
+            font-size: 0.875rem; font-weight: 600; color: var(--ws-yellow); margin-bottom: 1rem;
         }
         .footer-col a {
             display: block; color: #ddd; text-decoration: none;
@@ -309,8 +478,7 @@
         .footer-col a:hover { color: var(--ws-yellow); }
         .footer-social {
             text-align: center; padding: 1.5rem 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1); margin-bottom: 1rem;
         }
         .footer-social a {
             color: #ddd; font-size: 1.5rem; margin: 0 0.5rem;
@@ -322,28 +490,51 @@
             padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);
         }
 
+        /* Toast */
+        .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
+        .toast {
+            background: var(--gray-900); color: white; padding: 0.875rem 1.25rem;
+            border-radius: var(--radius); font-size: 0.813rem; font-weight: 500;
+            box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease;
+            max-width: 380px; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .toast.success { background: #059669; }
+        .toast.error { background: #DC2626; }
+        @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
         @media (max-width: 1024px) {
-            .lang-inner { flex-direction: column; }
+            .course-inner { flex-direction: column; }
             .hero-inner { flex-direction: column; }
             .hero-code { width: 100%; }
         }
         @media (max-width: 768px) {
-            .nav-menu { display: none; position: absolute; top: 60px; left: 0; right: 0; background: white; flex-direction: column; padding: 1rem; box-shadow: var(--shadow-lg); }
+            .nav-menu { display: none; position: absolute; top: 64px; left: 0; right: 0; background: white; flex-direction: column; padding: 1rem; box-shadow: var(--shadow-lg); max-height: 80vh; overflow-y: auto; }
             .nav-menu.active { display: flex; }
             .hamburger { display: block; }
-            .cards-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-dropdown-menu { position: static; box-shadow: none; opacity: 1; visibility: visible; transform: none; display: none; padding-left: 1rem; }
+            .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+            .courses-grid { grid-template-columns: 1fr; }
+            .search-wrapper { flex-direction: column; }
+            .search-wrapper input { width: 100%; text-align: center; }
         }
     </style>
 </head>
 <body>
+    <!-- 3D Floating Shapes -->
+    <div class="floating-shapes">
+        <div class="shape triangle"></div>
+        <div class="shape circle"></div>
+        <div class="shape box"></div>
+    </div>
+
     <!-- ============ TOP BAR ============ -->
     <div class="topbar">
         <div class="topbar-inner">
             <div class="topbar-links">
-                <a href="lesson.html">Lesson Studio</a>
-                <a href="#">Documentation</a>
-                <a href="#">Help Center</a>
-                <a href="#">Blog</a>
+                <a href="Editor.html"><i class='bx bx-code-alt'></i> Code Editor</a>
+                <a href="documentation.html"><i class='bx bx-book'></i> Documentation</a>
+                <a href="help-center.html"><i class='bx bx-support'></i> Help Center</a>
+                <a href="contact.html"><i class='bx bx-envelope'></i> Contact</a>
             </div>
         </div>
     </div>
@@ -357,16 +548,63 @@
             </a>
             <ul class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-item active">Home</a>
-                <a href="#html-section" class="nav-item">HTML</a>
-                <a href="#css-section" class="nav-item">CSS</a>
-                <a href="#js-section" class="nav-item">JavaScript</a>
-                <a href="#python-section" class="nav-item">Python</a>
-                <a href="#sql-section" class="nav-item">SQL</a>
-                <a href="lesson.html" class="nav-item">Lessons</a>
+                
+                <!-- Lessons Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-trigger">Lessons <i class='bx bx-chevron-down'></i></button>
+                    <div class="nav-dropdown-menu">
+                        <a href="lesson.html"><i class='bx bx-book-open'></i> All Lessons</a>
+                        <a href="lesson.html?filter=html"><i class='bx bx-code-alt'></i> HTML Lessons</a>
+                        <a href="lesson.html?filter=css"><i class='bx bx-palette'></i> CSS Lessons</a>
+                        <a href="lesson.html?filter=javascript"><i class='bx bx-code-curly'></i> JavaScript Lessons</a>
+                        <a href="lesson.html?filter=python"><i class='bx bxl-python'></i> Python Lessons</a>
+                    </div>
+                </div>
+
+                <!-- Exercises Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-trigger">Exercises <i class='bx bx-chevron-down'></i></button>
+                    <div class="nav-dropdown-menu">
+                        <a href="lesson.html?mode=exercise&type=html"><i class='bx bx-code-alt'></i> HTML Exercises</a>
+                        <a href="lesson.html?mode=exercise&type=css"><i class='bx bx-palette'></i> CSS Exercises</a>
+                        <a href="lesson.html?mode=exercise&type=javascript"><i class='bx bx-code-curly'></i> JavaScript Exercises</a>
+                        <a href="lesson.html?mode=exercise&type=python"><i class='bx bxl-python'></i> Python Exercises</a>
+                    </div>
+                </div>
+
+                <!-- Certificate Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-trigger">Certificate <i class='bx bx-chevron-down'></i></button>
+                    <div class="nav-dropdown-menu">
+                        <a href="#"><i class='bx bx-certification'></i> HTML Certificate</a>
+                        <a href="#"><i class='bx bx-certification'></i> CSS Certificate</a>
+                        <a href="#"><i class='bx bx-certification'></i> JavaScript Certificate</a>
+                        <a href="#"><i class='bx bx-certification'></i> Python Certificate</a>
+                    </div>
+                </div>
             </ul>
-            <div class="nav-right">
-                <a href="lesson.html" class="btn btn-outline btn-sm">Sign In</a>
-                <a href="lesson.html" class="btn btn-primary btn-sm">Get Started</a>
+            <div class="nav-right" id="navRight">
+                <!-- Dynamic: shows Sign In/Get Started OR Profile -->
+                <a href="auth.html?mode=signin" class="btn btn-outline btn-sm" id="btnSignIn">Sign In</a>
+                <a href="auth.html?mode=register" class="btn btn-primary btn-sm" id="btnRegister">Get Started</a>
+                
+                <!-- Profile (hidden by default) -->
+                <div class="profile-dropdown" id="profileDropdown" style="display:none;">
+                    <button class="profile-trigger" onclick="toggleProfileMenu()">
+                        <div class="profile-avatar" id="profileAvatar">U</div>
+                        <span class="profile-name" id="profileName">User</span>
+                        <i class='bx bx-chevron-down'></i>
+                    </button>
+                    <div class="profile-dropdown-menu" id="profileMenu">
+                        <a href="#"><i class='bx bx-user'></i> Account</a>
+                        <a href="#"><i class='bx bx-trending-up'></i> My Progress</a>
+                        <a href="#"><i class='bx bx-certification'></i> Certificates</a>
+                        <a href="#"><i class='bx bx-cog'></i> Settings</a>
+                        <div class="divider"></div>
+                        <a href="#" class="logout-btn" onclick="handleLogout()"><i class='bx bx-log-out'></i> Sign Out</a>
+                    </div>
+                </div>
+                
                 <button class="hamburger" id="hamburger"><i class='bx bx-menu'></i></button>
             </div>
         </div>
@@ -375,40 +613,10 @@
     <!-- ============ SUBTOP NAV ============ -->
     <div class="subtopnav-wrapper">
         <div class="subtopnav-scroll" id="subtopnav">
-            <span class="scroll-btn scroll-left" onclick="scrollSubNav(-1)">&#10094;</span>
             <a href="#html-section" class="active">HTML</a>
             <a href="#css-section">CSS</a>
             <a href="#js-section">JAVASCRIPT</a>
             <a href="#python-section">PYTHON</a>
-            <a href="#sql-section">SQL</a>
-            <a href="#">JAVA</a>
-            <a href="#">PHP</a>
-            <a href="#">REACT</a>
-            <a href="#">NODEJS</a>
-            <a href="#">TYPESCRIPT</a>
-            <a href="#">DSA</a>
-            <a href="#">GIT</a>
-            <a href="#">MYSQL</a>
-            <a href="#">MONGODB</a>
-            <a href="#">AWS</a>
-            <a href="#">DOCKER</a>
-            <a href="#">CYBERSECURITY</a>
-            <a href="#">AI/ML</a>
-            <a href="#">DATA SCIENCE</a>
-            <a href="#">BOOTSTRAP</a>
-            <a href="#">TAILWIND</a>
-            <a href="#">ANGULAR</a>
-            <a href="#">VUE</a>
-            <a href="#">DJANGO</a>
-            <a href="#">RUST</a>
-            <a href="#">GO</a>
-            <a href="#">SWIFT</a>
-            <a href="#">KOTLIN</a>
-            <a href="#">C</a>
-            <a href="#">C++</a>
-            <a href="#">C#</a>
-            <a href="#" style="width:50px;visibility:hidden;"></a>
-            <span class="scroll-btn scroll-right" onclick="scrollSubNav(1)">&#10095;</span>
         </div>
     </div>
 
@@ -416,15 +624,14 @@
     <section class="hero">
         <div class="hero-inner">
             <div class="hero-content">
-                <div class="hero-badge"><span class="dot"></span> 2026 Edition • AI-Powered</div>
                 <h1 class="hero-title">Learn to <span>Code</span></h1>
                 <p class="hero-desc">
-                    With the world's largest web developer learning platform. 
-                    Master modern skills with interactive lessons, AI-powered tutoring, and hands-on projects.
+                    Master HTML, CSS, JavaScript, and Python with interactive lessons, 
+                    AI-powered tutoring, and hands-on projects. Start your journey today.
                 </p>
                 <div class="hero-actions">
                     <a href="#html-section" class="btn btn-success btn-xl">Start Learning Free</a>
-                    <a href="lesson.html" class="btn btn-outline btn-xl" style="border-color:rgba(255,255,255,0.3);color:white;">Try a Lesson</a>
+                    <a href="start.html" class="btn btn-outline btn-xl" style="border-color:rgba(255,255,255,0.3);color:white;">Try a Lesson</a>
                 </div>
             </div>
             <div class="hero-code">
@@ -441,178 +648,61 @@
                     };<br><br>
                     <span class="tag">function</span> <span class="attr">startLearning</span>() {<br>
                     &nbsp;&nbsp;<span class="keyword">return</span> <span class="string">"Your future begins now! 🚀"</span>;<br>
-                    }<br><br>
-                    <span class="tag">console</span>.<span class="attr">log</span>(<span class="attr">startLearning</span>());
+                    }
                 </code>
             </div>
         </div>
     </section>
 
-    <!-- ============ SEARCH ============ -->
+    <!-- ============ ADVANCED SEARCH ============ -->
     <section class="search-section">
-        <div class="search-inner">
-            <div class="search-box">
-                <input type="text" id="universalSearch" placeholder="Search our tutorials, e.g. HTML" autocomplete="off">
-                <button onclick="performSearch()"><i class='bx bx-search'></i> Search</button>
+        <div class="search-container">
+            <div class="search-wrapper">
+                <i class='bx bx-search search-icon'></i>
+                <input type="text" id="universalSearch" placeholder="Search courses, lessons, exercises..." autocomplete="off">
+                <button class="search-btn" onclick="performSearch()">Search</button>
+            </div>
+            <div class="search-filters">
+                <span class="search-filter active" data-filter="all">All</span>
+                <span class="search-filter" data-filter="html">HTML</span>
+                <span class="search-filter" data-filter="css">CSS</span>
+                <span class="search-filter" data-filter="javascript">JavaScript</span>
+                <span class="search-filter" data-filter="python">Python</span>
             </div>
             <div class="search-results" id="searchResults"></div>
         </div>
     </section>
 
-    <!-- ============ HTML SECTION ============ -->
-    <section class="lang-section green" id="html-section">
-        <div class="lang-inner">
-            <div class="lang-info">
-                <h1>HTML</h1>
-                <p>The language for building web pages</p>
-                <a href="lesson.html" class="btn btn-success btn-lg">Learn HTML</a>
-                <a href="lesson.html" class="btn btn-outline btn-lg" style="border-color:var(--gray-700);color:var(--gray-700);">HTML Reference</a>
-            </div>
-            <div class="lang-code">
-                <div class="example-title">HTML Example:</div>
-                <code>
-                    &lt;!DOCTYPE html&gt;<br>
-                    &lt;html&gt;<br>
-                    &lt;head&gt;<br>
-                    &nbsp;&nbsp;&lt;title&gt;Page Title&lt;/title&gt;<br>
-                    &lt;/head&gt;<br>
-                    &lt;body&gt;<br>
-                    &nbsp;&nbsp;&lt;h1&gt;Hello World&lt;/h1&gt;<br>
-                    &nbsp;&nbsp;&lt;p&gt;My first paragraph.&lt;/p&gt;<br>
-                    &lt;/body&gt;<br>
-                    &lt;/html&gt;
-                </code>
-                <a href="lesson.html" class="try-btn" target="_blank">Try it Yourself →</a>
+    <!-- ============ COURSE SECTIONS (Dynamic) ============ -->
+    <div id="courseSections"></div>
+
+    <!-- ============ EMBEDDED EDITOR ============ -->
+    <section class="editor-embed-section">
+        <div class="editor-embed-inner">
+            <h2>💻 Try Our Code Editor</h2>
+            <div class="editor-frame-wrapper">
+                <iframe src="https://akademiarw.vercel.app/Editor.html" allowfullscreen loading="lazy" title="Akademia Code Editor"></iframe>
             </div>
         </div>
     </section>
 
-    <!-- ============ CSS SECTION ============ -->
-    <section class="lang-section yellow" id="css-section">
-        <div class="lang-inner">
-            <div class="lang-info">
-                <h1>CSS</h1>
-                <p>The language for styling web pages</p>
-                <a href="lesson.html" class="btn btn-success btn-lg">Learn CSS</a>
-                <a href="lesson.html" class="btn btn-outline btn-lg" style="border-color:var(--gray-700);color:var(--gray-700);">CSS Reference</a>
-            </div>
-            <div class="lang-code">
-                <div class="example-title">CSS Example:</div>
-                <code>
-                    body {<br>
-                    &nbsp;&nbsp;background-color: lightblue;<br>
-                    }<br><br>
-                    h1 {<br>
-                    &nbsp;&nbsp;color: white;<br>
-                    &nbsp;&nbsp;text-align: center;<br>
-                    }<br><br>
-                    p {<br>
-                    &nbsp;&nbsp;font-family: verdana;<br>
-                    }
-                </code>
-                <a href="lesson.html" class="try-btn" target="_blank">Try it Yourself →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ JAVASCRIPT SECTION ============ -->
-    <section class="lang-section black" id="js-section">
-        <div class="lang-inner">
-            <div class="lang-info">
-                <h1 style="font-size:2.5rem;">JavaScript</h1>
-                <p style="color:#9ca3af;">The language for programming web pages</p>
-                <a href="lesson.html" class="btn btn-success btn-lg">Learn JavaScript</a>
-                <a href="lesson.html" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,0.3);color:white;">JS Reference</a>
-            </div>
-            <div class="lang-code">
-                <div class="example-title">JavaScript Example:</div>
-                <code>
-                    &lt;button onclick="myFunction()"&gt;Click Me!&lt;/button&gt;<br><br>
-                    &lt;script&gt;<br>
-                    function myFunction() {<br>
-                    &nbsp;&nbsp;let x = document.getElementById("demo");<br>
-                    &nbsp;&nbsp;x.style.fontSize = "25px";<br>
-                    &nbsp;&nbsp;x.style.color = "red";<br>
-                    }<br>
-                    &lt;/script&gt;
-                </code>
-                <a href="lesson.html" class="try-btn" target="_blank">Try it Yourself →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ PYTHON SECTION ============ -->
-    <section class="lang-section pink" id="python-section">
-        <div class="lang-inner">
-            <div class="lang-info">
-                <h1>Python</h1>
-                <p>A popular programming language</p>
-                <a href="lesson.html" class="btn btn-success btn-lg">Learn Python</a>
-                <a href="lesson.html" class="btn btn-outline btn-lg" style="border-color:var(--gray-700);color:var(--gray-700);">Python Reference</a>
-            </div>
-            <div class="lang-code">
-                <div class="example-title">Python Example:</div>
-                <code>
-                    if 5 > 2:<br>
-                    &nbsp;&nbsp;print("Five is greater than two!")<br><br>
-                    x = "Hello World"<br>
-                    print(x)<br><br>
-                    # This is a comment<br>
-                    print("Akademia 2026")
-                </code>
-                <a href="lesson.html" class="try-btn" target="_blank">Try it Yourself →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ SQL SECTION ============ -->
-    <section class="lang-section turquoise" id="sql-section">
-        <div class="lang-inner">
-            <div class="lang-info">
-                <h1>SQL</h1>
-                <p>A language for accessing databases</p>
-                <a href="lesson.html" class="btn btn-success btn-lg">Learn SQL</a>
-                <a href="lesson.html" class="btn btn-outline btn-lg" style="border-color:var(--gray-700);color:var(--gray-700);">SQL Reference</a>
-            </div>
-            <div class="lang-code">
-                <div class="example-title">SQL Example:</div>
-                <code>
-                    SELECT * FROM Customers<br>
-                    WHERE Country='Mexico';<br><br>
-                    SELECT COUNT(*) FROM Orders<br>
-                    WHERE OrderDate > '2024-01-01';
-                </code>
-                <a href="lesson.html" class="try-btn" target="_blank">Try it Yourself →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ MORE TECHNOLOGIES CARDS ============ -->
-    <section class="cards-section">
-        <div class="cards-inner">
-            <div class="cards-grid">
-                <a href="lesson.html" class="tech-card pink-bg"><h2>PHP</h2><p>A web server programming language</p></a>
-                <a href="lesson.html" class="tech-card yellow-bg"><h2>jQuery</h2><p>A JS library for developing web pages</p></a>
-                <a href="lesson.html" class="tech-card light-bg"><h2>Java</h2><p>A programming language</p></a>
-                <a href="lesson.html" class="tech-card green-bg"><h2>C++</h2><p>A programming language</p></a>
-                <a href="lesson.html" class="tech-card turquoise-bg"><h2>React</h2><p>A JavaScript library for building UIs</p></a>
-                <a href="lesson.html" class="tech-card pink-bg"><h2>Node.js</h2><p>JavaScript runtime environment</p></a>
-                <a href="lesson.html" class="tech-card yellow-bg"><h2>TypeScript</h2><p>Typed superset of JavaScript</p></a>
-                <a href="lesson.html" class="tech-card green-bg"><h2>Django</h2><p>Python web framework</p></a>
-                <a href="lesson.html" class="tech-card light-bg"><h2>Git</h2><p>Version control system</p></a>
-                <a href="lesson.html" class="tech-card turquoise-bg"><h2>Docker</h2><p>Container platform</p></a>
-                <a href="lesson.html" class="tech-card pink-bg"><h2>AWS</h2><p>Cloud computing platform</p></a>
-                <a href="lesson.html" class="tech-card yellow-bg"><h2>MongoDB</h2><p>NoSQL database</p></a>
-            </div>
+    <!-- ============ ALL COURSES CARDS ============ -->
+    <section class="all-courses-section">
+        <div class="all-courses-inner">
+            <h2>📚 Explore All Courses</h2>
+            <div class="courses-grid" id="allCoursesGrid"></div>
         </div>
     </section>
 
     <!-- ============ CTA ============ -->
     <section class="cta-section">
-        <div class="container">
+        <div class="cta-inner">
             <h2>Ready to Start Your Learning Journey?</h2>
-            <p>Join thousands of students already advancing their careers with Akademia's AI-powered platform.</p>
-            <a href="lesson.html" class="btn btn-success btn-xl">Start Learning Free →</a>
+            <p>Join thousands of students advancing their careers with Akademia.</p>
+            <div class="cta-actions">
+                <a href="start.html" class="btn btn-success btn-xl">Start Learning Free →</a>
+                <a href="start.html" class="btn btn-outline btn-xl" style="border-color:rgba(255,255,255,0.3);color:white;">Try a Lesson</a>
+            </div>
         </div>
     </section>
 
@@ -626,40 +716,32 @@
                     <a href="#css-section">CSS Tutorial</a>
                     <a href="#js-section">JavaScript Tutorial</a>
                     <a href="#python-section">Python Tutorial</a>
-                    <a href="#sql-section">SQL Tutorial</a>
-                </div>
-                <div class="footer-col">
-                    <h5>Top References</h5>
-                    <a href="#">HTML Reference</a>
-                    <a href="#">CSS Reference</a>
-                    <a href="#">JavaScript Reference</a>
-                    <a href="#">Python Reference</a>
-                    <a href="#">SQL Reference</a>
                 </div>
                 <div class="footer-col">
                     <h5>Platform</h5>
                     <a href="lesson.html">Lessons</a>
-                    <a href="#">Courses</a>
+                    <a href="Editor.html">Code Editor</a>
                     <a href="#">Exercises</a>
-                    <a href="#">Quizzes</a>
                     <a href="#">Certificates</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Support</h5>
+                    <a href="documentation.html">Documentation</a>
+                    <a href="help-center.html">Help Center</a>
+                    <a href="contact.html">Contact</a>
                 </div>
                 <div class="footer-col">
                     <h5>Company</h5>
                     <a href="#">About Us</a>
-                    <a href="#">Careers</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Contact</a>
                     <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
                 </div>
             </div>
             <div class="footer-social">
                 <a href="#"><i class='bx bxl-youtube'></i></a>
-                <a href="#"><i class='bx bxl-linkedin'></i></a>
-                <a href="#"><i class='bx bxl-discord-alt'></i></a>
-                <a href="#"><i class='bx bxl-facebook'></i></a>
-                <a href="#"><i class='bx bxl-instagram'></i></a>
                 <a href="#"><i class='bx bxl-github'></i></a>
+                <a href="#"><i class='bx bxl-discord-alt'></i></a>
+                <a href="#"><i class='bx bxl-twitter'></i></a>
             </div>
             <div class="footer-bottom">
                 <p>Akademia is optimized for learning and training. Examples might be simplified to improve reading and learning.</p>
@@ -668,71 +750,237 @@
         </div>
     </footer>
 
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <script type="module">
-        import { db } from './js/firebase.js';
+        import { db, auth } from './js/firebase.js';
         import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
         const $ = id => document.getElementById(id);
         const escHtml = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+        const toast = (msg, type = 'success') => {
+            const c = $('toastContainer'); const t = document.createElement('div');
+            t.className = `toast ${type}`; t.innerHTML = `<i class='bx ${type==='success'?'bx-check-circle':'bx-x-circle'}'></i> ${msg}`;
+            c.appendChild(t); setTimeout(() => t.remove(), 3000);
+        };
 
-        let allTopics = [], allCourses = [], allLessons = [];
+        let allCourses = [], allLessons = [], currentUser = null;
 
-        async function loadData() {
-            try {
-                const [t, c, l] = await Promise.all([
-                    getDocs(query(collection(db, 'topics'), orderBy('createdAt', 'desc'))),
-                    getDocs(query(collection(db, 'courses'), orderBy('createdAt', 'desc'))),
-                    getDocs(query(collection(db, 'lessons'), orderBy('createdAt', 'desc')))
-                ]);
-                allTopics = t.docs.map(d => ({ id: d.id, ...d.data() }));
-                allCourses = c.docs.map(d => ({ id: d.id, ...d.data() }));
-                allLessons = l.docs.map(d => ({ id: d.id, ...d.data() }));
-            } catch (e) {
-                allTopics = JSON.parse(localStorage.getItem('ak_topics') || '[]');
-                allCourses = JSON.parse(localStorage.getItem('ak_courses') || '[]');
-                allLessons = JSON.parse(localStorage.getItem('ak_lessons') || '[]');
+        // ============ AUTH ============
+        function updateAuthUI(user) {
+            currentUser = user;
+            const btnSignIn = $('btnSignIn');
+            const btnRegister = $('btnRegister');
+            const profileDropdown = $('profileDropdown');
+            
+            if (user) {
+                if (btnSignIn) btnSignIn.style.display = 'none';
+                if (btnRegister) btnRegister.style.display = 'none';
+                if (profileDropdown) profileDropdown.style.display = 'block';
+                
+                const avatar = $('profileAvatar');
+                const name = $('profileName');
+                if (avatar) avatar.textContent = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+                if (name) name.textContent = user.displayName || user.email?.split('@')[0] || 'User';
+                
+                localStorage.setItem('ak_user', JSON.stringify({ uid: user.uid, email: user.email, displayName: user.displayName }));
+            } else {
+                if (btnSignIn) btnSignIn.style.display = '';
+                if (btnRegister) btnRegister.style.display = '';
+                if (profileDropdown) profileDropdown.style.display = 'none';
+                localStorage.removeItem('ak_user');
             }
         }
 
+        // Check auth state
+        onAuthStateChanged(auth, (user) => {
+            updateAuthUI(user);
+        });
+
+        // Also check localStorage for cached user
+        const cachedUser = JSON.parse(localStorage.getItem('ak_user') || 'null');
+        if (cachedUser && !currentUser) {
+            $('btnSignIn') && ($('btnSignIn').style.display = 'none');
+            $('btnRegister') && ($('btnRegister').style.display = 'none');
+            $('profileDropdown') && ($('profileDropdown').style.display = 'block');
+            $('profileAvatar') && ($('profileAvatar').textContent = (cachedUser.displayName || cachedUser.email || 'U').charAt(0).toUpperCase());
+            $('profileName') && ($('profileName').textContent = cachedUser.displayName || cachedUser.email?.split('@')[0] || 'User');
+        }
+
+        window.toggleProfileMenu = () => {
+            $('profileMenu')?.classList.toggle('show');
+        };
+
+        window.handleLogout = async () => {
+            try {
+                await signOut(auth);
+                updateAuthUI(null);
+                toast('Signed out successfully', 'success');
+            } catch (e) {
+                localStorage.removeItem('ak_user');
+                updateAuthUI(null);
+                toast('Signed out', 'success');
+            }
+        };
+
+        // Close profile menu on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.profile-dropdown')) {
+                $('profileMenu')?.classList.remove('show');
+            }
+        });
+
+        // ============ LOAD DATA ============
+        async function loadData() {
+            try {
+                const [c, l] = await Promise.all([
+                    getDocs(query(collection(db, 'courses'), orderBy('createdAt', 'desc'))),
+                    getDocs(query(collection(db, 'lessons'), orderBy('createdAt', 'desc')))
+                ]);
+                allCourses = c.docs.map(d => ({ id: d.id, ...d.data() }));
+                allLessons = l.docs.map(d => ({ id: d.id, ...d.data() }));
+            } catch (e) {
+                allCourses = JSON.parse(localStorage.getItem('ak_courses') || '[]');
+                allLessons = JSON.parse(localStorage.getItem('ak_lessons') || '[]');
+            }
+            renderCourseSections();
+            renderAllCoursesGrid();
+        }
+
+        // ============ DEMO DATA ============
+        function getDemoCourses() {
+            return [
+                { id: 'html', name: 'HTML', topicName: 'Web Development', description: 'The language for building web pages. Learn semantic markup, forms, and accessibility.', duration: 24, logo: '🌐', difficulty: 'Beginner' },
+                { id: 'css', name: 'CSS', topicName: 'Web Development', description: 'The language for styling web pages. Master layouts, animations, and responsive design.', duration: 20, logo: '🎨', difficulty: 'Beginner' },
+                { id: 'javascript', name: 'JavaScript', topicName: 'Web Development', description: 'The language for programming web pages. Build interactive applications and dynamic content.', duration: 36, logo: '⚡', difficulty: 'Intermediate' },
+                { id: 'python', name: 'Python', topicName: 'Programming', description: 'A powerful, beginner-friendly programming language. Learn data science, automation, and web development.', duration: 40, logo: '🐍', difficulty: 'Beginner' }
+            ];
+        }
+
+        function getCodeExamples(courseId) {
+            const examples = {
+                html: `&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n  &lt;title&gt;Page Title&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n  &lt;h1&gt;Hello World&lt;/h1&gt;\n  &lt;p&gt;My first paragraph.&lt;/p&gt;\n&lt;/body&gt;\n&lt;/html&gt;`,
+                css: `body {\n  background-color: lightblue;\n}\n\nh1 {\n  color: white;\n  text-align: center;\n}\n\np {\n  font-family: verdana;\n  font-size: 20px;\n}`,
+                javascript: `&lt;button onclick="myFunction()"&gt;Click Me!&lt;/button&gt;\n\n&lt;script&gt;\nfunction myFunction() {\n  let x = document.getElementById("demo");\n  x.style.fontSize = "25px";\n  x.style.color = "red";\n}\n&lt;/script&gt;`,
+                python: `if 5 > 2:\n  print("Five is greater than two!")\n\nx = "Hello World"\nprint(x)\n\n# This is a comment\nprint("Akademia 2026")`
+            };
+            return examples[courseId] || examples.html;
+        }
+
+        // ============ RENDER COURSE SECTIONS ============
+        function renderCourseSections() {
+            const container = $('courseSections');
+            const courses = allCourses.length >= 4 ? allCourses.slice(0, 4) : getDemoCourses();
+            const sectionColors = ['green', 'yellow', 'black', 'pink'];
+            
+            container.innerHTML = courses.map((course, i) => {
+                const secId = course.id || course.name.toLowerCase();
+                const codeExample = getCodeExamples(secId);
+                const logo = course.logo || ['🌐','🎨','⚡','🐍'][i];
+                const sectionClass = sectionColors[i % sectionColors.length];
+                const isDark = sectionClass === 'black';
+                
+                return `
+                <section class="course-section ${sectionClass}" id="${secId}-section">
+                    <div class="course-inner">
+                        <div class="course-info">
+                            <div class="course-logo">${logo}</div>
+                            <h1 style="${isDark ? 'color:white;' : ''}">${escHtml(course.name)}</h1>
+                            <p style="${isDark ? 'color:#9ca3af;' : ''}">${escHtml(course.description || 'Learn this powerful technology')}</p>
+                            <p class="course-desc" style="${isDark ? 'color:#9ca3af;' : ''}">⏱ ${course.duration || 20}h • ${course.difficulty || 'All Levels'}</p>
+                            <a href="course.html?id=${course.id}" class="btn btn-success btn-lg">Learn ${escHtml(course.name)}</a>
+                            <a href="course.html?id=${course.id}" class="btn btn-outline btn-lg" style="${isDark ? 'border-color:rgba(255,255,255,0.3);color:white;' : 'border-color:var(--gray-700);color:var(--gray-700);'}">${escHtml(course.name)} Reference</a>
+                        </div>
+                        <div class="course-code">
+                            <div class="example-title">${escHtml(course.name)} Example:</div>
+                            <code>${codeExample.replace(/\n/g, '<br>')}</code>
+                            <a href="Editor.html?code=${encodeURIComponent(codeExample)}&lang=${secId}" class="try-btn" target="_blank">Try it Yourself →</a>
+                        </div>
+                    </div>
+                </section>`;
+            }).join('');
+        }
+
+        // ============ RENDER ALL COURSES GRID ============
+        function renderAllCoursesGrid() {
+            const grid = $('allCoursesGrid');
+            const courses = allCourses.length ? allCourses : getDemoCourses();
+            const bgClasses = ['html-bg', 'css-bg', 'js-bg', 'python-bg'];
+            
+            grid.innerHTML = courses.map((course, i) => {
+                const lessonCount = allLessons.filter(l => l.courseId === course.id).length || Math.floor(Math.random() * 15) + 5;
+                return `
+                <a href="course.html?id=${course.id}" class="course-card">
+                    <div class="course-card-header ${bgClasses[i % bgClasses.length]}">
+                        ${course.logo || ['🌐','🎨','⚡','🐍'][i]}
+                    </div>
+                    <div class="course-card-body">
+                        <h3>${escHtml(course.name)}</h3>
+                        <p>${escHtml(course.description || 'Master this technology with hands-on projects.')}</p>
+                    </div>
+                    <div class="course-card-footer">
+                        <span class="course-card-rating"><i class='bx bxs-star'></i> ${(4 + Math.random()).toFixed(1)}</span>
+                        <span class="course-card-lessons"><i class='bx bx-book-open'></i> ${lessonCount} lessons</span>
+                    </div>
+                </a>`;
+            }).join('');
+        }
+
         // ============ SEARCH ============
+        let activeFilter = 'all';
+        
+        document.querySelectorAll('.search-filter').forEach(filter => {
+            filter.addEventListener('click', function() {
+                document.querySelectorAll('.search-filter').forEach(f => f.classList.remove('active'));
+                this.classList.add('active');
+                activeFilter = this.dataset.filter;
+                performSearch();
+            });
+        });
+
         function performSearch() {
             const query = $('universalSearch')?.value?.toLowerCase()?.trim();
             const container = $('searchResults');
             if (!query || query.length < 2) { container.classList.remove('show'); return; }
-            const results = [];
-            allTopics.forEach(t => { if (t.name?.toLowerCase().includes(query)) results.push({ type:'topic', name:t.name, meta:t.description, icon:'bx-category', cls:'topic' }); });
-            allCourses.forEach(c => { if (c.name?.toLowerCase().includes(query)) results.push({ type:'course', name:c.name, meta:c.topicName, icon:'bx-book-content', cls:'course' }); });
-            allLessons.forEach(l => { if (l.title?.toLowerCase().includes(query)) results.push({ type:'lesson', name:l.title, meta:l.moduleName, icon:'bx-video', cls:'lesson' }); });
-            container.innerHTML = results.length ? results.slice(0, 6).map(r => `
-                <div class="sr-item" onclick="window.location.href='lesson.html'">
-                    <div class="sr-icon ${r.cls}"><i class='bx ${r.icon}'></i></div>
-                    <div class="sr-info"><div class="sr-name">${escHtml(r.name)}</div><div class="sr-meta">${escHtml(r.meta)}</div></div>
+            
+            const courses = allCourses.length ? allCourses : getDemoCourses();
+            let results = [];
+            
+            courses.forEach(c => {
+                const matchesFilter = activeFilter === 'all' || c.name?.toLowerCase().includes(activeFilter) || c.id?.toLowerCase().includes(activeFilter);
+                if (matchesFilter && (c.name?.toLowerCase().includes(query) || c.description?.toLowerCase().includes(query))) {
+                    results.push({ type: 'course', name: c.name, meta: c.description, id: c.id, icon: c.logo || '📚' });
+                }
+            });
+            
+            allLessons.forEach(l => {
+                const matchesFilter = activeFilter === 'all';
+                if (matchesFilter && l.title?.toLowerCase().includes(query)) {
+                    results.push({ type: 'lesson', name: l.title, meta: l.moduleName || '', id: l.id, icon: '📝' });
+                }
+            });
+            
+            const iconClasses = { html: 'html', css: 'css', javascript: 'js', python: 'python' };
+            
+            container.innerHTML = results.length ? results.slice(0, 8).map(r => `
+                <div class="sr-item" onclick="window.location.href='course.html?id=${r.id}'">
+                    <div class="sr-icon ${iconClasses[r.id] || 'html'}">${r.icon}</div>
+                    <div class="sr-info">
+                        <div class="sr-name">${escHtml(r.name)}</div>
+                        <div class="sr-meta">${escHtml(r.meta || '')}</div>
+                    </div>
+                    <span class="sr-tag">${r.type}</span>
                     <i class='bx bx-chevron-right' style="color:var(--gray-400);"></i>
-                </div>`).join('') : '<div style="padding:2rem;text-align:center;color:var(--gray-400);">No results found</div>';
+                </div>
+            `).join('') : '<div style="padding:2rem;text-align:center;color:var(--gray-400);">No results found for "' + escHtml(query) + '"</div>';
             container.classList.add('show');
         }
 
         $('universalSearch')?.addEventListener('input', performSearch);
         $('universalSearch')?.addEventListener('focus', performSearch);
-        document.addEventListener('click', e => { if (!e.target.closest('.search-inner')) $('searchResults').classList.remove('show'); });
-
-        // ============ SUBTOP NAV SCROLL ============
-        let scrollInterval, scrollSpeed = 1;
-        function scrollSubNav(n) {
-            scrollInterval = setInterval(() => {
-                scrollSpeed = Math.min(scrollSpeed * 1.1, 10);
-                const el = document.getElementById('subtopnav');
-                if (el) el.scrollLeft += scrollSpeed * n;
-            }, 10);
-        }
-        function stopScroll() { scrollSpeed = 1; clearInterval(scrollInterval); }
-        
-        document.querySelector('.scroll-left')?.addEventListener('mousedown', () => scrollSubNav(-1));
-        document.querySelector('.scroll-right')?.addEventListener('mousedown', () => scrollSubNav(1));
-        document.querySelector('.scroll-left')?.addEventListener('mouseup', stopScroll);
-        document.querySelector('.scroll-right')?.addEventListener('mouseup', stopScroll);
-        document.querySelector('.scroll-left')?.addEventListener('mouseleave', stopScroll);
-        document.querySelector('.scroll-right')?.addEventListener('mouseleave', stopScroll);
+        document.addEventListener('click', e => { if (!e.target.closest('.search-container')) $('searchResults').classList.remove('show'); });
 
         // ============ NAVBAR ============
         const hamburger = $('hamburger');
@@ -740,9 +988,24 @@
         hamburger?.addEventListener('click', () => navMenu?.classList.toggle('active'));
         document.addEventListener('click', e => { if (!e.target.closest('.nav-inner') && navMenu?.classList.contains('active')) navMenu.classList.remove('active'); });
 
+        // Subtop nav active state on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.course-section');
+            const navLinks = document.querySelectorAll('#subtopnav a');
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 150;
+                if (window.scrollY >= top) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            });
+        });
+
         window.performSearch = performSearch;
         loadData();
-        console.log('🚀 Akademia 2026 - W3Schools Inspired loaded!');
+        console.log('🚀 Akademia 2026 - Complete Homepage loaded!');
     </script>
 </body>
 </html>
