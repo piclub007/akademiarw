@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
     <style>
@@ -27,10 +27,9 @@
             --gray-800: #1f2937; --gray-900: #111827;
             --dark-bg: #0d1117; --dark-surface: #161b22; --dark-border: #30363d;
             --sidebar-width: 260px; --header-height: 56px;
-            --radius-sm: 6px; --radius: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-2xl: 20px;
+            --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px;
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.04); --shadow: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.06); --shadow-lg: 0 10px 30px rgba(0,0,0,0.08);
-            --shadow-xl: 0 20px 50px rgba(0,0,0,0.1);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.08); --shadow-lg: 0 20px 50px rgba(0,0,0,0.1);
             --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -44,7 +43,7 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
 
-        /* ============ SIDEBAR ============ */
+        /* SIDEBAR */
         .sidebar {
             width: var(--sidebar-width); background: var(--dark-bg); color: #c9d1d9;
             display: flex; flex-direction: column; position: fixed;
@@ -52,27 +51,27 @@
             border-right: 1px solid var(--dark-border); overflow-y: auto;
         }
         .sidebar-header {
-            padding: 1rem 1.25rem; border-bottom: 1px solid var(--dark-border);
+            padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--dark-border);
             display: flex; align-items: center; gap: 0.5rem;
         }
-        .sidebar-header img { height: 28px; width: auto; }
+        .sidebar-header img { height: 32px; width: auto; }
         .sidebar-header span {
             font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 700; color: white;
         }
         .sidebar-user {
-            padding: 0.875rem 1.25rem; border-bottom: 1px solid var(--dark-border);
-            display: flex; align-items: center; gap: 0.625rem;
+            padding: 1rem 1.5rem; border-bottom: 1px solid var(--dark-border);
+            display: flex; align-items: center; gap: 0.75rem;
         }
         .sidebar-avatar {
-            width: 38px; height: 38px; border-radius: 50%;
+            width: 44px; height: 44px; border-radius: 50%; overflow: hidden;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: 700; font-size: 0.938rem; flex-shrink: 0;
+            color: white; font-weight: 700; font-size: 1.125rem; flex-shrink: 0;
         }
-        .sidebar-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .sidebar-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .sidebar-user-info { flex: 1; min-width: 0; }
-        .sidebar-user-name { font-weight: 600; font-size: 0.813rem; color: white; }
-        .sidebar-user-level { font-size: 0.625rem; color: var(--warning); }
+        .sidebar-user-name { font-weight: 600; font-size: 0.875rem; color: white; }
+        .sidebar-user-level { font-size: 0.688rem; color: var(--warning); }
 
         .sidebar-nav { flex: 1; padding: 0.5rem; }
         .sidebar-section { margin-bottom: 0.25rem; }
@@ -82,50 +81,52 @@
         }
         .sidebar-item {
             display: flex; align-items: center; gap: 0.5rem;
-            padding: 0.4375rem 0.75rem; border-radius: var(--radius-sm);
+            padding: 0.5rem 0.75rem; border-radius: var(--radius-sm);
             cursor: pointer; transition: all var(--transition);
-            color: #c9d1d9; font-size: 0.813rem; font-weight: 400;
+            color: #c9d1d9; font-size: 0.875rem; font-weight: 400;
             border: none; background: none; width: 100%; text-align: left;
             text-decoration: none;
         }
         .sidebar-item:hover { background: #21262d; color: white; }
         .sidebar-item.active { background: #1f6feb22; color: #58a6ff; }
-        .sidebar-item i { font-size: 1rem; width: 18px; text-align: center; flex-shrink: 0; }
+        .sidebar-item i { font-size: 1.125rem; width: 20px; text-align: center; flex-shrink: 0; }
         .sidebar-badge {
-            margin-left: auto; font-size: 0.625rem; padding: 0.125rem 0.4375rem;
+            margin-left: auto; font-size: 0.625rem; padding: 0.125rem 0.5rem;
             border-radius: 100px; background: #21262d; color: #8b949e;
         }
         .sidebar-sparks {
-            padding: 0.75rem 1.25rem; border-top: 1px solid var(--dark-border);
+            padding: 0.75rem 1.5rem; border-top: 1px solid var(--dark-border);
             display: flex; align-items: center; gap: 0.5rem;
         }
         .sparks-icon { font-size: 1.25rem; color: var(--warning); }
-        .sparks-value { font-weight: 700; font-size: 0.875rem; color: white; }
-        .sparks-label { font-size: 0.625rem; color: #8b949e; }
+        .sparks-value { font-weight: 700; font-size: 0.938rem; color: white; }
+        .sparks-label { font-size: 0.688rem; color: #8b949e; }
 
-        /* ============ MAIN ============ */
+        /* MAIN */
         .main-content {
             flex: 1; margin-left: var(--sidebar-width);
             display: flex; flex-direction: column; height: 100vh; overflow: hidden;
         }
         .topbar {
             background: var(--white); border-bottom: 1px solid var(--gray-200);
-            padding: 0 1.5rem; height: var(--header-height);
+            padding: 0 2rem; height: var(--header-height);
             display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
         }
         .topbar-left { display: flex; align-items: center; gap: 1rem; }
-        .topbar-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; }
+        .topbar-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 700; }
         .topbar-streak {
             display: flex; align-items: center; gap: 0.375rem;
-            padding: 0.25rem 0.75rem; border-radius: 100px;
+            padding: 0.3125rem 0.875rem; border-radius: 100px;
             background: var(--warning-bg); color: var(--warning-dark);
-            font-weight: 700; font-size: 0.75rem;
+            font-weight: 700; font-size: 0.813rem;
         }
-        .topbar-actions { display: flex; align-items: center; gap: 0.5rem; }
+        .streak-flame { animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        .topbar-actions { display: flex; align-items: center; gap: 0.75rem; }
 
         .btn {
             font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.375rem;
-            padding: 0.4375rem 0.875rem; border-radius: var(--radius-sm); font-size: 0.813rem;
+            padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.875rem;
             font-weight: 600; transition: all var(--transition); cursor: pointer;
             border: none; text-decoration: none; white-space: nowrap;
         }
@@ -133,123 +134,164 @@
         .btn-primary:hover { background: var(--primary-dark); }
         .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); }
         .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
-        .btn-sm { padding: 0.3125rem 0.625rem; font-size: 0.75rem; }
-        .btn-xs { padding: 0.1875rem 0.5rem; font-size: 0.688rem; border-radius: 100px; }
+        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.813rem; }
+        .btn-xs { padding: 0.25rem 0.625rem; font-size: 0.75rem; border-radius: 100px; }
 
-        /* ============ CONTENT ============ */
-        .content-area { flex: 1; overflow-y: auto; padding: 1.5rem; }
+        /* CONTENT */
+        .content-area { flex: 1; overflow-y: auto; padding: 2rem; }
         .page { display: none; animation: fadeSlide 0.25s ease; }
         .page.active { display: block; }
         @keyframes fadeSlide { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ============ DASHBOARD WIDGETS ============ */
+        /* DASHBOARD */
         .welcome-banner {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white; border-radius: var(--radius-2xl); padding: 2rem;
-            margin-bottom: 1.5rem; display: flex; align-items: center; gap: 2rem;
+            color: white; border-radius: var(--radius-2xl); padding: 2.5rem;
+            margin-bottom: 2rem; display: flex; align-items: center; gap: 2.5rem;
         }
-        .welcome-text h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
-        .welcome-text p { color: #9ca3af; font-size: 0.875rem; }
-        .welcome-stats { display: flex; gap: 2rem; }
+        .welcome-text h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .welcome-text p { color: #9ca3af; font-size: 0.938rem; }
+        .welcome-stats { display: flex; gap: 2.5rem; }
         .welcome-stat { text-align: center; }
-        .welcome-stat .ws-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; }
-        .welcome-stat .ws-lbl { font-size: 0.688rem; color: #9ca3af; }
+        .welcome-stat .ws-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; }
+        .welcome-stat .ws-lbl { font-size: 0.75rem; color: #9ca3af; }
 
-        .widget-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .widget-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
         .widget {
             background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-xl);
-            padding: 1.25rem; transition: all var(--transition);
+            padding: 1.5rem; transition: all var(--transition);
         }
         .widget:hover { box-shadow: var(--shadow-md); }
-        .widget-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-        .widget-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; font-weight: 600; }
+        .widget-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+        .widget-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.938rem; font-weight: 600; }
 
         .daily-challenge {
             background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
             border: 2px solid var(--accent); border-radius: var(--radius-xl);
-            padding: 1.5rem; margin-bottom: 1.5rem;
+            padding: 1.75rem; margin-bottom: 2rem;
         }
-        .daily-challenge h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; margin-bottom: 0.5rem; }
-        .daily-challenge .dc-reward { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.25rem 0.75rem; border-radius: 100px; background: var(--warning-bg); color: var(--warning-dark); font-weight: 700; font-size: 0.75rem; }
+        .daily-challenge h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; margin-bottom: 0.5rem; }
+        .daily-challenge .dc-reward {
+            display: inline-flex; align-items: center; gap: 0.375rem;
+            padding: 0.3125rem 0.875rem; border-radius: 100px;
+            background: var(--warning-bg); color: var(--warning-dark);
+            font-weight: 700; font-size: 0.813rem;
+        }
 
-        .level-progress { margin-top: 1rem; }
-        .level-bar { height: 8px; background: var(--gray-200); border-radius: 4px; overflow: hidden; }
-        .level-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 4px; transition: width 0.5s; }
-        .level-info { display: flex; justify-content: space-between; font-size: 0.688rem; color: var(--gray-500); margin-top: 0.25rem; }
+        .level-progress { margin-top: 1.25rem; }
+        .level-bar { height: 10px; background: rgba(255,255,255,0.15); border-radius: 5px; overflow: hidden; }
+        .level-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 5px; transition: width 0.5s; }
+        .level-info { display: flex; justify-content: space-between; font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 0.375rem; }
 
-        .streak-flame { animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-
-        .quick-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .quick-actions { display: flex; gap: 0.625rem; flex-wrap: wrap; }
         .quick-action {
-            display: flex; align-items: center; gap: 0.375rem;
-            padding: 0.5rem 0.875rem; border-radius: var(--radius-sm);
-            font-size: 0.75rem; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.5625rem 1rem; border-radius: var(--radius-sm);
+            font-size: 0.813rem; font-weight: 600; cursor: pointer;
             transition: all var(--transition); border: 1px solid var(--gray-200);
             background: white; color: var(--gray-700);
         }
         .quick-action:hover { border-color: var(--primary); background: var(--primary-bg); color: var(--primary); }
 
         .progress-item {
-            display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0;
+            display: flex; align-items: center; gap: 0.875rem; padding: 0.75rem 0;
             border-bottom: 1px solid var(--gray-100);
         }
         .progress-item:last-child { border-bottom: none; }
         .progress-icon {
-            width: 32px; height: 32px; border-radius: var(--radius-sm);
+            width: 38px; height: 38px; border-radius: var(--radius-sm);
             display: flex; align-items: center; justify-content: center;
-            font-size: 1rem; flex-shrink: 0;
+            font-size: 1.125rem; flex-shrink: 0;
         }
         .progress-info { flex: 1; }
-        .progress-name { font-weight: 600; font-size: 0.75rem; }
-        .progress-pct { font-size: 0.688rem; color: var(--gray-500); }
-        .mini-bar { height: 4px; background: var(--gray-200); border-radius: 2px; overflow: hidden; margin-top: 0.25rem; }
-        .mini-bar-fill { height: 100%; background: var(--success); border-radius: 2px; }
+        .progress-name { font-weight: 600; font-size: 0.813rem; }
+        .progress-pct { font-size: 0.75rem; color: var(--gray-500); }
+        .mini-bar { height: 5px; background: var(--gray-200); border-radius: 3px; overflow: hidden; margin-top: 0.25rem; }
+        .mini-bar-fill { height: 100%; background: var(--success); border-radius: 3px; }
 
-        .achievement-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.75rem; }
+        /* ACHIEVEMENT ZONES */
+        .zone-section { margin-bottom: 2rem; }
+        .zone-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .achievement-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
         .ach-card {
-            background: white; border: 1px solid var(--gray-200); border-radius: var(--radius-lg);
-            padding: 1rem; text-align: center; transition: all var(--transition);
+            background: white; border: 2px solid var(--gray-200); border-radius: var(--radius-xl);
+            padding: 1.5rem 1rem; text-align: center; transition: all var(--transition);
+            cursor: pointer; position: relative;
         }
+        .ach-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
         .ach-card.earned { border-color: var(--success); background: var(--success-bg); }
-        .ach-card.locked { opacity: 0.4; filter: grayscale(0.5); }
-        .ach-icon { font-size: 2rem; display: block; margin-bottom: 0.375rem; }
-        .ach-name { font-weight: 600; font-size: 0.688rem; }
-        .ach-date { font-size: 0.625rem; color: var(--gray-500); }
+        .ach-card.locked { opacity: 0.45; filter: grayscale(0.6); }
+        .ach-card.locked:hover { opacity: 0.7; filter: grayscale(0.3); }
+        .ach-image {
+            width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 0.75rem;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--gray-100); overflow: hidden; font-size: 2rem;
+        }
+        .ach-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .ach-name { font-weight: 600; font-size: 0.813rem; margin-bottom: 0.25rem; }
+        .ach-desc { font-size: 0.688rem; color: var(--gray-500); }
+        .ach-tooltip {
+            position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+            background: var(--gray-900); color: white; padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-sm); font-size: 0.75rem; white-space: nowrap;
+            opacity: 0; pointer-events: none; transition: opacity var(--transition);
+            margin-bottom: 8px; z-index: 10;
+        }
+        .ach-card:hover .ach-tooltip { opacity: 1; }
 
-        /* Settings */
-        .settings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+        /* SETTINGS */
+        .settings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
         .settings-card {
             background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-xl);
-            padding: 1.25rem;
+            padding: 1.5rem;
         }
-        .settings-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem; }
-        .form-group { margin-bottom: 0.75rem; }
-        .form-label { display: block; font-size: 0.688rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.1875rem; }
+        .settings-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.938rem; font-weight: 600; margin-bottom: 1.25rem; }
+        .form-group { margin-bottom: 0.875rem; }
+        .form-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.25rem; }
         .form-input, .form-select {
-            width: 100%; padding: 0.5rem 0.625rem; border: 1px solid var(--gray-300);
+            width: 100%; padding: 0.5625rem 0.75rem; border: 1px solid var(--gray-300);
             border-radius: var(--radius-sm); font-family: 'Inter', sans-serif;
-            font-size: 0.813rem; color: var(--gray-900); outline: none; transition: all var(--transition);
+            font-size: 0.875rem; color: var(--gray-900); outline: none; transition: all var(--transition);
         }
         .form-input:focus, .form-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.06); }
-        .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100); }
+        .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 0.625rem 0; border-bottom: 1px solid var(--gray-100); }
         .toggle-row:last-child { border-bottom: none; }
-        .toggle-row span { font-size: 0.813rem; }
+        .toggle-row span { font-size: 0.875rem; }
         .toggle-switch {
-            width: 40px; height: 22px; border-radius: 11px;
+            width: 44px; height: 24px; border-radius: 12px;
             background: var(--gray-300); cursor: pointer; position: relative;
-            transition: all var(--transition);
+            transition: all var(--transition); flex-shrink: 0;
         }
         .toggle-switch.on { background: var(--success); }
         .toggle-switch::after {
             content: ''; position: absolute; top: 2px; left: 2px;
-            width: 18px; height: 18px; border-radius: 50%;
+            width: 20px; height: 20px; border-radius: 50%;
             background: white; transition: all var(--transition);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
         }
-        .toggle-switch.on::after { left: 20px; }
+        .toggle-switch.on::after { left: 22px; }
+
+        .profile-section {
+            display: flex; align-items: center; gap: 2rem; margin-bottom: 2rem;
+        }
+        .profile-avatar-large {
+            width: 96px; height: 96px; border-radius: 50%; overflow: hidden;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 2rem; flex-shrink: 0;
+            cursor: pointer; position: relative;
+        }
+        .profile-avatar-large img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-avatar-large .edit-overlay {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.5rem; opacity: 0; transition: all var(--transition);
+            border-radius: 50%;
+        }
+        .profile-avatar-large:hover .edit-overlay { opacity: 1; }
 
         .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
-        .toast { background: var(--gray-900); color: white; padding: 0.75rem 1rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; max-width: 360px; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+        .toast { background: var(--gray-900); color: white; padding: 0.875rem 1.125rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; max-width: 380px; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
         .toast.success { background: #059669; } .toast.error { background: #DC2626; }
         @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
@@ -258,8 +300,9 @@
             .sidebar.open { transform: translateX(0); }
             .main-content { margin-left: 0; }
             .widget-grid { grid-template-columns: 1fr; }
-            .welcome-banner { flex-direction: column; text-align: center; }
+            .welcome-banner { flex-direction: column; text-align: center; padding: 1.5rem; }
             .welcome-stats { justify-content: center; }
+            .content-area { padding: 1rem; }
         }
     </style>
 </head>
@@ -271,7 +314,7 @@
             <span>Akademia</span>
         </div>
         <div class="sidebar-user">
-            <div class="sidebar-avatar" id="sidebarAvatar">U</div>
+            <div class="sidebar-avatar" id="sidebarAvatar"><span>S</span></div>
             <div class="sidebar-user-info">
                 <div class="sidebar-user-name" id="sidebarName">Student</div>
                 <div class="sidebar-user-level" id="sidebarLevel">⚡ Level 1</div>
@@ -286,17 +329,15 @@
                 <button class="sidebar-item" data-page="achievements"><i class='bx bx-trophy'></i> Achievements</button>
             </div>
             <div class="sidebar-section">
-                <div class="sidebar-label">Engage</div>
-                <button class="sidebar-item" data-page="challenges"><i class='bx bx-target-lock'></i> Challenges</button>
-                <button class="sidebar-item" data-page="league"><i class='bx bx-crown'></i> League</button>
-                <button class="sidebar-item" data-page="goals"><i class='bx bx-flag'></i> Goals</button>
-                <button class="sidebar-item" data-page="career"><i class='bx bx-briefcase'></i> Career Hub</button>
-            </div>
-            <div class="sidebar-section">
                 <div class="sidebar-label">Personal</div>
                 <button class="sidebar-item" data-page="activity"><i class='bx bx-history'></i> Activity</button>
                 <button class="sidebar-item" data-page="certificates"><i class='bx bx-certification'></i> Certificates</button>
                 <button class="sidebar-item" data-page="bookmarks"><i class='bx bx-bookmark'></i> Bookmarks</button>
+                <button class="sidebar-item" data-page="goals"><i class='bx bx-flag'></i> Goals</button>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-label">Community</div>
+                <button class="sidebar-item" data-page="league"><i class='bx bx-crown'></i> League</button>
                 <button class="sidebar-item" data-page="friends"><i class='bx bx-group'></i> Friends</button>
             </div>
             <div class="sidebar-section">
@@ -304,6 +345,10 @@
                 <button class="sidebar-item" data-page="profile"><i class='bx bx-user'></i> Profile</button>
                 <button class="sidebar-item" data-page="settings"><i class='bx bx-cog'></i> Settings</button>
                 <button class="sidebar-item" data-page="support"><i class='bx bx-support'></i> Support</button>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-label">Navigation</div>
+                <a href="index.html" class="sidebar-item"><i class='bx bx-home'></i> Home</a>
             </div>
         </nav>
         <div class="sidebar-sparks">
@@ -323,24 +368,21 @@
                 <div class="topbar-streak" id="topbarStreak"><i class='bx bx-fire streak-flame'></i> <span id="streakCount">0</span> day streak</div>
             </div>
             <div class="topbar-actions">
-                <span style="font-size:0.75rem;color:var(--gray-500);">⚡ <span id="topbarSparks">0</span> Sparks</span>
-                <a href="index.html" class="btn btn-outline btn-sm"><i class='bx bx-home'></i></a>
+                <span style="font-size:0.875rem;color:var(--gray-500);">⚡ <span id="topbarSparks">0</span> Sparks</span>
+                <a href="index.html" class="btn btn-outline btn-sm"><i class='bx bx-home'></i> Home</a>
             </div>
         </header>
 
         <div class="content-area">
-            <!-- DASHBOARD -->
             <div class="page active" id="pageDashboard"></div>
             <div class="page" id="pageCourses"></div>
             <div class="page" id="pageProgress"></div>
             <div class="page" id="pageAchievements"></div>
-            <div class="page" id="pageChallenges"></div>
-            <div class="page" id="pageLeague"></div>
-            <div class="page" id="pageGoals"></div>
-            <div class="page" id="pageCareer"></div>
             <div class="page" id="pageActivity"></div>
             <div class="page" id="pageCertificates"></div>
             <div class="page" id="pageBookmarks"></div>
+            <div class="page" id="pageGoals"></div>
+            <div class="page" id="pageLeague"></div>
             <div class="page" id="pageFriends"></div>
             <div class="page" id="pageProfile"></div>
             <div class="page" id="pageSettings"></div>
@@ -366,7 +408,7 @@
         const App = {
             user: null, userData: {}, courses: [], modules: [], lessons: [],
             completed: {}, enrolled: [], sparks: 0, level: 1, streak: 0,
-            currentPage: 'dashboard'
+            currentPage: 'dashboard', achievementsData: []
         };
 
         // ============ AUTH ============
@@ -377,19 +419,27 @@
                     try { const s = await getDoc(doc(db, 'users', u.uid)); if (s.exists()) App.userData = s.data(); } catch (e) {}
                 } else {
                     const c = JSON.parse(localStorage.getItem('ak_user') || 'null');
-                    if (c) App.user = c; else { window.location.href = 'auth.html'; return; }
+                    if (c && c !== null && typeof c === 'object') App.user = c;
+                    else { window.location.href = 'auth.html'; return; }
                 }
                 App.userData = App.userData || {};
                 App.userData.displayName = App.userData.displayName || App.user?.displayName || 'Student';
                 App.userData.email = App.userData.email || App.user?.email || '';
+                App.userData.photoURL = App.userData.photoURL || App.user?.photoURL || '';
                 updateUI();
                 loadData();
             });
         }
 
         function updateUI() {
-            $('sidebarName').textContent = App.userData.displayName || 'Student';
-            $('sidebarAvatar').textContent = (App.userData.displayName || 'S').charAt(0).toUpperCase();
+            const name = App.userData.displayName || 'Student';
+            const photo = App.userData.photoURL || App.user?.photoURL || '';
+            $('sidebarName').textContent = name;
+            if (photo) {
+                $('sidebarAvatar').innerHTML = `<img src="${photo}" alt="Avatar">`;
+            } else {
+                $('sidebarAvatar').innerHTML = `<span>${name.charAt(0).toUpperCase()}</span>`;
+            }
             App.sparks = parseInt(localStorage.getItem('ak_sparks') || 0);
             App.streak = parseInt(localStorage.getItem('ak_streak') || 0);
             App.level = Math.floor(App.sparks / 100) + 1;
@@ -399,7 +449,87 @@
             $('streakCount').textContent = App.streak;
         }
 
+        // ============ LOAD ACHIEVEMENTS JSON ============
+        async function loadAchievementsJSON() {
+            try {
+                const res = await fetch('assets/docs/achievements.json');
+                if (res.ok) App.achievementsData = await res.json();
+            } catch (e) {
+                // Fallback achievements data
+                App.achievementsData = {
+                    zones: [
+                        { id:'beginner', name:'🥉 Beginner Achievements', achievements:[
+                            {id:'welcome',name:'Welcome Aboard',desc:'Create an account',file:'welcome.png',icon:'bx-user-plus'},
+                            {id:'first_spark',name:'First Spark',desc:'Earn your first Spark',file:'first_spark.png',icon:'bx-star'},
+                            {id:'first_steps',name:'First Steps',desc:'Complete your first lesson',file:'first_steps.png',icon:'bx-check-circle'},
+                            {id:'getting_started',name:'Getting Started',desc:'Complete 5 lessons',file:'getting_started.png',icon:'bx-book-open'},
+                            {id:'learner',name:'Learner',desc:'Complete 25 lessons',file:'learner.png',icon:'bx-book'}
+                        ]},
+                        { id:'learning', name:'📚 Learning Achievements', achievements:[
+                            {id:'knowledge_seeker',name:'Knowledge Seeker',desc:'Complete 50 lessons',file:'knowledge_seeker.png',icon:'bx-search'},
+                            {id:'knowledge_builder',name:'Knowledge Builder',desc:'Complete 100 lessons',file:'knowledge_builder.png',icon:'bx-buildings'},
+                            {id:'learning_machine',name:'Learning Machine',desc:'Complete 250 lessons',file:'learning_machine.png',icon:'bx-cog'},
+                            {id:'knowledge_titan',name:'Knowledge Titan',desc:'Complete 500 lessons',file:'knowledge_titan.png',icon:'bx-shield'},
+                            {id:'endless_learner',name:'Endless Learner',desc:'Complete 1,000 lessons',file:'endless_learner.png',icon:'bx-infinity'}
+                        ]},
+                        { id:'quiz', name:'📝 Quiz Achievements', achievements:[
+                            {id:'quiz_rookie',name:'Quiz Rookie',desc:'Pass your first quiz',file:'quiz_rookie.png',icon:'bx-help-circle'},
+                            {id:'sharp_mind',name:'Sharp Mind',desc:'Pass 10 quizzes',file:'sharp_mind.png',icon:'bx-brain'},
+                            {id:'quiz_expert',name:'Quiz Expert',desc:'Pass 50 quizzes',file:'quiz_expert.png',icon:'bx-bulb'},
+                            {id:'perfectionist',name:'Perfectionist',desc:'Get 100% on 5 quizzes',file:'perfectionist.png',icon:'bx-target-lock'},
+                            {id:'flawless',name:'Flawless',desc:'Get 100% on 25 quizzes',file:'flawless.png',icon:'bx-diamond'}
+                        ]},
+                        { id:'progress', name:'🚀 Progress Achievements', achievements:[
+                            {id:'first_milestone',name:'First Milestone',desc:'Complete your first module',file:'first_milestone.png',icon:'bx-flag'},
+                            {id:'making_progress',name:'Making Progress',desc:'Complete 10 modules',file:'making_progress.png',icon:'bx-trending-up'},
+                            {id:'specialist',name:'Specialist',desc:'Complete 25 modules',file:'specialist.png',icon:'bx-layer'},
+                            {id:'dedicated',name:'Dedicated Student',desc:'Complete 50 modules',file:'dedicated.png',icon:'bx-badge-check'}
+                        ]},
+                        { id:'completion', name:'🎯 Completion Achievements', achievements:[
+                            {id:'first_victory',name:'First Victory',desc:'Complete your first course',file:'first_victory.png',icon:'bx-trophy'},
+                            {id:'course_collector',name:'Course Collector',desc:'Complete 3 courses',file:'course_collector.png',icon:'bx-collection'},
+                            {id:'course_champion',name:'Course Champion',desc:'Complete 10 courses',file:'course_champion.png',icon:'bx-medal'},
+                            {id:'academic_elite',name:'Academic Elite',desc:'Complete 25 courses',file:'academic_elite.png',icon:'bx-crown'}
+                        ]},
+                        { id:'streak', name:'🔥 Streak Achievements', achievements:[
+                            {id:'momentum',name:'Momentum',desc:'Maintain a 3-day streak',file:'momentum.png',icon:'bx-fire'},
+                            {id:'consistent',name:'Consistent Learner',desc:'Maintain a 7-day streak',file:'consistent.png',icon:'bx-calendar-check'},
+                            {id:'dedicated_streak',name:'Dedicated',desc:'Maintain a 30-day streak',file:'dedicated_streak.png',icon:'bx-calendar-star'},
+                            {id:'unbreakable',name:'Unbreakable',desc:'Maintain a 100-day streak',file:'unbreakable.png',icon:'bx-shield-quarter'},
+                            {id:'akademia_habit',name:'Akademia Habit',desc:'Maintain a 365-day streak',file:'akademia_habit.png',icon:'bx-sun'}
+                        ]},
+                        { id:'spark_achievements', name:'⚡ Spark Achievements', achievements:[
+                            {id:'spark_collector',name:'Spark Collector',desc:'Earn 1,000 Sparks',file:'spark_collector.png',icon:'bx-star'},
+                            {id:'spark_hunter',name:'Spark Hunter',desc:'Earn 10,000 Sparks',file:'spark_hunter.png',icon:'bx-customize'},
+                            {id:'spark_master',name:'Spark Master',desc:'Earn 50,000 Sparks',file:'spark_master.png',icon:'bx-bolt'},
+                            {id:'spark_legend',name:'Spark Legend',desc:'Earn 100,000 Sparks',file:'spark_legend.png',icon:'bx-meteor'},
+                            {id:'spark_titan',name:'Spark Titan',desc:'Earn 1,000,000 Sparks',file:'spark_titan.png',icon:'bx-planet'}
+                        ]},
+                        { id:'level', name:'🏆 Level Achievements', achievements:[
+                            {id:'rising_star',name:'Rising Star',desc:'Reach Level 10',file:'rising_star.png',icon:'bx-up-arrow-alt'},
+                            {id:'skilled',name:'Skilled Learner',desc:'Reach Level 25',file:'skilled.png',icon:'bx-bar-chart-alt-2'},
+                            {id:'expert',name:'Expert Learner',desc:'Reach Level 50',file:'expert.png',icon:'bx-analyse'},
+                            {id:'master',name:'Master Learner',desc:'Reach Level 75',file:'master.png',icon:'bx-badge-check'},
+                            {id:'akademia_legend',name:'Akademia Legend',desc:'Reach Level 100',file:'akademia_legend.png',icon:'bx-crown'}
+                        ]},
+                        { id:'rare', name:'👑 Rare Achievements', achievements:[
+                            {id:'marathon',name:'Marathon Learner',desc:'Study for 5 hours in one day',file:'marathon.png',icon:'bx-time-five'},
+                            {id:'early_bird',name:'Early Bird',desc:'Learn before 6 AM on 10 days',file:'early_bird.png',icon:'bx-sunrise'},
+                            {id:'night_owl',name:'Night Owl',desc:'Learn after midnight on 10 days',file:'night_owl.png',icon:'bx-moon'},
+                            {id:'explorer',name:'Explorer',desc:'Enroll in 10 different courses',file:'explorer.png',icon:'bx-globe'},
+                            {id:'completionist',name:'Completionist',desc:'Unlock 75% of all achievements',file:'completionist.png',icon:'bx-check-shield'}
+                        ]},
+                        { id:'legendary', name:'⭐ Legendary Achievement', achievements:[
+                            {id:'impossible',name:'The Impossible',desc:'Unlock every achievement',file:'impossible.png',icon:'bx-brightness'}
+                        ]}
+                    ]
+                };
+            }
+        }
+
+        // ============ LOAD DATA ============
         async function loadData() {
+            await loadAchievementsJSON();
             try {
                 const [cS, mS, lS] = await Promise.all([
                     getDocs(query(collection(db, 'courses'), orderBy('createdAt', 'desc'))),
@@ -414,8 +544,11 @@
                 App.lessons = JSON.parse(localStorage.getItem('ak_lessons') || '[]');
                 App.modules = JSON.parse(localStorage.getItem('ak_modules') || '[]');
             }
-            App.completed = JSON.parse(localStorage.getItem('ak_completed') || '{}');
-            App.enrolled = JSON.parse(localStorage.getItem('ak_enrolled') || App.courses.slice(0, 3).map(c => c.id));
+            App.completed = {};
+            try { const c = localStorage.getItem('ak_completed'); if (c) App.completed = JSON.parse(c); } catch(e) { App.completed = {}; }
+            App.enrolled = [];
+            try { const e = localStorage.getItem('ak_enrolled'); if (e) App.enrolled = JSON.parse(e); } catch(e) { App.enrolled = App.courses.slice(0, 3).map(c => c.id); }
+            if (!App.enrolled.length && App.courses.length) App.enrolled = App.courses.slice(0, 3).map(c => c.id);
             renderPage();
         }
 
@@ -437,138 +570,177 @@
 
         function renderPage() {
             const p = App.currentPage;
-            if (p === 'dashboard') renderDashboard();
-            else if (p === 'courses') renderCourses();
-            else if (p === 'progress') renderProgress();
-            else if (p === 'achievements') renderAchievements();
-            else if (p === 'challenges') renderChallenges();
-            else if (p === 'league') renderLeague();
-            else if (p === 'goals') renderGoals();
-            else if (p === 'career') renderCareer();
-            else if (p === 'activity') renderActivity();
-            else if (p === 'certificates') renderCertificates();
-            else if (p === 'bookmarks') renderBookmarks();
-            else if (p === 'friends') renderFriends();
-            else if (p === 'profile') renderProfile();
-            else if (p === 'settings') renderSettings();
-            else if (p === 'support') renderSupport();
+            const pages = {
+                dashboard: renderDashboard, courses: renderCourses, progress: renderProgress,
+                achievements: renderAchievements, activity: renderActivity, certificates: renderCertificates,
+                bookmarks: renderBookmarks, goals: renderGoals, league: renderLeague,
+                friends: renderFriends, profile: renderProfile, settings: renderSettings, support: renderSupport
+            };
+            if (pages[p]) pages[p]();
         }
 
         // ============ DASHBOARD ============
         function renderDashboard() {
             const done = Object.keys(App.completed).length;
-            const achievements = JSON.parse(localStorage.getItem('ak_achievements') || '[]');
-            const nextLevelSparks = App.level * 100;
-            const progressToNext = Math.round((App.sparks % 100) / 100 * 100);
+            const achieved = JSON.parse(localStorage.getItem('ak_achievements') || '[]');
+            const nextLevel = App.level * 100;
+            const progressPct = Math.round((App.sparks % 100) / 100 * 100);
 
             $('pageDashboard').innerHTML = `
                 <div class="welcome-banner">
                     <div class="welcome-text">
-                        <h1>Welcome back, ${App.userData.displayName?.split(' ')[0] || 'Student'}! 👋</h1>
+                        <h1>Welcome back, ${(App.userData.displayName || 'Student').split(' ')[0]}! 👋</h1>
                         <p>Keep up the momentum. You're doing great!</p>
-                        <div class="level-progress" style="margin-top:1rem;">
-                            <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.25rem;"><span>Level ${App.level}</span><span>Level ${App.level+1}</span></div>
-                            <div class="level-bar"><div class="level-bar-fill" style="width:${progressToNext}%;"></div></div>
-                            <div class="level-info"><span>${App.sparks} Sparks</span><span>${nextLevelSparks - App.sparks} to next level</span></div>
+                        <div class="level-progress">
+                            <div style="display:flex;justify-content:space-between;font-size:0.813rem;margin-bottom:0.25rem;"><span>Level ${App.level}</span><span>Level ${App.level+1}</span></div>
+                            <div class="level-bar"><div class="level-bar-fill" style="width:${progressPct}%;"></div></div>
+                            <div class="level-info"><span>${App.sparks} Sparks</span><span>${nextLevel - App.sparks} to next level</span></div>
                         </div>
                     </div>
                     <div class="welcome-stats">
                         <div class="welcome-stat"><div class="ws-val">${App.streak}</div><div class="ws-lbl">Day Streak 🔥</div></div>
                         <div class="welcome-stat"><div class="ws-val">${done}</div><div class="ws-lbl">Lessons Done</div></div>
-                        <div class="welcome-stat"><div class="ws-val">${achievements.length}</div><div class="ws-lbl">Achievements</div></div>
+                        <div class="welcome-stat"><div class="ws-val">${achieved.length}</div><div class="ws-lbl">Achievements</div></div>
                     </div>
                 </div>
 
                 <div class="daily-challenge">
                     <h3>🎯 Daily Challenge</h3>
-                    <p style="font-size:0.875rem;margin-bottom:0.75rem;">Complete 3 lessons today to earn bonus Sparks!</p>
+                    <p style="font-size:0.938rem;margin-bottom:0.75rem;">Complete 3 lessons today to earn bonus Sparks!</p>
                     <span class="dc-reward"><i class='bx bxs-star'></i> +50 Sparks</span>
-                    <span style="font-size:0.75rem;color:var(--gray-500);margin-left:0.75rem;">${done} / 3 completed</span>
-                    <div class="mini-bar" style="margin-top:0.75rem;"><div class="mini-bar-fill" style="width:${Math.min(done/3*100,100)}%;"></div></div>
+                    <span style="font-size:0.813rem;color:var(--gray-500);margin-left:0.75rem;">0 / 3 completed</span>
+                    <div class="mini-bar" style="margin-top:0.75rem;"><div class="mini-bar-fill" style="width:0%;"></div></div>
                 </div>
 
                 <div class="widget-grid">
                     <div class="widget">
-                        <div class="widget-header"><h3 class="widget-title">📚 Continue Learning</h3></div>
+                        <div class="widget-header"><h3 class="widget-title"><i class='bx bx-book-open'></i> Continue Learning</h3></div>
                         ${App.enrolled.slice(0, 3).map(cid => {
                             const c = App.courses.find(x => x.id === cid);
                             return c ? `<div class="progress-item">
                                 <div class="progress-icon" style="background:var(--primary-bg);color:var(--primary);"><i class='bx bx-book-open'></i></div>
-                                <div class="progress-info"><div class="progress-name">${c.name}</div><div class="progress-pct">${c.difficulty||'Beginner'}</div></div>
+                                <div class="progress-info"><div class="progress-name">${c.name||'Course'}</div><div class="progress-pct">${c.difficulty||'Beginner'} • ${c.duration||0}h</div></div>
                                 <a href="course.html?id=${c.id}" class="btn btn-primary btn-xs">Resume</a>
                             </div>` : '';
-                        }).join('') || '<p style="font-size:0.75rem;color:var(--gray-400);">No courses yet. <a href="course.html">Browse</a></p>'}
+                        }).join('') || '<p style="color:var(--gray-400);font-size:0.875rem;">No courses yet. <a href="course.html">Browse courses</a></p>'}
                     </div>
                     <div class="widget">
-                        <div class="widget-header"><h3 class="widget-title">⚡ Quick Actions</h3></div>
+                        <div class="widget-header"><h3 class="widget-title"><i class='bx bx-bolt'></i> Quick Actions</h3></div>
                         <div class="quick-actions">
                             <button class="quick-action" onclick="window.location.href='course.html'"><i class='bx bx-search'></i> Find Courses</button>
-                            <button class="quick-action" onclick="switchPage('challenges')"><i class='bx bx-target-lock'></i> Challenges</button>
                             <button class="quick-action" onclick="switchPage('goals')"><i class='bx bx-flag'></i> Set Goal</button>
                             <button class="quick-action" onclick="switchPage('certificates')"><i class='bx bx-certification'></i> Certificates</button>
+                            <button class="quick-action" onclick="switchPage('league')"><i class='bx bx-crown'></i> League</button>
                         </div>
                     </div>
                 </div>`;
         }
 
-        // ============ OTHER PAGES ============
+        // ============ COURSES ============
         function renderCourses() {
             const enrolled = App.courses.filter(c => App.enrolled.includes(c.id));
-            $('pageCourses').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">📚 My Courses (${enrolled.length})</h3></div>
+            $('pageCourses').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-book-open'></i> My Courses (${enrolled.length})</h3></div>
                 ${enrolled.length ? enrolled.map(c => `<div class="progress-item">
                     <div class="progress-icon" style="background:var(--primary-bg);color:var(--primary);"><i class='bx bx-book-open'></i></div>
-                    <div class="progress-info"><div class="progress-name">${c.name}</div><div class="progress-pct">${c.difficulty||'All Levels'} • ${c.duration||0}h</div></div>
+                    <div class="progress-info"><div class="progress-name">${c.name||'Course'}</div><div class="progress-pct">${c.difficulty||'All Levels'} • ${c.duration||0}h</div></div>
                     <a href="course.html?id=${c.id}" class="btn btn-primary btn-xs">View</a>
-                </div>`).join('') : '<p style="color:var(--gray-400);padding:1rem;">No enrolled courses. <a href="course.html">Browse</a></p>'}
+                </div>`).join('') : '<p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">No enrolled courses. <a href="course.html">Browse</a></p>'}
             </div>`;
         }
 
+        // ============ PROGRESS ============
         function renderProgress() {
             const enrolled = App.courses.filter(c => App.enrolled.includes(c.id));
-            $('pageProgress').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">📈 Learning Progress</h3></div>
+            $('pageProgress').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-trending-up'></i> Learning Progress</h3></div>
                 ${enrolled.length ? enrolled.map(c => {
                     const total = App.lessons.filter(l => { const m = App.modules.find(x => x.id === l.moduleId); return m && m.courseId === c.id; }).length;
                     const done = App.lessons.filter(l => { const m = App.modules.find(x => x.id === l.moduleId); return m && m.courseId === c.id && App.completed[l.id]; }).length;
                     const pct = total ? Math.round(done/total*100) : 0;
                     return `<div class="progress-item">
                         <div class="progress-icon" style="background:var(--primary-bg);color:var(--primary);"><i class='bx bx-book-open'></i></div>
-                        <div class="progress-info"><div class="progress-name">${c.name}</div><div class="progress-pct">${done}/${total} lessons • ${pct}%</div><div class="mini-bar"><div class="mini-bar-fill" style="width:${pct}%;"></div></div></div>
+                        <div class="progress-info"><div class="progress-name">${c.name||'Course'}</div><div class="progress-pct">${done}/${total} lessons • ${pct}%</div><div class="mini-bar"><div class="mini-bar-fill" style="width:${pct}%;"></div></div></div>
                         <span style="font-weight:700;color:var(--success);">${pct}%</span>
                     </div>`;
-                }).join('') : '<p style="color:var(--gray-400);padding:1rem;">No progress yet.</p>'}
+                }).join('') : '<p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">No progress yet.</p>'}
             </div>`;
         }
 
+        // ============ ACHIEVEMENTS WITH ZONES ============
         function renderAchievements() {
             const earned = JSON.parse(localStorage.getItem('ak_achievements') || '[]');
-            const all = [
-                { id:'first', name:'First Steps', icon:'👶', cond: Object.keys(App.completed).length >= 1 },
-                { id:'five', name:'Learner', icon:'📚', cond: Object.keys(App.completed).length >= 5 },
-                { id:'ten', name:'Scholar', icon:'🎓', cond: Object.keys(App.completed).length >= 10 },
-                { id:'enroll', name:'Enrolled', icon:'🚀', cond: App.enrolled.length >= 1 },
-                { id:'streak3', name:'3-Day Streak', icon:'🔥', cond: App.streak >= 3 },
-                { id:'streak7', name:'7-Day Streak', icon:'💪', cond: App.streak >= 7 },
-                { id:'sparks100', name:'100 Sparks', icon:'⭐', cond: App.sparks >= 100 },
-                { id:'sparks500', name:'500 Sparks', icon:'🌟', cond: App.sparks >= 500 }
-            ];
-            $('pageAchievements').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">🏆 Achievements</h3></div>
-                <div class="achievement-grid">${all.map(a => {
-                    const e = earned.find(x => x.id === a.id) || a.cond;
-                    return `<div class="ach-card ${e ? 'earned' : 'locked'}"><span class="ach-icon">${a.icon}</span><div class="ach-name">${a.name}</div><div class="ach-date">${e ? 'Earned! 🎉' : 'Locked'}</div></div>`;
-                }).join('')}</div></div>`;
+            const done = Object.keys(App.completed).length;
+            const conditions = {
+                welcome: !!App.user, first_spark: App.sparks >= 1, first_steps: done >= 1,
+                getting_started: done >= 5, learner: done >= 25, knowledge_seeker: done >= 50,
+                knowledge_builder: done >= 100, learning_machine: done >= 250, knowledge_titan: done >= 500,
+                endless_learner: done >= 1000, first_milestone: done >= 1, making_progress: done >= 10,
+                specialist: done >= 25, dedicated: done >= 50, first_victory: false,
+                course_collector: false, course_champion: false, academic_elite: false,
+                momentum: App.streak >= 3, consistent: App.streak >= 7, dedicated_streak: App.streak >= 30,
+                unbreakable: App.streak >= 100, akademia_habit: App.streak >= 365,
+                spark_collector: App.sparks >= 1000, spark_hunter: App.sparks >= 10000,
+                spark_master: App.sparks >= 50000, spark_legend: App.sparks >= 100000,
+                spark_titan: App.sparks >= 1000000, rising_star: App.level >= 10,
+                skilled: App.level >= 25, expert: App.level >= 50, master: App.level >= 75,
+                akademia_legend: App.level >= 100, impossible: false
+            };
+
+            let html = '';
+            App.achievementsData.zones?.forEach(zone => {
+                html += `<div class="zone-section"><h3 class="zone-title">${zone.name}</h3><div class="achievement-grid">`;
+                zone.achievements?.forEach(ach => {
+                    const isEarned = earned.find(e => e.id === ach.id) || conditions[ach.id];
+                    const imgPath = ach.file ? `assets/Images/${ach.file}` : '';
+                    html += `<div class="ach-card ${isEarned ? 'earned' : 'locked'}">
+                        <div class="ach-tooltip">${ach.desc}</div>
+                        <div class="ach-image">
+                            ${isEarned && imgPath ? `<img src="${imgPath}" alt="${ach.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=&quot;bx ${ach.icon||'bx-trophy'}&quot; style=&quot;font-size:2rem;&quot;></i>';">` : `<i class='bx ${ach.icon||'bx-trophy'}' style="font-size:2rem;color:${isEarned?'var(--success)':'var(--gray-400)'};"></i>`}
+                        </div>
+                        <div class="ach-name">${ach.name}</div>
+                        <div class="ach-desc">${isEarned ? 'Earned! 🎉' : 'Locked'}</div>
+                    </div>`;
+                });
+                html += '</div></div>';
+            });
+            $('pageAchievements').innerHTML = html || '<p style="color:var(--gray-400);padding:2rem;">No achievements data loaded.</p>';
         }
 
-        function renderChallenges() {
-            $('pageChallenges').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">🎯 Challenges</h3></div>
-                <div class="daily-challenge"><h3>Daily: Complete 3 Lessons</h3><p style="font-size:0.875rem;">Reward: +50 Sparks</p><span class="dc-reward"><i class='bx bxs-star'></i> +50</span></div>
-                <div class="daily-challenge" style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border-color:var(--orange);"><h3>Weekly: 7-Day Streak</h3><p style="font-size:0.875rem;">Reward: +200 Sparks</p><span class="dc-reward" style="background:#FFF7ED;color:var(--orange);"><i class='bx bxs-star'></i> +200</span></div>
+        // ============ ACTIVITY ============
+        function renderActivity() {
+            const acts = Object.keys(App.completed).map(id => {
+                const l = App.lessons.find(x => x.id === id);
+                return l ? { title: l.title, date: 'Completed' } : null;
+            }).filter(Boolean).slice(0, 20);
+            $('pageActivity').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-history'></i> Recent Activity</h3></div>
+                ${acts.length ? acts.map(a => `<div class="progress-item">
+                    <div class="progress-icon" style="background:var(--success-bg);color:var(--success);"><i class='bx bx-check-circle'></i></div>
+                    <div class="progress-info"><div class="progress-name">Completed: ${a.title}</div><div class="progress-pct">${a.date}</div></div>
+                </div>`).join('') : '<p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">No activity yet.</p>'}
             </div>`;
+        }
+
+        function renderCertificates() {
+            $('pageCertificates').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-certification'></i> Certificates</h3></div>
+                <p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">Complete courses to earn certificates. <a href="certificate.html">View certificates</a></p></div>`;
+        }
+
+        function renderBookmarks() {
+            let bm = [];
+            try { bm = JSON.parse(localStorage.getItem('ak_bookmarks') || '[]'); } catch(e) { bm = []; }
+            $('pageBookmarks').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-bookmark'></i> Bookmarks (${bm.length})</h3></div>
+                ${bm.length ? bm.map(b => `<div class="progress-item"><div class="progress-icon" style="background:var(--warning-bg);color:var(--warning-dark);"><i class='bx bx-bookmark'></i></div><div class="progress-info"><div class="progress-name">${b.title||'Bookmark'}</div></div></div>`).join('') : '<p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">No bookmarks yet.</p>'}
+            </div>`;
+        }
+
+        function renderGoals() {
+            $('pageGoals').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-flag'></i> Goals</h3></div>
+                <p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">Set your learning goals: Daily 30 min, Weekly 5 lessons, Monthly 1 course.</p></div>`;
         }
 
         function renderLeague() {
             const tiers = ['Bronze','Silver','Gold','Platinum','Diamond','Master','Legend'];
             const currentTier = tiers[Math.min(Math.floor(App.sparks / 200), 6)];
-            $('pageLeague').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">👑 League</h3></div>
+            $('pageLeague').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-crown'></i> League</h3></div>
                 <div style="text-align:center;padding:2rem;">
                     <i class='bx bx-crown' style="font-size:4rem;color:var(--warning);display:block;margin-bottom:1rem;"></i>
                     <h2 style="font-family:'Space Grotesk',sans-serif;">${currentTier} Tier</h2>
@@ -578,53 +750,26 @@
                 </div></div>`;
         }
 
-        function renderGoals() {
-            $('pageGoals').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">🎯 Goals</h3></div>
-                <p style="color:var(--gray-400);padding:1rem;">Set your learning goals: Daily 30 min, Weekly 5 lessons, Monthly 1 course. <a href="#">Configure</a></p></div>`;
-        }
-
-        function renderCareer() {
-            $('pageCareer').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">💼 Career Hub</h3></div>
-                <p style="color:var(--gray-400);padding:1rem;">Based on your path: <strong>Frontend Developer</strong> • Skills needed: HTML, CSS, JavaScript, React. <a href="#">Explore careers</a></p></div>`;
-        }
-
-        function renderActivity() {
-            const acts = Object.keys(App.completed).map(id => {
-                const l = App.lessons.find(x => x.id === id);
-                return l ? { title: l.title, date: 'Today' } : null;
-            }).filter(Boolean).slice(0, 20);
-            $('pageActivity').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">🕐 Recent Activity</h3></div>
-                ${acts.length ? acts.map(a => `<div class="progress-item"><div class="progress-icon" style="background:var(--success-bg);color:var(--success);"><i class='bx bx-check-circle'></i></div><div class="progress-info"><div class="progress-name">Completed: ${a.title}</div><div class="progress-pct">${a.date}</div></div></div>`).join('') : '<p style="color:var(--gray-400);padding:1rem;">No activity yet.</p>'}
-            </div>`;
-        }
-
-        function renderCertificates() {
-            $('pageCertificates').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">📜 Certificates</h3></div>
-                <p style="color:var(--gray-400);padding:1rem;">Complete courses to earn certificates. <a href="certificate.html">View certificates</a></p></div>`;
-        }
-
-        function renderBookmarks() {
-            const bm = JSON.parse(localStorage.getItem('ak_bookmarks') || '[]');
-            $('pageBookmarks').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">🔖 Bookmarks (${bm.length})</h3></div>
-                ${bm.length ? bm.map(b => `<div class="progress-item"><div class="progress-icon" style="background:var(--warning-bg);color:var(--warning-dark);"><i class='bx bx-bookmark'></i></div><div class="progress-info"><div class="progress-name">${b.title||'Bookmark'}</div></div></div>`).join('') : '<p style="color:var(--gray-400);padding:1rem;">No bookmarks yet.</p>'}
-            </div>`;
-        }
-
         function renderFriends() {
-            $('pageFriends').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">👥 Friends</h3></div>
-                <p style="color:var(--gray-400);padding:1rem;">Coming soon! Invite friends to learn together.</p></div>`;
+            $('pageFriends').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-group'></i> Friends</h3></div>
+                <p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">Coming soon! Invite friends to learn together.</p></div>`;
         }
 
         function renderProfile() {
-            $('pageProfile').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">👤 Profile</h3></div>
-                <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.5rem;">
-                    <div class="sidebar-avatar" style="width:72px;height:72px;font-size:1.5rem;">${(App.userData.displayName||'S').charAt(0)}</div>
-                    <div><h3>${App.userData.displayName||'Student'}</h3><p style="color:var(--gray-500);">${App.userData.email||''}</p><p style="color:var(--gray-500);">Level ${App.level} • ${App.sparks} Sparks</p></div>
+            const photo = App.userData.photoURL || App.user?.photoURL || '';
+            $('pageProfile').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-user'></i> Profile</h3></div>
+                <div class="profile-section">
+                    <div class="profile-avatar-large" id="profileAvatarLarge" onclick="document.getElementById('profileImageInput2').click()">
+                        ${photo ? `<img src="${photo}" alt="Avatar">` : `<span>${(App.userData.displayName||'S').charAt(0)}</span>`}
+                        <div class="edit-overlay"><i class='bx bx-camera'></i></div>
+                    </div>
+                    <input type="file" id="profileImageInput2" accept="image/*" style="display:none;" onchange="updateProfileImage(this)">
+                    <div><h3 style="font-size:1.25rem;">${App.userData.displayName||'Student'}</h3><p style="color:var(--gray-500);">${App.userData.email||''}</p><p style="color:var(--gray-500);">Level ${App.level} • ${App.sparks} Sparks • ${App.streak} day streak</p></div>
                 </div>
                 <form id="profileForm">
-                    <div class="form-group"><label class="form-label">Name</label><input class="form-input" id="profName" value="${App.userData.displayName||''}"></div>
-                    <div class="form-group"><label class="form-label">Bio</label><input class="form-input" id="profBio" value="${App.userData.bio||''}" placeholder="Tell us about yourself"></div>
-                    <button class="btn btn-primary"><i class='bx bx-save'></i> Save</button>
+                    <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="profName" value="${App.userData.displayName||''}"></div>
+                    <div class="form-group"><label class="form-label">Bio</label><input class="form-input" id="profBio" value="${App.userData.bio||''}" placeholder="Tell us about yourself..."></div>
+                    <button class="btn btn-primary"><i class='bx bx-save'></i> Save Changes</button>
                 </form></div>`;
             $('profileForm')?.addEventListener('submit', async function(e) {
                 e.preventDefault();
@@ -633,21 +778,38 @@
                 if (!name) { toast('Name required', 'error'); return; }
                 App.userData.displayName = name; App.userData.bio = bio;
                 if (App.user?.uid) { try { await updateProfile(App.user, { displayName: name }); await setDoc(doc(db, 'users', App.user.uid), { displayName: name, bio }, { merge: true }); } catch (e) {} }
-                updateUI(); toast('Profile updated!', 'success');
+                updateUI(); renderProfile(); toast('Profile updated!', 'success');
             });
         }
 
+        window.updateProfileImage = async function(input) {
+            const file = input.files?.[0]; if (!file) return;
+            const fd = new FormData(); fd.append('image', file);
+            try {
+                const r = await fetch('https://api.imgbb.com/1/upload?key=ba8023ca74166460c442e8e703d2a1b0', { method:'POST', body:fd });
+                const d = await r.json();
+                if (d.success) {
+                    App.userData.photoURL = d.data.url;
+                    if (App.user?.uid) {
+                        await updateProfile(App.user, { photoURL: d.data.url });
+                        await setDoc(doc(db, 'users', App.user.uid), { photoURL: d.data.url }, { merge: true });
+                    }
+                    updateUI(); renderProfile(); toast('Photo updated!', 'success');
+                }
+            } catch (e) { toast('Upload failed', 'error'); }
+        };
+
         function renderSettings() {
             $('pageSettings').innerHTML = `<div class="settings-grid">
-                <div class="settings-card"><h4>🔔 Notifications</h4>
+                <div class="settings-card"><h4><i class='bx bx-bell'></i> Notifications</h4>
                     <div class="toggle-row"><span>Email Notifications</span><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div>
                     <div class="toggle-row"><span>Achievement Alerts</span><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div>
                     <div class="toggle-row"><span>Weekly Reports</span><div class="toggle-switch" onclick="this.classList.toggle('on')"></div></div>
                 </div>
-                <div class="settings-card"><h4>🎨 Appearance</h4>
+                <div class="settings-card"><h4><i class='bx bx-palette'></i> Appearance</h4>
                     <div class="form-group"><label class="form-label">Theme</label><select class="form-select"><option>Light</option><option>Dark</option><option>System</option></select></div>
                 </div>
-                <div class="settings-card"><h4>🔒 Security</h4>
+                <div class="settings-card"><h4><i class='bx bx-shield-quarter'></i> Security</h4>
                     <button class="btn btn-outline btn-sm" style="width:100%;margin-bottom:0.5rem;">Change Password</button>
                     <button class="btn btn-outline btn-sm" style="width:100%;">Manage Sessions</button>
                 </div>
@@ -655,8 +817,8 @@
         }
 
         function renderSupport() {
-            $('pageSupport').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title">🆘 Support</h3></div>
-                <p style="color:var(--gray-400);padding:1rem;">Need help? <a href="help-center.html">Visit Help Center</a> • <a href="contact.html">Contact Support</a></p></div>`;
+            $('pageSupport').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-support'></i> Support</h3></div>
+                <p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">Need help? <a href="help-center.html">Visit Help Center</a> • <a href="contact.html">Contact Support</a></p></div>`;
         }
 
         // ============ LOGOUT ============
