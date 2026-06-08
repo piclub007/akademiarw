@@ -19,6 +19,7 @@
             --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
             --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
             --gray-800: #1f2937; --gray-900: #111827;
+            --radius-sm: 8px; --radius-lg: 16px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,7 +34,7 @@
             position: relative; overflow: hidden; background: #f0f2f5;
         }
 
-        /* ============ FORM PANEL (LEFT by default) ============ */
+        /* ============ FORM PANEL ============ */
         .form-panel {
             width: 50%; height: 100%; background: var(--white);
             display: flex; align-items: center; justify-content: center;
@@ -51,7 +52,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ============ OVERLAY PANEL (RIGHT by default) ============ */
+        /* ============ OVERLAY PANEL ============ */
         .overlay-panel {
             width: 50%; height: 100%;
             background: linear-gradient(160deg, #0f172a 0%, #1a1f2e 40%, #1a1a2e 100%);
@@ -82,7 +83,6 @@
         }
         .overlay-icon.signin { color: #60a5fa; }
         .overlay-icon.signup { color: #a78bfa; }
-
         .overlay-title {
             font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
             font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.5px;
@@ -120,7 +120,6 @@
             background: rgba(255,255,255,0.1); border-color: white;
             transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
-        .overlay-switch-btn i { font-size: 1.125rem; }
 
         /* ============ FORM ELEMENTS ============ */
         .form-logo {
@@ -154,12 +153,13 @@
 
         .form-input {
             width: 100%; padding: 0.6875rem 0.875rem 0.6875rem 2.625rem;
-            border-radius: 8px; font-family: 'Inter', sans-serif;
+            border-radius: var(--radius-sm); font-family: 'Inter', sans-serif;
             font-size: 0.875rem; transition: all 0.2s ease; outline: none; line-height: 1.5;
             border: 1.5px solid var(--gray-200); background: var(--gray-50); color: var(--gray-900);
         }
         .form-input:focus { border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 4px rgba(37,99,235,0.06); }
         .form-input.error { border-color: var(--danger); background: var(--white); }
+        .form-input.success { border-color: var(--success); }
 
         .toggle-pw {
             position: absolute; right: 0.875rem; top: 50%; transform: translateY(-50%);
@@ -170,11 +170,20 @@
 
         .form-error { font-size: 0.688rem; color: var(--danger); margin-top: 0.1875rem; display: none; align-items: center; gap: 0.25rem; }
         .form-error.show { display: flex; }
+        .form-success { font-size: 0.688rem; color: var(--success); margin-top: 0.1875rem; display: none; align-items: center; gap: 0.25rem; }
+        .form-success.show { display: flex; }
 
-        .username-status { display: flex; align-items: center; gap: 0.25rem; font-size: 0.688rem; margin-top: 0.1875rem; }
+        .username-status { font-size: 0.688rem; margin-top: 0.1875rem; }
         .username-status.available { color: var(--success); }
         .username-status.unavailable { color: var(--danger); }
         .username-status.checking { color: var(--warning); }
+        .username-suggestions { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 0.375rem; }
+        .username-suggestion {
+            padding: 0.25rem 0.625rem; border-radius: 50px;
+            font-size: 0.688rem; cursor: pointer; transition: all 0.2s ease;
+            border: 1px solid var(--gray-200); background: var(--gray-50); color: var(--gray-700);
+        }
+        .username-suggestion:hover { border-color: var(--primary); background: var(--primary-bg); color: var(--primary); }
 
         /* Profile Upload */
         .profile-upload { display: flex; align-items: center; gap: 0.875rem; margin-bottom: 0.75rem; }
@@ -192,7 +201,7 @@
 
         /* Submit Button */
         .submit-btn {
-            width: 100%; padding: 0.75rem; border-radius: 8px;
+            width: 100%; padding: 0.75rem; border-radius: var(--radius-sm);
             font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600;
             transition: all 0.2s ease; cursor: pointer; border: none;
             display: flex; align-items: center; justify-content: center; gap: 0.375rem;
@@ -213,7 +222,7 @@
 
         /* TOAST */
         .toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
-        .toast { background: var(--gray-900); color: white; padding: 0.75rem 1.125rem; border-radius: 8px; font-size: 0.813rem; font-weight: 500; box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: toastIn 0.3s ease; max-width: 360px; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+        .toast { background: var(--gray-900); color: white; padding: 0.75rem 1.125rem; border-radius: var(--radius-sm); font-size: 0.813rem; font-weight: 500; box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: toastIn 0.3s ease; max-width: 360px; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
         .toast.success { background: #059669; } .toast.error { background: #DC2626; } .toast.info { background: var(--primary); }
         @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     </style>
@@ -221,18 +230,14 @@
 <body>
     <!-- AUTH SCREEN -->
     <div class="auth-screen">
-        <!-- FORM PANEL (slides left/right) -->
+        <!-- FORM PANEL -->
         <div class="form-panel" id="formPanel">
-            <div class="form-wrapper" id="formWrapper">
-                <!-- Content dynamically injected -->
-            </div>
+            <div class="form-wrapper" id="formWrapper"></div>
         </div>
 
-        <!-- OVERLAY PANEL (slides right/left) -->
+        <!-- OVERLAY PANEL -->
         <div class="overlay-panel" id="overlayPanel">
-            <div class="overlay-content" id="overlayContent">
-                <!-- Content dynamically injected -->
-            </div>
+            <div class="overlay-content" id="overlayContent"></div>
         </div>
     </div>
 
@@ -242,25 +247,22 @@
     <script type="module">
         import { db, auth } from './js/firebase.js';
         import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-        import { collection, getDocs, doc, setDoc, query, where } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+        import { collection, getDocs, doc, setDoc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
         const $ = id => document.getElementById(id);
         const toast = (msg, type = 'success') => {
             const c = $('toastContainer'); const t = document.createElement('div');
             t.className = `toast ${type}`; t.innerHTML = `<i class='bx ${type==='success'?'bx-check-circle':type==='error'?'bx-x-circle':'bx-info-circle'}'></i> ${msg}`;
             t.addEventListener('click', () => t.remove()); c.appendChild(t);
-            setTimeout(() => { if (t.parentElement) t.remove(); }, 4000);
+            setTimeout(() => { if (t.parentElement) t.remove(); }, 4500);
         };
 
         const IMGBB_API_KEY = 'ba8023ca74166460c442e8e703d2a1b0';
-        let profileImageFile = null, isUsernameAvailable = false, checkTimer = null, allUsernames = [];
-        let currentView = 'signin'; // 'signin' or 'signup'
+        let profileImageFile = null, isUsernameAvailable = false, checkTimer = null;
+        let allUsernames = [], allEmails = [];
 
         // ============ RENDER SIGN IN ============
         function renderSignIn() {
-            currentView = 'signin';
-            
-            // Form panel (left)
             $('formWrapper').innerHTML = `
                 <a href="index.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Home</a>
                 <a href="index.html" class="form-logo">
@@ -293,10 +295,8 @@
                         <i class='bx bx-log-in'></i> Sign In
                     </button>
                 </form>`;
-            
             bindSignInForm();
 
-            // Overlay panel (right)
             $('overlayContent').innerHTML = `
                 <a href="index.html" class="overlay-logo">
                     <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
@@ -314,16 +314,12 @@
                     Create Account <i class='bx bx-right-arrow-alt'></i>
                 </button>`;
 
-            // Reset positions
             $('formPanel').classList.remove('swapped');
             $('overlayPanel').classList.remove('swapped');
         }
 
         // ============ RENDER SIGN UP ============
         function renderSignUp() {
-            currentView = 'signup';
-            
-            // Overlay panel (now on left)
             $('overlayContent').innerHTML = `
                 <a href="index.html" class="overlay-logo">
                     <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
@@ -341,7 +337,6 @@
                     <i class='bx bx-left-arrow-alt'></i> Sign In
                 </button>`;
 
-            // Form panel (now on right)
             $('formWrapper').innerHTML = `
                 <a href="index.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Home</a>
                 <a href="index.html" class="form-logo">
@@ -375,9 +370,10 @@
                             <label class="form-label">Username <span class="req">*</span></label>
                             <div class="input-wrap">
                                 <i class='bx bx-at input-icon'></i>
-                                <input type="text" class="form-input" id="signupUsername" placeholder="johndoe" oninput="checkUsername()">
+                                <input type="text" class="form-input" id="signupUsername" placeholder="johndoe" oninput="checkUsername()" autocomplete="off">
                             </div>
                             <div class="username-status" id="usernameStatus"></div>
+                            <div class="username-suggestions" id="usernameSuggestions"></div>
                             <div class="form-error" id="signupUsernameError"><i class='bx bx-error-circle'></i> Min 3 characters</div>
                         </div>
                     </div>
@@ -385,9 +381,10 @@
                         <label class="form-label">Email Address <span class="req">*</span></label>
                         <div class="input-wrap">
                             <i class='bx bx-envelope input-icon'></i>
-                            <input type="email" class="form-input" id="signupEmail" placeholder="you@example.com">
+                            <input type="email" class="form-input" id="signupEmail" placeholder="you@example.com" oninput="validateEmail()">
                         </div>
                         <div class="form-error" id="signupEmailError"><i class='bx bx-error-circle'></i> Valid email required</div>
+                        <div class="form-success" id="signupEmailSuccess"><i class='bx bx-check-circle'></i> Email is available</div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -413,21 +410,16 @@
                         <i class='bx bx-user-plus'></i> Create Account
                     </button>
                 </form>`;
-            
             bindSignUpForm();
 
-            // Swap positions
             $('formPanel').classList.add('swapped');
             $('overlayPanel').classList.add('swapped');
         }
 
         // ============ SWITCH ============
         window.switchTo = function(view) {
-            if (view === 'signup') {
-                renderSignUp();
-            } else {
-                renderSignIn();
-            }
+            if (view === 'signup') { renderSignUp(); }
+            else { renderSignIn(); }
         };
 
         // ============ PASSWORD TOGGLE ============
@@ -448,68 +440,295 @@
             reader.readAsDataURL(file);
         };
 
-        // ============ USERNAMES ============
-        async function loadUsernames() {
-            try { const snap = await getDocs(collection(db, 'users')); allUsernames = snap.docs.map(d => (d.data().username || '').toLowerCase()).filter(Boolean); }
-            catch (e) { allUsernames = JSON.parse(localStorage.getItem('ak_usernames') || '[]'); }
+        // ============ LOAD EXISTING DATA ============
+        async function loadExistingData() {
+            try {
+                const snap = await getDocs(collection(db, 'users'));
+                allUsernames = [];
+                allEmails = [];
+                snap.docs.forEach(d => {
+                    const data = d.data();
+                    if (data.username) allUsernames.push(data.username.toLowerCase());
+                    if (data.email) allEmails.push(data.email.toLowerCase());
+                });
+            } catch (e) {
+                allUsernames = JSON.parse(localStorage.getItem('ak_usernames') || '[]');
+                allEmails = JSON.parse(localStorage.getItem('ak_emails') || '[]');
+            }
         }
-        function saveUsernameLocal(u) { if (!allUsernames.includes(u.toLowerCase())) { allUsernames.push(u.toLowerCase()); localStorage.setItem('ak_usernames', JSON.stringify(allUsernames)); } }
 
+        function saveToLocal(username, email) {
+            if (username && !allUsernames.includes(username.toLowerCase())) {
+                allUsernames.push(username.toLowerCase());
+                localStorage.setItem('ak_usernames', JSON.stringify(allUsernames));
+            }
+            if (email && !allEmails.includes(email.toLowerCase())) {
+                allEmails.push(email.toLowerCase());
+                localStorage.setItem('ak_emails', JSON.stringify(allEmails));
+            }
+        }
+
+        // ============ EMAIL VALIDATION ============
+        window.validateEmail = function() {
+            const email = $('signupEmail')?.value?.trim();
+            const errorEl = $('signupEmailError');
+            const successEl = $('signupEmailSuccess');
+            const input = $('signupEmail');
+            
+            if (!email) {
+                errorEl.classList.remove('show');
+                successEl.classList.remove('show');
+                input.classList.remove('error', 'success');
+                return;
+            }
+
+            // Basic email regex
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorEl.textContent = 'Please enter a valid email address';
+                errorEl.classList.add('show');
+                successEl.classList.remove('show');
+                input.classList.add('error');
+                input.classList.remove('success');
+                return;
+            }
+
+            // Check if email exists
+            if (allEmails.includes(email.toLowerCase())) {
+                errorEl.textContent = 'This email is already registered. Please sign in.';
+                errorEl.classList.add('show');
+                successEl.classList.remove('show');
+                input.classList.add('error');
+                input.classList.remove('success');
+            } else {
+                errorEl.classList.remove('show');
+                successEl.classList.add('show');
+                input.classList.remove('error');
+                input.classList.add('success');
+            }
+        };
+
+        // ============ USERNAME CHECK WITH SUGGESTIONS ============
         window.checkUsername = function() {
             clearTimeout(checkTimer);
             const username = $('signupUsername')?.value?.trim();
             const status = $('usernameStatus');
-            if (!username || username.length < 3) { status.innerHTML = ''; status.className = 'username-status'; isUsernameAvailable = false; return; }
-            status.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Checking...'; status.className = 'username-status checking';
+            const suggestions = $('usernameSuggestions');
+            const errorEl = $('signupUsernameError');
+            const input = $('signupUsername');
+
+            if (!username || username.length < 3) {
+                status.innerHTML = '';
+                status.className = 'username-status';
+                suggestions.innerHTML = '';
+                isUsernameAvailable = false;
+                errorEl.classList.remove('show');
+                input.classList.remove('error', 'success');
+                return;
+            }
+
+            // Validate username format
+            const usernameRegex = /^[a-zA-Z0-9_]+$/;
+            if (!usernameRegex.test(username)) {
+                status.innerHTML = '<i class="bx bx-x-circle"></i> Only letters, numbers, and underscores';
+                status.className = 'username-status unavailable';
+                suggestions.innerHTML = '';
+                isUsernameAvailable = false;
+                input.classList.add('error');
+                input.classList.remove('success');
+                return;
+            }
+
+            status.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Checking...';
+            status.className = 'username-status checking';
+            suggestions.innerHTML = '';
+
             checkTimer = setTimeout(() => {
-                if (allUsernames.includes(username.toLowerCase())) {
-                    status.innerHTML = '<i class="bx bx-x-circle"></i> Username taken'; status.className = 'username-status unavailable'; isUsernameAvailable = false;
+                const exactMatch = allUsernames.includes(username.toLowerCase());
+                
+                if (exactMatch) {
+                    status.innerHTML = '<i class="bx bx-x-circle"></i> Username is taken';
+                    status.className = 'username-status unavailable';
+                    isUsernameAvailable = false;
+                    input.classList.add('error');
+                    input.classList.remove('success');
+                    
+                    // Generate smart suggestions
+                    const suggestions_list = [];
+                    // Add numbers
+                    for (let i = 1; i <= 5; i++) {
+                        const sug = username + i;
+                        if (!allUsernames.includes(sug.toLowerCase())) suggestions_list.push(sug);
+                    }
+                    // Add words
+                    const words = ['dev', 'pro', 'hub', 'lab', 'io', 'app', 'web', 'code', 'lab', 'net'];
+                    for (const w of words) {
+                        const sug = username + '_' + w;
+                        if (!allUsernames.includes(sug.toLowerCase())) suggestions_list.push(sug);
+                    }
+                    // Add year
+                    const yearSug = username + '2026';
+                    if (!allUsernames.includes(yearSug.toLowerCase())) suggestions_list.push(yearSug);
+                    
+                    const uniqueSuggestions = [...new Set(suggestions_list)].slice(0, 6);
+                    suggestions.innerHTML = uniqueSuggestions.map(s => 
+                        `<span class="username-suggestion" onclick="useSuggestion('${s}')">${s}</span>`
+                    ).join('');
+                    
+                    if (!errorEl.classList.contains('show')) {
+                        errorEl.textContent = 'Username taken. Try one of the suggestions below:';
+                        errorEl.classList.add('show');
+                    }
                 } else {
-                    status.innerHTML = '<i class="bx bx-check-circle"></i> Available!'; status.className = 'username-status available'; isUsernameAvailable = true;
+                    status.innerHTML = '<i class="bx bx-check-circle"></i> Username is available!';
+                    status.className = 'username-status available';
+                    suggestions.innerHTML = '';
+                    isUsernameAvailable = true;
+                    input.classList.remove('error');
+                    input.classList.add('success');
+                    errorEl.classList.remove('show');
                 }
             }, 500);
         };
 
+        window.useSuggestion = function(suggestion) {
+            const input = $('signupUsername');
+            if (input) {
+                input.value = suggestion;
+                input.focus();
+                checkUsername();
+            }
+        };
+
+        // ============ UPLOAD IMAGE ============
         async function uploadImage(file) {
             if (!file) return null;
             const fd = new FormData(); fd.append('image', file);
-            try { const r = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: fd }); const d = await r.json(); return d.success ? d.data.url : null; }
-            catch (e) { return null; }
+            try {
+                const r = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: fd });
+                const d = await r.json();
+                return d.success ? d.data.url : null;
+            } catch (e) { return null; }
         }
 
+        // ============ CLEAR ERRORS ============
         function clearErrors() {
             document.querySelectorAll('.form-error').forEach(e => e.classList.remove('show'));
             document.querySelectorAll('.form-input').forEach(e => e.classList.remove('error'));
+        }
+
+        // ============ SAVE USER TO FIRESTORE ============
+        async function saveUserToFirestore(uid, userData) {
+            const data = {
+                ...userData,
+                uid,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                lastLogin: new Date().toISOString(),
+                provider: 'email',
+                role: 'student',
+                isActive: true
+            };
+            try {
+                await setDoc(doc(db, 'users', uid), data, { merge: true });
+                return true;
+            } catch (e) {
+                // Save locally as fallback
+                const users = JSON.parse(localStorage.getItem('ak_users_full') || '[]');
+                const existing = users.findIndex(u => u.uid === uid);
+                if (existing >= 0) users[existing] = { ...users[existing], ...data };
+                else users.push(data);
+                localStorage.setItem('ak_users_full', JSON.stringify(users));
+                return true;
+            }
+        }
+
+        async function updateLastLogin(uid) {
+            try {
+                await setDoc(doc(db, 'users', uid), { lastLogin: new Date().toISOString() }, { merge: true });
+            } catch (e) {}
+        }
+
+        // ============ REDIRECT ON SUCCESS ============
+        function redirectToStart(userData) {
+            localStorage.setItem('ak_user', JSON.stringify(userData));
+            toast('Redirecting...', 'success');
+            setTimeout(() => { window.location.href = 'start.html'; }, 600);
         }
 
         // ============ BIND SIGN IN ============
         function bindSignInForm() {
             $('signinForm')?.addEventListener('submit', async function(e) {
                 e.preventDefault(); clearErrors();
-                const emailOrUser = $('signinEmail')?.value?.trim(); const password = $('signinPassword')?.value;
+                const emailOrUser = $('signinEmail')?.value?.trim();
+                const password = $('signinPassword')?.value;
                 let err = false;
                 if (!emailOrUser) { $('signinEmailError').classList.add('show'); $('signinEmail').classList.add('error'); err = true; }
-                if (!password) { $('signinPasswordError').classList.add('show'); $('signinPassword').classList.add('error'); err = true; }
+                if (!password || password.length < 1) { $('signinPasswordError').classList.add('show'); $('signinPassword').classList.add('error'); err = true; }
                 if (err) return;
-                const btn = $('signinBtn'); btn.disabled = true; btn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Signing in...';
+
+                const btn = $('signinBtn');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Signing in...';
+
                 try {
                     let email = emailOrUser;
+                    // If username, look up email
                     if (!emailOrUser.includes('@')) {
                         try {
                             const q = query(collection(db, 'users'), where('username', '==', emailOrUser.toLowerCase()));
                             const snap = await getDocs(q);
-                            if (!snap.empty) email = snap.docs[0].data().email;
-                            else { const lu = JSON.parse(localStorage.getItem('ak_users') || '[]'); const f = lu.find(u => u.username === emailOrUser.toLowerCase()); if (f) email = f.email; else throw new Error('User not found'); }
-                        } catch (er) { throw new Error('Username not found. Use your email.'); }
+                            if (!snap.empty) {
+                                email = snap.docs[0].data().email;
+                            } else {
+                                const localUsers = JSON.parse(localStorage.getItem('ak_users_full') || '[]');
+                                const found = localUsers.find(u => u.username === emailOrUser.toLowerCase());
+                                if (found) email = found.email;
+                                else throw new Error('Username not found. Please use your email address.');
+                            }
+                        } catch (er) {
+                            toast('Username not found. Please use your email.', 'error');
+                            btn.disabled = false;
+                            btn.innerHTML = '<i class="bx bx-log-in"></i> Sign In';
+                            return;
+                        }
                     }
+
                     const uc = await signInWithEmailAndPassword(auth, email, password);
-                    localStorage.setItem('ak_user', JSON.stringify({ uid: uc.user.uid, email: uc.user.email, displayName: uc.user.displayName, photoURL: uc.user.photoURL }));
-                    toast('Welcome back!', 'success'); setTimeout(() => { window.location.href = 'index.html'; }, 800);
+                    const user = uc.user;
+                    
+                    // Update last login
+                    await updateLastLogin(user.uid);
+                    
+                    // Save user data
+                    const userData = {
+                        uid: user.uid,
+                        email: user.email,
+                        displayName: user.displayName || email.split('@')[0],
+                        photoURL: user.photoURL || '',
+                        emailVerified: user.emailVerified
+                    };
+                    
+                    await saveUserToFirestore(user.uid, userData);
+                    toast('Welcome back! 👋', 'success');
+                    redirectToStart(userData);
+
                 } catch (error) {
                     let msg = 'Sign in failed.';
-                    if (error.code === 'auth/invalid-credential') msg = 'Incorrect email or password.';
-                    else if (error.message) msg = error.message;
-                    toast(msg, 'error'); btn.disabled = false; btn.innerHTML = '<i class="bx bx-log-in"></i> Sign In';
+                    if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password') {
+                        msg = 'Incorrect email or password. Please try again.';
+                    } else if (error.code === 'auth/user-not-found') {
+                        msg = 'No account found with this email.';
+                    } else if (error.code === 'auth/invalid-email') {
+                        msg = 'Invalid email format.';
+                    } else if (error.code === 'auth/too-many-requests') {
+                        msg = 'Too many attempts. Please try again later.';
+                    } else if (error.message) {
+                        msg = error.message;
+                    }
+                    toast(msg, 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="bx bx-log-in"></i> Sign In';
                 }
             });
         }
@@ -518,50 +737,145 @@
         function bindSignUpForm() {
             $('signupForm')?.addEventListener('submit', async function(e) {
                 e.preventDefault(); clearErrors();
-                const name = $('signupName')?.value?.trim(); const username = $('signupUsername')?.value?.trim();
-                const email = $('signupEmail')?.value?.trim(); const password = $('signupPassword')?.value;
-                const confirm = $('signupConfirmPassword')?.value; let err = false;
-                if (!name) { $('signupNameError').classList.add('show'); $('signupName').classList.add('error'); err = true; }
-                if (!username || username.length < 3) { $('signupUsernameError').textContent = username ? 'Min 3 characters' : 'Required'; $('signupUsernameError').classList.add('show'); $('signupUsername').classList.add('error'); err = true; }
-                else if (!isUsernameAvailable) { $('signupUsernameError').textContent = 'Username taken'; $('signupUsernameError').classList.add('show'); $('signupUsername').classList.add('error'); err = true; }
-                if (!email || !email.includes('@')) { $('signupEmailError').classList.add('show'); $('signupEmail').classList.add('error'); err = true; }
-                if (!password || password.length < 8) { $('signupPasswordError').classList.add('show'); $('signupPassword').classList.add('error'); err = true; }
-                if (password !== confirm) { $('signupConfirmError').classList.add('show'); $('signupConfirmPassword').classList.add('error'); err = true; }
+                const name = $('signupName')?.value?.trim();
+                const username = $('signupUsername')?.value?.trim();
+                const email = $('signupEmail')?.value?.trim();
+                const password = $('signupPassword')?.value;
+                const confirm = $('signupConfirmPassword')?.value;
+                let err = false;
+
+                if (!name || name.length < 2) {
+                    $('signupNameError').classList.add('show');
+                    $('signupName').classList.add('error');
+                    err = true;
+                }
+                if (!username || username.length < 3) {
+                    $('signupUsernameError').textContent = username ? 'Min 3 characters' : 'Required';
+                    $('signupUsernameError').classList.add('show');
+                    $('signupUsername').classList.add('error');
+                    err = true;
+                } else if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+                    $('signupUsernameError').textContent = 'Only letters, numbers, underscores';
+                    $('signupUsernameError').classList.add('show');
+                    $('signupUsername').classList.add('error');
+                    err = true;
+                } else if (!isUsernameAvailable) {
+                    $('signupUsernameError').textContent = 'Username taken. Choose a suggestion.';
+                    $('signupUsernameError').classList.add('show');
+                    $('signupUsername').classList.add('error');
+                    err = true;
+                }
+                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    $('signupEmailError').textContent = 'Valid email required';
+                    $('signupEmailError').classList.add('show');
+                    $('signupEmail').classList.add('error');
+                    err = true;
+                } else if (allEmails.includes(email.toLowerCase())) {
+                    $('signupEmailError').textContent = 'Email already registered. Sign in.';
+                    $('signupEmailError').classList.add('show');
+                    $('signupEmail').classList.add('error');
+                    err = true;
+                }
+                if (!password || password.length < 8) {
+                    $('signupPasswordError').classList.add('show');
+                    $('signupPassword').classList.add('error');
+                    err = true;
+                }
+                if (password !== confirm) {
+                    $('signupConfirmError').classList.add('show');
+                    $('signupConfirmPassword').classList.add('error');
+                    err = true;
+                }
                 if (err) return;
-                const btn = $('signupBtn'); btn.disabled = true; btn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Creating...';
+
+                const btn = $('signupBtn');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Creating account...';
+
                 try {
+                    // Upload profile image
                     let photoURL = null;
-                    if (profileImageFile) { toast('Uploading photo...', 'info'); photoURL = await uploadImage(profileImageFile); }
-                    const uc = await createUserWithEmailAndPassword(auth, email, password);
-                    await updateProfile(uc.user, { displayName: name, photoURL: photoURL || null });
-                    try {
-                        await setDoc(doc(db, 'users', uc.user.uid), { uid: uc.user.uid, name, username: username.toLowerCase(), email, photoURL: photoURL || '', createdAt: new Date().toISOString(), provider: 'email' });
-                    } catch (fe) {
-                        const lu = JSON.parse(localStorage.getItem('ak_users') || '[]');
-                        lu.push({ uid: uc.user.uid, name, username: username.toLowerCase(), email, photoURL: photoURL || '', createdAt: new Date().toISOString() });
-                        localStorage.setItem('ak_users', JSON.stringify(lu));
+                    if (profileImageFile) {
+                        photoURL = await uploadImage(profileImageFile);
                     }
-                    saveUsernameLocal(username);
-                    localStorage.setItem('ak_user', JSON.stringify({ uid: uc.user.uid, email, displayName: name, photoURL: photoURL || '' }));
-                    toast('Account created!', 'success'); setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+
+                    // Create Firebase Auth user
+                    const uc = await createUserWithEmailAndPassword(auth, email, password);
+                    const user = uc.user;
+
+                    // Update profile
+                    await updateProfile(user, {
+                        displayName: name,
+                        photoURL: photoURL || null
+                    });
+
+                    // Save to Firestore
+                    const userData = {
+                        uid: user.uid,
+                        name,
+                        username: username.toLowerCase(),
+                        email,
+                        photoURL: photoURL || '',
+                        displayName: name,
+                        role: 'student',
+                        isActive: true,
+                        createdAt: new Date().toISOString(),
+                        lastLogin: new Date().toISOString(),
+                        provider: 'email',
+                        emailVerified: false
+                    };
+
+                    await saveUserToFirestore(user.uid, userData);
+                    
+                    // Save username and email to local tracking
+                    saveToLocal(username, email);
+
+                    // Save to localStorage
+                    localStorage.setItem('ak_user', JSON.stringify({
+                        uid: user.uid,
+                        email,
+                        displayName: name,
+                        photoURL: photoURL || ''
+                    }));
+
+                    toast('Account created successfully! 🎉', 'success');
+                    redirectToStart({
+                        uid: user.uid,
+                        email,
+                        displayName: name,
+                        photoURL: photoURL || ''
+                    });
+
                 } catch (error) {
                     let msg = 'Registration failed.';
-                    if (error.code === 'auth/email-already-in-use') msg = 'Email already registered.';
-                    else if (error.message) msg = error.message;
-                    toast(msg, 'error'); btn.disabled = false; btn.innerHTML = '<i class="bx bx-user-plus"></i> Create Account';
+                    if (error.code === 'auth/email-already-in-use') {
+                        msg = 'This email is already registered. Please sign in instead.';
+                    } else if (error.code === 'auth/weak-password') {
+                        msg = 'Password is too weak. Use at least 8 characters.';
+                    } else if (error.code === 'auth/invalid-email') {
+                        msg = 'Invalid email address.';
+                    } else if (error.code === 'auth/operation-not-allowed') {
+                        msg = 'Email/password sign up is not enabled.';
+                    } else if (error.message) {
+                        msg = error.message;
+                    }
+                    toast(msg, 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="bx bx-user-plus"></i> Create Account';
                 }
             });
         }
 
         // ============ INIT ============
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('mode') === 'register' || params.get('mode') === 'signup') {
-            renderSignUp();
-        } else {
-            renderSignIn();
-        }
-        loadUsernames();
-        console.log('🚀 Akademia Swapping Overlay Auth loaded!');
+        loadExistingData().then(() => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('mode') === 'register' || params.get('mode') === 'signup') {
+                renderSignUp();
+            } else {
+                renderSignIn();
+            }
+        });
+        console.log('🚀 Akademia Auth - Production Ready!');
     </script>
 </body>
 </html>
