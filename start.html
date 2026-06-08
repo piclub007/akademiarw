@@ -14,7 +14,7 @@
         :root {
             --primary: #2563EB; --primary-dark: #1D4ED8; --primary-bg: #EFF6FF;
             --accent: #8B5CF6; --accent-dark: #7C3AED;
-            --success: #04AA6D; --success-dark: #038857;
+            --success: #04AA6D; --success-dark: #038857; --success-bg: #ECFDF5;
             --warning: #F59E0B; --danger: #EF4444;
             --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
             --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
@@ -30,97 +30,151 @@
         html, body { height: 100%; overflow: hidden; }
         body {
             font-family: 'Inter', sans-serif; background: #f0f2f5;
-            -webkit-font-smoothing: antialiased; display: flex; align-items: center; justify-content: center;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ============ PATHFINDER CONTAINER ============ */
-        .pathfinder-container {
-            width: 100%; max-width: 650px; background: var(--white);
-            border-radius: var(--radius-2xl); box-shadow: var(--shadow-lg);
-            overflow: hidden; position: relative; min-height: 520px;
-            display: flex; flex-direction: column;
+        /* ============ FULL PAGE CONTAINER ============ */
+        .pathfinder-screen {
+            height: 100vh; width: 100vw; display: flex;
+            background: var(--white); position: relative;
         }
 
-        /* ============ PROGRESS BAR ============ */
-        .progress-section {
-            padding: 1.5rem 2rem 0;
+        /* ============ LEFT BRAND PANEL ============ */
+        .brand-side {
+            width: 40%; background: linear-gradient(160deg, #0f172a 0%, #1a1f2e 40%, #1a1a2e 100%);
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; padding: 3rem; position: relative; overflow: hidden;
         }
-        .progress-steps {
-            display: flex; justify-content: space-between; margin-bottom: 0.75rem;
+        .brand-side::before {
+            content: ''; position: absolute; top: -30%; right: -30%;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(37,99,235,0.1) 0%, transparent 70%);
+            border-radius: 50%;
         }
-        .progress-step {
+        .brand-logo { text-align: center; position: relative; z-index: 1; }
+        .brand-logo img { height: 80px; width: auto; margin-bottom: 1rem; }
+        .brand-logo h1 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
+            font-weight: 700; color: white; letter-spacing: -0.5px;
+        }
+        .brand-logo p {
+            font-size: 0.875rem; color: #9ca3af; margin-top: 0.5rem;
+        }
+        .brand-features {
+            margin-top: 3rem; display: flex; flex-direction: column;
+            gap: 1rem; position: relative; z-index: 1;
+        }
+        .brand-feat {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-size: 0.875rem; color: #d1d5db;
+        }
+        .brand-feat .bf-icon {
             width: 32px; height: 32px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.75rem; font-weight: 700; transition: all var(--transition);
-            background: var(--gray-200); color: var(--gray-500);
+            flex-shrink: 0; font-size: 0.875rem;
+            background: rgba(4,170,109,0.15); color: var(--success);
         }
-        .progress-step.completed { background: var(--success); color: white; }
-        .progress-step.current { background: var(--primary); color: white; box-shadow: 0 0 0 4px rgba(37,99,235,0.15); }
-        .progress-bar-wrap { height: 4px; background: var(--gray-200); border-radius: 2px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: var(--primary); border-radius: 2px; transition: width 0.5s ease; }
+        .brand-step-indicator {
+            margin-top: 3rem; text-align: center; position: relative; z-index: 1;
+        }
+        .brand-step-indicator .bsi-number {
+            font-family: 'Space Grotesk', sans-serif; font-size: 4rem;
+            font-weight: 700; color: white; line-height: 1;
+        }
+        .brand-step-indicator .bsi-label {
+            font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px;
+        }
 
-        /* ============ STEP CONTENT ============ */
-        .step-content {
-            flex: 1; display: flex; flex-direction: column; padding: 2rem;
-            animation: slideIn 0.4s ease;
+        /* ============ RIGHT FORM SIDE ============ */
+        .form-side {
+            width: 60%; display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        /* PROGRESS BAR */
+        .progress-section {
+            padding: 1.5rem 3rem 0; flex-shrink: 0;
+        }
+        .progress-steps-row {
+            display: flex; justify-content: space-between; margin-bottom: 0.5rem;
+        }
+        .progress-dot {
+            width: 8px; height: 8px; border-radius: 50%; background: var(--gray-200);
+            transition: all var(--transition);
+        }
+        .progress-dot.done { background: var(--success); }
+        .progress-dot.current { background: var(--primary); width: 12px; height: 12px; margin-top: -2px; }
+        .progress-bar-wrap {
+            height: 3px; background: var(--gray-100); border-radius: 2px; overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%; background: var(--primary); border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        /* STEP CONTENT */
+        .step-area {
+            flex: 1; display: flex; flex-direction: column; padding: 1.5rem 3rem;
+            overflow-y: auto; animation: slideIn 0.4s ease;
         }
         @keyframes slideIn {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .step-header { margin-bottom: 1.5rem; }
-        .step-number {
-            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+        .step-label {
+            font-size: 0.688rem; font-weight: 700; text-transform: uppercase;
             letter-spacing: 1.5px; color: var(--primary); margin-bottom: 0.5rem;
         }
         .step-question {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem;
-            font-weight: 700; color: var(--gray-900); line-height: 1.3;
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem;
+            font-weight: 700; color: var(--gray-900); margin-bottom: 0.25rem;
         }
-        .step-subtitle { font-size: 0.875rem; color: var(--gray-500); margin-top: 0.5rem; }
+        .step-hint { font-size: 0.813rem; color: var(--gray-500); margin-bottom: 1.5rem; }
 
-        .step-options {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+        .options-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.625rem;
         }
-        .step-options.single-col { grid-template-columns: 1fr; }
-        .step-options.three-col { grid-template-columns: 1fr 1fr 1fr; }
+        .options-grid.col-1 { grid-template-columns: 1fr; }
+        .options-grid.col-3 { grid-template-columns: 1fr 1fr 1fr; }
 
-        .option-card {
-            padding: 1rem 1.25rem; border: 2px solid var(--gray-200);
-            border-radius: var(--radius-lg); cursor: pointer; transition: all var(--transition);
-            display: flex; align-items: center; gap: 0.75rem; background: var(--white);
+        .opt-card {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.875rem 1rem; border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg); cursor: pointer;
+            transition: all var(--transition); background: var(--white);
             text-align: left; font-family: 'Inter', sans-serif;
         }
-        .option-card:hover { border-color: var(--primary); background: var(--primary-bg); transform: translateY(-1px); }
-        .option-card.selected { border-color: var(--primary); background: var(--primary-bg); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
-        .option-card.multi-selected { border-color: var(--accent); background: #F5F3FF; box-shadow: 0 0 0 3px rgba(139,92,246,0.1); }
-        .option-icon {
-            width: 40px; height: 40px; border-radius: var(--radius);
+        .opt-card:hover { border-color: var(--primary); background: var(--primary-bg); }
+        .opt-card.selected { border-color: var(--primary); background: var(--primary-bg); box-shadow: 0 0 0 3px rgba(37,99,235,0.08); }
+        .opt-card.multi-selected { border-color: var(--accent); background: #F5F3FF; box-shadow: 0 0 0 3px rgba(139,92,246,0.08); }
+        .opt-icon {
+            width: 38px; height: 38px; border-radius: var(--radius);
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.25rem; flex-shrink: 0;
+            font-size: 1.125rem; flex-shrink: 0;
         }
-        .option-icon.blue { background: var(--primary-bg); color: var(--primary); }
-        .option-icon.purple { background: #F5F3FF; color: var(--accent); }
-        .option-icon.green { background: #ECFDF5; color: var(--success); }
-        .option-icon.orange { background: #FFF7ED; color: #F97316; }
-        .option-icon.pink { background: #FDF2F8; color: #EC4899; }
-        .option-icon.teal { background: #F0FDFA; color: #14B8A6; }
-        .option-text { font-size: 0.875rem; font-weight: 600; color: var(--gray-800); }
-        .option-check {
-            width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--gray-300);
+        .opt-icon.c1 { background: #EFF6FF; color: #2563EB; }
+        .opt-icon.c2 { background: #F5F3FF; color: #7C3AED; }
+        .opt-icon.c3 { background: #ECFDF5; color: #059669; }
+        .opt-icon.c4 { background: #FFF7ED; color: #F97316; }
+        .opt-icon.c5 { background: #FDF2F8; color: #EC4899; }
+        .opt-icon.c6 { background: #F0FDFA; color: #14B8A6; }
+        .opt-icon.c7 { background: #FFFBEB; color: #D97706; }
+        .opt-text { font-size: 0.813rem; font-weight: 600; color: var(--gray-800); }
+        .opt-check {
+            width: 20px; height: 20px; border-radius: 5px; border: 2px solid var(--gray-300);
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.75rem; flex-shrink: 0; transition: all var(--transition);
+            font-size: 0.688rem; flex-shrink: 0; transition: all var(--transition);
+            margin-left: auto;
         }
-        .option-card.multi-selected .option-check { background: var(--accent); border-color: var(--accent); color: white; }
+        .opt-card.multi-selected .opt-check { background: var(--accent); border-color: var(--accent); color: white; }
 
-        /* ============ NAVIGATION ============ */
-        .step-navigation {
+        /* NAVIGATION */
+        .nav-section {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 1rem 2rem; border-top: 1px solid var(--gray-100);
+            padding: 1rem 3rem; border-top: 1px solid var(--gray-100); flex-shrink: 0;
         }
         .nav-btn {
             padding: 0.625rem 1.5rem; border-radius: 50px;
-            font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600;
+            font-family: 'Inter', sans-serif; font-size: 0.813rem; font-weight: 600;
             cursor: pointer; border: none; transition: all var(--transition);
             display: flex; align-items: center; gap: 0.375rem;
         }
@@ -131,23 +185,29 @@
         .nav-btn.next:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
         .nav-btn.finish { background: var(--success); color: white; }
         .nav-btn.finish:hover { background: var(--success-dark); box-shadow: 0 4px 12px rgba(4,170,109,0.3); }
-        .step-counter { font-size: 0.75rem; color: var(--gray-400); }
+        .nav-counter { font-size: 0.75rem; color: var(--gray-400); }
 
-        /* ============ SUMMARY / LOADING OVERLAY ============ */
+        /* SUMMARY OVERLAY */
         .summary-overlay {
-            position: absolute; inset: 0; background: var(--white);
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: center; z-index: 10; opacity: 0; pointer-events: none;
-            transition: opacity 0.5s ease;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px); z-index: 100;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
         }
         .summary-overlay.show { opacity: 1; pointer-events: all; }
+        .summary-card {
+            background: white; border-radius: var(--radius-2xl);
+            padding: 2.5rem; max-width: 550px; width: 90%; text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            max-height: 80vh; overflow-y: auto;
+        }
         .summary-check {
-            width: 100px; height: 100px; border-radius: 50%;
-            background: var(--success-bg, #ECFDF5); display: flex;
-            align-items: center; justify-content: center; margin-bottom: 1.5rem;
+            width: 80px; height: 80px; border-radius: 50%;
+            background: var(--success-bg); display: flex; align-items: center;
+            justify-content: center; margin: 0 auto 1.5rem;
             animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .summary-check i { font-size: 3.5rem; color: var(--success); }
+        .summary-check i { font-size: 2.5rem; color: var(--success); }
         @keyframes popIn {
             0% { transform: scale(0); opacity: 0; }
             80% { transform: scale(1.1); }
@@ -155,65 +215,77 @@
         }
         .summary-title {
             font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem;
-            font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem;
+            font-weight: 700; margin-bottom: 0.5rem;
         }
-        .summary-subtitle { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 2rem; }
-        .summary-details {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
-            width: 100%; max-width: 400px; margin-bottom: 2rem;
-        }
+        .summary-subtitle { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+        .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; text-align: left; margin-bottom: 1.5rem; }
         .summary-item {
-            background: var(--gray-50); padding: 0.75rem 1rem;
-            border-radius: var(--radius); font-size: 0.813rem;
+            background: var(--gray-50); padding: 0.625rem 0.875rem;
+            border-radius: var(--radius-sm); font-size: 0.75rem;
         }
-        .summary-item .s-label { font-size: 0.688rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
-        .summary-item .s-value { font-weight: 600; color: var(--gray-900); margin-top: 0.125rem; }
+        .summary-item .sl { font-size: 0.625rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.5px; }
+        .summary-item .sv { font-weight: 600; color: var(--gray-900); margin-top: 0.125rem; }
         .summary-loader {
-            width: 40px; height: 40px; border: 3px solid var(--gray-200);
+            width: 36px; height: 36px; border: 3px solid var(--gray-200);
             border-top-color: var(--primary); border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+            animation: spin 0.8s linear infinite; margin: 0 auto;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        .back-home {
-            position: absolute; top: 1.25rem; left: 2rem;
-            display: inline-flex; align-items: center; gap: 0.25rem;
-            text-decoration: none; font-size: 0.813rem; color: var(--gray-500); z-index: 5;
-        }
-        .back-home:hover { color: var(--primary); }
-
-        @media (max-width: 600px) {
-            .step-options { grid-template-columns: 1fr; }
-            .step-options.three-col { grid-template-columns: 1fr 1fr; }
-            .step-content { padding: 1.5rem; }
-            .step-navigation { padding: 0.75rem 1.5rem; }
-            .summary-details { grid-template-columns: 1fr; }
+        @media (max-width: 900px) {
+            .brand-side { display: none; }
+            .form-side { width: 100%; }
+            .step-area { padding: 1rem 1.5rem; }
+            .nav-section { padding: 0.75rem 1.5rem; }
+            .options-grid { grid-template-columns: 1fr; }
+            .options-grid.col-3 { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- PATHFINDER CONTAINER -->
-    <div class="pathfinder-container" id="pathfinderContainer">
-        <a href="index.html" class="back-home"><i class='bx bx-arrow-back'></i> Home</a>
-
-        <!-- PROGRESS -->
-        <div class="progress-section">
-            <div class="progress-steps" id="progressSteps"></div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
+    <!-- PATHFINDER SCREEN -->
+    <div class="pathfinder-screen">
+        <!-- LEFT BRAND PANEL -->
+        <div class="brand-side">
+            <div class="brand-logo">
+                <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia" style="filter:brightness(0)invert(1);">
+                <h1>Akademia</h1>
+                <p>Discover your perfect learning path</p>
+            </div>
+            <div class="brand-features">
+                <div class="brand-feat"><div class="bf-icon"><i class='bx bx-check'></i></div> Personalized learning journey</div>
+                <div class="brand-feat"><div class="bf-icon"><i class='bx bx-check'></i></div> AI-powered recommendations</div>
+                <div class="brand-feat"><div class="bf-icon"><i class='bx bx-check'></i></div> Track your progress</div>
+            </div>
+            <div class="brand-step-indicator">
+                <div class="bsi-number" id="bsiNumber">1</div>
+                <div class="bsi-label">of 20 steps</div>
+            </div>
         </div>
 
-        <!-- STEP CONTENT -->
-        <div class="step-content" id="stepContent"></div>
+        <!-- RIGHT FORM SIDE -->
+        <div class="form-side">
+            <!-- PROGRESS -->
+            <div class="progress-section">
+                <div class="progress-steps-row" id="progressDots"></div>
+                <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
+            </div>
 
-        <!-- NAVIGATION -->
-        <div class="step-navigation" id="stepNavigation"></div>
+            <!-- STEP CONTENT -->
+            <div class="step-area" id="stepArea"></div>
 
-        <!-- SUMMARY OVERLAY -->
-        <div class="summary-overlay" id="summaryOverlay">
+            <!-- NAVIGATION -->
+            <div class="nav-section" id="navSection"></div>
+        </div>
+    </div>
+
+    <!-- SUMMARY OVERLAY -->
+    <div class="summary-overlay" id="summaryOverlay">
+        <div class="summary-card">
             <div class="summary-check"><i class='bx bx-check'></i></div>
             <h2 class="summary-title">Pathfinding Complete!</h2>
-            <p class="summary-subtitle">Here's a summary of your learning path</p>
-            <div class="summary-details" id="summaryDetails"></div>
+            <p class="summary-subtitle">Your personalized learning path is ready</p>
+            <div class="summary-grid" id="summaryGrid"></div>
             <div class="summary-loader"></div>
             <p style="font-size:0.75rem;color:var(--gray-400);margin-top:1rem;">Redirecting to your dashboard...</p>
         </div>
@@ -225,319 +297,241 @@
 
         const $ = id => document.getElementById(id);
 
-        // ============ CHECK IF ALREADY COMPLETED ============
+        // ============ CHECK ALREADY DONE ============
         function checkAlreadyDone() {
-            const pathData = localStorage.getItem('ak_pathfinder_done');
-            if (pathData) {
+            if (localStorage.getItem('ak_pathfinder_done')) {
                 window.location.href = 'user.html';
                 return true;
             }
             return false;
         }
 
-        // ============ STEPS DATA ============
+        // ============ 20 STEPS ============
         const steps = [
-            {
-                number: 1,
-                question: 'What do you want to become?',
-                subtitle: 'Choose your career goal',
-                type: 'single',
-                key: 'goal',
-                options: [
-                    { value: 'frontend', label: 'Frontend Developer', icon: 'bx-code-alt', color: 'blue' },
-                    { value: 'backend', label: 'Backend Developer', icon: 'bx-server', color: 'purple' },
-                    { value: 'fullstack', label: 'Full Stack Developer', icon: 'bx-layer', color: 'green' },
-                    { value: 'mobile', label: 'Mobile App Developer', icon: 'bx-mobile-alt', color: 'orange' },
-                    { value: 'designer', label: 'UI/UX Designer', icon: 'bx-palette', color: 'pink' },
-                    { value: 'python', label: 'Python Developer', icon: 'bxl-python', color: 'blue' },
-                    { value: 'data', label: 'Data Analyst', icon: 'bx-bar-chart-square', color: 'teal' },
-                    { value: 'ai', label: 'AI Engineer', icon: 'bx-brain', color: 'purple' },
-                    { value: 'cyber', label: 'Cybersecurity Specialist', icon: 'bx-shield-quarter', color: 'orange' },
-                    { value: 'game', label: 'Game Developer', icon: 'bx-joystick', color: 'pink' },
-                    { value: 'unsure', label: 'Not Sure Yet', icon: 'bx-question-mark', color: 'green' }
-                ]
-            },
-            {
-                number: 2,
-                question: 'How experienced are you?',
-                subtitle: 'This helps us skip content you already know',
-                type: 'single',
-                key: 'experience',
-                options: [
-                    { value: 'complete_beginner', label: 'Complete Beginner', icon: 'bx-child', color: 'green' },
-                    { value: 'beginner', label: 'Beginner', icon: 'bx-smile', color: 'blue' },
-                    { value: 'intermediate', label: 'Intermediate', icon: 'bx-cool', color: 'purple' },
-                    { value: 'advanced', label: 'Advanced', icon: 'bx-badge-check', color: 'orange' }
-                ]
-            },
-            {
-                number: 3,
-                question: 'Which topics interest you?',
-                subtitle: 'Select all that apply',
-                type: 'multi',
-                key: 'interests',
-                options: [
-                    { value: 'websites', label: 'Websites', icon: 'bx-globe', color: 'blue' },
-                    { value: 'apps', label: 'Mobile Apps', icon: 'bx-mobile', color: 'purple' },
-                    { value: 'ai', label: 'Artificial Intelligence', icon: 'bx-bot', color: 'green' },
-                    { value: 'design', label: 'Design', icon: 'bx-paint', color: 'pink' },
-                    { value: 'cyber', label: 'Cybersecurity', icon: 'bx-shield', color: 'orange' },
-                    { value: 'games', label: 'Games', icon: 'bx-joystick', color: 'teal' },
-                    { value: 'data', label: 'Data', icon: 'bx-data', color: 'blue' },
-                    { value: 'automation', label: 'Automation', icon: 'bx-cog', color: 'purple' }
-                ]
-            },
-            {
-                number: 4,
-                question: 'How much time can you study each day?',
-                subtitle: 'We\'ll customize your learning pace',
-                type: 'single',
-                key: 'studyTime',
-                options: [
-                    { value: '15min', label: '15 Minutes', icon: 'bx-time-five', color: 'green' },
-                    { value: '30min', label: '30 Minutes', icon: 'bx-time-five', color: 'blue' },
-                    { value: '1hour', label: '1 Hour', icon: 'bx-hourglass', color: 'purple' },
-                    { value: '2hours', label: '2 Hours', icon: 'bx-hourglass', color: 'orange' },
-                    { value: '3plus', label: '3+ Hours', icon: 'bx-hourglass', color: 'pink' }
-                ]
-            },
-            {
-                number: 5,
-                question: 'How do you learn best?',
-                subtitle: 'Choose your preferred learning style',
-                type: 'single',
-                key: 'learningStyle',
-                options: [
-                    { value: 'videos', label: 'Videos', icon: 'bx-video', color: 'blue' },
-                    { value: 'reading', label: 'Reading', icon: 'bx-book-open', color: 'purple' },
-                    { value: 'practice', label: 'Practice', icon: 'bx-code-block', color: 'green' },
-                    { value: 'projects', label: 'Projects', icon: 'bx-folder', color: 'orange' },
-                    { value: 'mix', label: 'Mix of Everything', icon: 'bx-grid-alt', color: 'pink' }
-                ]
-            },
-            {
-                number: 6,
-                question: 'What\'s your main goal?',
-                subtitle: 'This helps us guide your learning journey',
-                type: 'single',
-                key: 'outcome',
-                options: [
-                    { value: 'skill', label: 'Learn a New Skill', icon: 'bx-book', color: 'blue' },
-                    { value: 'job', label: 'Get a Job', icon: 'bx-briefcase', color: 'green' },
-                    { value: 'freelance', label: 'Freelance', icon: 'bx-globe', color: 'purple' },
-                    { value: 'business', label: 'Start a Business', icon: 'bx-rocket', color: 'orange' },
-                    { value: 'projects', label: 'Build Personal Projects', icon: 'bx-code-alt', color: 'pink' },
-                    { value: 'university', label: 'Prepare for University', icon: 'bx-building-house', color: 'teal' },
-                    { value: 'explore', label: 'Explore Technology', icon: 'bx-compass', color: 'blue' }
-                ]
-            }
+            { number:1, question:'Career Goal', hint:'What do you want to become?', type:'single', key:'goal', options:[
+                {v:'frontend',l:'Frontend Developer',i:'bx-code-alt',c:'c1'},{v:'backend',l:'Backend Developer',i:'bx-server',c:'c2'},
+                {v:'fullstack',l:'Full Stack Developer',i:'bx-layer',c:'c3'},{v:'mobile',l:'Mobile Developer',i:'bx-mobile-alt',c:'c4'},
+                {v:'designer',l:'UI/UX Designer',i:'bx-palette',c:'c5'},{v:'ai',l:'AI Engineer',i:'bx-brain',c:'c6'},
+                {v:'cyber',l:'Cybersecurity Specialist',i:'bx-shield-quarter',c:'c7'},{v:'data',l:'Data Analyst',i:'bx-bar-chart-square',c:'c1'},
+                {v:'unsure',l:'Not Sure Yet',i:'bx-question-mark',c:'c3'}
+            ]},
+            { number:2, question:'Experience Level', hint:'How experienced are you?', type:'single', key:'experience', options:[
+                {v:'complete_beginner',l:'Complete Beginner',i:'bx-child',c:'c3'},{v:'beginner',l:'Beginner',i:'bx-smile',c:'c1'},
+                {v:'intermediate',l:'Intermediate',i:'bx-cool',c:'c2'},{v:'advanced',l:'Advanced',i:'bx-badge-check',c:'c4'}
+            ]},
+            { number:3, question:'Interests', hint:'What interests you most? Select all that apply', type:'multi', key:'interests', options:[
+                {v:'websites',l:'Websites',i:'bx-globe',c:'c1'},{v:'apps',l:'Apps',i:'bx-mobile',c:'c2'},
+                {v:'design',l:'Design',i:'bx-paint',c:'c5'},{v:'ai',l:'AI',i:'bx-bot',c:'c6'},
+                {v:'data',l:'Data',i:'bx-data',c:'c3'},{v:'security',l:'Security',i:'bx-shield',c:'c7'},
+                {v:'games',l:'Games',i:'bx-joystick',c:'c4'}
+            ]},
+            { number:4, question:'Daily Study Time', hint:'How much time can you study daily?', type:'single', key:'studyTime', options:[
+                {v:'15min',l:'15 min',i:'bx-time-five',c:'c3'},{v:'30min',l:'30 min',i:'bx-time-five',c:'c1'},
+                {v:'1hour',l:'1 hour',i:'bx-hourglass',c:'c2'},{v:'2hours',l:'2 hours',i:'bx-hourglass',c:'c4'},
+                {v:'3plus',l:'3+ hours',i:'bx-hourglass',c:'c5'}
+            ]},
+            { number:5, question:'Learning Style', hint:'How do you learn best?', type:'single', key:'learningStyle', options:[
+                {v:'videos',l:'Videos',i:'bx-video',c:'c1'},{v:'reading',l:'Reading',i:'bx-book-open',c:'c2'},
+                {v:'practice',l:'Practice',i:'bx-code-block',c:'c3'},{v:'projects',l:'Projects',i:'bx-folder',c:'c4'},
+                {v:'mixed',l:'Mixed',i:'bx-grid-alt',c:'c5'}
+            ]},
+            { number:6, question:'Main Goal', hint:'Why are you learning?', type:'single', key:'outcome', options:[
+                {v:'job',l:'Job',i:'bx-briefcase',c:'c3'},{v:'freelancing',l:'Freelancing',i:'bx-globe',c:'c2'},
+                {v:'business',l:'Business',i:'bx-rocket',c:'c4'},{v:'projects',l:'Personal Projects',i:'bx-code-alt',c:'c5'},
+                {v:'school',l:'School',i:'bx-building-house',c:'c6'},{v:'curiosity',l:'Curiosity',i:'bx-compass',c:'c1'}
+            ]},
+            { number:7, question:'Age Range', hint:'Which age group are you in?', type:'single', key:'age', options:[
+                {v:'under16',l:'Under 16',i:'bx-child',c:'c3'},{v:'16-18',l:'16–18',i:'bx-user',c:'c1'},
+                {v:'19-24',l:'19–24',i:'bx-user',c:'c2'},{v:'25-34',l:'25–34',i:'bx-user',c:'c4'},
+                {v:'35plus',l:'35+',i:'bx-user',c:'c5'}
+            ]},
+            { number:8, question:'Current Education', hint:'What\'s your current education level?', type:'single', key:'education', options:[
+                {v:'highschool',l:'High School',i:'bx-building',c:'c1'},{v:'college',l:'College',i:'bx-building-house',c:'c2'},
+                {v:'university',l:'University',i:'bx-buildings',c:'c3'},{v:'selftaught',l:'Self-Taught',i:'bx-book',c:'c4'},
+                {v:'other',l:'Other',i:'bx-dots-horizontal',c:'c5'}
+            ]},
+            { number:9, question:'Programming Experience', hint:'Have you coded before?', type:'single', key:'codingExperience', options:[
+                {v:'never',l:'Never',i:'bx-x-circle',c:'c1'},{v:'little',l:'A Little',i:'bx-minus-circle',c:'c2'},
+                {v:'sometimes',l:'Sometimes',i:'bx-check-circle',c:'c3'},{v:'frequently',l:'Frequently',i:'bx-badge-check',c:'c4'}
+            ]},
+            { number:10, question:'Technologies Known', hint:'Which do you already know? Select all', type:'multi', key:'technologies', options:[
+                {v:'html',l:'HTML',i:'bx-code-alt',c:'c1'},{v:'css',l:'CSS',i:'bx-palette',c:'c5'},
+                {v:'javascript',l:'JavaScript',i:'bx-code-curly',c:'c7'},{v:'python',l:'Python',i:'bxl-python',c:'c2'},
+                {v:'react',l:'React',i:'bxl-react',c:'c6'},{v:'flutter',l:'Flutter',i:'bxl-flutter',c:'c3'},
+                {v:'none',l:'None',i:'bx-circle',c:'c4'}
+            ]},
+            { number:11, question:'Device Availability', hint:'What device will you primarily use?', type:'single', key:'device', options:[
+                {v:'laptop',l:'Laptop/Desktop',i:'bx-laptop',c:'c1'},{v:'tablet',l:'Tablet',i:'bx-tablet',c:'c2'},
+                {v:'mobile',l:'Mobile Phone',i:'bx-mobile',c:'c3'}
+            ]},
+            { number:12, question:'Internet Availability', hint:'How reliable is your internet?', type:'single', key:'internet', options:[
+                {v:'excellent',l:'Excellent',i:'bx-wifi',c:'c3'},{v:'good',l:'Good',i:'bx-wifi',c:'c1'},
+                {v:'limited',l:'Limited',i:'bx-wifi-off',c:'c7'},{v:'verylimited',l:'Very Limited',i:'bx-wifi-off',c:'c4'}
+            ]},
+            { number:13, question:'Preferred Project Type', hint:'What would you love to build?', type:'single', key:'projectType', options:[
+                {v:'websites',l:'Websites',i:'bx-globe',c:'c1'},{v:'apps',l:'Mobile Apps',i:'bx-mobile',c:'c2'},
+                {v:'ai',l:'AI Tools',i:'bx-bot',c:'c6'},{v:'games',l:'Games',i:'bx-joystick',c:'c4'},
+                {v:'dashboards',l:'Dashboards',i:'bx-bar-chart-square',c:'c3'},{v:'business',l:'Business Software',i:'bx-briefcase',c:'c5'}
+            ]},
+            { number:14, question:'Career Timeline', hint:'When would you like to achieve your goal?', type:'single', key:'timeline', options:[
+                {v:'3months',l:'3 Months',i:'bx-timer',c:'c3'},{v:'6months',l:'6 Months',i:'bx-timer',c:'c1'},
+                {v:'1year',l:'1 Year',i:'bx-calendar',c:'c2'},{v:'2years',l:'2+ Years',i:'bx-calendar',c:'c4'}
+            ]},
+            { number:15, question:'Confidence Level', hint:'How confident do you feel about learning technology?', type:'single', key:'confidence', options:[
+                {v:'nervous',l:'Very Nervous',i:'bx-sad',c:'c1'},{v:'unsure',l:'Unsure',i:'bx-meh',c:'c2'},
+                {v:'confident',l:'Confident',i:'bx-smile',c:'c3'},{v:'veryconfident',l:'Very Confident',i:'bx-happy',c:'c4'}
+            ]},
+            { number:16, question:'Preferred Difficulty', hint:'What challenge level do you prefer?', type:'single', key:'difficulty', options:[
+                {v:'easy',l:'Easy',i:'bx-walk',c:'c3'},{v:'balanced',l:'Balanced',i:'bx-run',c:'c1'},
+                {v:'challenging',l:'Challenging',i:'bx-cycling',c:'c4'}
+            ]},
+            { number:17, question:'Community Preference', hint:'How do you like learning?', type:'single', key:'community', options:[
+                {v:'alone',l:'Alone',i:'bx-user',c:'c1'},{v:'others',l:'With Others',i:'bx-group',c:'c2'},
+                {v:'both',l:'Both',i:'bx-grid-alt',c:'c3'}
+            ]},
+            { number:18, question:'Work Preference', hint:'What kind of work sounds appealing?', type:'single', key:'workPreference', options:[
+                {v:'remote',l:'Remote',i:'bx-home',c:'c1'},{v:'office',l:'Office',i:'bx-building',c:'c2'},
+                {v:'freelance',l:'Freelance',i:'bx-globe',c:'c3'},{v:'startup',l:'Startup',i:'bx-rocket',c:'c4'},
+                {v:'any',l:'Any',i:'bx-check',c:'c5'}
+            ]},
+            { number:19, question:'Motivation Type', hint:'What motivates you most?', type:'single', key:'motivation', options:[
+                {v:'achievements',l:'Achievements',i:'bx-trophy',c:'c7'},{v:'career',l:'Career Growth',i:'bx-trending-up',c:'c3'},
+                {v:'money',l:'Money',i:'bx-dollar',c:'c4'},{v:'creativity',l:'Creativity',i:'bx-bulb',c:'c6'},
+                {v:'building',l:'Building Things',i:'bx-wrench',c:'c5'}
+            ]},
+            { number:20, question:'Commitment Check', hint:'Are you ready to follow a personalized learning path?', type:'single', key:'commitment', options:[
+                {v:'absolutely',l:'Absolutely',i:'bx-check-shield',c:'c3'},{v:'try',l:'I\'ll Try',i:'bx-shield',c:'c1'},
+                {v:'notsure',l:'Not Sure',i:'bx-shield-quarter',c:'c2'}
+            ]}
         ];
 
-        // ============ APP STATE ============
-        let currentStep = 0;
-        let answers = {};
-        let currentUser = null;
+        let currentStep = 0, answers = {};
 
         // ============ INIT ============
         function init() {
             if (checkAlreadyDone()) return;
-
-            // Check auth
-            onAuthStateChanged(auth, (user) => {
-                currentUser = user;
-            });
-
-            // Load cached user
-            const cached = JSON.parse(localStorage.getItem('ak_user') || 'null');
-            if (cached) currentUser = cached;
-
+            onAuthStateChanged(auth, () => {});
             renderAll();
         }
 
         function renderAll() {
             renderProgress();
             renderStep();
-            renderNavigation();
+            renderNav();
+            $('bsiNumber').textContent = currentStep + 1;
         }
 
-        // ============ RENDER PROGRESS ============
+        // ============ PROGRESS ============
         function renderProgress() {
-            const container = $('progressSteps');
-            container.innerHTML = steps.map((s, i) => `
-                <div class="progress-step ${i < currentStep ? 'completed' : i === currentStep ? 'current' : ''}">
-                    ${i < currentStep ? '<i class="bx bx-check"></i>' : s.number}
-                </div>
-            `).join('');
-            
-            const progress = (currentStep / (steps.length - 1)) * 100;
-            $('progressBar').style.width = progress + '%';
+            $('progressDots').innerHTML = steps.map((_, i) => 
+                `<div class="progress-dot ${i < currentStep ? 'done' : i === currentStep ? 'current' : ''}"></div>`
+            ).join('');
+            $('progressBar').style.width = ((currentStep / (steps.length - 1)) * 100) + '%';
         }
 
-        // ============ RENDER STEP ============
+        // ============ STEP ============
         function renderStep() {
-            const step = steps[currentStep];
-            const container = $('stepContent');
-            const isMulti = step.type === 'multi';
-            const selectedValues = isMulti ? (answers[step.key] || []) : [answers[step.key]];
-            const colsClass = step.options.length <= 4 ? 'single-col' : step.options.length <= 6 ? '' : 'three-col';
+            const s = steps[currentStep];
+            const isMulti = s.type === 'multi';
+            const sel = isMulti ? (answers[s.key] || []) : [answers[s.key]];
+            const cols = s.options.length <= 3 ? 'col-1' : s.options.length >= 8 ? 'col-3' : '';
 
-            container.innerHTML = `
-                <div class="step-header">
-                    <div class="step-number">Step ${step.number} of ${steps.length}</div>
-                    <h2 class="step-question">${step.question}</h2>
-                    ${step.subtitle ? `<p class="step-subtitle">${step.subtitle}</p>` : ''}
-                </div>
-                <div class="step-options ${step.options.length <= 4 ? 'single-col' : ''} ${step.options.length >= 8 ? 'three-col' : ''}">
-                    ${step.options.map(opt => `
-                        <button class="option-card ${selectedValues.includes(opt.value) ? (isMulti ? 'multi-selected' : 'selected') : ''}" 
-                                onclick="selectOption('${opt.value}', '${step.key}', ${isMulti})" data-value="${opt.value}">
-                            <div class="option-icon ${opt.color}"><i class='bx ${opt.icon}'></i></div>
-                            <span class="option-text">${opt.label}</span>
-                            ${isMulti ? `<div class="option-check">${selectedValues.includes(opt.value) ? '<i class="bx bx-check"></i>' : ''}</div>` : ''}
+            $('stepArea').innerHTML = `
+                <div class="step-label">Step ${s.number} of 20</div>
+                <h2 class="step-question">${s.question}</h2>
+                <p class="step-hint">${s.hint}</p>
+                <div class="options-grid ${cols}">
+                    ${s.options.map(o => `
+                        <button class="opt-card ${sel.includes(o.v) ? (isMulti ? 'multi-selected' : 'selected') : ''}" 
+                                onclick="selectOpt('${o.v}','${s.key}',${isMulti})">
+                            <div class="opt-icon ${o.c}"><i class='bx ${o.i}'></i></div>
+                            <span class="opt-text">${o.l}</span>
+                            ${isMulti ? `<div class="opt-check">${sel.includes(o.v) ? '<i class="bx bx-check"></i>' : ''}</div>` : ''}
                         </button>
                     `).join('')}
-                </div>
-            `;
+                </div>`;
         }
 
-        // ============ RENDER NAVIGATION ============
-        function renderNavigation() {
-            const container = $('stepNavigation');
-            const step = steps[currentStep];
-            const isMulti = step.type === 'multi';
-            const selectedValues = isMulti ? (answers[step.key] || []) : [answers[step.key]];
-            const hasSelection = isMulti ? selectedValues.length > 0 : !!answers[step.key];
+        // ============ NAV ============
+        function renderNav() {
+            const s = steps[currentStep];
+            const isMulti = s.type === 'multi';
+            const sel = isMulti ? (answers[s.key] || []) : [answers[s.key]];
+            const has = isMulti ? sel.length > 0 : !!answers[s.key];
             const isLast = currentStep === steps.length - 1;
 
-            container.innerHTML = `
+            $('navSection').innerHTML = `
                 <button class="nav-btn back" onclick="prevStep()" ${currentStep === 0 ? 'style="visibility:hidden;"' : ''}>
                     <i class='bx bx-chevron-left'></i> Back
                 </button>
-                <span class="step-counter">${currentStep + 1} / ${steps.length}</span>
-                <button class="nav-btn ${isLast ? 'finish' : 'next'}" onclick="nextStep()" ${!hasSelection ? 'disabled' : ''}>
+                <span class="nav-counter">${currentStep + 1} / 20</span>
+                <button class="nav-btn ${isLast ? 'finish' : 'next'}" onclick="nextStep()" ${!has ? 'disabled' : ''}>
                     ${isLast ? 'Finish <i class="bx bx-check"></i>' : 'Next <i class="bx bx-chevron-right"></i>'}
-                </button>
-            `;
+                </button>`;
         }
 
-        // ============ SELECT OPTION ============
-        window.selectOption = function(value, key, isMulti) {
+        // ============ SELECT ============
+        window.selectOpt = function(value, key, isMulti) {
             if (isMulti) {
                 if (!answers[key]) answers[key] = [];
                 const idx = answers[key].indexOf(value);
-                if (idx > -1) {
-                    answers[key].splice(idx, 1);
-                } else {
-                    answers[key].push(value);
-                }
+                idx > -1 ? answers[key].splice(idx, 1) : answers[key].push(value);
             } else {
                 answers[key] = value;
             }
-            renderStep();
-            renderNavigation();
+            renderStep(); renderNav();
         };
 
-        // ============ NAVIGATION ============
+        // ============ NAVIGATE ============
         window.prevStep = function() {
-            if (currentStep > 0) {
-                currentStep--;
-                renderAll();
-            }
+            if (currentStep > 0) { currentStep--; renderAll(); }
         };
-
         window.nextStep = function() {
-            const step = steps[currentStep];
-            const isMulti = step.type === 'multi';
-            const selectedValues = isMulti ? (answers[step.key] || []) : [answers[step.key]];
-            const hasSelection = isMulti ? selectedValues.length > 0 : !!answers[step.key];
-            
-            if (!hasSelection) return;
-
-            if (currentStep < steps.length - 1) {
-                currentStep++;
-                renderAll();
-            } else {
-                finishPathfinder();
-            }
+            const s = steps[currentStep];
+            const isMulti = s.type === 'multi';
+            const sel = isMulti ? (answers[s.key] || []) : [answers[s.key]];
+            if (isMulti && !sel.length) return;
+            if (!isMulti && !answers[s.key]) return;
+            if (currentStep < steps.length - 1) { currentStep++; renderAll(); }
+            else { finishPathfinder(); }
         };
 
         // ============ FINISH ============
         function finishPathfinder() {
-            // Save to localStorage
-            const pathData = {
-                ...answers,
-                completedAt: new Date().toISOString(),
-                userId: currentUser?.uid || 'guest'
-            };
-            localStorage.setItem('ak_pathfinder_done', JSON.stringify(pathData));
+            const data = { ...answers, completedAt: new Date().toISOString() };
+            localStorage.setItem('ak_pathfinder_done', JSON.stringify(data));
             localStorage.setItem('ak_pathfinder_answers', JSON.stringify(answers));
 
-            // Try to save to Firestore
-            if (currentUser?.uid) {
-                try {
-                    import('./js/firebase.js').then(({ db }) => {
-                        import("https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js").then(({ doc, setDoc }) => {
-                            setDoc(doc(db, 'users', currentUser.uid), {
-                                pathfinder: answers,
-                                pathfinderCompletedAt: new Date().toISOString()
-                            }, { merge: true }).catch(() => {});
-                        });
-                    });
-                } catch (e) {}
-            }
-
-            // Show summary
-            showSummary();
-        }
-
-        // ============ SHOW SUMMARY ============
-        function showSummary() {
-            const overlay = $('summaryOverlay');
-            const details = $('summaryDetails');
-
+            // Summary
             const labels = {
-                goal: 'Career Goal',
-                experience: 'Experience Level',
-                interests: 'Interests',
-                studyTime: 'Study Time',
-                learningStyle: 'Learning Style',
-                outcome: 'Main Goal'
+                goal:'Career Goal',experience:'Experience',interests:'Interests',studyTime:'Study Time',
+                learningStyle:'Learning Style',outcome:'Main Goal',age:'Age',education:'Education',
+                codingExperience:'Coding Exp',technologies:'Technologies',device:'Device',internet:'Internet',
+                projectType:'Project Type',timeline:'Timeline',confidence:'Confidence',difficulty:'Difficulty',
+                community:'Community',workPreference:'Work',motivation:'Motivation',commitment:'Commitment'
+            };
+            const vals = {
+                frontend:'Frontend Dev',backend:'Backend Dev',fullstack:'Full Stack',mobile:'Mobile Dev',
+                designer:'UI/UX',ai:'AI Engineer',cyber:'Cybersecurity',data:'Data Analyst',unsure:'Not Sure',
+                complete_beginner:'Complete Beginner',beginner:'Beginner',intermediate:'Intermediate',advanced:'Advanced',
+                '15min':'15 min','30min':'30 min','1hour':'1 hr','2hours':'2 hrs','3plus':'3+ hrs',
+                videos:'Videos',reading:'Reading',practice:'Practice',projects:'Projects',mixed:'Mixed',
+                job:'Job',freelancing:'Freelancing',business:'Business',school:'School',curiosity:'Curiosity',
+                absolutely:'Absolutely!','try':"I'll Try",notsure:'Not Sure'
             };
 
-            const valueLabels = {
-                frontend: 'Frontend Developer', backend: 'Backend Developer', fullstack: 'Full Stack Developer',
-                mobile: 'Mobile App Developer', designer: 'UI/UX Designer', python: 'Python Developer',
-                data: 'Data Analyst', ai: 'AI Engineer', cyber: 'Cybersecurity Specialist',
-                game: 'Game Developer', unsure: 'Not Sure Yet',
-                complete_beginner: 'Complete Beginner', beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced',
-                websites: 'Websites', apps: 'Mobile Apps', design: 'Design', games: 'Games', automation: 'Automation',
-                '15min': '15 Minutes', '30min': '30 Minutes', '1hour': '1 Hour', '2hours': '2 Hours', '3plus': '3+ Hours',
-                videos: 'Videos', reading: 'Reading', practice: 'Practice', projects: 'Projects', mix: 'Mix of Everything',
-                skill: 'Learn a New Skill', job: 'Get a Job', freelance: 'Freelance', business: 'Start a Business',
-                university: 'Prepare for University', explore: 'Explore Technology'
-            };
-
-            details.innerHTML = Object.keys(answers).map(key => {
-                const val = answers[key];
-                const displayVal = Array.isArray(val) ? val.map(v => valueLabels[v] || v).join(', ') : (valueLabels[val] || val);
-                return `
-                    <div class="summary-item">
-                        <div class="s-label">${labels[key] || key}</div>
-                        <div class="s-value">${displayVal}</div>
-                    </div>`;
+            $('summaryGrid').innerHTML = Object.keys(answers).map(k => {
+                const v = answers[k];
+                const dv = Array.isArray(v) ? v.map(x => vals[x] || x).join(', ') : (vals[v] || v);
+                return `<div class="summary-item"><div class="sl">${labels[k]||k}</div><div class="sv">${dv}</div></div>`;
             }).join('');
 
-            overlay.classList.add('show');
-
-            // Redirect after delay
-            setTimeout(() => {
-                window.location.href = 'user.html';
-            }, 3000);
+            $('summaryOverlay').classList.add('show');
+            setTimeout(() => { window.location.href = 'user.html'; }, 3500);
         }
 
-        // ============ INIT ============
         init();
-        console.log('🚀 Akademia Pathfinder loaded!');
+        console.log('🚀 Akademia 20-Step Pathfinder loaded!');
     </script>
 </body>
 </html>
