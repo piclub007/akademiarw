@@ -14,11 +14,11 @@
         :root {
             --primary: #2563EB; --primary-dark: #1D4ED8;
             --accent: #8B5CF6; --accent-dark: #7C3AED;
-            --success: #04AA6D; --danger: #EF4444;
-            --warning: #F59E0B; --white: #ffffff;
-            --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-300: #d1d5db;
-            --gray-400: #9ca3af; --gray-500: #6b7280; --gray-600: #4b5563;
-            --gray-700: #374151; --gray-800: #1f2937; --gray-900: #111827;
+            --success: #04AA6D; --danger: #EF4444; --warning: #F59E0B;
+            --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
+            --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
+            --gray-800: #1f2937; --gray-900: #111827;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,106 +27,148 @@
             font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased;
         }
 
-        /* ============ FULL PAGE LAYOUT ============ */
+        /* ============ FULL PAGE ============ */
         .auth-screen {
             display: flex; height: 100vh; width: 100vw;
-            position: relative; overflow: hidden;
+            position: relative; overflow: hidden; background: #f0f2f5;
         }
 
-        /* LEFT PANEL - SIGN IN */
-        .panel-signin {
+        /* ============ FORM PANEL (LEFT by default) ============ */
+        .form-panel {
             width: 50%; height: 100%; background: var(--white);
             display: flex; align-items: center; justify-content: center;
-            padding: 3rem; position: relative; z-index: 2;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 3rem; z-index: 2; position: relative;
+            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
         }
-        .panel-signin.slide-out { transform: translateX(-100%); }
+        .form-panel.swapped { transform: translateX(100%); }
 
-        /* RIGHT PANEL - SIGN UP */
-        .panel-signup {
+        .form-wrapper {
+            width: 100%; max-width: 440px;
+            animation: fadeSlideIn 0.5s ease;
+        }
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============ OVERLAY PANEL (RIGHT by default) ============ */
+        .overlay-panel {
             width: 50%; height: 100%;
             background: linear-gradient(160deg, #0f172a 0%, #1a1f2e 40%, #1a1a2e 100%);
             display: flex; align-items: center; justify-content: center;
-            padding: 3rem; position: absolute; right: 0; top: 0; z-index: 1;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 3rem; position: absolute; right: 0; top: 0; z-index: 3;
+            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
         }
-        .panel-signup.slide-in { transform: translateX(-100%); }
+        .overlay-panel.swapped { transform: translateX(-100%); }
 
-        /* FORM WRAPPER */
-        .form-wrapper {
-            width: 100%; max-width: 440px; animation: formAppear 0.5s ease;
+        .overlay-content {
+            text-align: center; max-width: 420px; color: white;
+            animation: fadeSlideIn 0.5s ease;
         }
-        @keyframes formAppear { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .overlay-logo {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            margin-bottom: 2rem; text-decoration: none;
+        }
+        .overlay-logo img { height: 44px; width: auto; filter: brightness(0) invert(1); }
+        .overlay-logo span {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem;
+            font-weight: 700; color: white; letter-spacing: -0.5px;
+        }
+        .overlay-icon {
+            width: 80px; height: 80px; border-radius: 50%;
+            margin: 0 auto 1.5rem; display: flex; align-items: center;
+            justify-content: center; font-size: 2.5rem;
+            background: rgba(255,255,255,0.08);
+        }
+        .overlay-icon.signin { color: #60a5fa; }
+        .overlay-icon.signup { color: #a78bfa; }
 
-        /* LOGO */
+        .overlay-title {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
+            font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.5px;
+        }
+        .overlay-desc {
+            font-family: 'Manrope', sans-serif; font-size: 0.938rem;
+            color: #9ca3af; line-height: 1.7; margin-bottom: 2rem;
+        }
+        .overlay-features {
+            display: flex; flex-direction: column; gap: 0.75rem;
+            text-align: left; margin-bottom: 2.5rem;
+        }
+        .overlay-feat {
+            display: flex; align-items: center; gap: 0.625rem;
+            font-size: 0.875rem; color: #d1d5db;
+        }
+        .overlay-feat .feat-dot {
+            width: 26px; height: 26px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; font-size: 0.813rem;
+        }
+        .overlay-feat .feat-dot.green { background: rgba(4,170,109,0.2); color: var(--success); }
+        .overlay-feat .feat-dot.blue { background: rgba(37,99,235,0.2); color: #60a5fa; }
+        .overlay-feat .feat-dot.purple { background: rgba(139,92,246,0.2); color: #a78bfa; }
+
+        .overlay-switch-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.75rem 2rem; border-radius: 50px;
+            font-family: 'Inter', sans-serif; font-size: 0.938rem; font-weight: 600;
+            cursor: pointer; border: 2px solid rgba(255,255,255,0.3);
+            background: transparent; color: white;
+            transition: all 0.3s ease;
+        }
+        .overlay-switch-btn:hover {
+            background: rgba(255,255,255,0.1); border-color: white;
+            transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .overlay-switch-btn i { font-size: 1.125rem; }
+
+        /* ============ FORM ELEMENTS ============ */
         .form-logo {
             display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2.5rem; text-decoration: none;
         }
         .form-logo img { height: 40px; width: auto; }
-        .form-logo span { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
-        .panel-signin .form-logo span { color: var(--gray-900); }
-        .panel-signup .form-logo span { color: white; }
-        .panel-signup .form-logo img { filter: brightness(0) invert(1); }
+        .form-logo span {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem;
+            font-weight: 700; letter-spacing: -0.5px; color: var(--gray-900);
+        }
 
-        /* HEADINGS */
         .form-heading { margin-bottom: 2rem; }
         .form-heading h1 {
-            font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700;
-            letter-spacing: -0.5px; margin-bottom: 0.5rem;
+            font-family: 'Space Grotesk', sans-serif; font-size: 2rem;
+            font-weight: 700; letter-spacing: -0.5px; margin-bottom: 0.5rem;
+            color: var(--gray-900);
         }
-        .panel-signin .form-heading h1 { color: var(--gray-900); }
-        .panel-signup .form-heading h1 { color: white; }
-        .form-heading p { font-size: 0.875rem; line-height: 1.5; }
-        .panel-signin .form-heading p { color: var(--gray-500); }
-        .panel-signup .form-heading p { color: #9ca3af; }
+        .form-heading p { font-size: 0.875rem; color: var(--gray-500); line-height: 1.5; }
 
-        /* FORM ELEMENTS */
         .form-group { margin-bottom: 1rem; }
         .form-row { display: flex; gap: 0.75rem; }
         .form-row .form-group { flex: 1; }
-        .form-label { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.25rem; }
-        .panel-signin .form-label { color: var(--gray-700); }
-        .panel-signup .form-label { color: #d1d5db; }
+        .form-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.25rem; }
         .form-label .req { color: var(--danger); }
 
         .input-wrap { position: relative; }
         .input-icon {
             position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%);
-            font-size: 1rem; pointer-events: none; z-index: 1;
+            font-size: 1rem; pointer-events: none; z-index: 1; color: var(--gray-400);
         }
-        .panel-signin .input-icon { color: var(--gray-400); }
-        .panel-signup .input-icon { color: #6b7280; }
 
         .form-input {
             width: 100%; padding: 0.6875rem 0.875rem 0.6875rem 2.625rem;
             border-radius: 8px; font-family: 'Inter', sans-serif;
             font-size: 0.875rem; transition: all 0.2s ease; outline: none; line-height: 1.5;
+            border: 1.5px solid var(--gray-200); background: var(--gray-50); color: var(--gray-900);
         }
-        .panel-signin .form-input {
-            border: 1.5px solid var(--gray-200); background: var(--gray-100); color: var(--gray-900);
-        }
-        .panel-signin .form-input:focus { border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 4px rgba(37,99,235,0.06); }
-        .panel-signin .form-input.error { border-color: var(--danger); }
-
-        .panel-signup .form-input {
-            border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white;
-        }
-        .panel-signup .form-input::placeholder { color: #6b7280; }
-        .panel-signup .form-input:focus { border-color: var(--accent); background: rgba(255,255,255,0.08); box-shadow: 0 0 0 4px rgba(139,92,246,0.1); }
-        .panel-signup .form-input.error { border-color: var(--danger); }
+        .form-input:focus { border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 4px rgba(37,99,235,0.06); }
+        .form-input.error { border-color: var(--danger); background: var(--white); }
 
         .toggle-pw {
             position: absolute; right: 0.875rem; top: 50%; transform: translateY(-50%);
             cursor: pointer; font-size: 0.875rem; z-index: 1;
-            background: none; border: none; padding: 0;
+            background: none; border: none; padding: 0; color: var(--gray-400);
         }
-        .panel-signin .toggle-pw { color: var(--gray-400); }
-        .panel-signup .toggle-pw { color: #6b7280; }
-        .toggle-pw:hover { opacity: 0.8; }
+        .toggle-pw:hover { color: var(--gray-600); }
 
-        .form-error { font-size: 0.688rem; margin-top: 0.1875rem; display: none; align-items: center; gap: 0.25rem; }
-        .panel-signin .form-error { color: var(--danger); }
-        .panel-signup .form-error { color: #fca5a5; }
+        .form-error { font-size: 0.688rem; color: var(--danger); margin-top: 0.1875rem; display: none; align-items: center; gap: 0.25rem; }
         .form-error.show { display: flex; }
 
         .username-status { display: flex; align-items: center; gap: 0.25rem; font-size: 0.688rem; margin-top: 0.1875rem; }
@@ -134,28 +176,27 @@
         .username-status.unavailable { color: var(--danger); }
         .username-status.checking { color: var(--warning); }
 
-        /* PROFILE UPLOAD */
+        /* Profile Upload */
         .profile-upload { display: flex; align-items: center; gap: 0.875rem; margin-bottom: 0.75rem; }
         .profile-preview {
-            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; cursor: pointer; overflow: hidden; flex-shrink: 0;
-            transition: all 0.2s ease;
+            width: 60px; height: 60px; border-radius: 50%;
+            border: 2px dashed var(--gray-300); background: var(--gray-50);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; overflow: hidden; flex-shrink: 0; transition: all 0.2s ease;
         }
-        .panel-signup .profile-preview { border: 2px dashed rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
-        .profile-preview:hover { border-color: var(--accent); }
+        .profile-preview:hover { border-color: var(--primary); }
         .profile-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .profile-preview i { font-size: 1.25rem; color: #6b7280; }
-        .profile-upload-text { font-size: 0.688rem; color: #9ca3af; }
-        .profile-upload-text span { color: #60a5fa; cursor: pointer; font-weight: 500; }
-        .profile-upload-text span:hover { text-decoration: underline; }
+        .profile-preview i { font-size: 1.25rem; color: var(--gray-400); }
+        .profile-upload-text { font-size: 0.688rem; color: var(--gray-500); }
+        .profile-upload-text span { color: var(--primary); cursor: pointer; font-weight: 500; }
 
-        /* SUBMIT BUTTON */
+        /* Submit Button */
         .submit-btn {
             width: 100%; padding: 0.75rem; border-radius: 8px;
             font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600;
             transition: all 0.2s ease; cursor: pointer; border: none;
             display: flex; align-items: center; justify-content: center; gap: 0.375rem;
-            margin-top: 0.75rem; letter-spacing: 0.2px;
+            margin-top: 0.75rem;
         }
         .submit-btn.primary { background: var(--primary); color: white; }
         .submit-btn.primary:hover { background: var(--primary-dark); box-shadow: 0 8px 20px rgba(37,99,235,0.3); }
@@ -164,19 +205,11 @@
         .submit-btn.accent:hover { background: var(--accent-dark); box-shadow: 0 8px 20px rgba(139,92,246,0.3); }
         .submit-btn.accent:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* SWITCH LINK */
-        .switch-text { text-align: center; margin-top: 1.5rem; font-size: 0.813rem; }
-        .panel-signin .switch-text { color: var(--gray-500); }
-        .panel-signup .switch-text { color: #9ca3af; }
-        .switch-text a { font-weight: 600; cursor: pointer; text-decoration: none; }
-        .panel-signin .switch-text a { color: var(--primary); }
-        .panel-signup .switch-text a { color: #60a5fa; }
-        .switch-text a:hover { text-decoration: underline; }
-
-        .back-link { display: inline-flex; align-items: center; gap: 0.25rem; text-decoration: none; font-size: 0.813rem; margin-bottom: 2rem; }
-        .panel-signin .back-link { color: var(--gray-500); }
-        .panel-signup .back-link { color: #9ca3af; }
-        .back-link:hover { opacity: 0.8; }
+        .back-link {
+            display: inline-flex; align-items: center; gap: 0.25rem;
+            text-decoration: none; font-size: 0.813rem; color: var(--gray-500); margin-bottom: 2rem;
+        }
+        .back-link:hover { color: var(--primary); }
 
         /* TOAST */
         .toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
@@ -188,126 +221,17 @@
 <body>
     <!-- AUTH SCREEN -->
     <div class="auth-screen">
-        <!-- LEFT: SIGN IN -->
-        <div class="panel-signin" id="panelSignin">
-            <div class="form-wrapper">
-                <a href="index.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Home</a>
-                <a href="index.html" class="form-logo">
-                    <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
-                    <span>Akademia</span>
-                </a>
-                <div class="form-heading">
-                    <h1>Welcome Back</h1>
-                    <p>Sign in to continue your learning journey and track your progress.</p>
-                </div>
-
-                <form id="signinForm" autocomplete="off">
-                    <div class="form-group">
-                        <label class="form-label">Email or Username</label>
-                        <div class="input-wrap">
-                            <i class='bx bx-envelope input-icon'></i>
-                            <input type="text" class="form-input" id="signinEmail" placeholder="you@example.com">
-                        </div>
-                        <div class="form-error" id="signinEmailError"><i class='bx bx-error-circle'></i> Please enter your email or username</div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <div class="input-wrap">
-                            <i class='bx bx-lock-alt input-icon'></i>
-                            <input type="password" class="form-input" id="signinPassword" placeholder="Enter password">
-                            <button type="button" class="toggle-pw" onclick="togglePW('signinPassword', this)"><i class='bx bx-hide'></i></button>
-                        </div>
-                        <div class="form-error" id="signinPasswordError"><i class='bx bx-error-circle'></i> Please enter your password</div>
-                    </div>
-                    <button type="submit" class="submit-btn primary" id="signinBtn">
-                        <i class='bx bx-log-in'></i> Sign In
-                    </button>
-                </form>
-
-                <p class="switch-text">Don't have an account? <a onclick="slideTo('signup')">Create one →</a></p>
+        <!-- FORM PANEL (slides left/right) -->
+        <div class="form-panel" id="formPanel">
+            <div class="form-wrapper" id="formWrapper">
+                <!-- Content dynamically injected -->
             </div>
         </div>
 
-        <!-- RIGHT: SIGN UP -->
-        <div class="panel-signup" id="panelSignup">
-            <div class="form-wrapper">
-                <a href="index.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Home</a>
-                <a href="index.html" class="form-logo">
-                    <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
-                    <span>Akademia</span>
-                </a>
-                <div class="form-heading">
-                    <h1>Create Account</h1>
-                    <p>Join Akademia and unlock 500+ courses with AI-powered tutoring.</p>
-                </div>
-
-                <form id="signupForm" autocomplete="off">
-                    <div class="profile-upload">
-                        <div class="profile-preview" id="profilePreview" onclick="document.getElementById('profileImageInput').click()">
-                            <i class='bx bx-camera'></i>
-                        </div>
-                        <div class="profile-upload-text">
-                            <span onclick="document.getElementById('profileImageInput').click()">Upload photo</span><br>PNG, JPG (max 2MB)
-                        </div>
-                        <input type="file" id="profileImageInput" accept="image/*" style="display:none;" onchange="previewProfile(this)">
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Full Name <span class="req">*</span></label>
-                            <div class="input-wrap">
-                                <i class='bx bx-user input-icon'></i>
-                                <input type="text" class="form-input" id="signupName" placeholder="John Doe">
-                            </div>
-                            <div class="form-error" id="signupNameError"><i class='bx bx-error-circle'></i> Required</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Username <span class="req">*</span></label>
-                            <div class="input-wrap">
-                                <i class='bx bx-at input-icon'></i>
-                                <input type="text" class="form-input" id="signupUsername" placeholder="johndoe" oninput="checkUsername()">
-                            </div>
-                            <div class="username-status" id="usernameStatus"></div>
-                            <div class="form-error" id="signupUsernameError"><i class='bx bx-error-circle'></i> Min 3 characters</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Email Address <span class="req">*</span></label>
-                        <div class="input-wrap">
-                            <i class='bx bx-envelope input-icon'></i>
-                            <input type="email" class="form-input" id="signupEmail" placeholder="you@example.com">
-                        </div>
-                        <div class="form-error" id="signupEmailError"><i class='bx bx-error-circle'></i> Valid email required</div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Password <span class="req">*</span></label>
-                            <div class="input-wrap">
-                                <i class='bx bx-lock-alt input-icon'></i>
-                                <input type="password" class="form-input" id="signupPassword" placeholder="Min. 8 chars">
-                                <button type="button" class="toggle-pw" onclick="togglePW('signupPassword', this)"><i class='bx bx-hide'></i></button>
-                            </div>
-                            <div class="form-error" id="signupPasswordError"><i class='bx bx-error-circle'></i> Min 8 characters</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Confirm <span class="req">*</span></label>
-                            <div class="input-wrap">
-                                <i class='bx bx-lock-alt input-icon'></i>
-                                <input type="password" class="form-input" id="signupConfirmPassword" placeholder="Re-enter">
-                                <button type="button" class="toggle-pw" onclick="togglePW('signupConfirmPassword', this)"><i class='bx bx-hide'></i></button>
-                            </div>
-                            <div class="form-error" id="signupConfirmError"><i class='bx bx-error-circle'></i> Must match</div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="submit-btn accent" id="signupBtn">
-                        <i class='bx bx-user-plus'></i> Create Account
-                    </button>
-                </form>
-
-                <p class="switch-text">Already have an account? <a onclick="slideTo('signin')">Sign in →</a></p>
+        <!-- OVERLAY PANEL (slides right/left) -->
+        <div class="overlay-panel" id="overlayPanel">
+            <div class="overlay-content" id="overlayContent">
+                <!-- Content dynamically injected -->
             </div>
         </div>
     </div>
@@ -330,24 +254,181 @@
 
         const IMGBB_API_KEY = 'ba8023ca74166460c442e8e703d2a1b0';
         let profileImageFile = null, isUsernameAvailable = false, checkTimer = null, allUsernames = [];
+        let currentView = 'signin'; // 'signin' or 'signup'
 
-        // ============ SLIDE ANIMATION ============
-        window.slideTo = function(form) {
-            const signin = $('panelSignin');
-            const signup = $('panelSignup');
-            if (form === 'signup') {
-                signin.classList.add('slide-out');
-                signup.classList.add('slide-in');
+        // ============ RENDER SIGN IN ============
+        function renderSignIn() {
+            currentView = 'signin';
+            
+            // Form panel (left)
+            $('formWrapper').innerHTML = `
+                <a href="index.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Home</a>
+                <a href="index.html" class="form-logo">
+                    <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
+                    <span>Akademia</span>
+                </a>
+                <div class="form-heading">
+                    <h1>Welcome Back</h1>
+                    <p>Sign in to continue your learning journey and track your progress.</p>
+                </div>
+                <form id="signinForm" autocomplete="off">
+                    <div class="form-group">
+                        <label class="form-label">Email or Username</label>
+                        <div class="input-wrap">
+                            <i class='bx bx-envelope input-icon'></i>
+                            <input type="text" class="form-input" id="signinEmail" placeholder="you@example.com">
+                        </div>
+                        <div class="form-error" id="signinEmailError"><i class='bx bx-error-circle'></i> Please enter your email or username</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-wrap">
+                            <i class='bx bx-lock-alt input-icon'></i>
+                            <input type="password" class="form-input" id="signinPassword" placeholder="Enter password">
+                            <button type="button" class="toggle-pw" onclick="togglePW('signinPassword', this)"><i class='bx bx-hide'></i></button>
+                        </div>
+                        <div class="form-error" id="signinPasswordError"><i class='bx bx-error-circle'></i> Please enter your password</div>
+                    </div>
+                    <button type="submit" class="submit-btn primary" id="signinBtn">
+                        <i class='bx bx-log-in'></i> Sign In
+                    </button>
+                </form>`;
+            
+            bindSignInForm();
+
+            // Overlay panel (right)
+            $('overlayContent').innerHTML = `
+                <a href="index.html" class="overlay-logo">
+                    <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
+                    <span>Akademia</span>
+                </a>
+                <div class="overlay-icon signup"><i class='bx bx-user-plus'></i></div>
+                <h2 class="overlay-title">New Here?</h2>
+                <p class="overlay-desc">Create an account and unlock access to 500+ courses, AI-powered tutoring, and interactive exercises.</p>
+                <div class="overlay-features">
+                    <div class="overlay-feat"><div class="feat-dot green"><i class='bx bx-check'></i></div> 500+ Expert-led Courses</div>
+                    <div class="overlay-feat"><div class="feat-dot blue"><i class='bx bx-check'></i></div> AI-Powered Tutoring 24/7</div>
+                    <div class="overlay-feat"><div class="feat-dot purple"><i class='bx bx-check'></i></div> Industry-Recognized Certificates</div>
+                </div>
+                <button class="overlay-switch-btn" onclick="switchTo('signup')">
+                    Create Account <i class='bx bx-right-arrow-alt'></i>
+                </button>`;
+
+            // Reset positions
+            $('formPanel').classList.remove('swapped');
+            $('overlayPanel').classList.remove('swapped');
+        }
+
+        // ============ RENDER SIGN UP ============
+        function renderSignUp() {
+            currentView = 'signup';
+            
+            // Overlay panel (now on left)
+            $('overlayContent').innerHTML = `
+                <a href="index.html" class="overlay-logo">
+                    <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
+                    <span>Akademia</span>
+                </a>
+                <div class="overlay-icon signin"><i class='bx bx-log-in'></i></div>
+                <h2 class="overlay-title">Welcome Back!</h2>
+                <p class="overlay-desc">Already have an account? Sign in to continue your learning journey and pick up where you left off.</p>
+                <div class="overlay-features">
+                    <div class="overlay-feat"><div class="feat-dot green"><i class='bx bx-check'></i></div> Track your learning progress</div>
+                    <div class="overlay-feat"><div class="feat-dot blue"><i class='bx bx-check'></i></div> Access all your courses</div>
+                    <div class="overlay-feat"><div class="feat-dot purple"><i class='bx bx-check'></i></div> Earn certificates & badges</div>
+                </div>
+                <button class="overlay-switch-btn" onclick="switchTo('signin')">
+                    <i class='bx bx-left-arrow-alt'></i> Sign In
+                </button>`;
+
+            // Form panel (now on right)
+            $('formWrapper').innerHTML = `
+                <a href="index.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Home</a>
+                <a href="index.html" class="form-logo">
+                    <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
+                    <span>Akademia</span>
+                </a>
+                <div class="form-heading">
+                    <h1>Create Account</h1>
+                    <p>Join Akademia and unlock 500+ courses with AI-powered tutoring.</p>
+                </div>
+                <form id="signupForm" autocomplete="off">
+                    <div class="profile-upload">
+                        <div class="profile-preview" id="profilePreview" onclick="document.getElementById('profileImageInput').click()">
+                            <i class='bx bx-camera'></i>
+                        </div>
+                        <div class="profile-upload-text">
+                            <span onclick="document.getElementById('profileImageInput').click()">Upload photo</span><br>PNG, JPG (max 2MB)
+                        </div>
+                        <input type="file" id="profileImageInput" accept="image/*" style="display:none;" onchange="previewProfile(this)">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Full Name <span class="req">*</span></label>
+                            <div class="input-wrap">
+                                <i class='bx bx-user input-icon'></i>
+                                <input type="text" class="form-input" id="signupName" placeholder="John Doe">
+                            </div>
+                            <div class="form-error" id="signupNameError"><i class='bx bx-error-circle'></i> Required</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Username <span class="req">*</span></label>
+                            <div class="input-wrap">
+                                <i class='bx bx-at input-icon'></i>
+                                <input type="text" class="form-input" id="signupUsername" placeholder="johndoe" oninput="checkUsername()">
+                            </div>
+                            <div class="username-status" id="usernameStatus"></div>
+                            <div class="form-error" id="signupUsernameError"><i class='bx bx-error-circle'></i> Min 3 characters</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address <span class="req">*</span></label>
+                        <div class="input-wrap">
+                            <i class='bx bx-envelope input-icon'></i>
+                            <input type="email" class="form-input" id="signupEmail" placeholder="you@example.com">
+                        </div>
+                        <div class="form-error" id="signupEmailError"><i class='bx bx-error-circle'></i> Valid email required</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Password <span class="req">*</span></label>
+                            <div class="input-wrap">
+                                <i class='bx bx-lock-alt input-icon'></i>
+                                <input type="password" class="form-input" id="signupPassword" placeholder="Min. 8 chars">
+                                <button type="button" class="toggle-pw" onclick="togglePW('signupPassword', this)"><i class='bx bx-hide'></i></button>
+                            </div>
+                            <div class="form-error" id="signupPasswordError"><i class='bx bx-error-circle'></i> Min 8 characters</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirm <span class="req">*</span></label>
+                            <div class="input-wrap">
+                                <i class='bx bx-lock-alt input-icon'></i>
+                                <input type="password" class="form-input" id="signupConfirmPassword" placeholder="Re-enter">
+                                <button type="button" class="toggle-pw" onclick="togglePW('signupConfirmPassword', this)"><i class='bx bx-hide'></i></button>
+                            </div>
+                            <div class="form-error" id="signupConfirmError"><i class='bx bx-error-circle'></i> Must match</div>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn accent" id="signupBtn">
+                        <i class='bx bx-user-plus'></i> Create Account
+                    </button>
+                </form>`;
+            
+            bindSignUpForm();
+
+            // Swap positions
+            $('formPanel').classList.add('swapped');
+            $('overlayPanel').classList.add('swapped');
+        }
+
+        // ============ SWITCH ============
+        window.switchTo = function(view) {
+            if (view === 'signup') {
+                renderSignUp();
             } else {
-                signin.classList.remove('slide-out');
-                signup.classList.remove('slide-in');
+                renderSignIn();
             }
         };
-
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('mode') === 'register' || params.get('mode') === 'signup') {
-            setTimeout(() => slideTo('signup'), 400);
-        }
 
         // ============ PASSWORD TOGGLE ============
         window.togglePW = function(inputId, btn) {
@@ -401,75 +482,86 @@
             document.querySelectorAll('.form-input').forEach(e => e.classList.remove('error'));
         }
 
-        // ============ SIGN IN ============
-        $('signinForm')?.addEventListener('submit', async function(e) {
-            e.preventDefault(); clearErrors();
-            const emailOrUser = $('signinEmail')?.value?.trim(); const password = $('signinPassword')?.value;
-            let err = false;
-            if (!emailOrUser) { $('signinEmailError').classList.add('show'); $('signinEmail').classList.add('error'); err = true; }
-            if (!password) { $('signinPasswordError').classList.add('show'); $('signinPassword').classList.add('error'); err = true; }
-            if (err) return;
-            const btn = $('signinBtn'); btn.disabled = true; btn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Signing in...';
-            try {
-                let email = emailOrUser;
-                if (!emailOrUser.includes('@')) {
-                    try {
-                        const q = query(collection(db, 'users'), where('username', '==', emailOrUser.toLowerCase()));
-                        const snap = await getDocs(q);
-                        if (!snap.empty) email = snap.docs[0].data().email;
-                        else { const lu = JSON.parse(localStorage.getItem('ak_users') || '[]'); const f = lu.find(u => u.username === emailOrUser.toLowerCase()); if (f) email = f.email; else throw new Error('User not found'); }
-                    } catch (er) { throw new Error('Username not found. Use your email.'); }
-                }
-                const uc = await signInWithEmailAndPassword(auth, email, password);
-                localStorage.setItem('ak_user', JSON.stringify({ uid: uc.user.uid, email: uc.user.email, displayName: uc.user.displayName, photoURL: uc.user.photoURL }));
-                toast('Welcome back!', 'success'); setTimeout(() => { window.location.href = 'index.html'; }, 800);
-            } catch (error) {
-                let msg = 'Sign in failed.';
-                if (error.code === 'auth/invalid-credential') msg = 'Incorrect email or password.';
-                else if (error.message) msg = error.message;
-                toast(msg, 'error'); btn.disabled = false; btn.innerHTML = '<i class="bx bx-log-in"></i> Sign In';
-            }
-        });
-
-        // ============ SIGN UP ============
-        $('signupForm')?.addEventListener('submit', async function(e) {
-            e.preventDefault(); clearErrors();
-            const name = $('signupName')?.value?.trim(); const username = $('signupUsername')?.value?.trim();
-            const email = $('signupEmail')?.value?.trim(); const password = $('signupPassword')?.value;
-            const confirm = $('signupConfirmPassword')?.value; let err = false;
-            if (!name) { $('signupNameError').classList.add('show'); $('signupName').classList.add('error'); err = true; }
-            if (!username || username.length < 3) { $('signupUsernameError').textContent = username ? 'Min 3 characters' : 'Required'; $('signupUsernameError').classList.add('show'); $('signupUsername').classList.add('error'); err = true; }
-            else if (!isUsernameAvailable) { $('signupUsernameError').textContent = 'Username taken'; $('signupUsernameError').classList.add('show'); $('signupUsername').classList.add('error'); err = true; }
-            if (!email || !email.includes('@')) { $('signupEmailError').classList.add('show'); $('signupEmail').classList.add('error'); err = true; }
-            if (!password || password.length < 8) { $('signupPasswordError').classList.add('show'); $('signupPassword').classList.add('error'); err = true; }
-            if (password !== confirm) { $('signupConfirmError').classList.add('show'); $('signupConfirmPassword').classList.add('error'); err = true; }
-            if (err) return;
-            const btn = $('signupBtn'); btn.disabled = true; btn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Creating...';
-            try {
-                let photoURL = null;
-                if (profileImageFile) { toast('Uploading photo...', 'info'); photoURL = await uploadImage(profileImageFile); }
-                const uc = await createUserWithEmailAndPassword(auth, email, password);
-                await updateProfile(uc.user, { displayName: name, photoURL: photoURL || null });
+        // ============ BIND SIGN IN ============
+        function bindSignInForm() {
+            $('signinForm')?.addEventListener('submit', async function(e) {
+                e.preventDefault(); clearErrors();
+                const emailOrUser = $('signinEmail')?.value?.trim(); const password = $('signinPassword')?.value;
+                let err = false;
+                if (!emailOrUser) { $('signinEmailError').classList.add('show'); $('signinEmail').classList.add('error'); err = true; }
+                if (!password) { $('signinPasswordError').classList.add('show'); $('signinPassword').classList.add('error'); err = true; }
+                if (err) return;
+                const btn = $('signinBtn'); btn.disabled = true; btn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Signing in...';
                 try {
-                    await setDoc(doc(db, 'users', uc.user.uid), { uid: uc.user.uid, name, username: username.toLowerCase(), email, photoURL: photoURL || '', createdAt: new Date().toISOString(), provider: 'email' });
-                } catch (fe) {
-                    const lu = JSON.parse(localStorage.getItem('ak_users') || '[]');
-                    lu.push({ uid: uc.user.uid, name, username: username.toLowerCase(), email, photoURL: photoURL || '', createdAt: new Date().toISOString() });
-                    localStorage.setItem('ak_users', JSON.stringify(lu));
+                    let email = emailOrUser;
+                    if (!emailOrUser.includes('@')) {
+                        try {
+                            const q = query(collection(db, 'users'), where('username', '==', emailOrUser.toLowerCase()));
+                            const snap = await getDocs(q);
+                            if (!snap.empty) email = snap.docs[0].data().email;
+                            else { const lu = JSON.parse(localStorage.getItem('ak_users') || '[]'); const f = lu.find(u => u.username === emailOrUser.toLowerCase()); if (f) email = f.email; else throw new Error('User not found'); }
+                        } catch (er) { throw new Error('Username not found. Use your email.'); }
+                    }
+                    const uc = await signInWithEmailAndPassword(auth, email, password);
+                    localStorage.setItem('ak_user', JSON.stringify({ uid: uc.user.uid, email: uc.user.email, displayName: uc.user.displayName, photoURL: uc.user.photoURL }));
+                    toast('Welcome back!', 'success'); setTimeout(() => { window.location.href = 'index.html'; }, 800);
+                } catch (error) {
+                    let msg = 'Sign in failed.';
+                    if (error.code === 'auth/invalid-credential') msg = 'Incorrect email or password.';
+                    else if (error.message) msg = error.message;
+                    toast(msg, 'error'); btn.disabled = false; btn.innerHTML = '<i class="bx bx-log-in"></i> Sign In';
                 }
-                saveUsernameLocal(username);
-                localStorage.setItem('ak_user', JSON.stringify({ uid: uc.user.uid, email, displayName: name, photoURL: photoURL || '' }));
-                toast('Account created!', 'success'); setTimeout(() => { window.location.href = 'index.html'; }, 1000);
-            } catch (error) {
-                let msg = 'Registration failed.';
-                if (error.code === 'auth/email-already-in-use') msg = 'Email already registered.';
-                else if (error.message) msg = error.message;
-                toast(msg, 'error'); btn.disabled = false; btn.innerHTML = '<i class="bx bx-user-plus"></i> Create Account';
-            }
-        });
+            });
+        }
 
+        // ============ BIND SIGN UP ============
+        function bindSignUpForm() {
+            $('signupForm')?.addEventListener('submit', async function(e) {
+                e.preventDefault(); clearErrors();
+                const name = $('signupName')?.value?.trim(); const username = $('signupUsername')?.value?.trim();
+                const email = $('signupEmail')?.value?.trim(); const password = $('signupPassword')?.value;
+                const confirm = $('signupConfirmPassword')?.value; let err = false;
+                if (!name) { $('signupNameError').classList.add('show'); $('signupName').classList.add('error'); err = true; }
+                if (!username || username.length < 3) { $('signupUsernameError').textContent = username ? 'Min 3 characters' : 'Required'; $('signupUsernameError').classList.add('show'); $('signupUsername').classList.add('error'); err = true; }
+                else if (!isUsernameAvailable) { $('signupUsernameError').textContent = 'Username taken'; $('signupUsernameError').classList.add('show'); $('signupUsername').classList.add('error'); err = true; }
+                if (!email || !email.includes('@')) { $('signupEmailError').classList.add('show'); $('signupEmail').classList.add('error'); err = true; }
+                if (!password || password.length < 8) { $('signupPasswordError').classList.add('show'); $('signupPassword').classList.add('error'); err = true; }
+                if (password !== confirm) { $('signupConfirmError').classList.add('show'); $('signupConfirmPassword').classList.add('error'); err = true; }
+                if (err) return;
+                const btn = $('signupBtn'); btn.disabled = true; btn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Creating...';
+                try {
+                    let photoURL = null;
+                    if (profileImageFile) { toast('Uploading photo...', 'info'); photoURL = await uploadImage(profileImageFile); }
+                    const uc = await createUserWithEmailAndPassword(auth, email, password);
+                    await updateProfile(uc.user, { displayName: name, photoURL: photoURL || null });
+                    try {
+                        await setDoc(doc(db, 'users', uc.user.uid), { uid: uc.user.uid, name, username: username.toLowerCase(), email, photoURL: photoURL || '', createdAt: new Date().toISOString(), provider: 'email' });
+                    } catch (fe) {
+                        const lu = JSON.parse(localStorage.getItem('ak_users') || '[]');
+                        lu.push({ uid: uc.user.uid, name, username: username.toLowerCase(), email, photoURL: photoURL || '', createdAt: new Date().toISOString() });
+                        localStorage.setItem('ak_users', JSON.stringify(lu));
+                    }
+                    saveUsernameLocal(username);
+                    localStorage.setItem('ak_user', JSON.stringify({ uid: uc.user.uid, email, displayName: name, photoURL: photoURL || '' }));
+                    toast('Account created!', 'success'); setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+                } catch (error) {
+                    let msg = 'Registration failed.';
+                    if (error.code === 'auth/email-already-in-use') msg = 'Email already registered.';
+                    else if (error.message) msg = error.message;
+                    toast(msg, 'error'); btn.disabled = false; btn.innerHTML = '<i class="bx bx-user-plus"></i> Create Account';
+                }
+            });
+        }
+
+        // ============ INIT ============
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('mode') === 'register' || params.get('mode') === 'signup') {
+            renderSignUp();
+        } else {
+            renderSignIn();
+        }
         loadUsernames();
-        console.log('🚀 Akademia Full-Page Auth loaded!');
+        console.log('🚀 Akademia Swapping Overlay Auth loaded!');
     </script>
 </body>
 </html>
