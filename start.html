@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademia - Find Your Path</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <style>
+        :root {
+            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-bg: #EFF6FF;
+            --accent: #8B5CF6; --accent-dark: #7C3AED;
+            --success: #04AA6D; --success-dark: #038857;
+            --warning: #F59E0B; --danger: #EF4444;
+            --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
+            --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
+            --gray-800: #1f2937; --gray-900: #111827;
+            --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04); --shadow: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.08); --shadow-lg: 0 20px 50px rgba(0,0,0,0.1);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
+        body {
+            font-family: 'Inter', sans-serif; background: #f0f2f5;
+            -webkit-font-smoothing: antialiased; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* ============ PATHFINDER CONTAINER ============ */
+        .pathfinder-container {
+            width: 100%; max-width: 650px; background: var(--white);
+            border-radius: var(--radius-2xl); box-shadow: var(--shadow-lg);
+            overflow: hidden; position: relative; min-height: 520px;
+            display: flex; flex-direction: column;
+        }
+
+        /* ============ PROGRESS BAR ============ */
+        .progress-section {
+            padding: 1.5rem 2rem 0;
+        }
+        .progress-steps {
+            display: flex; justify-content: space-between; margin-bottom: 0.75rem;
+        }
+        .progress-step {
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; font-weight: 700; transition: all var(--transition);
+            background: var(--gray-200); color: var(--gray-500);
+        }
+        .progress-step.completed { background: var(--success); color: white; }
+        .progress-step.current { background: var(--primary); color: white; box-shadow: 0 0 0 4px rgba(37,99,235,0.15); }
+        .progress-bar-wrap { height: 4px; background: var(--gray-200); border-radius: 2px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: var(--primary); border-radius: 2px; transition: width 0.5s ease; }
+
+        /* ============ STEP CONTENT ============ */
+        .step-content {
+            flex: 1; display: flex; flex-direction: column; padding: 2rem;
+            animation: slideIn 0.4s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .step-header { margin-bottom: 1.5rem; }
+        .step-number {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--primary); margin-bottom: 0.5rem;
+        }
+        .step-question {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem;
+            font-weight: 700; color: var(--gray-900); line-height: 1.3;
+        }
+        .step-subtitle { font-size: 0.875rem; color: var(--gray-500); margin-top: 0.5rem; }
+
+        .step-options {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+        }
+        .step-options.single-col { grid-template-columns: 1fr; }
+        .step-options.three-col { grid-template-columns: 1fr 1fr 1fr; }
+
+        .option-card {
+            padding: 1rem 1.25rem; border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg); cursor: pointer; transition: all var(--transition);
+            display: flex; align-items: center; gap: 0.75rem; background: var(--white);
+            text-align: left; font-family: 'Inter', sans-serif;
+        }
+        .option-card:hover { border-color: var(--primary); background: var(--primary-bg); transform: translateY(-1px); }
+        .option-card.selected { border-color: var(--primary); background: var(--primary-bg); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+        .option-card.multi-selected { border-color: var(--accent); background: #F5F3FF; box-shadow: 0 0 0 3px rgba(139,92,246,0.1); }
+        .option-icon {
+            width: 40px; height: 40px; border-radius: var(--radius);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; flex-shrink: 0;
+        }
+        .option-icon.blue { background: var(--primary-bg); color: var(--primary); }
+        .option-icon.purple { background: #F5F3FF; color: var(--accent); }
+        .option-icon.green { background: #ECFDF5; color: var(--success); }
+        .option-icon.orange { background: #FFF7ED; color: #F97316; }
+        .option-icon.pink { background: #FDF2F8; color: #EC4899; }
+        .option-icon.teal { background: #F0FDFA; color: #14B8A6; }
+        .option-text { font-size: 0.875rem; font-weight: 600; color: var(--gray-800); }
+        .option-check {
+            width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--gray-300);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; flex-shrink: 0; transition: all var(--transition);
+        }
+        .option-card.multi-selected .option-check { background: var(--accent); border-color: var(--accent); color: white; }
+
+        /* ============ NAVIGATION ============ */
+        .step-navigation {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 2rem; border-top: 1px solid var(--gray-100);
+        }
+        .nav-btn {
+            padding: 0.625rem 1.5rem; border-radius: 50px;
+            font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600;
+            cursor: pointer; border: none; transition: all var(--transition);
+            display: flex; align-items: center; gap: 0.375rem;
+        }
+        .nav-btn.back { background: var(--gray-100); color: var(--gray-700); }
+        .nav-btn.back:hover { background: var(--gray-200); }
+        .nav-btn.next { background: var(--primary); color: white; }
+        .nav-btn.next:hover { background: var(--primary-dark); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+        .nav-btn.next:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+        .nav-btn.finish { background: var(--success); color: white; }
+        .nav-btn.finish:hover { background: var(--success-dark); box-shadow: 0 4px 12px rgba(4,170,109,0.3); }
+        .step-counter { font-size: 0.75rem; color: var(--gray-400); }
+
+        /* ============ SUMMARY / LOADING OVERLAY ============ */
+        .summary-overlay {
+            position: absolute; inset: 0; background: var(--white);
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; z-index: 10; opacity: 0; pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        .summary-overlay.show { opacity: 1; pointer-events: all; }
+        .summary-check {
+            width: 100px; height: 100px; border-radius: 50%;
+            background: var(--success-bg, #ECFDF5); display: flex;
+            align-items: center; justify-content: center; margin-bottom: 1.5rem;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .summary-check i { font-size: 3.5rem; color: var(--success); }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .summary-title {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem;
+            font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem;
+        }
+        .summary-subtitle { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 2rem; }
+        .summary-details {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+            width: 100%; max-width: 400px; margin-bottom: 2rem;
+        }
+        .summary-item {
+            background: var(--gray-50); padding: 0.75rem 1rem;
+            border-radius: var(--radius); font-size: 0.813rem;
+        }
+        .summary-item .s-label { font-size: 0.688rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
+        .summary-item .s-value { font-weight: 600; color: var(--gray-900); margin-top: 0.125rem; }
+        .summary-loader {
+            width: 40px; height: 40px; border: 3px solid var(--gray-200);
+            border-top-color: var(--primary); border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .back-home {
+            position: absolute; top: 1.25rem; left: 2rem;
+            display: inline-flex; align-items: center; gap: 0.25rem;
+            text-decoration: none; font-size: 0.813rem; color: var(--gray-500); z-index: 5;
+        }
+        .back-home:hover { color: var(--primary); }
+
+        @media (max-width: 600px) {
+            .step-options { grid-template-columns: 1fr; }
+            .step-options.three-col { grid-template-columns: 1fr 1fr; }
+            .step-content { padding: 1.5rem; }
+            .step-navigation { padding: 0.75rem 1.5rem; }
+            .summary-details { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- PATHFINDER CONTAINER -->
+    <div class="pathfinder-container" id="pathfinderContainer">
+        <a href="index.html" class="back-home"><i class='bx bx-arrow-back'></i> Home</a>
+
+        <!-- PROGRESS -->
+        <div class="progress-section">
+            <div class="progress-steps" id="progressSteps"></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
+        </div>
+
+        <!-- STEP CONTENT -->
+        <div class="step-content" id="stepContent"></div>
+
+        <!-- NAVIGATION -->
+        <div class="step-navigation" id="stepNavigation"></div>
+
+        <!-- SUMMARY OVERLAY -->
+        <div class="summary-overlay" id="summaryOverlay">
+            <div class="summary-check"><i class='bx bx-check'></i></div>
+            <h2 class="summary-title">Pathfinding Complete!</h2>
+            <p class="summary-subtitle">Here's a summary of your learning path</p>
+            <div class="summary-details" id="summaryDetails"></div>
+            <div class="summary-loader"></div>
+            <p style="font-size:0.75rem;color:var(--gray-400);margin-top:1rem;">Redirecting to your dashboard...</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { auth } from './js/firebase.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+
+        const $ = id => document.getElementById(id);
+
+        // ============ CHECK IF ALREADY COMPLETED ============
+        function checkAlreadyDone() {
+            const pathData = localStorage.getItem('ak_pathfinder_done');
+            if (pathData) {
+                window.location.href = 'user.html';
+                return true;
+            }
+            return false;
+        }
+
+        // ============ STEPS DATA ============
+        const steps = [
+            {
+                number: 1,
+                question: 'What do you want to become?',
+                subtitle: 'Choose your career goal',
+                type: 'single',
+                key: 'goal',
+                options: [
+                    { value: 'frontend', label: 'Frontend Developer', icon: 'bx-code-alt', color: 'blue' },
+                    { value: 'backend', label: 'Backend Developer', icon: 'bx-server', color: 'purple' },
+                    { value: 'fullstack', label: 'Full Stack Developer', icon: 'bx-layer', color: 'green' },
+                    { value: 'mobile', label: 'Mobile App Developer', icon: 'bx-mobile-alt', color: 'orange' },
+                    { value: 'designer', label: 'UI/UX Designer', icon: 'bx-palette', color: 'pink' },
+                    { value: 'python', label: 'Python Developer', icon: 'bxl-python', color: 'blue' },
+                    { value: 'data', label: 'Data Analyst', icon: 'bx-bar-chart-square', color: 'teal' },
+                    { value: 'ai', label: 'AI Engineer', icon: 'bx-brain', color: 'purple' },
+                    { value: 'cyber', label: 'Cybersecurity Specialist', icon: 'bx-shield-quarter', color: 'orange' },
+                    { value: 'game', label: 'Game Developer', icon: 'bx-joystick', color: 'pink' },
+                    { value: 'unsure', label: 'Not Sure Yet', icon: 'bx-question-mark', color: 'green' }
+                ]
+            },
+            {
+                number: 2,
+                question: 'How experienced are you?',
+                subtitle: 'This helps us skip content you already know',
+                type: 'single',
+                key: 'experience',
+                options: [
+                    { value: 'complete_beginner', label: 'Complete Beginner', icon: 'bx-child', color: 'green' },
+                    { value: 'beginner', label: 'Beginner', icon: 'bx-smile', color: 'blue' },
+                    { value: 'intermediate', label: 'Intermediate', icon: 'bx-cool', color: 'purple' },
+                    { value: 'advanced', label: 'Advanced', icon: 'bx-badge-check', color: 'orange' }
+                ]
+            },
+            {
+                number: 3,
+                question: 'Which topics interest you?',
+                subtitle: 'Select all that apply',
+                type: 'multi',
+                key: 'interests',
+                options: [
+                    { value: 'websites', label: 'Websites', icon: 'bx-globe', color: 'blue' },
+                    { value: 'apps', label: 'Mobile Apps', icon: 'bx-mobile', color: 'purple' },
+                    { value: 'ai', label: 'Artificial Intelligence', icon: 'bx-bot', color: 'green' },
+                    { value: 'design', label: 'Design', icon: 'bx-paint', color: 'pink' },
+                    { value: 'cyber', label: 'Cybersecurity', icon: 'bx-shield', color: 'orange' },
+                    { value: 'games', label: 'Games', icon: 'bx-joystick', color: 'teal' },
+                    { value: 'data', label: 'Data', icon: 'bx-data', color: 'blue' },
+                    { value: 'automation', label: 'Automation', icon: 'bx-cog', color: 'purple' }
+                ]
+            },
+            {
+                number: 4,
+                question: 'How much time can you study each day?',
+                subtitle: 'We\'ll customize your learning pace',
+                type: 'single',
+                key: 'studyTime',
+                options: [
+                    { value: '15min', label: '15 Minutes', icon: 'bx-time-five', color: 'green' },
+                    { value: '30min', label: '30 Minutes', icon: 'bx-time-five', color: 'blue' },
+                    { value: '1hour', label: '1 Hour', icon: 'bx-hourglass', color: 'purple' },
+                    { value: '2hours', label: '2 Hours', icon: 'bx-hourglass', color: 'orange' },
+                    { value: '3plus', label: '3+ Hours', icon: 'bx-hourglass', color: 'pink' }
+                ]
+            },
+            {
+                number: 5,
+                question: 'How do you learn best?',
+                subtitle: 'Choose your preferred learning style',
+                type: 'single',
+                key: 'learningStyle',
+                options: [
+                    { value: 'videos', label: 'Videos', icon: 'bx-video', color: 'blue' },
+                    { value: 'reading', label: 'Reading', icon: 'bx-book-open', color: 'purple' },
+                    { value: 'practice', label: 'Practice', icon: 'bx-code-block', color: 'green' },
+                    { value: 'projects', label: 'Projects', icon: 'bx-folder', color: 'orange' },
+                    { value: 'mix', label: 'Mix of Everything', icon: 'bx-grid-alt', color: 'pink' }
+                ]
+            },
+            {
+                number: 6,
+                question: 'What\'s your main goal?',
+                subtitle: 'This helps us guide your learning journey',
+                type: 'single',
+                key: 'outcome',
+                options: [
+                    { value: 'skill', label: 'Learn a New Skill', icon: 'bx-book', color: 'blue' },
+                    { value: 'job', label: 'Get a Job', icon: 'bx-briefcase', color: 'green' },
+                    { value: 'freelance', label: 'Freelance', icon: 'bx-globe', color: 'purple' },
+                    { value: 'business', label: 'Start a Business', icon: 'bx-rocket', color: 'orange' },
+                    { value: 'projects', label: 'Build Personal Projects', icon: 'bx-code-alt', color: 'pink' },
+                    { value: 'university', label: 'Prepare for University', icon: 'bx-building-house', color: 'teal' },
+                    { value: 'explore', label: 'Explore Technology', icon: 'bx-compass', color: 'blue' }
+                ]
+            }
+        ];
+
+        // ============ APP STATE ============
+        let currentStep = 0;
+        let answers = {};
+        let currentUser = null;
+
+        // ============ INIT ============
+        function init() {
+            if (checkAlreadyDone()) return;
+
+            // Check auth
+            onAuthStateChanged(auth, (user) => {
+                currentUser = user;
+            });
+
+            // Load cached user
+            const cached = JSON.parse(localStorage.getItem('ak_user') || 'null');
+            if (cached) currentUser = cached;
+
+            renderAll();
+        }
+
+        function renderAll() {
+            renderProgress();
+            renderStep();
+            renderNavigation();
+        }
+
+        // ============ RENDER PROGRESS ============
+        function renderProgress() {
+            const container = $('progressSteps');
+            container.innerHTML = steps.map((s, i) => `
+                <div class="progress-step ${i < currentStep ? 'completed' : i === currentStep ? 'current' : ''}">
+                    ${i < currentStep ? '<i class="bx bx-check"></i>' : s.number}
+                </div>
+            `).join('');
+            
+            const progress = (currentStep / (steps.length - 1)) * 100;
+            $('progressBar').style.width = progress + '%';
+        }
+
+        // ============ RENDER STEP ============
+        function renderStep() {
+            const step = steps[currentStep];
+            const container = $('stepContent');
+            const isMulti = step.type === 'multi';
+            const selectedValues = isMulti ? (answers[step.key] || []) : [answers[step.key]];
+            const colsClass = step.options.length <= 4 ? 'single-col' : step.options.length <= 6 ? '' : 'three-col';
+
+            container.innerHTML = `
+                <div class="step-header">
+                    <div class="step-number">Step ${step.number} of ${steps.length}</div>
+                    <h2 class="step-question">${step.question}</h2>
+                    ${step.subtitle ? `<p class="step-subtitle">${step.subtitle}</p>` : ''}
+                </div>
+                <div class="step-options ${step.options.length <= 4 ? 'single-col' : ''} ${step.options.length >= 8 ? 'three-col' : ''}">
+                    ${step.options.map(opt => `
+                        <button class="option-card ${selectedValues.includes(opt.value) ? (isMulti ? 'multi-selected' : 'selected') : ''}" 
+                                onclick="selectOption('${opt.value}', '${step.key}', ${isMulti})" data-value="${opt.value}">
+                            <div class="option-icon ${opt.color}"><i class='bx ${opt.icon}'></i></div>
+                            <span class="option-text">${opt.label}</span>
+                            ${isMulti ? `<div class="option-check">${selectedValues.includes(opt.value) ? '<i class="bx bx-check"></i>' : ''}</div>` : ''}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // ============ RENDER NAVIGATION ============
+        function renderNavigation() {
+            const container = $('stepNavigation');
+            const step = steps[currentStep];
+            const isMulti = step.type === 'multi';
+            const selectedValues = isMulti ? (answers[step.key] || []) : [answers[step.key]];
+            const hasSelection = isMulti ? selectedValues.length > 0 : !!answers[step.key];
+            const isLast = currentStep === steps.length - 1;
+
+            container.innerHTML = `
+                <button class="nav-btn back" onclick="prevStep()" ${currentStep === 0 ? 'style="visibility:hidden;"' : ''}>
+                    <i class='bx bx-chevron-left'></i> Back
+                </button>
+                <span class="step-counter">${currentStep + 1} / ${steps.length}</span>
+                <button class="nav-btn ${isLast ? 'finish' : 'next'}" onclick="nextStep()" ${!hasSelection ? 'disabled' : ''}>
+                    ${isLast ? 'Finish <i class="bx bx-check"></i>' : 'Next <i class="bx bx-chevron-right"></i>'}
+                </button>
+            `;
+        }
+
+        // ============ SELECT OPTION ============
+        window.selectOption = function(value, key, isMulti) {
+            if (isMulti) {
+                if (!answers[key]) answers[key] = [];
+                const idx = answers[key].indexOf(value);
+                if (idx > -1) {
+                    answers[key].splice(idx, 1);
+                } else {
+                    answers[key].push(value);
+                }
+            } else {
+                answers[key] = value;
+            }
+            renderStep();
+            renderNavigation();
+        };
+
+        // ============ NAVIGATION ============
+        window.prevStep = function() {
+            if (currentStep > 0) {
+                currentStep--;
+                renderAll();
+            }
+        };
+
+        window.nextStep = function() {
+            const step = steps[currentStep];
+            const isMulti = step.type === 'multi';
+            const selectedValues = isMulti ? (answers[step.key] || []) : [answers[step.key]];
+            const hasSelection = isMulti ? selectedValues.length > 0 : !!answers[step.key];
+            
+            if (!hasSelection) return;
+
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                renderAll();
+            } else {
+                finishPathfinder();
+            }
+        };
+
+        // ============ FINISH ============
+        function finishPathfinder() {
+            // Save to localStorage
+            const pathData = {
+                ...answers,
+                completedAt: new Date().toISOString(),
+                userId: currentUser?.uid || 'guest'
+            };
+            localStorage.setItem('ak_pathfinder_done', JSON.stringify(pathData));
+            localStorage.setItem('ak_pathfinder_answers', JSON.stringify(answers));
+
+            // Try to save to Firestore
+            if (currentUser?.uid) {
+                try {
+                    import('./js/firebase.js').then(({ db }) => {
+                        import("https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js").then(({ doc, setDoc }) => {
+                            setDoc(doc(db, 'users', currentUser.uid), {
+                                pathfinder: answers,
+                                pathfinderCompletedAt: new Date().toISOString()
+                            }, { merge: true }).catch(() => {});
+                        });
+                    });
+                } catch (e) {}
+            }
+
+            // Show summary
+            showSummary();
+        }
+
+        // ============ SHOW SUMMARY ============
+        function showSummary() {
+            const overlay = $('summaryOverlay');
+            const details = $('summaryDetails');
+
+            const labels = {
+                goal: 'Career Goal',
+                experience: 'Experience Level',
+                interests: 'Interests',
+                studyTime: 'Study Time',
+                learningStyle: 'Learning Style',
+                outcome: 'Main Goal'
+            };
+
+            const valueLabels = {
+                frontend: 'Frontend Developer', backend: 'Backend Developer', fullstack: 'Full Stack Developer',
+                mobile: 'Mobile App Developer', designer: 'UI/UX Designer', python: 'Python Developer',
+                data: 'Data Analyst', ai: 'AI Engineer', cyber: 'Cybersecurity Specialist',
+                game: 'Game Developer', unsure: 'Not Sure Yet',
+                complete_beginner: 'Complete Beginner', beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced',
+                websites: 'Websites', apps: 'Mobile Apps', design: 'Design', games: 'Games', automation: 'Automation',
+                '15min': '15 Minutes', '30min': '30 Minutes', '1hour': '1 Hour', '2hours': '2 Hours', '3plus': '3+ Hours',
+                videos: 'Videos', reading: 'Reading', practice: 'Practice', projects: 'Projects', mix: 'Mix of Everything',
+                skill: 'Learn a New Skill', job: 'Get a Job', freelance: 'Freelance', business: 'Start a Business',
+                university: 'Prepare for University', explore: 'Explore Technology'
+            };
+
+            details.innerHTML = Object.keys(answers).map(key => {
+                const val = answers[key];
+                const displayVal = Array.isArray(val) ? val.map(v => valueLabels[v] || v).join(', ') : (valueLabels[val] || val);
+                return `
+                    <div class="summary-item">
+                        <div class="s-label">${labels[key] || key}</div>
+                        <div class="s-value">${displayVal}</div>
+                    </div>`;
+            }).join('');
+
+            overlay.classList.add('show');
+
+            // Redirect after delay
+            setTimeout(() => {
+                window.location.href = 'user.html';
+            }, 3000);
+        }
+
+        // ============ INIT ============
+        init();
+        console.log('🚀 Akademia Pathfinder loaded!');
+    </script>
+</body>
+</html>
