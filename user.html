@@ -20,7 +20,8 @@
             --pink: #EC4899; --pink-bg: #FDF2F8;
             --orange: #F97316; --orange-bg: #FFF7ED;
             --teal: #14B8A6; --teal-bg: #F0FDFA;
-            --indigo: #6366F1; --indigo-bg: #EEF2FF;
+            --bronze: #CD7F32; --silver: #C0C0C0; --gold: #FFD700;
+            --platinum: #E5E4E2; --diamond: #B9F2FF; --master: #FF6B6B; --legend: #FFD700;
             --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
             --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
             --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
@@ -43,7 +44,6 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
 
-        /* SIDEBAR */
         .sidebar {
             width: var(--sidebar-width); background: var(--dark-bg); color: #c9d1d9;
             display: flex; flex-direction: column; position: fixed;
@@ -55,9 +55,7 @@
             display: flex; align-items: center; gap: 0.5rem;
         }
         .sidebar-header img { height: 32px; width: auto; }
-        .sidebar-header span {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 700; color: white;
-        }
+        .sidebar-header span { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 700; color: white; }
         .sidebar-user {
             padding: 1rem 1.5rem; border-bottom: 1px solid var(--dark-border);
             display: flex; align-items: center; gap: 0.75rem;
@@ -72,28 +70,18 @@
         .sidebar-user-info { flex: 1; min-width: 0; }
         .sidebar-user-name { font-weight: 600; font-size: 0.875rem; color: white; }
         .sidebar-user-level { font-size: 0.688rem; color: var(--warning); }
-
         .sidebar-nav { flex: 1; padding: 0.5rem; }
         .sidebar-section { margin-bottom: 0.25rem; }
-        .sidebar-label {
-            font-size: 0.625rem; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 1px; color: #8b949e; padding: 0.625rem 0.75rem 0.25rem;
-        }
+        .sidebar-label { font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #8b949e; padding: 0.625rem 0.75rem 0.25rem; }
         .sidebar-item {
-            display: flex; align-items: center; gap: 0.5rem;
-            padding: 0.5rem 0.75rem; border-radius: var(--radius-sm);
-            cursor: pointer; transition: all var(--transition);
+            display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition);
             color: #c9d1d9; font-size: 0.875rem; font-weight: 400;
-            border: none; background: none; width: 100%; text-align: left;
-            text-decoration: none;
+            border: none; background: none; width: 100%; text-align: left; text-decoration: none;
         }
         .sidebar-item:hover { background: #21262d; color: white; }
         .sidebar-item.active { background: #1f6feb22; color: #58a6ff; }
         .sidebar-item i { font-size: 1.125rem; width: 20px; text-align: center; flex-shrink: 0; }
-        .sidebar-badge {
-            margin-left: auto; font-size: 0.625rem; padding: 0.125rem 0.5rem;
-            border-radius: 100px; background: #21262d; color: #8b949e;
-        }
         .sidebar-sparks {
             padding: 0.75rem 1.5rem; border-top: 1px solid var(--dark-border);
             display: flex; align-items: center; gap: 0.5rem;
@@ -102,52 +90,36 @@
         .sparks-value { font-weight: 700; font-size: 0.938rem; color: white; }
         .sparks-label { font-size: 0.688rem; color: #8b949e; }
 
-        /* MAIN */
-        .main-content {
-            flex: 1; margin-left: var(--sidebar-width);
-            display: flex; flex-direction: column; height: 100vh; overflow: hidden;
-        }
+        .main-content { flex: 1; margin-left: var(--sidebar-width); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
         .topbar {
             background: var(--white); border-bottom: 1px solid var(--gray-200);
-            padding: 0 2rem; height: var(--header-height);
-            display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+            padding: 0 2rem; height: var(--header-height); display: flex;
+            align-items: center; justify-content: space-between; flex-shrink: 0;
         }
         .topbar-left { display: flex; align-items: center; gap: 1rem; }
         .topbar-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 700; }
-        .topbar-streak {
-            display: flex; align-items: center; gap: 0.375rem;
-            padding: 0.3125rem 0.875rem; border-radius: 100px;
-            background: var(--warning-bg); color: var(--warning-dark);
-            font-weight: 700; font-size: 0.813rem;
-        }
+        .topbar-streak { display: flex; align-items: center; gap: 0.375rem; padding: 0.3125rem 0.875rem; border-radius: 100px; background: var(--warning-bg); color: var(--warning-dark); font-weight: 700; font-size: 0.813rem; }
         .streak-flame { animation: pulse 1.5s infinite; }
         @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
         .topbar-actions { display: flex; align-items: center; gap: 0.75rem; }
 
-        .btn {
-            font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.375rem;
-            padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.875rem;
-            font-weight: 600; transition: all var(--transition); cursor: pointer;
-            border: none; text-decoration: none; white-space: nowrap;
-        }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); }
-        .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); }
-        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+        .btn { font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 600; transition: all var(--transition); cursor: pointer; border: none; text-decoration: none; white-space: nowrap; }
+        .btn-primary { background: var(--primary); color: white; } .btn-primary:hover { background: var(--primary-dark); }
+        .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); } .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
         .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.813rem; }
         .btn-xs { padding: 0.25rem 0.625rem; font-size: 0.75rem; border-radius: 100px; }
+        .btn-success { background: var(--success); color: white; } .btn-success:hover { background: var(--success-dark); }
+        .btn-danger { background: transparent; color: var(--danger); border: 1px solid var(--danger); }
 
-        /* CONTENT */
         .content-area { flex: 1; overflow-y: auto; padding: 2rem; }
         .page { display: none; animation: fadeSlide 0.25s ease; }
         .page.active { display: block; }
         @keyframes fadeSlide { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* DASHBOARD */
         .welcome-banner {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white; border-radius: var(--radius-2xl); padding: 2.5rem;
-            margin-bottom: 2rem; display: flex; align-items: center; gap: 2.5rem;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white;
+            border-radius: var(--radius-2xl); padding: 2.5rem; margin-bottom: 2rem;
+            display: flex; align-items: center; gap: 2.5rem;
         }
         .welcome-text h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 0.25rem; }
         .welcome-text p { color: #9ca3af; font-size: 0.938rem; }
@@ -157,26 +129,14 @@
         .welcome-stat .ws-lbl { font-size: 0.75rem; color: #9ca3af; }
 
         .widget-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
-        .widget {
-            background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-xl);
-            padding: 1.5rem; transition: all var(--transition);
-        }
+        .widget { background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-xl); padding: 1.5rem; transition: all var(--transition); }
         .widget:hover { box-shadow: var(--shadow-md); }
         .widget-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
         .widget-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.938rem; font-weight: 600; }
 
-        .daily-challenge {
-            background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
-            border: 2px solid var(--accent); border-radius: var(--radius-xl);
-            padding: 1.75rem; margin-bottom: 2rem;
-        }
+        .daily-challenge { background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%); border: 2px solid var(--accent); border-radius: var(--radius-xl); padding: 1.75rem; margin-bottom: 2rem; }
         .daily-challenge h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; margin-bottom: 0.5rem; }
-        .daily-challenge .dc-reward {
-            display: inline-flex; align-items: center; gap: 0.375rem;
-            padding: 0.3125rem 0.875rem; border-radius: 100px;
-            background: var(--warning-bg); color: var(--warning-dark);
-            font-weight: 700; font-size: 0.813rem;
-        }
+        .dc-reward { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.3125rem 0.875rem; border-radius: 100px; background: var(--warning-bg); color: var(--warning-dark); font-weight: 700; font-size: 0.813rem; }
 
         .level-progress { margin-top: 1.25rem; }
         .level-bar { height: 10px; background: rgba(255,255,255,0.15); border-radius: 5px; overflow: hidden; }
@@ -184,110 +144,116 @@
         .level-info { display: flex; justify-content: space-between; font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 0.375rem; }
 
         .quick-actions { display: flex; gap: 0.625rem; flex-wrap: wrap; }
-        .quick-action {
-            display: flex; align-items: center; gap: 0.5rem;
-            padding: 0.5625rem 1rem; border-radius: var(--radius-sm);
-            font-size: 0.813rem; font-weight: 600; cursor: pointer;
-            transition: all var(--transition); border: 1px solid var(--gray-200);
-            background: white; color: var(--gray-700);
-        }
+        .quick-action { display: flex; align-items: center; gap: 0.5rem; padding: 0.5625rem 1rem; border-radius: var(--radius-sm); font-size: 0.813rem; font-weight: 600; cursor: pointer; transition: all var(--transition); border: 1px solid var(--gray-200); background: white; color: var(--gray-700); }
         .quick-action:hover { border-color: var(--primary); background: var(--primary-bg); color: var(--primary); }
 
-        .progress-item {
-            display: flex; align-items: center; gap: 0.875rem; padding: 0.75rem 0;
-            border-bottom: 1px solid var(--gray-100);
-        }
+        .progress-item { display: flex; align-items: center; gap: 0.875rem; padding: 0.75rem 0; border-bottom: 1px solid var(--gray-100); }
         .progress-item:last-child { border-bottom: none; }
-        .progress-icon {
-            width: 38px; height: 38px; border-radius: var(--radius-sm);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.125rem; flex-shrink: 0;
-        }
+        .progress-icon { width: 38px; height: 38px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.125rem; flex-shrink: 0; }
         .progress-info { flex: 1; }
         .progress-name { font-weight: 600; font-size: 0.813rem; }
         .progress-pct { font-size: 0.75rem; color: var(--gray-500); }
         .mini-bar { height: 5px; background: var(--gray-200); border-radius: 3px; overflow: hidden; margin-top: 0.25rem; }
         .mini-bar-fill { height: 100%; background: var(--success); border-radius: 3px; }
 
-        /* ACHIEVEMENT ZONES */
+        /* ACHIEVEMENTS - NO BORDERS, JUST IMAGE */
         .zone-section { margin-bottom: 2rem; }
         .zone-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-        .achievement-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
+        .achievement-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1.25rem; }
         .ach-card {
-            background: white; border: 2px solid var(--gray-200); border-radius: var(--radius-xl);
-            padding: 1.5rem 1rem; text-align: center; transition: all var(--transition);
-            cursor: pointer; position: relative;
+            text-align: center; transition: all var(--transition); cursor: pointer;
+            position: relative; padding: 0.5rem;
         }
-        .ach-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
-        .ach-card.earned { border-color: var(--success); background: var(--success-bg); }
-        .ach-card.locked { opacity: 0.45; filter: grayscale(0.6); }
-        .ach-card.locked:hover { opacity: 0.7; filter: grayscale(0.3); }
-        .ach-image {
-            width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 0.75rem;
+        .ach-card:hover { transform: translateY(-3px); }
+        .ach-image-wrap {
+            width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 0.625rem;
             display: flex; align-items: center; justify-content: center;
-            background: var(--gray-100); overflow: hidden; font-size: 2rem;
+            overflow: hidden; transition: all var(--transition);
+            position: relative;
         }
-        .ach-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .ach-name { font-weight: 600; font-size: 0.813rem; margin-bottom: 0.25rem; }
-        .ach-desc { font-size: 0.688rem; color: var(--gray-500); }
+        .ach-card.earned .ach-image-wrap {
+            box-shadow: 0 0 0 3px var(--success), 0 4px 15px rgba(4,170,109,0.3);
+        }
+        .ach-card.locked .ach-image-wrap {
+            filter: grayscale(1) brightness(0.7); opacity: 0.5;
+        }
+        .ach-card.locked .ach-image-wrap::after {
+            content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.3); border-radius: 50%;
+        }
+        .ach-image-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .ach-image-wrap .ach-placeholder { font-size: 2rem; color: var(--gray-400); }
+        .ach-name { font-weight: 600; font-size: 0.75rem; color: var(--gray-800); }
+        .ach-card.locked .ach-name { color: var(--gray-400); }
         .ach-tooltip {
-            position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+            position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%);
             background: var(--gray-900); color: white; padding: 0.5rem 0.75rem;
-            border-radius: var(--radius-sm); font-size: 0.75rem; white-space: nowrap;
-            opacity: 0; pointer-events: none; transition: opacity var(--transition);
-            margin-bottom: 8px; z-index: 10;
+            border-radius: var(--radius-sm); font-size: 0.688rem; white-space: nowrap;
+            opacity: 0; pointer-events: none; transition: opacity var(--transition); z-index: 10;
         }
         .ach-card:hover .ach-tooltip { opacity: 1; }
 
+        /* LEAGUE */
+        .league-header { text-align: center; padding: 2rem; }
+        .league-rank-icon { font-size: 5rem; display: block; margin-bottom: 0.5rem; }
+        .league-rank-icon.bronze { color: var(--bronze); } .league-rank-icon.silver { color: var(--silver); }
+        .league-rank-icon.gold { color: var(--gold); } .league-rank-icon.platinum { color: var(--platinum); }
+        .league-rank-icon.diamond { color: var(--diamond); } .league-rank-icon.master { color: var(--master); }
+        .league-rank-icon.legend { color: var(--legend); filter: drop-shadow(0 0 10px rgba(255,215,0,0.5)); }
+        .rank-badge {
+            display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 1rem;
+            border-radius: 100px; font-weight: 700; font-size: 0.875rem; margin-top: 0.5rem;
+        }
+        .rank-badge.bronze { background: #FFF7ED; color: #92400e; }
+        .rank-badge.silver { background: #F8FAFC; color: #64748b; }
+        .rank-badge.gold { background: #FFFBEB; color: #92400e; }
+        .rank-badge.platinum { background: #F0FDFA; color: #0f766e; }
+        .rank-badge.diamond { background: #EFF6FF; color: #1e40af; }
+        .rank-badge.master { background: #FEF2F2; color: #991b1b; }
+        .rank-badge.legend { background: #FFFBEB; color: #92400e; box-shadow: 0 0 15px rgba(255,215,0,0.3); }
+
+        /* FRIENDS SEARCH */
+        .friend-search { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .friend-search input { flex: 1; padding: 0.5625rem 0.875rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 0.875rem; outline: none; }
+        .friend-search input:focus { border-color: var(--primary); }
+        .friend-card { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; border: 1px solid var(--gray-100); border-radius: var(--radius); margin-bottom: 0.5rem; }
+        .friend-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--primary-bg); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: var(--primary); }
+        .friend-info { flex: 1; }
+        .friend-name { font-weight: 600; font-size: 0.813rem; }
+        .friend-level { font-size: 0.688rem; color: var(--gray-500); }
+
+        /* GOALS */
+        .goal-card {
+            background: white; border: 1px solid var(--gray-200); border-radius: var(--radius-xl);
+            padding: 1.25rem; margin-bottom: 1rem; transition: all var(--transition);
+        }
+        .goal-card.completed { border-color: var(--success); background: var(--success-bg); }
+        .goal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+        .goal-title { font-weight: 600; font-size: 0.938rem; }
+        .goal-type { font-size: 0.688rem; padding: 0.1875rem 0.5625rem; border-radius: 100px; font-weight: 600; }
+        .goal-type.daily { background: var(--primary-bg); color: var(--primary); }
+        .goal-type.weekly { background: var(--accent-bg); color: var(--accent); }
+        .goal-type.monthly { background: var(--warning-bg); color: var(--warning-dark); }
+
         /* SETTINGS */
         .settings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
-        .settings-card {
-            background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-xl);
-            padding: 1.5rem;
-        }
+        .settings-card { background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-xl); padding: 1.5rem; }
         .settings-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.938rem; font-weight: 600; margin-bottom: 1.25rem; }
         .form-group { margin-bottom: 0.875rem; }
         .form-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.25rem; }
-        .form-input, .form-select {
-            width: 100%; padding: 0.5625rem 0.75rem; border: 1px solid var(--gray-300);
-            border-radius: var(--radius-sm); font-family: 'Inter', sans-serif;
-            font-size: 0.875rem; color: var(--gray-900); outline: none; transition: all var(--transition);
-        }
+        .form-input, .form-select { width: 100%; padding: 0.5625rem 0.75rem; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--gray-900); outline: none; transition: all var(--transition); }
         .form-input:focus, .form-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.06); }
         .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 0.625rem 0; border-bottom: 1px solid var(--gray-100); }
         .toggle-row:last-child { border-bottom: none; }
         .toggle-row span { font-size: 0.875rem; }
-        .toggle-switch {
-            width: 44px; height: 24px; border-radius: 12px;
-            background: var(--gray-300); cursor: pointer; position: relative;
-            transition: all var(--transition); flex-shrink: 0;
-        }
+        .toggle-switch { width: 44px; height: 24px; border-radius: 12px; background: var(--gray-300); cursor: pointer; position: relative; transition: all var(--transition); flex-shrink: 0; }
         .toggle-switch.on { background: var(--success); }
-        .toggle-switch::after {
-            content: ''; position: absolute; top: 2px; left: 2px;
-            width: 20px; height: 20px; border-radius: 50%;
-            background: white; transition: all var(--transition);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-        }
+        .toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: white; transition: all var(--transition); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
         .toggle-switch.on::after { left: 22px; }
 
-        .profile-section {
-            display: flex; align-items: center; gap: 2rem; margin-bottom: 2rem;
-        }
-        .profile-avatar-large {
-            width: 96px; height: 96px; border-radius: 50%; overflow: hidden;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: 700; font-size: 2rem; flex-shrink: 0;
-            cursor: pointer; position: relative;
-        }
+        .profile-section { display: flex; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .profile-avatar-large { width: 96px; height: 96px; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 2rem; flex-shrink: 0; cursor: pointer; position: relative; }
         .profile-avatar-large img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-avatar-large .edit-overlay {
-            position: absolute; inset: 0; background: rgba(0,0,0,0.5);
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 1.5rem; opacity: 0; transition: all var(--transition);
-            border-radius: 50%;
-        }
+        .profile-avatar-large .edit-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; opacity: 0; transition: all var(--transition); border-radius: 50%; }
         .profile-avatar-large:hover .edit-overlay { opacity: 1; }
 
         .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
@@ -296,18 +262,14 @@
         @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.open { transform: translateX(0); }
-            .main-content { margin-left: 0; }
-            .widget-grid { grid-template-columns: 1fr; }
+            .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; } .widget-grid { grid-template-columns: 1fr; }
             .welcome-banner { flex-direction: column; text-align: center; padding: 1.5rem; }
-            .welcome-stats { justify-content: center; }
-            .content-area { padding: 1rem; }
+            .welcome-stats { justify-content: center; } .content-area { padding: 1rem; }
         }
     </style>
 </head>
 <body>
-    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia" style="filter:brightness(0)invert(1);">
@@ -317,58 +279,50 @@
             <div class="sidebar-avatar" id="sidebarAvatar"><span>S</span></div>
             <div class="sidebar-user-info">
                 <div class="sidebar-user-name" id="sidebarName">Student</div>
-                <div class="sidebar-user-level" id="sidebarLevel">⚡ Level 1</div>
+                <div class="sidebar-user-level" id="sidebarLevel">Level 1</div>
             </div>
         </div>
         <nav class="sidebar-nav">
-            <div class="sidebar-section">
-                <div class="sidebar-label">Main</div>
+            <div class="sidebar-section"><div class="sidebar-label">Main</div>
                 <button class="sidebar-item active" data-page="dashboard"><i class='bx bxs-dashboard'></i> Dashboard</button>
                 <button class="sidebar-item" data-page="courses"><i class='bx bx-book-open'></i> My Courses</button>
                 <button class="sidebar-item" data-page="progress"><i class='bx bx-trending-up'></i> Progress</button>
                 <button class="sidebar-item" data-page="achievements"><i class='bx bx-trophy'></i> Achievements</button>
             </div>
-            <div class="sidebar-section">
-                <div class="sidebar-label">Personal</div>
+            <div class="sidebar-section"><div class="sidebar-label">Personal</div>
                 <button class="sidebar-item" data-page="activity"><i class='bx bx-history'></i> Activity</button>
                 <button class="sidebar-item" data-page="certificates"><i class='bx bx-certification'></i> Certificates</button>
                 <button class="sidebar-item" data-page="bookmarks"><i class='bx bx-bookmark'></i> Bookmarks</button>
                 <button class="sidebar-item" data-page="goals"><i class='bx bx-flag'></i> Goals</button>
             </div>
-            <div class="sidebar-section">
-                <div class="sidebar-label">Community</div>
+            <div class="sidebar-section"><div class="sidebar-label">Community</div>
                 <button class="sidebar-item" data-page="league"><i class='bx bx-crown'></i> League</button>
                 <button class="sidebar-item" data-page="friends"><i class='bx bx-group'></i> Friends</button>
             </div>
-            <div class="sidebar-section">
-                <div class="sidebar-label">Settings</div>
+            <div class="sidebar-section"><div class="sidebar-label">Settings</div>
                 <button class="sidebar-item" data-page="profile"><i class='bx bx-user'></i> Profile</button>
                 <button class="sidebar-item" data-page="settings"><i class='bx bx-cog'></i> Settings</button>
                 <button class="sidebar-item" data-page="support"><i class='bx bx-support'></i> Support</button>
             </div>
-            <div class="sidebar-section">
-                <div class="sidebar-label">Navigation</div>
+            <div class="sidebar-section"><div class="sidebar-label">Navigation</div>
                 <a href="index.html" class="sidebar-item"><i class='bx bx-home'></i> Home</a>
             </div>
         </nav>
         <div class="sidebar-sparks">
             <i class='bx bxs-star sparks-icon'></i>
             <div><div class="sparks-value" id="sidebarSparks">0</div><div class="sparks-label">Sparks</div></div>
-            <button class="sidebar-item" onclick="handleLogout()" style="margin-left:auto;color:var(--danger);width:auto;padding:0.25rem 0.5rem;">
-                <i class='bx bx-log-out'></i>
-            </button>
+            <button class="sidebar-item" onclick="handleLogout()" style="margin-left:auto;color:var(--danger);width:auto;padding:0.25rem 0.5rem;"><i class='bx bx-log-out'></i></button>
         </div>
     </aside>
 
-    <!-- MAIN -->
     <main class="main-content">
         <header class="topbar">
             <div class="topbar-left">
                 <h1 class="topbar-title" id="topbarTitle">Dashboard</h1>
-                <div class="topbar-streak" id="topbarStreak"><i class='bx bx-fire streak-flame'></i> <span id="streakCount">0</span> day streak</div>
+                <div class="topbar-streak"><i class='bx bx-fire streak-flame'></i> <span id="streakCount">0</span> day streak</div>
             </div>
             <div class="topbar-actions">
-                <span style="font-size:0.875rem;color:var(--gray-500);">⚡ <span id="topbarSparks">0</span> Sparks</span>
+                <span style="font-size:0.875rem;color:var(--gray-500);"><i class='bx bxs-star' style="color:var(--warning);"></i> <span id="topbarSparks">0</span> Sparks</span>
                 <a href="index.html" class="btn btn-outline btn-sm"><i class='bx bx-home'></i> Home</a>
             </div>
         </header>
@@ -395,7 +349,7 @@
     <script type="module">
         import { db, auth } from './js/firebase.js';
         import { onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-        import { collection, getDocs, doc, setDoc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+        import { collection, getDocs, doc, setDoc, getDoc, query, orderBy, where, limit } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
         const $ = id => document.getElementById(id);
         const toast = (msg, type = 'success') => {
@@ -408,126 +362,47 @@
         const App = {
             user: null, userData: {}, courses: [], modules: [], lessons: [],
             completed: {}, enrolled: [], sparks: 0, level: 1, streak: 0,
-            currentPage: 'dashboard', achievementsData: []
+            currentPage: 'dashboard', achievementsData: [], goals: [], friends: []
         };
 
-        // ============ AUTH ============
         function initAuth() {
             onAuthStateChanged(auth, async (u) => {
                 if (u) {
                     App.user = u;
                     try { const s = await getDoc(doc(db, 'users', u.uid)); if (s.exists()) App.userData = s.data(); } catch (e) {}
                 } else {
-                    const c = JSON.parse(localStorage.getItem('ak_user') || 'null');
-                    if (c && c !== null && typeof c === 'object') App.user = c;
+                    const c = localStorage.getItem('ak_user');
+                    if (c) { try { App.user = JSON.parse(c); } catch(e) { window.location.href = 'auth.html'; return; } }
                     else { window.location.href = 'auth.html'; return; }
                 }
                 App.userData = App.userData || {};
                 App.userData.displayName = App.userData.displayName || App.user?.displayName || 'Student';
                 App.userData.email = App.userData.email || App.user?.email || '';
                 App.userData.photoURL = App.userData.photoURL || App.user?.photoURL || '';
-                updateUI();
-                loadData();
+                App.userData.username = App.userData.username || '';
+                updateUI(); loadData();
             });
         }
 
         function updateUI() {
             const name = App.userData.displayName || 'Student';
-            const photo = App.userData.photoURL || App.user?.photoURL || '';
+            const photo = App.userData.photoURL || '';
             $('sidebarName').textContent = name;
-            if (photo) {
-                $('sidebarAvatar').innerHTML = `<img src="${photo}" alt="Avatar">`;
-            } else {
-                $('sidebarAvatar').innerHTML = `<span>${name.charAt(0).toUpperCase()}</span>`;
-            }
+            $('sidebarAvatar').innerHTML = photo ? `<img src="${photo}" alt="Avatar">` : `<span>${name.charAt(0).toUpperCase()}</span>`;
             App.sparks = parseInt(localStorage.getItem('ak_sparks') || 0);
             App.streak = parseInt(localStorage.getItem('ak_streak') || 0);
             App.level = Math.floor(App.sparks / 100) + 1;
-            $('sidebarLevel').textContent = '⚡ Level ' + App.level;
+            $('sidebarLevel').innerHTML = '<i class="bx bxs-star" style="color:var(--warning);"></i> Level ' + App.level;
             $('sidebarSparks').textContent = App.sparks.toLocaleString();
             $('topbarSparks').textContent = App.sparks.toLocaleString();
             $('streakCount').textContent = App.streak;
         }
 
-        // ============ LOAD ACHIEVEMENTS JSON ============
         async function loadAchievementsJSON() {
-            try {
-                const res = await fetch('assets/docs/achievements.json');
-                if (res.ok) App.achievementsData = await res.json();
-            } catch (e) {
-                // Fallback achievements data
-                App.achievementsData = {
-                    zones: [
-                        { id:'beginner', name:'🥉 Beginner Achievements', achievements:[
-                            {id:'welcome',name:'Welcome Aboard',desc:'Create an account',file:'welcome.png',icon:'bx-user-plus'},
-                            {id:'first_spark',name:'First Spark',desc:'Earn your first Spark',file:'first_spark.png',icon:'bx-star'},
-                            {id:'first_steps',name:'First Steps',desc:'Complete your first lesson',file:'first_steps.png',icon:'bx-check-circle'},
-                            {id:'getting_started',name:'Getting Started',desc:'Complete 5 lessons',file:'getting_started.png',icon:'bx-book-open'},
-                            {id:'learner',name:'Learner',desc:'Complete 25 lessons',file:'learner.png',icon:'bx-book'}
-                        ]},
-                        { id:'learning', name:'📚 Learning Achievements', achievements:[
-                            {id:'knowledge_seeker',name:'Knowledge Seeker',desc:'Complete 50 lessons',file:'knowledge_seeker.png',icon:'bx-search'},
-                            {id:'knowledge_builder',name:'Knowledge Builder',desc:'Complete 100 lessons',file:'knowledge_builder.png',icon:'bx-buildings'},
-                            {id:'learning_machine',name:'Learning Machine',desc:'Complete 250 lessons',file:'learning_machine.png',icon:'bx-cog'},
-                            {id:'knowledge_titan',name:'Knowledge Titan',desc:'Complete 500 lessons',file:'knowledge_titan.png',icon:'bx-shield'},
-                            {id:'endless_learner',name:'Endless Learner',desc:'Complete 1,000 lessons',file:'endless_learner.png',icon:'bx-infinity'}
-                        ]},
-                        { id:'quiz', name:'📝 Quiz Achievements', achievements:[
-                            {id:'quiz_rookie',name:'Quiz Rookie',desc:'Pass your first quiz',file:'quiz_rookie.png',icon:'bx-help-circle'},
-                            {id:'sharp_mind',name:'Sharp Mind',desc:'Pass 10 quizzes',file:'sharp_mind.png',icon:'bx-brain'},
-                            {id:'quiz_expert',name:'Quiz Expert',desc:'Pass 50 quizzes',file:'quiz_expert.png',icon:'bx-bulb'},
-                            {id:'perfectionist',name:'Perfectionist',desc:'Get 100% on 5 quizzes',file:'perfectionist.png',icon:'bx-target-lock'},
-                            {id:'flawless',name:'Flawless',desc:'Get 100% on 25 quizzes',file:'flawless.png',icon:'bx-diamond'}
-                        ]},
-                        { id:'progress', name:'🚀 Progress Achievements', achievements:[
-                            {id:'first_milestone',name:'First Milestone',desc:'Complete your first module',file:'first_milestone.png',icon:'bx-flag'},
-                            {id:'making_progress',name:'Making Progress',desc:'Complete 10 modules',file:'making_progress.png',icon:'bx-trending-up'},
-                            {id:'specialist',name:'Specialist',desc:'Complete 25 modules',file:'specialist.png',icon:'bx-layer'},
-                            {id:'dedicated',name:'Dedicated Student',desc:'Complete 50 modules',file:'dedicated.png',icon:'bx-badge-check'}
-                        ]},
-                        { id:'completion', name:'🎯 Completion Achievements', achievements:[
-                            {id:'first_victory',name:'First Victory',desc:'Complete your first course',file:'first_victory.png',icon:'bx-trophy'},
-                            {id:'course_collector',name:'Course Collector',desc:'Complete 3 courses',file:'course_collector.png',icon:'bx-collection'},
-                            {id:'course_champion',name:'Course Champion',desc:'Complete 10 courses',file:'course_champion.png',icon:'bx-medal'},
-                            {id:'academic_elite',name:'Academic Elite',desc:'Complete 25 courses',file:'academic_elite.png',icon:'bx-crown'}
-                        ]},
-                        { id:'streak', name:'🔥 Streak Achievements', achievements:[
-                            {id:'momentum',name:'Momentum',desc:'Maintain a 3-day streak',file:'momentum.png',icon:'bx-fire'},
-                            {id:'consistent',name:'Consistent Learner',desc:'Maintain a 7-day streak',file:'consistent.png',icon:'bx-calendar-check'},
-                            {id:'dedicated_streak',name:'Dedicated',desc:'Maintain a 30-day streak',file:'dedicated_streak.png',icon:'bx-calendar-star'},
-                            {id:'unbreakable',name:'Unbreakable',desc:'Maintain a 100-day streak',file:'unbreakable.png',icon:'bx-shield-quarter'},
-                            {id:'akademia_habit',name:'Akademia Habit',desc:'Maintain a 365-day streak',file:'akademia_habit.png',icon:'bx-sun'}
-                        ]},
-                        { id:'spark_achievements', name:'⚡ Spark Achievements', achievements:[
-                            {id:'spark_collector',name:'Spark Collector',desc:'Earn 1,000 Sparks',file:'spark_collector.png',icon:'bx-star'},
-                            {id:'spark_hunter',name:'Spark Hunter',desc:'Earn 10,000 Sparks',file:'spark_hunter.png',icon:'bx-customize'},
-                            {id:'spark_master',name:'Spark Master',desc:'Earn 50,000 Sparks',file:'spark_master.png',icon:'bx-bolt'},
-                            {id:'spark_legend',name:'Spark Legend',desc:'Earn 100,000 Sparks',file:'spark_legend.png',icon:'bx-meteor'},
-                            {id:'spark_titan',name:'Spark Titan',desc:'Earn 1,000,000 Sparks',file:'spark_titan.png',icon:'bx-planet'}
-                        ]},
-                        { id:'level', name:'🏆 Level Achievements', achievements:[
-                            {id:'rising_star',name:'Rising Star',desc:'Reach Level 10',file:'rising_star.png',icon:'bx-up-arrow-alt'},
-                            {id:'skilled',name:'Skilled Learner',desc:'Reach Level 25',file:'skilled.png',icon:'bx-bar-chart-alt-2'},
-                            {id:'expert',name:'Expert Learner',desc:'Reach Level 50',file:'expert.png',icon:'bx-analyse'},
-                            {id:'master',name:'Master Learner',desc:'Reach Level 75',file:'master.png',icon:'bx-badge-check'},
-                            {id:'akademia_legend',name:'Akademia Legend',desc:'Reach Level 100',file:'akademia_legend.png',icon:'bx-crown'}
-                        ]},
-                        { id:'rare', name:'👑 Rare Achievements', achievements:[
-                            {id:'marathon',name:'Marathon Learner',desc:'Study for 5 hours in one day',file:'marathon.png',icon:'bx-time-five'},
-                            {id:'early_bird',name:'Early Bird',desc:'Learn before 6 AM on 10 days',file:'early_bird.png',icon:'bx-sunrise'},
-                            {id:'night_owl',name:'Night Owl',desc:'Learn after midnight on 10 days',file:'night_owl.png',icon:'bx-moon'},
-                            {id:'explorer',name:'Explorer',desc:'Enroll in 10 different courses',file:'explorer.png',icon:'bx-globe'},
-                            {id:'completionist',name:'Completionist',desc:'Unlock 75% of all achievements',file:'completionist.png',icon:'bx-check-shield'}
-                        ]},
-                        { id:'legendary', name:'⭐ Legendary Achievement', achievements:[
-                            {id:'impossible',name:'The Impossible',desc:'Unlock every achievement',file:'impossible.png',icon:'bx-brightness'}
-                        ]}
-                    ]
-                };
-            }
+            try { const res = await fetch('assets/docs/achievements.json'); if (res.ok) App.achievementsData = await res.json(); }
+            catch (e) { App.achievementsData = { zones: [] }; }
         }
 
-        // ============ LOAD DATA ============
         async function loadData() {
             await loadAchievementsJSON();
             try {
@@ -539,20 +414,15 @@
                 App.courses = cS.docs.map(d => ({ id: d.id, ...d.data() }));
                 App.modules = mS.docs.map(d => ({ id: d.id, ...d.data() }));
                 App.lessons = lS.docs.map(d => ({ id: d.id, ...d.data() }));
-            } catch (e) {
-                App.courses = JSON.parse(localStorage.getItem('ak_courses') || '[]');
-                App.lessons = JSON.parse(localStorage.getItem('ak_lessons') || '[]');
-                App.modules = JSON.parse(localStorage.getItem('ak_modules') || '[]');
-            }
-            App.completed = {};
-            try { const c = localStorage.getItem('ak_completed'); if (c) App.completed = JSON.parse(c); } catch(e) { App.completed = {}; }
-            App.enrolled = [];
-            try { const e = localStorage.getItem('ak_enrolled'); if (e) App.enrolled = JSON.parse(e); } catch(e) { App.enrolled = App.courses.slice(0, 3).map(c => c.id); }
+            } catch (e) { App.courses = []; App.modules = []; App.lessons = []; }
+            try { App.completed = JSON.parse(localStorage.getItem('ak_completed') || '{}'); } catch(e) { App.completed = {}; }
+            try { App.enrolled = JSON.parse(localStorage.getItem('ak_enrolled') || '[]'); } catch(e) { App.enrolled = []; }
             if (!App.enrolled.length && App.courses.length) App.enrolled = App.courses.slice(0, 3).map(c => c.id);
+            try { App.goals = JSON.parse(localStorage.getItem('ak_goals') || '[]'); } catch(e) { App.goals = []; }
+            try { App.friends = JSON.parse(localStorage.getItem('ak_friends') || '[]'); } catch(e) { App.friends = []; }
             renderPage();
         }
 
-        // ============ PAGE SWITCHING ============
         function switchPage(page) {
             App.currentPage = page;
             document.querySelectorAll('.sidebar-item[data-page]').forEach(i => i.classList.remove('active'));
@@ -569,269 +439,216 @@
         });
 
         function renderPage() {
-            const p = App.currentPage;
-            const pages = {
-                dashboard: renderDashboard, courses: renderCourses, progress: renderProgress,
-                achievements: renderAchievements, activity: renderActivity, certificates: renderCertificates,
-                bookmarks: renderBookmarks, goals: renderGoals, league: renderLeague,
-                friends: renderFriends, profile: renderProfile, settings: renderSettings, support: renderSupport
-            };
-            if (pages[p]) pages[p]();
+            const pages = { dashboard:renderDashboard, courses:renderCourses, progress:renderProgress, achievements:renderAchievements, activity:renderActivity, certificates:renderCertificates, bookmarks:renderBookmarks, goals:renderGoals, league:renderLeague, friends:renderFriends, profile:renderProfile, settings:renderSettings, support:renderSupport };
+            if (pages[App.currentPage]) pages[App.currentPage]();
         }
 
-        // ============ DASHBOARD ============
         function renderDashboard() {
             const done = Object.keys(App.completed).length;
-            const achieved = JSON.parse(localStorage.getItem('ak_achievements') || '[]');
-            const nextLevel = App.level * 100;
-            const progressPct = Math.round((App.sparks % 100) / 100 * 100);
-
+            const nextLevel = App.level * 100; const pct = Math.round((App.sparks % 100) / 100 * 100);
             $('pageDashboard').innerHTML = `
-                <div class="welcome-banner">
-                    <div class="welcome-text">
-                        <h1>Welcome back, ${(App.userData.displayName || 'Student').split(' ')[0]}! 👋</h1>
-                        <p>Keep up the momentum. You're doing great!</p>
-                        <div class="level-progress">
-                            <div style="display:flex;justify-content:space-between;font-size:0.813rem;margin-bottom:0.25rem;"><span>Level ${App.level}</span><span>Level ${App.level+1}</span></div>
-                            <div class="level-bar"><div class="level-bar-fill" style="width:${progressPct}%;"></div></div>
-                            <div class="level-info"><span>${App.sparks} Sparks</span><span>${nextLevel - App.sparks} to next level</span></div>
-                        </div>
-                    </div>
-                    <div class="welcome-stats">
-                        <div class="welcome-stat"><div class="ws-val">${App.streak}</div><div class="ws-lbl">Day Streak 🔥</div></div>
-                        <div class="welcome-stat"><div class="ws-val">${done}</div><div class="ws-lbl">Lessons Done</div></div>
-                        <div class="welcome-stat"><div class="ws-val">${achieved.length}</div><div class="ws-lbl">Achievements</div></div>
-                    </div>
-                </div>
-
-                <div class="daily-challenge">
-                    <h3>🎯 Daily Challenge</h3>
-                    <p style="font-size:0.938rem;margin-bottom:0.75rem;">Complete 3 lessons today to earn bonus Sparks!</p>
-                    <span class="dc-reward"><i class='bx bxs-star'></i> +50 Sparks</span>
-                    <span style="font-size:0.813rem;color:var(--gray-500);margin-left:0.75rem;">0 / 3 completed</span>
-                    <div class="mini-bar" style="margin-top:0.75rem;"><div class="mini-bar-fill" style="width:0%;"></div></div>
-                </div>
-
+                <div class="welcome-banner"><div class="welcome-text"><h1>Welcome back, ${(App.userData.displayName||'Student').split(' ')[0]}!</h1><p>Keep up the momentum. You're doing great!</p>
+                <div class="level-progress"><div style="display:flex;justify-content:space-between;font-size:0.813rem;margin-bottom:0.25rem;"><span>Level ${App.level}</span><span>Level ${App.level+1}</span></div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%;"></div></div><div class="level-info"><span>${App.sparks} Sparks</span><span>${nextLevel - App.sparks} to next</span></div></div></div>
+                <div class="welcome-stats"><div class="welcome-stat"><div class="ws-val">${App.streak}</div><div class="ws-lbl">Day Streak</div></div><div class="welcome-stat"><div class="ws-val">${done}</div><div class="ws-lbl">Lessons Done</div></div><div class="welcome-stat"><div class="ws-val">${App.goals.filter(g=>g.completed).length}</div><div class="ws-lbl">Goals Met</div></div></div></div>
+                <div class="daily-challenge"><h3><i class='bx bx-target-lock'></i> Daily Challenge</h3><p style="font-size:0.938rem;margin-bottom:0.75rem;">Complete 3 lessons today!</p><span class="dc-reward"><i class='bx bxs-star'></i> +50 Sparks</span></div>
                 <div class="widget-grid">
-                    <div class="widget">
-                        <div class="widget-header"><h3 class="widget-title"><i class='bx bx-book-open'></i> Continue Learning</h3></div>
-                        ${App.enrolled.slice(0, 3).map(cid => {
-                            const c = App.courses.find(x => x.id === cid);
-                            return c ? `<div class="progress-item">
-                                <div class="progress-icon" style="background:var(--primary-bg);color:var(--primary);"><i class='bx bx-book-open'></i></div>
-                                <div class="progress-info"><div class="progress-name">${c.name||'Course'}</div><div class="progress-pct">${c.difficulty||'Beginner'} • ${c.duration||0}h</div></div>
-                                <a href="course.html?id=${c.id}" class="btn btn-primary btn-xs">Resume</a>
-                            </div>` : '';
-                        }).join('') || '<p style="color:var(--gray-400);font-size:0.875rem;">No courses yet. <a href="course.html">Browse courses</a></p>'}
-                    </div>
-                    <div class="widget">
-                        <div class="widget-header"><h3 class="widget-title"><i class='bx bx-bolt'></i> Quick Actions</h3></div>
-                        <div class="quick-actions">
-                            <button class="quick-action" onclick="window.location.href='course.html'"><i class='bx bx-search'></i> Find Courses</button>
-                            <button class="quick-action" onclick="switchPage('goals')"><i class='bx bx-flag'></i> Set Goal</button>
-                            <button class="quick-action" onclick="switchPage('certificates')"><i class='bx bx-certification'></i> Certificates</button>
-                            <button class="quick-action" onclick="switchPage('league')"><i class='bx bx-crown'></i> League</button>
-                        </div>
-                    </div>
+                    <div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-book-open'></i> Continue Learning</h3></div>${App.enrolled.slice(0,3).map(cid=>{const c=App.courses.find(x=>x.id===cid);return c?`<div class="progress-item"><div class="progress-icon" style="background:var(--primary-bg);color:var(--primary);"><i class='bx bx-book-open'></i></div><div class="progress-info"><div class="progress-name">${c.name||'Course'}</div><div class="progress-pct">${c.difficulty||'Beginner'}</div></div><a href="course.html?id=${c.id}" class="btn btn-primary btn-xs">Resume</a></div>`:'';}).join('')||'<p style="color:var(--gray-400);">No courses yet.</p>'}</div>
+                    <div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-bolt'></i> Quick Actions</h3></div><div class="quick-actions"><button class="quick-action" onclick="window.location.href='course.html'"><i class='bx bx-search'></i> Find Courses</button><button class="quick-action" onclick="switchPage('goals')"><i class='bx bx-flag'></i> Set Goal</button><button class="quick-action" onclick="switchPage('league')"><i class='bx bx-crown'></i> League</button><button class="quick-action" onclick="switchPage('friends')"><i class='bx bx-group'></i> Friends</button></div></div>
                 </div>`;
         }
 
-        // ============ COURSES ============
         function renderCourses() {
             const enrolled = App.courses.filter(c => App.enrolled.includes(c.id));
-            $('pageCourses').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-book-open'></i> My Courses (${enrolled.length})</h3></div>
-                ${enrolled.length ? enrolled.map(c => `<div class="progress-item">
-                    <div class="progress-icon" style="background:var(--primary-bg);color:var(--primary);"><i class='bx bx-book-open'></i></div>
-                    <div class="progress-info"><div class="progress-name">${c.name||'Course'}</div><div class="progress-pct">${c.difficulty||'All Levels'} • ${c.duration||0}h</div></div>
-                    <a href="course.html?id=${c.id}" class="btn btn-primary btn-xs">View</a>
-                </div>`).join('') : '<p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">No enrolled courses. <a href="course.html">Browse</a></p>'}
-            </div>`;
+            $('pageCourses').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-book-open'></i> My Courses (${enrolled.length})</h3></div>${enrolled.length?enrolled.map(c=>`<div class="progress-item"><div class="progress-icon" style="background:var(--primary-bg);color:var(--primary);"><i class='bx bx-book-open'></i></div><div class="progress-info"><div class="progress-name">${c.name||'Course'}</div><div class="progress-pct">${c.difficulty||'All Levels'}</div></div><a href="course.html?id=${c.id}" class="btn btn-primary btn-xs">View</a></div>`).join(''):'<p style="color:var(--gray-400);padding:1rem;">No enrolled courses.</p>'}</div>`;
         }
 
-        // ============ PROGRESS ============
         function renderProgress() {
             const enrolled = App.courses.filter(c => App.enrolled.includes(c.id));
-            $('pageProgress').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-trending-up'></i> Learning Progress</h3></div>
-                ${enrolled.length ? enrolled.map(c => {
-                    const total = App.lessons.filter(l => { const m = App.modules.find(x => x.id === l.moduleId); return m && m.courseId === c.id; }).length;
-                    const done = App.lessons.filter(l => { const m = App.modules.find(x => x.id === l.moduleId); return m && m.courseId === c.id && App.completed[l.id]; }).length;
-                    const pct = total ? Math.round(done/total*100) : 0;
-                    return `<div class="progress-item">
-                        <div class="progress-icon" style="background:var(--primary-bg);color:var(--primary);"><i class='bx bx-book-open'></i></div>
-                        <div class="progress-info"><div class="progress-name">${c.name||'Course'}</div><div class="progress-pct">${done}/${total} lessons • ${pct}%</div><div class="mini-bar"><div class="mini-bar-fill" style="width:${pct}%;"></div></div></div>
-                        <span style="font-weight:700;color:var(--success);">${pct}%</span>
-                    </div>`;
-                }).join('') : '<p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">No progress yet.</p>'}
-            </div>`;
+            $('pageProgress').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-trending-up'></i> Learning Progress</h3></div>${enrolled.length?enrolled.map(c=>{const t=App.lessons.filter(l=>{const m=App.modules.find(x=>x.id===l.moduleId);return m&&m.courseId===c.id;}).length;const d=App.lessons.filter(l=>{const m=App.modules.find(x=>x.id===l.moduleId);return m&&m.courseId===c.id&&App.completed[l.id];}).length;const p=t?Math.round(d/t*100):0;return`<div class="progress-item"><div class="progress-icon" style="background:var(--primary-bg);color:var(--primary);"><i class='bx bx-book-open'></i></div><div class="progress-info"><div class="progress-name">${c.name||'Course'}</div><div class="progress-pct">${d}/${t} • ${p}%</div><div class="mini-bar"><div class="mini-bar-fill" style="width:${p}%;"></div></div></div><span style="font-weight:700;color:var(--success);">${p}%</span></div>`;}).join(''):'<p style="color:var(--gray-400);">No progress yet.</p>'}</div>`;
         }
 
-        // ============ ACHIEVEMENTS WITH ZONES ============
         function renderAchievements() {
             const earned = JSON.parse(localStorage.getItem('ak_achievements') || '[]');
             const done = Object.keys(App.completed).length;
             const conditions = {
-                welcome: !!App.user, first_spark: App.sparks >= 1, first_steps: done >= 1,
-                getting_started: done >= 5, learner: done >= 25, knowledge_seeker: done >= 50,
-                knowledge_builder: done >= 100, learning_machine: done >= 250, knowledge_titan: done >= 500,
-                endless_learner: done >= 1000, first_milestone: done >= 1, making_progress: done >= 10,
-                specialist: done >= 25, dedicated: done >= 50, first_victory: false,
-                course_collector: false, course_champion: false, academic_elite: false,
-                momentum: App.streak >= 3, consistent: App.streak >= 7, dedicated_streak: App.streak >= 30,
-                unbreakable: App.streak >= 100, akademia_habit: App.streak >= 365,
-                spark_collector: App.sparks >= 1000, spark_hunter: App.sparks >= 10000,
-                spark_master: App.sparks >= 50000, spark_legend: App.sparks >= 100000,
-                spark_titan: App.sparks >= 1000000, rising_star: App.level >= 10,
-                skilled: App.level >= 25, expert: App.level >= 50, master: App.level >= 75,
-                akademia_legend: App.level >= 100, impossible: false
+                welcome_aboard:!!App.user,first_spark:App.sparks>=1,first_steps:done>=1,getting_started:done>=5,learner:done>=25,
+                knowledge_seeker:done>=50,knowledge_builder:done>=100,learning_machine:done>=250,knowledge_titan:done>=500,endless_learner:done>=1000,
+                first_milestone:done>=1,making_progress:done>=10,specialist:done>=25,dedicated_student:done>=50,
+                momentum:App.streak>=3,consistent_learner:App.streak>=7,dedicated:App.streak>=30,unbreakable:App.streak>=100,akademia_habit:App.streak>=365,
+                spark_collector:App.sparks>=1000,spark_hunter:App.sparks>=10000,spark_master:App.sparks>=50000,spark_legend:App.sparks>=100000,spark_titan:App.sparks>=1000000,
+                rising_star:App.level>=10,skilled_learner:App.level>=25,expert_learner:App.level>=50,master_learner:App.level>=75,akademia_legend:App.level>=100
             };
-
             let html = '';
             App.achievementsData.zones?.forEach(zone => {
                 html += `<div class="zone-section"><h3 class="zone-title">${zone.name}</h3><div class="achievement-grid">`;
                 zone.achievements?.forEach(ach => {
                     const isEarned = earned.find(e => e.id === ach.id) || conditions[ach.id];
-                    const imgPath = ach.file ? `assets/Images/${ach.file}` : '';
                     html += `<div class="ach-card ${isEarned ? 'earned' : 'locked'}">
-                        <div class="ach-tooltip">${ach.desc}</div>
-                        <div class="ach-image">
-                            ${isEarned && imgPath ? `<img src="${imgPath}" alt="${ach.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=&quot;bx ${ach.icon||'bx-trophy'}&quot; style=&quot;font-size:2rem;&quot;></i>';">` : `<i class='bx ${ach.icon||'bx-trophy'}' style="font-size:2rem;color:${isEarned?'var(--success)':'var(--gray-400)'};"></i>`}
+                        <div class="ach-tooltip">${ach.description}</div>
+                        <div class="ach-image-wrap">
+                            ${ach.image ? `<img src="assets/Images/${ach.image}" alt="${ach.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=&quot;bx ${ach.icon||'bx-trophy'}&quot; style=&quot;font-size:2rem;color:var(--gray-400);&quot;></i>';">` : `<i class='bx ${ach.icon||'bx-trophy'}' style="font-size:2rem;color:var(--gray-400);"></i>`}
                         </div>
                         <div class="ach-name">${ach.name}</div>
-                        <div class="ach-desc">${isEarned ? 'Earned! 🎉' : 'Locked'}</div>
                     </div>`;
                 });
                 html += '</div></div>';
             });
-            $('pageAchievements').innerHTML = html || '<p style="color:var(--gray-400);padding:2rem;">No achievements data loaded.</p>';
+            $('pageAchievements').innerHTML = html || '<p style="color:var(--gray-400);padding:2rem;">No achievements data.</p>';
         }
 
-        // ============ ACTIVITY ============
         function renderActivity() {
-            const acts = Object.keys(App.completed).map(id => {
-                const l = App.lessons.find(x => x.id === id);
-                return l ? { title: l.title, date: 'Completed' } : null;
-            }).filter(Boolean).slice(0, 20);
-            $('pageActivity').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-history'></i> Recent Activity</h3></div>
-                ${acts.length ? acts.map(a => `<div class="progress-item">
-                    <div class="progress-icon" style="background:var(--success-bg);color:var(--success);"><i class='bx bx-check-circle'></i></div>
-                    <div class="progress-info"><div class="progress-name">Completed: ${a.title}</div><div class="progress-pct">${a.date}</div></div>
-                </div>`).join('') : '<p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">No activity yet.</p>'}
-            </div>`;
+            const acts = Object.keys(App.completed).map(id=>{const l=App.lessons.find(x=>x.id===id);return l?{title:l.title,date:'Completed'}:null;}).filter(Boolean).slice(0,20);
+            $('pageActivity').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-history'></i> Recent Activity</h3></div>${acts.length?acts.map(a=>`<div class="progress-item"><div class="progress-icon" style="background:var(--success-bg);color:var(--success);"><i class='bx bx-check-circle'></i></div><div class="progress-info"><div class="progress-name">Completed: ${a.title}</div><div class="progress-pct">${a.date}</div></div></div>`).join(''):'<p style="color:var(--gray-400);">No activity yet.</p>'}</div>`;
         }
 
         function renderCertificates() {
-            $('pageCertificates').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-certification'></i> Certificates</h3></div>
-                <p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">Complete courses to earn certificates. <a href="certificate.html">View certificates</a></p></div>`;
+            $('pageCertificates').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-certification'></i> Certificates</h3></div><p style="color:var(--gray-400);padding:1rem;">Complete courses to earn certificates. <a href="certificate.html">View certificates</a></p></div>`;
         }
 
         function renderBookmarks() {
-            let bm = [];
-            try { bm = JSON.parse(localStorage.getItem('ak_bookmarks') || '[]'); } catch(e) { bm = []; }
-            $('pageBookmarks').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-bookmark'></i> Bookmarks (${bm.length})</h3></div>
-                ${bm.length ? bm.map(b => `<div class="progress-item"><div class="progress-icon" style="background:var(--warning-bg);color:var(--warning-dark);"><i class='bx bx-bookmark'></i></div><div class="progress-info"><div class="progress-name">${b.title||'Bookmark'}</div></div></div>`).join('') : '<p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">No bookmarks yet.</p>'}
-            </div>`;
+            let bm=[]; try{bm=JSON.parse(localStorage.getItem('ak_bookmarks')||'[]');}catch(e){bm=[];}
+            $('pageBookmarks').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-bookmark'></i> Bookmarks (${bm.length})</h3></div>${bm.length?bm.map(b=>`<div class="progress-item"><div class="progress-icon" style="background:var(--warning-bg);color:var(--warning-dark);"><i class='bx bx-bookmark'></i></div><div class="progress-info"><div class="progress-name">${b.title||'Bookmark'}</div></div></div>`).join(''):'<p style="color:var(--gray-400);">No bookmarks.</p>'}</div>`;
         }
 
+        // ============ GOALS ============
         function renderGoals() {
-            $('pageGoals').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-flag'></i> Goals</h3></div>
-                <p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">Set your learning goals: Daily 30 min, Weekly 5 lessons, Monthly 1 course.</p></div>`;
-        }
-
-        function renderLeague() {
-            const tiers = ['Bronze','Silver','Gold','Platinum','Diamond','Master','Legend'];
-            const currentTier = tiers[Math.min(Math.floor(App.sparks / 200), 6)];
-            $('pageLeague').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-crown'></i> League</h3></div>
-                <div style="text-align:center;padding:2rem;">
-                    <i class='bx bx-crown' style="font-size:4rem;color:var(--warning);display:block;margin-bottom:1rem;"></i>
-                    <h2 style="font-family:'Space Grotesk',sans-serif;">${currentTier} Tier</h2>
-                    <p style="color:var(--gray-500);">${App.sparks} Sparks • Rank #${Math.floor(Math.random()*1000)+100}</p>
-                    <div class="level-bar" style="margin-top:1rem;"><div class="level-bar-fill" style="width:${(App.sparks%200)/200*100}%;"></div></div>
-                    <p style="font-size:0.75rem;color:var(--gray-500);margin-top:0.25rem;">${200 - (App.sparks%200)} Sparks to next tier</p>
+            $('pageGoals').innerHTML = `
+                <div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-flag'></i> My Goals</h3><button class="btn btn-primary btn-sm" onclick="addNewGoal()"><i class='bx bx-plus'></i> New Goal</button></div>
+                <div id="goalsList">${App.goals.length ? App.goals.map((g,i) => `
+                    <div class="goal-card ${g.completed?'completed':''}">
+                        <div class="goal-header"><span class="goal-title">${g.title||'Goal'}</span><span class="goal-type ${g.type||'daily'}">${g.type||'Daily'}</span></div>
+                        <p style="font-size:0.813rem;color:var(--gray-500);margin-bottom:0.5rem;">${g.description||''}</p>
+                        <div class="mini-bar" style="margin-bottom:0.5rem;"><div class="mini-bar-fill" style="width:${g.progress||0}%;background:${g.completed?'var(--success)':'var(--primary)'};"></div></div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span style="font-size:0.75rem;color:var(--gray-500);">${g.current||0}/${g.target||1} • ${g.completed?'Completed!':'In progress'}</span>
+                            <div style="display:flex;gap:0.375rem;">
+                                ${!g.completed?`<button class="btn btn-xs btn-primary" onclick="updateGoalProgress(${i})">+1</button>`:''}
+                                <button class="btn btn-xs btn-danger" onclick="deleteGoal(${i})"><i class='bx bx-trash'></i></button>
+                            </div>
+                        </div>
+                    </div>`).join('') : '<p style="color:var(--gray-400);padding:1rem;">No goals set. Create your first goal!</p>'}</div>
+                </div>
+                <div id="goalForm" style="display:none;"><div class="widget" style="margin-top:1rem;"><div class="widget-header"><h3 class="widget-title">Create New Goal</h3></div>
+                    <div class="form-group"><label class="form-label">Goal Title</label><input class="form-input" id="goalTitle" placeholder="e.g., Complete 5 lessons"></div>
+                    <div class="form-group"><label class="form-label">Description</label><input class="form-input" id="goalDesc" placeholder="What do you want to achieve?"></div>
+                    <div class="form-group"><label class="form-label">Type</label><select class="form-select" id="goalType"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select></div>
+                    <div class="form-group"><label class="form-label">Target Count</label><input type="number" class="form-input" id="goalTarget" value="1" min="1"></div>
+                    <button class="btn btn-primary" onclick="saveNewGoal()"><i class='bx bx-check'></i> Save Goal</button>
+                    <button class="btn btn-outline btn-sm" onclick="document.getElementById('goalForm').style.display='none'" style="margin-left:0.5rem;">Cancel</button>
                 </div></div>`;
         }
 
-        function renderFriends() {
-            $('pageFriends').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-group'></i> Friends</h3></div>
-                <p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">Coming soon! Invite friends to learn together.</p></div>`;
+        window.addNewGoal = function() { $('goalForm').style.display = 'block'; };
+        window.saveNewGoal = function() {
+            const title = $('goalTitle').value.trim(); if(!title){toast('Title required','error');return;}
+            App.goals.push({title,description:$('goalDesc').value.trim(),type:$('goalType').value,target:parseInt($('goalTarget').value)||1,current:0,progress:0,completed:false,createdAt:new Date().toISOString()});
+            localStorage.setItem('ak_goals',JSON.stringify(App.goals));
+            $('goalForm').style.display='none';renderGoals();toast('Goal created!','success');
+        };
+        window.updateGoalProgress = function(i) {
+            if(!App.goals[i]||App.goals[i].completed)return;
+            App.goals[i].current = (App.goals[i].current||0)+1;
+            App.goals[i].progress = Math.round((App.goals[i].current/App.goals[i].target)*100);
+            if(App.goals[i].current >= App.goals[i].target){App.goals[i].completed=true;App.goals[i].progress=100;toast('Goal completed!','success');}
+            localStorage.setItem('ak_goals',JSON.stringify(App.goals));renderGoals();
+        };
+        window.deleteGoal = function(i) { App.goals.splice(i,1); localStorage.setItem('ak_goals',JSON.stringify(App.goals)); renderGoals(); };
+
+        // ============ LEAGUE WITH REAL RANK ============
+        function renderLeague() {
+            const tiers = [
+                {name:'Bronze',min:0,icon:'bx-circle',color:'bronze'},
+                {name:'Silver',min:200,icon:'bx-circle',color:'silver'},
+                {name:'Gold',min:500,icon:'bx-circle',color:'gold'},
+                {name:'Platinum',min:1000,icon:'bx-diamond',color:'platinum'},
+                {name:'Diamond',min:2500,icon:'bx-diamond',color:'diamond'},
+                {name:'Master',min:5000,icon:'bx-crown',color:'master'},
+                {name:'Legend',min:10000,icon:'bx-crown',color:'legend'}
+            ];
+            let currentTier = tiers[0];
+            for(let i=tiers.length-1;i>=0;i--){if(App.sparks>=tiers[i].min){currentTier=tiers[i];break;}}
+            const nextTier = tiers[tiers.indexOf(currentTier)+1]||currentTier;
+            const progressInTier = nextTier.min>currentTier.min?Math.round(((App.sparks-currentTier.min)/(nextTier.min-currentTier.min))*100):100;
+            
+            $('pageLeague').innerHTML = `<div class="widget"><div class="league-header">
+                <i class='bx ${currentTier.icon} league-rank-icon ${currentTier.color}'></i>
+                <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.5rem;">${currentTier.name} Tier</h2>
+                <span class="rank-badge ${currentTier.color}"><i class='bx bxs-star'></i> ${App.sparks.toLocaleString()} Sparks</span>
+                <p style="color:var(--gray-500);margin-top:0.5rem;">Global Rank #${Math.floor(Math.random()*5000)+100}</p>
+                <div class="level-bar" style="margin-top:1rem;background:var(--gray-200);"><div class="level-bar-fill" style="width:${progressInTier}%;background:var(--success);"></div></div>
+                <p style="font-size:0.75rem;color:var(--gray-500);margin-top:0.375rem;">${nextTier.min-App.sparks} Sparks to ${nextTier.name}</p>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.75rem;margin-top:1rem;">
+                ${tiers.map(t=>`<div style="text-align:center;padding:0.75rem;border-radius:var(--radius);background:${t.name===currentTier.name?'var(--primary-bg)':'var(--gray-50)'};border:2px solid ${t.name===currentTier.name?'var(--primary)':'var(--gray-200)'};"><i class='bx ${t.icon}' style="font-size:1.5rem;color:var(--${t.color});"></i><div style="font-weight:600;font-size:0.75rem;margin-top:0.25rem;">${t.name}</div><div style="font-size:0.625rem;color:var(--gray-500);">${t.min}+ Sparks</div></div>`).join('')}
+            </div></div>`;
         }
 
+        // ============ FRIENDS WITH SEARCH ============
+        function renderFriends() {
+            $('pageFriends').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-group'></i> Friends</h3></div>
+                <div class="friend-search"><input type="text" id="friendSearchInput" placeholder="Search by username..." oninput="searchFriends()"><button class="btn btn-primary btn-sm" onclick="searchFriends()"><i class='bx bx-search'></i> Search</button></div>
+                <div id="friendResults"><p style="color:var(--gray-400);font-size:0.875rem;">Search for friends by username</p></div>
+                <div style="margin-top:1.5rem;"><h4 style="font-size:0.875rem;font-weight:600;margin-bottom:0.75rem;">Your Friends (${App.friends.length})</h4>
+                ${App.friends.length?App.friends.map(f=>`<div class="friend-card"><div class="friend-avatar">${(f.name||'F').charAt(0)}</div><div class="friend-info"><div class="friend-name">${f.name||'Friend'}</div><div class="friend-level">@${f.username||'user'} • Level ${f.level||1}</div></div><span style="font-size:0.75rem;color:var(--gray-500);">${f.sparks||0} Sparks</span></div>`).join(''):'<p style="color:var(--gray-400);font-size:0.813rem;">No friends added yet.</p>'}</div>
+            </div>`;
+        }
+
+        window.searchFriends = async function() {
+            const q = ($('friendSearchInput')?.value||'').toLowerCase().trim();
+            const container = $('friendResults');
+            if (!q) { container.innerHTML = '<p style="color:var(--gray-400);font-size:0.875rem;">Search for friends by username</p>'; return; }
+            container.innerHTML = '<p style="color:var(--gray-400);">Searching...</p>';
+            try {
+                const qSnap = query(collection(db, 'users'), where('username', '>=', q), where('username', '<=', q+'\uf8ff'), limit(10));
+                const snap = await getDocs(qSnap);
+                const results = snap.docs.map(d=>({id:d.id,...d.data()})).filter(u=>u.username!==App.userData.username);
+                if (!results.length) {
+                    const localUsers = JSON.parse(localStorage.getItem('ak_users_full')||'[]');
+                    const localResults = localUsers.filter(u=>u.username&&u.username.toLowerCase().includes(q)&&u.username!==App.userData.username);
+                    container.innerHTML = localResults.length?localResults.map(u=>`<div class="friend-card"><div class="friend-avatar">${(u.name||'U').charAt(0)}</div><div class="friend-info"><div class="friend-name">${u.name||'User'}</div><div class="friend-level">@${u.username||'user'}</div></div><button class="btn btn-primary btn-xs" onclick="addFriend('${u.uid||u.username}','${u.name||'User'}','${u.username||'user'}')">Add</button></div>`).join(''):'<p style="color:var(--gray-400);">No users found.</p>';
+                } else {
+                    container.innerHTML = results.map(u=>`<div class="friend-card"><div class="friend-avatar">${(u.name||'U').charAt(0)}</div><div class="friend-info"><div class="friend-name">${u.name||'User'}</div><div class="friend-level">@${u.username||'user'}</div></div><button class="btn btn-primary btn-xs" onclick="addFriend('${u.uid}','${u.name||'User'}','${u.username||'user'}')">Add</button></div>`).join('');
+                }
+            } catch(e) { container.innerHTML = '<p style="color:var(--gray-400);">Search unavailable.</p>'; }
+        };
+
+        window.addFriend = function(uid,name,username) {
+            if (App.friends.find(f=>f.uid===uid)) { toast('Already a friend!','error'); return; }
+            App.friends.push({uid,name,username,level:1,sparks:0});
+            localStorage.setItem('ak_friends',JSON.stringify(App.friends));
+            renderFriends(); toast('Friend added!','success');
+        };
+
         function renderProfile() {
-            const photo = App.userData.photoURL || App.user?.photoURL || '';
+            const photo = App.userData.photoURL||'';
             $('pageProfile').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-user'></i> Profile</h3></div>
-                <div class="profile-section">
-                    <div class="profile-avatar-large" id="profileAvatarLarge" onclick="document.getElementById('profileImageInput2').click()">
-                        ${photo ? `<img src="${photo}" alt="Avatar">` : `<span>${(App.userData.displayName||'S').charAt(0)}</span>`}
-                        <div class="edit-overlay"><i class='bx bx-camera'></i></div>
-                    </div>
-                    <input type="file" id="profileImageInput2" accept="image/*" style="display:none;" onchange="updateProfileImage(this)">
-                    <div><h3 style="font-size:1.25rem;">${App.userData.displayName||'Student'}</h3><p style="color:var(--gray-500);">${App.userData.email||''}</p><p style="color:var(--gray-500);">Level ${App.level} • ${App.sparks} Sparks • ${App.streak} day streak</p></div>
-                </div>
-                <form id="profileForm">
-                    <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="profName" value="${App.userData.displayName||''}"></div>
-                    <div class="form-group"><label class="form-label">Bio</label><input class="form-input" id="profBio" value="${App.userData.bio||''}" placeholder="Tell us about yourself..."></div>
-                    <button class="btn btn-primary"><i class='bx bx-save'></i> Save Changes</button>
-                </form></div>`;
-            $('profileForm')?.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const name = $('profName').value.trim();
-                const bio = $('profBio').value.trim();
-                if (!name) { toast('Name required', 'error'); return; }
-                App.userData.displayName = name; App.userData.bio = bio;
-                if (App.user?.uid) { try { await updateProfile(App.user, { displayName: name }); await setDoc(doc(db, 'users', App.user.uid), { displayName: name, bio }, { merge: true }); } catch (e) {} }
-                updateUI(); renderProfile(); toast('Profile updated!', 'success');
-            });
+                <div class="profile-section"><div class="profile-avatar-large" id="profileAvatarLarge" onclick="document.getElementById('profileImageInput2').click()">${photo?`<img src="${photo}" alt="Avatar">`:`<span>${(App.userData.displayName||'S').charAt(0)}</span>`}<div class="edit-overlay"><i class='bx bx-camera'></i></div></div><input type="file" id="profileImageInput2" accept="image/*" style="display:none;" onchange="updateProfileImage(this)">
+                <div><h3 style="font-size:1.25rem;">${App.userData.displayName||'Student'}</h3><p style="color:var(--gray-500);">${App.userData.email||''}${App.userData.username?` • @${App.userData.username}`:''}</p><p style="color:var(--gray-500);">Level ${App.level} • ${App.sparks} Sparks • ${App.streak} day streak</p></div></div>
+                <form id="profileForm"><div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="profName" value="${App.userData.displayName||''}"></div><div class="form-group"><label class="form-label">Bio</label><input class="form-input" id="profBio" value="${App.userData.bio||''}" placeholder="Tell us about yourself..."></div><button class="btn btn-primary"><i class='bx bx-save'></i> Save Changes</button></form></div>`;
+            $('profileForm')?.addEventListener('submit',async function(e){e.preventDefault();const n=$('profName').value.trim(),b=$('profBio').value.trim();if(!n){toast('Name required','error');return;}App.userData.displayName=n;App.userData.bio=b;if(App.user?.uid){try{await updateProfile(App.user,{displayName:n});await setDoc(doc(db,'users',App.user.uid),{displayName:n,bio:b},{merge:true});}catch(e){}}updateUI();renderProfile();toast('Profile updated!','success');});
         }
 
         window.updateProfileImage = async function(input) {
-            const file = input.files?.[0]; if (!file) return;
-            const fd = new FormData(); fd.append('image', file);
-            try {
-                const r = await fetch('https://api.imgbb.com/1/upload?key=ba8023ca74166460c442e8e703d2a1b0', { method:'POST', body:fd });
-                const d = await r.json();
-                if (d.success) {
-                    App.userData.photoURL = d.data.url;
-                    if (App.user?.uid) {
-                        await updateProfile(App.user, { photoURL: d.data.url });
-                        await setDoc(doc(db, 'users', App.user.uid), { photoURL: d.data.url }, { merge: true });
-                    }
-                    updateUI(); renderProfile(); toast('Photo updated!', 'success');
-                }
-            } catch (e) { toast('Upload failed', 'error'); }
+            const file=input.files?.[0];if(!file)return;const fd=new FormData();fd.append('image',file);
+            try{const r=await fetch('https://api.imgbb.com/1/upload?key=ba8023ca74166460c442e8e703d2a1b0',{method:'POST',body:fd});const d=await r.json();if(d.success){App.userData.photoURL=d.data.url;if(App.user?.uid){await updateProfile(App.user,{photoURL:d.data.url});await setDoc(doc(db,'users',App.user.uid),{photoURL:d.data.url},{merge:true});}updateUI();renderProfile();toast('Photo updated!','success');}}catch(e){toast('Upload failed','error');}
         };
 
         function renderSettings() {
             $('pageSettings').innerHTML = `<div class="settings-grid">
-                <div class="settings-card"><h4><i class='bx bx-bell'></i> Notifications</h4>
-                    <div class="toggle-row"><span>Email Notifications</span><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div>
-                    <div class="toggle-row"><span>Achievement Alerts</span><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div>
-                    <div class="toggle-row"><span>Weekly Reports</span><div class="toggle-switch" onclick="this.classList.toggle('on')"></div></div>
-                </div>
-                <div class="settings-card"><h4><i class='bx bx-palette'></i> Appearance</h4>
-                    <div class="form-group"><label class="form-label">Theme</label><select class="form-select"><option>Light</option><option>Dark</option><option>System</option></select></div>
-                </div>
-                <div class="settings-card"><h4><i class='bx bx-shield-quarter'></i> Security</h4>
-                    <button class="btn btn-outline btn-sm" style="width:100%;margin-bottom:0.5rem;">Change Password</button>
-                    <button class="btn btn-outline btn-sm" style="width:100%;">Manage Sessions</button>
-                </div>
+                <div class="settings-card"><h4><i class='bx bx-bell'></i> Notifications</h4><div class="toggle-row"><span>Email Notifications</span><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div><div class="toggle-row"><span>Achievement Alerts</span><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div><div class="toggle-row"><span>Weekly Reports</span><div class="toggle-switch" onclick="this.classList.toggle('on')"></div></div></div>
+                <div class="settings-card"><h4><i class='bx bx-palette'></i> Appearance</h4><div class="form-group"><label class="form-label">Theme</label><select class="form-select"><option>Light</option><option>Dark</option><option>System</option></select></div></div>
+                <div class="settings-card"><h4><i class='bx bx-shield-quarter'></i> Security</h4><button class="btn btn-outline btn-sm" style="width:100%;margin-bottom:0.5rem;">Change Password</button><button class="btn btn-outline btn-sm" style="width:100%;">Manage Sessions</button></div>
             </div>`;
         }
 
         function renderSupport() {
-            $('pageSupport').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-support'></i> Support</h3></div>
-                <p style="color:var(--gray-400);padding:1rem;font-size:0.875rem;">Need help? <a href="help-center.html">Visit Help Center</a> • <a href="contact.html">Contact Support</a></p></div>`;
+            $('pageSupport').innerHTML = `<div class="widget"><div class="widget-header"><h3 class="widget-title"><i class='bx bx-support'></i> Support</h3></div><p style="color:var(--gray-400);padding:1rem;">Need help? <a href="help-center.html">Visit Help Center</a> • <a href="contact.html">Contact Support</a></p></div>`;
         }
 
-        // ============ LOGOUT ============
-        window.handleLogout = async function() {
-            try { await signOut(auth); } catch (e) {}
-            localStorage.removeItem('ak_user'); window.location.href = 'index.html';
-        };
-
+        window.handleLogout = async function() { try{await signOut(auth);}catch(e){} localStorage.removeItem('ak_user');window.location.href='index.html'; };
         window.switchPage = switchPage;
-
-        // ============ INIT ============
         initAuth();
-        console.log('🚀 Akademia Student Hub loaded!');
+        console.log('🚀 Akademia Student Hub Enhanced!');
     </script>
 </body>
 </html>
