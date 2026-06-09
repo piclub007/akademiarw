@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akademia - Exercises</title>
+    <title>Akademia - Exercises & Exams</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,6 +52,9 @@
         .topbar-actions { display: flex; align-items: center; gap: 0.75rem; }
         .topbar-score { font-weight: 700; font-size: 0.938rem; color: var(--success); display: flex; align-items: center; gap: 0.375rem; }
         .topbar-timer { font-weight: 600; font-size: 0.813rem; color: var(--gray-600); display: flex; align-items: center; gap: 0.25rem; }
+        .topbar-mode { font-size: 0.75rem; padding: 0.25rem 0.625rem; border-radius: 100px; font-weight: 600; }
+        .topbar-mode.exercise { background: var(--accent-bg); color: var(--accent); }
+        .topbar-mode.exam { background: var(--danger-bg); color: var(--danger-dark); }
 
         .btn {
             font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.375rem;
@@ -68,16 +71,33 @@
         .exercise-container { width: 100%; max-width: 750px; animation: fadeSlideIn 0.4s ease; }
         @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* MODE SELECT */
+        .mode-select { text-align: center; }
+        .mode-select h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .mode-select p { color: var(--gray-500); margin-bottom: 2rem; }
+        .mode-cards { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+        .mode-card {
+            background: white; border: 2px solid var(--gray-200); border-radius: var(--radius-2xl);
+            padding: 2rem; text-align: center; cursor: pointer; transition: all var(--transition);
+            width: 220px;
+        }
+        .mode-card:hover { border-color: var(--primary); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .mode-card i { font-size: 3rem; display: block; margin-bottom: 0.75rem; }
+        .mode-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; margin-bottom: 0.375rem; }
+        .mode-card p { font-size: 0.75rem; color: var(--gray-500); }
+
+        /* PROGRESS */
         .progress-section { margin-bottom: 1.25rem; }
         .progress-header { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--gray-500); margin-bottom: 0.375rem; }
         .progress-bar { height: 6px; background: var(--gray-200); border-radius: 3px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--primary); border-radius: 3px; transition: width 0.4s ease; }
-        .progress-dots { display: flex; gap: 0.375rem; justify-content: center; margin-top: 1rem; }
+        .progress-dots { display: flex; gap: 0.375rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
         .progress-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-300); transition: all var(--transition); }
         .progress-dot.correct { background: var(--success); }
         .progress-dot.wrong { background: var(--danger); }
         .progress-dot.current { background: var(--primary); width: 10px; height: 10px; box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
 
+        /* QUESTION */
         .question-card {
             background: white; border: 2px solid var(--gray-200); border-radius: var(--radius-2xl);
             padding: 2.5rem; transition: all var(--transition); position: relative;
@@ -86,64 +106,48 @@
         @keyframes cardIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
         .question-card.correct-flash { border-color: var(--success); box-shadow: 0 0 30px rgba(4,170,109,0.15); }
         .question-card.wrong-flash { border-color: var(--danger); box-shadow: 0 0 30px rgba(239,68,68,0.1); }
-        
-        .q-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .q-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
         .q-number { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); }
         .q-course { font-size: 0.688rem; color: var(--gray-500); background: var(--gray-100); padding: 0.1875rem 0.625rem; border-radius: 100px; }
+        .q-module { font-size: 0.625rem; color: var(--gray-400); }
         .q-points { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: var(--warning-dark); font-weight: 600; margin-left: auto; }
         .q-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; color: var(--gray-900); margin-bottom: 1.5rem; line-height: 1.4; }
 
         .options-list { display: flex; flex-direction: column; gap: 0.625rem; }
         .opt-btn {
-            display: flex; align-items: center; gap: 0.875rem;
-            padding: 1rem 1.25rem; border: 2px solid var(--gray-200);
-            border-radius: var(--radius-lg); cursor: pointer; transition: all var(--transition);
-            background: white; font-family: 'Inter', sans-serif; font-size: 0.938rem;
-            text-align: left; width: 100%; color: var(--gray-700);
+            display: flex; align-items: center; gap: 0.875rem; padding: 1rem 1.25rem;
+            border: 2px solid var(--gray-200); border-radius: var(--radius-lg);
+            cursor: pointer; transition: all var(--transition); background: white;
+            font-family: 'Inter', sans-serif; font-size: 0.938rem; text-align: left; width: 100%; color: var(--gray-700);
         }
         .opt-btn:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-bg); transform: translateX(3px); }
         .opt-btn:disabled { cursor: not-allowed; }
         .opt-btn.correct-show { border-color: var(--success); background: var(--success-bg); color: var(--success-dark); }
         .opt-btn.wrong-show { border-color: var(--danger); background: var(--danger-bg); color: var(--danger-dark); }
-        .opt-letter {
-            width: 34px; height: 34px; border-radius: 50%; background: var(--gray-100);
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 0.813rem; flex-shrink: 0; transition: all var(--transition);
-        }
+        .opt-letter { width: 34px; height: 34px; border-radius: 50%; background: var(--gray-100); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.813rem; flex-shrink: 0; transition: all var(--transition); }
         .opt-btn.correct-show .opt-letter { background: var(--success); color: white; }
         .opt-btn.wrong-show .opt-letter { background: var(--danger); color: white; }
 
-        .feedback-toast {
-            margin-top: 1.25rem; padding: 1rem 1.25rem; border-radius: var(--radius);
-            font-weight: 600; font-size: 0.875rem; display: none; align-items: center; gap: 0.5rem;
-            animation: slideUp 0.3s ease;
-        }
+        .feedback-toast { margin-top: 1.25rem; padding: 1rem 1.25rem; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; display: none; align-items: center; gap: 0.5rem; animation: slideUp 0.3s ease; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .feedback-toast.show { display: flex; }
         .feedback-toast.correct { background: var(--success-bg); color: var(--success-dark); }
         .feedback-toast.wrong { background: var(--danger-bg); color: var(--danger-dark); }
 
         .complete-wrap { display: flex; gap: 0.5rem; }
-        .complete-input {
-            flex: 1; padding: 0.875rem 1.125rem; border: 2px solid var(--gray-200);
-            border-radius: var(--radius-lg); font-family: 'JetBrains Mono', monospace;
-            font-size: 0.938rem; outline: none; transition: all var(--transition); background: white;
-        }
+        .complete-input { flex: 1; padding: 0.875rem 1.125rem; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); font-family: 'JetBrains Mono', monospace; font-size: 0.938rem; outline: none; transition: all var(--transition); background: white; }
         .complete-input:focus { border-color: var(--primary); }
         .complete-input:disabled { opacity: 0.8; }
 
         .bool-group { display: flex; gap: 0.75rem; }
-        .bool-btn {
-            flex: 1; padding: 1.25rem; border: 2px solid var(--gray-200);
-            border-radius: var(--radius-lg); text-align: center; cursor: pointer;
-            font-weight: 700; font-size: 1.125rem; transition: all var(--transition); background: white;
-        }
+        .bool-btn { flex: 1; padding: 1.25rem; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); text-align: center; cursor: pointer; font-weight: 700; font-size: 1.125rem; transition: all var(--transition); background: white; }
         .bool-btn:hover:not(:disabled) { border-color: var(--primary); }
 
         .nav-row { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.25rem; }
         .nav-row .btn { min-width: 130px; justify-content: center; }
 
-        .results-wrap { text-align: center; animation: fadeSlideIn 0.5s ease; }
+        /* RESULTS */
+        .results-wrap { text-align: center; animation: fadeSlideIn 0.5s ease; background: white; border-radius: var(--radius-2xl); padding: 2.5rem; box-shadow: var(--shadow); }
         .results-icon { font-size: 5rem; display: block; margin-bottom: 0.5rem; }
         .results-pct { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; font-weight: 700; }
         .results-grade { font-size: 1.25rem; font-weight: 600; margin: 0.5rem 0; }
@@ -152,19 +156,15 @@
         .r-stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; }
         .r-stat-lbl { font-size: 0.75rem; color: var(--gray-500); }
 
-        .login-gate {
-            background: var(--warning-bg); border: 2px dashed var(--warning);
-            border-radius: var(--radius-2xl); padding: 2rem; text-align: center;
-            margin-top: 1rem; animation: fadeSlideIn 0.4s ease;
-        }
+        .login-gate { background: var(--warning-bg); border: 2px dashed var(--warning); border-radius: var(--radius-2xl); padding: 2rem; text-align: center; margin-top: 1rem; animation: fadeSlideIn 0.4s ease; }
         .login-gate i { font-size: 3rem; color: var(--warning); display: block; margin-bottom: 0.75rem; }
         .login-gate h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin-bottom: 0.5rem; }
         .login-gate p { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1rem; }
 
-        .empty-exercise { text-align: center; padding: 4rem 2rem; }
-        .empty-exercise i { font-size: 5rem; color: var(--gray-300); display: block; margin-bottom: 1rem; }
-        .empty-exercise h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; color: var(--gray-500); margin-bottom: 0.5rem; }
-        .empty-exercise p { color: var(--gray-400); margin-bottom: 1.5rem; }
+        .empty-state { text-align: center; padding: 4rem 2rem; }
+        .empty-state i { font-size: 5rem; color: var(--gray-300); display: block; margin-bottom: 1rem; }
+        .empty-state h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; color: var(--gray-500); margin-bottom: 0.5rem; }
+        .empty-state p { color: var(--gray-400); margin-bottom: 1.5rem; }
 
         .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
         .toast { background: var(--gray-900); color: white; padding: 0.75rem 1rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; max-width: 360px; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
@@ -175,7 +175,7 @@
             .main-content { padding: 1rem; }
             .question-card { padding: 1.5rem; }
             .results-stats { gap: 1.5rem; }
-            .nav-row .btn { min-width: 100px; font-size: 0.813rem; }
+            .mode-cards { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -187,6 +187,7 @@
                 <span>Akademia</span>
             </a>
             <span class="topbar-title" id="topbarTitle">Exercises</span>
+            <span class="topbar-mode exercise" id="topbarMode" style="display:none;">Exercise</span>
         </div>
         <div class="topbar-actions">
             <span class="topbar-timer" id="timerDisplay"><i class="bx bx-time"></i> 00:00</span>
@@ -206,10 +207,10 @@
         import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
         import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-        const $ = id => document.getElementById(id);
-        const toast = (msg, type) => {
-            const c = $('toastContainer');
-            const t = document.createElement('div');
+        var $ = function(id) { return document.getElementById(id); };
+        var toast = function(msg, type) {
+            var c = $('toastContainer');
+            var t = document.createElement('div');
             t.className = 'toast ' + (type || 'success');
             t.innerHTML = '<i class="bx ' + (type === 'success' ? 'bx-check-circle' : 'bx-x-circle') + '"></i> ' + msg;
             t.addEventListener('click', function() { t.remove(); });
@@ -219,7 +220,9 @@
 
         var App = {
             user: null, courses: [], modules: [], lessons: [],
-            questions: [], currentIndex: 0, score: 0, answers: [],
+            allQuestions: [], currentQuestions: [], mode: '', // 'exercise' or 'exam'
+            questionCount: 5, // 5 for exercise, more for exam
+            currentIndex: 0, score: 0, answers: [],
             timer: null, timerSeconds: 0, isLoggedIn: false,
             freeLimit: 4, filterCourseId: null, filterModuleId: null, filterLessonId: null
         };
@@ -230,6 +233,9 @@
             App.filterCourseId = p.get('course') || null;
             App.filterModuleId = p.get('module') || null;
             App.filterLessonId = p.get('lesson') || null;
+            // Mode: exercise (5 questions) or exam (all questions)
+            App.mode = p.get('mode') || '';
+            if (App.mode === 'exam') App.questionCount = 999;
         }
 
         // Auth
@@ -245,7 +251,7 @@
             }
         }
 
-        // Load data
+        // Load all data
         async function loadData() {
             try {
                 var results = await Promise.all([
@@ -253,20 +259,24 @@
                     getDocs(query(collection(db, 'modules'), orderBy('order'))),
                     getDocs(query(collection(db, 'lessons'), orderBy('createdAt', 'desc')))
                 ]);
-                App.courses = results[0].docs.map(function(d) { return { id: d.id, data: d.data() }; }).map(function(d) { var o = d.data; o.id = d.id; return o; });
-                App.modules = results[1].docs.map(function(d) { return { id: d.id, data: d.data() }; }).map(function(d) { var o = d.data; o.id = d.id; return o; });
-                App.lessons = results[2].docs.map(function(d) { return { id: d.id, data: d.data() }; }).map(function(d) { var o = d.data; o.id = d.id; return o; });
+                App.courses = [];
+                results[0].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.courses.push(o); });
+                App.modules = [];
+                results[1].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.modules.push(o); });
+                App.lessons = [];
+                results[2].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.lessons.push(o); });
             } catch (e) {
                 try { App.courses = JSON.parse(localStorage.getItem('ak_courses') || '[]'); } catch(ex) { App.courses = []; }
                 try { App.modules = JSON.parse(localStorage.getItem('ak_modules') || '[]'); } catch(ex) { App.modules = []; }
                 try { App.lessons = JSON.parse(localStorage.getItem('ak_lessons') || '[]'); } catch(ex) { App.lessons = []; }
             }
-            extractQuestions();
-            startExercise();
+            extractAllQuestions();
+            renderModeSelect();
         }
 
-        function extractQuestions() {
-            App.questions = [];
+        // Extract questions from lesson pages/blocks (matching lesson.html structure)
+        function extractAllQuestions() {
+            App.allQuestions = [];
             App.lessons.forEach(function(lesson) {
                 var mod = App.modules.find(function(m) { return m.id === lesson.moduleId; });
                 var course = App.courses.find(function(c) { return c.id === (mod ? mod.courseId : null); });
@@ -274,15 +284,18 @@
                 pages.forEach(function(page) {
                     var blocks = page.blocks || [];
                     blocks.forEach(function(block) {
+                        // Both 'question' and 'remember-question' blocks
                         if ((block.type === 'question' || block.type === 'remember-question') && block.question) {
-                            App.questions.push({
+                            App.allQuestions.push({
                                 question: block.question,
                                 questionType: block.questionType || 'multiple-choice',
-                                options: block.options || [],
-                                correctAnswer: block.correctAnswer || 0,
+                                options: block.options || ['', '', '', ''],
+                                correctAnswer: block.correctAnswer !== undefined ? block.correctAnswer : 0,
                                 points: block.points || 10,
+                                sentence: block.sentence || '',
+                                matchingRight: block.matchingRight || null,
                                 lessonId: lesson.id,
-                                lessonTitle: lesson.title || '',
+                                lessonTitle: lesson.title || 'Untitled',
                                 moduleId: mod ? mod.id : '',
                                 moduleName: mod ? mod.name : '',
                                 courseId: course ? course.id : '',
@@ -293,32 +306,75 @@
                 });
             });
 
+            // Apply URL filters
             if (App.filterCourseId) {
-                App.questions = App.questions.filter(function(q) { return q.courseId === App.filterCourseId; });
+                App.allQuestions = App.allQuestions.filter(function(q) { return q.courseId === App.filterCourseId; });
             }
             if (App.filterModuleId) {
-                App.questions = App.questions.filter(function(q) { return q.moduleId === App.filterModuleId; });
+                App.allQuestions = App.allQuestions.filter(function(q) { return q.moduleId === App.filterModuleId; });
             }
             if (App.filterLessonId) {
-                App.questions = App.questions.filter(function(q) { return q.lessonId === App.filterLessonId; });
+                App.allQuestions = App.allQuestions.filter(function(q) { return q.lessonId === App.filterLessonId; });
             }
-
-            App.questions.sort(function() { return Math.random() - 0.5; });
         }
 
-        function startExercise() {
-            if (!App.questions.length) {
-                renderEmpty();
+        // Render mode selection (if no mode specified)
+        function renderModeSelect() {
+            if (!App.allQuestions.length) {
+                $('exerciseContainer').innerHTML = '<div class="empty-state"><i class="bx bx-dumbbell"></i><h2>No Questions Available</h2><p>Create lessons with question blocks to generate exercises. Questions are extracted from lesson pages.</p><a href="course.html" class="btn btn-primary"><i class="bx bx-book-open"></i> Browse Courses</a></div>';
                 return;
             }
+
+            if (App.mode) {
+                startSession(App.mode);
+                return;
+            }
+
+            // Show mode selection
+            var courseName = App.allQuestions[0] ? App.allQuestions[0].courseName : '';
+            $('exerciseContainer').innerHTML = '<div class="mode-select">' +
+                '<h2>Ready to Practice?</h2>' +
+                '<p>' + App.allQuestions.length + ' questions available' + (courseName ? ' for ' + courseName : '') + '</p>' +
+                '<div class="mode-cards">' +
+                    '<div class="mode-card" onclick="startSession(\'exercise\')">' +
+                        '<i class="bx bx-dumbbell" style="color:var(--accent);"></i>' +
+                        '<h3>Exercise</h3>' +
+                        '<p>5 questions to practice</p>' +
+                        '<span style="font-size:0.688rem;color:var(--accent);">Quick practice session</span>' +
+                    '</div>' +
+                    '<div class="mode-card" onclick="startSession(\'exam\')">' +
+                        '<i class="bx bx-book-open" style="color:var(--danger);"></i>' +
+                        '<h3>Exam</h3>' +
+                        '<p>' + Math.min(App.allQuestions.length, 50) + ' questions</p>' +
+                        '<span style="font-size:0.688rem;color:var(--danger);">Full assessment</span>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+        }
+
+        // Start exercise or exam session
+        window.startSession = function(mode) {
+            App.mode = mode;
+            App.questionCount = mode === 'exercise' ? Math.min(5, App.allQuestions.length) : App.allQuestions.length;
+            
+            // Shuffle and pick questions
+            var shuffled = App.allQuestions.slice().sort(function() { return Math.random() - 0.5; });
+            App.currentQuestions = shuffled.slice(0, App.questionCount);
+            
             App.currentIndex = 0;
             App.score = 0;
-            App.answers = new Array(App.questions.length);
+            App.answers = new Array(App.currentQuestions.length);
             App.timerSeconds = 0;
+            
+            $('topbarMode').style.display = '';
+            $('topbarMode').textContent = mode === 'exercise' ? 'Exercise' : 'Exam';
+            $('topbarMode').className = 'topbar-mode ' + mode;
+            $('topbarTitle').textContent = mode === 'exercise' ? 'Exercise' : 'Exam';
+            
             updateScore();
             startTimer();
             renderQuestion();
-        }
+        };
 
         function startTimer() {
             clearInterval(App.timer);
@@ -336,36 +392,34 @@
             $('scoreDisplay').innerHTML = '<i class="bx bxs-star"></i> ' + App.score;
         }
 
-        function renderEmpty() {
-            $('exerciseContainer').innerHTML = '<div class="empty-exercise"><i class="bx bx-dumbbell"></i><h2>No Exercises Available</h2><p>Complete lessons to generate practice questions, or browse courses to find exercises.</p><a href="course.html" class="btn btn-primary"><i class="bx bx-book-open"></i> Browse Courses</a><a href="index.html" class="btn btn-outline" style="margin-left:0.5rem;"><i class="bx bx-home"></i> Home</a></div>';
-        }
-
         function renderQuestion() {
-            if (App.currentIndex >= App.questions.length) {
+            if (App.currentIndex >= App.currentQuestions.length) {
                 showResults();
                 return;
             }
 
+            // Login gate
             if (!App.isLoggedIn && App.currentIndex >= App.freeLimit) {
                 renderLoginGate();
                 return;
             }
 
-            var q = App.questions[App.currentIndex];
+            var q = App.currentQuestions[App.currentIndex];
             var userAns = App.answers[App.currentIndex];
             var isAnswered = userAns !== undefined;
             var correct = q.correctAnswer;
             var cardClass = isAnswered ? (userAns === correct ? 'correct-flash' : 'wrong-flash') : '';
-            var progress = Math.round(((App.currentIndex + 1) / App.questions.length) * 100);
-            var totalShow = App.isLoggedIn ? App.questions.length : Math.min(App.questions.length, App.freeLimit);
+            var progress = Math.round(((App.currentIndex + 1) / App.currentQuestions.length) * 100);
+            var totalShow = App.isLoggedIn ? App.currentQuestions.length : Math.min(App.currentQuestions.length, App.freeLimit);
             var optHTML = '';
 
+            // Build options based on questionType
             if (q.questionType === 'boolean') {
                 optHTML = '<div class="bool-group">' +
                     '<button class="bool-btn' + (userAns === 0 ? ' correct-show' : '') + (isAnswered && correct === 0 && userAns !== 0 ? ' correct-show' : '') + '" onclick="answerQuestion(0)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-check"></i> True</button>' +
                     '<button class="bool-btn' + (userAns === 1 ? ' correct-show' : '') + (isAnswered && correct === 1 && userAns !== 1 ? ' correct-show' : '') + '" onclick="answerQuestion(1)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-x"></i> False</button>' +
                 '</div>';
-            } else if (q.questionType === 'complete') {
+            } else if (q.questionType === 'complete-text' || q.questionType === 'complete') {
                 optHTML = '<div class="complete-wrap">' +
                     '<input type="text" class="complete-input" id="completeInput" placeholder="Type your answer..." onkeydown="if(event.key===\'Enter\')submitCompleteAnswer()"' + (isAnswered ? ' disabled' : '') + '>' +
                     (!isAnswered ? '<button class="btn btn-primary" onclick="submitCompleteAnswer()">Submit</button>' : '') +
@@ -374,9 +428,10 @@
                 var opts = q.options || [];
                 optHTML = '<div class="options-list">';
                 for (var i = 0; i < opts.length; i++) {
+                    if (!opts[i] && opts[i] !== '') continue; // Skip truly empty options
                     var cls = '';
                     if (userAns === i) { cls = userAns === correct ? 'correct-show' : 'wrong-show'; }
-                    else if (isAnswered && correct === i) { cls = 'correct-show'; }
+                    else if (isAnswered && correct === i && userAns !== i) { cls = 'correct-show'; }
                     optHTML += '<button class="opt-btn ' + cls + '" onclick="answerQuestion(' + i + ')"' + (isAnswered ? ' disabled' : '') + '>' +
                         '<span class="opt-letter">' + String.fromCharCode(65 + i) + '</span> ' + (opts[i] || 'Option ' + String.fromCharCode(65 + i)) +
                     '</button>';
@@ -387,7 +442,7 @@
             var dotsHTML = '';
             for (var d = 0; d < totalShow; d++) {
                 var dc = '';
-                if (App.answers[d] !== undefined) { dc = App.answers[d] === App.questions[d].correctAnswer ? 'correct' : 'wrong'; }
+                if (App.answers[d] !== undefined) { dc = App.answers[d] === App.currentQuestions[d].correctAnswer ? 'correct' : 'wrong'; }
                 else if (d === App.currentIndex) { dc = 'current'; }
                 dotsHTML += '<div class="progress-dot ' + dc + '"></div>';
             }
@@ -400,7 +455,7 @@
                     '<span>' + (isCorrect ? 'Correct! +' + (q.points || 10) + ' Sparks' : 'Incorrect') + '</span>' +
                 '</div>' +
                 '<div class="nav-row">' +
-                    '<button class="btn btn-primary" onclick="nextQuestion()">' + (App.currentIndex < App.questions.length - 1 ? 'Next <i class=\\"bx bx-chevron-right\\"></i>' : 'See Results <i class=\\"bx bx-trophy\\"></i>') + '</button>' +
+                    '<button class="btn btn-primary" onclick="nextQuestion()">' + (App.currentIndex < App.currentQuestions.length - 1 ? 'Next Question' : 'See Results') + ' <i class="bx bx-chevron-right"></i></button>' +
                 '</div>';
             }
 
@@ -413,6 +468,7 @@
                     '<div class="q-meta">' +
                         '<span class="q-number">Question ' + (App.currentIndex + 1) + '</span>' +
                         (q.courseName ? '<span class="q-course">' + q.courseName + '</span>' : '') +
+                        (q.moduleName ? '<span class="q-module">' + q.moduleName + '</span>' : '') +
                         '<span class="q-points"><i class="bx bxs-star"></i> ' + (q.points || 10) + ' pts</span>' +
                     '</div>' +
                     '<div class="q-text">' + (q.question || 'Question') + '</div>' +
@@ -424,20 +480,20 @@
 
         function renderLoginGate() {
             $('exerciseContainer').innerHTML = '' +
-                '<div class="progress-section"><div class="progress-header"><span>Free Preview: 4/4</span><span>100%</span></div><div class="progress-bar"><div class="progress-fill" style="width:100%;"></div></div></div>' +
+                '<div class="progress-section"><div class="progress-header"><span>Free Preview: 4/' + App.freeLimit + '</span><span>100%</span></div><div class="progress-bar"><div class="progress-fill" style="width:100%;"></div></div></div>' +
                 '<div class="login-gate">' +
                     '<i class="bx bx-lock-alt"></i>' +
                     '<h3>Unlock Full Access</h3>' +
-                    '<p>You have completed 4 free questions. Sign in to access all exercises and earn Sparks!</p>' +
+                    '<p>You have completed 4 free questions. Sign in to access all ' + App.mode + ' questions and earn Sparks!</p>' +
                     '<a href="auth.html?mode=signin" class="btn btn-primary"><i class="bx bx-log-in"></i> Sign In</a>' +
                     '<a href="auth.html?mode=register" class="btn btn-outline" style="margin-left:0.5rem;"><i class="bx bx-user-plus"></i> Create Account</a>' +
                 '</div>';
         }
 
-        // Global functions
+        // Answer handling
         window.answerQuestion = function(index) {
             if (App.answers[App.currentIndex] !== undefined) return;
-            var q = App.questions[App.currentIndex];
+            var q = App.currentQuestions[App.currentIndex];
             var correct = index === q.correctAnswer;
             App.answers[App.currentIndex] = index;
             if (correct) {
@@ -454,7 +510,7 @@
             if (!input) return;
             var val = input.value.trim();
             if (!val) { toast('Please type an answer', 'error'); return; }
-            var q = App.questions[App.currentIndex];
+            var q = App.currentQuestions[App.currentIndex];
             var correctAns = ((q.options || [])[q.correctAnswer] || '').toLowerCase();
             var isCorrect = val.toLowerCase() === correctAns;
             App.answers[App.currentIndex] = isCorrect ? q.correctAnswer : -1;
@@ -467,7 +523,7 @@
         };
 
         window.nextQuestion = function() {
-            if (App.currentIndex < App.questions.length - 1) {
+            if (App.currentIndex < App.currentQuestions.length - 1) {
                 App.currentIndex++;
                 renderQuestion();
             } else {
@@ -480,55 +536,67 @@
             localStorage.setItem('ak_sparks', String(current + pts));
         }
 
+        // Results
         function showResults() {
             clearInterval(App.timer);
-            var total = App.questions.length;
+            var total = App.currentQuestions.length;
             var correct = 0;
             for (var i = 0; i < App.answers.length; i++) {
-                if (App.answers[i] === App.questions[i].correctAnswer) correct++;
+                if (App.answers[i] === App.currentQuestions[i].correctAnswer) correct++;
             }
             var pct = Math.round((correct / total) * 100);
             var grade = pct >= 90 ? 'Excellent!' : pct >= 70 ? 'Great Job!' : pct >= 50 ? 'Good Effort!' : 'Keep Practicing!';
             var gColor = pct >= 90 ? 'var(--success)' : pct >= 70 ? 'var(--primary)' : pct >= 50 ? 'var(--warning)' : 'var(--danger)';
             var mins = Math.floor(App.timerSeconds / 60);
             var secs = App.timerSeconds % 60;
+            var modeLabel = App.mode === 'exam' ? 'Exam' : 'Exercise';
 
+            // Save history
             var hist = [];
             try { hist = JSON.parse(localStorage.getItem('ak_exercise_history') || '[]'); } catch(e) { hist = []; }
-            hist.push({ date: new Date().toISOString(), score: App.score, correct: correct, total: total, pct: pct, time: App.timerSeconds });
-            localStorage.setItem('ak_exercise_history', JSON.stringify(hist.slice(-20)));
+            hist.push({ date: new Date().toISOString(), mode: App.mode, score: App.score, correct: correct, total: total, pct: pct, time: App.timerSeconds, courseId: App.filterCourseId });
+            localStorage.setItem('ak_exercise_history', JSON.stringify(hist.slice(-30)));
 
             $('exerciseContainer').innerHTML = '' +
                 '<div class="results-wrap">' +
                     '<i class="bx bx-trophy results-icon" style="color:' + gColor + ';"></i>' +
                     '<div class="results-pct" style="color:' + gColor + ';">' + pct + '%</div>' +
                     '<div class="results-grade" style="color:' + gColor + ';">' + grade + '</div>' +
+                    '<p style="color:var(--gray-500);font-size:0.875rem;">' + modeLabel + ' Complete</p>' +
                     '<div class="results-stats">' +
                         '<div class="r-stat"><div class="r-stat-val">' + correct + '/' + total + '</div><div class="r-stat-lbl">Correct</div></div>' +
-                        '<div class="r-stat"><div class="r-stat-val"><i class="bx bxs-star" style="color:var(--warning);"></i> ' + App.score + '</div><div class="r-stat-lbl">Sparks Earned</div></div>' +
+                        '<div class="r-stat"><div class="r-stat-val"><i class="bx bxs-star" style="color:var(--warning);"></i> ' + App.score + '</div><div class="r-stat-lbl">Sparks</div></div>' +
                         '<div class="r-stat"><div class="r-stat-val">' + mins + 'm ' + secs + 's</div><div class="r-stat-lbl">Time</div></div>' +
                     '</div>' +
                     '<div class="nav-row">' +
-                        '<button class="btn btn-primary" onclick="retryExercise()"><i class="bx bx-refresh"></i> Retry</button>' +
+                        '<button class="btn btn-primary" onclick="retrySession()"><i class="bx bx-refresh"></i> Retry</button>' +
                         '<a href="course.html" class="btn btn-outline"><i class="bx bx-book-open"></i> Courses</a>' +
                         '<a href="user.html" class="btn btn-success"><i class="bx bx-user"></i> Dashboard</a>' +
                     '</div>' +
                 '</div>';
         }
 
-        window.retryExercise = function() {
-            App.questions.sort(function() { return Math.random() - 0.5; });
-            startExercise();
+        window.retrySession = function() {
+            var shuffled = App.allQuestions.slice().sort(function() { return Math.random() - 0.5; });
+            App.currentQuestions = shuffled.slice(0, App.questionCount);
+            App.currentIndex = 0;
+            App.score = 0;
+            App.answers = new Array(App.currentQuestions.length);
+            App.timerSeconds = 0;
+            updateScore();
+            startTimer();
+            renderQuestion();
         };
 
-        // Keyboard
+        // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
-            if (App.currentIndex >= App.questions.length) return;
+            if (App.currentIndex >= App.currentQuestions.length) return;
+            if (!App.currentQuestions.length) return;
             if (App.answers[App.currentIndex] !== undefined) {
                 if (e.key === 'Enter' || e.key === 'ArrowRight') nextQuestion();
                 return;
             }
-            var q = App.questions[App.currentIndex];
+            var q = App.currentQuestions[App.currentIndex];
             if (q.questionType === 'multiple-choice') {
                 var map = { 'a': 0, 'b': 1, 'c': 2, 'd': 3, '1': 0, '2': 1, '3': 2, '4': 3 };
                 if (map[e.key.toLowerCase()] !== undefined && map[e.key.toLowerCase()] < (q.options || []).length) {
@@ -544,7 +612,7 @@
         // Init
         parseURL();
         initAuth();
-        console.log('🚀 Akademia Exercise System ready!');
+        console.log('🚀 Akademia Exercise & Exam System ready!');
     </script>
 </body>
 </html>
