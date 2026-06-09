@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
     <style>
@@ -21,6 +21,7 @@
             --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
             --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
             --gray-800: #1f2937; --gray-900: #111827;
+            --dark-bg: #2D3748; --dark-surface: #1a1f2e;
             --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px;
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.04); --shadow: 0 1px 3px rgba(0,0,0,0.06);
             --shadow-md: 0 8px 24px rgba(0,0,0,0.08); --shadow-lg: 0 20px 50px rgba(0,0,0,0.1);
@@ -71,9 +72,9 @@
         .mode-card i { font-size: 3rem; display: block; margin-bottom: 0.75rem; }
         .mode-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; margin-bottom: 0.375rem; }
         .mode-card p { font-size: 0.75rem; color: var(--gray-500); }
-        .mode-card .limit-badge { display: inline-block; margin-top: 0.5rem; padding: 0.1875rem 0.625rem; border-radius: 100px; font-size: 0.688rem; font-weight: 600; }
-        .mode-card .limit-badge.logged { background: var(--success-bg); color: var(--success-dark); }
-        .mode-card .limit-badge.guest { background: var(--warning-bg); color: var(--warning-dark); }
+        .limit-badge { display: inline-block; margin-top: 0.5rem; padding: 0.1875rem 0.625rem; border-radius: 100px; font-size: 0.688rem; font-weight: 600; }
+        .limit-badge.logged { background: var(--success-bg); color: var(--success-dark); }
+        .limit-badge.guest { background: var(--warning-bg); color: var(--warning-dark); }
 
         .progress-section { margin-bottom: 1.25rem; }
         .progress-header { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--gray-500); margin-bottom: 0.375rem; }
@@ -85,55 +86,84 @@
         .progress-dot.wrong { background: var(--danger); }
         .progress-dot.current { background: var(--primary); width: 10px; height: 10px; box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
 
-        .question-card { background: white; border: 2px solid var(--gray-200); border-radius: var(--radius-2xl); padding: 2.5rem; transition: all var(--transition); position: relative; box-shadow: var(--shadow); animation: cardIn 0.35s ease; }
+        /* QUESTION CARD - W3Schools Inspired */
+        .question-card {
+            background: var(--dark-bg); color: white; border-radius: var(--radius-2xl);
+            padding: 2.5rem; transition: all var(--transition); position: relative;
+            box-shadow: var(--shadow-lg); animation: cardIn 0.35s ease;
+            text-align: center;
+        }
         @keyframes cardIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
-        .question-card.correct-flash { border-color: var(--success); box-shadow: 0 0 30px rgba(4,170,109,0.15); }
-        .question-card.wrong-flash { border-color: var(--danger); box-shadow: 0 0 30px rgba(239,68,68,0.1); }
-        .q-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
-        .q-number { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); }
-        .q-course { font-size: 0.688rem; color: var(--gray-500); background: var(--gray-100); padding: 0.1875rem 0.625rem; border-radius: 100px; }
-        .q-points { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: var(--warning-dark); font-weight: 600; margin-left: auto; }
-        .q-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; color: var(--gray-900); margin-bottom: 1.5rem; line-height: 1.4; }
+        .q-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; justify-content: center; }
+        .q-number { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--success); }
+        .q-course { font-size: 0.688rem; color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.1); padding: 0.1875rem 0.625rem; border-radius: 100px; }
+        .q-points { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: var(--warning); font-weight: 600; }
+        .q-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; color: white; margin-bottom: 1.5rem; line-height: 1.4; }
 
-        .options-list { display: flex; flex-direction: column; gap: 0.625rem; }
-        .opt-btn { display: flex; align-items: center; gap: 0.875rem; padding: 1rem 1.25rem; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); cursor: pointer; transition: all var(--transition); background: white; font-family: 'Inter', sans-serif; font-size: 0.938rem; text-align: left; width: 100%; color: var(--gray-700); }
-        .opt-btn:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-bg); transform: translateX(3px); }
-        .opt-btn:disabled { cursor: not-allowed; }
-        .opt-btn.correct-show { border-color: var(--success); background: var(--success-bg); color: var(--success-dark); }
-        .opt-btn.wrong-show { border-color: var(--danger); background: var(--danger-bg); color: var(--danger-dark); }
-        .opt-letter { width: 34px; height: 34px; border-radius: 50%; background: var(--gray-100); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.813rem; flex-shrink: 0; transition: all var(--transition); }
-        .opt-btn.correct-show .opt-letter { background: var(--success); color: white; }
-        .opt-btn.wrong-show .opt-letter { background: var(--danger); color: white; }
+        /* MCQ Options - W3Schools Style */
+        .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; max-width: 500px; margin: 0 auto; }
+        .mcq-opt {
+            display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.25rem;
+            background: rgba(255,255,255,0.1); border: 2px solid transparent;
+            border-radius: var(--radius); cursor: pointer; transition: all var(--transition);
+            font-size: 0.938rem; text-align: left; width: 100%; color: white; font-family: 'Inter', sans-serif;
+        }
+        .mcq-opt:hover:not(:disabled) { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); }
+        .mcq-opt:disabled { cursor: not-allowed; opacity: 0.7; }
+        .mcq-opt.correct-show { background: var(--success-bg); color: var(--success-dark); border-color: var(--success); }
+        .mcq-opt.wrong-show { background: var(--danger-bg); color: var(--danger-dark); border-color: var(--danger); }
+        .mcq-opt input[type="radio"] { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; }
+        .mcq-opt label { cursor: pointer; flex: 1; font-size: 0.938rem; }
 
-        .feedback-toast { margin-top: 1.25rem; padding: 1rem 1.25rem; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; display: none; align-items: center; gap: 0.5rem; animation: slideUp 0.3s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .feedback-toast.show { display: flex; }
-        .feedback-toast.correct { background: var(--success-bg); color: var(--success-dark); }
-        .feedback-toast.wrong { background: var(--danger-bg); color: var(--danger-dark); }
+        /* Boolean */
+        .bool-group { display: flex; gap: 0.75rem; max-width: 400px; margin: 0 auto; }
+        .bool-btn { flex: 1; padding: 1.25rem; border: 2px solid rgba(255,255,255,0.2); border-radius: var(--radius-lg); text-align: center; cursor: pointer; font-weight: 700; font-size: 1.125rem; transition: all var(--transition); background: rgba(255,255,255,0.05); color: white; }
+        .bool-btn:hover:not(:disabled) { border-color: var(--primary); background: rgba(37,99,235,0.2); }
 
-        .complete-wrap { display: flex; gap: 0.5rem; }
-        .complete-input { flex: 1; padding: 0.875rem 1.125rem; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); font-family: 'JetBrains Mono', monospace; font-size: 0.938rem; outline: none; transition: all var(--transition); background: white; }
-        .complete-input:focus { border-color: var(--primary); }
-        .complete-input:disabled { opacity: 0.8; }
+        /* Complete - W3Schools Fill-in-Blanks Style */
+        .complete-container { text-align: left; max-width: 550px; margin: 0 auto; }
+        .complete-sentence {
+            background: rgba(0,0,0,0.3); padding: 1.5rem 2rem; border-radius: var(--radius);
+            font-family: 'Source Code Pro', 'JetBrains Mono', monospace; font-size: 0.938rem;
+            line-height: 2; color: #cdd6f4; border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1rem;
+        }
+        .complete-input-inline {
+            display: inline-block; padding: 0.1875rem 0.5rem; border: none;
+            border-bottom: 2px solid var(--warning); background: rgba(255,255,255,0.1);
+            color: white; font-family: 'Source Code Pro', 'JetBrains Mono', monospace;
+            font-size: 0.938rem; outline: none; min-width: 80px; text-align: center;
+            border-radius: 3px 3px 0 0; transition: all var(--transition);
+        }
+        .complete-input-inline:focus { border-bottom-color: var(--success); background: rgba(255,255,255,0.15); }
+        .complete-input-inline:disabled { opacity: 0.7; }
+        .submit-inline-btn { margin-top: 0.75rem; text-align: center; }
 
-        .bool-group { display: flex; gap: 0.75rem; }
-        .bool-btn { flex: 1; padding: 1.25rem; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); text-align: center; cursor: pointer; font-weight: 700; font-size: 1.125rem; transition: all var(--transition); background: white; }
-        .bool-btn:hover:not(:disabled) { border-color: var(--primary); }
-
-        .matching-container { position: relative; }
+        /* Matching */
+        .matching-wrap { max-width: 600px; margin: 0 auto; }
         .matching-columns { display: flex; gap: 2rem; position: relative; }
         .matching-col { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
-        .matching-item { padding: 0.875rem 1.125rem; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); cursor: pointer; transition: all var(--transition); background: white; font-weight: 500; text-align: center; user-select: none; position: relative; z-index: 2; }
-        .matching-item:hover { border-color: var(--primary); }
-        .matching-item.selected { border-color: var(--warning); background: var(--warning-bg); box-shadow: 0 0 0 3px rgba(245,158,11,0.2); }
-        .matching-item.matched { border-color: var(--success); background: var(--success-bg); }
-        .matching-item.wrong-match { border-color: var(--danger); background: var(--danger-bg); }
+        .match-item { padding: 0.75rem 1rem; border: 2px solid rgba(255,255,255,0.15); border-radius: var(--radius); cursor: pointer; transition: all var(--transition); background: rgba(255,255,255,0.05); color: white; font-weight: 500; text-align: center; user-select: none; position: relative; z-index: 2; font-size: 0.875rem; }
+        .match-item:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.1); }
+        .match-item.selected { border-color: var(--warning); background: rgba(245,158,11,0.2); box-shadow: 0 0 0 3px rgba(245,158,11,0.15); }
+        .match-item.matched { border-color: var(--success); background: rgba(4,170,109,0.2); }
+        .match-item.wrong-match { border-color: var(--danger); background: rgba(239,68,68,0.2); }
         .matching-svg-layer { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
         .matching-svg-layer svg { width: 100%; height: 100%; }
-        .matching-line { stroke: var(--warning); stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 2px 3px rgba(245,158,11,0.3)); }
-        .matching-line.correct-line { stroke: var(--success); }
-        .matching-line.wrong-line { stroke: var(--danger); stroke-dasharray: 8 4; }
-        .match-submit-btn { margin-top: 1rem; text-align: center; }
+        .match-submit-wrap { margin-top: 1rem; text-align: center; }
+
+        /* Feedback */
+        .feedback-overlay {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.85); border-radius: var(--radius-2xl);
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 10; animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .feedback-overlay.show { display: flex; }
+        .feedback-overlay.correct { background: rgba(4,170,109,0.9); }
+        .feedback-overlay.wrong { background: rgba(220,38,38,0.9); }
+        .feedback-overlay h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 0.5rem; color: white; }
+        .feedback-overlay button { margin-top: 1rem; }
 
         .nav-row { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.25rem; }
         .nav-row .btn { min-width: 130px; justify-content: center; }
@@ -147,7 +177,7 @@
         .r-stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; }
         .r-stat-lbl { font-size: 0.75rem; color: var(--gray-500); }
 
-        .login-gate { background: var(--warning-bg); border: 2px dashed var(--warning); border-radius: var(--radius-2xl); padding: 2rem; text-align: center; margin-top: 1rem; animation: fadeSlideIn 0.4s ease; }
+        .login-gate { background: var(--warning-bg); border: 2px dashed var(--warning); border-radius: var(--radius-2xl); padding: 2rem; text-align: center; margin-top: 1rem; }
         .login-gate i { font-size: 3rem; color: var(--warning); display: block; margin-bottom: 0.75rem; }
         .login-gate h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin-bottom: 0.5rem; }
         .login-gate p { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1rem; }
@@ -162,7 +192,13 @@
         .toast.success { background: #059669; } .toast.error { background: #DC2626; }
         @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        @media (max-width: 600px) { .main-content { padding: 1rem; } .question-card { padding: 1.5rem; } .results-stats { gap: 1.5rem; } .mode-cards { flex-direction: column; align-items: center; } .matching-columns { flex-direction: column; gap: 1rem; } }
+        @media (max-width: 600px) {
+            .main-content { padding: 1rem; }
+            .question-card { padding: 1.5rem; }
+            .results-stats { gap: 1.5rem; }
+            .mode-cards { flex-direction: column; align-items: center; }
+            .matching-columns { flex-direction: column; gap: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -185,19 +221,15 @@
 
     <div class="toast-container" id="toastContainer"></div>
 
-    <script type="module">
-        import { db, auth } from './js/firebase.js';
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-        import { collection, getDocs, doc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-
+    <script>
+        // Use regular script (not module) to avoid CORS issues with Firestore
         var $ = function(id) { return document.getElementById(id); };
         var toast = function(msg, type) { var c = $('toastContainer'); var t = document.createElement('div'); t.className = 'toast ' + (type || 'success'); t.innerHTML = '<i class="bx ' + (type === 'success' ? 'bx-check-circle' : 'bx-x-circle') + '"></i> ' + msg; t.addEventListener('click', function() { t.remove(); }); c.appendChild(t); setTimeout(function() { if (t.parentElement) t.remove(); }, 3500); };
 
         var App = {
             user: null, courses: [], modules: [], lessons: [],
             allQuestions: [], currentQuestions: [], mode: '',
-            questionLimit: 10, // Default: 10 for exercise
-            currentIndex: 0, score: 0, answers: [],
+            questionLimit: 10, currentIndex: 0, score: 0, answers: [],
             timer: null, timerSeconds: 0, isLoggedIn: false,
             guestExerciseLimit: 5, guestExamLimit: 10,
             filterCourseId: null, filterModuleId: null, filterLessonId: null,
@@ -205,7 +237,7 @@
             filterCourseName: '', filterModuleName: '', filterLessonName: ''
         };
 
-        // ============ PARSE URL PARAMETERS ============
+        // Parse URL
         function parseURL() {
             var p = new URLSearchParams(window.location.search);
             App.filterCourseId = p.get('course') || null;
@@ -214,150 +246,171 @@
             App.mode = p.get('mode') || '';
         }
 
-        function initAuth() {
-            onAuthStateChanged(auth, function(u) {
-                App.user = u;
-                App.isLoggedIn = !!(u || localStorage.getItem('ak_user'));
-                loadData();
-            });
-            if (!App.user && localStorage.getItem('ak_user')) { App.isLoggedIn = true; loadData(); }
+        // Load from localStorage (offline-first)
+        function loadLocalData() {
+            try { App.courses = JSON.parse(localStorage.getItem('ak_courses') || '[]'); } catch(e) { App.courses = []; }
+            try { App.modules = JSON.parse(localStorage.getItem('ak_modules') || '[]'); } catch(e) { App.modules = []; }
+            try { App.lessons = JSON.parse(localStorage.getItem('ak_lessons') || '[]'); } catch(e) { App.lessons = []; }
+            // Also check ak_exbank for exercise bank questions
+            extractAllQuestions();
+            proceedAfterLoad();
         }
 
-        async function loadData() {
-            try {
-                var results = await Promise.all([
-                    getDocs(query(collection(db, 'courses'), orderBy('createdAt', 'desc'))),
-                    getDocs(query(collection(db, 'modules'), orderBy('order'))),
-                    getDocs(query(collection(db, 'lessons'), orderBy('createdAt', 'desc')))
-                ]);
-                App.courses = []; results[0].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.courses.push(o); });
-                App.modules = []; results[1].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.modules.push(o); });
-                App.lessons = []; results[2].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.lessons.push(o); });
-            } catch (e) {
-                try { App.courses = JSON.parse(localStorage.getItem('ak_courses') || '[]'); } catch(ex) { App.courses = []; }
-                try { App.modules = JSON.parse(localStorage.getItem('ak_modules') || '[]'); } catch(ex) { App.modules = []; }
-                try { App.lessons = JSON.parse(localStorage.getItem('ak_lessons') || '[]'); } catch(ex) { App.lessons = []; }
-            }
-            extractAllQuestions();
+        // Try Firebase, fallback to localStorage
+        function loadData() {
+            // Try to import Firebase dynamically
+            var firebaseReady = false;
             
-            // If URL has params, auto-start appropriate mode
-            if (App.filterLessonId || App.filterModuleId || App.filterCourseId || App.mode) {
-                if (!App.mode) App.mode = 'exercise'; // Default to exercise
-                startSession(App.mode);
-            } else {
-                renderModeSelect();
+            try {
+                import('./js/firebase.js').then(function(fb) {
+                    var db = fb.db;
+                    var auth = fb.auth;
+                    
+                    import("https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js").then(function(authMod) {
+                        authMod.onAuthStateChanged(auth, function(u) {
+                            App.user = u;
+                            App.isLoggedIn = !!(u || localStorage.getItem('ak_user'));
+                        });
+                        if (!App.user && localStorage.getItem('ak_user')) App.isLoggedIn = true;
+                    }).catch(function() {});
+                    
+                    import("https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js").then(function(fs) {
+                        var col = fs.collection, getDocs = fs.getDocs, query = fs.query, orderBy = fs.orderBy, doc = fs.doc, getDoc = fs.getDoc;
+                        
+                        Promise.all([
+                            getDocs(query(col(db, 'courses'), orderBy('createdAt', 'desc'))),
+                            getDocs(query(col(db, 'modules'), orderBy('order'))),
+                            getDocs(query(col(db, 'lessons'), orderBy('createdAt', 'desc')))
+                        ]).then(function(results) {
+                            App.courses = []; results[0].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.courses.push(o); });
+                            App.modules = []; results[1].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.modules.push(o); });
+                            App.lessons = []; results[2].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.lessons.push(o); });
+                            
+                            // Save to localStorage
+                            localStorage.setItem('ak_courses', JSON.stringify(App.courses));
+                            localStorage.setItem('ak_modules', JSON.stringify(App.modules));
+                            localStorage.setItem('ak_lessons', JSON.stringify(App.lessons));
+                            
+                            // If specific lesson requested, load its exercise bank
+                            if (App.filterLessonId) {
+                                getDoc(doc(db, 'lessons', App.filterLessonId)).then(function(snap) {
+                                    if (snap.exists()) {
+                                        var data = snap.data();
+                                        var bank = data.exerciseBank || [];
+                                        bank.forEach(function(q) { if (q.question) App.allQuestions.push(formatQuestion(q, data, 'exercise_bank')); });
+                                    }
+                                    extractFromAllLessons();
+                                    proceedAfterLoad();
+                                }).catch(function() { extractFromAllLessons(); proceedAfterLoad(); });
+                            } else {
+                                extractFromAllLessons();
+                                proceedAfterLoad();
+                            }
+                        }).catch(function(e) {
+                            console.warn('Firebase load failed, using localStorage:', e.message);
+                            loadLocalData();
+                        });
+                    }).catch(function(e) {
+                        console.warn('Firestore import failed:', e.message);
+                        loadLocalData();
+                    });
+                }).catch(function(e) {
+                    console.warn('Firebase import failed:', e.message);
+                    loadLocalData();
+                });
+            } catch(e) {
+                console.warn('Dynamic import not supported:', e.message);
+                loadLocalData();
             }
+            
+            // Set a timeout - if Firebase doesn't respond in 3 seconds, use localStorage
+            setTimeout(function() {
+                if (!App.allQuestions.length && !App.courses.length) {
+                    console.warn('Firebase timeout, using localStorage');
+                    loadLocalData();
+                }
+            }, 3000);
+        }
+
+        function formatQuestion(q, lessonData, source) {
+            var mod = App.modules.find(function(m) { return m.id === (lessonData.moduleId || q.moduleId); });
+            var course = App.courses.find(function(c) { return c.id === (mod ? mod.courseId : (q.courseId || lessonData.courseId)); });
+            return {
+                question: q.question, questionType: q.questionType || 'multiple-choice',
+                options: q.options || ['','','',''], correctAnswer: q.correctAnswer !== undefined ? q.correctAnswer : 0,
+                points: q.points || 10, sentence: q.sentence || '',
+                matchingRight: q.matchingRight || null, matchingTypes: q.matchingTypes || {left:'text',right:'text'},
+                source: source || 'lesson_block',
+                lessonId: lessonData.id || q.lessonId, lessonTitle: lessonData.title || q.lessonTitle || 'Untitled',
+                moduleId: mod ? mod.id : (q.moduleId || ''), moduleName: mod ? mod.name : (q.moduleName || ''),
+                courseId: course ? course.id : (q.courseId || ''), courseName: course ? course.name : (q.courseName || '')
+            };
+        }
+
+        function extractFromAllLessons() {
+            App.lessons.forEach(function(lesson) {
+                // Exercise bank
+                var bank = lesson.exerciseBank || [];
+                bank.forEach(function(q) { if (q.question) App.allQuestions.push(formatQuestion(q, lesson, 'exercise_bank')); });
+                // Question blocks
+                (lesson.pages || []).forEach(function(page) {
+                    (page.blocks || []).forEach(function(block) {
+                        if ((block.type === 'question' || block.type === 'remember-question') && block.question) {
+                            App.allQuestions.push(formatQuestion(block, lesson, 'lesson_block'));
+                        }
+                    });
+                });
+            });
         }
 
         function extractAllQuestions() {
             App.allQuestions = [];
             
-            // If specific lesson is requested, load that lesson's exercise bank from Firestore
-            if (App.filterLessonId) {
-                loadLessonExerciseBank(App.filterLessonId);
-            } else if (App.filterModuleId) {
-                // Load all lessons in this module
-                var modLessons = App.lessons.filter(function(l) { return l.moduleId === App.filterModuleId; });
-                modLessons.forEach(function(lesson) {
-                    extractFromLesson(lesson);
-                });
-            } else if (App.filterCourseId) {
-                // Load all lessons in this course
-                var courseMods = App.modules.filter(function(m) { return m.courseId === App.filterCourseId; });
-                courseMods.forEach(function(mod) {
-                    var modLessons = App.lessons.filter(function(l) { return l.moduleId === mod.id; });
-                    modLessons.forEach(function(lesson) {
-                        extractFromLesson(lesson);
-                    });
-                });
-            } else {
-                // Load from ALL lessons
-                App.lessons.forEach(function(lesson) {
-                    extractFromLesson(lesson);
-                });
-            }
-            
-            // Set filter names for display
-            if (App.filterCourseId) {
-                var course = App.courses.find(function(c) { return c.id === App.filterCourseId; });
-                App.filterCourseName = course ? course.name : '';
-            }
-            if (App.filterModuleId) {
-                var mod = App.modules.find(function(m) { return m.id === App.filterModuleId; });
-                App.filterModuleName = mod ? mod.name : '';
-            }
-            if (App.filterLessonId) {
-                var les = App.lessons.find(function(l) { return l.id === App.filterLessonId; });
-                App.filterLessonName = les ? (les.title || 'Untitled') : '';
-            }
-        }
-
-        async function loadLessonExerciseBank(lessonId) {
+            // Also try ak_exbank from localStorage (legacy shared bank)
             try {
-                var snap = await getDoc(doc(db, 'lessons', lessonId));
-                if (snap.exists()) {
-                    var data = snap.data();
-                    var bank = data.exerciseBank || [];
-                    var mod = App.modules.find(function(m) { return m.id === data.moduleId; });
-                    var course = App.courses.find(function(c) { return c.id === (mod ? mod.courseId : null); });
-                    
-                    bank.forEach(function(q) {
-                        if (q.question) {
-                            App.allQuestions.push({
-                                question: q.question, questionType: q.questionType || 'multiple-choice',
-                                options: q.options || ['','','',''], correctAnswer: q.correctAnswer !== undefined ? q.correctAnswer : 0,
-                                points: q.points || 10, sentence: q.sentence || '',
-                                matchingRight: q.matchingRight || null, matchingTypes: q.matchingTypes || {left:'text',right:'text'},
-                                source: 'exercise_bank', lessonId: lessonId, lessonTitle: data.title || 'Untitled',
-                                moduleId: mod ? mod.id : '', moduleName: mod ? mod.name : '',
-                                courseId: course ? course.id : '', courseName: course ? course.name : ''
-                            });
-                        }
-                    });
-                }
-            } catch(e) {}
-            
-            // Also extract from lesson blocks as fallback
-            var lesson = App.lessons.find(function(l) { return l.id === lessonId; });
-            if (lesson) extractFromLesson(lesson);
-        }
-
-        function extractFromLesson(lesson) {
-            var mod = App.modules.find(function(m) { return m.id === lesson.moduleId; });
-            var course = App.courses.find(function(c) { return c.id === (mod ? mod.courseId : null); });
-            
-            // First try exercise bank from lesson data (if already loaded)
-            var bank = lesson.exerciseBank || [];
-            bank.forEach(function(q) {
-                if (q.question) {
-                    App.allQuestions.push({
+                var legacyBank = JSON.parse(localStorage.getItem('ak_exbank') || '[]');
+                legacyBank.forEach(function(q) {
+                    if (q.question) App.allQuestions.push({
                         question: q.question, questionType: q.questionType || 'multiple-choice',
                         options: q.options || ['','','',''], correctAnswer: q.correctAnswer !== undefined ? q.correctAnswer : 0,
                         points: q.points || 10, sentence: q.sentence || '',
-                        matchingRight: q.matchingRight || null,
-                        source: 'exercise_bank', lessonId: lesson.id, lessonTitle: lesson.title || 'Untitled',
-                        moduleId: mod ? mod.id : '', moduleName: mod ? mod.name : '',
-                        courseId: course ? course.id : '', courseName: course ? course.name : ''
+                        matchingRight: q.matchingRight || null, matchingTypes: q.matchingTypes || {left:'text',right:'text'},
+                        source: 'legacy_bank', courseName: 'Exercise Bank', moduleName: '', lessonTitle: ''
                     });
-                }
-            });
-            
-            // Also extract from blocks
-            (lesson.pages || []).forEach(function(page) {
-                (page.blocks || []).forEach(function(block) {
-                    if ((block.type === 'question' || block.type === 'remember-question') && block.question) {
-                        App.allQuestions.push({
-                            question: block.question, questionType: block.questionType || 'multiple-choice',
-                            options: block.options || ['','','',''], correctAnswer: block.correctAnswer !== undefined ? block.correctAnswer : 0,
-                            points: block.points || 10, sentence: block.sentence || '',
-                            matchingRight: block.matchingRight || null,
-                            source: 'lesson_block', lessonId: lesson.id, lessonTitle: lesson.title || 'Untitled',
-                            moduleId: mod ? mod.id : '', moduleName: mod ? mod.name : '',
-                            courseId: course ? course.id : '', courseName: course ? course.name : ''
-                        });
-                    }
+                });
+            } catch(e) {}
+
+            // From lessons
+            App.lessons.forEach(function(lesson) {
+                var bank = lesson.exerciseBank || [];
+                bank.forEach(function(q) { if (q.question) App.allQuestions.push(formatQuestion(q, lesson, 'exercise_bank')); });
+                (lesson.pages || []).forEach(function(page) {
+                    (page.blocks || []).forEach(function(block) {
+                        if ((block.type === 'question' || block.type === 'remember-question') && block.question) {
+                            App.allQuestions.push(formatQuestion(block, lesson, 'lesson_block'));
+                        }
+                    });
                 });
             });
+
+            // Apply filters
+            if (App.filterCourseId) App.allQuestions = App.allQuestions.filter(function(q) { return q.courseId === App.filterCourseId || q.source === 'legacy_bank'; });
+            if (App.filterModuleId) App.allQuestions = App.allQuestions.filter(function(q) { return q.moduleId === App.filterModuleId; });
+            if (App.filterLessonId) App.allQuestions = App.allQuestions.filter(function(q) { return q.lessonId === App.filterLessonId; });
+            
+            // Set names
+            if (App.filterCourseId) { var c = App.courses.find(function(x) { return x.id === App.filterCourseId; }); App.filterCourseName = c ? c.name : ''; }
+            if (App.filterModuleId) { var m = App.modules.find(function(x) { return x.id === App.filterModuleId; }); App.filterModuleName = m ? m.name : ''; }
+            if (App.filterLessonId) { var l = App.lessons.find(function(x) { return x.id === App.filterLessonId; }); App.filterLessonName = l ? (l.title || '') : ''; }
+        }
+
+        function proceedAfterLoad() {
+            if (App.filterLessonId || App.filterModuleId || App.filterCourseId || App.mode) {
+                if (!App.mode) App.mode = 'exercise';
+                startSession(App.mode);
+            } else {
+                renderModeSelect();
+            }
         }
 
         function renderModeSelect() {
@@ -365,29 +418,20 @@
                 $('exerciseContainer').innerHTML = '<div class="empty-state"><i class="bx bx-dumbbell"></i><h2>No Questions Available</h2><p>Add exercises to the Exercise Bank in the Lesson Studio, or create lessons with question blocks.</p><a href="course.html" class="btn btn-primary"><i class="bx bx-book-open"></i> Browse Courses</a><a href="index.html" class="btn btn-outline" style="margin-left:0.5rem;"><i class="bx bx-home"></i> Home</a></div>';
                 return;
             }
-
             var totalQ = App.allQuestions.length;
             var contextName = App.filterLessonName || App.filterModuleName || App.filterCourseName || '';
             var contextLabel = contextName ? ' for ' + contextName : '';
-            var guestExLimit = Math.min(App.guestExerciseLimit, totalQ);
-            var guestExamLimit = Math.min(App.guestExamLimit, totalQ);
-            var loggedExLimit = Math.min(10, totalQ);
-            var loggedExamLimit = Math.min(30, totalQ);
+            var guestEx = Math.min(App.guestExerciseLimit, totalQ);
+            var guestExam = Math.min(App.guestExamLimit, totalQ);
+            var loggedEx = Math.min(10, totalQ);
+            var loggedExam = Math.min(30, totalQ);
 
             $('exerciseContainer').innerHTML = '<div class="mode-select"><h2>Ready to Practice?</h2>' +
                 (contextName ? '<div class="info-banner"><i class="bx bx-info-circle"></i> Questions from: <strong>' + contextName + '</strong></div>' : '') +
                 '<p>' + totalQ + ' questions available' + contextLabel + '</p>' +
                 '<div class="mode-cards">' +
-                    '<div class="mode-card" onclick="startSession(\'exercise\')">' +
-                        '<i class="bx bx-dumbbell" style="color:var(--accent);"></i><h3>Exercise</h3>' +
-                        '<p>Practice with selected questions</p>' +
-                        '<span class="limit-badge ' + (App.isLoggedIn ? 'logged' : 'guest') + '">' + (App.isLoggedIn ? loggedExLimit : guestExLimit) + ' questions</span>' +
-                    '</div>' +
-                    '<div class="mode-card" onclick="startSession(\'exam\')">' +
-                        '<i class="bx bx-book-open" style="color:var(--danger);"></i><h3>Exam</h3>' +
-                        '<p>Full assessment mode</p>' +
-                        '<span class="limit-badge ' + (App.isLoggedIn ? 'logged' : 'guest') + '">' + (App.isLoggedIn ? loggedExamLimit : guestExamLimit) + ' questions</span>' +
-                    '</div>' +
+                    '<div class="mode-card" onclick="startSession(\'exercise\')"><i class="bx bx-dumbbell" style="color:var(--accent);"></i><h3>Exercise</h3><p>Practice with selected questions</p><span class="limit-badge ' + (App.isLoggedIn ? 'logged' : 'guest') + '">' + (App.isLoggedIn ? loggedEx : guestEx) + ' questions</span></div>' +
+                    '<div class="mode-card" onclick="startSession(\'exam\')"><i class="bx bx-book-open" style="color:var(--danger);"></i><h3>Exam</h3><p>Full assessment mode</p><span class="limit-badge ' + (App.isLoggedIn ? 'logged' : 'guest') + '">' + (App.isLoggedIn ? loggedExam : guestExam) + ' questions</span></div>' +
                 '</div>' +
                 (!App.isLoggedIn ? '<p style="margin-top:1.5rem;font-size:0.813rem;color:var(--gray-500);"><i class="bx bx-lock-alt"></i> <a href="auth.html?mode=signin" style="color:var(--primary);">Sign in</a> to unlock full question limits</p>' : '') +
             '</div>';
@@ -395,126 +439,151 @@
 
         window.startSession = function(mode) {
             App.mode = mode;
-            
-            // Set question limits based on mode and login status
-            if (mode === 'exercise') {
-                App.questionLimit = App.isLoggedIn ? 10 : App.guestExerciseLimit;
-            } else {
-                App.questionLimit = App.isLoggedIn ? 30 : App.guestExamLimit;
-            }
-            
-            // Cap at available questions
+            App.questionLimit = mode === 'exercise' ? (App.isLoggedIn ? 10 : App.guestExerciseLimit) : (App.isLoggedIn ? 30 : App.guestExamLimit);
             App.questionLimit = Math.min(App.questionLimit, App.allQuestions.length);
-            
-            // Shuffle and select
             var shuffled = App.allQuestions.slice().sort(function() { return Math.random() - 0.5; });
             App.currentQuestions = shuffled.slice(0, App.questionLimit);
-            
             App.currentIndex = 0; App.score = 0;
             App.answers = new Array(App.currentQuestions.length);
             App.timerSeconds = 0; App.matchingSelections = {}; App.matchingLeftSelected = null;
-            
-            $('topbarMode').style.display = '';
-            $('topbarMode').textContent = mode === 'exercise' ? 'Exercise' : 'Exam';
+            $('topbarMode').style.display = ''; $('topbarMode').textContent = mode === 'exercise' ? 'Exercise' : 'Exam';
             $('topbarMode').className = 'topbar-mode ' + mode;
             $('topbarTitle').textContent = mode === 'exercise' ? 'Exercise' : 'Exam';
-            
             updateScore(); startTimer(); renderQuestion();
         };
 
         function startTimer() {
             clearInterval(App.timer); App.timerSeconds = 0;
             $('timerDisplay').innerHTML = '<i class="bx bx-time"></i> 00:00';
-            App.timer = setInterval(function() {
-                App.timerSeconds++;
-                var m = String(Math.floor(App.timerSeconds / 60)).padStart(2, '0');
-                var s = String(App.timerSeconds % 60).padStart(2, '0');
-                $('timerDisplay').innerHTML = '<i class="bx bx-time"></i> ' + m + ':' + s;
-            }, 1000);
+            App.timer = setInterval(function() { App.timerSeconds++; var m = String(Math.floor(App.timerSeconds / 60)).padStart(2, '0'); var s = String(App.timerSeconds % 60).padStart(2, '0'); $('timerDisplay').innerHTML = '<i class="bx bx-time"></i> ' + m + ':' + s; }, 1000);
         }
-
         function updateScore() { $('scoreDisplay').innerHTML = '<i class="bx bxs-star"></i> ' + App.score; }
 
+        // ============ RENDER QUESTION ============
         function renderQuestion() {
             if (App.currentIndex >= App.currentQuestions.length) { showResults(); return; }
-            
-            // Guest limit check
             var guestMax = App.mode === 'exercise' ? App.guestExerciseLimit : App.guestExamLimit;
             if (!App.isLoggedIn && App.currentIndex >= guestMax) { renderLoginGate(); return; }
 
             var q = App.currentQuestions[App.currentIndex];
             var userAns = App.answers[App.currentIndex];
             var isAnswered = userAns !== undefined;
-            var progress = Math.round(((App.currentIndex + 1) / App.currentQuestions.length) * 100);
             var totalShow = App.isLoggedIn ? App.currentQuestions.length : Math.min(App.currentQuestions.length, guestMax);
-
-            var cardClass = '';
-            if (q.questionType !== 'matching' && q.questionType !== 'complete-drag') {
-                if (isAnswered) {
-                    var correct = q.correctAnswer;
-                    cardClass = userAns === correct ? 'correct-flash' : 'wrong-flash';
-                }
-            }
-
             var dotsHTML = '';
-            for (var d = 0; d < totalShow; d++) {
-                var dc = '';
-                if (App.answers[d] !== undefined) { dc = App.answers[d] === App.currentQuestions[d].correctAnswer ? 'correct' : 'wrong'; }
-                else if (d === App.currentIndex) { dc = 'current'; }
-                dotsHTML += '<div class="progress-dot ' + dc + '"></div>';
-            }
+            for (var d = 0; d < totalShow; d++) { var dc = ''; if (App.answers[d] !== undefined) { dc = App.answers[d] === App.currentQuestions[d].correctAnswer ? 'correct' : 'wrong'; } else if (d === App.currentIndex) { dc = 'current'; } dotsHTML += '<div class="progress-dot ' + dc + '"></div>'; }
 
             var bodyHTML = '';
-            if (q.questionType === 'matching') { bodyHTML = renderMatchingQuestion(q, isAnswered); }
-            else if (q.questionType === 'boolean') { bodyHTML = renderBoolean(q, isAnswered); }
-            else if (q.questionType === 'complete-text' || q.questionType === 'complete' || q.questionType === 'complete-drag') { bodyHTML = renderCompleteOrDrag(q, isAnswered); }
-            else { bodyHTML = renderMultipleChoice(q, isAnswered); }
+            if (q.questionType === 'matching') bodyHTML = renderMatchingQuestion(q, isAnswered);
+            else if (q.questionType === 'boolean') bodyHTML = renderBooleanQuestion(q, isAnswered);
+            else if (q.questionType === 'complete-text' || q.questionType === 'complete' || q.questionType === 'complete-drag') bodyHTML = renderCompleteQuestion(q, isAnswered);
+            else bodyHTML = renderMCQQuestion(q, isAnswered);
 
-            var navHTML = '';
+            var feedbackOverlay = '';
             if (isAnswered) {
-                var isCorrect = userAns === q.correctAnswer;
-                var fbClass = isCorrect ? 'correct' : 'wrong';
-                var fbMsg = isCorrect ? 'Correct! +' + (q.points || 10) + ' Sparks' : 'Incorrect';
-                navHTML = '<div class="feedback-toast show ' + fbClass + '"><i class="bx ' + (isCorrect ? 'bx-check-circle' : 'bx-x-circle') + '"></i><span>' + fbMsg + '</span></div>' +
-                    '<div class="nav-row"><button class="btn btn-primary" onclick="nextQuestion()">' + (App.currentIndex < App.currentQuestions.length - 1 ? 'Next Question' : 'See Results') + ' <i class="bx bx-chevron-right"></i></button></div>';
+                var correct = q.correctAnswer;
+                var isCorrect = (q.questionType === 'matching') ? (userAns === q.correctAnswer) : (userAns === correct);
+                feedbackOverlay = '<div class="feedback-overlay show ' + (isCorrect ? 'correct' : 'wrong') + '">' +
+                    '<h2>' + (isCorrect ? '✅ Correct Answer!' : '❌ Wrong Answer!') + '</h2>' +
+                    '<p style="color:rgba(255,255,255,0.8);">' + (isCorrect ? '+ ' + (q.points||10) + ' Sparks' : '') + '</p>' +
+                    '<button class="btn btn-primary" onclick="nextQuestion()" style="background:white;color:' + (isCorrect ? 'var(--success-dark)' : 'var(--danger-dark)') + ';">' + (App.currentIndex < App.currentQuestions.length - 1 ? 'Next Question →' : 'See Results →') + '</button>' +
+                '</div>';
             }
 
+            var progress = Math.round(((App.currentIndex + 1) / App.currentQuestions.length) * 100);
             $('exerciseContainer').innerHTML = '' +
                 '<div class="progress-section"><div class="progress-header"><span>Question ' + (App.currentIndex + 1) + ' of ' + totalShow + '</span><span>' + progress + '%</span></div><div class="progress-bar"><div class="progress-fill" style="width:' + progress + '%;"></div></div></div>' +
-                '<div class="question-card ' + cardClass + '">' +
+                '<div class="question-card" style="position:relative;">' +
                     '<div class="q-meta"><span class="q-number">Question ' + (App.currentIndex + 1) + '</span>' + (q.courseName ? '<span class="q-course">' + q.courseName + '</span>' : '') + '<span class="q-points"><i class="bx bxs-star"></i> ' + (q.points || 10) + ' pts</span></div>' +
-                    '<div class="q-text">' + (q.question || 'Question') + '</div>' + bodyHTML + navHTML +
+                    '<div class="q-text">' + (q.question || 'Question') + '</div>' + bodyHTML +
+                    feedbackOverlay +
                 '</div><div class="progress-dots">' + dotsHTML + '</div>';
         }
 
-        function renderMultipleChoice(q, isAnswered) {
+        // ============ MCQ - W3Schools Style Radio Buttons ============
+        function renderMCQQuestion(q, isAnswered) {
             var opts = q.options || []; var correct = q.correctAnswer; var userAns = App.answers[App.currentIndex];
-            var h = '<div class="options-list">';
+            var h = '<div class="mcq-options">';
             for (var i = 0; i < opts.length; i++) {
                 if (!opts[i] && opts[i] !== '') continue;
-                var cls = '';
-                if (userAns === i) { cls = userAns === correct ? 'correct-show' : 'wrong-show'; }
-                else if (isAnswered && correct === i) { cls = 'correct-show'; }
-                h += '<button class="opt-btn ' + cls + '" onclick="answerMCQ(' + i + ')"' + (isAnswered ? ' disabled' : '') + '><span class="opt-letter">' + String.fromCharCode(65 + i) + '</span> ' + (opts[i] || 'Option ' + String.fromCharCode(65 + i)) + '</button>';
+                var cls = ''; if (userAns === i) { cls = userAns === correct ? 'correct-show' : 'wrong-show'; } else if (isAnswered && correct === i) { cls = 'correct-show'; }
+                h += '<div class="mcq-opt ' + cls + '" onclick="answerMCQ(' + i + ')">' +
+                    '<input type="radio" name="mcq" id="mcq' + i + '" ' + (userAns === i ? 'checked' : '') + (isAnswered ? ' disabled' : '') + '>' +
+                    '<label for="mcq' + i + '">' + (opts[i] || 'Option ' + String.fromCharCode(65 + i)) + '</label></div>';
             }
-            h += '</div>'; return h;
+            h += '</div>';
+            if (!isAnswered) h += '<div class="nav-row"><button class="btn btn-primary" onclick="submitMCQ()">Submit Answer →</button></div>';
+            return h;
         }
 
-        function renderBoolean(q, isAnswered) {
+        window.answerMCQ = function(index) {
+            if (App.answers[App.currentIndex] !== undefined) return;
+            // Just select, don't submit yet
+            document.querySelectorAll('.mcq-opt').forEach(function(el) { el.classList.remove('correct-show', 'wrong-show'); });
+            document.querySelectorAll('.mcq-opt')[index].classList.add('selected');
+            document.getElementById('mcq' + index).checked = true;
+        };
+
+        window.submitMCQ = function() {
+            if (App.answers[App.currentIndex] !== undefined) return;
+            var selected = document.querySelector('input[name="mcq"]:checked');
+            if (!selected) { toast('Please select an answer', 'error'); return; }
+            var index = parseInt(selected.id.replace('mcq', ''));
+            var q = App.currentQuestions[App.currentIndex];
+            var correct = index === q.correctAnswer;
+            App.answers[App.currentIndex] = index;
+            if (correct) { App.score += (q.points || 10); updateScore(); awardSparks(q.points || 10); }
+            renderQuestion();
+        };
+
+        // ============ BOOLEAN ============
+        function renderBooleanQuestion(q, isAnswered) {
             var correct = q.correctAnswer; var userAns = App.answers[App.currentIndex];
-            return '<div class="bool-group">' +
-                '<button class="bool-btn' + (userAns === 0 ? ' correct-show' : '') + (isAnswered && correct === 0 && userAns !== 0 ? ' correct-show' : '') + '" onclick="answerMCQ(0)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-check"></i> True</button>' +
-                '<button class="bool-btn' + (userAns === 1 ? ' correct-show' : '') + (isAnswered && correct === 1 && userAns !== 1 ? ' correct-show' : '') + '" onclick="answerMCQ(1)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-x"></i> False</button>' +
+            var h = '<div class="bool-group">' +
+                '<button class="bool-btn' + (userAns === 0 ? ' correct-show' : '') + '" onclick="answerBool(0)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-check"></i> True</button>' +
+                '<button class="bool-btn' + (userAns === 1 ? ' correct-show' : '') + '" onclick="answerBool(1)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-x"></i> False</button>' +
             '</div>';
+            return h;
         }
 
-        function renderCompleteOrDrag(q, isAnswered) {
-            return '<div class="complete-wrap">' +
-                '<input type="text" class="complete-input" id="completeInput" placeholder="Type your answer..." onkeydown="if(event.key===\'Enter\')submitCompleteAnswer()"' + (isAnswered ? ' disabled' : '') + '>' +
-                (!isAnswered ? '<button class="btn btn-primary" onclick="submitCompleteAnswer()">Submit</button>' : '') +
-            '</div>';
+        window.answerBool = function(index) {
+            if (App.answers[App.currentIndex] !== undefined) return;
+            var q = App.currentQuestions[App.currentIndex];
+            var correct = index === q.correctAnswer;
+            App.answers[App.currentIndex] = index;
+            if (correct) { App.score += (q.points || 10); updateScore(); awardSparks(q.points || 10); }
+            renderQuestion();
+        };
+
+        // ============ COMPLETE - W3Schools Fill-in-Blanks Style ============
+        function renderCompleteQuestion(q, isAnswered) {
+            var sentence = q.sentence || q.question || '';
+            var correctAns = ((q.options || [])[q.correctAnswer] || '');
+            var userAns = App.answers[App.currentIndex];
+            var displaySentence = sentence.replace(/____/g, '<input type="text" class="complete-input-inline" id="completeInput" placeholder="?" ' + (isAnswered ? 'disabled' : '') + '>');
+            
+            var h = '<div class="complete-container"><div class="complete-sentence">' + displaySentence + '</div>';
+            if (!isAnswered) h += '<div class="submit-inline-btn"><button class="btn btn-primary" onclick="submitCompleteAnswer()">Submit Answer →</button></div>';
+            h += '</div>';
+            
+            // Focus the input
+            setTimeout(function() { var inp = $('completeInput'); if (inp) inp.focus(); }, 100);
+            
+            return h;
         }
 
+        window.submitCompleteAnswer = function() {
+            if (App.answers[App.currentIndex] !== undefined) return;
+            var input = $('completeInput'); if (!input) return;
+            var val = input.value.trim(); if (!val) { toast('Please type an answer', 'error'); return; }
+            var q = App.currentQuestions[App.currentIndex];
+            var correctAns = ((q.options || [])[q.correctAnswer] || '').toLowerCase();
+            var isCorrect = val.toLowerCase() === correctAns;
+            App.answers[App.currentIndex] = isCorrect ? q.correctAnswer : -1;
+            if (isCorrect) { App.score += (q.points || 10); updateScore(); awardSparks(q.points || 10); }
+            renderQuestion();
+        };
+
+        // ============ MATCHING ============
         function renderMatchingQuestion(q, isAnswered) {
             App.matchingSelections = {}; App.matchingLeftSelected = null;
             var leftItems = (q.options || []).filter(function(x) { return x && x.trim(); });
@@ -523,44 +592,40 @@
             if (!rightItems.length) rightItems = ['Match 1', 'Match 2'];
             var shuffledRight = rightItems.slice().sort(function() { return Math.random() - 0.5; });
             
-            var h = '<p style="font-size:0.813rem;color:var(--gray-500);margin-bottom:1rem;">Click a left item, then click its matching right item.</p>';
+            var h = '<div class="matching-wrap"><p style="font-size:0.813rem;color:rgba(255,255,255,0.6);margin-bottom:1rem;">Click a left item, then click its matching right item. Yellow lines show connections.</p>';
             h += '<div class="matching-container" id="matchingContainer"><div class="matching-columns">';
             h += '<div class="matching-col" id="matchingLeftCol">';
-            for (var i = 0; i < leftItems.length; i++) { h += '<div class="matching-item left-item" data-index="' + i + '" onclick="selectMatchingLeft(' + i + ', this)">' + leftItems[i] + '</div>'; }
+            for (var i = 0; i < leftItems.length; i++) { h += '<div class="match-item left-item" data-index="' + i + '" onclick="selectMatchingLeft(' + i + ', this)">' + leftItems[i] + '</div>'; }
             h += '</div><div class="matching-svg-layer" id="matchingSvgLayer"><svg id="matchingSvg"></svg></div>';
             h += '<div class="matching-col" id="matchingRightCol">';
-            for (var j = 0; j < shuffledRight.length; j++) { h += '<div class="matching-item right-item" data-original-index="' + rightItems.indexOf(shuffledRight[j]) + '" data-display-index="' + j + '" onclick="selectMatchingRight(' + rightItems.indexOf(shuffledRight[j]) + ', ' + j + ', this)">' + shuffledRight[j] + '</div>'; }
+            for (var j = 0; j < shuffledRight.length; j++) { h += '<div class="match-item right-item" data-original-index="' + rightItems.indexOf(shuffledRight[j]) + '" data-display-index="' + j + '" onclick="selectMatchingRight(' + rightItems.indexOf(shuffledRight[j]) + ', ' + j + ', this)">' + shuffledRight[j] + '</div>'; }
             h += '</div></div></div>';
-            if (!isAnswered) { h += '<div class="match-submit-btn"><button class="btn btn-primary" onclick="submitMatchingAnswer()">Submit Matches</button></div>'; }
+            if (!isAnswered) h += '<div class="match-submit-wrap"><button class="btn btn-primary" onclick="submitMatchingAnswer()">Submit Matches</button></div>';
+            h += '</div>';
             setTimeout(function() { drawMatchingLines(); }, 100);
             return h;
         }
 
-        window.selectMatchingLeft = function(index, el) { if (App.answers[App.currentIndex] !== undefined) return; App.matchingLeftSelected = index; document.querySelectorAll('.left-item').forEach(function(item) { item.classList.remove('selected'); }); el.classList.add('selected'); document.querySelectorAll('.right-item').forEach(function(item) { item.classList.remove('selected'); }); App.matchingSelections[index] = undefined; drawMatchingLines(); };
-        window.selectMatchingRight = function(originalIndex, displayIndex, el) { if (App.answers[App.currentIndex] !== undefined) return; if (App.matchingLeftSelected === null) return; Object.keys(App.matchingSelections).forEach(function(key) { if (App.matchingSelections[key] === originalIndex) delete App.matchingSelections[key]; }); App.matchingSelections[App.matchingLeftSelected] = originalIndex; document.querySelectorAll('.left-item').forEach(function(item) { item.classList.remove('selected'); }); document.querySelectorAll('.right-item').forEach(function(item) { item.classList.remove('selected'); }); var leftEl = document.querySelector('.left-item[data-index="' + App.matchingLeftSelected + '"]'); if (leftEl) leftEl.classList.add('matched'); el.classList.add('matched'); App.matchingLeftSelected = null; drawMatchingLines(); };
+        window.selectMatchingLeft = function(index, el) { if (App.answers[App.currentIndex] !== undefined) return; App.matchingLeftSelected = index; document.querySelectorAll('.left-item').forEach(function(i) { i.classList.remove('selected'); }); el.classList.add('selected'); document.querySelectorAll('.right-item').forEach(function(i) { i.classList.remove('selected'); }); App.matchingSelections[index] = undefined; drawMatchingLines(); };
+        window.selectMatchingRight = function(originalIndex, displayIndex, el) { if (App.answers[App.currentIndex] !== undefined) return; if (App.matchingLeftSelected === null) return; Object.keys(App.matchingSelections).forEach(function(k) { if (App.matchingSelections[k] === originalIndex) delete App.matchingSelections[k]; }); App.matchingSelections[App.matchingLeftSelected] = originalIndex; document.querySelectorAll('.left-item').forEach(function(i) { i.classList.remove('selected'); }); document.querySelectorAll('.right-item').forEach(function(i) { i.classList.remove('selected'); }); var le = document.querySelector('.left-item[data-index="' + App.matchingLeftSelected + '"]'); if (le) le.classList.add('matched'); el.classList.add('matched'); App.matchingLeftSelected = null; drawMatchingLines(); };
 
         function drawMatchingLines() {
             var svg = document.getElementById('matchingSvg'); var container = document.getElementById('matchingContainer');
             if (!svg || !container) return;
-            var containerRect = container.getBoundingClientRect();
-            var linesHTML = '';
-            Object.keys(App.matchingSelections).forEach(function(leftIdx) {
-                var rightIdx = App.matchingSelections[leftIdx]; if (rightIdx === undefined) return;
-                var leftEl = document.querySelector('.left-item[data-index="' + leftIdx + '"]');
-                var rightEl = document.querySelector('.right-item[data-original-index="' + rightIdx + '"]');
-                if (leftEl && rightEl) {
-                    var lr = leftEl.getBoundingClientRect(); var rr = rightEl.getBoundingClientRect();
-                    var x1 = lr.right - containerRect.left; var y1 = lr.top + lr.height/2 - containerRect.top;
-                    var x2 = rr.left - containerRect.left; var y2 = rr.top + rr.height/2 - containerRect.top;
-                    var cpX = (x1 + x2) / 2;
-                    linesHTML += '<path d="M' + x1 + ',' + y1 + ' C' + cpX + ',' + y1 + ' ' + cpX + ',' + y2 + ' ' + x2 + ',' + y2 + '" class="matching-line" />';
+            var cr = container.getBoundingClientRect(); var lines = '';
+            Object.keys(App.matchingSelections).forEach(function(li) {
+                var ri = App.matchingSelections[li]; if (ri === undefined) return;
+                var le = document.querySelector('.left-item[data-index="' + li + '"]');
+                var re = document.querySelector('.right-item[data-original-index="' + ri + '"]');
+                if (le && re) {
+                    var lr = le.getBoundingClientRect(); var rr = re.getBoundingClientRect();
+                    var x1 = lr.right - cr.left; var y1 = lr.top + lr.height/2 - cr.top;
+                    var x2 = rr.left - cr.left; var y2 = rr.top + rr.height/2 - cr.top;
+                    var cp = (x1 + x2) / 2;
+                    lines += '<path d="M' + x1 + ',' + y1 + ' C' + cp + ',' + y1 + ' ' + cp + ',' + y2 + ' ' + x2 + ',' + y2 + '" stroke="var(--warning)" stroke-width="3" fill="none" stroke-linecap="round" filter="drop-shadow(0 2px 3px rgba(245,158,11,0.3))"/>';
                 }
             });
-            if (App.matchingLeftSelected !== null) {
-                var pendingLeft = document.querySelector('.left-item[data-index="' + App.matchingLeftSelected + '"]');
-                if (pendingLeft) { var plr = pendingLeft.getBoundingClientRect(); linesHTML += '<circle cx="' + (plr.right - containerRect.left) + '" cy="' + (plr.top + plr.height/2 - containerRect.top) + '" r="5" fill="var(--warning)" opacity="0.6" />'; }
-            }
-            svg.innerHTML = linesHTML;
+            svg.innerHTML = lines;
         }
 
         window.submitMatchingAnswer = function() {
@@ -568,33 +633,29 @@
             var q = App.currentQuestions[App.currentIndex];
             var leftItems = (q.options || []).filter(function(x) { return x && x.trim(); });
             var totalPairs = leftItems.length || 1; var correctPairs = 0;
-            Object.keys(App.matchingSelections).forEach(function(leftIdx) { if (App.matchingSelections[leftIdx] === parseInt(leftIdx)) correctPairs++; });
-            var isPerfect = correctPairs === totalPairs;
+            Object.keys(App.matchingSelections).forEach(function(li) { if (App.matchingSelections[li] === parseInt(li)) correctPairs++; });
             var earnedPoints = Math.round((q.points || 10) * (correctPairs / totalPairs));
-            App.answers[App.currentIndex] = isPerfect ? q.correctAnswer : -1;
+            App.answers[App.currentIndex] = correctPairs === totalPairs ? q.correctAnswer : -1;
             App.score += earnedPoints; updateScore();
             if (earnedPoints > 0) awardSparks(earnedPoints);
             document.querySelectorAll('.left-item, .right-item').forEach(function(el) { el.style.pointerEvents = 'none'; });
-            var submitBtn = document.querySelector('.match-submit-btn'); if (submitBtn) submitBtn.style.display = 'none';
+            var sb = document.querySelector('.match-submit-wrap'); if (sb) sb.style.display = 'none';
             renderQuestion();
         };
 
-        window.answerMCQ = function(index) { if (App.answers[App.currentIndex] !== undefined) return; var q = App.currentQuestions[App.currentIndex]; var correct = index === q.correctAnswer; App.answers[App.currentIndex] = index; if (correct) { App.score += (q.points || 10); updateScore(); awardSparks(q.points || 10); } renderQuestion(); };
-        window.submitCompleteAnswer = function() { if (App.answers[App.currentIndex] !== undefined) return; var input = $('completeInput'); if (!input) return; var val = input.value.trim(); if (!val) { toast('Please type an answer', 'error'); return; } var q = App.currentQuestions[App.currentIndex]; var correctAns = ((q.options || [])[q.correctAnswer] || '').toLowerCase(); var isCorrect = val.toLowerCase() === correctAns; App.answers[App.currentIndex] = isCorrect ? q.correctAnswer : -1; if (isCorrect) { App.score += (q.points || 10); updateScore(); awardSparks(q.points || 10); } renderQuestion(); };
         window.nextQuestion = function() { if (App.currentIndex < App.currentQuestions.length - 1) { App.currentIndex++; renderQuestion(); } else { showResults(); } };
-        function awardSparks(pts) { var current = parseInt(localStorage.getItem('ak_sparks') || '0'); localStorage.setItem('ak_sparks', String(current + pts)); }
+        function awardSparks(pts) { var c = parseInt(localStorage.getItem('ak_sparks') || '0'); localStorage.setItem('ak_sparks', String(c + pts)); }
 
         function renderLoginGate() {
-            var guestMax = App.mode === 'exercise' ? App.guestExerciseLimit : App.guestExamLimit;
-            $('exerciseContainer').innerHTML = '<div class="progress-section"><div class="progress-header"><span>Free Preview: ' + guestMax + '/' + guestMax + '</span><span>100%</span></div><div class="progress-bar"><div class="progress-fill" style="width:100%;"></div></div></div>' +
-                '<div class="login-gate"><i class="bx bx-lock-alt"></i><h3>Unlock Full Access</h3><p>You have completed ' + guestMax + ' free questions. Sign in to access all ' + App.currentQuestions.length + ' questions and earn Sparks!</p>' +
+            var gm = App.mode === 'exercise' ? App.guestExerciseLimit : App.guestExamLimit;
+            $('exerciseContainer').innerHTML = '<div class="progress-section"><div class="progress-header"><span>Free Preview: ' + gm + '/' + gm + '</span><span>100%</span></div><div class="progress-bar"><div class="progress-fill" style="width:100%;"></div></div></div>' +
+                '<div class="login-gate"><i class="bx bx-lock-alt"></i><h3>Unlock Full Access</h3><p>Sign in to access all ' + App.currentQuestions.length + ' questions!</p>' +
                 '<a href="auth.html?mode=signin" class="btn btn-primary"><i class="bx bx-log-in"></i> Sign In</a><a href="auth.html?mode=register" class="btn btn-outline" style="margin-left:0.5rem;"><i class="bx bx-user-plus"></i> Create Account</a></div>';
         }
 
         function showResults() {
             clearInterval(App.timer);
-            var total = App.currentQuestions.length;
-            var correct = 0;
+            var total = App.currentQuestions.length; var correct = 0;
             for (var i = 0; i < App.answers.length; i++) { if (App.answers[i] === App.currentQuestions[i].correctAnswer) correct++; }
             var pct = Math.round((correct / total) * 100);
             var grade = pct >= 90 ? 'Excellent!' : pct >= 70 ? 'Great Job!' : pct >= 50 ? 'Good Effort!' : 'Keep Practicing!';
@@ -617,18 +678,19 @@
             updateScore(); startTimer(); renderQuestion();
         };
 
+        // Keyboard
         document.addEventListener('keydown', function(e) {
             if (App.currentIndex >= App.currentQuestions.length || !App.currentQuestions.length) return;
-            var q = App.currentQuestions[App.currentIndex];
-            if (q.questionType === 'matching') return;
-            if (App.answers[App.currentIndex] !== undefined) { if (e.key === 'Enter' || e.key === 'ArrowRight') nextQuestion(); return; }
-            if (q.questionType === 'multiple-choice' || q.questionType === 'complete-drag') { var map = {'a':0,'b':1,'c':2,'d':3,'1':0,'2':1,'3':2,'4':3}; if (map[e.key.toLowerCase()] !== undefined && map[e.key.toLowerCase()] < (q.options||[]).length) answerMCQ(map[e.key.toLowerCase()]); }
-            if (q.questionType === 'boolean') { if (e.key.toLowerCase()==='t'||e.key==='1') answerMCQ(0); if (e.key.toLowerCase()==='f'||e.key==='2') answerMCQ(1); }
+            if (e.key === 'Enter' && App.answers[App.currentIndex] !== undefined) { nextQuestion(); return; }
         });
         window.addEventListener('resize', function() { drawMatchingLines(); });
 
-        parseURL(); initAuth();
-        console.log('🚀 Akademia Exercise System - Full Query Support ready!');
+        // ============ INIT ============
+        parseURL();
+        // Check if user is logged in from localStorage
+        if (localStorage.getItem('ak_user')) App.isLoggedIn = true;
+        loadData();
+        console.log('🚀 Akademia Exercise System ready!');
     </script>
 </body>
 </html>
