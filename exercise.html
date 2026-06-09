@@ -71,22 +71,18 @@
         .exercise-container { width: 100%; max-width: 750px; animation: fadeSlideIn 0.4s ease; }
         @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* MODE SELECT */
+        /* Mode Select */
         .mode-select { text-align: center; }
         .mode-select h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
         .mode-select p { color: var(--gray-500); margin-bottom: 2rem; }
         .mode-cards { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
-        .mode-card {
-            background: white; border: 2px solid var(--gray-200); border-radius: var(--radius-2xl);
-            padding: 2rem; text-align: center; cursor: pointer; transition: all var(--transition);
-            width: 220px;
-        }
+        .mode-card { background: white; border: 2px solid var(--gray-200); border-radius: var(--radius-2xl); padding: 2rem; text-align: center; cursor: pointer; transition: all var(--transition); width: 220px; }
         .mode-card:hover { border-color: var(--primary); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
         .mode-card i { font-size: 3rem; display: block; margin-bottom: 0.75rem; }
         .mode-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; margin-bottom: 0.375rem; }
         .mode-card p { font-size: 0.75rem; color: var(--gray-500); }
 
-        /* PROGRESS */
+        /* Progress */
         .progress-section { margin-bottom: 1.25rem; }
         .progress-header { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--gray-500); margin-bottom: 0.375rem; }
         .progress-bar { height: 6px; background: var(--gray-200); border-radius: 3px; overflow: hidden; }
@@ -97,7 +93,7 @@
         .progress-dot.wrong { background: var(--danger); }
         .progress-dot.current { background: var(--primary); width: 10px; height: 10px; box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
 
-        /* QUESTION */
+        /* Question Card */
         .question-card {
             background: white; border: 2px solid var(--gray-200); border-radius: var(--radius-2xl);
             padding: 2.5rem; transition: all var(--transition); position: relative;
@@ -109,10 +105,10 @@
         .q-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
         .q-number { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); }
         .q-course { font-size: 0.688rem; color: var(--gray-500); background: var(--gray-100); padding: 0.1875rem 0.625rem; border-radius: 100px; }
-        .q-module { font-size: 0.625rem; color: var(--gray-400); }
         .q-points { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: var(--warning-dark); font-weight: 600; margin-left: auto; }
         .q-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; color: var(--gray-900); margin-bottom: 1.5rem; line-height: 1.4; }
 
+        /* Options */
         .options-list { display: flex; flex-direction: column; gap: 0.625rem; }
         .opt-btn {
             display: flex; align-items: center; gap: 0.875rem; padding: 1rem 1.25rem;
@@ -134,19 +130,47 @@
         .feedback-toast.correct { background: var(--success-bg); color: var(--success-dark); }
         .feedback-toast.wrong { background: var(--danger-bg); color: var(--danger-dark); }
 
+        /* Complete Input */
         .complete-wrap { display: flex; gap: 0.5rem; }
         .complete-input { flex: 1; padding: 0.875rem 1.125rem; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); font-family: 'JetBrains Mono', monospace; font-size: 0.938rem; outline: none; transition: all var(--transition); background: white; }
         .complete-input:focus { border-color: var(--primary); }
         .complete-input:disabled { opacity: 0.8; }
 
+        /* Boolean */
         .bool-group { display: flex; gap: 0.75rem; }
         .bool-btn { flex: 1; padding: 1.25rem; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); text-align: center; cursor: pointer; font-weight: 700; font-size: 1.125rem; transition: all var(--transition); background: white; }
         .bool-btn:hover:not(:disabled) { border-color: var(--primary); }
 
+        /* ============ MATCHING WITH YELLOW LINES ============ */
+        .matching-container { position: relative; }
+        .matching-columns { display: flex; gap: 2rem; position: relative; }
+        .matching-col { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+        .matching-item {
+            padding: 0.875rem 1.125rem; border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg); cursor: pointer; transition: all var(--transition);
+            background: white; font-weight: 500; text-align: center; user-select: none;
+            position: relative; z-index: 2;
+        }
+        .matching-item:hover { border-color: var(--primary); }
+        .matching-item.selected { border-color: var(--warning); background: var(--warning-bg); box-shadow: 0 0 0 3px rgba(245,158,11,0.2); }
+        .matching-item.matched { border-color: var(--success); background: var(--success-bg); }
+        .matching-item.wrong-match { border-color: var(--danger); background: var(--danger-bg); }
+        .matching-svg-layer {
+            position: absolute; inset: 0; pointer-events: none; z-index: 1;
+        }
+        .matching-svg-layer svg { width: 100%; height: 100%; }
+        .matching-line {
+            stroke: var(--warning); stroke-width: 3; stroke-linecap: round;
+            filter: drop-shadow(0 2px 3px rgba(245,158,11,0.3));
+        }
+        .matching-line.correct-line { stroke: var(--success); }
+        .matching-line.wrong-line { stroke: var(--danger); stroke-dasharray: 8 4; }
+        .match-submit-btn { margin-top: 1rem; text-align: center; }
+
         .nav-row { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.25rem; }
         .nav-row .btn { min-width: 130px; justify-content: center; }
 
-        /* RESULTS */
+        /* Results */
         .results-wrap { text-align: center; animation: fadeSlideIn 0.5s ease; background: white; border-radius: var(--radius-2xl); padding: 2.5rem; box-shadow: var(--shadow); }
         .results-icon { font-size: 5rem; display: block; margin-bottom: 0.5rem; }
         .results-pct { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; font-weight: 700; }
@@ -176,6 +200,7 @@
             .question-card { padding: 1.5rem; }
             .results-stats { gap: 1.5rem; }
             .mode-cards { flex-direction: column; align-items: center; }
+            .matching-columns { flex-direction: column; gap: 1rem; }
         }
     </style>
 </head>
@@ -209,49 +234,40 @@
 
         var $ = function(id) { return document.getElementById(id); };
         var toast = function(msg, type) {
-            var c = $('toastContainer');
-            var t = document.createElement('div');
+            var c = $('toastContainer'); var t = document.createElement('div');
             t.className = 'toast ' + (type || 'success');
             t.innerHTML = '<i class="bx ' + (type === 'success' ? 'bx-check-circle' : 'bx-x-circle') + '"></i> ' + msg;
-            t.addEventListener('click', function() { t.remove(); });
-            c.appendChild(t);
+            t.addEventListener('click', function() { t.remove(); }); c.appendChild(t);
             setTimeout(function() { if (t.parentElement) t.remove(); }, 3500);
         };
 
         var App = {
             user: null, courses: [], modules: [], lessons: [],
-            allQuestions: [], currentQuestions: [], mode: '', // 'exercise' or 'exam'
-            questionCount: 5, // 5 for exercise, more for exam
-            currentIndex: 0, score: 0, answers: [],
+            allQuestions: [], currentQuestions: [], mode: '',
+            questionCount: 5, currentIndex: 0, score: 0, answers: [],
             timer: null, timerSeconds: 0, isLoggedIn: false,
-            freeLimit: 4, filterCourseId: null, filterModuleId: null, filterLessonId: null
+            freeLimit: 4, filterCourseId: null, filterModuleId: null, filterLessonId: null,
+            matchingSelections: {}, matchingLeftSelected: null
         };
 
-        // Parse URL
         function parseURL() {
             var p = new URLSearchParams(window.location.search);
             App.filterCourseId = p.get('course') || null;
             App.filterModuleId = p.get('module') || null;
             App.filterLessonId = p.get('lesson') || null;
-            // Mode: exercise (5 questions) or exam (all questions)
             App.mode = p.get('mode') || '';
             if (App.mode === 'exam') App.questionCount = 999;
         }
 
-        // Auth
         function initAuth() {
             onAuthStateChanged(auth, function(u) {
                 App.user = u;
                 App.isLoggedIn = !!(u || localStorage.getItem('ak_user'));
                 loadData();
             });
-            if (!App.user && localStorage.getItem('ak_user')) {
-                App.isLoggedIn = true;
-                loadData();
-            }
+            if (!App.user && localStorage.getItem('ak_user')) { App.isLoggedIn = true; loadData(); }
         }
 
-        // Load all data
         async function loadData() {
             try {
                 var results = await Promise.all([
@@ -259,12 +275,9 @@
                     getDocs(query(collection(db, 'modules'), orderBy('order'))),
                     getDocs(query(collection(db, 'lessons'), orderBy('createdAt', 'desc')))
                 ]);
-                App.courses = [];
-                results[0].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.courses.push(o); });
-                App.modules = [];
-                results[1].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.modules.push(o); });
-                App.lessons = [];
-                results[2].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.lessons.push(o); });
+                App.courses = []; results[0].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.courses.push(o); });
+                App.modules = []; results[1].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.modules.push(o); });
+                App.lessons = []; results[2].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.lessons.push(o); });
             } catch (e) {
                 try { App.courses = JSON.parse(localStorage.getItem('ak_courses') || '[]'); } catch(ex) { App.courses = []; }
                 try { App.modules = JSON.parse(localStorage.getItem('ak_modules') || '[]'); } catch(ex) { App.modules = []; }
@@ -274,111 +287,80 @@
             renderModeSelect();
         }
 
-        // Extract questions from lesson pages/blocks (matching lesson.html structure)
         function extractAllQuestions() {
             App.allQuestions = [];
+            
+            // From Exercise Bank
+            try {
+                var bank = JSON.parse(localStorage.getItem('ak_exbank') || '[]');
+                bank.forEach(function(q) {
+                    if (q.question) {
+                        App.allQuestions.push({
+                            question: q.question, questionType: q.questionType || 'multiple-choice',
+                            options: q.options || ['','','',''], correctAnswer: q.correctAnswer !== undefined ? q.correctAnswer : 0,
+                            points: q.points || 10, sentence: q.sentence || '',
+                            matchingRight: q.matchingRight || null, matchingTypes: q.matchingTypes || {left:'text',right:'text'},
+                            source: 'exercise_bank', courseName: 'Exercise Bank', moduleName: '', lessonTitle: ''
+                        });
+                    }
+                });
+            } catch(e) {}
+
+            // From lesson blocks
             App.lessons.forEach(function(lesson) {
                 var mod = App.modules.find(function(m) { return m.id === lesson.moduleId; });
                 var course = App.courses.find(function(c) { return c.id === (mod ? mod.courseId : null); });
-                var pages = lesson.pages || [];
-                pages.forEach(function(page) {
-                    var blocks = page.blocks || [];
-                    blocks.forEach(function(block) {
-                        // Both 'question' and 'remember-question' blocks
+                (lesson.pages || []).forEach(function(page) {
+                    (page.blocks || []).forEach(function(block) {
                         if ((block.type === 'question' || block.type === 'remember-question') && block.question) {
                             App.allQuestions.push({
-                                question: block.question,
-                                questionType: block.questionType || 'multiple-choice',
-                                options: block.options || ['', '', '', ''],
-                                correctAnswer: block.correctAnswer !== undefined ? block.correctAnswer : 0,
-                                points: block.points || 10,
-                                sentence: block.sentence || '',
-                                matchingRight: block.matchingRight || null,
-                                lessonId: lesson.id,
-                                lessonTitle: lesson.title || 'Untitled',
-                                moduleId: mod ? mod.id : '',
-                                moduleName: mod ? mod.name : '',
-                                courseId: course ? course.id : '',
-                                courseName: course ? course.name : ''
+                                question: block.question, questionType: block.questionType || 'multiple-choice',
+                                options: block.options || ['','','',''], correctAnswer: block.correctAnswer !== undefined ? block.correctAnswer : 0,
+                                points: block.points || 10, sentence: block.sentence || '',
+                                matchingRight: block.matchingRight || null, matchingTypes: block.matchingTypes || {left:'text',right:'text'},
+                                source: 'lesson', lessonId: lesson.id, lessonTitle: lesson.title || 'Untitled',
+                                moduleId: mod ? mod.id : '', moduleName: mod ? mod.name : '',
+                                courseId: course ? course.id : '', courseName: course ? course.name : ''
                             });
                         }
                     });
                 });
             });
 
-            // Apply URL filters
-            if (App.filterCourseId) {
-                App.allQuestions = App.allQuestions.filter(function(q) { return q.courseId === App.filterCourseId; });
-            }
-            if (App.filterModuleId) {
-                App.allQuestions = App.allQuestions.filter(function(q) { return q.moduleId === App.filterModuleId; });
-            }
-            if (App.filterLessonId) {
-                App.allQuestions = App.allQuestions.filter(function(q) { return q.lessonId === App.filterLessonId; });
-            }
+            if (App.filterCourseId) App.allQuestions = App.allQuestions.filter(function(q) { return q.courseId === App.filterCourseId || q.source === 'exercise_bank'; });
+            if (App.filterModuleId) App.allQuestions = App.allQuestions.filter(function(q) { return q.moduleId === App.filterModuleId; });
+            if (App.filterLessonId) App.allQuestions = App.allQuestions.filter(function(q) { return q.lessonId === App.filterLessonId; });
         }
 
-        // Render mode selection (if no mode specified)
         function renderModeSelect() {
             if (!App.allQuestions.length) {
-                $('exerciseContainer').innerHTML = '<div class="empty-state"><i class="bx bx-dumbbell"></i><h2>No Questions Available</h2><p>Create lessons with question blocks to generate exercises. Questions are extracted from lesson pages.</p><a href="course.html" class="btn btn-primary"><i class="bx bx-book-open"></i> Browse Courses</a></div>';
+                $('exerciseContainer').innerHTML = '<div class="empty-state"><i class="bx bx-dumbbell"></i><h2>No Questions Available</h2><p>Add exercises to the Exercise Bank in the Lesson Studio, or create lessons with question blocks.</p><a href="course.html" class="btn btn-primary"><i class="bx bx-book-open"></i> Browse Courses</a></div>';
                 return;
             }
-
-            if (App.mode) {
-                startSession(App.mode);
-                return;
-            }
-
-            // Show mode selection
-            var courseName = App.allQuestions[0] ? App.allQuestions[0].courseName : '';
-            $('exerciseContainer').innerHTML = '<div class="mode-select">' +
-                '<h2>Ready to Practice?</h2>' +
-                '<p>' + App.allQuestions.length + ' questions available' + (courseName ? ' for ' + courseName : '') + '</p>' +
-                '<div class="mode-cards">' +
-                    '<div class="mode-card" onclick="startSession(\'exercise\')">' +
-                        '<i class="bx bx-dumbbell" style="color:var(--accent);"></i>' +
-                        '<h3>Exercise</h3>' +
-                        '<p>5 questions to practice</p>' +
-                        '<span style="font-size:0.688rem;color:var(--accent);">Quick practice session</span>' +
-                    '</div>' +
-                    '<div class="mode-card" onclick="startSession(\'exam\')">' +
-                        '<i class="bx bx-book-open" style="color:var(--danger);"></i>' +
-                        '<h3>Exam</h3>' +
-                        '<p>' + Math.min(App.allQuestions.length, 50) + ' questions</p>' +
-                        '<span style="font-size:0.688rem;color:var(--danger);">Full assessment</span>' +
-                    '</div>' +
-                '</div>' +
-            '</div>';
+            if (App.mode) { startSession(App.mode); return; }
+            var cn = App.allQuestions[0] ? App.allQuestions[0].courseName : '';
+            $('exerciseContainer').innerHTML = '<div class="mode-select"><h2>Ready to Practice?</h2><p>' + App.allQuestions.length + ' questions available' + (cn ? ' for ' + cn : '') + '</p><div class="mode-cards">' +
+                '<div class="mode-card" onclick="startSession(\'exercise\')"><i class="bx bx-dumbbell" style="color:var(--accent);"></i><h3>Exercise</h3><p>5 questions to practice</p><span style="font-size:0.688rem;color:var(--accent);">Quick practice</span></div>' +
+                '<div class="mode-card" onclick="startSession(\'exam\')"><i class="bx bx-book-open" style="color:var(--danger);"></i><h3>Exam</h3><p>' + Math.min(App.allQuestions.length, 50) + ' questions</p><span style="font-size:0.688rem;color:var(--danger);">Full assessment</span></div>' +
+            '</div></div>';
         }
 
-        // Start exercise or exam session
         window.startSession = function(mode) {
             App.mode = mode;
             App.questionCount = mode === 'exercise' ? Math.min(5, App.allQuestions.length) : App.allQuestions.length;
-            
-            // Shuffle and pick questions
             var shuffled = App.allQuestions.slice().sort(function() { return Math.random() - 0.5; });
             App.currentQuestions = shuffled.slice(0, App.questionCount);
-            
-            App.currentIndex = 0;
-            App.score = 0;
+            App.currentIndex = 0; App.score = 0;
             App.answers = new Array(App.currentQuestions.length);
-            App.timerSeconds = 0;
-            
-            $('topbarMode').style.display = '';
-            $('topbarMode').textContent = mode === 'exercise' ? 'Exercise' : 'Exam';
+            App.timerSeconds = 0; App.matchingSelections = {}; App.matchingLeftSelected = null;
+            $('topbarMode').style.display = ''; $('topbarMode').textContent = mode === 'exercise' ? 'Exercise' : 'Exam';
             $('topbarMode').className = 'topbar-mode ' + mode;
             $('topbarTitle').textContent = mode === 'exercise' ? 'Exercise' : 'Exam';
-            
-            updateScore();
-            startTimer();
-            renderQuestion();
+            updateScore(); startTimer(); renderQuestion();
         };
 
         function startTimer() {
-            clearInterval(App.timer);
-            App.timerSeconds = 0;
+            clearInterval(App.timer); App.timerSeconds = 0;
             $('timerDisplay').innerHTML = '<i class="bx bx-time"></i> 00:00';
             App.timer = setInterval(function() {
                 App.timerSeconds++;
@@ -388,55 +370,25 @@
             }, 1000);
         }
 
-        function updateScore() {
-            $('scoreDisplay').innerHTML = '<i class="bx bxs-star"></i> ' + App.score;
-        }
+        function updateScore() { $('scoreDisplay').innerHTML = '<i class="bx bxs-star"></i> ' + App.score; }
 
+        // ============ RENDER QUESTION ============
         function renderQuestion() {
-            if (App.currentIndex >= App.currentQuestions.length) {
-                showResults();
-                return;
-            }
-
-            // Login gate
-            if (!App.isLoggedIn && App.currentIndex >= App.freeLimit) {
-                renderLoginGate();
-                return;
-            }
+            if (App.currentIndex >= App.currentQuestions.length) { showResults(); return; }
+            if (!App.isLoggedIn && App.currentIndex >= App.freeLimit) { renderLoginGate(); return; }
 
             var q = App.currentQuestions[App.currentIndex];
             var userAns = App.answers[App.currentIndex];
             var isAnswered = userAns !== undefined;
-            var correct = q.correctAnswer;
-            var cardClass = isAnswered ? (userAns === correct ? 'correct-flash' : 'wrong-flash') : '';
             var progress = Math.round(((App.currentIndex + 1) / App.currentQuestions.length) * 100);
             var totalShow = App.isLoggedIn ? App.currentQuestions.length : Math.min(App.currentQuestions.length, App.freeLimit);
-            var optHTML = '';
 
-            // Build options based on questionType
-            if (q.questionType === 'boolean') {
-                optHTML = '<div class="bool-group">' +
-                    '<button class="bool-btn' + (userAns === 0 ? ' correct-show' : '') + (isAnswered && correct === 0 && userAns !== 0 ? ' correct-show' : '') + '" onclick="answerQuestion(0)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-check"></i> True</button>' +
-                    '<button class="bool-btn' + (userAns === 1 ? ' correct-show' : '') + (isAnswered && correct === 1 && userAns !== 1 ? ' correct-show' : '') + '" onclick="answerQuestion(1)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-x"></i> False</button>' +
-                '</div>';
-            } else if (q.questionType === 'complete-text' || q.questionType === 'complete') {
-                optHTML = '<div class="complete-wrap">' +
-                    '<input type="text" class="complete-input" id="completeInput" placeholder="Type your answer..." onkeydown="if(event.key===\'Enter\')submitCompleteAnswer()"' + (isAnswered ? ' disabled' : '') + '>' +
-                    (!isAnswered ? '<button class="btn btn-primary" onclick="submitCompleteAnswer()">Submit</button>' : '') +
-                '</div>';
-            } else {
-                var opts = q.options || [];
-                optHTML = '<div class="options-list">';
-                for (var i = 0; i < opts.length; i++) {
-                    if (!opts[i] && opts[i] !== '') continue; // Skip truly empty options
-                    var cls = '';
-                    if (userAns === i) { cls = userAns === correct ? 'correct-show' : 'wrong-show'; }
-                    else if (isAnswered && correct === i && userAns !== i) { cls = 'correct-show'; }
-                    optHTML += '<button class="opt-btn ' + cls + '" onclick="answerQuestion(' + i + ')"' + (isAnswered ? ' disabled' : '') + '>' +
-                        '<span class="opt-letter">' + String.fromCharCode(65 + i) + '</span> ' + (opts[i] || 'Option ' + String.fromCharCode(65 + i)) +
-                    '</button>';
+            var cardClass = '';
+            if (q.questionType !== 'matching' && q.questionType !== 'complete-drag') {
+                if (isAnswered) {
+                    var correct = q.correctAnswer;
+                    cardClass = userAns === correct ? 'correct-flash' : 'wrong-flash';
                 }
-                optHTML += '</div>';
             }
 
             var dotsHTML = '';
@@ -447,88 +399,282 @@
                 dotsHTML += '<div class="progress-dot ' + dc + '"></div>';
             }
 
-            var feedbackHTML = '';
+            var bodyHTML = '';
+            if (q.questionType === 'matching') {
+                bodyHTML = renderMatchingQuestion(q, isAnswered);
+            } else if (q.questionType === 'complete-drag') {
+                bodyHTML = renderCompleteDrag(q, isAnswered);
+            } else if (q.questionType === 'boolean') {
+                bodyHTML = renderBoolean(q, isAnswered);
+            } else if (q.questionType === 'complete-text' || q.questionType === 'complete') {
+                bodyHTML = renderCompleteText(q, isAnswered);
+            } else {
+                bodyHTML = renderMultipleChoice(q, isAnswered);
+            }
+
+            var navHTML = '';
             if (isAnswered) {
-                var isCorrect = userAns === correct;
-                feedbackHTML = '<div class="feedback-toast show ' + (isCorrect ? 'correct' : 'wrong') + '">' +
-                    '<i class="bx ' + (isCorrect ? 'bx-check-circle' : 'bx-x-circle') + '"></i>' +
-                    '<span>' + (isCorrect ? 'Correct! +' + (q.points || 10) + ' Sparks' : 'Incorrect') + '</span>' +
-                '</div>' +
-                '<div class="nav-row">' +
-                    '<button class="btn btn-primary" onclick="nextQuestion()">' + (App.currentIndex < App.currentQuestions.length - 1 ? 'Next Question' : 'See Results') + ' <i class="bx bx-chevron-right"></i></button>' +
-                '</div>';
+                var isCorrect = userAns === q.correctAnswer;
+                var fbClass = isCorrect ? 'correct' : 'wrong';
+                var fbMsg = isCorrect ? 'Correct! +' + (q.points || 10) + ' Sparks' : 'Incorrect';
+                navHTML = '<div class="feedback-toast show ' + fbClass + '"><i class="bx ' + (isCorrect ? 'bx-check-circle' : 'bx-x-circle') + '"></i><span>' + fbMsg + '</span></div>' +
+                    '<div class="nav-row"><button class="btn btn-primary" onclick="nextQuestion()">' + (App.currentIndex < App.currentQuestions.length - 1 ? 'Next Question' : 'See Results') + ' <i class="bx bx-chevron-right"></i></button></div>';
             }
 
             $('exerciseContainer').innerHTML = '' +
-                '<div class="progress-section">' +
-                    '<div class="progress-header"><span>Question ' + (App.currentIndex + 1) + ' of ' + totalShow + '</span><span>' + progress + '%</span></div>' +
-                    '<div class="progress-bar"><div class="progress-fill" style="width:' + progress + '%;"></div></div>' +
-                '</div>' +
+                '<div class="progress-section"><div class="progress-header"><span>Question ' + (App.currentIndex + 1) + ' of ' + totalShow + '</span><span>' + progress + '%</span></div><div class="progress-bar"><div class="progress-fill" style="width:' + progress + '%;"></div></div></div>' +
                 '<div class="question-card ' + cardClass + '">' +
-                    '<div class="q-meta">' +
-                        '<span class="q-number">Question ' + (App.currentIndex + 1) + '</span>' +
-                        (q.courseName ? '<span class="q-course">' + q.courseName + '</span>' : '') +
-                        (q.moduleName ? '<span class="q-module">' + q.moduleName + '</span>' : '') +
-                        '<span class="q-points"><i class="bx bxs-star"></i> ' + (q.points || 10) + ' pts</span>' +
-                    '</div>' +
-                    '<div class="q-text">' + (q.question || 'Question') + '</div>' +
-                    optHTML +
-                    feedbackHTML +
-                '</div>' +
-                '<div class="progress-dots">' + dotsHTML + '</div>';
+                    '<div class="q-meta"><span class="q-number">Question ' + (App.currentIndex + 1) + '</span>' + (q.courseName ? '<span class="q-course">' + q.courseName + '</span>' : '') + '<span class="q-points"><i class="bx bxs-star"></i> ' + (q.points || 10) + ' pts</span></div>' +
+                    '<div class="q-text">' + (q.question || 'Question') + '</div>' + bodyHTML + navHTML +
+                '</div><div class="progress-dots">' + dotsHTML + '</div>';
         }
 
-        function renderLoginGate() {
-            $('exerciseContainer').innerHTML = '' +
-                '<div class="progress-section"><div class="progress-header"><span>Free Preview: 4/' + App.freeLimit + '</span><span>100%</span></div><div class="progress-bar"><div class="progress-fill" style="width:100%;"></div></div></div>' +
-                '<div class="login-gate">' +
-                    '<i class="bx bx-lock-alt"></i>' +
-                    '<h3>Unlock Full Access</h3>' +
-                    '<p>You have completed 4 free questions. Sign in to access all ' + App.mode + ' questions and earn Sparks!</p>' +
-                    '<a href="auth.html?mode=signin" class="btn btn-primary"><i class="bx bx-log-in"></i> Sign In</a>' +
-                    '<a href="auth.html?mode=register" class="btn btn-outline" style="margin-left:0.5rem;"><i class="bx bx-user-plus"></i> Create Account</a>' +
-                '</div>';
+        // ============ MULTIPLE CHOICE ============
+        function renderMultipleChoice(q, isAnswered) {
+            var opts = q.options || [];
+            var correct = q.correctAnswer;
+            var userAns = App.answers[App.currentIndex];
+            var h = '<div class="options-list">';
+            for (var i = 0; i < opts.length; i++) {
+                if (!opts[i] && opts[i] !== '') continue;
+                var cls = '';
+                if (userAns === i) { cls = userAns === correct ? 'correct-show' : 'wrong-show'; }
+                else if (isAnswered && correct === i) { cls = 'correct-show'; }
+                h += '<button class="opt-btn ' + cls + '" onclick="answerMCQ(' + i + ')"' + (isAnswered ? ' disabled' : '') + '>' +
+                    '<span class="opt-letter">' + String.fromCharCode(65 + i) + '</span> ' + (opts[i] || 'Option ' + String.fromCharCode(65 + i)) + '</button>';
+            }
+            h += '</div>'; return h;
         }
 
-        // Answer handling
-        window.answerQuestion = function(index) {
+        // ============ BOOLEAN ============
+        function renderBoolean(q, isAnswered) {
+            var correct = q.correctAnswer; var userAns = App.answers[App.currentIndex];
+            return '<div class="bool-group">' +
+                '<button class="bool-btn' + (userAns === 0 ? ' correct-show' : '') + (isAnswered && correct === 0 && userAns !== 0 ? ' correct-show' : '') + '" onclick="answerMCQ(0)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-check"></i> True</button>' +
+                '<button class="bool-btn' + (userAns === 1 ? ' correct-show' : '') + (isAnswered && correct === 1 && userAns !== 1 ? ' correct-show' : '') + '" onclick="answerMCQ(1)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-x"></i> False</button>' +
+            '</div>';
+        }
+
+        // ============ COMPLETE TEXT ============
+        function renderCompleteText(q, isAnswered) {
+            return '<div class="complete-wrap">' +
+                '<input type="text" class="complete-input" id="completeInput" placeholder="Type your answer..." onkeydown="if(event.key===\'Enter\')submitCompleteAnswer()"' + (isAnswered ? ' disabled' : '') + '>' +
+                (!isAnswered ? '<button class="btn btn-primary" onclick="submitCompleteAnswer()">Submit</button>' : '') +
+            '</div>';
+        }
+
+        // ============ COMPLETE DRAG ============
+        function renderCompleteDrag(q, isAnswered) {
+            var opts = q.options || ['','','',''];
+            var correct = q.correctAnswer; var userAns = App.answers[App.currentIndex];
+            var h = '<p style="font-size:0.875rem;color:var(--gray-500);margin-bottom:0.75rem;">Drag the correct option into the blank:</p>';
+            h += '<div class="options-list">';
+            for (var i = 0; i < opts.length; i++) {
+                if (!opts[i]) continue;
+                var cls = '';
+                if (userAns === i) { cls = userAns === correct ? 'correct-show' : 'wrong-show'; }
+                else if (isAnswered && correct === i) { cls = 'correct-show'; }
+                h += '<button class="opt-btn ' + cls + '" onclick="answerMCQ(' + i + ')"' + (isAnswered ? ' disabled' : '') + '>' +
+                    '<span class="opt-letter">' + String.fromCharCode(65 + i) + '</span> ' + opts[i] + '</button>';
+            }
+            h += '</div>'; return h;
+        }
+
+        // ============ MATCHING WITH YELLOW LINES ============
+        function renderMatchingQuestion(q, isAnswered) {
+            App.matchingSelections = {};
+            App.matchingLeftSelected = null;
+            
+            var leftItems = q.options || [];
+            var rightItems = q.matchingRight || [];
+            // Filter empty
+            leftItems = leftItems.filter(function(x) { return x && x.trim(); });
+            rightItems = rightItems.filter(function(x) { return x && x.trim(); });
+            if (!leftItems.length) leftItems = ['Item 1', 'Item 2'];
+            if (!rightItems.length) rightItems = ['Match 1', 'Match 2'];
+            
+            // Shuffle right column for display
+            var shuffledRight = rightItems.slice().sort(function() { return Math.random() - 0.5; });
+            
+            var h = '<p style="font-size:0.813rem;color:var(--gray-500);margin-bottom:1rem;">Click a left item, then click its matching right item. A yellow line will connect them.</p>';
+            h += '<div class="matching-container" id="matchingContainer">';
+            h += '<div class="matching-columns">';
+            
+            // Left column
+            h += '<div class="matching-col" id="matchingLeftCol">';
+            for (var i = 0; i < leftItems.length; i++) {
+                h += '<div class="matching-item left-item" data-index="' + i + '" onclick="selectMatchingLeft(' + i + ', this)">' + leftItems[i] + '</div>';
+            }
+            h += '</div>';
+            
+            // SVG layer for lines
+            h += '<div class="matching-svg-layer" id="matchingSvgLayer"><svg id="matchingSvg"></svg></div>';
+            
+            // Right column (shuffled)
+            h += '<div class="matching-col" id="matchingRightCol">';
+            for (var j = 0; j < shuffledRight.length; j++) {
+                h += '<div class="matching-item right-item" data-original-index="' + rightItems.indexOf(shuffledRight[j]) + '" data-display-index="' + j + '" onclick="selectMatchingRight(' + rightItems.indexOf(shuffledRight[j]) + ', ' + j + ', this)">' + shuffledRight[j] + '</div>';
+            }
+            h += '</div>';
+            
+            h += '</div></div>';
+            
+            if (!isAnswered) {
+                h += '<div class="match-submit-btn"><button class="btn btn-primary" onclick="submitMatchingAnswer()">Submit Matches</button></div>';
+            }
+            
+            // Draw lines after render
+            setTimeout(function() { drawMatchingLines(); }, 100);
+            
+            return h;
+        }
+
+        // Store matching selections: { leftIndex: rightOriginalIndex }
+        window.selectMatchingLeft = function(index, el) {
+            if (App.answers[App.currentIndex] !== undefined) return;
+            App.matchingLeftSelected = index;
+            document.querySelectorAll('.left-item').forEach(function(item) { item.classList.remove('selected'); });
+            el.classList.add('selected');
+            document.querySelectorAll('.right-item').forEach(function(item) { item.classList.remove('selected'); });
+            App.matchingSelections[index] = undefined;
+            drawMatchingLines();
+        };
+
+        window.selectMatchingRight = function(originalIndex, displayIndex, el) {
+            if (App.answers[App.currentIndex] !== undefined) return;
+            if (App.matchingLeftSelected === null) return;
+            
+            // Remove any previous match for this right item
+            Object.keys(App.matchingSelections).forEach(function(key) {
+                if (App.matchingSelections[key] === originalIndex) delete App.matchingSelections[key];
+            });
+            
+            App.matchingSelections[App.matchingLeftSelected] = originalIndex;
+            
+            document.querySelectorAll('.left-item').forEach(function(item) { item.classList.remove('selected'); });
+            document.querySelectorAll('.right-item').forEach(function(item) { item.classList.remove('selected'); });
+            
+            // Highlight matched items
+            var leftEl = document.querySelector('.left-item[data-index="' + App.matchingLeftSelected + '"]');
+            if (leftEl) leftEl.classList.add('matched');
+            el.classList.add('matched');
+            
+            App.matchingLeftSelected = null;
+            drawMatchingLines();
+        };
+
+        function drawMatchingLines() {
+            var svg = document.getElementById('matchingSvg');
+            var container = document.getElementById('matchingContainer');
+            if (!svg || !container) return;
+            
+            var containerRect = container.getBoundingClientRect();
+            var svgRect = svg.parentElement.getBoundingClientRect();
+            
+            var linesHTML = '';
+            Object.keys(App.matchingSelections).forEach(function(leftIdx) {
+                var rightIdx = App.matchingSelections[leftIdx];
+                if (rightIdx === undefined) return;
+                
+                var leftEl = document.querySelector('.left-item[data-index="' + leftIdx + '"]');
+                var rightEl = document.querySelector('.right-item[data-original-index="' + rightIdx + '"]');
+                
+                if (leftEl && rightEl) {
+                    var lr = leftEl.getBoundingClientRect();
+                    var rr = rightEl.getBoundingClientRect();
+                    
+                    var x1 = lr.right - containerRect.left;
+                    var y1 = lr.top + lr.height/2 - containerRect.top;
+                    var x2 = rr.left - containerRect.left;
+                    var y2 = rr.top + rr.height/2 - containerRect.top;
+                    
+                    var cpX = (x1 + x2) / 2;
+                    
+                    linesHTML += '<path d="M' + x1 + ',' + y1 + ' C' + cpX + ',' + y1 + ' ' + cpX + ',' + y2 + ' ' + x2 + ',' + y2 + '" ' +
+                        'class="matching-line" stroke="var(--warning)" stroke-width="3" fill="none" stroke-linecap="round" ' +
+                        'style="filter:drop-shadow(0 2px 3px rgba(245,158,11,0.3));" />';
+                }
+            });
+            
+            // Also show pending line if left selected
+            if (App.matchingLeftSelected !== null && App.matchingSelections[App.matchingLeftSelected] === undefined) {
+                var pendingLeft = document.querySelector('.left-item[data-index="' + App.matchingLeftSelected + '"]');
+                if (pendingLeft) {
+                    var plr = pendingLeft.getBoundingClientRect();
+                    var px = plr.right - containerRect.left;
+                    var py = plr.top + plr.height/2 - containerRect.top;
+                    linesHTML += '<circle cx="' + px + '" cy="' + py + '" r="5" fill="var(--warning)" opacity="0.6" class="pending-dot" />';
+                }
+            }
+            
+            svg.innerHTML = linesHTML;
+        }
+
+        window.submitMatchingAnswer = function() {
+            if (App.answers[App.currentIndex] !== undefined) return;
+            var q = App.currentQuestions[App.currentIndex];
+            var leftItems = (q.options || []).filter(function(x) { return x && x.trim(); });
+            
+            // Calculate score: each correct match = points/numPairs
+            var totalPairs = leftItems.length || 1;
+            var correctPairs = 0;
+            
+            Object.keys(App.matchingSelections).forEach(function(leftIdx) {
+                if (App.matchingSelections[leftIdx] === parseInt(leftIdx)) {
+                    correctPairs++;
+                }
+            });
+            
+            var isPerfect = correctPairs === totalPairs;
+            var earnedPoints = Math.round((q.points || 10) * (correctPairs / totalPairs));
+            
+            App.answers[App.currentIndex] = isPerfect ? q.correctAnswer : -1;
+            App.score += earnedPoints;
+            updateScore();
+            if (earnedPoints > 0) awardSparks(earnedPoints);
+            
+            // Show correct/wrong lines
+            Object.keys(App.matchingSelections).forEach(function(leftIdx) {
+                var leftEl = document.querySelector('.left-item[data-index="' + leftIdx + '"]');
+                var rightIdx = App.matchingSelections[leftIdx];
+                var rightEl = document.querySelector('.right-item[data-original-index="' + rightIdx + '"]');
+                var isCorrect = parseInt(leftIdx) === rightIdx;
+                if (leftEl) { leftEl.classList.remove('matched'); leftEl.classList.add(isCorrect ? 'matched' : 'wrong-match'); }
+                if (rightEl) { rightEl.classList.remove('matched'); rightEl.classList.add(isCorrect ? 'matched' : 'wrong-match'); }
+            });
+            
+            // Disable buttons
+            document.querySelectorAll('.left-item, .right-item').forEach(function(el) { el.style.pointerEvents = 'none'; });
+            document.querySelector('.match-submit-btn') && (document.querySelector('.match-submit-btn').style.display = 'none');
+            
+            renderQuestion();
+        };
+
+        // ============ ANSWER HANDLERS ============
+        window.answerMCQ = function(index) {
             if (App.answers[App.currentIndex] !== undefined) return;
             var q = App.currentQuestions[App.currentIndex];
             var correct = index === q.correctAnswer;
             App.answers[App.currentIndex] = index;
-            if (correct) {
-                App.score += (q.points || 10);
-                updateScore();
-                awardSparks(q.points || 10);
-            }
+            if (correct) { App.score += (q.points || 10); updateScore(); awardSparks(q.points || 10); }
             renderQuestion();
         };
 
         window.submitCompleteAnswer = function() {
             if (App.answers[App.currentIndex] !== undefined) return;
-            var input = $('completeInput');
-            if (!input) return;
-            var val = input.value.trim();
-            if (!val) { toast('Please type an answer', 'error'); return; }
+            var input = $('completeInput'); if (!input) return;
+            var val = input.value.trim(); if (!val) { toast('Please type an answer', 'error'); return; }
             var q = App.currentQuestions[App.currentIndex];
             var correctAns = ((q.options || [])[q.correctAnswer] || '').toLowerCase();
             var isCorrect = val.toLowerCase() === correctAns;
             App.answers[App.currentIndex] = isCorrect ? q.correctAnswer : -1;
-            if (isCorrect) {
-                App.score += (q.points || 10);
-                updateScore();
-                awardSparks(q.points || 10);
-            }
+            if (isCorrect) { App.score += (q.points || 10); updateScore(); awardSparks(q.points || 10); }
             renderQuestion();
         };
 
         window.nextQuestion = function() {
-            if (App.currentIndex < App.currentQuestions.length - 1) {
-                App.currentIndex++;
-                renderQuestion();
-            } else {
-                showResults();
-            }
+            if (App.currentIndex < App.currentQuestions.length - 1) { App.currentIndex++; renderQuestion(); }
+            else { showResults(); }
         };
 
         function awardSparks(pts) {
@@ -536,7 +682,13 @@
             localStorage.setItem('ak_sparks', String(current + pts));
         }
 
-        // Results
+        function renderLoginGate() {
+            $('exerciseContainer').innerHTML = '<div class="progress-section"><div class="progress-header"><span>Free Preview: 4/' + App.freeLimit + '</span><span>100%</span></div><div class="progress-bar"><div class="progress-fill" style="width:100%;"></div></div></div>' +
+                '<div class="login-gate"><i class="bx bx-lock-alt"></i><h3>Unlock Full Access</h3><p>You have completed 4 free questions. Sign in to access all exercises and earn Sparks!</p>' +
+                '<a href="auth.html?mode=signin" class="btn btn-primary"><i class="bx bx-log-in"></i> Sign In</a><a href="auth.html?mode=register" class="btn btn-outline" style="margin-left:0.5rem;"><i class="bx bx-user-plus"></i> Create Account</a></div>';
+        }
+
+        // ============ RESULTS ============
         function showResults() {
             clearInterval(App.timer);
             var total = App.currentQuestions.length;
@@ -547,72 +699,65 @@
             var pct = Math.round((correct / total) * 100);
             var grade = pct >= 90 ? 'Excellent!' : pct >= 70 ? 'Great Job!' : pct >= 50 ? 'Good Effort!' : 'Keep Practicing!';
             var gColor = pct >= 90 ? 'var(--success)' : pct >= 70 ? 'var(--primary)' : pct >= 50 ? 'var(--warning)' : 'var(--danger)';
-            var mins = Math.floor(App.timerSeconds / 60);
-            var secs = App.timerSeconds % 60;
-            var modeLabel = App.mode === 'exam' ? 'Exam' : 'Exercise';
+            var mins = Math.floor(App.timerSeconds / 60); var secs = App.timerSeconds % 60;
 
-            // Save history
             var hist = [];
             try { hist = JSON.parse(localStorage.getItem('ak_exercise_history') || '[]'); } catch(e) { hist = []; }
             hist.push({ date: new Date().toISOString(), mode: App.mode, score: App.score, correct: correct, total: total, pct: pct, time: App.timerSeconds, courseId: App.filterCourseId });
             localStorage.setItem('ak_exercise_history', JSON.stringify(hist.slice(-30)));
 
-            $('exerciseContainer').innerHTML = '' +
-                '<div class="results-wrap">' +
-                    '<i class="bx bx-trophy results-icon" style="color:' + gColor + ';"></i>' +
-                    '<div class="results-pct" style="color:' + gColor + ';">' + pct + '%</div>' +
-                    '<div class="results-grade" style="color:' + gColor + ';">' + grade + '</div>' +
-                    '<p style="color:var(--gray-500);font-size:0.875rem;">' + modeLabel + ' Complete</p>' +
-                    '<div class="results-stats">' +
-                        '<div class="r-stat"><div class="r-stat-val">' + correct + '/' + total + '</div><div class="r-stat-lbl">Correct</div></div>' +
-                        '<div class="r-stat"><div class="r-stat-val"><i class="bx bxs-star" style="color:var(--warning);"></i> ' + App.score + '</div><div class="r-stat-lbl">Sparks</div></div>' +
-                        '<div class="r-stat"><div class="r-stat-val">' + mins + 'm ' + secs + 's</div><div class="r-stat-lbl">Time</div></div>' +
-                    '</div>' +
-                    '<div class="nav-row">' +
-                        '<button class="btn btn-primary" onclick="retrySession()"><i class="bx bx-refresh"></i> Retry</button>' +
-                        '<a href="course.html" class="btn btn-outline"><i class="bx bx-book-open"></i> Courses</a>' +
-                        '<a href="user.html" class="btn btn-success"><i class="bx bx-user"></i> Dashboard</a>' +
-                    '</div>' +
-                '</div>';
+            $('exerciseContainer').innerHTML = '<div class="results-wrap">' +
+                '<i class="bx bx-trophy results-icon" style="color:' + gColor + ';"></i>' +
+                '<div class="results-pct" style="color:' + gColor + ';">' + pct + '%</div>' +
+                '<div class="results-grade" style="color:' + gColor + ';">' + grade + '</div>' +
+                '<p style="color:var(--gray-500);font-size:0.875rem;">' + (App.mode === 'exam' ? 'Exam' : 'Exercise') + ' Complete</p>' +
+                '<div class="results-stats">' +
+                    '<div class="r-stat"><div class="r-stat-val">' + correct + '/' + total + '</div><div class="r-stat-lbl">Correct</div></div>' +
+                    '<div class="r-stat"><div class="r-stat-val"><i class="bx bxs-star" style="color:var(--warning);"></i> ' + App.score + '</div><div class="r-stat-lbl">Sparks</div></div>' +
+                    '<div class="r-stat"><div class="r-stat-val">' + mins + 'm ' + secs + 's</div><div class="r-stat-lbl">Time</div></div>' +
+                '</div>' +
+                '<div class="nav-row">' +
+                    '<button class="btn btn-primary" onclick="retrySession()"><i class="bx bx-refresh"></i> Retry</button>' +
+                    '<a href="course.html" class="btn btn-outline"><i class="bx bx-book-open"></i> Courses</a>' +
+                    '<a href="user.html" class="btn btn-success"><i class="bx bx-user"></i> Dashboard</a>' +
+                '</div></div>';
         }
 
         window.retrySession = function() {
             var shuffled = App.allQuestions.slice().sort(function() { return Math.random() - 0.5; });
             App.currentQuestions = shuffled.slice(0, App.questionCount);
-            App.currentIndex = 0;
-            App.score = 0;
-            App.answers = new Array(App.currentQuestions.length);
-            App.timerSeconds = 0;
-            updateScore();
-            startTimer();
-            renderQuestion();
+            App.currentIndex = 0; App.score = 0; App.answers = new Array(App.currentQuestions.length);
+            App.timerSeconds = 0; App.matchingSelections = {}; App.matchingLeftSelected = null;
+            updateScore(); startTimer(); renderQuestion();
         };
 
-        // Keyboard shortcuts
+        // Keyboard
         document.addEventListener('keydown', function(e) {
-            if (App.currentIndex >= App.currentQuestions.length) return;
-            if (!App.currentQuestions.length) return;
+            if (App.currentIndex >= App.currentQuestions.length || !App.currentQuestions.length) return;
+            var q = App.currentQuestions[App.currentIndex];
+            if (q.questionType === 'matching') return; // No keyboard for matching
+            
             if (App.answers[App.currentIndex] !== undefined) {
                 if (e.key === 'Enter' || e.key === 'ArrowRight') nextQuestion();
                 return;
             }
-            var q = App.currentQuestions[App.currentIndex];
-            if (q.questionType === 'multiple-choice') {
+            if (q.questionType === 'multiple-choice' || q.questionType === 'complete-drag') {
                 var map = { 'a': 0, 'b': 1, 'c': 2, 'd': 3, '1': 0, '2': 1, '3': 2, '4': 3 };
                 if (map[e.key.toLowerCase()] !== undefined && map[e.key.toLowerCase()] < (q.options || []).length) {
-                    answerQuestion(map[e.key.toLowerCase()]);
+                    answerMCQ(map[e.key.toLowerCase()]);
                 }
             }
             if (q.questionType === 'boolean') {
-                if (e.key.toLowerCase() === 't' || e.key === '1') answerQuestion(0);
-                if (e.key.toLowerCase() === 'f' || e.key === '2') answerQuestion(1);
+                if (e.key.toLowerCase() === 't' || e.key === '1') answerMCQ(0);
+                if (e.key.toLowerCase() === 'f' || e.key === '2') answerMCQ(1);
             }
         });
 
-        // Init
-        parseURL();
-        initAuth();
-        console.log('🚀 Akademia Exercise & Exam System ready!');
+        // Resize handler for matching lines
+        window.addEventListener('resize', function() { drawMatchingLines(); });
+
+        parseURL(); initAuth();
+        console.log('🚀 Akademia Exercise System with Matching ready!');
     </script>
 </body>
 </html>
