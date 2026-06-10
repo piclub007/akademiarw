@@ -60,7 +60,7 @@
         .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.813rem; }
 
         .main-content { flex: 1; overflow-y: auto; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
-        .exercise-container { width: 100%; max-width: 750px; animation: fadeSlideIn 0.4s ease; }
+        .exercise-container { width: 100%; max-width: 850px; animation: fadeSlideIn 0.4s ease; }
         @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
         .mode-select { text-align: center; }
@@ -88,7 +88,7 @@
         .progress-dot.current { background: var(--primary); width: 10px; height: 10px; box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
         .progress-dot.retry { background: var(--warning); }
 
-        /* QUESTION CARD - W3Schools Inspired */
+        /* QUESTION CARD */
         .question-card {
             background: var(--dark-bg); color: white; border-radius: var(--radius-2xl);
             padding: 2.5rem; transition: all var(--transition); position: relative;
@@ -102,56 +102,73 @@
         .q-points { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: var(--warning); font-weight: 600; }
         .q-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; color: white; margin-bottom: 1.5rem; line-height: 1.4; }
 
-        /* MCQ Options - W3Schools Style */
+        /* MCQ Options */
         .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; max-width: 500px; margin: 0 auto; }
         .mcq-opt {
             display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.25rem;
             background: rgba(255,255,255,0.1); border: 2px solid transparent;
             border-radius: var(--radius); cursor: pointer; transition: all var(--transition);
-            font-size: 0.938rem; text-align: left; width: 100%; color: white; font-family: 'Inter', sans-serif;
+            font-size: 0.938rem; text-align: left; width: 100%; color: white;
         }
         .mcq-opt:hover:not(:disabled) { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); }
-        .mcq-opt:disabled { cursor: not-allowed; opacity: 0.7; }
         .mcq-opt.correct-show { background: var(--success-bg); color: var(--success-dark); border-color: var(--success); }
         .mcq-opt.wrong-show { background: var(--danger-bg); color: var(--danger-dark); border-color: var(--danger); }
         .mcq-opt input[type="radio"] { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; }
-        .mcq-opt label { cursor: pointer; flex: 1; font-size: 0.938rem; }
+        .mcq-opt label { cursor: pointer; flex: 1; }
 
         /* Boolean */
         .bool-group { display: flex; gap: 0.75rem; max-width: 400px; margin: 0 auto; }
-        .bool-btn { flex: 1; padding: 1.25rem; border: 2px solid rgba(255,255,255,0.2); border-radius: var(--radius-lg); text-align: center; cursor: pointer; font-weight: 700; font-size: 1.125rem; transition: all var(--transition); background: rgba(255,255,255,0.05); color: white; }
+        .bool-btn { flex: 1; padding: 1.25rem; border: 2px solid rgba(255,255,255,0.2); border-radius: var(--radius-lg); text-align: center; cursor: pointer; font-weight: 700; font-size: 1.125rem; background: rgba(255,255,255,0.05); color: white; }
         .bool-btn:hover:not(:disabled) { border-color: var(--primary); background: rgba(37,99,235,0.2); }
 
-        /* Complete - W3Schools Fill-in-Blanks Style */
-        .complete-container { text-align: left; max-width: 550px; margin: 0 auto; }
+        /* COMPLETE QUESTION - ENHANCED */
+        .complete-container { text-align: left; max-width: 650px; margin: 0 auto; }
         .complete-sentence {
             background: rgba(0,0,0,0.3); padding: 1.5rem 2rem; border-radius: var(--radius);
-            font-family: 'Source Code Pro', 'JetBrains Mono', monospace; font-size: 0.938rem;
-            line-height: 2; color: #cdd6f4; border: 1px solid rgba(255,255,255,0.1);
+            font-family: 'Source Code Pro', 'JetBrains Mono', monospace; font-size: 1rem;
+            line-height: 2.2; color: #cdd6f4; border: 1px solid rgba(255,255,255,0.1);
             margin-bottom: 1rem;
             word-break: break-word;
         }
-        .complete-input-inline {
-            display: inline-block; padding: 0.1875rem 0.5rem; border: none;
-            border-bottom: 2px solid var(--warning); background: rgba(255,255,255,0.1);
+        .complete-blank-input {
+            display: inline-block; padding: 0.25rem 0.75rem; border: none;
+            border-bottom: 3px solid var(--warning); background: rgba(255,255,255,0.15);
             color: white; font-family: 'Source Code Pro', 'JetBrains Mono', monospace;
-            font-size: 0.938rem; outline: none; min-width: 120px; text-align: center;
-            border-radius: 3px 3px 0 0; transition: all var(--transition);
-            margin: 0 0.25rem;
+            font-size: 1rem; outline: none; min-width: 140px; text-align: center;
+            border-radius: 6px 6px 0 0; transition: all var(--transition);
+            margin: 0 0.25rem; cursor: text;
         }
-        .complete-input-inline:focus { border-bottom-color: var(--success); background: rgba(255,255,255,0.15); }
-        .complete-input-inline:disabled { opacity: 0.7; cursor: not-allowed; }
-        .submit-inline-btn { margin-top: 0.75rem; text-align: center; }
+        .complete-blank-input:focus { border-bottom-color: var(--success); background: rgba(255,255,255,0.25); }
+        .complete-blank-input.drag-over { border-bottom-color: var(--accent); background: rgba(139,92,246,0.3); }
+        .complete-blank-input:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        /* Draggable Options */
+        .drag-options {
+            display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
+            padding: 1rem; background: rgba(255,255,255,0.05); border-radius: var(--radius);
+            margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .drag-word {
+            display: inline-flex; align-items: center; gap: 0.375rem;
+            padding: 0.5rem 1rem; background: rgba(37,99,235,0.3);
+            border: 1px solid var(--primary); border-radius: 50px;
+            font-size: 0.875rem; font-weight: 500; color: white;
+            cursor: grab; transition: all var(--transition); user-select: none;
+        }
+        .drag-word:active { cursor: grabbing; }
+        .drag-word:hover { background: var(--primary); transform: translateY(-2px); }
+        .drag-word.dragging { opacity: 0.5; cursor: grabbing; }
+        
+        .submit-inline-btn { margin-top: 1rem; text-align: center; }
 
         /* Matching */
         .matching-wrap { max-width: 600px; margin: 0 auto; }
         .matching-columns { display: flex; gap: 2rem; position: relative; }
         .matching-col { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
-        .match-item { padding: 0.75rem 1rem; border: 2px solid rgba(255,255,255,0.15); border-radius: var(--radius); cursor: pointer; transition: all var(--transition); background: rgba(255,255,255,0.05); color: white; font-weight: 500; text-align: center; user-select: none; position: relative; z-index: 2; font-size: 0.875rem; }
+        .match-item { padding: 0.75rem 1rem; border: 2px solid rgba(255,255,255,0.15); border-radius: var(--radius); cursor: pointer; background: rgba(255,255,255,0.05); color: white; text-align: center; }
         .match-item:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.1); }
-        .match-item.selected { border-color: var(--warning); background: rgba(245,158,11,0.2); box-shadow: 0 0 0 3px rgba(245,158,11,0.15); }
+        .match-item.selected { border-color: var(--warning); background: rgba(245,158,11,0.2); }
         .match-item.matched { border-color: var(--success); background: rgba(4,170,109,0.2); }
-        .match-item.wrong-match { border-color: var(--danger); background: rgba(239,68,68,0.2); }
         .matching-svg-layer { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
         .matching-svg-layer svg { width: 100%; height: 100%; }
         .match-submit-wrap { margin-top: 1rem; text-align: center; }
@@ -167,32 +184,15 @@
         .feedback-overlay.correct { background: rgba(4,170,109,0.9); }
         .feedback-overlay.wrong { background: rgba(220,38,38,0.9); }
         .feedback-overlay.retry { background: rgba(245,158,11,0.9); }
-        .feedback-overlay h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 0.5rem; color: white; }
-        .feedback-overlay p { color: rgba(255,255,255,0.9); margin-bottom: 0.5rem; }
+        .feedback-overlay h2 { font-size: 1.5rem; margin-bottom: 0.5rem; color: white; }
         .feedback-overlay button { margin-top: 0.5rem; }
 
         .nav-row { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.25rem; }
-        .nav-row .btn { min-width: 130px; justify-content: center; }
-
-        .results-wrap { text-align: center; animation: fadeSlideIn 0.5s ease; background: white; border-radius: var(--radius-2xl); padding: 2.5rem; box-shadow: var(--shadow); }
-        .results-icon { font-size: 5rem; display: block; margin-bottom: 0.5rem; }
+        .results-wrap { text-align: center; background: white; border-radius: var(--radius-2xl); padding: 2.5rem; box-shadow: var(--shadow); }
         .results-pct { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; font-weight: 700; }
-        .results-grade { font-size: 1.25rem; font-weight: 600; margin: 0.5rem 0; }
         .results-stats { display: flex; justify-content: center; gap: 3rem; margin: 1.5rem 0; flex-wrap: wrap; }
-        .r-stat { text-align: center; }
-        .r-stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; }
-        .r-stat-lbl { font-size: 0.75rem; color: var(--gray-500); }
-
-        .login-gate { background: var(--warning-bg); border: 2px dashed var(--warning); border-radius: var(--radius-2xl); padding: 2rem; text-align: center; margin-top: 1rem; }
-        .login-gate i { font-size: 3rem; color: var(--warning); display: block; margin-bottom: 0.75rem; }
-        .login-gate h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin-bottom: 0.5rem; }
-        .login-gate p { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1rem; }
-
+        .login-gate { background: var(--warning-bg); border: 2px dashed var(--warning); border-radius: var(--radius-2xl); padding: 2rem; text-align: center; }
         .empty-state { text-align: center; padding: 4rem 2rem; }
-        .empty-state i { font-size: 5rem; color: var(--gray-300); display: block; margin-bottom: 1rem; }
-        .empty-state h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; color: var(--gray-500); margin-bottom: 0.5rem; }
-        .empty-state p { color: var(--gray-400); margin-bottom: 1.5rem; }
-
         .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
         .toast { background: var(--gray-900); color: white; padding: 0.75rem 1rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; max-width: 360px; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
         .toast.success { background: #059669; } .toast.error { background: #DC2626; } .toast.warning { background: #D97706; }
@@ -201,9 +201,8 @@
         @media (max-width: 600px) {
             .main-content { padding: 1rem; }
             .question-card { padding: 1.5rem; }
-            .results-stats { gap: 1.5rem; }
-            .mode-cards { flex-direction: column; align-items: center; }
-            .matching-columns { flex-direction: column; gap: 1rem; }
+            .complete-sentence { font-size: 0.875rem; padding: 1rem; }
+            .complete-blank-input { min-width: 100px; font-size: 0.875rem; }
         }
     </style>
 </head>
@@ -228,24 +227,28 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
-        // Use regular script (not module) to avoid CORS issues with Firestore
         var $ = function(id) { return document.getElementById(id); };
-        var toast = function(msg, type) { var c = $('toastContainer'); var t = document.createElement('div'); t.className = 'toast ' + (type || 'success'); t.innerHTML = '<i class="bx ' + (type === 'success' ? 'bx-check-circle' : type === 'warning' ? 'bx-error-circle' : 'bx-x-circle') + '"></i> ' + msg; t.addEventListener('click', function() { t.remove(); }); c.appendChild(t); setTimeout(function() { if (t.parentElement) t.remove(); }, 3500); };
+        var toast = function(msg, type) { 
+            var c = $('toastContainer'); 
+            var t = document.createElement('div'); 
+            t.className = 'toast ' + (type || 'success'); 
+            t.innerHTML = '<i class="bx ' + (type === 'success' ? 'bx-check-circle' : type === 'warning' ? 'bx-error-circle' : 'bx-x-circle') + '"></i> ' + msg; 
+            t.addEventListener('click', function() { t.remove(); }); 
+            c.appendChild(t); 
+            setTimeout(function() { if (t.parentElement) t.remove(); }, 3500); 
+        };
 
         var App = {
             user: null, courses: [], modules: [], lessons: [],
             allQuestions: [], currentQuestions: [], mode: '',
             questionLimit: 10, currentIndex: 0, score: 0, answers: [],
-            retryUsed: [],  // Track if retry was used for each question
-            retryAnswers: [], // Store retry answers separately
-            timer: null, timerSeconds: 0, isLoggedIn: false,
+            retryUsed: [], timer: null, timerSeconds: 0, isLoggedIn: false,
             guestExerciseLimit: 5, guestExamLimit: 10,
             filterCourseId: null, filterModuleId: null, filterLessonId: null,
             matchingSelections: {}, matchingLeftSelected: null,
             filterCourseName: '', filterModuleName: '', filterLessonName: ''
         };
 
-        // Parse URL
         function parseURL() {
             var p = new URLSearchParams(window.location.search);
             App.filterCourseId = p.get('course') || null;
@@ -254,7 +257,6 @@
             App.mode = p.get('mode') || '';
         }
 
-        // Load from localStorage (offline-first)
         function loadLocalData() {
             try { App.courses = JSON.parse(localStorage.getItem('ak_courses') || '[]'); } catch(e) { App.courses = []; }
             try { App.modules = JSON.parse(localStorage.getItem('ak_modules') || '[]'); } catch(e) { App.modules = []; }
@@ -263,13 +265,10 @@
             proceedAfterLoad();
         }
 
-        // Try Firebase, fallback to localStorage
         function loadData() {
             try {
                 import('./js/firebase.js').then(function(fb) {
-                    var db = fb.db;
-                    var auth = fb.auth;
-                    
+                    var db = fb.db, auth = fb.auth;
                     import("https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js").then(function(authMod) {
                         authMod.onAuthStateChanged(auth, function(u) {
                             App.user = u;
@@ -280,7 +279,6 @@
                     
                     import("https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js").then(function(fs) {
                         var col = fs.collection, getDocs = fs.getDocs, query = fs.query, orderBy = fs.orderBy, doc = fs.doc, getDoc = fs.getDoc;
-                        
                         Promise.all([
                             getDocs(query(col(db, 'courses'), orderBy('createdAt', 'desc'))),
                             getDocs(query(col(db, 'modules'), orderBy('order'))),
@@ -289,11 +287,9 @@
                             App.courses = []; results[0].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.courses.push(o); });
                             App.modules = []; results[1].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.modules.push(o); });
                             App.lessons = []; results[2].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.lessons.push(o); });
-                            
                             localStorage.setItem('ak_courses', JSON.stringify(App.courses));
                             localStorage.setItem('ak_modules', JSON.stringify(App.modules));
                             localStorage.setItem('ak_lessons', JSON.stringify(App.lessons));
-                            
                             if (App.filterLessonId) {
                                 getDoc(doc(db, 'lessons', App.filterLessonId)).then(function(snap) {
                                     if (snap.exists()) {
@@ -308,29 +304,11 @@
                                 extractFromAllLessons();
                                 proceedAfterLoad();
                             }
-                        }).catch(function(e) {
-                            console.warn('Firebase load failed, using localStorage:', e.message);
-                            loadLocalData();
-                        });
-                    }).catch(function(e) {
-                        console.warn('Firestore import failed:', e.message);
-                        loadLocalData();
-                    });
-                }).catch(function(e) {
-                    console.warn('Firebase import failed:', e.message);
-                    loadLocalData();
-                });
-            } catch(e) {
-                console.warn('Dynamic import not supported:', e.message);
-                loadLocalData();
-            }
-            
-            setTimeout(function() {
-                if (!App.allQuestions.length && !App.courses.length) {
-                    console.warn('Firebase timeout, using localStorage');
-                    loadLocalData();
-                }
-            }, 3000);
+                        }).catch(function(e) { console.warn('Firebase failed:', e.message); loadLocalData(); });
+                    }).catch(function(e) { console.warn('Firestore failed:', e.message); loadLocalData(); });
+                }).catch(function(e) { console.warn('Firebase import failed:', e.message); loadLocalData(); });
+            } catch(e) { loadLocalData(); }
+            setTimeout(function() { if (!App.allQuestions.length && !App.courses.length) loadLocalData(); }, 3000);
         }
 
         function formatQuestion(q, lessonData, source) {
@@ -364,7 +342,6 @@
 
         function extractAllQuestions() {
             App.allQuestions = [];
-            
             try {
                 var legacyBank = JSON.parse(localStorage.getItem('ak_exbank') || '[]');
                 legacyBank.forEach(function(q) {
@@ -377,7 +354,6 @@
                     });
                 });
             } catch(e) {}
-
             App.lessons.forEach(function(lesson) {
                 var bank = lesson.exerciseBank || [];
                 bank.forEach(function(q) { if (q.question) App.allQuestions.push(formatQuestion(q, lesson, 'exercise_bank')); });
@@ -389,11 +365,9 @@
                     });
                 });
             });
-
             if (App.filterCourseId) App.allQuestions = App.allQuestions.filter(function(q) { return q.courseId === App.filterCourseId || q.source === 'legacy_bank'; });
             if (App.filterModuleId) App.allQuestions = App.allQuestions.filter(function(q) { return q.moduleId === App.filterModuleId; });
             if (App.filterLessonId) App.allQuestions = App.allQuestions.filter(function(q) { return q.lessonId === App.filterLessonId; });
-            
             if (App.filterCourseId) { var c = App.courses.find(function(x) { return x.id === App.filterCourseId; }); App.filterCourseName = c ? c.name : ''; }
             if (App.filterModuleId) { var m = App.modules.find(function(x) { return x.id === App.filterModuleId; }); App.filterModuleName = m ? m.name : ''; }
             if (App.filterLessonId) { var l = App.lessons.find(function(x) { return x.id === App.filterLessonId; }); App.filterLessonName = l ? (l.title || '') : ''; }
@@ -410,25 +384,23 @@
 
         function renderModeSelect() {
             if (!App.allQuestions.length) {
-                $('exerciseContainer').innerHTML = '<div class="empty-state"><i class="bx bx-dumbbell"></i><h2>No Questions Available</h2><p>Add exercises to the Exercise Bank in the Lesson Studio, or create lessons with question blocks.</p><a href="course.html" class="btn btn-primary"><i class="bx bx-book-open"></i> Browse Courses</a><a href="index.html" class="btn btn-outline" style="margin-left:0.5rem;"><i class="bx bx-home"></i> Home</a></div>';
+                $('exerciseContainer').innerHTML = '<div class="empty-state"><i class="bx bx-dumbbell"></i><h2>No Questions Available</h2><p>Add exercises to the Exercise Bank in the Lesson Studio.</p><a href="course.html" class="btn btn-primary">Browse Courses</a></div>';
                 return;
             }
             var totalQ = App.allQuestions.length;
             var contextName = App.filterLessonName || App.filterModuleName || App.filterCourseName || '';
-            var contextLabel = contextName ? ' for ' + contextName : '';
             var guestEx = Math.min(App.guestExerciseLimit, totalQ);
             var guestExam = Math.min(App.guestExamLimit, totalQ);
             var loggedEx = Math.min(10, totalQ);
             var loggedExam = Math.min(30, totalQ);
-
             $('exerciseContainer').innerHTML = '<div class="mode-select"><h2>Ready to Practice?</h2>' +
                 (contextName ? '<div class="info-banner"><i class="bx bx-info-circle"></i> Questions from: <strong>' + contextName + '</strong></div>' : '') +
-                '<p>' + totalQ + ' questions available' + contextLabel + '</p>' +
+                '<p>' + totalQ + ' questions available</p>' +
                 '<div class="mode-cards">' +
-                    '<div class="mode-card" onclick="startSession(\'exercise\')"><i class="bx bx-dumbbell" style="color:var(--accent);"></i><h3>Exercise</h3><p>Practice with selected questions</p><span class="limit-badge ' + (App.isLoggedIn ? 'logged' : 'guest') + '">' + (App.isLoggedIn ? loggedEx : guestEx) + ' questions</span></div>' +
-                    '<div class="mode-card" onclick="startSession(\'exam\')"><i class="bx bx-book-open" style="color:var(--danger);"></i><h3>Exam</h3><p>Full assessment mode</p><span class="limit-badge ' + (App.isLoggedIn ? 'logged' : 'guest') + '">' + (App.isLoggedIn ? loggedExam : guestExam) + ' questions</span></div>' +
+                    '<div class="mode-card" onclick="startSession(\'exercise\')"><i class="bx bx-dumbbell" style="color:var(--accent);"></i><h3>Exercise</h3><p>Practice mode</p><span class="limit-badge ' + (App.isLoggedIn ? 'logged' : 'guest') + '">' + (App.isLoggedIn ? loggedEx : guestEx) + ' questions</span></div>' +
+                    '<div class="mode-card" onclick="startSession(\'exam\')"><i class="bx bx-book-open" style="color:var(--danger);"></i><h3>Exam</h3><p>Assessment mode</p><span class="limit-badge ' + (App.isLoggedIn ? 'logged' : 'guest') + '">' + (App.isLoggedIn ? loggedExam : guestExam) + ' questions</span></div>' +
                 '</div>' +
-                (!App.isLoggedIn ? '<p style="margin-top:1.5rem;font-size:0.813rem;color:var(--gray-500);"><i class="bx bx-lock-alt"></i> <a href="auth.html?mode=signin" style="color:var(--primary);">Sign in</a> to unlock full question limits</p>' : '') +
+                (!App.isLoggedIn ? '<p style="margin-top:1.5rem;font-size:0.813rem;"><i class="bx bx-lock-alt"></i> <a href="auth.html?mode=signin" style="color:var(--primary);">Sign in</a> for more questions</p>' : '') +
             '</div>';
         }
 
@@ -441,7 +413,6 @@
             App.currentIndex = 0; App.score = 0;
             App.answers = new Array(App.currentQuestions.length);
             App.retryUsed = new Array(App.currentQuestions.length).fill(false);
-            App.retryAnswers = new Array(App.currentQuestions.length);
             App.timerSeconds = 0; App.matchingSelections = {}; App.matchingLeftSelected = null;
             $('topbarMode').style.display = ''; $('topbarMode').textContent = mode === 'exercise' ? 'Exercise' : 'Exam';
             $('topbarMode').className = 'topbar-mode ' + mode;
@@ -452,11 +423,15 @@
         function startTimer() {
             clearInterval(App.timer); App.timerSeconds = 0;
             $('timerDisplay').innerHTML = '<i class="bx bx-time"></i> 00:00';
-            App.timer = setInterval(function() { App.timerSeconds++; var m = String(Math.floor(App.timerSeconds / 60)).padStart(2, '0'); var s = String(App.timerSeconds % 60).padStart(2, '0'); $('timerDisplay').innerHTML = '<i class="bx bx-time"></i> ' + m + ':' + s; }, 1000);
+            App.timer = setInterval(function() { 
+                App.timerSeconds++; 
+                var m = String(Math.floor(App.timerSeconds / 60)).padStart(2, '0'); 
+                var s = String(App.timerSeconds % 60).padStart(2, '0'); 
+                $('timerDisplay').innerHTML = '<i class="bx bx-time"></i> ' + m + ':' + s; 
+            }, 1000);
         }
         function updateScore() { $('scoreDisplay').innerHTML = '<i class="bx bxs-star"></i> ' + App.score; }
 
-        // ============ RENDER QUESTION ============
         function renderQuestion() {
             if (App.currentIndex >= App.currentQuestions.length) { showResults(); return; }
             var guestMax = App.mode === 'exercise' ? App.guestExerciseLimit : App.guestExamLimit;
@@ -471,49 +446,42 @@
             for (var d = 0; d < totalShow; d++) { 
                 var dc = ''; 
                 if (App.answers[d] !== undefined) { 
-                    if (App.retryUsed[d]) { 
-                        dc = 'retry'; 
-                    } else {
-                        dc = App.answers[d] === App.currentQuestions[d].correctAnswer ? 'correct' : 'wrong'; 
-                    }
-                } else if (d === App.currentIndex) { 
-                    dc = 'current'; 
-                }
+                    if (App.retryUsed[d]) dc = 'retry';
+                    else dc = App.answers[d] === App.currentQuestions[d].correctAnswer ? 'correct' : 'wrong';
+                } else if (d === App.currentIndex) dc = 'current';
                 dotsHTML += '<div class="progress-dot ' + dc + '"></div>'; 
             }
 
             var bodyHTML = '';
-            if (q.questionType === 'matching') bodyHTML = renderMatchingQuestion(q, isAnswered, retryUsed);
-            else if (q.questionType === 'boolean') bodyHTML = renderBooleanQuestion(q, isAnswered, retryUsed);
-            else if (q.questionType === 'complete-text' || q.questionType === 'complete' || q.questionType === 'complete-drag') bodyHTML = renderCompleteQuestion(q, isAnswered, retryUsed);
-            else bodyHTML = renderMCQQuestion(q, isAnswered, retryUsed);
+            if (q.questionType === 'matching') bodyHTML = renderMatchingQuestion(q, isAnswered);
+            else if (q.questionType === 'boolean') bodyHTML = renderBooleanQuestion(q, isAnswered);
+            else if (q.questionType === 'complete-text' || q.questionType === 'complete' || q.questionType === 'complete-drag') bodyHTML = renderCompleteQuestionEnhanced(q, isAnswered);
+            else bodyHTML = renderMCQQuestion(q, isAnswered);
 
             var feedbackOverlay = '';
             if (isAnswered && !retryUsed) {
-                var correct = q.correctAnswer;
-                var isCorrect = (q.questionType === 'matching') ? (userAns === q.correctAnswer) : (userAns === correct);
+                var isCorrect = (q.questionType === 'matching') ? (userAns === q.correctAnswer) : (userAns === q.correctAnswer);
                 feedbackOverlay = '<div class="feedback-overlay show ' + (isCorrect ? 'correct' : 'wrong') + '">' +
                     '<h2>' + (isCorrect ? '✅ Correct!' : '❌ Wrong!') + '</h2>' +
-                    '<p>' + (isCorrect ? '+ ' + (q.points || 10) + ' Sparks' : '') + '</p>' +
-                    (!isCorrect ? '<button class="btn btn-warning" onclick="retryQuestion()"><i class="bx bx-refresh"></i> Retry → (Half Points)</button>' : '') +
-                    '<button class="btn btn-primary" onclick="nextQuestion()" style="background:white;color:' + (isCorrect ? 'var(--success-dark)' : 'var(--danger-dark)') + ';">' + (App.currentIndex < App.currentQuestions.length - 1 ? 'Next Question →' : 'See Results →') + '</button>' +
+                    (!isCorrect ? '<button class="btn btn-warning" onclick="retryQuestion()"><i class="bx bx-refresh"></i> Retry (Half Points)</button>' : '') +
+                    '<button class="btn btn-primary" onclick="nextQuestion()">' + (App.currentIndex < App.currentQuestions.length - 1 ? 'Next →' : 'Results →') + '</button>' +
                 '</div>';
             } else if (isAnswered && retryUsed) {
-                var wasCorrectOnRetry = userAns === q.correctAnswer;
-                feedbackOverlay = '<div class="feedback-overlay show ' + (wasCorrectOnRetry ? 'correct' : 'wrong') + '">' +
-                    '<h2>' + (wasCorrectOnRetry ? '✅ Correct on Retry!' : '❌ Still Wrong!') + '</h2>' +
-                    '<p>' + (wasCorrectOnRetry ? '+ ' + Math.floor((q.points || 10) / 2) + ' Sparks (Half Points)' : '0 Sparks') + '</p>' +
-                    '<p style="font-size:0.813rem;">' + (wasCorrectOnRetry ? 'Great job recovering!' : 'Correct answer: ' + (q.options ? q.options[q.correctAnswer] : q.correctAnswer)) + '</p>' +
+                var wasCorrect = userAns === q.correctAnswer;
+                feedbackOverlay = '<div class="feedback-overlay show ' + (wasCorrect ? 'correct' : 'wrong') + '">' +
+                    '<h2>' + (wasCorrect ? '✅ Correct on Retry!' : '❌ Still Wrong') + '</h2>' +
+                    '<p>' + (wasCorrect ? 'Half points awarded' : 'Answer: ' + (q.options ? q.options[q.correctAnswer] : q.correctAnswer)) + '</p>' +
                     '<button class="btn btn-primary" onclick="nextQuestion()">Continue →</button>' +
                 '</div>';
             }
 
             var progress = Math.round(((App.currentIndex + 1) / App.currentQuestions.length) * 100);
             $('exerciseContainer').innerHTML = '' +
-                '<div class="progress-section"><div class="progress-header"><span>Question ' + (App.currentIndex + 1) + ' of ' + totalShow + '</span><span>' + progress + '%</span></div><div class="progress-bar"><div class="progress-fill" style="width:' + progress + '%;"></div></div></div>' +
+                '<div class="progress-section"><div class="progress-header"><span>Q' + (App.currentIndex + 1) + '/' + totalShow + '</span><span>' + progress + '%</span></div><div class="progress-bar"><div class="progress-fill" style="width:' + progress + '%;"></div></div></div>' +
                 '<div class="question-card" style="position:relative;">' +
-                    '<div class="q-meta"><span class="q-number">Question ' + (App.currentIndex + 1) + '</span>' + (q.courseName ? '<span class="q-course">' + q.courseName + '</span>' : '') + '<span class="q-points"><i class="bx bxs-star"></i> ' + (q.points || 10) + ' pts</span>' +
-                    (retryUsed ? '<span class="q-points" style="color:var(--warning);"><i class="bx bx-refresh"></i> Retry Attempt Used</span>' : '') +
+                    '<div class="q-meta"><span class="q-number">Question ' + (App.currentIndex + 1) + '</span>' + (q.courseName ? '<span class="q-course">' + q.courseName + '</span>' : '') + 
+                    '<span class="q-points"><i class="bx bxs-star"></i> ' + (q.points || 10) + ' pts</span>' +
+                    (retryUsed ? '<span class="q-points" style="color:var(--warning);"><i class="bx bx-refresh"></i> Retry</span>' : '') +
                     '</div>' +
                     '<div class="q-text">' + (q.question || 'Question') + '</div>' + bodyHTML +
                     feedbackOverlay +
@@ -523,142 +491,112 @@
         window.retryQuestion = function() {
             if (App.retryUsed[App.currentIndex]) return;
             App.retryUsed[App.currentIndex] = true;
-            // Clear the answer so user can try again
             App.answers[App.currentIndex] = undefined;
             renderQuestion();
-            toast('Retry mode active! Half points if correct.', 'warning');
+            toast('Retry mode! Half points if correct.', 'warning');
         };
 
-        // ============ MCQ - W3Schools Style Radio Buttons ============
-        function renderMCQQuestion(q, isAnswered, retryUsed) {
-            var opts = q.options || []; var correct = q.correctAnswer; var userAns = App.answers[App.currentIndex];
-            var h = '<div class="mcq-options">';
-            for (var i = 0; i < opts.length; i++) {
-                if (!opts[i] && opts[i] !== '') continue;
-                var cls = ''; 
-                if (userAns === i) { 
-                    cls = userAns === correct ? 'correct-show' : 'wrong-show'; 
-                } else if (isAnswered && correct === i) { 
-                    cls = 'correct-show'; 
-                }
-                h += '<div class="mcq-opt ' + cls + '" onclick="answerMCQ(' + i + ')">' +
-                    '<input type="radio" name="mcq" id="mcq' + i + '" ' + (userAns === i ? 'checked' : '') + (isAnswered ? ' disabled' : '') + '>' +
-                    '<label for="mcq' + i + '">' + (opts[i] || 'Option ' + String.fromCharCode(65 + i)) + '</label></div>';
-            }
-            h += '</div>';
-            if (!isAnswered) h += '<div class="nav-row"><button class="btn btn-primary" onclick="submitMCQ()">Submit Answer →</button></div>';
-            return h;
-        }
-
-        window.answerMCQ = function(index) {
-            if (App.answers[App.currentIndex] !== undefined) return;
-            document.querySelectorAll('.mcq-opt').forEach(function(el) { el.classList.remove('correct-show', 'wrong-show'); });
-            var opts = document.querySelectorAll('.mcq-opt');
-            if (opts[index]) opts[index].classList.add('selected');
-            var radio = document.getElementById('mcq' + index);
-            if (radio) radio.checked = true;
-        };
-
-        window.submitMCQ = function() {
-            if (App.answers[App.currentIndex] !== undefined) return;
-            var selected = document.querySelector('input[name="mcq"]:checked');
-            if (!selected) { toast('Please select an answer', 'error'); return; }
-            var index = parseInt(selected.id.replace('mcq', ''));
-            var q = App.currentQuestions[App.currentIndex];
-            var correct = index === q.correctAnswer;
-            
-            var pointsEarned = 0;
-            if (correct) {
-                var isRetry = App.retryUsed[App.currentIndex];
-                pointsEarned = isRetry ? Math.floor((q.points || 10) / 2) : (q.points || 10);
-                App.score += pointsEarned;
-                updateScore();
-                awardSparks(pointsEarned);
-                toast(pointsEarned > 0 ? '+' + pointsEarned + ' Sparks!' : 'Correct!', 'success');
-            } else {
-                toast('Wrong answer!', 'error');
-            }
-            
-            App.answers[App.currentIndex] = index;
-            renderQuestion();
-        };
-
-        // ============ BOOLEAN ============
-        function renderBooleanQuestion(q, isAnswered, retryUsed) {
-            var correct = q.correctAnswer; var userAns = App.answers[App.currentIndex];
-            var h = '<div class="bool-group">' +
-                '<button class="bool-btn' + (userAns === 0 ? ' correct-show' : '') + '" onclick="answerBool(0)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-check"></i> True</button>' +
-                '<button class="bool-btn' + (userAns === 1 ? ' correct-show' : '') + '" onclick="answerBool(1)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-x"></i> False</button>' +
-            '</div>';
-            return h;
-        }
-
-        window.answerBool = function(index) {
-            if (App.answers[App.currentIndex] !== undefined) return;
-            var q = App.currentQuestions[App.currentIndex];
-            var correct = index === q.correctAnswer;
-            
-            var pointsEarned = 0;
-            if (correct) {
-                var isRetry = App.retryUsed[App.currentIndex];
-                pointsEarned = isRetry ? Math.floor((q.points || 10) / 2) : (q.points || 10);
-                App.score += pointsEarned;
-                updateScore();
-                awardSparks(pointsEarned);
-                toast(pointsEarned > 0 ? '+' + pointsEarned + ' Sparks!' : 'Correct!', 'success');
-            } else {
-                toast('Wrong answer!', 'error');
-            }
-            
-            App.answers[App.currentIndex] = index;
-            renderQuestion();
-        };
-
-        // ============ COMPLETE - Fill-in-Blanks Style (FIXED) ============
-        function renderCompleteQuestion(q, isAnswered, retryUsed) {
+        // ============ ENHANCED COMPLETE QUESTION ============
+        function renderCompleteQuestionEnhanced(q, isAnswered) {
             var sentence = q.sentence || q.question || '';
-            // Handle multiple blanks
-            var blankCount = (sentence.match(/____/g) || []).length;
-            var displaySentence = sentence;
+            // Match __ or ___ or any 2+ underscores
+            var blankRegex = /_{2,}/g;
+            var blanks = sentence.match(blankRegex) || [];
+            var options = (q.options || []).filter(function(o) { return o && o.trim(); });
+            var correctAnswer = ((q.options || [])[q.correctAnswer] || '').toLowerCase().trim();
             
-            // Replace each ____ with an input box
-            for (var i = 0; i < blankCount; i++) {
-                displaySentence = displaySentence.replace(/____/, '<input type="text" class="complete-input-inline" id="completeInput_' + i + '" placeholder="?" ' + (isAnswered ? 'disabled' : '') + '>');
+            // Build display sentence with input boxes
+            var displaySentence = sentence;
+            var inputIds = [];
+            for (var i = 0; i < blanks.length; i++) {
+                var inputId = 'blank_' + Date.now() + '_' + i;
+                inputIds.push(inputId);
+                var inputHtml = '<input type="text" class="complete-blank-input" id="' + inputId + '" data-blank-index="' + i + '" placeholder="______" ' + (isAnswered ? 'disabled' : '') + '>';
+                displaySentence = displaySentence.replace(blankRegex, inputHtml);
             }
             
-            var h = '<div class="complete-container"><div class="complete-sentence">' + displaySentence + '</div>';
-            if (!isAnswered) h += '<div class="submit-inline-btn"><button class="btn btn-primary" onclick="submitCompleteAnswer()">Submit Answer →</button></div>';
+            // Build draggable options
+            var dragHtml = '';
+            if (options.length > 0 && !isAnswered) {
+                dragHtml = '<div class="drag-options" id="dragOptions">' +
+                    options.map(function(opt, idx) {
+                        return '<span class="drag-word" draggable="true" data-word="' + opt.replace(/"/g, '&quot;') + '">' + opt + ' <i class="bx bx-move"></i></span>';
+                    }).join('') +
+                '</div>';
+            }
+            
+            var h = '<div class="complete-container">' +
+                dragHtml +
+                '<div class="complete-sentence">' + displaySentence + '</div>';
+            if (!isAnswered) h += '<div class="submit-inline-btn"><button class="btn btn-primary" onclick="submitCompleteAnswerEnhanced()">Submit Answer →</button></div>';
             h += '</div>';
             
-            setTimeout(function() { 
-                var inp = $('completeInput_0'); 
-                if (inp) inp.focus(); 
-            }, 100);
+            // Setup drag and drop after DOM is ready
+            setTimeout(function() { setupDragAndDrop(inputIds, options); }, 50);
             
             return h;
         }
-
-        window.submitCompleteAnswer = function() {
+        
+        function setupDragAndDrop(inputIds, options) {
+            // Setup draggable elements
+            var dragWords = document.querySelectorAll('.drag-word');
+            dragWords.forEach(function(word) {
+                word.addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', this.dataset.word);
+                    this.classList.add('dragging');
+                });
+                word.addEventListener('dragend', function(e) {
+                    this.classList.remove('dragging');
+                });
+            });
+            
+            // Setup drop targets
+            inputIds.forEach(function(id) {
+                var input = document.getElementById(id);
+                if (!input) return;
+                
+                input.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.classList.add('drag-over');
+                });
+                
+                input.addEventListener('dragleave', function(e) {
+                    this.classList.remove('drag-over');
+                });
+                
+                input.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    this.classList.remove('drag-over');
+                    var droppedText = e.dataTransfer.getData('text/plain');
+                    if (droppedText) {
+                        this.value = droppedText;
+                        toast('Dropped: ' + droppedText, 'success');
+                    }
+                });
+            });
+        }
+        
+        window.submitCompleteAnswerEnhanced = function() {
             if (App.answers[App.currentIndex] !== undefined) return;
             
             var q = App.currentQuestions[App.currentIndex];
-            var correctAns = ((q.options || [])[q.correctAnswer] || '').toLowerCase().trim();
-            
-            // Get all input values
-            var inputs = document.querySelectorAll('.complete-input-inline');
+            var correctAnswer = ((q.options || [])[q.correctAnswer] || '').toLowerCase().trim();
+            var inputs = document.querySelectorAll('.complete-blank-input');
             var userAnswers = [];
+            
             for (var i = 0; i < inputs.length; i++) {
-                userAnswers.push(inputs[i].value.trim().toLowerCase());
+                var val = inputs[i].value.trim().toLowerCase();
+                if (val === '') {
+                    toast('Please fill in all blanks', 'error');
+                    return;
+                }
+                userAnswers.push(val);
             }
             
-            // Check if any blank is empty
-            if (userAnswers.some(function(a) { return a === ''; })) {
-                toast('Please fill in all blanks', 'error');
-                return;
-            }
-            
-            // For now, assume single blank or check first blank
-            var isCorrect = userAnswers[0] === correctAns;
+            // Check if any blank matches the correct answer
+            var isCorrect = userAnswers.some(function(ans) { return ans === correctAnswer; });
+            // For multiple blanks, all must match (simplified - first blank is the answer)
+            isCorrect = userAnswers[0] === correctAnswer;
             
             var pointsEarned = 0;
             if (isCorrect) {
@@ -667,31 +605,102 @@
                 App.score += pointsEarned;
                 updateScore();
                 awardSparks(pointsEarned);
-                toast(pointsEarned > 0 ? '+' + pointsEarned + ' Sparks!' : 'Correct!', 'success');
+                toast('+' + pointsEarned + ' Sparks!', 'success');
             } else {
-                toast('Wrong answer! Correct answer: ' + correctAns, 'error');
+                toast('Wrong! Correct: ' + correctAnswer, 'error');
             }
             
             App.answers[App.currentIndex] = isCorrect ? q.correctAnswer : -1;
             renderQuestion();
         };
 
+        // ============ MCQ ============
+        function renderMCQQuestion(q, isAnswered) {
+            var opts = q.options || [];
+            var h = '<div class="mcq-options">';
+            for (var i = 0; i < opts.length; i++) {
+                if (!opts[i] && opts[i] !== '') continue;
+                var cls = '';
+                if (App.answers[App.currentIndex] === i) cls = App.answers[App.currentIndex] === q.correctAnswer ? 'correct-show' : 'wrong-show';
+                else if (isAnswered && q.correctAnswer === i) cls = 'correct-show';
+                h += '<div class="mcq-opt ' + cls + '" onclick="answerMCQ(' + i + ')">' +
+                    '<input type="radio" name="mcq" id="mcq' + i + '" ' + (App.answers[App.currentIndex] === i ? 'checked' : '') + (isAnswered ? ' disabled' : '') + '>' +
+                    '<label for="mcq' + i + '">' + (opts[i] || 'Option ' + String.fromCharCode(65 + i)) + '</label></div>';
+            }
+            h += '</div>';
+            if (!isAnswered) h += '<div class="nav-row"><button class="btn btn-primary" onclick="submitMCQ()">Submit →</button></div>';
+            return h;
+        }
+
+        window.answerMCQ = function(index) {
+            if (App.answers[App.currentIndex] !== undefined) return;
+            document.querySelectorAll('.mcq-opt').forEach(function(el) { el.classList.remove('correct-show', 'wrong-show'); });
+            var radio = document.getElementById('mcq' + index);
+            if (radio) radio.checked = true;
+        };
+
+        window.submitMCQ = function() {
+            if (App.answers[App.currentIndex] !== undefined) return;
+            var selected = document.querySelector('input[name="mcq"]:checked');
+            if (!selected) { toast('Select an answer', 'error'); return; }
+            var index = parseInt(selected.id.replace('mcq', ''));
+            var q = App.currentQuestions[App.currentIndex];
+            var isCorrect = index === q.correctAnswer;
+            var pointsEarned = 0;
+            if (isCorrect) {
+                var isRetry = App.retryUsed[App.currentIndex];
+                pointsEarned = isRetry ? Math.floor((q.points || 10) / 2) : (q.points || 10);
+                App.score += pointsEarned;
+                updateScore();
+                awardSparks(pointsEarned);
+            } else {
+                toast('Wrong!', 'error');
+            }
+            App.answers[App.currentIndex] = index;
+            renderQuestion();
+        };
+
+        // ============ BOOLEAN ============
+        function renderBooleanQuestion(q, isAnswered) {
+            var h = '<div class="bool-group">' +
+                '<button class="bool-btn" onclick="answerBool(0)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-check"></i> True</button>' +
+                '<button class="bool-btn" onclick="answerBool(1)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-x"></i> False</button>' +
+            '</div>';
+            return h;
+        }
+
+        window.answerBool = function(index) {
+            if (App.answers[App.currentIndex] !== undefined) return;
+            var q = App.currentQuestions[App.currentIndex];
+            var isCorrect = index === q.correctAnswer;
+            var pointsEarned = 0;
+            if (isCorrect) {
+                var isRetry = App.retryUsed[App.currentIndex];
+                pointsEarned = isRetry ? Math.floor((q.points || 10) / 2) : (q.points || 10);
+                App.score += pointsEarned;
+                updateScore();
+                awardSparks(pointsEarned);
+            } else {
+                toast('Wrong!', 'error');
+            }
+            App.answers[App.currentIndex] = index;
+            renderQuestion();
+        };
+
         // ============ MATCHING ============
-        function renderMatchingQuestion(q, isAnswered, retryUsed) {
+        function renderMatchingQuestion(q, isAnswered) {
             App.matchingSelections = {}; App.matchingLeftSelected = null;
             var leftItems = (q.options || []).filter(function(x) { return x && x.trim(); });
             var rightItems = (q.matchingRight || []).filter(function(x) { return x && x.trim(); });
             if (!leftItems.length) leftItems = ['Item 1', 'Item 2'];
             if (!rightItems.length) rightItems = ['Match 1', 'Match 2'];
             var shuffledRight = rightItems.slice().sort(function() { return Math.random() - 0.5; });
-            
-            var h = '<div class="matching-wrap"><p style="font-size:0.813rem;color:rgba(255,255,255,0.6);margin-bottom:1rem;">Click a left item, then click its matching right item. Yellow lines show connections.</p>';
-            h += '<div class="matching-container" id="matchingContainer"><div class="matching-columns">';
+            var h = '<div class="matching-wrap"><div class="matching-container" id="matchingContainer"><div class="matching-columns">';
             h += '<div class="matching-col" id="matchingLeftCol">';
             for (var i = 0; i < leftItems.length; i++) { h += '<div class="match-item left-item" data-index="' + i + '" onclick="selectMatchingLeft(' + i + ', this)">' + leftItems[i] + '</div>'; }
             h += '</div><div class="matching-svg-layer" id="matchingSvgLayer"><svg id="matchingSvg"></svg></div>';
             h += '<div class="matching-col" id="matchingRightCol">';
-            for (var j = 0; j < shuffledRight.length; j++) { h += '<div class="match-item right-item" data-original-index="' + rightItems.indexOf(shuffledRight[j]) + '" data-display-index="' + j + '" onclick="selectMatchingRight(' + rightItems.indexOf(shuffledRight[j]) + ', ' + j + ', this)">' + shuffledRight[j] + '</div>'; }
+            for (var j = 0; j < shuffledRight.length; j++) { h += '<div class="match-item right-item" data-original-index="' + rightItems.indexOf(shuffledRight[j]) + '" onclick="selectMatchingRight(' + rightItems.indexOf(shuffledRight[j]) + ', this)">' + shuffledRight[j] + '</div>'; }
             h += '</div></div></div>';
             if (!isAnswered) h += '<div class="match-submit-wrap"><button class="btn btn-primary" onclick="submitMatchingAnswer()">Submit Matches</button></div>';
             h += '</div>';
@@ -699,23 +708,50 @@
             return h;
         }
 
-        window.selectMatchingLeft = function(index, el) { if (App.answers[App.currentIndex] !== undefined) return; App.matchingLeftSelected = index; document.querySelectorAll('.left-item').forEach(function(i) { i.classList.remove('selected'); }); el.classList.add('selected'); document.querySelectorAll('.right-item').forEach(function(i) { i.classList.remove('selected'); }); App.matchingSelections[index] = undefined; drawMatchingLines(); };
-        window.selectMatchingRight = function(originalIndex, displayIndex, el) { if (App.answers[App.currentIndex] !== undefined) return; if (App.matchingLeftSelected === null) return; Object.keys(App.matchingSelections).forEach(function(k) { if (App.matchingSelections[k] === originalIndex) delete App.matchingSelections[k]; }); App.matchingSelections[App.matchingLeftSelected] = originalIndex; document.querySelectorAll('.left-item').forEach(function(i) { i.classList.remove('selected'); }); document.querySelectorAll('.right-item').forEach(function(i) { i.classList.remove('selected'); }); var le = document.querySelector('.left-item[data-index="' + App.matchingLeftSelected + '"]'); if (le) le.classList.add('matched'); el.classList.add('matched'); App.matchingLeftSelected = null; drawMatchingLines(); };
+        window.selectMatchingLeft = function(index, el) {
+            if (App.answers[App.currentIndex] !== undefined) return;
+            App.matchingLeftSelected = index;
+            document.querySelectorAll('.left-item').forEach(function(i) { i.classList.remove('selected'); });
+            el.classList.add('selected');
+            document.querySelectorAll('.right-item').forEach(function(i) { i.classList.remove('selected'); });
+        };
+        
+        window.selectMatchingRight = function(originalIndex, el) {
+            if (App.answers[App.currentIndex] !== undefined) return;
+            if (App.matchingLeftSelected === null) return;
+            Object.keys(App.matchingSelections).forEach(function(k) {
+                if (App.matchingSelections[k] === originalIndex) delete App.matchingSelections[k];
+            });
+            App.matchingSelections[App.matchingLeftSelected] = originalIndex;
+            document.querySelectorAll('.left-item').forEach(function(i) { i.classList.remove('selected'); });
+            document.querySelectorAll('.right-item').forEach(function(i) { i.classList.remove('selected'); });
+            var le = document.querySelector('.left-item[data-index="' + App.matchingLeftSelected + '"]');
+            if (le) le.classList.add('matched');
+            el.classList.add('matched');
+            App.matchingLeftSelected = null;
+            drawMatchingLines();
+        };
 
         function drawMatchingLines() {
-            var svg = document.getElementById('matchingSvg'); var container = document.getElementById('matchingContainer');
+            var svg = document.getElementById('matchingSvg');
+            var container = document.getElementById('matchingContainer');
             if (!svg || !container) return;
-            var cr = container.getBoundingClientRect(); var lines = '';
+            var cr = container.getBoundingClientRect();
+            var lines = '';
             Object.keys(App.matchingSelections).forEach(function(li) {
-                var ri = App.matchingSelections[li]; if (ri === undefined) return;
+                var ri = App.matchingSelections[li];
+                if (ri === undefined) return;
                 var le = document.querySelector('.left-item[data-index="' + li + '"]');
                 var re = document.querySelector('.right-item[data-original-index="' + ri + '"]');
                 if (le && re) {
-                    var lr = le.getBoundingClientRect(); var rr = re.getBoundingClientRect();
-                    var x1 = lr.right - cr.left; var y1 = lr.top + lr.height/2 - cr.top;
-                    var x2 = rr.left - cr.left; var y2 = rr.top + rr.height/2 - cr.top;
+                    var lr = le.getBoundingClientRect();
+                    var rr = re.getBoundingClientRect();
+                    var x1 = lr.right - cr.left;
+                    var y1 = lr.top + lr.height/2 - cr.top;
+                    var x2 = rr.left - cr.left;
+                    var y2 = rr.top + rr.height/2 - cr.top;
                     var cp = (x1 + x2) / 2;
-                    lines += '<path d="M' + x1 + ',' + y1 + ' C' + cp + ',' + y1 + ' ' + cp + ',' + y2 + ' ' + x2 + ',' + y2 + '" stroke="var(--warning)" stroke-width="3" fill="none" stroke-linecap="round" filter="drop-shadow(0 2px 3px rgba(245,158,11,0.3))"/>';
+                    lines += '<path d="M' + x1 + ',' + y1 + ' C' + cp + ',' + y1 + ' ' + cp + ',' + y2 + ' ' + x2 + ',' + y2 + '" stroke="var(--warning)" stroke-width="3" fill="none" stroke-linecap="round"/>';
                 }
             });
             svg.innerHTML = lines;
@@ -725,85 +761,84 @@
             if (App.answers[App.currentIndex] !== undefined) return;
             var q = App.currentQuestions[App.currentIndex];
             var leftItems = (q.options || []).filter(function(x) { return x && x.trim(); });
-            var totalPairs = leftItems.length || 1; var correctPairs = 0;
-            Object.keys(App.matchingSelections).forEach(function(li) { if (App.matchingSelections[li] === parseInt(li)) correctPairs++; });
+            var totalPairs = leftItems.length || 1;
+            var correctPairs = 0;
+            Object.keys(App.matchingSelections).forEach(function(li) {
+                if (App.matchingSelections[li] === parseInt(li)) correctPairs++;
+            });
             var earnedPoints = Math.round((q.points || 10) * (correctPairs / totalPairs));
-            
             var isRetry = App.retryUsed[App.currentIndex];
             if (isRetry) earnedPoints = Math.floor(earnedPoints / 2);
-            
             App.answers[App.currentIndex] = correctPairs === totalPairs ? q.correctAnswer : -1;
-            App.score += earnedPoints; updateScore();
+            App.score += earnedPoints;
+            updateScore();
             if (earnedPoints > 0) awardSparks(earnedPoints);
             document.querySelectorAll('.left-item, .right-item').forEach(function(el) { el.style.pointerEvents = 'none'; });
-            var sb = document.querySelector('.match-submit-wrap'); if (sb) sb.style.display = 'none';
-            toast(earnedPoints > 0 ? '+' + earnedPoints + ' Sparks!' : 'No points earned', earnedPoints > 0 ? 'success' : 'error');
+            toast(earnedPoints > 0 ? '+' + earnedPoints + ' Sparks!' : 'No points', earnedPoints > 0 ? 'success' : 'error');
             renderQuestion();
         };
 
-        window.nextQuestion = function() { 
-            if (App.currentIndex < App.currentQuestions.length - 1) { 
-                App.currentIndex++; 
-                renderQuestion(); 
-            } else { 
-                showResults(); 
-            } 
+        window.nextQuestion = function() {
+            if (App.currentIndex < App.currentQuestions.length - 1) {
+                App.currentIndex++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
         };
-        
-        function awardSparks(pts) { 
-            var c = parseInt(localStorage.getItem('ak_sparks') || '0'); 
-            localStorage.setItem('ak_sparks', String(c + pts)); 
+
+        function awardSparks(pts) {
+            var c = parseInt(localStorage.getItem('ak_sparks') || '0');
+            localStorage.setItem('ak_sparks', String(c + pts));
         }
 
         function renderLoginGate() {
             var gm = App.mode === 'exercise' ? App.guestExerciseLimit : App.guestExamLimit;
-            $('exerciseContainer').innerHTML = '<div class="progress-section"><div class="progress-header"><span>Free Preview: ' + gm + '/' + gm + '</span><span>100%</span></div><div class="progress-bar"><div class="progress-fill" style="width:100%;"></div></div></div>' +
-                '<div class="login-gate"><i class="bx bx-lock-alt"></i><h3>Unlock Full Access</h3><p>Sign in to access all ' + App.currentQuestions.length + ' questions!</p>' +
-                '<a href="auth.html?mode=signin" class="btn btn-primary"><i class="bx bx-log-in"></i> Sign In</a><a href="auth.html?mode=register" class="btn btn-outline" style="margin-left:0.5rem;"><i class="bx bx-user-plus"></i> Create Account</a></div>';
+            $('exerciseContainer').innerHTML = '<div class="login-gate"><i class="bx bx-lock-alt"></i><h3>Unlock Full Access</h3><p>Sign in to access all ' + App.currentQuestions.length + ' questions!</p>' +
+                '<a href="auth.html?mode=signin" class="btn btn-primary">Sign In</a><a href="auth.html?mode=register" class="btn btn-outline" style="margin-left:0.5rem;">Create Account</a></div>';
         }
 
         function showResults() {
             clearInterval(App.timer);
-            var total = App.currentQuestions.length; var correct = 0;
-            for (var i = 0; i < App.answers.length; i++) { 
-                if (App.answers[i] === App.currentQuestions[i].correctAnswer) correct++; 
+            var total = App.currentQuestions.length;
+            var correct = 0;
+            for (var i = 0; i < App.answers.length; i++) {
+                if (App.answers[i] === App.currentQuestions[i].correctAnswer) correct++;
             }
             var pct = Math.round((correct / total) * 100);
             var grade = pct >= 90 ? 'Excellent!' : pct >= 70 ? 'Great Job!' : pct >= 50 ? 'Good Effort!' : 'Keep Practicing!';
             var gColor = pct >= 90 ? 'var(--success)' : pct >= 70 ? 'var(--primary)' : pct >= 50 ? 'var(--warning)' : 'var(--danger)';
-            var mins = Math.floor(App.timerSeconds / 60); var secs = App.timerSeconds % 60;
-            var hist = []; try { hist = JSON.parse(localStorage.getItem('ak_exercise_history') || '[]'); } catch(e) { hist = []; }
-            hist.push({ date: new Date().toISOString(), mode: App.mode, score: App.score, correct: correct, total: total, pct: pct, time: App.timerSeconds, courseId: App.filterCourseId, moduleId: App.filterModuleId, lessonId: App.filterLessonId });
+            var mins = Math.floor(App.timerSeconds / 60);
+            var secs = App.timerSeconds % 60;
+            var hist = [];
+            try { hist = JSON.parse(localStorage.getItem('ak_exercise_history') || '[]'); } catch(e) {}
+            hist.push({ date: new Date().toISOString(), mode: App.mode, score: App.score, correct: correct, total: total, pct: pct, time: App.timerSeconds });
             localStorage.setItem('ak_exercise_history', JSON.stringify(hist.slice(-30)));
-
-            $('exerciseContainer').innerHTML = '<div class="results-wrap"><i class="bx bx-trophy results-icon" style="color:' + gColor + ';"></i><div class="results-pct" style="color:' + gColor + ';">' + pct + '%</div><div class="results-grade" style="color:' + gColor + ';">' + grade + '</div><p style="color:var(--gray-500);font-size:0.875rem;">' + (App.mode === 'exam' ? 'Exam' : 'Exercise') + ' Complete</p>' +
-                '<div class="results-stats"><div class="r-stat"><div class="r-stat-val">' + correct + '/' + total + '</div><div class="r-stat-lbl">Correct</div></div><div class="r-stat"><div class="r-stat-val"><i class="bx bxs-star" style="color:var(--warning);"></i> ' + App.score + '</div><div class="r-stat-lbl">Sparks</div></div><div class="r-stat"><div class="r-stat-val">' + mins + 'm ' + secs + 's</div><div class="r-stat-lbl">Time</div></div></div>' +
-                '<div class="nav-row"><button class="btn btn-primary" onclick="retrySession()"><i class="bx bx-refresh"></i> Retry</button><a href="course.html" class="btn btn-outline"><i class="bx bx-book-open"></i> Courses</a><a href="user.html" class="btn btn-success"><i class="bx bx-user"></i> Dashboard</a></div></div>';
+            $('exerciseContainer').innerHTML = '<div class="results-wrap"><i class="bx bx-trophy results-icon" style="color:' + gColor + ';"></i><div class="results-pct" style="color:' + gColor + ';">' + pct + '%</div><div class="results-grade" style="color:' + gColor + ';">' + grade + '</div>' +
+                '<div class="results-stats"><div class="r-stat"><div class="r-stat-val">' + correct + '/' + total + '</div><div class="r-stat-lbl">Correct</div></div><div class="r-stat"><div class="r-stat-val"><i class="bx bxs-star"></i> ' + App.score + '</div><div class="r-stat-lbl">Sparks</div></div><div class="r-stat"><div class="r-stat-val">' + mins + 'm ' + secs + 's</div><div class="r-stat-lbl">Time</div></div></div>' +
+                '<div class="nav-row"><button class="btn btn-primary" onclick="retrySession()"><i class="bx bx-refresh"></i> Retry</button><a href="course.html" class="btn btn-outline">Courses</a><a href="user.html" class="btn btn-success">Dashboard</a></div></div>';
         }
 
         window.retrySession = function() {
             var shuffled = App.allQuestions.slice().sort(function() { return Math.random() - 0.5; });
             App.currentQuestions = shuffled.slice(0, App.questionLimit);
-            App.currentIndex = 0; App.score = 0; 
+            App.currentIndex = 0; App.score = 0;
             App.answers = new Array(App.currentQuestions.length);
             App.retryUsed = new Array(App.currentQuestions.length).fill(false);
-            App.retryAnswers = new Array(App.currentQuestions.length);
-            App.timerSeconds = 0; App.matchingSelections = {}; App.matchingLeftSelected = null;
+            App.timerSeconds = 0;
             updateScore(); startTimer(); renderQuestion();
         };
 
-        // Keyboard
         document.addEventListener('keydown', function(e) {
             if (App.currentIndex >= App.currentQuestions.length || !App.currentQuestions.length) return;
             if (e.key === 'Enter' && App.answers[App.currentIndex] !== undefined) { nextQuestion(); return; }
         });
         window.addEventListener('resize', function() { drawMatchingLines(); });
 
-        // ============ INIT ============
         parseURL();
         if (localStorage.getItem('ak_user')) App.isLoggedIn = true;
         loadData();
-        console.log('🚀 Akademia Exercise System ready! - Upgraded with Retry System');
+        console.log('🚀 Akademia Exercise - Enhanced Complete Questions with Drag & Drop!');
     </script>
 </body>
 </html>
