@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademia - Help Center & Support</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <style>
+        :root {
+            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-bg: #EFF6FF;
+            --accent: #8B5CF6; --accent-dark: #7C3AED; --accent-bg: #F5F3FF;
+            --success: #04AA6D; --success-bg: #ECFDF5;
+            --warning: #F59E0B; --warning-bg: #FFFBEB;
+            --danger: #EF4444; --danger-bg: #FEF2F2;
+            --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
+            --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
+            --gray-800: #1f2937; --gray-900: #111827;
+            --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 20px;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 50px rgba(0,0,0,0.1);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: sticky; top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--gray-200);
+            z-index: 1000;
+            padding: 0.75rem 2rem;
+        }
+        .nav-container {
+            max-width: 1280px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            display: flex; align-items: center; gap: 0.5rem;
+            text-decoration: none;
+        }
+        .logo img { height: 32px; width: auto; }
+        .logo span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.125rem; font-weight: 700;
+            color: var(--gray-900);
+        }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a {
+            text-decoration: none; color: var(--gray-600);
+            font-weight: 500; transition: color var(--transition);
+            font-size: 0.875rem;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .btn-nav {
+            padding: 0.5rem 1rem; border-radius: var(--radius-sm);
+            background: var(--primary); color: white;
+            text-decoration: none; font-weight: 600; font-size: 0.875rem;
+            transition: all var(--transition);
+        }
+        .btn-nav:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+        }
+        .hero-container {
+            max-width: 800px; margin: 0 auto;
+        }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem; font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.125rem; opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+        .search-box {
+            max-width: 600px; margin: 0 auto;
+            position: relative;
+        }
+        .search-box i {
+            position: absolute; left: 1rem; top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.25rem; color: var(--gray-400);
+        }
+        .search-box input {
+            width: 100%; padding: 1rem 1rem 1rem 3rem;
+            border: none; border-radius: var(--radius-xl);
+            font-size: 1rem; outline: none;
+            box-shadow: var(--shadow-lg);
+        }
+        .search-box input:focus {
+            outline: 2px solid var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1280px; margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky; top: 80px;
+            height: fit-content;
+        }
+        .sidebar-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--gray-200);
+        }
+        .sidebar-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.875rem; font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-500);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .sidebar-menu {
+            list-style: none;
+        }
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+        .sidebar-menu a {
+            display: flex; align-items: center;
+            gap: 0.625rem;
+            padding: 0.5rem 0.75rem;
+            color: var(--gray-700);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition);
+            font-size: 0.875rem;
+        }
+        .sidebar-menu a i {
+            font-size: 1.125rem;
+            color: var(--gray-400);
+        }
+        .sidebar-menu a:hover {
+            background: var(--gray-100);
+            color: var(--primary);
+        }
+        .sidebar-menu a:hover i {
+            color: var(--primary);
+        }
+        .sidebar-menu a.active {
+            background: var(--primary-bg);
+            color: var(--primary);
+        }
+        .sidebar-menu a.active i {
+            color: var(--primary);
+        }
+
+        /* Content Area */
+        .content-area {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            border: 1px solid var(--gray-200);
+            min-height: 600px;
+        }
+        .content-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .content-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        .content-section h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem; font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+        .content-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem; font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--gray-800);
+        }
+        .content-section h3 {
+            font-size: 1rem; font-weight: 600;
+            margin: 1rem 0 0.5rem;
+            color: var(--gray-700);
+        }
+        .content-section p {
+            line-height: 1.6;
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+        }
+        .content-section ul, .content-section ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+        .content-section code {
+            background: var(--gray-100);
+            padding: 0.125rem 0.375rem;
+            border-radius: var(--radius-sm);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.813rem;
+            color: var(--danger);
+        }
+        .content-section pre {
+            background: var(--gray-900);
+            color: var(--gray-100);
+            padding: 1rem;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.813rem;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .info-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all var(--transition);
+        }
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+        .info-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        .info-card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+        .info-card p {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            margin-bottom: 1rem;
+        }
+        .info-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: 0.5rem;
+        }
+        .faq-question {
+            padding: 1rem 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--gray-800);
+            transition: all var(--transition);
+        }
+        .faq-question:hover {
+            color: var(--primary);
+        }
+        .faq-question i {
+            transition: transform var(--transition);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 0;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+            padding-bottom: 1rem;
+        }
+        .faq-item.open .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+        }
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.375rem;
+            color: var(--gray-700);
+        }
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            transition: all var(--transition);
+            outline: none;
+        }
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.625rem;
+            border-radius: 100px;
+            font-size: 0.688rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        .badge.new {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+        .badge.updated {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .toast {
+            background: var(--gray-900);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            font-size: 0.813rem;
+            font-weight: 500;
+            box-shadow: var(--shadow-lg);
+            animation: slideIn 0.3s ease;
+            max-width: 360px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .toast.success { background: #059669; }
+        .toast.error { background: #DC2626; }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: var(--gray-400);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .footer p {
+            font-size: 0.813rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            .sidebar {
+                position: static;
+            }
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
+                <span>Akademia</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="course.html">Courses</a>
+                <a href="exercise.html">Practice</a>
+                <a href="help-center.html" class="active">Help</a>
+                <a href="auth.html" class="btn-nav">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-container">
+            <h1>How can we help you?</h1>
+            <p>Find answers, guides, and support resources for all your learning needs</p>
+            <div class="search-box">
+                <i class='bx bx-search'></i>
+                <input type="text" id="searchInput" placeholder="Search for help articles, guides, and FAQs...">
+            </div>
+        </div>
+    </section>
+
+    <div class="main-content">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Getting Started</div>
+                <ul class="sidebar-menu">
+                    <li><a href="#" data-section="welcome"><i class='bx bx-home-smile'></i> Welcome to Akademia</a></li>
+                    <li><a href="#" data-section="setup"><i class='bx bx-user-plus'></i> Account Setup</a></li>
+                    <li><a href="#" data-section="dashboard"><i class='bx bx-dashboard'></i> Dashboard Guide</a></li>
+                    <li><a href="#" data-section="pathfinder"><i class='bx bx-compass'></i> Pathfinder Quiz</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Learning Resources</div>
+                <ul class="sidebar-menu">
+                    <li><a href="#" data-section="courses"><i class='bx bx-book-open'></i> Courses & Modules</a></li>
+                    <li><a href="#" data-section="exercises"><i class='bx bx-dumbbell'></i> Exercises & Exams</a></li>
+                    <li><a href="#" data-section="lessons"><i class='bx bx-video'></i> Lesson Studio</a></li>
+                    <li><a href="#" data-section="sparks"><i class='bx bxs-star'></i> Sparks System</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <ul class="sidebar-menu">
+                    <li><a href="#" data-section="faq"><i class='bx bx-help-circle'></i> Frequently Asked Questions</a></li>
+                    <li><a href="#" data-section="troubleshooting"><i class='bx bx-wrench'></i> Troubleshooting</a></li>
+                    <li><a href="#" data-section="contact"><i class='bx bx-envelope'></i> Contact Support</a></li>
+                    <li><a href="#" data-section="updates"><i class='bx bx-news'></i> What's New</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <!-- Welcome Section -->
+            <div id="welcome" class="content-section active">
+                <h1>Welcome to Akademia! 🎓</h1>
+                <p>Akademia is your all-in-one platform for mastering technology skills. Whether you're a complete beginner or an experienced developer, we have the right learning path for you.</p>
+                
+                <div class="card-grid">
+                    <div class="info-card">
+                        <i class='bx bx-rocket'></i>
+                        <h3>1. Take the Pathfinder</h3>
+                        <p>20-question quiz that creates your personalized learning journey based on your goals and preferences.</p>
+                        <a href="start.html">Start Pathfinder →</a>
+                    </div>
+                    <div class="info-card">
+                        <i class='bx bx-book-open'></i>
+                        <h3>2. Enroll in Courses</h3>
+                        <p>Browse our library of expert-led courses tailored to your skill level and career goals.</p>
+                        <a href="course.html">Explore Courses →</a>
+                    </div>
+                    <div class="info-card">
+                        <i class='bx bx-dumbbell'></i>
+                        <h3>3. Practice & Earn</h3>
+                        <p>Complete exercises, earn Sparks, and track your progress as you master new skills.</p>
+                        <a href="exercise.html">Start Practicing →</a>
+                    </div>
+                </div>
+
+                <h2>Quick Start Guide</h2>
+                <ol>
+                    <li><strong>Create an account</strong> - Sign up with email or social media</li>
+                    <li><strong>Complete the Pathfinder</strong> - Answer 20 questions about your goals</li>
+                    <li><strong>Get your personalized dashboard</strong> - See recommended courses</li>
+                    <li><strong>Start learning</strong> - Take courses, complete exercises, earn Sparks</li>
+                    <li><strong>Track your progress</strong> - Monitor your achievements and continue growing</li>
+                </ol>
+
+                <div class="info-card" style="background: var(--primary-bg); border-color: var(--primary);">
+                    <i class='bx bx-video' style="color: var(--primary);"></i>
+                    <h3>🎥 Watch Demo Video</h3>
+                    <p>New to Akademia? Watch our 5-minute tour to see everything the platform has to offer.</p>
+                </div>
+            </div>
+
+            <!-- Account Setup -->
+            <div id="setup" class="content-section">
+                <h1>Account Setup Guide</h1>
+                <p>Get your account configured correctly from day one.</p>
+
+                <h2>Creating Your Account</h2>
+                <ol>
+                    <li>Click "Sign In" in the top right corner</li>
+                    <li>Select "Create Account" on the sign-up form</li>
+                    <li>Fill in your details:
+                        <ul>
+                            <li><strong>Full Name</strong> - Your real name for certificates</li>
+                            <li><strong>Username</strong> - Unique identifier (only letters, numbers, underscores)</li>
+                            <li><strong>Email</strong> - Valid email for account recovery</li>
+                            <li><strong>Password</strong> - Minimum 8 characters</li>
+                        </ul>
+                    </li>
+                    <li>Upload a profile photo (optional)</li>
+                    <li>Click "Create Account" to finish</li>
+                </ol>
+
+                <h2>Profile Customization</h2>
+                <p>After signing in, you can customize your profile:</p>
+                <ul>
+                    <li><strong>Profile Picture</strong> - Upload from your device</li>
+                    <li><strong>Display Name</strong> - How others see you</li>
+                    <li><strong>Learning Preferences</strong> - Update your Pathfinder answers</li>
+                    <li><strong>Notification Settings</strong> - Email and in-app notifications</li>
+                </ul>
+
+                <div class="info-card">
+                    <i class='bx bx-shield'></i>
+                    <h3>Account Security Tips</h3>
+                    <p>✓ Use a strong, unique password<br>
+                    ✓ Enable email verification<br>
+                    ✓ Never share your login credentials<br>
+                    ✓ Contact support if you suspect unauthorized access</p>
+                </div>
+            </div>
+
+            <!-- Dashboard Guide -->
+            <div id="dashboard" class="content-section">
+                <h1>Dashboard Guide</h1>
+                <p>Your personalized command center for all learning activities.</p>
+
+                <h2>Dashboard Overview</h2>
+                <ul>
+                    <li><strong>Progress Overview</strong> - See your completion rates across courses</li>
+                    <li><strong>Sparks Balance</strong> - Track your earned points and rewards</li>
+                    <li><strong>Continue Learning</strong> - Jump back into your recent courses</li>
+                    <li><strong>Recommended Lessons</strong> - AI-powered suggestions based on your progress</li>
+                    <li><strong>Achievements</strong> - View badges and milestones you've unlocked</li>
+                    <li><strong>Recent Activity</strong> - Timeline of your learning journey</li>
+                </ul>
+
+                <h2>Progress Tracking</h2>
+                <p>Your dashboard shows:</p>
+                <ul>
+                    <li>Course completion percentages</li>
+                    <li>Lesson completion status</li>
+                    <li>Exercise scores and attempts</li>
+                    <li>Time spent learning</li>
+                    <li>Sparks earned per activity</li>
+                </ul>
+
+                <div class="info-card">
+                    <i class='bx bx-line-chart'></i>
+                    <h3>Pro Tip</h3>
+                    <p>Check your dashboard daily to maintain momentum. Small consistent efforts lead to mastery!</p>
+                </div>
+            </div>
+
+            <!-- Pathfinder Quiz -->
+            <div id="pathfinder" class="content-section">
+                <h1>Pathfinder Quiz</h1>
+                <p>Your personalized learning journey starts here.</p>
+
+                <h2>What is the Pathfinder?</h2>
+                <p>The Pathfinder is a 20-question assessment that helps us understand:</p>
+                <ul>
+                    <li>Your career goals and aspirations</li>
+                    <li>Current skill level and experience</li>
+                    <li>Learning preferences and style</li>
+                    <li>Time commitment and availability</li>
+                    <li>Areas of interest</li>
+                </ul>
+
+                <h2>After Completing the Pathfinder</h2>
+                <p>You'll receive:</p>
+                <ul>
+                    <li>Personalized course recommendations</li>
+                    <li>Customized learning path</li>
+                    <li>Targeted exercise suggestions</li>
+                    <li>Estimated time to achieve your goals</li>
+                </ul>
+
+                <div class="info-card">
+                    <i class='bx bx-compass'></i>
+                    <h3>Ready to Begin?</h3>
+                    <p>Take the Pathfinder now to unlock your personalized learning journey!</p>
+                    <a href="start.html" class="btn-nav" style="display: inline-block; margin-top: 0.5rem;">Start Pathfinder →</a>
+                </div>
+            </div>
+
+            <!-- Courses & Modules -->
+            <div id="courses" class="content-section">
+                <h1>Courses & Modules</h1>
+                <p>Everything you need to know about our learning structure.</p>
+
+                <h2>Course Structure</h2>
+                <ul>
+                    <li><strong>Courses</strong> - Main learning tracks (e.g., Web Development, Data Science)</li>
+                    <li><strong>Modules</strong> - Subsections within courses focused on specific topics</li>
+                    <li><strong>Lessons</strong> - Individual units with video, text, and interactive content</li>
+                    <li><strong>Exercises</strong> - Practice questions to test your knowledge</li>
+                </ul>
+
+                <h2>Course Types</h2>
+                <ul>
+                    <li><strong>Beginner Friendly</strong> - No prior experience needed</li>
+                    <li><strong>Intermediate</strong> - Some basic knowledge required</li>
+                    <li><strong>Advanced</strong> - In-depth, professional-level content</li>
+                    <li><strong>Project-Based</strong> - Build real applications as you learn</li>
+                </ul>
+
+                <h2>How to Navigate Courses</h2>
+                <ol>
+                    <li>Browse courses from the Courses page</li>
+                    <li>Click "Enroll" to add to your learning path</li>
+                    <li>Access from your dashboard or course page</li>
+                    <li>Complete lessons in order or jump to specific topics</li>
+                    <li>Track your progress with completion indicators</li>
+                </ol>
+            </div>
+
+            <!-- Exercises & Exams -->
+            <div id="exercises" class="content-section">
+                <h1>Exercises & Exams</h1>
+                <p>Test your knowledge and earn Sparks.</p>
+
+                <h2>Exercise Modes</h2>
+                <ul>
+                    <li><strong>Practice Mode</strong> - 10 random questions, immediate feedback</li>
+                    <li><strong>Exam Mode</strong> - 30 questions, timed assessment</li>
+                    <li><strong>Retry System</strong> - One retry per question (half points)</li>
+                </ul>
+
+                <h2>Question Types</h2>
+                <ul>
+                    <li><strong>Multiple Choice</strong> - Select the correct option</li>
+                    <li><strong>True/False</strong> - Boolean questions</li>
+                    <li><strong>Fill in the Blanks</strong> - Type the missing word</li>
+                    <li><strong>Matching</strong> - Connect related items</li>
+                </ul>
+
+                <h2>Sparks System</h2>
+                <ul>
+                    <li><strong>Earn Sparks</strong> - Points for correct answers</li>
+                    <li><strong>First Try</strong> - Full points (e.g., 10 Sparks)</li>
+                    <li><strong>Retry</strong> - Half points (e.g., 5 Sparks)</li>
+                    <li><strong>Wrong Answer</strong> - 0 Sparks, but you learn the correct answer</li>
+                </ul>
+
+                <div class="info-card">
+                    <i class='bx bx-trophy'></i>
+                    <h3>Achievement Badges</h3>
+                    <p>Reach milestones to unlock special badges: Perfect Score, Speed Demon, Marathon Learner, and more!</p>
+                </div>
+            </div>
+
+            <!-- Lesson Studio -->
+            <div id="lessons" class="content-section">
+                <h1>Lesson Studio (For Educators)</h1>
+                <p>Create and manage interactive lessons.</p>
+
+                <h2>Block Types</h2>
+                <ul>
+                    <li><strong>📝 Text</strong> - Rich text editor with formatting</li>
+                    <li><strong>🎥 Video</strong> - Embed YouTube videos</li>
+                    <li><strong>🧠 Remember</strong> - Key points with review questions</li>
+                    <li><strong>❓ Question</strong> - Interactive exercises</li>
+                    <li><strong>🖼️ Image</strong> - Upload or link images</li>
+                    <li><strong>💻 Code</strong> - Code snippets with syntax highlighting</li>
+                    <li><strong>🔗 Embed</strong> - Embed external content</li>
+                </ul>
+
+                <h2>View Types</h2>
+                <ul>
+                    <li><strong>One Page</strong> - All blocks on a single scrollable page</li>
+                    <li><strong>Sections</strong> - Multiple navigable pages within a lesson</li>
+                </ul>
+
+                <h2>Exercise Bank</h2>
+                <p>Store reusable questions that can be used across multiple lessons. Question types include:</p>
+                <ul>
+                    <li>Multiple Choice</li>
+                    <li>True/False</li>
+                    <li>Complete the Sentence</li>
+                    <li>Drag & Drop Complete</li>
+                    <li>Matching</li>
+                </ul>
+            </div>
+
+            <!-- Sparks System -->
+            <div id="sparks" class="content-section">
+                <h1>Sparks System ✨</h1>
+                <p>Your rewards for learning and engagement.</p>
+
+                <h2>What are Sparks?</h2>
+                <p>Sparks are points you earn for completing learning activities. They represent your progress and engagement on the platform.</p>
+
+                <h2>How to Earn Sparks</h2>
+                <ul>
+                    <li><strong>Complete Lessons</strong> - 5-20 Sparks per lesson</li>
+                    <li><strong>Correct Answers</strong> - 10 Sparks per correct answer (full points)</li>
+                    <li><strong>Retry Success</strong> - 5 Sparks per correct retry (half points)</li>
+                    <li><strong>Course Completion</strong> - 100 Sparks bonus</li>
+                    <li><strong>Daily Login Streak</strong> - Bonus Sparks for consecutive days</li>
+                </ul>
+
+                <h2>What Can You Do With Sparks?</h2>
+                <ul>
+                    <li>Unlock special achievement badges</li>
+                    <li>Access advanced courses</li>
+                    <li>Get certificates of completion</li>
+                    <li>Leaderboard recognition</li>
+                    <li>Special rewards and discounts (coming soon)</li>
+                </ul>
+
+                <div class="info-card">
+                    <i class='bx bx-bulb'></i>
+                    <h3>Pro Tip</h3>
+                    <p>Consistency is key! Log in daily and complete at least one exercise to build your streak and maximize Sparks.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div id="faq" class="content-section">
+                <h1>Frequently Asked Questions</h1>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I reset my password?
+                        <i class='bx bx-chevron-down'></i>
+                    </div>
+                    <div class="faq-answer">Click "Sign In" then "Forgot Password?" on the login form. Enter your email address and we'll send you a password reset link. Check your spam folder if you don't see it within a few minutes.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I change my Pathfinder answers?
+                        <i class='bx bx-chevron-down'></i>
+                    </div>
+                    <div class="faq-answer">Yes! Go to your dashboard settings and select "Update Learning Preferences". You can retake the Pathfinder quiz at any time to update your recommendations.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How are Sparks calculated?
+                        <i class='bx bx-chevron-down'></i>
+                    </div>
+                    <div class="faq-answer">Sparks are awarded based on question difficulty and your attempt. First-time correct answers earn full points (10 Sparks). Retry correct answers earn half points (5 Sparks). Wrong answers earn 0 Sparks but show the correct answer for learning.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I download certificates?
+                        <i class='bx bx-chevron-down'></i>
+                    </div>
+                    <div class="faq-answer">Yes! Upon completing a course with at least 80% of exercises correct, you'll unlock a downloadable certificate. Find it in your dashboard under "Achievements".</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What's the difference between Exercise and Exam mode?
+                        <i class='bx bx-chevron-down'></i>
+                    </div>
+                    <div class="faq-answer">Exercise mode gives you 10 random questions with immediate feedback. Exam mode gives you 30 questions with a timer and simulates a real assessment. Both contribute to Sparks but Exam mode has higher point values.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I create my own lessons?
+                        <i class='bx bx-chevron-down'></i>
+                    </div>
+                    <div class="faq-answer">The Lesson Studio is available for educators and advanced users. Contact support to request creator access, or if you already have access, click "Create Lesson" from the admin dashboard.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I use Akademia on mobile?
+                        <i class='bx bx-chevron-down'></i>
+                    </div>
+                    <div class="faq-answer">Absolutely! Akademia is fully responsive and works on all devices. For the best experience, use a modern browser like Chrome, Safari, or Firefox.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I track my progress?
+                        <i class='bx bx-chevron-down'></i>
+                    </div>
+                    <div class="faq-answer">Your dashboard shows detailed progress metrics including course completion, exercise scores, Sparks earned, and time spent learning. You can also view individual lesson progress from the course page.</div>
+                </div>
+            </div>
+
+            <!-- Troubleshooting -->
+            <div id="troubleshooting" class="content-section">
+                <h1>Troubleshooting Guide</h1>
+                
+                <h2>Common Issues and Solutions</h2>
+                
+                <h3>❌ Can't log in to my account</h3>
+                <p>✓ Double-check your email/username and password<br>
+                ✓ Use "Forgot Password" to reset<br>
+                ✓ Clear your browser cache and cookies<br>
+                ✓ Try a different browser or incognito mode</p>
+
+                <h3>❌ Lessons won't load or save</h3>
+                <p>✓ Check your internet connection<br>
+                ✓ Refresh the page<br>
+                ✓ Clear browser cache<br>
+                ✓ Disable ad-blockers temporarily<br>
+                ✓ Try using Chrome or Firefox</p>
+
+                <h3>❌ Exercise answers not submitting</h3>
+                <p>✓ Make sure you've selected/typed an answer<br>
+                ✓ Check that you have a stable internet connection<br>
+                ✓ Refresh and try again (your progress auto-saves)<br>
+                ✓ Contact support if the issue persists</p>
+
+                <h3>❌ Sparks not updating</h3>
+                <p>✓ Refresh your dashboard<br>
+                ✓ Complete a new exercise to trigger update<br>
+                ✓ Check your internet connection<br>
+                ✓ Wait a few minutes - sometimes there's a slight delay</p>
+
+                <h3>❌ Can't upload profile picture</h3>
+                <p>✓ Ensure image is under 2MB<br>
+                ✓ Use JPG, PNG, or GIF format<br>
+                ✓ Check image dimensions (square works best)<br>
+                ✓ Try a different image</p>
+
+                <div class="info-card">
+                    <i class='bx bx-support'></i>
+                    <h3>Still Having Issues?</h3>
+                    <p>Contact our support team with details about your problem, including browser version and steps to reproduce.</p>
+                </div>
+            </div>
+
+            <!-- Contact Support -->
+            <div id="contact" class="content-section">
+                <h1>Contact Support</h1>
+                <p>We're here to help! Fill out the form below and we'll get back to you within 24 hours.</p>
+
+                <form class="contact-form" id="supportForm">
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" class="form-input" id="contactName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-input" id="contactEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Subject *</label>
+                        <select class="form-select" id="contactSubject" required>
+                            <option value="">Select a topic...</option>
+                            <option value="account">Account Issues</option>
+                            <option value="technical">Technical Problems</option>
+                            <option value="billing">Billing Questions</option>
+                            <option value="courses">Course Content</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message *</label>
+                        <textarea class="form-textarea" id="contactMessage" placeholder="Describe your issue in detail..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message →</button>
+                </form>
+
+                <div style="margin-top: 2rem; padding: 1rem; background: var(--gray-50); border-radius: var(--radius);">
+                    <h3>📧 Alternative Contact Methods</h3>
+                    <p><strong>Email:</strong> support@akademia.com<br>
+                    <strong>Response Time:</strong> 24 hours (business days)<br>
+                    <strong>Live Chat:</strong> Available Mon-Fri, 9am-5pm EST</p>
+                </div>
+            </div>
+
+            <!-- What's New -->
+            <div id="updates" class="content-section">
+                <h1>What's New at Akademia</h1>
+                <p>Latest updates and feature releases.</p>
+
+                <div class="info-card">
+                    <i class='bx bx-calendar'></i>
+                    <h3>February 2026</h3>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>✨ New Exercise Retry System - Get half points on second attempt</li>
+                        <li>📱 Mobile responsive improvements for all pages</li>
+                        <li>🎯 Enhanced Pathfinder with more personalized recommendations</li>
+                        <li>🐛 Bug fixes and performance optimizations</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <i class='bx bx-calendar'></i>
+                    <h3>January 2026</h3>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>🌟 Launched Sparks achievement system</li>
+                        <li>📚 Added 50+ new courses and lessons</li>
+                        <li>🎨 Redesigned dashboard with progress analytics</li>
+                        <li>🔍 Search functionality for courses and exercises</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <i class='bx bx-calendar'></i>
+                    <h3>December 2025</h3>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>🚀 Platform launch - Welcome to Akademia!</li>
+                        <li>📝 Interactive lesson builder with 7 block types</li>
+                        <li>💪 Exercise system with 5 question types</li>
+                        <li>🎓 Pathfinder onboarding with 20-step questionnaire</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <i class='bx bx-rocket'></i>
+                    <h3>Coming Soon</h3>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>🤖 AI-powered tutoring assistant</li>
+                        <li>👥 Group study and discussion forums</li>
+                        <li>🏆 Competitive leaderboards</li>
+                        <li>📱 Native mobile apps (iOS & Android)</li>
+                        <li>🎙️ Live instructor sessions</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Akademia. All rights reserved. | Empowering learners worldwide</p>
+    </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        const $ = id => document.getElementById(id);
+        
+        function showToast(msg, type = 'success') {
+            const container = $('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<i class='bx ${type === 'success' ? 'bx-check-circle' : 'bx-error-circle'}'></i> ${msg}`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+        }
+
+        // Section navigation
+        const sections = ['welcome', 'setup', 'dashboard', 'pathfinder', 'courses', 'exercises', 'lessons', 'sparks', 'faq', 'troubleshooting', 'contact', 'updates'];
+        
+        function showSection(sectionId) {
+            // Hide all sections
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                if (section) section.classList.remove('active');
+            });
+            
+            // Show selected section
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) activeSection.classList.add('active');
+            
+            // Update sidebar active state
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.section === sectionId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update URL hash without scrolling
+            history.pushState(null, null, `#${sectionId}`);
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Handle sidebar clicks
+        document.querySelectorAll('.sidebar-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = link.dataset.section;
+                if (section) showSection(section);
+            });
+        });
+        
+        // Handle hash on load
+        function handleHash() {
+            const hash = window.location.hash.substring(1);
+            if (hash && sections.includes(hash)) {
+                showSection(hash);
+            } else {
+                showSection('welcome');
+            }
+        }
+        
+        window.addEventListener('hashchange', handleHash);
+        handleHash();
+        
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('open');
+            });
+        });
+        
+        // Search functionality
+        const searchInput = $('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                if (!query) return;
+                
+                // Search across all content sections
+                let found = false;
+                sections.forEach(sectionId => {
+                    const section = document.getElementById(sectionId);
+                    if (section) {
+                        const text = section.textContent.toLowerCase();
+                        if (text.includes(query) && !found) {
+                            showSection(sectionId);
+                            found = true;
+                            showToast(`Found results for "${query}" in this section`, 'success');
+                        }
+                    }
+                });
+                
+                if (!found && query) {
+                    showToast(`No results found for "${query}". Try different keywords.`, 'error');
+                }
+            });
+        }
+        
+        // Contact form submission
+        const supportForm = $('supportForm');
+        if (supportForm) {
+            supportForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = $('contactName')?.value.trim();
+                const email = $('contactEmail')?.value.trim();
+                const subject = $('contactSubject')?.value;
+                const message = $('contactMessage')?.value.trim();
+                
+                if (!name || !email || !subject || !message) {
+                    showToast('Please fill in all fields', 'error');
+                    return;
+                }
+                
+                if (!email.includes('@') || !email.includes('.')) {
+                    showToast('Please enter a valid email address', 'error');
+                    return;
+                }
+                
+                // Save to localStorage for demo
+                const supportTickets = JSON.parse(localStorage.getItem('ak_support_tickets') || '[]');
+                supportTickets.push({
+                    id: Date.now(),
+                    name, email, subject, message,
+                    date: new Date().toISOString(),
+                    status: 'pending'
+                });
+                localStorage.setItem('ak_support_tickets', JSON.stringify(supportTickets));
+                
+                showToast('Message sent! We\'ll respond within 24 hours.', 'success');
+                supportForm.reset();
+            });
+        }
+        
+        console.log('🚀 Help Center loaded - Complete documentation and support system ready!');
+    </script>
+</body>
+</html>
