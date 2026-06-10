@@ -56,6 +56,7 @@
         .btn-primary { background: var(--primary); color: white; } .btn-primary:hover { background: var(--primary-dark); }
         .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); } .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
         .btn-success { background: var(--success); color: white; } .btn-success:hover { background: var(--success-dark); }
+        .btn-warning { background: var(--warning); color: white; } .btn-warning:hover { background: var(--warning-dark); }
         .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.813rem; }
 
         .main-content { flex: 1; overflow-y: auto; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
@@ -85,6 +86,7 @@
         .progress-dot.correct { background: var(--success); }
         .progress-dot.wrong { background: var(--danger); }
         .progress-dot.current { background: var(--primary); width: 10px; height: 10px; box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
+        .progress-dot.retry { background: var(--warning); }
 
         /* QUESTION CARD - W3Schools Inspired */
         .question-card {
@@ -127,16 +129,18 @@
             font-family: 'Source Code Pro', 'JetBrains Mono', monospace; font-size: 0.938rem;
             line-height: 2; color: #cdd6f4; border: 1px solid rgba(255,255,255,0.1);
             margin-bottom: 1rem;
+            word-break: break-word;
         }
         .complete-input-inline {
             display: inline-block; padding: 0.1875rem 0.5rem; border: none;
             border-bottom: 2px solid var(--warning); background: rgba(255,255,255,0.1);
             color: white; font-family: 'Source Code Pro', 'JetBrains Mono', monospace;
-            font-size: 0.938rem; outline: none; min-width: 80px; text-align: center;
+            font-size: 0.938rem; outline: none; min-width: 120px; text-align: center;
             border-radius: 3px 3px 0 0; transition: all var(--transition);
+            margin: 0 0.25rem;
         }
         .complete-input-inline:focus { border-bottom-color: var(--success); background: rgba(255,255,255,0.15); }
-        .complete-input-inline:disabled { opacity: 0.7; }
+        .complete-input-inline:disabled { opacity: 0.7; cursor: not-allowed; }
         .submit-inline-btn { margin-top: 0.75rem; text-align: center; }
 
         /* Matching */
@@ -162,8 +166,10 @@
         .feedback-overlay.show { display: flex; }
         .feedback-overlay.correct { background: rgba(4,170,109,0.9); }
         .feedback-overlay.wrong { background: rgba(220,38,38,0.9); }
+        .feedback-overlay.retry { background: rgba(245,158,11,0.9); }
         .feedback-overlay h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 0.5rem; color: white; }
-        .feedback-overlay button { margin-top: 1rem; }
+        .feedback-overlay p { color: rgba(255,255,255,0.9); margin-bottom: 0.5rem; }
+        .feedback-overlay button { margin-top: 0.5rem; }
 
         .nav-row { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.25rem; }
         .nav-row .btn { min-width: 130px; justify-content: center; }
@@ -189,7 +195,7 @@
 
         .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
         .toast { background: var(--gray-900); color: white; padding: 0.75rem 1rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; max-width: 360px; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
-        .toast.success { background: #059669; } .toast.error { background: #DC2626; }
+        .toast.success { background: #059669; } .toast.error { background: #DC2626; } .toast.warning { background: #D97706; }
         @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
         @media (max-width: 600px) {
@@ -224,12 +230,14 @@
     <script>
         // Use regular script (not module) to avoid CORS issues with Firestore
         var $ = function(id) { return document.getElementById(id); };
-        var toast = function(msg, type) { var c = $('toastContainer'); var t = document.createElement('div'); t.className = 'toast ' + (type || 'success'); t.innerHTML = '<i class="bx ' + (type === 'success' ? 'bx-check-circle' : 'bx-x-circle') + '"></i> ' + msg; t.addEventListener('click', function() { t.remove(); }); c.appendChild(t); setTimeout(function() { if (t.parentElement) t.remove(); }, 3500); };
+        var toast = function(msg, type) { var c = $('toastContainer'); var t = document.createElement('div'); t.className = 'toast ' + (type || 'success'); t.innerHTML = '<i class="bx ' + (type === 'success' ? 'bx-check-circle' : type === 'warning' ? 'bx-error-circle' : 'bx-x-circle') + '"></i> ' + msg; t.addEventListener('click', function() { t.remove(); }); c.appendChild(t); setTimeout(function() { if (t.parentElement) t.remove(); }, 3500); };
 
         var App = {
             user: null, courses: [], modules: [], lessons: [],
             allQuestions: [], currentQuestions: [], mode: '',
             questionLimit: 10, currentIndex: 0, score: 0, answers: [],
+            retryUsed: [],  // Track if retry was used for each question
+            retryAnswers: [], // Store retry answers separately
             timer: null, timerSeconds: 0, isLoggedIn: false,
             guestExerciseLimit: 5, guestExamLimit: 10,
             filterCourseId: null, filterModuleId: null, filterLessonId: null,
@@ -251,16 +259,12 @@
             try { App.courses = JSON.parse(localStorage.getItem('ak_courses') || '[]'); } catch(e) { App.courses = []; }
             try { App.modules = JSON.parse(localStorage.getItem('ak_modules') || '[]'); } catch(e) { App.modules = []; }
             try { App.lessons = JSON.parse(localStorage.getItem('ak_lessons') || '[]'); } catch(e) { App.lessons = []; }
-            // Also check ak_exbank for exercise bank questions
             extractAllQuestions();
             proceedAfterLoad();
         }
 
         // Try Firebase, fallback to localStorage
         function loadData() {
-            // Try to import Firebase dynamically
-            var firebaseReady = false;
-            
             try {
                 import('./js/firebase.js').then(function(fb) {
                     var db = fb.db;
@@ -286,12 +290,10 @@
                             App.modules = []; results[1].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.modules.push(o); });
                             App.lessons = []; results[2].docs.forEach(function(d) { var o = d.data(); o.id = d.id; App.lessons.push(o); });
                             
-                            // Save to localStorage
                             localStorage.setItem('ak_courses', JSON.stringify(App.courses));
                             localStorage.setItem('ak_modules', JSON.stringify(App.modules));
                             localStorage.setItem('ak_lessons', JSON.stringify(App.lessons));
                             
-                            // If specific lesson requested, load its exercise bank
                             if (App.filterLessonId) {
                                 getDoc(doc(db, 'lessons', App.filterLessonId)).then(function(snap) {
                                     if (snap.exists()) {
@@ -323,7 +325,6 @@
                 loadLocalData();
             }
             
-            // Set a timeout - if Firebase doesn't respond in 3 seconds, use localStorage
             setTimeout(function() {
                 if (!App.allQuestions.length && !App.courses.length) {
                     console.warn('Firebase timeout, using localStorage');
@@ -349,10 +350,8 @@
 
         function extractFromAllLessons() {
             App.lessons.forEach(function(lesson) {
-                // Exercise bank
                 var bank = lesson.exerciseBank || [];
                 bank.forEach(function(q) { if (q.question) App.allQuestions.push(formatQuestion(q, lesson, 'exercise_bank')); });
-                // Question blocks
                 (lesson.pages || []).forEach(function(page) {
                     (page.blocks || []).forEach(function(block) {
                         if ((block.type === 'question' || block.type === 'remember-question') && block.question) {
@@ -366,7 +365,6 @@
         function extractAllQuestions() {
             App.allQuestions = [];
             
-            // Also try ak_exbank from localStorage (legacy shared bank)
             try {
                 var legacyBank = JSON.parse(localStorage.getItem('ak_exbank') || '[]');
                 legacyBank.forEach(function(q) {
@@ -380,7 +378,6 @@
                 });
             } catch(e) {}
 
-            // From lessons
             App.lessons.forEach(function(lesson) {
                 var bank = lesson.exerciseBank || [];
                 bank.forEach(function(q) { if (q.question) App.allQuestions.push(formatQuestion(q, lesson, 'exercise_bank')); });
@@ -393,12 +390,10 @@
                 });
             });
 
-            // Apply filters
             if (App.filterCourseId) App.allQuestions = App.allQuestions.filter(function(q) { return q.courseId === App.filterCourseId || q.source === 'legacy_bank'; });
             if (App.filterModuleId) App.allQuestions = App.allQuestions.filter(function(q) { return q.moduleId === App.filterModuleId; });
             if (App.filterLessonId) App.allQuestions = App.allQuestions.filter(function(q) { return q.lessonId === App.filterLessonId; });
             
-            // Set names
             if (App.filterCourseId) { var c = App.courses.find(function(x) { return x.id === App.filterCourseId; }); App.filterCourseName = c ? c.name : ''; }
             if (App.filterModuleId) { var m = App.modules.find(function(x) { return x.id === App.filterModuleId; }); App.filterModuleName = m ? m.name : ''; }
             if (App.filterLessonId) { var l = App.lessons.find(function(x) { return x.id === App.filterLessonId; }); App.filterLessonName = l ? (l.title || '') : ''; }
@@ -445,6 +440,8 @@
             App.currentQuestions = shuffled.slice(0, App.questionLimit);
             App.currentIndex = 0; App.score = 0;
             App.answers = new Array(App.currentQuestions.length);
+            App.retryUsed = new Array(App.currentQuestions.length).fill(false);
+            App.retryAnswers = new Array(App.currentQuestions.length);
             App.timerSeconds = 0; App.matchingSelections = {}; App.matchingLeftSelected = null;
             $('topbarMode').style.display = ''; $('topbarMode').textContent = mode === 'exercise' ? 'Exercise' : 'Exam';
             $('topbarMode').className = 'topbar-mode ' + mode;
@@ -468,24 +465,46 @@
             var q = App.currentQuestions[App.currentIndex];
             var userAns = App.answers[App.currentIndex];
             var isAnswered = userAns !== undefined;
+            var retryUsed = App.retryUsed[App.currentIndex];
             var totalShow = App.isLoggedIn ? App.currentQuestions.length : Math.min(App.currentQuestions.length, guestMax);
             var dotsHTML = '';
-            for (var d = 0; d < totalShow; d++) { var dc = ''; if (App.answers[d] !== undefined) { dc = App.answers[d] === App.currentQuestions[d].correctAnswer ? 'correct' : 'wrong'; } else if (d === App.currentIndex) { dc = 'current'; } dotsHTML += '<div class="progress-dot ' + dc + '"></div>'; }
+            for (var d = 0; d < totalShow; d++) { 
+                var dc = ''; 
+                if (App.answers[d] !== undefined) { 
+                    if (App.retryUsed[d]) { 
+                        dc = 'retry'; 
+                    } else {
+                        dc = App.answers[d] === App.currentQuestions[d].correctAnswer ? 'correct' : 'wrong'; 
+                    }
+                } else if (d === App.currentIndex) { 
+                    dc = 'current'; 
+                }
+                dotsHTML += '<div class="progress-dot ' + dc + '"></div>'; 
+            }
 
             var bodyHTML = '';
-            if (q.questionType === 'matching') bodyHTML = renderMatchingQuestion(q, isAnswered);
-            else if (q.questionType === 'boolean') bodyHTML = renderBooleanQuestion(q, isAnswered);
-            else if (q.questionType === 'complete-text' || q.questionType === 'complete' || q.questionType === 'complete-drag') bodyHTML = renderCompleteQuestion(q, isAnswered);
-            else bodyHTML = renderMCQQuestion(q, isAnswered);
+            if (q.questionType === 'matching') bodyHTML = renderMatchingQuestion(q, isAnswered, retryUsed);
+            else if (q.questionType === 'boolean') bodyHTML = renderBooleanQuestion(q, isAnswered, retryUsed);
+            else if (q.questionType === 'complete-text' || q.questionType === 'complete' || q.questionType === 'complete-drag') bodyHTML = renderCompleteQuestion(q, isAnswered, retryUsed);
+            else bodyHTML = renderMCQQuestion(q, isAnswered, retryUsed);
 
             var feedbackOverlay = '';
-            if (isAnswered) {
+            if (isAnswered && !retryUsed) {
                 var correct = q.correctAnswer;
                 var isCorrect = (q.questionType === 'matching') ? (userAns === q.correctAnswer) : (userAns === correct);
                 feedbackOverlay = '<div class="feedback-overlay show ' + (isCorrect ? 'correct' : 'wrong') + '">' +
-                    '<h2>' + (isCorrect ? '✅ Correct Answer!' : '❌ Wrong Answer!') + '</h2>' +
-                    '<p style="color:rgba(255,255,255,0.8);">' + (isCorrect ? '+ ' + (q.points||10) + ' Sparks' : '') + '</p>' +
+                    '<h2>' + (isCorrect ? '✅ Correct!' : '❌ Wrong!') + '</h2>' +
+                    '<p>' + (isCorrect ? '+ ' + (q.points || 10) + ' Sparks' : '') + '</p>' +
+                    (!isCorrect ? '<button class="btn btn-warning" onclick="retryQuestion()"><i class="bx bx-refresh"></i> Retry → (Half Points)</button>' : '') +
                     '<button class="btn btn-primary" onclick="nextQuestion()" style="background:white;color:' + (isCorrect ? 'var(--success-dark)' : 'var(--danger-dark)') + ';">' + (App.currentIndex < App.currentQuestions.length - 1 ? 'Next Question →' : 'See Results →') + '</button>' +
+                '</div>';
+            } else if (isAnswered && retryUsed) {
+                var wasCorrectOnRetry = userAns === q.correctAnswer;
+                feedbackOverlay = '<div class="feedback-overlay show ' + (wasCorrectOnRetry ? 'correct' : 'wrong') + '">' +
+                    '<h2>' + (wasCorrectOnRetry ? '✅ Correct on Retry!' : '❌ Still Wrong!') + '</h2>' +
+                    '<p>' + (wasCorrectOnRetry ? '+ ' + Math.floor((q.points || 10) / 2) + ' Sparks (Half Points)' : '0 Sparks') + '</p>' +
+                    '<p style="font-size:0.813rem;">' + (wasCorrectOnRetry ? 'Great job recovering!' : 'Correct answer: ' + (q.options ? q.options[q.correctAnswer] : q.correctAnswer)) + '</p>' +
+                    '<button class="btn btn-primary" onclick="nextQuestion()">Continue →</button>' +
                 '</div>';
             }
 
@@ -493,19 +512,35 @@
             $('exerciseContainer').innerHTML = '' +
                 '<div class="progress-section"><div class="progress-header"><span>Question ' + (App.currentIndex + 1) + ' of ' + totalShow + '</span><span>' + progress + '%</span></div><div class="progress-bar"><div class="progress-fill" style="width:' + progress + '%;"></div></div></div>' +
                 '<div class="question-card" style="position:relative;">' +
-                    '<div class="q-meta"><span class="q-number">Question ' + (App.currentIndex + 1) + '</span>' + (q.courseName ? '<span class="q-course">' + q.courseName + '</span>' : '') + '<span class="q-points"><i class="bx bxs-star"></i> ' + (q.points || 10) + ' pts</span></div>' +
+                    '<div class="q-meta"><span class="q-number">Question ' + (App.currentIndex + 1) + '</span>' + (q.courseName ? '<span class="q-course">' + q.courseName + '</span>' : '') + '<span class="q-points"><i class="bx bxs-star"></i> ' + (q.points || 10) + ' pts</span>' +
+                    (retryUsed ? '<span class="q-points" style="color:var(--warning);"><i class="bx bx-refresh"></i> Retry Attempt Used</span>' : '') +
+                    '</div>' +
                     '<div class="q-text">' + (q.question || 'Question') + '</div>' + bodyHTML +
                     feedbackOverlay +
                 '</div><div class="progress-dots">' + dotsHTML + '</div>';
         }
 
+        window.retryQuestion = function() {
+            if (App.retryUsed[App.currentIndex]) return;
+            App.retryUsed[App.currentIndex] = true;
+            // Clear the answer so user can try again
+            App.answers[App.currentIndex] = undefined;
+            renderQuestion();
+            toast('Retry mode active! Half points if correct.', 'warning');
+        };
+
         // ============ MCQ - W3Schools Style Radio Buttons ============
-        function renderMCQQuestion(q, isAnswered) {
+        function renderMCQQuestion(q, isAnswered, retryUsed) {
             var opts = q.options || []; var correct = q.correctAnswer; var userAns = App.answers[App.currentIndex];
             var h = '<div class="mcq-options">';
             for (var i = 0; i < opts.length; i++) {
                 if (!opts[i] && opts[i] !== '') continue;
-                var cls = ''; if (userAns === i) { cls = userAns === correct ? 'correct-show' : 'wrong-show'; } else if (isAnswered && correct === i) { cls = 'correct-show'; }
+                var cls = ''; 
+                if (userAns === i) { 
+                    cls = userAns === correct ? 'correct-show' : 'wrong-show'; 
+                } else if (isAnswered && correct === i) { 
+                    cls = 'correct-show'; 
+                }
                 h += '<div class="mcq-opt ' + cls + '" onclick="answerMCQ(' + i + ')">' +
                     '<input type="radio" name="mcq" id="mcq' + i + '" ' + (userAns === i ? 'checked' : '') + (isAnswered ? ' disabled' : '') + '>' +
                     '<label for="mcq' + i + '">' + (opts[i] || 'Option ' + String.fromCharCode(65 + i)) + '</label></div>';
@@ -517,10 +552,11 @@
 
         window.answerMCQ = function(index) {
             if (App.answers[App.currentIndex] !== undefined) return;
-            // Just select, don't submit yet
             document.querySelectorAll('.mcq-opt').forEach(function(el) { el.classList.remove('correct-show', 'wrong-show'); });
-            document.querySelectorAll('.mcq-opt')[index].classList.add('selected');
-            document.getElementById('mcq' + index).checked = true;
+            var opts = document.querySelectorAll('.mcq-opt');
+            if (opts[index]) opts[index].classList.add('selected');
+            var radio = document.getElementById('mcq' + index);
+            if (radio) radio.checked = true;
         };
 
         window.submitMCQ = function() {
@@ -530,13 +566,25 @@
             var index = parseInt(selected.id.replace('mcq', ''));
             var q = App.currentQuestions[App.currentIndex];
             var correct = index === q.correctAnswer;
+            
+            var pointsEarned = 0;
+            if (correct) {
+                var isRetry = App.retryUsed[App.currentIndex];
+                pointsEarned = isRetry ? Math.floor((q.points || 10) / 2) : (q.points || 10);
+                App.score += pointsEarned;
+                updateScore();
+                awardSparks(pointsEarned);
+                toast(pointsEarned > 0 ? '+' + pointsEarned + ' Sparks!' : 'Correct!', 'success');
+            } else {
+                toast('Wrong answer!', 'error');
+            }
+            
             App.answers[App.currentIndex] = index;
-            if (correct) { App.score += (q.points || 10); updateScore(); awardSparks(q.points || 10); }
             renderQuestion();
         };
 
         // ============ BOOLEAN ============
-        function renderBooleanQuestion(q, isAnswered) {
+        function renderBooleanQuestion(q, isAnswered, retryUsed) {
             var correct = q.correctAnswer; var userAns = App.answers[App.currentIndex];
             var h = '<div class="bool-group">' +
                 '<button class="bool-btn' + (userAns === 0 ? ' correct-show' : '') + '" onclick="answerBool(0)"' + (isAnswered ? ' disabled' : '') + '><i class="bx bx-check"></i> True</button>' +
@@ -549,42 +597,87 @@
             if (App.answers[App.currentIndex] !== undefined) return;
             var q = App.currentQuestions[App.currentIndex];
             var correct = index === q.correctAnswer;
+            
+            var pointsEarned = 0;
+            if (correct) {
+                var isRetry = App.retryUsed[App.currentIndex];
+                pointsEarned = isRetry ? Math.floor((q.points || 10) / 2) : (q.points || 10);
+                App.score += pointsEarned;
+                updateScore();
+                awardSparks(pointsEarned);
+                toast(pointsEarned > 0 ? '+' + pointsEarned + ' Sparks!' : 'Correct!', 'success');
+            } else {
+                toast('Wrong answer!', 'error');
+            }
+            
             App.answers[App.currentIndex] = index;
-            if (correct) { App.score += (q.points || 10); updateScore(); awardSparks(q.points || 10); }
             renderQuestion();
         };
 
-        // ============ COMPLETE - W3Schools Fill-in-Blanks Style ============
-        function renderCompleteQuestion(q, isAnswered) {
+        // ============ COMPLETE - Fill-in-Blanks Style (FIXED) ============
+        function renderCompleteQuestion(q, isAnswered, retryUsed) {
             var sentence = q.sentence || q.question || '';
-            var correctAns = ((q.options || [])[q.correctAnswer] || '');
-            var userAns = App.answers[App.currentIndex];
-            var displaySentence = sentence.replace(/____/g, '<input type="text" class="complete-input-inline" id="completeInput" placeholder="?" ' + (isAnswered ? 'disabled' : '') + '>');
+            // Handle multiple blanks
+            var blankCount = (sentence.match(/____/g) || []).length;
+            var displaySentence = sentence;
+            
+            // Replace each ____ with an input box
+            for (var i = 0; i < blankCount; i++) {
+                displaySentence = displaySentence.replace(/____/, '<input type="text" class="complete-input-inline" id="completeInput_' + i + '" placeholder="?" ' + (isAnswered ? 'disabled' : '') + '>');
+            }
             
             var h = '<div class="complete-container"><div class="complete-sentence">' + displaySentence + '</div>';
             if (!isAnswered) h += '<div class="submit-inline-btn"><button class="btn btn-primary" onclick="submitCompleteAnswer()">Submit Answer →</button></div>';
             h += '</div>';
             
-            // Focus the input
-            setTimeout(function() { var inp = $('completeInput'); if (inp) inp.focus(); }, 100);
+            setTimeout(function() { 
+                var inp = $('completeInput_0'); 
+                if (inp) inp.focus(); 
+            }, 100);
             
             return h;
         }
 
         window.submitCompleteAnswer = function() {
             if (App.answers[App.currentIndex] !== undefined) return;
-            var input = $('completeInput'); if (!input) return;
-            var val = input.value.trim(); if (!val) { toast('Please type an answer', 'error'); return; }
+            
             var q = App.currentQuestions[App.currentIndex];
-            var correctAns = ((q.options || [])[q.correctAnswer] || '').toLowerCase();
-            var isCorrect = val.toLowerCase() === correctAns;
+            var correctAns = ((q.options || [])[q.correctAnswer] || '').toLowerCase().trim();
+            
+            // Get all input values
+            var inputs = document.querySelectorAll('.complete-input-inline');
+            var userAnswers = [];
+            for (var i = 0; i < inputs.length; i++) {
+                userAnswers.push(inputs[i].value.trim().toLowerCase());
+            }
+            
+            // Check if any blank is empty
+            if (userAnswers.some(function(a) { return a === ''; })) {
+                toast('Please fill in all blanks', 'error');
+                return;
+            }
+            
+            // For now, assume single blank or check first blank
+            var isCorrect = userAnswers[0] === correctAns;
+            
+            var pointsEarned = 0;
+            if (isCorrect) {
+                var isRetry = App.retryUsed[App.currentIndex];
+                pointsEarned = isRetry ? Math.floor((q.points || 10) / 2) : (q.points || 10);
+                App.score += pointsEarned;
+                updateScore();
+                awardSparks(pointsEarned);
+                toast(pointsEarned > 0 ? '+' + pointsEarned + ' Sparks!' : 'Correct!', 'success');
+            } else {
+                toast('Wrong answer! Correct answer: ' + correctAns, 'error');
+            }
+            
             App.answers[App.currentIndex] = isCorrect ? q.correctAnswer : -1;
-            if (isCorrect) { App.score += (q.points || 10); updateScore(); awardSparks(q.points || 10); }
             renderQuestion();
         };
 
         // ============ MATCHING ============
-        function renderMatchingQuestion(q, isAnswered) {
+        function renderMatchingQuestion(q, isAnswered, retryUsed) {
             App.matchingSelections = {}; App.matchingLeftSelected = null;
             var leftItems = (q.options || []).filter(function(x) { return x && x.trim(); });
             var rightItems = (q.matchingRight || []).filter(function(x) { return x && x.trim(); });
@@ -635,16 +728,32 @@
             var totalPairs = leftItems.length || 1; var correctPairs = 0;
             Object.keys(App.matchingSelections).forEach(function(li) { if (App.matchingSelections[li] === parseInt(li)) correctPairs++; });
             var earnedPoints = Math.round((q.points || 10) * (correctPairs / totalPairs));
+            
+            var isRetry = App.retryUsed[App.currentIndex];
+            if (isRetry) earnedPoints = Math.floor(earnedPoints / 2);
+            
             App.answers[App.currentIndex] = correctPairs === totalPairs ? q.correctAnswer : -1;
             App.score += earnedPoints; updateScore();
             if (earnedPoints > 0) awardSparks(earnedPoints);
             document.querySelectorAll('.left-item, .right-item').forEach(function(el) { el.style.pointerEvents = 'none'; });
             var sb = document.querySelector('.match-submit-wrap'); if (sb) sb.style.display = 'none';
+            toast(earnedPoints > 0 ? '+' + earnedPoints + ' Sparks!' : 'No points earned', earnedPoints > 0 ? 'success' : 'error');
             renderQuestion();
         };
 
-        window.nextQuestion = function() { if (App.currentIndex < App.currentQuestions.length - 1) { App.currentIndex++; renderQuestion(); } else { showResults(); } };
-        function awardSparks(pts) { var c = parseInt(localStorage.getItem('ak_sparks') || '0'); localStorage.setItem('ak_sparks', String(c + pts)); }
+        window.nextQuestion = function() { 
+            if (App.currentIndex < App.currentQuestions.length - 1) { 
+                App.currentIndex++; 
+                renderQuestion(); 
+            } else { 
+                showResults(); 
+            } 
+        };
+        
+        function awardSparks(pts) { 
+            var c = parseInt(localStorage.getItem('ak_sparks') || '0'); 
+            localStorage.setItem('ak_sparks', String(c + pts)); 
+        }
 
         function renderLoginGate() {
             var gm = App.mode === 'exercise' ? App.guestExerciseLimit : App.guestExamLimit;
@@ -656,7 +765,9 @@
         function showResults() {
             clearInterval(App.timer);
             var total = App.currentQuestions.length; var correct = 0;
-            for (var i = 0; i < App.answers.length; i++) { if (App.answers[i] === App.currentQuestions[i].correctAnswer) correct++; }
+            for (var i = 0; i < App.answers.length; i++) { 
+                if (App.answers[i] === App.currentQuestions[i].correctAnswer) correct++; 
+            }
             var pct = Math.round((correct / total) * 100);
             var grade = pct >= 90 ? 'Excellent!' : pct >= 70 ? 'Great Job!' : pct >= 50 ? 'Good Effort!' : 'Keep Practicing!';
             var gColor = pct >= 90 ? 'var(--success)' : pct >= 70 ? 'var(--primary)' : pct >= 50 ? 'var(--warning)' : 'var(--danger)';
@@ -673,7 +784,10 @@
         window.retrySession = function() {
             var shuffled = App.allQuestions.slice().sort(function() { return Math.random() - 0.5; });
             App.currentQuestions = shuffled.slice(0, App.questionLimit);
-            App.currentIndex = 0; App.score = 0; App.answers = new Array(App.currentQuestions.length);
+            App.currentIndex = 0; App.score = 0; 
+            App.answers = new Array(App.currentQuestions.length);
+            App.retryUsed = new Array(App.currentQuestions.length).fill(false);
+            App.retryAnswers = new Array(App.currentQuestions.length);
             App.timerSeconds = 0; App.matchingSelections = {}; App.matchingLeftSelected = null;
             updateScore(); startTimer(); renderQuestion();
         };
@@ -687,10 +801,9 @@
 
         // ============ INIT ============
         parseURL();
-        // Check if user is logged in from localStorage
         if (localStorage.getItem('ak_user')) App.isLoggedIn = true;
         loadData();
-        console.log('🚀 Akademia Exercise System ready!');
+        console.log('🚀 Akademia Exercise System ready! - Upgraded with Retry System');
     </script>
 </body>
 </html>
