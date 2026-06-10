@@ -2,1053 +2,827 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    
-    <!-- SEO Meta Tags -->
-    <title>Akademia Help Center | Support & Documentation</title>
-    <meta name="description" content="Get help with Akademia - the premier tech learning platform. Access documentation, FAQs, tutorials, and 24/7 support for all your learning needs.">
-    <meta name="keywords" content="Akademia help, support, documentation, FAQs, tech learning, coding help, tutorial support, online learning help">
-    <meta name="author" content="Pireactive">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
-    <meta name="revisit-after" content="7 days">
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Akademia Help Center - Get Support">
-    <meta property="og:description" content="Comprehensive help and documentation for Akademia learning platform">
-    <meta property="og:image" content="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png">
-    <meta property="og:url" content="https://akademia.vercel.app/help-center.html">
-    <meta property="og:type" content="website">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Akademia Help Center">
-    <meta name="twitter:description" content="Get help and support for your learning journey">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://akademia.vercel.app/help-center.html">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png">
-    
-    <!-- Schema Markup -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Akademia",
-        "url": "https://akademia.vercel.app",
-        "logo": "https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png",
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+250795065789",
-            "contactType": "customer service",
-            "email": "rwandapiclub@gmail.com",
-            "availableLanguage": ["English"]
-        },
-        "sameAs": [
-            "https://pireactive.vercel.app"
-        ]
-    }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademia · Documentation</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
     <style>
-        :root {
-            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-bg: #EFF6FF;
-            --accent: #8B5CF6; --accent-dark: #7C3AED; --accent-bg: #F5F3FF;
-            --success: #04AA6D; --success-bg: #ECFDF5;
-            --warning: #F59E0B; --warning-bg: #FFFBEB;
-            --danger: #EF4444; --danger-bg: #FEF2F2;
-            --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
-            --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
-            --gray-800: #1f2937; --gray-900: #111827;
-            --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 20px;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-            --shadow: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
-            --shadow-lg: 0 20px 50px rgba(0,0,0,0.1);
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--gray-50);
-            color: var(--gray-800);
-            -webkit-font-smoothing: antialiased;
+            background: #fafbfc;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1e293b;
+            line-height: 1.5;
         }
 
-        /* Navigation */
-        .navbar {
-            position: sticky; top: 0; left: 0; right: 0;
-            background: rgba(255,255,255,0.98);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--gray-200);
-            z-index: 1000;
-            padding: 0.75rem 2rem;
+        /* Typography - clean, readable */
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.01em;
         }
-        .nav-container {
-            max-width: 1400px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
         }
-        .logo {
-            display: flex; align-items: center; gap: 0.5rem;
+
+        h2 {
+            font-size: 1.25rem;
+            margin: 1.75rem 0 0.75rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        h3 {
+            font-size: 1rem;
+            margin: 1.25rem 0 0.5rem;
+        }
+
+        p {
+            color: #475569;
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: #2563eb;
             text-decoration: none;
         }
-        .logo img { height: 36px; width: auto; transition: transform var(--transition); }
-        .logo img:hover { transform: scale(1.05); }
-        .logo span {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.25rem; font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .nav-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
-        .nav-links a {
-            text-decoration: none; color: var(--gray-600);
-            font-weight: 500; transition: all var(--transition);
-            font-size: 0.875rem;
-            position: relative;
-        }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -4px; left: 0;
-            width: 0; height: 2px; background: var(--primary);
-            transition: width var(--transition);
-        }
-        .nav-links a:hover::after, .nav-links a.active::after {
-            width: 100%;
-        }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
-        .btn-nav {
-            padding: 0.5rem 1.25rem; border-radius: 100px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white; text-decoration: none; font-weight: 600;
-            font-size: 0.875rem; transition: all var(--transition);
-            box-shadow: var(--shadow-sm);
-        }
-        .btn-nav:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 4rem 2rem;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: -50%; right: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 20s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-10%, -10%) rotate(5deg); }
-        }
-        .hero-container {
-            max-width: 800px; margin: 0 auto;
-            position: relative; z-index: 1;
-        }
-        .hero h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.5rem; font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        .hero p { font-size: 1.125rem; opacity: 0.95; margin-bottom: 2rem; }
-        .search-box {
-            max-width: 600px; margin: 0 auto;
-            position: relative;
-        }
-        .search-box i {
-            position: absolute; left: 1rem; top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.25rem; color: var(--gray-400);
-        }
-        .search-box input {
-            width: 100%; padding: 1rem 1rem 1rem 3rem;
-            border: none; border-radius: 100px;
-            font-size: 1rem; outline: none;
-            box-shadow: var(--shadow-lg);
-            transition: all var(--transition);
-        }
-        .search-box input:focus { outline: 2px solid var(--primary); transform: scale(1.02); }
-
-        /* Main Content */
-        .main-content {
-            max-width: 1400px; margin: 0 auto;
-            padding: 3rem 2rem;
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 2rem;
+        a:hover {
+            text-decoration: underline;
         }
 
-        /* Sidebar */
-        .sidebar {
-            position: sticky; top: 80px;
-            height: fit-content;
+        ul, ol {
+            margin: 0.75rem 0 1rem 1.5rem;
+            color: #475569;
         }
-        .sidebar-section {
-            background: white;
-            border-radius: var(--radius-xl);
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--gray-200);
-            transition: all var(--transition);
+
+        li {
+            margin-bottom: 0.375rem;
         }
-        .sidebar-section:hover { box-shadow: var(--shadow-md); }
-        .sidebar-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.875rem; font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--primary-bg);
+
+        code {
+            background: #f1f5f9;
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8125rem;
+            color: #e11d48;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin: 2rem 0;
+        }
+
+        /* Layout */
+        .docs-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar — tree style */
+        .docs-sidebar {
+            width: 280px;
+            background: #ffffff;
+            border-right: 1px solid #e2e8f0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            padding: 2rem 1.25rem;
+        }
+
+        .sidebar-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .logo {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-        }
-        .sidebar-menu { list-style: none; }
-        .sidebar-menu li { margin-bottom: 0.5rem; }
-        .sidebar-menu a {
-            display: flex; align-items: center;
-            gap: 0.75rem;
-            padding: 0.625rem 0.875rem;
-            color: var(--gray-700);
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: #0f172a;
             text-decoration: none;
-            border-radius: var(--radius);
-            transition: all var(--transition);
+        }
+
+        .logo img {
+            height: 28px;
+            width: auto;
+        }
+
+        .sidebar-tree {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tree-item {
+            margin-bottom: 0.25rem;
+        }
+
+        .tree-link {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            padding: 0.5rem 0.75rem;
+            color: #475569;
+            text-decoration: none;
             font-size: 0.875rem;
+            border-radius: 6px;
+            transition: all 0.15s;
+        }
+
+        .tree-link i {
+            font-size: 1.125rem;
+            color: #94a3b8;
+            width: 20px;
+        }
+
+        .tree-link:hover {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .tree-link:hover i {
+            color: #2563eb;
+        }
+
+        .tree-link.active {
+            background: #eef2ff;
+            color: #2563eb;
             font-weight: 500;
         }
-        .sidebar-menu a i {
-            font-size: 1.25rem;
-            color: var(--gray-400);
-            width: 24px;
-        }
-        .sidebar-menu a:hover {
-            background: var(--gray-100);
-            color: var(--primary);
-            transform: translateX(4px);
-        }
-        .sidebar-menu a:hover i { color: var(--primary); }
-        .sidebar-menu a.active {
-            background: linear-gradient(135deg, var(--primary-bg), var(--accent-bg));
-            color: var(--primary);
-            border-left: 3px solid var(--primary);
-        }
-        .sidebar-menu a.active i { color: var(--primary); }
 
-        /* Content Area */
-        .content-area {
-            background: white;
-            border-radius: var(--radius-xl);
-            padding: 2rem;
-            border: 1px solid var(--gray-200);
-            min-height: 600px;
-            box-shadow: var(--shadow-sm);
-        }
-        .content-section {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-        .content-section.active { display: block; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .tree-link.active i {
+            color: #2563eb;
         }
 
-        /* Typography */
-        .content-section h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem; font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--gray-900), var(--primary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .tree-group {
+            margin-left: 1.75rem;
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
+            list-style: none;
+            padding-left: 0;
         }
-        .content-section h2 {
-            font-size: 1.25rem; font-weight: 600;
-            margin: 1.5rem 0 0.75rem;
-            color: var(--gray-800);
+
+        .tree-group .tree-link {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.8125rem;
+        }
+
+        /* Main content — README style */
+        .docs-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2.5rem 3rem;
+            max-width: 900px;
+            background: #ffffff;
+            min-height: 100vh;
+        }
+
+        .markdown-body {
+            font-size: 1rem;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #475569;
+            font-size: 0.6875rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .badge-new {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .badge-updated {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        /* Info blocks — clean, not rounded to death */
+        .callout {
+            background: #f8fafc;
+            border-left: 3px solid #2563eb;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+        }
+
+        .callout-warning {
+            border-left-color: #eab308;
+            background: #fefce8;
+        }
+
+        .callout-tip {
+            border-left-color: #10b981;
+            background: #ecfdf5;
+        }
+
+        .callout i {
+            margin-right: 0.5rem;
+        }
+
+        /* Contact cards — minimal */
+        .contact-row {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .content-section h2 i { color: var(--primary); font-size: 1.5rem; }
-        .content-section h3 {
-            font-size: 1rem; font-weight: 600;
-            margin: 1rem 0 0.5rem;
-            color: var(--gray-700);
-        }
-        .content-section p { line-height: 1.6; color: var(--gray-600); margin-bottom: 1rem; }
-        .content-section ul, .content-section ol {
-            margin: 1rem 0;
-            padding-left: 1.5rem;
-            color: var(--gray-600);
-            line-height: 1.6;
-        }
-        .content-section li { margin-bottom: 0.5rem; }
-        .content-section code {
-            background: var(--gray-100);
-            padding: 0.125rem 0.375rem;
-            border-radius: var(--radius-sm);
-            font-family: monospace;
-            font-size: 0.813rem;
-            color: var(--danger);
-        }
-
-        /* Cards */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            flex-wrap: wrap;
             gap: 1.5rem;
             margin: 1.5rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
         }
-        .info-card {
-            background: var(--gray-50);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            transition: all var(--transition);
-            cursor: pointer;
-        }
-        .info-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary);
-        }
-        .info-card i {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1rem;
-            display: inline-block;
-        }
-        .info-card h3 { font-size: 1.125rem; margin-bottom: 0.5rem; }
-        .info-card p { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 1rem; }
-        .info-card a { color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.875rem; }
 
-        /* FAQ Accordion */
-        .faq-item {
-            border-bottom: 1px solid var(--gray-200);
-            margin-bottom: 0.5rem;
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
+
+        .contact-item i {
+            font-size: 1.25rem;
+            color: #64748b;
+        }
+
+        .contact-item span {
+            font-size: 0.875rem;
+        }
+
+        /* FAQ - clean accordion */
+        .faq-list {
+            margin: 1rem 0;
+        }
+
+        .faq-entry {
+            border-bottom: 1px solid #e2e8f0;
+        }
+
         .faq-question {
             padding: 1rem 0;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
-            color: var(--gray-800);
-            transition: all var(--transition);
+            font-weight: 500;
+            color: #0f172a;
         }
-        .faq-question:hover { color: var(--primary); }
-        .faq-question i { transition: transform var(--transition); font-size: 1.25rem; }
+
+        .faq-question i {
+            color: #94a3b8;
+            transition: transform 0.2s;
+        }
+
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.25s ease;
+            color: #475569;
+            font-size: 0.875rem;
             padding: 0;
-            color: var(--gray-600);
-            line-height: 1.6;
         }
-        .faq-item.open .faq-answer {
-            max-height: 300px;
+
+        .faq-entry.open .faq-answer {
+            max-height: 200px;
             padding-bottom: 1rem;
         }
-        .faq-item.open .faq-question i { transform: rotate(180deg); }
 
-        /* Contact Info Cards */
-        .contact-info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        .faq-entry.open .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* Forms - minimal */
+        .form-grid {
+            display: flex;
+            flex-direction: column;
             gap: 1rem;
             margin: 1.5rem 0;
         }
-        .contact-card {
-            background: var(--gray-50);
-            border-radius: var(--radius-lg);
-            padding: 1.25rem;
-            text-align: center;
-            transition: all var(--transition);
-            border: 1px solid var(--gray-200);
-        }
-        .contact-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary);
-        }
-        .contact-card i {
-            font-size: 2rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-        }
-        .contact-card h4 { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 0.25rem; }
-        .contact-card p { font-size: 1rem; font-weight: 600; color: var(--gray-800); margin: 0; }
-        .contact-card a { text-decoration: none; color: var(--gray-800); }
-        .contact-card a:hover { color: var(--primary); }
 
-        /* Report Form */
-        .report-form {
-            max-width: 100%;
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
         }
-        .form-group { margin-bottom: 1.25rem; }
-        .form-label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 0.375rem;
-            color: var(--gray-700);
+
+        .form-field label {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: #334155;
         }
-        .form-input, .form-textarea, .form-select {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1.5px solid var(--gray-200);
-            border-radius: var(--radius);
+
+        input, select, textarea {
+            padding: 0.625rem 0.875rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
             font-family: 'Inter', sans-serif;
             font-size: 0.875rem;
-            transition: all var(--transition);
+            background: #ffffff;
+            transition: 0.15s;
+        }
+
+        input:focus, select:focus, textarea:focus {
             outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
         }
-        .form-input:focus, .form-textarea:focus, .form-select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-        }
-        .form-textarea { resize: vertical; min-height: 100px; }
-        .submit-btn {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+
+        button {
+            background: #0f172a;
             color: white;
-            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 100px;
-            font-weight: 600;
+            padding: 0.625rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.8125rem;
             cursor: pointer;
-            transition: all var(--transition);
+            transition: 0.15s;
+            width: fit-content;
         }
-        .submit-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
-        /* Badges */
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 100px;
-            font-size: 0.688rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
+        button:hover {
+            background: #1e293b;
         }
-        .badge.new { background: var(--success-bg); color: var(--success); }
-        .badge.updated { background: var(--warning-bg); color: var(--warning); }
 
-        /* Creator Credits */
-        .creator-credit {
-            background: linear-gradient(135deg, var(--primary-bg), var(--accent-bg));
-            border-radius: var(--radius-lg);
-            padding: 1rem;
+        /* Creator line */
+        .footer-note {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.75rem;
+            color: #94a3b8;
             text-align: center;
-            margin: 1rem 0;
         }
-        .creator-credit a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
+
+        /* Search */
+        .search-wrapper {
+            margin-bottom: 1.5rem;
         }
-        .creator-credit a:hover { text-decoration: underline; }
+
+        .search-wrapper input {
+            width: 100%;
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .docs-sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 100;
+                transition: transform 0.2s;
+            }
+            .docs-sidebar.open {
+                transform: translateX(0);
+            }
+            .docs-content {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 1rem;
+                left: 1rem;
+                z-index: 101;
+                background: white;
+                border: 1px solid #e2e8f0;
+                padding: 0.5rem;
+                border-radius: 6px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
 
         /* Toast */
-        .toast-container {
+        .toast-stack {
             position: fixed;
             bottom: 1.5rem;
             right: 1.5rem;
-            z-index: 9999;
+            z-index: 1000;
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
         .toast {
-            background: var(--gray-900);
+            background: #1e293b;
             color: white;
-            padding: 0.75rem 1rem;
-            border-radius: var(--radius);
-            font-size: 0.813rem;
-            font-weight: 500;
-            box-shadow: var(--shadow-lg);
-            animation: slideIn 0.3s ease;
-            max-width: 360px;
+            padding: 0.625rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8125rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            animation: slideUp 0.2s ease;
         }
-        .toast.success { background: #059669; }
-        .toast.error { background: #DC2626; }
-        .toast.info { background: var(--primary); }
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--gray-900);
-            color: var(--gray-400);
-            padding: 2rem;
-            text-align: center;
-            margin-top: 2rem;
-        }
-        .footer p { font-size: 0.813rem; }
-        .footer a { color: var(--primary); text-decoration: none; }
-        .footer a:hover { text-decoration: underline; }
-
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-                padding: 1rem;
-            }
-            .sidebar { position: static; }
-            .hero h1 { font-size: 1.75rem; }
-            .nav-links { display: flex; flex-wrap: wrap; justify-content: center; }
-            .nav-container { flex-direction: column; }
-            .content-area { padding: 1rem; }
+        .toast.success { background: #0d9488; }
+        .toast.error { background: #dc2626; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
+
+<div class="docs-container">
+    <!-- Sidebar Tree -->
+    <aside class="docs-sidebar" id="sidebar">
+        <div class="sidebar-header">
             <a href="index.html" class="logo">
                 <img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia">
                 <span>Akademia</span>
             </a>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="course.html">Courses</a>
-                <a href="exercise.html">Practice</a>
-                <a href="help-center.html" class="active">Help</a>
-                <a href="auth.html" class="btn-nav">Sign In</a>
-            </div>
         </div>
-    </nav>
 
-    <section class="hero">
-        <div class="hero-container">
-            <h1>How can we help you? 🤝</h1>
-            <p>Find answers, guides, and support resources for all your learning needs</p>
-            <div class="search-box">
-                <i class='bx bx-search'></i>
-                <input type="text" id="searchInput" placeholder="Search for help articles, guides, and FAQs...">
-            </div>
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" placeholder="Search documentation...">
         </div>
-    </section>
 
-    <div class="main-content">
-        <aside class="sidebar">
-            <div class="sidebar-section">
-                <div class="sidebar-title"><i class='bx bx-rocket'></i> Getting Started</div>
-                <ul class="sidebar-menu">
-                    <li><a href="#" data-section="welcome"><i class='bx bx-home-smile'></i> Welcome</a></li>
-                    <li><a href="#" data-section="setup"><i class='bx bx-user-plus'></i> Account Setup</a></li>
-                    <li><a href="#" data-section="dashboard"><i class='bx bx-dashboard'></i> Dashboard Guide</a></li>
-                    <li><a href="#" data-section="pathfinder"><i class='bx bx-compass'></i> Pathfinder Quiz</a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <div class="sidebar-title"><i class='bx bx-book-open'></i> Learning Resources</div>
-                <ul class="sidebar-menu">
-                    <li><a href="#" data-section="courses"><i class='bx bx-book-open'></i> Courses & Modules</a></li>
-                    <li><a href="#" data-section="exercises"><i class='bx bx-dumbbell'></i> Exercises & Exams</a></li>
-                    <li><a href="#" data-section="sparks"><i class='bx bxs-star'></i> Sparks System</a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <div class="sidebar-title"><i class='bx bx-support'></i> Support & Legal</div>
-                <ul class="sidebar-menu">
-                    <li><a href="#" data-section="faq"><i class='bx bx-help-circle'></i> FAQs</a></li>
-                    <li><a href="#" data-section="troubleshooting"><i class='bx bx-wrench'></i> Troubleshooting</a></li>
-                    <li><a href="#" data-section="contact"><i class='bx bx-envelope'></i> Contact Support</a></li>
-                    <li><a href="#" data-section="report"><i class='bx bx-flag'></i> Report Issue</a></li>
-                    <li><a href="#" data-section="updates"><i class='bx bx-news'></i> What's New</a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <div class="sidebar-title"><i class='bx bx-info-circle'></i> About</div>
-                <ul class="sidebar-menu">
-                    <li><a href="#" data-section="about"><i class='bx bx-building'></i> About Us</a></li>
-                    <li><a href="#" data-section="privacy"><i class='bx bx-lock-alt'></i> Privacy Policy</a></li>
-                    <li><a href="#" data-section="terms"><i class='bx bx-file'></i> Terms of Service</a></li>
-                </ul>
-            </div>
-        </aside>
-
-        <main class="content-area">
-            <!-- Welcome Section -->
-            <div id="welcome" class="content-section active">
-                <h1>Welcome to Akademia! 🎓</h1>
-                <p>Akademia is your all-in-one platform for mastering technology skills. Whether you're a complete beginner or an experienced developer, we have the right learning path for you.</p>
-                
-                <div class="card-grid">
-                    <div class="info-card">
-                        <i class='bx bx-rocket'></i>
-                        <h3>1. Take the Pathfinder</h3>
-                        <p>20-question quiz that creates your personalized learning journey</p>
-                        <a href="start.html">Start Pathfinder →</a>
-                    </div>
-                    <div class="info-card">
-                        <i class='bx bx-book-open'></i>
-                        <h3>2. Enroll in Courses</h3>
-                        <p>Browse expert-led courses tailored to your goals</p>
-                        <a href="course.html">Explore Courses →</a>
-                    </div>
-                    <div class="info-card">
-                        <i class='bx bx-dumbbell'></i>
-                        <h3>3. Practice & Earn</h3>
-                        <p>Complete exercises and earn Sparks rewards</p>
-                        <a href="exercise.html">Start Practicing →</a>
-                    </div>
-                </div>
-
-                <div class="creator-credit">
-                    <i class='bx bx-code-alt'></i> Created with ❤️ by 
-                    <a href="https://pireactive.vercel.app" target="_blank">Pireactive</a>
-                </div>
-            </div>
-
-            <!-- Account Setup -->
-            <div id="setup" class="content-section">
-                <h1>Account Setup Guide 📝</h1>
-                <p>Get your account configured correctly from day one.</p>
-                <h2><i class='bx bx-user-plus'></i> Creating Your Account</h2>
-                <ol>
-                    <li>Click "Sign In" in the top right corner</li>
-                    <li>Select "Create Account" on the sign-up form</li>
-                    <li>Fill in your details (Full Name, Username, Email, Password)</li>
-                    <li>Upload a profile photo (optional)</li>
-                    <li>Click "Create Account" to finish</li>
-                </ol>
-                <div class="info-card">
-                    <i class='bx bx-shield'></i>
-                    <h3>Security Tips</h3>
-                    <p>✓ Use a strong, unique password<br>✓ Enable email verification<br>✓ Never share your login credentials</p>
-                </div>
-            </div>
-
-            <!-- Dashboard Guide -->
-            <div id="dashboard" class="content-section">
-                <h1>Dashboard Guide 📊</h1>
-                <p>Your personalized command center for all learning activities.</p>
-                <ul>
-                    <li><strong>Progress Overview</strong> - Track completion rates across courses</li>
-                    <li><strong>Sparks Balance</strong> - Monitor your earned points</li>
-                    <li><strong>Continue Learning</strong> - Jump back into recent courses</li>
-                    <li><strong>Recommended Lessons</strong> - AI-powered suggestions</li>
-                    <li><strong>Achievements</strong> - View badges and milestones</li>
-                </ul>
-            </div>
-
-            <!-- Pathfinder Quiz -->
-            <div id="pathfinder" class="content-section">
-                <h1>Pathfinder Quiz 🧭</h1>
-                <p>Your personalized learning journey starts here.</p>
-                <h2>What is the Pathfinder?</h2>
-                <p>The Pathfinder is a 20-question assessment that helps us understand your goals, skill level, and preferences to create a custom learning path.</p>
-                <div class="info-card">
-                    <i class='bx bx-compass'></i>
-                    <h3>Ready to Begin?</h3>
-                    <a href="start.html">Start Pathfinder →</a>
-                </div>
-            </div>
-
-            <!-- Courses & Modules -->
-            <div id="courses" class="content-section">
-                <h1>Courses & Modules 📚</h1>
-                <p>Everything you need to know about our learning structure.</p>
-                <ul>
-                    <li><strong>Courses</strong> - Main learning tracks</li>
-                    <li><strong>Modules</strong> - Subsections within courses</li>
-                    <li><strong>Lessons</strong> - Individual units with interactive content</li>
-                    <li><strong>Exercises</strong> - Practice questions to test knowledge</li>
-                </ul>
-            </div>
-
-            <!-- Exercises & Exams -->
-            <div id="exercises" class="content-section">
-                <h1>Exercises & Exams 💪</h1>
-                <p>Test your knowledge and earn Sparks.</p>
-                <h2>Exercise Modes</h2>
-                <ul>
-                    <li><strong>Practice Mode</strong> - 10 random questions</li>
-                    <li><strong>Exam Mode</strong> - 30 questions, timed assessment</li>
-                    <li><strong>Retry System</strong> - One retry per question (half points)</li>
-                </ul>
-                <div class="info-card">
-                    <i class='bx bx-trophy'></i>
-                    <h3>Achievement Badges</h3>
-                    <p>Unlock badges: Perfect Score, Speed Demon, Marathon Learner, and more!</p>
-                </div>
-            </div>
-
-            <!-- Sparks System -->
-            <div id="sparks" class="content-section">
-                <h1>Sparks System ✨</h1>
-                <p>Your rewards for learning and engagement.</p>
-                <ul>
-                    <li><strong>Complete Lessons</strong> - 5-20 Sparks</li>
-                    <li><strong>Correct Answers</strong> - 10 Sparks (full points)</li>
-                    <li><strong>Retry Success</strong> - 5 Sparks (half points)</li>
-                    <li><strong>Course Completion</strong> - 100 Sparks bonus</li>
-                    <li><strong>Daily Login Streak</strong> - Bonus Sparks</li>
-                </ul>
-            </div>
-
-            <!-- FAQ Section -->
-            <div id="faq" class="content-section">
-                <h1>Frequently Asked Questions ❓</h1>
-                
-                <div class="faq-item">
-                    <div class="faq-question">How do I reset my password? <i class='bx bx-chevron-down'></i></div>
-                    <div class="faq-answer">Click "Sign In" then "Forgot Password?" on the login form. Enter your email address and we'll send you a password reset link.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Can I change my Pathfinder answers? <i class='bx bx-chevron-down'></i></div>
-                    <div class="faq-answer">Yes! Go to your dashboard settings and select "Update Learning Preferences" to retake the quiz.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">How are Sparks calculated? <i class='bx bx-chevron-down'></i></div>
-                    <div class="faq-answer">First-time correct: full points (10 Sparks). Retry correct: half points (5 Sparks). Wrong: 0 Sparks but shows correct answer.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Can I download certificates? <i class='bx bx-chevron-down'></i></div>
-                    <div class="faq-answer">Yes! Upon completing a course with at least 80% correct, you'll unlock a downloadable certificate.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Is Akademia mobile-friendly? <i class='bx bx-chevron-down'></i></div>
-                    <div class="faq-answer">Absolutely! Akademia is fully responsive and works on all devices with modern browsers.</div>
-                </div>
-            </div>
-
-            <!-- Troubleshooting -->
-            <div id="troubleshooting" class="content-section">
-                <h1>Troubleshooting Guide 🔧</h1>
-                <h2>Common Issues and Solutions</h2>
-                <h3>❌ Can't log in</h3>
-                <p>✓ Double-check credentials<br>✓ Use "Forgot Password"<br>✓ Clear browser cache<br>✓ Try incognito mode</p>
-                <h3>❌ Lessons won't load</h3>
-                <p>✓ Check internet connection<br>✓ Refresh the page<br>✓ Disable ad-blockers<br>✓ Try Chrome or Firefox</p>
-            </div>
-
-            <!-- Contact Support -->
-            <div id="contact" class="content-section">
-                <h1>Contact Support 📧</h1>
-                <p>We're here to help! Reach out through any of these channels.</p>
-                
-                <div class="contact-info-grid">
-                    <div class="contact-card">
-                        <i class='bx bx-envelope'></i>
-                        <h4>Email</h4>
-                        <p><a href="mailto:rwandapiclub@gmail.com">rwandapiclub@gmail.com</a></p>
-                    </div>
-                    <div class="contact-card">
-                        <i class='bx bx-phone'></i>
-                        <h4>Phone / WhatsApp</h4>
-                        <p><a href="tel:+250795065789">+250 795 065 789</a></p>
-                    </div>
-                    <div class="contact-card">
-                        <i class='bx bx-code-alt'></i>
-                        <h4>Creator</h4>
-                        <p><a href="https://pireactive.vercel.app" target="_blank">Pireactive</a></p>
-                    </div>
-                </div>
-
-                <form class="contact-form" id="supportForm">
-                    <div class="form-group">
-                        <label class="form-label">Full Name *</label>
-                        <input type="text" class="form-input" id="contactName" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Email Address *</label>
-                        <input type="email" class="form-input" id="contactEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Subject *</label>
-                        <select class="form-select" id="contactSubject" required>
-                            <option value="">Select a topic...</option>
-                            <option value="account">Account Issues</option>
-                            <option value="technical">Technical Problems</option>
-                            <option value="courses">Course Content</option>
-                            <option value="feature">Feature Request</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Message *</label>
-                        <textarea class="form-textarea" id="contactMessage" placeholder="Describe your issue..." required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message →</button>
-                </form>
-            </div>
-
-            <!-- Report Issue -->
-            <div id="report" class="content-section">
-                <h1>Report an Issue 🚨</h1>
-                <p>Found a bug or have something to report? Let us know.</p>
-                
-                <form class="report-form" id="reportForm">
-                    <div class="form-group">
-                        <label class="form-label">Issue Type *</label>
-                        <select class="form-select" id="reportType" required>
-                            <option value="">Select type...</option>
-                            <option value="bug">Bug / Technical Issue</option>
-                            <option value="content">Content Error</option>
-                            <option value="security">Security Concern</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Page URL where issue occurred *</label>
-                        <input type="url" class="form-input" id="reportUrl" placeholder="https://..." required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Description *</label>
-                        <textarea class="form-textarea" id="reportDescription" placeholder="Please describe the issue in detail..." required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Steps to Reproduce</label>
-                        <textarea class="form-textarea" id="reportSteps" placeholder="1. Go to...&#10;2. Click on...&#10;3. See error..."></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Submit Report →</button>
-                </form>
-            </div>
-
-            <!-- What's New -->
-            <div id="updates" class="content-section">
-                <h1>What's New 🎉</h1>
-                <div class="info-card">
-                    <i class='bx bx-calendar'></i>
-                    <h3>February 2026</h3>
-                    <ul>
-                        <li>✨ New Exercise Retry System - Half points on second attempt</li>
-                        <li>📱 Mobile responsive improvements</li>
-                        <li>🎯 Enhanced Pathfinder recommendations</li>
-                        <li>🐛 Bug fixes and performance optimizations</li>
-                    </ul>
-                </div>
-                <div class="info-card">
-                    <i class='bx bx-rocket'></i>
-                    <h3>Coming Soon</h3>
-                    <ul>
-                        <li>🤖 AI-powered tutoring assistant</li>
-                        <li>👥 Group study forums</li>
-                        <li>🏆 Competitive leaderboards</li>
-                        <li>📱 Native mobile apps</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- About Us -->
-            <div id="about" class="content-section">
-                <h1>About Akademia 🌟</h1>
-                <p>Akademia is a premier online learning platform dedicated to making tech education accessible to everyone.</p>
-                <h2><i class='bx bx-bulb'></i> Our Mission</h2>
-                <p>To empower learners worldwide with high-quality, interactive tech education that leads to real career opportunities.</p>
-                <h2><i class='bx bx-code-alt'></i> Creator</h2>
-                <p>Akademia is proudly created and maintained by <strong>Pireactive</strong>, a technology company focused on innovative learning solutions.</p>
-                <div class="creator-credit">
-                    <i class='bx bx-link-external'></i> Visit: <a href="https://pireactive.vercel.app" target="_blank">pireactive.vercel.app</a>
-                </div>
-            </div>
-
-            <!-- Privacy Policy -->
-            <div id="privacy" class="content-section">
-                <h1>Privacy Policy 🔒</h1>
-                <p>Last updated: February 2026</p>
-                <h2>Information We Collect</h2>
-                <p>We collect account information (name, email, username), learning progress data, and usage analytics to improve your experience.</p>
-                <h2>How We Use Your Data</h2>
-                <p>Your data is used to personalize learning recommendations, track progress, and improve platform features. We never sell your personal information.</p>
-                <h2>Data Security</h2>
-                <p>We implement industry-standard security measures to protect your data, including encryption and secure authentication.</p>
-            </div>
-
-            <!-- Terms of Service -->
-            <div id="terms" class="content-section">
-                <h1>Terms of Service 📜</h1>
-                <p>Last updated: February 2026</p>
-                <h2>Acceptable Use</h2>
-                <p>You agree to use Akademia for lawful purposes only and to respect intellectual property rights.</p>
-                <h2>Account Responsibility</h2>
-                <p>You are responsible for maintaining the security of your account and for all activities that occur under your account.</p>
-                <h2>Content Ownership</h2>
-                <p>Course content is owned by Akademia and its licensors. You may not redistribute or resell course materials.</p>
-            </div>
-        </main>
-    </div>
-
-    <footer class="footer">
-        <p>&copy; 2026 Akademia. All rights reserved. | Created by <a href="https://pireactive.vercel.app" target="_blank">Pireactive</a> | <a href="mailto:rwandapiclub@gmail.com">Contact</a></p>
-    </footer>
-
-    <div class="toast-container" id="toastContainer"></div>
-
-    <script>
-        (function() {
-            const $ = id => document.getElementById(id);
+        <ul class="sidebar-tree">
+            <li class="tree-item"><a href="#" data-section="welcome" class="tree-link"><i class='bx bx-home'></i> Welcome</a></li>
+            <li class="tree-item"><a href="#" data-section="getting-started" class="tree-link"><i class='bx bx-rocket'></i> Getting Started</a></li>
             
-            function showToast(msg, type = 'success') {
-                const container = $('toastContainer');
-                const toast = document.createElement('div');
-                toast.className = `toast ${type}`;
-                toast.innerHTML = `<i class='bx ${type === 'success' ? 'bx-check-circle' : type === 'error' ? 'bx-x-circle' : 'bx-info-circle'}'></i> ${msg}`;
-                container.appendChild(toast);
-                setTimeout(() => toast.remove(), 4000);
-            }
+            <li class="tree-item">
+                <a href="#" data-section="account" class="tree-link"><i class='bx bx-user-circle'></i> Account</a>
+                <ul class="tree-group">
+                    <li><a href="#" data-section="setup" class="tree-link">→ Setup</a></li>
+                    <li><a href="#" data-section="dashboard" class="tree-link">→ Dashboard</a></li>
+                    <li><a href="#" data-section="pathfinder" class="tree-link">→ Pathfinder</a></li>
+                </ul>
+            </li>
 
-            const sections = ['welcome', 'setup', 'dashboard', 'pathfinder', 'courses', 'exercises', 'sparks', 'faq', 'troubleshooting', 'contact', 'report', 'updates', 'about', 'privacy', 'terms'];
-            
-            function showSection(sectionId) {
-                sections.forEach(id => {
-                    const section = document.getElementById(id);
-                    if (section) section.classList.remove('active');
-                });
-                
-                const activeSection = document.getElementById(sectionId);
-                if (activeSection) activeSection.classList.add('active');
-                
-                document.querySelectorAll('.sidebar-menu a').forEach(link => {
-                    link.classList.remove('active');
-                    if (link.dataset.section === sectionId) {
-                        link.classList.add('active');
-                    }
-                });
-                
-                history.pushState(null, null, `#${sectionId}`);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            
-            document.querySelectorAll('.sidebar-menu a').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const section = link.dataset.section;
-                    if (section) showSection(section);
-                });
+            <li class="tree-item">
+                <a href="#" data-section="learning" class="tree-link"><i class='bx bx-book-open'></i> Learning</a>
+                <ul class="tree-group">
+                    <li><a href="#" data-section="courses" class="tree-link">→ Courses</a></li>
+                    <li><a href="#" data-section="exercises" class="tree-link">→ Exercises</a></li>
+                    <li><a href="#" data-section="sparks" class="tree-link">→ Sparks</a></li>
+                </ul>
+            </li>
+
+            <li class="tree-item"><a href="#" data-section="faq" class="tree-link"><i class='bx bx-help-circle'></i> FAQ</a></li>
+            <li class="tree-item"><a href="#" data-section="troubleshooting" class="tree-link"><i class='bx bx-wrench'></i> Troubleshooting</a></li>
+            <li class="tree-item"><a href="#" data-section="support" class="tree-link"><i class='bx bx-envelope'></i> Support</a></li>
+            <li class="tree-item"><a href="#" data-section="report" class="tree-link"><i class='bx bx-flag'></i> Report Issue</a></li>
+            <li class="tree-item"><a href="#" data-section="changelog" class="tree-link"><i class='bx bx-news'></i> Changelog</a></li>
+            <li class="tree-item"><a href="#" data-section="about" class="tree-link"><i class='bx bx-building'></i> About</a></li>
+        </ul>
+
+        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; font-size: 0.75rem; color: #94a3b8;">
+            <div>📧 rwandapiclub@gmail.com</div>
+            <div>📞 +250 795 065 789</div>
+            <div style="margin-top: 0.5rem;">⚡ by <a href="https://pireactive.vercel.app" target="_blank" style="color: inherit;">Pireactive</a></div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="docs-content" id="mainContent">
+        <div class="markdown-body" id="contentRenderer"></div>
+    </main>
+</div>
+
+<div class="toast-stack" id="toastStack"></div>
+
+<script>
+    // Content Database
+    const contentDB = {
+        welcome: `
+            <h1>Welcome to Akademia</h1>
+            <p>Akademia is a modern learning platform for developers, designers, and tech enthusiasts. This documentation will help you understand the platform and make the most of your learning journey.</p>
+            <div class="callout">
+                <i class='bx bx-bulb'></i> <strong>Quick tip</strong><br>
+                Start by taking the <strong>Pathfinder quiz</strong> — it builds a personalized learning path based on your goals.
+            </div>
+            <h2>What you'll find here</h2>
+            <ul>
+                <li>Account setup and dashboard walkthrough</li>
+                <li>How courses and exercises work</li>
+                <li>Sparks system explained</li>
+                <li>Troubleshooting and support</li>
+            </ul>
+            <p>If you're new, head to <strong>Getting Started</strong> below.</p>
+        `,
+
+        "getting-started": `
+            <h1>Getting Started</h1>
+            <p>New to Akademia? Follow these steps to begin your learning journey.</p>
+            <h2>1. Create an account</h2>
+            <p>Sign up using email or social login. Choose a username and complete your profile.</p>
+            <h2>2. Take the Pathfinder</h2>
+            <p>Answer 20 questions about your goals, experience, and learning style. The system will recommend courses tailored to you.</p>
+            <h2>3. Explore your Dashboard</h2>
+            <p>Your dashboard shows recommended courses, progress, and recent activity.</p>
+            <h2>4. Start learning</h2>
+            <p>Enroll in a course, complete lessons, and practice with exercises. Earn Sparks as you go.</p>
+            <div class="callout callout-tip">
+                <i class='bx bx-check-circle'></i> <strong>Pro tip</strong><br>
+                Consistency > intensity. Even 15 minutes a day adds up quickly.
+            </div>
+        `,
+
+        account: `<h1>Account Overview</h1><p>Manage your profile, security, and learning preferences.</p><div class="callout">Use the sub-sections to navigate: Setup, Dashboard, Pathfinder.</div>`,
+        setup: `
+            <h1>Account Setup</h1>
+            <p>Get your account configured correctly.</p>
+            <ul>
+                <li><strong>Full name</strong> — used for certificates</li>
+                <li><strong>Username</strong> — unique, lowercase letters/numbers/underscores</li>
+                <li><strong>Email</strong> — used for login and recovery</li>
+                <li><strong>Password</strong> — minimum 8 characters</li>
+            </ul>
+            <p>After signing up, you can upload a profile picture and adjust notification settings from your dashboard.</p>
+        `,
+        dashboard: `
+            <h1>Dashboard Guide</h1>
+            <p>Your personal learning hub.</p>
+            <ul>
+                <li><strong>Progress overview</strong> — completion rates across courses</li>
+                <li><strong>Sparks balance</strong> — total points earned</li>
+                <li><strong>Continue learning</strong> — resume recent lessons</li>
+                <li><strong>Recommended</strong> — AI-powered suggestions</li>
+                <li><strong>Achievements</strong> — badges and milestones</li>
+            </ul>
+            <p>Use the sidebar to navigate between sections.</p>
+        `,
+        pathfinder: `
+            <h1>Pathfinder Quiz</h1>
+            <p>The 20-question assessment that personalizes your learning path.</p>
+            <ul>
+                <li>Career goals</li>
+                <li>Experience level (beginner to advanced)</li>
+                <li>Interests (web, mobile, AI, data, security, etc.)</li>
+                <li>Time availability</li>
+                <li>Learning style</li>
+            </ul>
+            <div class="callout callout-tip"><i class='bx bx-compass'></i> You can retake the Pathfinder anytime from your dashboard settings.</div>
+            <p><a href="start.html">→ Take the Pathfinder now</a></p>
+        `,
+        learning: `<h1>Learning Resources</h1><p>Explore courses, exercises, and the Sparks system.</p>`,
+        courses: `
+            <h1>Courses & Modules</h1>
+            <p>Akademia courses are organized hierarchically:</p>
+            <ul>
+                <li><strong>Course</strong> — main track (e.g., Web Development)</li>
+                <li><strong>Module</strong> — topic group inside a course</li>
+                <li><strong>Lesson</strong> — individual unit with text, video, and practice</li>
+            </ul>
+            <p>Enroll from the course catalog. Your progress is saved automatically.</p>
+        `,
+        exercises: `
+            <h1>Exercises & Exams</h1>
+            <p>Test your knowledge and earn Sparks.</p>
+            <h2>Modes</h2>
+            <ul>
+                <li><strong>Exercise mode</strong> — 10 random questions</li>
+                <li><strong>Exam mode</strong> — 30 questions with timer</li>
+            </ul>
+            <h2>Question types</h2>
+            <p>Multiple choice, true/false, fill in the blank, matching.</p>
+            <h2>Retry system</h2>
+            <p>Wrong answer? You get one retry. If correct on retry → half points. Second wrong → answer revealed, 0 points.</p>
+        `,
+        sparks: `
+            <h1>Sparks System</h1>
+            <p>Sparks are points you earn for learning activities.</p>
+            <ul>
+                <li>✅ First-try correct: full points (e.g., 10 Sparks)</li>
+                <li>🔄 Retry correct: half points (5 Sparks)</li>
+                <li>❌ Wrong after retry: 0 Sparks (answer shown)</li>
+                <li>🏆 Course completion: 100 Sparks bonus</li>
+            </ul>
+            <p>Sparks unlock badges and certificates.</p>
+        `,
+        faq: `
+            <h1>Frequently Asked Questions</h1>
+            <div class="faq-list" id="faqList"></div>
+        `,
+        troubleshooting: `
+            <h1>Troubleshooting</h1>
+            <h2>Login issues</h2>
+            <p>Reset password via "Forgot password" link. Clear browser cache if problems persist.</p>
+            <h2>Lessons not loading</h2>
+            <p>Check your internet connection. Disable ad blockers. Try Chrome or Firefox.</p>
+            <h2>Sparks not updating</h2>
+            <p>Refresh the page. Complete a new exercise to trigger recalculation.</p>
+            <div class="callout callout-warning"><i class='bx bx-error-circle'></i> Still stuck? Contact support using the form below.</div>
+        `,
+        support: `
+            <h1>Support</h1>
+            <div class="contact-row">
+                <div class="contact-item"><i class='bx bx-envelope'></i><span><strong>Email</strong><br>rwandapiclub@gmail.com</span></div>
+                <div class="contact-item"><i class='bx bx-phone'></i><span><strong>Phone / WhatsApp</strong><br>+250 795 065 789</span></div>
+                <div class="contact-item"><i class='bx bx-code-alt'></i><span><strong>Creator</strong><br>Pireactive</span></div>
+            </div>
+            <h2>Send a message</h2>
+            <div class="form-grid" id="supportForm">
+                <div class="form-field"><label>Name</label><input type="text" id="supportName" placeholder="Your name"></div>
+                <div class="form-field"><label>Email</label><input type="email" id="supportEmail" placeholder="your@email.com"></div>
+                <div class="form-field"><label>Subject</label><select id="supportSubject"><option>Account</option><option>Technical</option><option>Course content</option><option>Other</option></select></div>
+                <div class="form-field"><label>Message</label><textarea id="supportMessage" rows="3"></textarea></div>
+                <button id="sendSupportBtn">Send message</button>
+            </div>
+        `,
+        report: `
+            <h1>Report an Issue</h1>
+            <p>Found a bug? Let us know.</p>
+            <div class="form-grid" id="reportForm">
+                <div class="form-field"><label>Issue type</label><select id="reportType"><option>Bug</option><option>Content error</option><option>Security</option><option>Other</option></select></div>
+                <div class="form-field"><label>Page URL</label><input type="url" id="reportUrl" placeholder="https://..."></div>
+                <div class="form-field"><label>Description</label><textarea id="reportDesc" rows="3" placeholder="What happened?"></textarea></div>
+                <div class="form-field"><label>Steps to reproduce</label><textarea id="reportSteps" rows="2" placeholder="1. ... 2. ..."></textarea></div>
+                <button id="sendReportBtn">Submit report</button>
+            </div>
+        `,
+        changelog: `
+            <h1>Changelog</h1>
+            <h2>February 2026</h2>
+            <ul><li>✨ Retry system for exercises (half points)</li><li>📱 Mobile improvements</li><li>🎯 Enhanced Pathfinder</li></ul>
+            <h2>January 2026</h2>
+            <ul><li>🌟 Sparks system launched</li><li>📚 50+ new courses</li><li>🎨 Dashboard redesign</li></ul>
+            <div class="callout"><i class='bx bx-rocket'></i> <strong>Coming soon:</strong> AI tutor, leaderboards, mobile apps.</div>
+        `,
+        about: `
+            <h1>About Akademia</h1>
+            <p>Akademia helps people learn tech skills through structured courses and interactive exercises.</p>
+            <p>Created and maintained by <strong>Pireactive</strong> — a technology studio focused on learning tools.</p>
+            <div class="callout"><i class='bx bx-link-external'></i> <a href="https://pireactive.vercel.app" target="_blank">pireactive.vercel.app</a></div>
+            <hr>
+            <p>📧 rwandapiclub@gmail.com<br>📞 +250 795 065 789</p>
+        `
+    };
+
+    // FAQ data
+    const faqData = [
+        { q: "How do I reset my password?", a: "Click 'Sign In' → 'Forgot password?' → Enter your email → Check inbox for reset link." },
+        { q: "Can I change my Pathfinder answers?", a: "Yes. Go to Dashboard → Settings → Update learning preferences → Retake Pathfinder." },
+        { q: "How do Sparks work exactly?", a: "First correct = full points. Retry correct = half points. Wrong after retry = 0 points + answer revealed." },
+        { q: "Are certificates available?", a: "Yes, upon course completion with ≥80% correct in exercises." },
+        { q: "Is Akademia free?", a: "Core features are free. Advanced courses may require Sparks or premium access in the future." }
+    ];
+
+    let currentSection = "welcome";
+    const toastStack = document.getElementById("toastStack");
+    function toast(msg, type = "info") {
+        const t = document.createElement("div");
+        t.className = `toast ${type}`;
+        t.innerHTML = `<i class='bx ${type === "success" ? "bx-check-circle" : type === "error" ? "bx-x-circle" : "bx-info-circle"}'></i> ${msg}`;
+        toastStack.appendChild(t);
+        setTimeout(() => t.remove(), 3500);
+    }
+
+    function renderContent() {
+        let html = contentDB[currentSection] || `<h1>Documentation</h1><p>Select a section from the sidebar.</p>`;
+        if (currentSection === "faq") {
+            let faqHtml = `<h1>Frequently Asked Questions</h1><div class="faq-list">`;
+            faqData.forEach((item, idx) => {
+                faqHtml += `
+                    <div class="faq-entry" data-faq="${idx}">
+                        <div class="faq-question">${item.q} <i class='bx bx-chevron-down'></i></div>
+                        <div class="faq-answer">${item.a}</div>
+                    </div>
+                `;
             });
-            
-            function handleHash() {
-                const hash = window.location.hash.substring(1);
-                if (hash && sections.includes(hash)) {
-                    showSection(hash);
-                } else {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const sectionParam = urlParams.get('section');
-                    if (sectionParam && sections.includes(sectionParam)) {
-                        showSection(sectionParam);
-                    } else {
-                        showSection('welcome');
-                    }
-                }
-            }
-            
-            window.addEventListener('hashchange', handleHash);
-            handleHash();
-            
-            document.querySelectorAll('.faq-question').forEach(question => {
-                question.addEventListener('click', () => {
-                    const item = question.parentElement;
-                    item.classList.toggle('open');
-                });
+            faqHtml += `</div>`;
+            html = faqHtml;
+        }
+        document.getElementById("contentRenderer").innerHTML = html;
+        attachFaqListeners();
+    }
+
+    function attachFaqListeners() {
+        document.querySelectorAll('.faq-entry').forEach(el => {
+            const qDiv = el.querySelector('.faq-question');
+            qDiv?.addEventListener('click', () => {
+                el.classList.toggle('open');
             });
-            
-            const searchInput = $('searchInput');
-            if (searchInput) {
-                searchInput.addEventListener('input', (e) => {
-                    const query = e.target.value.toLowerCase().trim();
-                    if (!query) return;
-                    
-                    let found = false;
-                    for (const sectionId of sections) {
-                        const section = document.getElementById(sectionId);
-                        if (section && section.textContent.toLowerCase().includes(query)) {
-                            showSection(sectionId);
-                            found = true;
-                            showToast(`Found results for "${query}"`, 'info');
-                            break;
-                        }
-                    }
-                    if (!found && query) showToast(`No results found for "${query}"`, 'error');
-                });
+        });
+    }
+
+    function loadSection(section) {
+        if (contentDB[section] || section === "faq") {
+            currentSection = section;
+            renderContent();
+            document.querySelectorAll('.tree-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.section === section) link.classList.add('active');
+            });
+            history.pushState(null, '', `#${section}`);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    // Sidebar navigation
+    document.querySelectorAll('.tree-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const section = link.dataset.section;
+            if (section) loadSection(section);
+        });
+    });
+
+    // Hash & query routing
+    function handleRouting() {
+        let hash = window.location.hash.slice(1);
+        let query = new URLSearchParams(window.location.search).get('section');
+        let target = query || hash;
+        if (target && (contentDB[target] || target === "faq")) {
+            loadSection(target);
+        } else {
+            loadSection("welcome");
+        }
+    }
+
+    window.addEventListener('hashchange', handleRouting);
+    handleRouting();
+
+    // Search
+    const searchInput = document.getElementById("searchInput");
+    searchInput?.addEventListener("input", (e) => {
+        const term = e.target.value.toLowerCase().trim();
+        if (!term) return;
+        for (let [key, val] of Object.entries(contentDB)) {
+            if (val.toLowerCase().includes(term)) {
+                loadSection(key);
+                toast(`Found in "${key}"`, "info");
+                break;
             }
-            
-            const supportForm = $('supportForm');
-            if (supportForm) {
-                supportForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const name = $('contactName')?.value.trim();
-                    const email = $('contactEmail')?.value.trim();
-                    const subject = $('contactSubject')?.value;
-                    const message = $('contactMessage')?.value.trim();
-                    
-                    if (!name || !email || !subject || !message) {
-                        showToast('Please fill in all fields', 'error');
-                        return;
-                    }
-                    if (!email.includes('@')) {
-                        showToast('Please enter a valid email', 'error');
-                        return;
-                    }
-                    
-                    const tickets = JSON.parse(localStorage.getItem('ak_support_tickets') || '[]');
-                    tickets.push({ id: Date.now(), name, email, subject, message, date: new Date().toISOString(), status: 'pending' });
-                    localStorage.setItem('ak_support_tickets', JSON.stringify(tickets));
-                    showToast('Message sent! We\'ll respond within 24 hours.', 'success');
-                    supportForm.reset();
-                });
-            }
-            
-            const reportForm = $('reportForm');
-            if (reportForm) {
-                reportForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const type = $('reportType')?.value;
-                    const url = $('reportUrl')?.value.trim();
-                    const description = $('reportDescription')?.value.trim();
-                    
-                    if (!type || !url || !description) {
-                        showToast('Please fill in all required fields', 'error');
-                        return;
-                    }
-                    
-                    const reports = JSON.parse(localStorage.getItem('ak_reports') || '[]');
-                    reports.push({ id: Date.now(), type, url, description, steps: $('reportSteps')?.value, date: new Date().toISOString() });
-                    localStorage.setItem('ak_reports', JSON.stringify(reports));
-                    showToast('Report submitted! Thank you for helping improve Akademia.', 'success');
-                    reportForm.reset();
-                });
-            }
-            
-            console.log('🚀 Help Center Enhanced - URL query support, SEO optimized, full features ready!');
-        })();
-    </script>
+        }
+    });
+
+    // Support form
+    document.getElementById("sendSupportBtn")?.addEventListener("click", () => {
+        const name = document.getElementById("supportName")?.value;
+        const email = document.getElementById("supportEmail")?.value;
+        const msg = document.getElementById("supportMessage")?.value;
+        if (!name || !email || !msg) { toast("Fill all fields", "error"); return; }
+        const tickets = JSON.parse(localStorage.getItem("ak_support_tickets") || "[]");
+        tickets.push({ name, email, msg, date: new Date().toISOString() });
+        localStorage.setItem("ak_support_tickets", JSON.stringify(tickets));
+        toast("Message sent. We'll reply within 24h.", "success");
+        document.getElementById("supportName").value = "";
+        document.getElementById("supportEmail").value = "";
+        document.getElementById("supportMessage").value = "";
+    });
+
+    // Report form
+    document.getElementById("sendReportBtn")?.addEventListener("click", () => {
+        const type = document.getElementById("reportType")?.value;
+        const url = document.getElementById("reportUrl")?.value;
+        const desc = document.getElementById("reportDesc")?.value;
+        if (!type || !url || !desc) { toast("Fill required fields", "error"); return; }
+        const reports = JSON.parse(localStorage.getItem("ak_reports") || "[]");
+        reports.push({ type, url, desc, steps: document.getElementById("reportSteps")?.value, date: new Date().toISOString() });
+        localStorage.setItem("ak_reports", JSON.stringify(reports));
+        toast("Report submitted. Thank you!", "success");
+        document.getElementById("reportUrl").value = "";
+        document.getElementById("reportDesc").value = "";
+        document.getElementById("reportSteps").value = "";
+    });
+
+    // Mobile toggle
+    const menuBtn = document.createElement("button");
+    menuBtn.innerHTML = "<i class='bx bx-menu'></i>";
+    menuBtn.className = "menu-toggle";
+    menuBtn.style.cssText = "position:fixed;top:1rem;left:1rem;z-index:102;background:white;border:1px solid #e2e8f0;padding:0.5rem;border-radius:6px;cursor:pointer;";
+    document.body.appendChild(menuBtn);
+    menuBtn.addEventListener("click", () => {
+        document.getElementById("sidebar").classList.toggle("open");
+    });
+    document.getElementById("sidebar")?.addEventListener("click", (e) => {
+        if (window.innerWidth <= 768 && !e.target.closest('.tree-link')) {
+            document.getElementById("sidebar").classList.remove("open");
+        }
+    });
+
+    console.log("📘 Help Center — professional, clean, tree-style documentation ready");
+</script>
 </body>
 </html>
