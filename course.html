@@ -43,14 +43,12 @@
         ::-webkit-scrollbar-track { background: var(--gray-100); }
         ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
 
-        /* Top Bar */
         .topbar { background: var(--gray-900); color: white; padding: 0.5rem 0; font-size: 0.813rem; z-index: 1001; }
         .topbar-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
         .topbar-links { display: flex; gap: 1.5rem; }
         .topbar-links a { color: #9ca3af; text-decoration: none; transition: color var(--transition); display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; }
         .topbar-links a:hover { color: white; }
 
-        /* Navigation */
         .navbar { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-sm); }
         .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
         .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
@@ -61,7 +59,6 @@
         .nav-links a:hover, .nav-links a.active { background: var(--primary-bg); color: var(--primary); }
         .nav-right { display: flex; align-items: center; gap: 0.75rem; }
 
-        /* Buttons */
         .btn { font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.5rem 1.125rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 600; transition: all var(--transition); cursor: pointer; border: none; text-decoration: none; white-space: nowrap; }
         .btn:active { transform: scale(0.97); }
         .btn-primary { background: var(--primary); color: white; box-shadow: 0 1px 2px rgba(37,99,235,0.2); } 
@@ -72,7 +69,6 @@
         .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; } 
         .btn-xs { padding: 0.25rem 0.5rem; font-size: 0.688rem; border-radius: var(--radius-xs); }
 
-        /* Profile Dropdown */
         .profile-dropdown { position: relative; }
         .profile-trigger { display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.75rem; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid var(--gray-200); background: white; }
         .profile-trigger:hover { border-color: var(--primary); background: var(--primary-bg); }
@@ -86,17 +82,14 @@
         .profile-dropdown-menu .divider { height: 1px; background: var(--gray-200); margin: 0.375rem 0; }
         .profile-dropdown-menu .logout-btn { color: var(--danger); cursor: pointer; }
 
-        /* Breadcrumb */
         .breadcrumb-bar { background: var(--gray-50); border-bottom: 1px solid var(--gray-200); padding: 0.625rem 0; font-size: 0.813rem; }
         .breadcrumb-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 0.375rem; color: var(--gray-500); flex-wrap: wrap; }
         .breadcrumb-inner a { color: var(--primary); text-decoration: none; } .breadcrumb-inner a:hover { text-decoration: underline; }
 
-        /* Main Layout */
         .main-layout { display: flex; gap: 0; max-width: 1280px; margin: 0 auto; flex: 1; }
         .sidebar { width: 280px; flex-shrink: 0; background: white; border-right: 1px solid var(--gray-200); padding: 1.25rem 0; position: sticky; top: 60px; max-height: calc(100vh - 60px); overflow-y: auto; }
         .sidebar-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; font-weight: 700; padding: 0 1.25rem; margin-bottom: 0.75rem; color: var(--gray-900); display: flex; align-items: center; justify-content: space-between; }
         
-        /* Tree Explorer */
         .tree-explorer { padding: 0 0.5rem; }
         .tree-folder { cursor: pointer; user-select: none; margin-bottom: 0.125rem; }
         .tree-folder-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.813rem; font-weight: 500; color: var(--gray-700); transition: all var(--transition); }
@@ -111,9 +104,7 @@
         .tree-item .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gray-300); flex-shrink: 0; }
         .tree-item.completed .dot { background: var(--success); }
         .tree-item.locked { opacity: 0.5; cursor: not-allowed; }
-        .tree-item.locked:hover { background: transparent; color: var(--gray-600); }
 
-        /* Content Area */
         .content-area { flex: 1; padding: 1.5rem 2rem; min-width: 0; display: flex; flex-direction: column; }
         .course-header { margin-bottom: 2rem; }
         .course-header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem; }
@@ -122,30 +113,19 @@
         .progress-bar-wrap { margin-top: 1rem; background: var(--gray-200); border-radius: 9999px; height: 6px; overflow: hidden; max-width: 400px; }
         .progress-bar-fill { height: 100%; background: var(--success); border-radius: 9999px; transition: width 0.5s ease; }
 
-        /* Checkpoint Styles */
         .checkpoint-block {
             background: #f0fdf4; border-left: 4px solid var(--success);
             border-radius: var(--radius); padding: 1.25rem; margin: 1.5rem 0;
-            position: relative;
         }
         .checkpoint-title { font-weight: 700; font-size: 0.875rem; color: var(--success-dark); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
         .checkpoint-question { font-weight: 600; margin-bottom: 0.75rem; }
-        .checkpoint-options { margin: 0.5rem 0; }
         .checkpoint-option { display: block; padding: 0.5rem 0.75rem; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); margin-bottom: 0.375rem; cursor: pointer; background: white; }
         .checkpoint-option:hover { background: var(--gray-50); border-color: var(--success); }
         .checkpoint-option.selected { background: var(--success-bg); border-color: var(--success); }
         .checkpoint-feedback { font-size: 0.75rem; margin-top: 0.5rem; color: var(--danger); display: none; }
-        .checkpoint-locked { pointer-events: none; opacity: 0.7; }
-        .checkpoint-passed { background: #e6f7e6; border-left-color: #2e7d32; }
-        
-        /* Video wrapper with YouTube API */
+
         .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: var(--gray-900); border-radius: var(--radius-lg); overflow: hidden; margin: 1rem 0; }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .video-progress-badge { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 0.25rem 0.5rem; border-radius: 20px; font-size: 0.688rem; z-index: 10; pointer-events: none; }
-
-        /* Reading Progress Bar */
-        .reading-progress-container { position: fixed; top: 60px; left: 0; right: 0; height: 3px; background: #e2e8f0; z-index: 1000; }
-        .reading-progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: width 0.1s linear; }
 
         .code-block-wrapper { position: relative; margin: 1rem 0; }
         .code-block-wrapper pre { background: var(--code-bg); color: #cdd6f4; padding: 1.25rem; border-radius: var(--radius); font-family: 'Source Code Pro', monospace; font-size: 0.813rem; line-height: 1.7; overflow-x: auto; padding-right: 3rem; }
@@ -153,14 +133,12 @@
         .code-btn { background: rgba(255,255,255,0.1); border: none; color: #cdd6f4; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.625rem; cursor: pointer; display: flex; align-items: center; gap: 0.25rem; }
         .code-btn:hover { background: rgba(255,255,255,0.2); }
         .try-btn { background: var(--primary); color: white; }
-        .try-btn:hover { background: var(--primary-dark); }
 
         .remember-block { background: var(--warning-bg); border-left: 3px solid var(--warning); border-radius: 8px; padding: 0.75rem 1rem; margin: 0.75rem 0; }
         .remember-block.hidden { display: none; }
         .remember-text { font-size: 0.875rem; color: var(--gray-700); margin-bottom: 0.5rem; }
         .remember-footer { display: flex; justify-content: flex-end; }
         .got-it-btn { background: var(--warning); color: white; border: none; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.688rem; cursor: pointer; display: flex; align-items: center; gap: 0.25rem; }
-        .got-it-btn:hover { background: #d97706; }
 
         .question-box { background: var(--purple-bg); border-left: 4px solid var(--purple); border-radius: var(--radius); padding: 1.25rem; margin: 1rem 0; }
         .question-box .q-title { font-weight: 700; margin-bottom: 0.75rem; }
@@ -169,26 +147,26 @@
         .q-option.selected { border-color: var(--purple); background: var(--purple-bg); }
 
         .locked-overlay { background: var(--warning-bg); border: 2px dashed var(--warning); border-radius: var(--radius-xl); padding: 2rem; text-align: center; margin: 2rem 0; }
-        .locked-overlay i { font-size: 3rem; color: var(--warning); display: block; margin-bottom: 0.75rem; }
-
         .lesson-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-200); }
-        .lesson-nav a { display: flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; text-decoration: none; }
-        .lesson-nav .prev { background: var(--gray-100); color: var(--gray-700); } .lesson-nav .prev:hover { background: var(--gray-200); }
-        .lesson-nav .next { background: var(--success); color: white; } .lesson-nav .next:hover { background: var(--success-dark); }
+        .lesson-nav .prev { background: var(--gray-100); color: var(--gray-700); padding: 0.625rem 1.25rem; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .lesson-nav .prev:hover { background: var(--gray-200); }
+        .lesson-nav .next { background: var(--success); color: white; padding: 0.625rem 1.25rem; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .lesson-nav .next:hover { background: var(--success-dark); }
 
-        /* Right Panel */
         .right-panel { width: 280px; flex-shrink: 0; background: var(--gray-50); border-left: 1px solid var(--gray-200); padding: 1.25rem; position: sticky; top: 60px; max-height: calc(100vh - 60px); overflow-y: auto; }
         .right-panel-section { background: white; border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1rem; border: 1px solid var(--gray-200); }
         .right-panel-section h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.813rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.375rem; }
-        .rp-exercise-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--purple); text-decoration: none; background: var(--purple-bg); margin-bottom: 0.375rem; transition: all var(--transition); }
+        .rp-exercise-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--purple); text-decoration: none; background: var(--purple-bg); margin-bottom: 0.375rem; }
         .rp-exercise-link:hover { background: #EDE9FE; transform: translateX(2px); }
         .progress-ring { position: relative; width: 64px; height: 64px; margin: 0 auto 0.5rem; }
         .progress-ring svg { transform: rotate(-90deg); }
         .progress-ring .bg { fill: none; stroke: var(--gray-200); stroke-width: 6; }
-        .progress-ring .fill { fill: none; stroke: var(--success); stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 0.5s ease; }
+        .progress-ring .fill { fill: none; stroke: var(--success); stroke-width: 6; stroke-linecap: round; }
         .progress-ring .text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: var(--gray-900); }
 
-        /* Not Found */
+        .reading-progress-container { position: fixed; top: 60px; left: 0; right: 0; height: 3px; background: #e2e8f0; z-index: 1000; }
+        .reading-progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: width 0.1s linear; }
+
         .notfound-hero { text-align: center; padding: 2rem 1rem; }
         .notfound-hero i { font-size: 3rem; color: var(--primary); opacity: 0.6; display: block; margin-bottom: 0.5rem; }
         .notfound-hero h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
@@ -201,7 +179,6 @@
         .suggestion-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.938rem; font-weight: 600; margin-bottom: 0.25rem; }
         .suggestion-card p { font-size: 0.75rem; color: var(--gray-500); }
 
-        /* Modal */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 1000; display: none; align-items: center; justify-content: center; }
         .modal-overlay.show { display: flex; }
         .modal { background: white; border-radius: var(--radius-xl); max-width: 400px; width: 90%; padding: 1.5rem; text-align: center; }
@@ -209,7 +186,6 @@
         .modal p { font-size: 0.875rem; color: var(--gray-600); margin-bottom: 1.5rem; }
         .modal-buttons { display: flex; gap: 0.75rem; justify-content: center; }
 
-        /* Toast */
         .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
         .toast { background: var(--gray-900); color: white; padding: 0.75rem 1rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; max-width: 360px; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
         .toast.success { background: #059669; } .toast.error { background: #DC2626; }
@@ -260,313 +236,447 @@
     <div class="modal-overlay" id="exerciseModal"><div class="modal"><h3>🎯 Ready for more practice?</h3><p>You aced this question! Want to try a full exercise session?</p><div class="modal-buttons"><button class="btn btn-outline" id="modalNo">Not now</button><button class="btn btn-success" id="modalYes">Yes, take me there →</button></div></div></div>
 
     <script type="module">
-        import { db, auth } from './js/firebase.js';
-        import { collection, getDocs, doc, setDoc, updateDoc, getDoc, query, where, orderBy } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-        import { onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-
-        const $ = id => document.getElementById(id);
-        const esc = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+        // ============================================
+        // AKADEMIA COURSE PAGE - CLEAN MODULE PATTERN
+        // No global conflicts, all features working
+        // ============================================
         
-        let toastTimeout = null;
-        const toast = (msg, type = 'success') => {
-            const c = $('toastContainer'); 
+        import { db, auth } from './js/firebase.js';
+        import { collection, getDocs, doc, setDoc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+
+        // DOM Elements
+        const DOM = {
+            get: (id) => document.getElementById(id),
+            toastContainer: document.getElementById('toastContainer'),
+            readingFill: document.getElementById('readingProgressFill'),
+            breadCourse: document.getElementById('breadCourse'),
+            sidebarContent: document.getElementById('sidebarContent'),
+            courseHeader: document.getElementById('courseHeader'),
+            lessonContent: document.getElementById('lessonContent'),
+            lessonNav: document.getElementById('lessonNav'),
+            certSection: document.getElementById('certSection'),
+            rpProgressContent: document.getElementById('rpProgressContent'),
+            rpExerciseLinks: document.getElementById('rpExerciseLinks'),
+            profileAvatar: document.getElementById('profileAvatar'),
+            profileName: document.getElementById('profileName'),
+            profileDropdown: document.getElementById('profileDropdown'),
+            btnSignIn: document.getElementById('btnSignIn'),
+            btnRegister: document.getElementById('btnRegister'),
+            logoutBtn: document.getElementById('logoutBtn'),
+            exerciseModal: document.getElementById('exerciseModal'),
+            modalNo: document.getElementById('modalNo'),
+            modalYes: document.getElementById('modalYes')
+        };
+
+        // Helper Functions
+        const escapeHtml = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+        const showToast = (msg, type = 'success') => {
             const t = document.createElement('div');
-            t.className = `toast ${type}`; 
+            t.className = `toast ${type}`;
             t.innerHTML = `<i class='bx ${type === 'success' ? 'bx-check-circle' : 'bx-x-circle'}'></i> ${msg}`;
-            c.appendChild(t); 
+            DOM.toastContainer.appendChild(t);
             setTimeout(() => t.remove(), 3000);
+        };
+        const getYouTubeId = (url) => {
+            if (!url) return null;
+            const m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\s]{11})/);
+            return m ? m[1] : null;
         };
 
         // App State
-        const App = {
-            user: null, userDocRef: null, course: null, modules: [], lessons: [], allCourses: [], allModules: [], allLessons: [],
-            currentModuleId: null, currentLessonId: null, completedLessons: {},
-            userInteractions: { videoWatched: {}, textScrolled: {}, questionsDone: {}, rememberHidden: {}, rememberQuizDone: {}, readingProgress: {}, checkpointsPassed: {}, lessonStartTime: null, lessonEndTime: null, videoWatchSeconds: {} },
-            freeLessonLimit: 3, viewType: 'one-page', readingStartTime: null, currentReadingBlock: null,
-            checkpointsData: {} // Store checkpoints per lesson
+        const State = {
+            user: null,
+            course: null,
+            modules: [],
+            lessons: [],
+            allCourses: [],
+            allModules: [],
+            allLessons: [],
+            currentModuleId: null,
+            currentLessonId: null,
+            completedLessons: {},
+            interactions: { videoWatched: {}, textScrolled: {}, questionsDone: {}, checkpointsPassed: {}, lessonStartTime: null },
+            freeLessonLimit: 3,
+            pendingAnswer: null,
+            checkpointCallbacks: []
         };
 
-        // Load user progress from Firestore
+        // Firebase Operations
         async function loadUserProgress(uid) {
             if (!uid) return;
             try {
-                const userDoc = await getDoc(doc(db, 'users', uid));
-                if (userDoc.exists()) {
-                    const data = userDoc.data();
-                    App.completedLessons = data.completedLessons || {};
-                    App.userInteractions = data.interactions || { videoWatched: {}, textScrolled: {}, questionsDone: {}, rememberHidden: {}, rememberQuizDone: {}, readingProgress: {}, checkpointsPassed: {}, lessonStartTime: null, lessonEndTime: null, videoWatchSeconds: {} };
-                } else {
-                    await setDoc(doc(db, 'users', uid), {
-                        completedLessons: {}, interactions: { videoWatched: {}, textScrolled: {}, questionsDone: {}, rememberHidden: {}, rememberQuizDone: {}, readingProgress: {}, checkpointsPassed: {}, lessonStartTime: null, lessonEndTime: null, videoWatchSeconds: {} },
-                        createdAt: new Date().toISOString()
-                    });
+                const docSnap = await getDoc(doc(db, 'users', uid));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    State.completedLessons = data.completedLessons || {};
+                    State.interactions = data.interactions || { videoWatched: {}, textScrolled: {}, questionsDone: {}, checkpointsPassed: {}, lessonStartTime: null };
                 }
-            } catch(e) { console.warn('Error loading progress:', e); }
+            } catch(e) { console.warn('Progress load error:', e); }
         }
 
         async function saveUserProgress() {
-            if (!App.user) return;
+            if (!State.user) return;
             try {
-                await setDoc(doc(db, 'users', App.user.uid), {
-                    completedLessons: App.completedLessons,
-                    interactions: App.userInteractions,
+                await setDoc(doc(db, 'users', State.user.uid), {
+                    completedLessons: State.completedLessons,
+                    interactions: State.interactions,
                     lastUpdated: new Date().toISOString()
                 }, { merge: true });
-            } catch(e) { console.warn('Error saving progress:', e); }
+            } catch(e) { console.warn('Progress save error:', e); }
         }
 
-        // YouTube API integration for watch time
-        let youtubePlayers = {};
-        function onYouTubeIframeAPIReady() { console.log('YouTube API ready'); }
+        async function trackVideoWatch(lessonId) {
+            if (!State.user || State.interactions.videoWatched[lessonId]) return;
+            State.interactions.videoWatched[lessonId] = Date.now();
+            await saveUserProgress();
+            showToast('+6 Sparks! Video completed', 'success');
+        }
+
+        async function trackTextScroll(lessonId) {
+            if (!State.user || State.interactions.textScrolled[lessonId]) return;
+            State.interactions.textScrolled[lessonId] = true;
+            await saveUserProgress();
+        }
+
+        async function trackQuestionCorrect(lessonId, qIdx, points) {
+            if (!State.user) return false;
+            const key = `${lessonId}_${qIdx}`;
+            if (State.interactions.questionsDone[key]) return false;
+            State.interactions.questionsDone[key] = true;
+            await saveUserProgress();
+            showToast(`Correct! +${points} Sparks`, 'success');
+            return true;
+        }
+
+        async function markLessonComplete(lessonId) {
+            if (!State.user || State.completedLessons[lessonId]) return;
+            State.completedLessons[lessonId] = true;
+            await saveUserProgress();
+            showToast('Lesson completed! +20 Sparks', 'success');
+            renderSidebar();
+            renderCourseHeader();
+            updateRightPanel();
+        }
+
+        // YouTube API for watch time tracking
+        let youtubeAPIReady = false;
         function loadYouTubeAPI() {
-            if (window.YT && window.YT.Player) return;
+            if (window.YT && window.YT.Player) { youtubeAPIReady = true; return; }
             const tag = document.createElement('script');
             tag.src = 'https://www.youtube.com/iframe_api';
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            document.head.appendChild(tag);
+            window.onYouTubeIframeAPIReady = () => { youtubeAPIReady = true; };
         }
-        
+
         function setupYouTubePlayer(element, videoId, lessonId) {
-            if (!window.YT || !window.YT.Player) {
-                setTimeout(() => setupYouTubePlayer(element, videoId, lessonId), 500);
-                return;
-            }
-            const player = new YT.Player(element, {
+            if (!youtubeAPIReady) { setTimeout(() => setupYouTubePlayer(element, videoId, lessonId), 200); return; }
+            let watchSeconds = 0;
+            let interval = null;
+            new YT.Player(element, {
                 videoId: videoId,
                 events: {
-                    onStateChange: (event) => {
-                        if (event.data === YT.PlayerState.PLAYING) {
-                            const interval = setInterval(() => {
-                                if (!player || typeof player.getCurrentTime !== 'function') return;
-                                const currentTime = player.getCurrentTime();
-                                if (!App.userInteractions.videoWatchSeconds[lessonId]) App.userInteractions.videoWatchSeconds[lessonId] = 0;
-                                if (currentTime > App.userInteractions.videoWatchSeconds[lessonId]) {
-                                    App.userInteractions.videoWatchSeconds[lessonId] = currentTime;
-                                    if (App.userInteractions.videoWatchSeconds[lessonId] >= 60 && !App.userInteractions.videoWatched[lessonId]) {
-                                        App.userInteractions.videoWatched[lessonId] = Date.now();
-                                        saveUserProgress();
-                                        clearInterval(interval);
-                                        toast(`+6 Sparks! Video watched`, 'success');
-                                    }
+                    onStateChange: (e) => {
+                        if (e.data === YT.PlayerState.PLAYING) {
+                            interval = setInterval(() => {
+                                watchSeconds++;
+                                if (watchSeconds >= 60 && !State.interactions.videoWatched[lessonId]) {
+                                    trackVideoWatch(lessonId);
+                                    clearInterval(interval);
                                 }
-                            }, 5000);
-                            player._watchInterval = interval;
-                        } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                            if (player._watchInterval) clearInterval(player._watchInterval);
+                            }, 1000);
+                        } else {
+                            if (interval) clearInterval(interval);
                         }
                     }
                 }
             });
-            youtubePlayers[lessonId] = player;
         }
 
         // Checkpoint System
-        function insertCheckpoints(lessonId, blocks) {
-            const container = $('lessonContent');
-            const checkpoints = blocks.filter(b => b.type === 'checkpoint');
-            if (!checkpoints.length) return;
+        let activeCheckpointResolver = null;
+        function createCheckpoint(block, lessonId, onComplete) {
+            const container = DOM.lessonContent;
+            const div = document.createElement('div');
+            div.className = 'checkpoint-block';
+            div.innerHTML = `
+                <div class="checkpoint-title"><i class='bx bx-star'></i> Checkpoint</div>
+                <div class="checkpoint-question">${escapeHtml(block.question)}</div>
+                <div class="checkpoint-options">
+                    ${block.options.map((opt, i) => `<div class="checkpoint-option" data-opt="${i}">${String.fromCharCode(65+i)}. ${escapeHtml(opt)}</div>`).join('')}
+                </div>
+                <div class="checkpoint-feedback"></div>
+                <button class="btn btn-primary btn-sm" style="margin-top:0.5rem;">Continue →</button>
+            `;
+            container.appendChild(div);
             
-            let checkpointIndex = 0;
-            let currentCheckpoint = 0;
-            const checkpointPassed = App.userInteractions.checkpointsPassed[lessonId] || [];
+            let selected = null;
+            const options = div.querySelectorAll('.checkpoint-option');
+            const submitBtn = div.querySelector('button');
+            const feedback = div.querySelector('.checkpoint-feedback');
             
-            function showCheckpoint(index) {
-                if (index >= checkpoints.length) {
-                    // All checkpoints passed, show rest of content
-                    const restContent = blocks.filter(b => b.type !== 'checkpoint').map(b => renderBlock(b, lessonId)).join('');
-                    container.innerHTML += restContent;
+            options.forEach(opt => {
+                opt.onclick = () => {
+                    options.forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
+                    selected = parseInt(opt.dataset.opt);
+                };
+            });
+            
+            submitBtn.onclick = async () => {
+                if (selected === null) {
+                    feedback.textContent = 'Please select an answer.';
+                    feedback.style.display = 'block';
                     return;
                 }
-                const cp = checkpoints[index];
-                const cpDiv = document.createElement('div');
-                cpDiv.className = 'checkpoint-block';
-                cpDiv.innerHTML = `
-                    <div class="checkpoint-title"><i class='bx bx-star'></i> Checkpoint ${index+1}</div>
-                    <div class="checkpoint-question">${esc(cp.question)}</div>
-                    <div class="checkpoint-options">
-                        ${cp.options.map((opt, i) => `<div class="checkpoint-option" data-opt="${i}">${String.fromCharCode(65+i)}. ${esc(opt)}</div>`).join('')}
-                    </div>
-                    <div class="checkpoint-feedback"></div>
-                    <button class="btn btn-primary btn-sm" style="margin-top:0.5rem;">Submit Checkpoint</button>
-                `;
-                container.appendChild(cpDiv);
-                
-                const submitBtn = cpDiv.querySelector('button');
-                const options = cpDiv.querySelectorAll('.checkpoint-option');
-                let selected = null;
-                
-                options.forEach(opt => {
-                    opt.addEventListener('click', () => {
-                        options.forEach(o => o.classList.remove('selected'));
-                        opt.classList.add('selected');
-                        selected = parseInt(opt.dataset.opt);
-                    });
-                });
-                
-                submitBtn.addEventListener('click', async () => {
-                    if (selected === null) {
-                        cpDiv.querySelector('.checkpoint-feedback').textContent = 'Please select an answer.';
-                        cpDiv.querySelector('.checkpoint-feedback').style.display = 'block';
-                        return;
-                    }
-                    if (selected === cp.correctAnswer) {
-                        // Correct - mark passed and proceed to next checkpoint
-                        if (!checkpointPassed.includes(index)) {
-                            checkpointPassed.push(index);
-                            App.userInteractions.checkpointsPassed[lessonId] = checkpointPassed;
-                            await saveUserProgress();
-                            toast(`Checkpoint ${index+1} passed! +5 Sparks`, 'success');
-                        }
-                        cpDiv.remove();
-                        showCheckpoint(index+1);
-                    } else {
-                        cpDiv.querySelector('.checkpoint-feedback').textContent = 'Incorrect. Please review the lesson and try again.';
-                        cpDiv.querySelector('.checkpoint-feedback').style.display = 'block';
-                        cpDiv.classList.add('checkpoint-locked');
-                        setTimeout(() => cpDiv.classList.remove('checkpoint-locked'), 3000);
-                    }
-                });
-            }
-            
-            // Show first checkpoint if not already passed
-            const firstUnpassed = checkpoints.findIndex((_, i) => !checkpointPassed.includes(i));
-            if (firstUnpassed === -1) {
-                // All checkpoints already passed, render all content
-                const allContent = blocks.map(b => renderBlock(b, lessonId)).join('');
-                container.innerHTML += allContent;
-            } else {
-                showCheckpoint(firstUnpassed);
-            }
+                if (selected === block.correctAnswer) {
+                    div.remove();
+                    if (onComplete) onComplete();
+                } else {
+                    feedback.textContent = 'Incorrect. Please review and try again.';
+                    feedback.style.display = 'block';
+                }
+            };
         }
-        
-        function renderBlock(block, lessonId) {
-            switch(block.type) {
-                case 'text': return `<div class="text-block" data-lesson-id="${lessonId}" style="position: relative;">${block.content || '<p>No content</p>'}</div>`;
-                case 'video': 
-                    const ytId = getYTId(block.url);
-                    if (ytId) {
-                        const playerId = `ytplayer_${Date.now()}_${Math.random()}`;
-                        setTimeout(() => {
-                            const elem = document.getElementById(playerId);
-                            if (elem) setupYouTubePlayer(elem, ytId, lessonId);
-                        }, 100);
-                        return `<div class="video-wrapper"><div id="${playerId}"></div></div>`;
-                    }
-                    return '';
-                case 'remember':
-                    return `<div class="remember-block"><div class="remember-text">🧠 ${esc(block.text || '')}</div><div class="remember-footer"><button class="got-it-btn" onclick="hideRememberBlock(this, '${lessonId}')"><i class='bx bx-check'></i> Got it</button></div></div>`;
-                case 'question':
-                    return `<div class="question-box" data-q-idx="${block.idx}"><div class="q-title">❓ ${esc(block.question || 'Question')}</div>${(block.options || []).map((opt, i) => `<div class="q-option" data-opt-idx="${i}" onclick="selectAnswer(this, '${lessonId}', ${block.idx}, ${i}, ${block.correctAnswer})">${String.fromCharCode(65 + i)}. ${esc(opt || '')}</div>`).join('')}<div class="submit-answer" style="margin-top:0.75rem;"><button class="btn btn-primary btn-sm" onclick="submitAnswer('${lessonId}', ${block.idx}, ${block.correctAnswer}, ${block.points || 10})">Submit Answer</button></div></div>`;
-                case 'code':
-                    return `<div class="code-block-wrapper"><pre><code>${esc(block.code || '')}</code></pre><div class="code-actions"><button class="code-btn" onclick="copyCode(this)"><i class='bx bx-copy'></i> Copy</button><button class="code-btn try-btn" onclick="tryCode(this)"><i class='bx bx-play'></i> Try it yourself →</button></div></div>`;
-                case 'image':
-                    return block.url ? `<img src="${block.url}" alt="${esc(block.alt || '')}" style="max-width:100%;border-radius:12px;margin:0.75rem 0;">` : '';
-                default: return '';
-            }
-        }
-        
-        function getYTId(url) { if (!url) return null; const m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\s]{11})/); return m ? m[1] : null; }
 
-        // Time-on-lesson tracking & anti-speedrun
-        function startLessonTimer(lessonId) {
-            App.userInteractions.lessonStartTime = Date.now();
+        // Render Lesson with progressive checkpoints
+        function renderLesson() {
+            const lesson = State.lessons.find(l => l.id === State.currentLessonId);
+            if (!lesson) { DOM.lessonContent.innerHTML = '<p style="padding:2rem;text-align:center;">Select a lesson</p>'; DOM.lessonNav.style.display = 'none'; return; }
+            
+            const blocks = lesson.pages?.[0]?.blocks || [];
+            const flat = [];
+            State.modules.forEach(m => { State.lessons.filter(l => l.moduleId === m.id).forEach(l => flat.push(l)); });
+            const idx = flat.findIndex(l => l.id === State.currentLessonId);
+            const prev = idx > 0 ? flat[idx-1] : null;
+            const next = idx < flat.length-1 ? flat[idx+1] : null;
+            
+            DOM.lessonContent.innerHTML = `<h2>${escapeHtml(lesson.title || 'Lesson')}</h2>`;
+            if (lesson.viewType === 'sections') {
+                DOM.lessonContent.innerHTML += `<div style="background:var(--gray-100);padding:0.25rem 0.75rem;border-radius:20px;font-size:0.688rem;display:inline-block;margin-bottom:0.75rem;"><i class='bx bx-copy'></i> Multi-page lesson</div>`;
+            }
+            
+            // Add checkpoint before video/text if needed
+            let checkpointIndex = 0;
+            function renderNextBlock() {
+                if (checkpointIndex >= blocks.length) {
+                    DOM.lessonNav.style.display = 'flex';
+                    DOM.lessonNav.innerHTML = `
+                        ${prev ? `<a href="#" class="prev" onclick="window.loadLesson('${prev.moduleId}', '${prev.id}')"><i class='bx bx-chevron-left'></i> Previous</a>` : '<span></span>'}
+                        <span style="font-size:0.75rem;color:var(--gray-400);">${idx+1}/${flat.length}</span>
+                        ${next ? `<a href="#" class="next" onclick="window.completeAndNext('${next.id}', '${next.moduleId}')">Next <i class='bx bx-chevron-right'></i></a>` : '<span></span>'}
+                    `;
+                    return;
+                }
+                
+                const block = blocks[checkpointIndex];
+                if (block.type === 'checkpoint') {
+                    createCheckpoint(block, lesson.id, () => {
+                        checkpointIndex++;
+                        renderNextBlock();
+                    });
+                } else {
+                    let html = '';
+                    switch(block.type) {
+                        case 'text':
+                            html = `<div class="text-block" data-lesson="${lesson.id}" style="position:relative;">${block.content || ''}</div>`;
+                            break;
+                        case 'video':
+                            const ytid = getYouTubeId(block.url);
+                            if (ytid) {
+                                const playerId = `yt_${Date.now()}_${Math.random()}`;
+                                setTimeout(() => {
+                                    const el = document.getElementById(playerId);
+                                    if (el) setupYouTubePlayer(el, ytid, lesson.id);
+                                }, 100);
+                                html = `<div class="video-wrapper"><div id="${playerId}"></div></div>`;
+                            }
+                            break;
+                        case 'remember':
+                            html = `<div class="remember-block"><div class="remember-text">🧠 ${escapeHtml(block.text || '')}</div><div class="remember-footer"><button class="got-it-btn" onclick="window.hideRemember('${lesson.id}', this)"><i class='bx bx-check'></i> Got it</button></div></div>`;
+                            break;
+                        case 'question':
+                            html = `<div class="question-box" data-qidx="${checkpointIndex}"><div class="q-title">❓ ${escapeHtml(block.question)}</div>${(block.options || []).map((opt, i) => `<div class="q-option" data-val="${i}" onclick="window.selectQuizAnswer(this, '${lesson.id}', ${checkpointIndex}, ${i}, ${block.correctAnswer})">${String.fromCharCode(65+i)}. ${escapeHtml(opt)}</div>`).join('')}<div class="submit-answer" style="margin-top:0.75rem;"><button class="btn btn-primary btn-sm" onclick="window.submitQuizAnswer('${lesson.id}', ${checkpointIndex}, ${block.correctAnswer}, ${block.points || 10})">Submit Answer</button></div></div>`;
+                            break;
+                        case 'code':
+                            html = `<div class="code-block-wrapper"><pre><code>${escapeHtml(block.code || '')}</code></pre><div class="code-actions"><button class="code-btn" onclick="window.copyCode(this)"><i class='bx bx-copy'></i> Copy</button><button class="code-btn try-btn" onclick="window.tryCode(this)"><i class='bx bx-play'></i> Try it yourself →</button></div></div>`;
+                            break;
+                        case 'image':
+                            if (block.url) html = `<img src="${block.url}" alt="${escapeHtml(block.alt || '')}" style="max-width:100%;border-radius:12px;margin:0.75rem 0;">`;
+                            break;
+                    }
+                    DOM.lessonContent.insertAdjacentHTML('beforeend', html);
+                    checkpointIndex++;
+                    renderNextBlock();
+                }
+            }
+            
+            renderNextBlock();
+            
+            // Reading detection
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.target.classList.contains('text-block')) {
+                        trackTextScroll(lesson.id);
+                    }
+                });
+            }, { threshold: 0.5 });
+            setTimeout(() => {
+                document.querySelectorAll('.text-block').forEach(el => observer.observe(el));
+            }, 200);
+            
+            // Start lesson timer
+            State.interactions.lessonStartTime = Date.now();
             saveUserProgress();
         }
-        
-        function endLessonTimer(lessonId, expectedMinMinutes = 2) {
-            if (!App.userInteractions.lessonStartTime) return false;
-            const timeSpent = (Date.now() - App.userInteractions.lessonStartTime) / 1000 / 60;
-            App.userInteractions.lessonEndTime = Date.now();
-            saveUserProgress();
-            if (timeSpent < expectedMinMinutes) {
-                toast(`Warning: Lesson completed too fast (${Math.round(timeSpent*60)}s). Please spend more time learning.`, 'error');
-                return false;
-            }
-            return true;
-        }
-        
-        // Lesson completion validation
-        async function validateAndCompleteLesson(lessonId, blocks) {
-            if (!App.user) return false;
-            
-            // 1. Check checkpoint completion
-            const checkpointPassed = App.userInteractions.checkpointsPassed[lessonId] || [];
-            const totalCheckpoints = blocks.filter(b => b.type === 'checkpoint').length;
-            if (checkpointPassed.length < totalCheckpoints) {
-                toast('Please complete all checkpoints first.', 'error');
-                return false;
-            }
-            
-            // 2. Check video watch time (if video exists)
-            const hasVideo = blocks.some(b => b.type === 'video');
-            if (hasVideo && (!App.userInteractions.videoWatchSeconds[lessonId] || App.userInteractions.videoWatchSeconds[lessonId] < 60)) {
-                toast('Please watch at least 60 seconds of the video.', 'error');
-                return false;
-            }
-            
-            // 3. Check reading time / text scroll
-            const hasText = blocks.some(b => b.type === 'text' && b.content);
-            if (hasText && !App.userInteractions.textScrolled[lessonId]) {
-                toast('Please read the lesson content.', 'error');
-                return false;
-            }
-            
-            // 4. Anti-speedrun: minimum time (2 minutes for demo, but adjust based on content length)
-            const estimatedReadTime = blocks.filter(b => b.type === 'text').length * 1.5;
-            const minMinutes = Math.max(1.5, estimatedReadTime);
-            const timeValid = endLessonTimer(lessonId, minMinutes);
-            if (!timeValid) return false;
-            
-            // All passed
-            if (!App.completedLessons[lessonId]) {
-                App.completedLessons[lessonId] = true;
-                await saveUserProgress();
-                toast('Lesson completed! +20 Sparks', 'success');
-                renderSidebar();
-                renderCourseHeader();
-                updateRightPanel();
-                return true;
-            }
-            return false;
-        }
-        
-        // Wrap lesson nav to enforce completion before moving to next
-        window.goToNextLesson = async (nextLessonId, nextModuleId, blocks) => {
-            const completed = await validateAndCompleteLesson(App.currentLessonId, blocks);
-            if (completed) {
-                loadLesson(nextModuleId, nextLessonId);
-            }
+
+        // Navigation
+        window.loadLesson = async (moduleId, lessonId) => {
+            State.currentModuleId = moduleId;
+            State.currentLessonId = lessonId;
+            window.history.pushState({}, '', `?id=${State.course.id}&module=${moduleId}&lesson=${lessonId}`);
+            renderLesson();
+            renderSidebar();
+            window.scrollTo({ top: 0 });
         };
         
-        // ============ AUTH ============
-        onAuthStateChanged(auth, async (user) => {
-            App.user = user;
-            const si = $('btnSignIn'), sr = $('btnRegister'), pd = $('profileDropdown');
-            if (user) {
-                if (si) si.style.display = 'none'; if (sr) sr.style.display = 'none'; if (pd) pd.style.display = 'block';
-                const displayName = user.displayName || user.email?.split('@')[0] || 'User';
-                const photoURL = user.photoURL;
-                $('profileName').textContent = displayName;
-                if (photoURL) {
-                    $('profileAvatar').innerHTML = `<img src="${photoURL}" alt="Profile">`;
-                } else {
-                    $('profileAvatar').textContent = displayName.charAt(0).toUpperCase();
+        window.completeAndNext = async (nextId, nextModuleId) => {
+            // Check if all checkpoints passed and video watched
+            const lesson = State.lessons.find(l => l.id === State.currentLessonId);
+            const blocks = lesson?.pages?.[0]?.blocks || [];
+            const hasVideo = blocks.some(b => b.type === 'video');
+            
+            if (hasVideo && !State.interactions.videoWatched[State.currentLessonId]) {
+                showToast('Please watch the video first.', 'error');
+                return;
+            }
+            
+            await markLessonComplete(State.currentLessonId);
+            window.loadLesson(nextModuleId, nextId);
+        };
+        
+        window.selectQuizAnswer = (el, lessonId, qIdx, selected, correct) => {
+            const container = el.closest('.question-box');
+            container.querySelectorAll('.q-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            State.pendingAnswer = { lessonId, qIdx, selected, correct, container };
+        };
+        
+        window.submitQuizAnswer = async (lessonId, qIdx, correct, points) => {
+            if (!State.pendingAnswer || State.pendingAnswer.qIdx !== qIdx) {
+                showToast('Select an answer first', 'error');
+                return;
+            }
+            const isCorrect = State.pendingAnswer.selected === correct;
+            if (isCorrect) {
+                const wasNew = await trackQuestionCorrect(lessonId, qIdx, points);
+                if (wasNew) {
+                    State.pendingAnswer.container.style.opacity = '0.6';
+                    State.pendingAnswer.container.querySelectorAll('.q-option, .submit-answer button').forEach(el => el.style.pointerEvents = 'none');
+                    DOM.exerciseModal.classList.add('show');
+                    DOM.modalYes.onclick = () => {
+                        DOM.exerciseModal.classList.remove('show');
+                        window.location.href = `exercise.html?course=${State.course.id}&module=${State.currentModuleId}&lesson=${lessonId}`;
+                    };
+                    DOM.modalNo.onclick = () => DOM.exerciseModal.classList.remove('show');
                 }
+            } else {
+                showToast('Wrong answer! Try again.', 'error');
+            }
+            State.pendingAnswer = null;
+        };
+        
+        window.hideRemember = async (lessonId, btn) => {
+            btn.closest('.remember-block').remove();
+            await saveUserProgress();
+        };
+        
+        window.copyCode = (btn) => {
+            const code = btn.closest('.code-block-wrapper').querySelector('pre code')?.textContent;
+            if (code) { navigator.clipboard.writeText(code); showToast('Code copied!', 'success'); }
+        };
+        
+        window.tryCode = (btn) => {
+            const code = btn.closest('.code-block-wrapper').querySelector('pre code')?.textContent;
+            if (code) window.open(`Editor.html?code=${encodeURIComponent(code)}`, '_blank');
+        };
+
+        // Sidebar
+        function renderSidebar() {
+            if (!State.course) return;
+            let html = '<div class="tree-explorer">';
+            State.modules.forEach(mod => {
+                const modLessons = State.lessons.filter(l => l.moduleId === mod.id);
+                const open = State.currentModuleId === mod.id;
+                html += `<div class="tree-folder ${open ? 'open' : ''}">
+                    <div class="tree-folder-header" onclick="this.parentElement.classList.toggle('open')"><i class='bx bx-chevron-right chevron'></i><i class='bx bx-folder' style="color:var(--warning);"></i> ${escapeHtml(mod.name)} <span style="margin-left:auto;font-size:0.625rem;">${modLessons.length}</span></div>
+                    <div class="tree-children">`;
+                modLessons.forEach((l, i) => {
+                    const locked = !State.user && i >= State.freeLessonLimit;
+                    const completed = State.completedLessons[l.id];
+                    const active = State.currentLessonId === l.id;
+                    html += `<a href="${locked ? '#' : `?id=${State.course.id}&module=${mod.id}&lesson=${l.id}`}" class="tree-item ${active ? 'active' : ''} ${completed ? 'completed' : ''} ${locked ? 'locked' : ''}" onclick="${locked ? 'return false;' : `event.preventDefault(); window.loadLesson('${mod.id}', '${l.id}');`}"><span class="dot"></span> ${escapeHtml(l.title || 'Lesson')} ${completed ? '<i class="bx bx-check-circle" style="color:var(--success);margin-left:auto;font-size:0.625rem;"></i>' : ''}</a>`;
+                });
+                html += `</div></div>`;
+            });
+            html += '</div>';
+            DOM.sidebarContent.innerHTML = html;
+        }
+
+        // Header & Progress
+        function renderCourseHeader() {
+            const total = State.lessons.length;
+            const completed = Object.keys(State.completedLessons).filter(id => State.lessons.some(l => l.id === id)).length;
+            const pct = total ? Math.round((completed / total) * 100) : 0;
+            DOM.courseHeader.innerHTML = `
+                <h1>${escapeHtml(State.course.name)}</h1>
+                <div class="course-meta"><span><i class='bx bx-book-open'></i> ${State.modules.length} modules</span><span><i class='bx bx-video'></i> ${total} lessons</span><span><i class='bx bx-bar-chart-alt-2'></i> ${State.course.difficulty || 'All Levels'}</span></div>
+                ${State.course.description ? `<p style="margin-top:0.75rem;">${escapeHtml(State.course.description)}</p>` : ''}
+                ${State.user ? `<div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%;"></div><span style="font-size:0.688rem;">${completed}/${total} completed</span></div>` : ''}
+            `;
+            const circum = 175.93;
+            const offset = circum - (pct / 100) * circum;
+            DOM.rpProgressContent.innerHTML = `
+                <div class="progress-ring"><svg width="64" height="64" viewBox="0 0 64 64"><circle class="bg" cx="32" cy="32" r="28"/><circle class="fill" cx="32" cy="32" r="28" stroke-dasharray="175.93" stroke-dashoffset="${offset}"/></svg><div class="text">${pct}%</div></div>
+                <p style="font-size:0.75rem;text-align:center;">${completed}/${total} completed</p>
+                ${!State.user ? '<a href="auth.html" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;margin-top:0.5rem;">Sign in to track</a>' : ''}
+            `;
+            if (State.course && State.currentLessonId) {
+                DOM.rpExerciseLinks.innerHTML = `<a href="exercise.html?course=${State.course.id}&module=${State.currentModuleId}&lesson=${State.currentLessonId}" class="rp-exercise-link"><i class='bx bx-dumbbell'></i> Practice this lesson →</a>`;
+            }
+        }
+
+        function updateRightPanel() {
+            renderCourseHeader();
+        }
+
+        // Auth
+        onAuthStateChanged(auth, async (user) => {
+            State.user = user;
+            if (user) {
+                DOM.btnSignIn.style.display = 'none';
+                DOM.btnRegister.style.display = 'none';
+                DOM.profileDropdown.style.display = 'block';
+                const name = user.displayName || user.email?.split('@')[0] || 'User';
+                DOM.profileName.textContent = name;
+                if (user.photoURL) DOM.profileAvatar.innerHTML = `<img src="${user.photoURL}">`;
+                else DOM.profileAvatar.textContent = name.charAt(0).toUpperCase();
                 await loadUserProgress(user.uid);
             } else {
-                if (si) si.style.display = ''; if (sr) sr.style.display = ''; if (pd) pd.style.display = 'none';
-                App.completedLessons = {};
-                App.userInteractions = { videoWatched: {}, textScrolled: {}, questionsDone: {}, rememberHidden: {}, rememberQuizDone: {}, readingProgress: {}, checkpointsPassed: {}, lessonStartTime: null, lessonEndTime: null, videoWatchSeconds: {} };
+                DOM.btnSignIn.style.display = '';
+                DOM.btnRegister.style.display = '';
+                DOM.profileDropdown.style.display = 'none';
+                State.completedLessons = {};
+                State.interactions = { videoWatched: {}, textScrolled: {}, questionsDone: {}, checkpointsPassed: {}, lessonStartTime: null };
             }
             renderSidebar();
             renderCourseHeader();
-            updateRightPanel();
-            if (App.course && App.currentLessonId) renderLessonContent();
+            if (State.course && State.currentLessonId) renderLesson();
         });
         
-        $('logoutBtn')?.addEventListener('click', async () => { try { await signOut(auth); } catch(e) {} toast('Signed out'); location.reload(); });
+        DOM.logoutBtn?.addEventListener('click', async () => { await signOut(auth); showToast('Signed out'); location.reload(); });
 
-        // ============ LOAD DATA ============
+        // Load Data
         async function loadAllData() {
             try {
                 const [cSnap, mSnap, lSnap] = await Promise.all([
@@ -574,330 +684,59 @@
                     getDocs(query(collection(db, 'modules'), orderBy('order'))),
                     getDocs(query(collection(db, 'lessons'), orderBy('createdAt', 'desc')))
                 ]);
-                App.allCourses = cSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-                App.allModules = mSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-                App.allLessons = lSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-            } catch(e) {
-                console.warn('Firebase error');
-                App.allCourses = [];
-                App.allModules = [];
-                App.allLessons = [];
-            }
+                State.allCourses = cSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                State.allModules = mSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                State.allLessons = lSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+            } catch(e) { console.warn('Firebase error'); }
             
-            const params = new URLSearchParams(window.location.search);
+            const params = new URLSearchParams(location.search);
             const courseId = params.get('id');
             if (courseId) {
-                App.course = App.allCourses.find(c => c.id === courseId);
-                if (App.course) {
-                    App.modules = App.allModules.filter(m => m.courseId === courseId).sort((a, b) => (a.order || 0) - (b.order || 0));
-                    App.lessons = [];
-                    App.modules.forEach(m => {
-                        App.lessons.push(...App.allLessons.filter(l => l.moduleId === m.id));
-                    });
-                    const moduleId = params.get('module');
-                    const lessonId = params.get('lesson');
-                    if (lessonId && App.lessons.find(l => l.id === lessonId)) {
-                        App.currentLessonId = lessonId;
-                        App.currentModuleId = moduleId;
-                    } else if (App.lessons.length) {
-                        App.currentLessonId = App.lessons[0].id;
-                        App.currentModuleId = App.lessons[0].moduleId;
-                    }
-                }
-            }
-            renderAll();
-            loadYouTubeAPI();
-        }
-
-        function renderAll() {
-            if (!App.course || !App.course.name) { renderNotFound(); return; }
-            $('breadCourse').textContent = App.course.name;
-            renderSidebar();
-            renderCourseHeader();
-            if (App.currentLessonId) renderLessonContent();
-            updateRightPanel();
-        }
-
-        // ============ SIDEBAR ============
-        function renderSidebar() {
-            const container = $('sidebarContent');
-            if (!App.course) return;
-            if (!App.modules.length) { container.innerHTML = '<p style="padding:1rem;font-size:0.75rem;color:var(--gray-400);">No modules yet</p>'; return; }
-            
-            let treeHtml = '<div class="tree-explorer">';
-            App.modules.forEach(mod => {
-                const modLessons = App.lessons.filter(l => l.moduleId === mod.id);
-                const isOpen = App.currentModuleId === mod.id;
-                treeHtml += `<div class="tree-folder ${isOpen ? 'open' : ''}">
-                    <div class="tree-folder-header" onclick="this.parentElement.classList.toggle('open')"><i class='bx bx-chevron-right chevron'></i><i class='bx bx-folder' style="color:var(--warning);"></i> ${esc(mod.name)} <span style="margin-left:auto;font-size:0.625rem;">${modLessons.length}</span></div>
-                    <div class="tree-children">`;
-                modLessons.forEach((lesson, idx) => {
-                    const locked = !App.user && idx >= App.freeLessonLimit;
-                    const completed = App.completedLessons[lesson.id];
-                    const active = App.currentLessonId === lesson.id;
-                    treeHtml += `<a href="${locked ? '#' : `?id=${App.course.id}&module=${mod.id}&lesson=${lesson.id}`}" class="tree-item ${active ? 'active' : ''} ${completed ? 'completed' : ''} ${locked ? 'locked' : ''}" onclick="${locked ? 'event.preventDefault();showLockMessage();' : `event.preventDefault(); loadLesson('${mod.id}', '${lesson.id}');`}"><span class="dot"></span> ${esc(lesson.title || 'Lesson')} ${completed ? '<i class="bx bx-check-circle" style="color:var(--success);margin-left:auto;font-size:0.625rem;"></i>' : ''}</a>`;
-                });
-                treeHtml += `</div></div>`;
-            });
-            treeHtml += '</div>';
-            container.innerHTML = treeHtml;
-        }
-
-        window.showLockMessage = () => {
-            $('lessonContent').innerHTML = `<div class="locked-overlay"><i class='bx bx-lock-alt'></i><h3>Unlock Full Access</h3><p>Sign in to unlock all lessons!</p><a href="auth.html?mode=signin" class="btn btn-primary"><i class='bx bx-log-in'></i> Sign In</a></div>`;
-            $('lessonNav').style.display = 'none';
-        };
-
-        // ============ LESSON CONTENT ============
-        window.loadLesson = async (moduleId, lessonId) => {
-            App.currentModuleId = moduleId;
-            App.currentLessonId = lessonId;
-            window.history.pushState({}, '', `?id=${App.course.id}&module=${moduleId}&lesson=${lessonId}`);
-            renderLessonContent();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            startLessonTimer(lessonId);
-        };
-
-        function renderLessonContent() {
-            const container = $('lessonContent');
-            const nav = $('lessonNav');
-            const lesson = App.lessons.find(l => l.id === App.currentLessonId);
-            
-            if (!lesson) {
-                container.innerHTML = '<p style="color:var(--gray-400);text-align:center;padding:2rem;">Select a lesson to begin</p>';
-                nav.style.display = 'none';
-                return;
-            }
-            
-            const flat = [];
-            App.modules.forEach(m => { App.lessons.filter(l => l.moduleId === m.id).forEach(l => flat.push(l)); });
-            const currentIdx = flat.findIndex(l => l.id === App.currentLessonId);
-            const prev = currentIdx > 0 ? flat[currentIdx - 1] : null;
-            const next = currentIdx < flat.length - 1 ? flat[currentIdx + 1] : null;
-            
-            const blocks = lesson.pages?.[0]?.blocks || [];
-            // Add checkpoints to blocks if lesson has them (simulate some checkpoints)
-            // For demo, we add checkpoints if not present (you can also store in DB)
-            const hasCheckpoints = blocks.some(b => b.type === 'checkpoint');
-            let finalBlocks = blocks;
-            if (!hasCheckpoints && blocks.length > 0) {
-                // Insert checkpoints after first few text blocks for demo
-                finalBlocks = [];
-                for (let i = 0; i < blocks.length; i++) {
-                    finalBlocks.push(blocks[i]);
-                    if (i === 1 && blocks[i].type === 'text') {
-                        finalBlocks.push({
-                            type: 'checkpoint',
-                            question: 'What is the main topic of this lesson?',
-                            options: ['Introduction to basics', 'Advanced concepts', 'Review', 'Practice exercises'],
-                            correctAnswer: 0
-                        });
-                    }
-                    if (i === 3 && blocks[i].type === 'text') {
-                        finalBlocks.push({
-                            type: 'checkpoint',
-                            question: 'Which of the following was emphasized?',
-                            options: ['Theory only', 'Hands-on practice', 'Memorization', 'Group work'],
-                            correctAnswer: 1
-                        });
-                    }
+                State.course = State.allCourses.find(c => c.id === courseId);
+                if (State.course) {
+                    State.modules = State.allModules.filter(m => m.courseId === courseId).sort((a,b) => (a.order||0)-(b.order||0));
+                    State.lessons = [];
+                    State.modules.forEach(m => { State.lessons.push(...State.allLessons.filter(l => l.moduleId === m.id)); });
+                    State.currentModuleId = params.get('module') || State.lessons[0]?.moduleId;
+                    State.currentLessonId = params.get('lesson') || State.lessons[0]?.id;
                 }
             }
             
-            let html = `<h2>${esc(lesson.title || 'Lesson')}</h2>`;
-            if (lesson.viewType === 'sections') html += `<div style="background:var(--gray-100);padding:0.25rem 0.75rem;border-radius:20px;font-size:0.688rem;display:inline-block;margin-bottom:0.75rem;"><i class='bx bx-copy'></i> Multi-page lesson</div>`;
-            container.innerHTML = html;
-            
-            // Insert checkpoints progressively
-            insertCheckpoints(lesson.id, finalBlocks);
-            
-            nav.style.display = 'flex';
-            nav.innerHTML = `${prev ? `<a href="#" class="prev" onclick="event.preventDefault(); loadLesson('${prev.moduleId}', '${prev.id}')"><i class='bx bx-chevron-left'></i> Previous</a>` : '<span></span>'}<span style="font-size:0.75rem;color:var(--gray-400);">${currentIdx + 1}/${flat.length}</span>${next ? `<a href="#" class="next" onclick="event.preventDefault(); goToNextLesson('${next.id}', '${next.moduleId}', ${JSON.stringify(finalBlocks)})">Next <i class='bx bx-chevron-right'></i></a>` : '<span></span>'}`;
-            
-            renderSidebar();
-            initReadingDetection();
-        }
-        
-        // Reading detection (simple scroll-based)
-        function initReadingDetection() {
-            const textBlocks = document.querySelectorAll('.text-block');
-            if (!textBlocks.length) return;
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !entry.target.classList.contains('read')) {
-                        entry.target.classList.add('read');
-                        if (App.user && !App.userInteractions.textScrolled[App.currentLessonId]) {
-                            App.userInteractions.textScrolled[App.currentLessonId] = true;
-                            saveUserProgress();
-                        }
-                    }
-                });
-            }, { threshold: 0.7 });
-            textBlocks.forEach(block => observer.observe(block));
-        }
-        
-        window.selectAnswer = (el, lessonId, qIdx, selectedIdx, correctIdx) => {
-            const container = el.closest('.question-box');
-            container.querySelectorAll('.q-option').forEach(opt => opt.classList.remove('selected'));
-            el.classList.add('selected');
-            window.pendingAnswer = { lessonId, qIdx, selectedIdx, correctIdx, container };
-        };
-        
-        window.submitAnswer = async (lessonId, qIdx, correctIdx, points) => {
-            if (!window.pendingAnswer || window.pendingAnswer.qIdx !== qIdx) {
-                toast('Please select an answer first', 'error');
-                return;
-            }
-            const isCorrect = window.pendingAnswer.selectedIdx === correctIdx;
-            if (isCorrect) {
-                const key = `${lessonId}_${qIdx}`;
-                if (!App.userInteractions.questionsDone[key]) {
-                    App.userInteractions.questionsDone[key] = true;
-                    await saveUserProgress();
-                    toast(`Correct! +${points} Sparks`, 'success');
-                    window.pendingAnswer.container.style.opacity = '0.7';
-                    window.pendingAnswer.container.querySelectorAll('.q-option').forEach(opt => opt.style.pointerEvents = 'none');
-                    window.pendingAnswer.container.querySelector('.submit-answer')?.remove();
-                    
-                    const modal = $('exerciseModal');
-                    modal.classList.add('show');
-                    const yesBtn = $('modalYes');
-                    const noBtn = $('modalNo');
-                    yesBtn.onclick = () => {
-                        modal.classList.remove('show');
-                        window.location.href = `exercise.html?course=${App.course.id}&module=${App.currentModuleId}&lesson=${lessonId}`;
-                    };
-                    noBtn.onclick = () => modal.classList.remove('show');
-                }
+            if (State.course) {
+                DOM.breadCourse.textContent = State.course.name;
+                renderSidebar();
+                renderCourseHeader();
+                if (State.currentLessonId) renderLesson();
             } else {
-                toast('Wrong answer! Try again.', 'error');
+                DOM.breadCourse.textContent = 'Explore Courses';
+                // Show popular courses
+                const popular = [...State.allCourses].sort(() => Math.random() - 0.5).slice(0, 6);
+                DOM.lessonContent.innerHTML = `
+                    <div class="notfound-hero"><i class='bx bx-compass'></i><h1>Find Your Perfect Course</h1><div class="search-bar-small"><input type="text" id="searchInput" placeholder="Search courses..."><button class="btn btn-primary btn-sm" onclick="window.searchCourses()">Search</button></div><div id="searchResults"></div></div>
+                    <h3>Popular Courses</h3><div class="suggestions-grid" id="popularGrid"></div>
+                `;
+                const grid = document.getElementById('popularGrid');
+                if (grid) grid.innerHTML = popular.map(c => `<a href="course.html?id=${c.id}" class="suggestion-card"><h4>${escapeHtml(c.name)}</h4><p>${escapeHtml((c.description||'').substring(0,80))}</p></a>`).join('');
+                window.searchCourses = () => {
+                    const q = document.getElementById('searchInput')?.value.toLowerCase();
+                    if (!q) return;
+                    const results = State.allCourses.filter(c => c.name?.toLowerCase().includes(q));
+                    const resDiv = document.getElementById('searchResults');
+                    if (resDiv) resDiv.innerHTML = results.length ? `<div class="suggestions-grid">${results.map(c => `<a href="course.html?id=${c.id}" class="suggestion-card"><h4>${escapeHtml(c.name)}</h4></a>`).join('')}</div>` : '<p>No results</p>';
+                };
             }
-            window.pendingAnswer = null;
-            const blocks = App.lessons.find(l => l.id === lessonId)?.pages?.[0]?.blocks || [];
-            validateAndCompleteLesson(lessonId, blocks);
-        };
-        
-        window.copyCode = (btn) => {
-            const pre = btn.closest('.code-block-wrapper').querySelector('pre code');
-            if (pre) {
-                navigator.clipboard.writeText(pre.textContent);
-                toast('Code copied!', 'success');
-            }
-        };
-        
-        window.tryCode = (btn) => {
-            const pre = btn.closest('.code-block-wrapper').querySelector('pre code');
-            if (pre) {
-                const code = encodeURIComponent(pre.textContent);
-                window.open(`Editor.html?code=${code}`, '_blank');
-            }
-        };
-        
-        window.hideRememberBlock = async (btn, lessonId) => {
-            const block = btn.closest('.remember-block');
-            if (block) block.remove();
-            if (App.user) {
-                if (!App.userInteractions.rememberHidden[lessonId]) App.userInteractions.rememberHidden[lessonId] = true;
-                await saveUserProgress();
-            }
-        };
-        
-        function updateReadingProgress() {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        }
+
+        // Scroll progress
+        window.addEventListener('scroll', () => {
+            const win = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            const fill = $('readingProgressFill');
-            if (fill) fill.style.width = scrolled + '%';
-        }
-        
-        window.addEventListener('scroll', updateReadingProgress);
-        
-        function renderCourseHeader() {
-            const header = $('courseHeader');
-            if (!App.course || !App.course.name) return;
-            const total = App.lessons.length;
-            const completed = Object.keys(App.completedLessons).filter(id => App.lessons.some(l => l.id === id)).length;
-            const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
-            header.innerHTML = `<h1>${esc(App.course.name)}</h1><div class="course-meta"><span><i class='bx bx-book-open'></i> ${App.modules.length} modules</span><span><i class='bx bx-video'></i> ${total} lessons</span><span><i class='bx bx-bar-chart-alt-2'></i> ${App.course.difficulty || 'All Levels'}</span></div>${App.course.description ? `<p style="margin-top:0.75rem;color:var(--gray-600);">${esc(App.course.description)}</p>` : ''}${App.user ? `<div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%;"></div><span style="font-size:0.688rem;color:var(--gray-500);">${completed}/${total} completed</span></div>` : ''}`;
-            
-            const certSection = $('certSection');
-            if (pct >= 80 && total > 0 && App.user) {
-                certSection.style.display = 'flex';
-                certSection.innerHTML = `<div class="cert-card"><div class="cert-card-title">${esc(App.course.name)} Certificate</div><div class="cert-card-desc">Prove your skills</div><a href="certificate.html?course=${App.course.id}" class="cert-card-btn"><i class='bx bx-certification'></i> Get Certificate →</a></div><div class="cert-info"><div class="cert-info-title">Get <span>Certified</span></div><div class="cert-info-desc">Earn an official certificate</div><div class="cert-info-price">FREE <span style="font-size:0.875rem;">with completion</span></div><a href="certificate.html?course=${App.course.id}" class="cert-info-btn">Claim Certificate →</a></div><div class="cert-preview"><i class='bx bx-certification' style='font-size:5rem;color:var(--success);opacity:0.3;'></i></div>`;
-            } else {
-                certSection.style.display = 'none';
-            }
-        }
-        
-        function updateRightPanel() {
-            const total = App.lessons.length;
-            const completed = Object.keys(App.completedLessons).filter(id => App.lessons.some(l => l.id === id)).length;
-            const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
-            const circumference = 175.93;
-            const offset = circumference - (pct / 100) * circumference;
-            $('rpProgressContent').innerHTML = `<div class="progress-ring"><svg width="64" height="64" viewBox="0 0 64 64"><circle class="bg" cx="32" cy="32" r="28"/><circle class="fill" cx="32" cy="32" r="28" stroke-dasharray="175.93" stroke-dashoffset="${offset}"/></svg><div class="text">${pct}%</div></div><p style="font-size:0.75rem;text-align:center;">${completed}/${total} completed</p>${!App.user ? '<a href="auth.html" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;margin-top:0.5rem;">Sign in to track</a>' : ''}`;
-            
-            if (App.course && App.currentLessonId) {
-                $('rpExerciseLinks').innerHTML = `<a href="exercise.html?course=${App.course.id}&module=${App.currentModuleId}&lesson=${App.currentLessonId}" class="rp-exercise-link"><i class='bx bx-dumbbell'></i> Practice this lesson →</a><a href="exercise.html?course=${App.course.id}" class="rp-exercise-link"><i class='bx bx-list-ul'></i> All course exercises →</a>`;
-            }
-        }
-        
-        // ============ NOT FOUND PAGE ============
-        function renderNotFound() {
-            $('breadCourse').textContent = 'Explore Courses';
-            $('courseHeader').innerHTML = '';
-            const availableCourses = App.allCourses.length > 0 ? App.allCourses : [];
-            const popularCourses = [...availableCourses].sort(() => Math.random() - 0.5).slice(0, 6);
-            const categories = [...new Set(availableCourses.map(c => c.category).filter(Boolean))];
-            const displayCategories = categories.length > 0 ? categories.slice(0, 6) : ['Web Development', 'Data Science', 'Mobile Apps', 'AI & ML', 'Cybersecurity', 'Cloud Computing'];
-            
-            $('lessonContent').innerHTML = `
-                <div class="notfound-hero">
-                    <i class='bx bx-compass'></i>
-                    <h1>Find Your Perfect Course</h1>
-                    <p style="color:var(--gray-500);">Browse our collection of tech courses</p>
-                    <div class="search-bar-small"><input type="text" id="smallSearch" placeholder="Search courses..."><button class="btn btn-primary btn-sm" onclick="searchCourses()"><i class='bx bx-search'></i> Search</button></div>
-                    <div id="searchResults"></div>
-                </div>
-                <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;"><i class='bx bx-trending-up'></i> Popular Courses</h3>
-                <div class="suggestions-grid" id="popularGrid"></div>
-                <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;"><i class='bx bx-category'></i> Browse by Category</h3>
-                <div class="suggestions-grid" id="categoryGrid"></div>
-                <h3 style="font-size:1rem;margin:1.5rem 0 0.75rem;"><i class='bx bx-rocket'></i> Start Your Journey</h3>
-                <div class="suggestions-grid" id="ctaGrid"></div>
-            `;
-            
-            document.getElementById('categoryGrid').innerHTML = displayCategories.map(cat => `<div class="suggestion-card" style="cursor:pointer;" onclick="searchByCategory('${cat}')"><h4><i class='bx bx-folder'></i> ${cat}</h4><p>Explore ${cat} courses</p></div>`).join('');
-            document.getElementById('popularGrid').innerHTML = popularCourses.map(c => `<a href="course.html?id=${c.id}" class="suggestion-card"><h4><i class='bx bx-book-open'></i> ${esc(c.name)}</h4><p>${esc((c.description || '').substring(0, 80))}</p><span style="font-size:0.688rem;color:var(--primary);">${c.modules?.length || 0} modules →</span></a>`).join('');
-            document.getElementById('ctaGrid').innerHTML = `
-                <a href="auth.html?mode=register" class="suggestion-card"><h4><i class='bx bx-user-plus'></i> Create Account</h4><p>Get personalized learning recommendations</p></a>
-                <a href="exercise.html" class="suggestion-card"><h4><i class='bx bx-dumbbell'></i> Try Exercises</h4><p>Test your knowledge with interactive challenges</p></a>
-                <a href="certificate.html" class="suggestion-card"><h4><i class='bx bx-certification'></i> Get Certified</h4><p>Earn recognized certificates upon completion</p></a>
-                <a href="Editor.html" class="suggestion-card"><h4><i class='bx bx-code-alt'></i> Code Editor</h4><p>Write and test code directly in your browser</p></a>
-            `;
-            $('lessonNav').style.display = 'none';
-            $('certSection').style.display = 'none';
-        }
-        
-        window.searchCourses = () => {
-            const q = document.getElementById('smallSearch')?.value.toLowerCase();
-            if (!q) return;
-            const results = App.allCourses.filter(c => c.name?.toLowerCase().includes(q) || c.description?.toLowerCase().includes(q));
-            const resultsDiv = document.getElementById('searchResults');
-            resultsDiv.innerHTML = results.length ? `<div class="suggestions-grid" style="margin-top:1rem;">${results.slice(0, 8).map(c => `<a href="course.html?id=${c.id}" class="suggestion-card"><h4>${esc(c.name)}</h4><p>${esc((c.description || '').substring(0, 80))}</p></a>`).join('')}</div>` : '<p style="text-align:center;color:var(--gray-400);margin-top:1rem;">No courses found</p>';
-        };
-        
-        window.searchByCategory = (cat) => {
-            const results = App.allCourses.filter(c => (c.category || '').toLowerCase().includes(cat.toLowerCase()) || (c.description || '').toLowerCase().includes(cat.toLowerCase()));
-            const resultsDiv = document.getElementById('searchResults');
-            resultsDiv.innerHTML = results.length ? `<h4 style="margin-top:1rem;font-size:0.875rem;">Results for "${cat}"</h4><div class="suggestions-grid">${results.slice(0, 8).map(c => `<a href="course.html?id=${c.id}" class="suggestion-card"><h4>${esc(c.name)}</h4><p>${esc((c.description || '').substring(0, 80))}</p></a>`).join('')}</div>` : '<p style="text-align:center;color:var(--gray-400);margin-top:1rem;">No courses found in this category</p>';
-        };
-        
-        // Expose goToNextLesson globally
-        window.goToNextLesson = goToNextLesson;
-        
+            if (DOM.readingFill) DOM.readingFill.style.width = (win / height) * 100 + '%';
+        });
+
+        loadYouTubeAPI();
         loadAllData();
-        console.log('🚀 Course Page - Complete: checkpoints, time tracking, anti-speedrun, YouTube API');
+        console.log('🚀 Course Page - Clean module pattern, no conflicts');
     </script>
 </body>
 </html>
