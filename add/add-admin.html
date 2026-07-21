@@ -1,948 +1,877 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson Editor · Admin · Akademia</title>
-    <meta name="robots" content="noindex">
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson Editor · Admin · Akademia</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
-    <!-- Fonts -->
-    <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/drafting-mono" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/drafting-mono" rel="stylesheet">
 
-    <!-- Icons -->
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  <!-- Icons -->
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 
-    <style>
-        :root {
-            --green: #58CC02;
-            --green-hover: #46A302;
-            --bg: #FFFFFF;
-            --bg-secondary: #F7F7F7;
-            --border: #E5E5E5;
-            --text: #4B4B4B;
-            --text-secondary: #777777;
-            --radius: 10px;
-            --panel-transition: 0.2s ease;
-        }
+  <style>
+    :root {
+      --green: #58CC02;
+      --green-hover: #46A302;
+      --bg: #FFFFFF;
+      --bg-secondary: #F7F7F7;
+      --border: #E5E5E5;
+      --text: #4B4B4B;
+      --text-secondary: #777777;
+      --radius: 10px;
+      --panel-width: 280px;
+      --palette-width: 260px;
+    }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Drafting* Mono', monospace;
+      background: var(--bg-secondary);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    h1,h2,h3,h4 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
 
-        body {
-            font-family: 'Drafting* Mono', monospace;
-            background: var(--bg-secondary);
-            color: var(--text);
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+    /* Top bar */
+    .topbar {
+      height: 56px;
+      background: var(--bg);
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 10;
+    }
+    .logo { display:flex; align-items:center; gap:8px; font-weight:700; font-size:1.1rem; color:var(--text); text-decoration:none; }
+    .logo iconify-icon { font-size:24px; color:var(--green); }
+    .topbar-actions { display:flex; gap:12px; align-items:center; }
+    .save-status { font-size:0.75rem; color:var(--text-secondary); margin-right:12px; }
 
-        h1, h2, h3, h4 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
+    /* Buttons */
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size:0.85rem;
+      cursor:pointer;
+      font-family: 'Drafting* Mono', monospace;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition: all 0.2s;
+      white-space:nowrap;
+    }
+    .btn-primary { background:var(--green); color:white; box-shadow:0 3px 0 var(--green-hover); }
+    .btn-primary:hover { background:var(--green-hover); transform:translateY(-1px); }
+    .btn-outline { background:var(--bg); border:2px solid var(--border); color:var(--text); }
+    .btn-outline:hover { background:var(--bg-secondary); }
+    .btn-danger { background:#FF4B4B; color:white; box-shadow:0 3px 0 #D93B3B; }
+    .btn-sm { padding:4px 8px; font-size:0.75rem; }
+    .btn-icon { padding:6px; border:2px solid var(--border); border-radius:8px; background:var(--bg); cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--text); }
+    .btn-icon:hover { background:var(--bg-secondary); }
 
-        /* Top bar */
-        .topbar {
-            height: 56px;
-            background: var(--bg);
-            border-bottom: 2px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-            z-index: 10;
-        }
-        .topbar .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--text);
-            text-decoration: none;
-        }
-        .topbar .logo iconify-icon { font-size: 24px; color: var(--green); }
-        .topbar-actions { display: flex; gap: 12px; align-items: center; }
+    /* Panels */
+    .panels { display:flex; flex:1; overflow:hidden; }
+    .panel { background:var(--bg); border:1px solid var(--border); overflow-y:auto; padding:16px; }
+    .panel-left { width:var(--panel-width); border-right:2px solid var(--border); flex-shrink:0; }
+    .panel-middle { flex:1; border-right:2px solid var(--border); display:flex; flex-direction:column; }
+    .panel-right { width:var(--palette-width); flex-shrink:0; }
 
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: var(--radius);
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            font-family: 'Drafting* Mono', monospace;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        .btn-primary { background: var(--green); color: white; box-shadow: 0 3px 0 var(--green-hover); }
-        .btn-primary:hover { background: var(--green-hover); transform: translateY(-1px); }
-        .btn-outline { background: var(--bg); border: 2px solid var(--border); color: var(--text); }
-        .btn-outline:hover { background: var(--bg-secondary); }
-        .btn-danger { background: #FF4B4B; color: white; box-shadow: 0 3px 0 #D93B3B; }
-        .btn-sm { padding: 4px 8px; font-size: 0.75rem; }
+    /* Left panel tree */
+    .section-title { font-weight:700; margin:12px 0 6px; font-size:0.9rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:1px; }
+    .tree-item {
+      display:flex; align-items:center; gap:6px; padding:6px 8px; border-radius:6px;
+      cursor:pointer; transition: background 0.15s; font-size:0.85rem; margin-bottom:2px;
+    }
+    .tree-item:hover { background:var(--bg-secondary); }
+    .tree-item.active { background:#F0FDE0; font-weight:700; }
+    .tree-icon { min-width:18px; text-align:center; }
+    .tree-actions { margin-left:auto; display:flex; gap:4px; opacity:0; transition: opacity 0.2s; }
+    .tree-item:hover .tree-actions { opacity:1; }
+    .tree-children { padding-left:20px; margin-top:2px; }
+    .tree-toggle { cursor:pointer; user-select:none; width:16px; display:inline-block; text-align:center; }
+    .add-btn { display:flex; align-items:center; gap:4px; margin-top:8px; }
 
-        /* Main layout: three panels */
-        .panels {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-        .panel {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            overflow-y: auto;
-            padding: 16px;
-        }
-        .panel-left { width: 300px; border-right: 2px solid var(--border); flex-shrink: 0; }
-        .panel-middle { flex: 1; border-right: 2px solid var(--border); position: relative; display: flex; flex-direction: column; }
-        .panel-right { width: 320px; flex-shrink: 0; }
+    /* Middle panel */
+    .lesson-toolbar {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 16px; border-bottom:1px solid var(--border); background:var(--bg);
+    }
+    .lesson-title { font-family:'BlockBlueprint', sans-serif; font-size:1.3rem; }
+    .blocks-area {
+      flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:12px;
+      background:var(--bg-secondary); min-height:200px;
+    }
+    .block-card {
+      background:var(--bg); border:2px solid var(--border); border-radius:var(--radius);
+      transition: border-color 0.2s, box-shadow 0.2s; cursor:pointer;
+    }
+    .block-card.selected { border-color:var(--green); box-shadow:0 0 0 3px rgba(88,204,2,0.2); }
+    .block-header {
+      display:flex; align-items:center; gap:8px; padding:8px 12px;
+      border-bottom:1px solid var(--border); background:var(--bg-secondary);
+      font-size:0.8rem; font-weight:600;
+    }
+    .block-type-label { flex:1; text-transform:uppercase; letter-spacing:0.5px; }
+    .block-body { padding:12px; }
+    .block-body .rich-editor { min-height:60px; border:1px solid var(--border); padding:8px; border-radius:6px; background:white; }
+    .rich-toolbar { display:flex; gap:4px; margin-bottom:4px; }
+    .rich-toolbar button { padding:2px 6px; font-size:0.8rem; cursor:pointer; border:1px solid var(--border); background:white; border-radius:4px; }
+    .drop-zone-highlight { outline:3px dashed var(--green); outline-offset:4px; }
 
-        /* Left panel tree */
-        .tree-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.15s;
-            font-size: 0.85rem;
-            margin-bottom: 2px;
-        }
-        .tree-item:hover { background: var(--bg-secondary); }
-        .tree-item.active { background: #F0FDE0; font-weight: 700; }
-        .tree-icon { min-width: 18px; text-align: center; }
-        .tree-actions { margin-left: auto; display: flex; gap: 4px; opacity: 0; transition: opacity 0.2s; }
-        .tree-item:hover .tree-actions { opacity: 1; }
-        .tree-children { padding-left: 20px; margin-top: 2px; }
-        .tree-toggle { cursor: pointer; user-select: none; width: 16px; display: inline-block; text-align: center; }
-        .section-title { font-weight: 700; margin: 12px 0 6px; font-size: 0.9rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+    /* Right panel: palette */
+    .palette-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .palette-item {
+      border:2px solid var(--border); border-radius:var(--radius); padding:10px;
+      text-align:center; cursor:grab; font-size:0.75rem; transition: all 0.2s;
+      display:flex; flex-direction:column; align-items:center; gap:4px; background:var(--bg);
+    }
+    .palette-item:hover { border-color:var(--green); background:#f0fde0; }
+    .palette-item iconify-icon { font-size:24px; }
+    .right-placeholder { color:var(--text-secondary); text-align:center; margin-top:40px; font-size:0.9rem; }
 
-        /* Middle panel */
-        .lesson-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border);
-            background: var(--bg);
-        }
-        .lesson-title-display {
-            font-family: 'BlockBlueprint', sans-serif;
-            font-size: 1.3rem;
-            flex: 1;
-        }
-        .add-block-btn { position: relative; }
-        .block-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--bg);
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            display: none;
-            z-index: 20;
-            min-width: 200px;
-        }
-        .block-dropdown.open { display: block; }
-        .block-dropdown-item {
-            padding: 8px 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-        }
-        .block-dropdown-item:hover { background: var(--bg-secondary); }
+    /* Properties panel (inside right) */
+    .props-section { margin-bottom:20px; }
+    .props-section h3 { font-size:0.9rem; margin-bottom:8px; color:var(--text-secondary); text-transform:uppercase; }
+    .input, .props-section input, .props-section textarea, .props-section select {
+      width:100%; padding:8px; border:2px solid var(--border); border-radius:6px;
+      font-family:'Drafting* Mono', monospace; font-size:0.85rem; background:var(--bg-secondary);
+      margin-bottom:8px;
+    }
+    .input:focus, .props-section input:focus, .props-section textarea:focus { outline:none; border-color:var(--green); background:white; }
 
-        .blocks-area {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .block-card {
-            background: var(--bg);
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            transition: border-color 0.2s, box-shadow 0.2s;
-            cursor: grab;
-        }
-        .block-card.selected { border-color: var(--green); box-shadow: 0 0 0 3px rgba(88,204,2,0.2); }
-        .block-card:active { cursor: grabbing; }
-        .block-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-bottom: 1px solid var(--border);
-            background: var(--bg-secondary);
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        .block-handle { cursor: grab; color: var(--text-secondary); }
-        .block-type-label { flex: 1; text-transform: uppercase; letter-spacing: 0.5px; }
-        .block-body { padding: 12px; }
-        .block-body input, .block-body textarea, .block-body select {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: 'Drafting* Mono', monospace;
-            font-size: 0.85rem;
-            background: var(--bg-secondary);
-        }
-        .block-body textarea { resize: vertical; min-height: 80px; }
+    /* Modals */
+    .modal-overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,0.4); display:flex;
+      align-items:center; justify-content:center; z-index:50;
+    }
+    .modal {
+      background:var(--bg); border-radius:var(--radius); padding:24px;
+      min-width:400px; max-width:90%; box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    }
+    .modal h2 { margin-bottom:16px; }
+    .modal .btn-row { display:flex; justify-content:flex-end; gap:8px; margin-top:16px; }
 
-        /* Right panel */
-        .right-placeholder { color: var(--text-secondary); text-align: center; margin-top: 40px; font-size: 0.9rem; }
-        .props-section { margin-bottom: 20px; }
-        .props-section h3 { font-size: 0.9rem; margin-bottom: 8px; color: var(--text-secondary); text-transform: uppercase; }
-        .props-section label { font-size: 0.8rem; display: block; margin-bottom: 4px; font-weight: 600; }
-        .props-section input, .props-section textarea, .props-section select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: 'Drafting* Mono', monospace;
-            font-size: 0.85rem;
-            background: var(--bg-secondary);
-        }
+    /* Loading */
+    .spinner {
+      display:inline-block; width:24px; height:24px; border:3px solid var(--border);
+      border-top-color:var(--green); border-radius:50%; animation:spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .loading-overlay {
+      position:absolute; inset:0; background:rgba(255,255,255,0.7); display:flex;
+      align-items:center; justify-content:center; z-index:5;
+    }
 
-        /* Modals */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 50;
-        }
-        .modal {
-            background: var(--bg);
-            border-radius: var(--radius);
-            padding: 24px;
-            min-width: 400px;
-            max-width: 90%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .modal h2 { margin-bottom: 16px; }
-        .modal .input-group { margin-bottom: 12px; }
-        .modal .btn-row { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
-
-        /* Drop zone indication */
-        .drop-indicator { border-top: 3px dashed var(--green); }
-
-        /* Save status */
-        .save-status { font-size: 0.75rem; color: var(--text-secondary); margin-left: 12px; }
-    </style>
+    /* Blank input group */
+    .blank-group { margin-bottom:8px; padding:8px; background:var(--bg-secondary); border-radius:6px; }
+  </style>
 </head>
 <body>
-    <div class="topbar">
-        <a href="../index.html" class="logo">
-            <iconify-icon icon="pixelarticons:code"></iconify-icon>
-            Akademia Admin
-        </a>
-        <div class="topbar-actions">
-            <span class="save-status" id="saveStatus">All changes saved</span>
-            <button class="btn btn-outline btn-sm" onclick="window.location.href='learn.html'">
-                <iconify-icon icon="pixelarticons:arrow-left"></iconify-icon> Back to Learn
-            </button>
-        </div>
+  <div class="topbar">
+    <a href="../index.html" class="logo">
+      <iconify-icon icon="pixelarticons:code"></iconify-icon>
+      Akademia Admin
+    </a>
+    <div class="topbar-actions">
+      <span class="save-status" id="saveStatus">All changes saved</span>
+      <button class="btn btn-outline btn-sm" onclick="window.location.href='learn.html'">
+        <iconify-icon icon="pixelarticons:arrow-left"></iconify-icon> Back to Learn
+      </button>
+    </div>
+  </div>
+
+  <div class="panels">
+    <!-- LEFT PANEL -->
+    <div class="panel panel-left" id="leftPanel">
+      <div class="section-title">Content Tree</div>
+      <div id="treeContainer"></div>
+      <button class="btn btn-outline btn-sm add-btn" id="addEntityBtn">
+        <iconify-icon icon="pixelarticons:plus"></iconify-icon> Add
+      </button>
     </div>
 
-    <div class="panels">
-        <!-- LEFT PANEL -->
-        <div class="panel panel-left" id="leftPanel">
-            <div class="section-title">Content Tree</div>
-            <div id="treeContainer"></div>
-            <div style="margin-top: 16px;">
-                <button class="btn btn-outline btn-sm" onclick="showAddCourseModal()">
-                    <iconify-icon icon="pixelarticons:plus"></iconify-icon> New Course
-                </button>
-            </div>
-        </div>
-
-        <!-- MIDDLE PANEL -->
-        <div class="panel panel-middle" id="middlePanel">
-            <div class="lesson-toolbar" id="lessonToolbar" style="display:none;">
-                <span class="lesson-title-display" id="lessonTitleDisplay"></span>
-                <div class="add-block-btn">
-                    <button class="btn btn-primary btn-sm" id="addBlockBtn" onclick="toggleBlockDropdown()">
-                        <iconify-icon icon="pixelarticons:plus"></iconify-icon> Add Block
-                    </button>
-                    <div class="block-dropdown" id="blockDropdown">
-                        <!-- block types -->
-                    </div>
-                </div>
-                <button class="btn btn-outline btn-sm" onclick="saveLesson()" style="margin-left:8px;">
-                    <iconify-icon icon="pixelarticons:floppy"></iconify-icon> Save
-                </button>
-            </div>
-            <div class="blocks-area" id="blocksArea">
-                <div class="right-placeholder">Select a lesson from the left panel to start editing.</div>
-            </div>
-        </div>
-
-        <!-- RIGHT PANEL -->
-        <div class="panel panel-right" id="rightPanel">
-            <div class="right-placeholder" id="rightPlaceholder">Select a block to edit its properties</div>
-            <div id="blockPropsContent" style="display:none;"></div>
-        </div>
+    <!-- MIDDLE PANEL -->
+    <div class="panel panel-middle" id="middlePanel">
+      <div class="lesson-toolbar" id="lessonToolbar" style="display:none;">
+        <span class="lesson-title" id="lessonTitleDisplay"></span>
+        <button class="btn btn-primary btn-sm" onclick="saveLesson()">
+          <iconify-icon icon="pixelarticons:floppy"></iconify-icon> Save
+        </button>
+      </div>
+      <div class="blocks-area" id="blocksArea" 
+           ondragover="handleDragOver(event)" 
+           ondrop="handleDropOnArea(event)">
+        <div class="right-placeholder" id="emptyLessonMsg">Select a lesson from the left panel.</div>
+      </div>
     </div>
 
-    <!-- MODALS -->
-    <div class="modal-overlay" id="modalOverlay" style="display:none;"></div>
+    <!-- RIGHT PANEL -->
+    <div class="panel panel-right" id="rightPanel">
+      <div id="paletteView">
+        <div class="section-title">Block Palette</div>
+        <div class="palette-grid" id="paletteGrid"></div>
+      </div>
+      <div id="propsView" style="display:none;">
+        <div class="section-title">Block Properties</div>
+        <div id="blockPropsContent"></div>
+        <button class="btn btn-outline btn-sm" onclick="deselectBlock()">
+          <iconify-icon icon="pixelarticons:arrow-left"></iconify-icon> Back to Palette
+        </button>
+      </div>
+    </div>
+  </div>
 
-    <script type="module">
-        import { db } from '../src/js/firebase-config.js';
-        import { collection, addDoc, doc, setDoc, getDoc, getDocs, query, orderBy, serverTimestamp, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+  <!-- Modal container -->
+  <div class="modal-overlay" id="modalOverlay" style="display:none;"></div>
+  <!-- Loading overlay for middle panel -->
+  <div class="loading-overlay" id="loadingOverlay" style="display:none;"><div class="spinner"></div></div>
 
-        // State
-        let courses = [];
-        let currentCourseId = null;
-        let currentModuleId = null;
-        let currentLessonId = null;
-        let currentLessonData = null; // { title, order, blocks: [...] }
-        let selectedBlockIndex = -1;
-        let saveTimeout = null;
+  <script type="module">
+    import { db } from '../src/js/firebase-config.js';
+    import { collection, addDoc, doc, setDoc, getDoc, getDocs, query, orderBy, serverTimestamp, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-        // DOM elements
-        const treeContainer = document.getElementById('treeContainer');
-        const lessonToolbar = document.getElementById('lessonToolbar');
-        const lessonTitleDisplay = document.getElementById('lessonTitleDisplay');
-        const blocksArea = document.getElementById('blocksArea');
-        const rightPlaceholder = document.getElementById('rightPlaceholder');
-        const blockPropsContent = document.getElementById('blockPropsContent');
-        const blockDropdown = document.getElementById('blockDropdown');
-        const saveStatus = document.getElementById('saveStatus');
+    // ---- STATE ----
+    let courses = [];
+    let currentCourseId = null;
+    let currentModuleId = null;
+    let currentLessonId = null;
+    let currentLessonData = null;   // { title, blocks: [...] }
+    let selectedBlockIndex = -1;
+    let saveTimeout = null;
+    const blockTypes = ['heading','paragraph','image','video','console','hint','warning','tip','multiple-choice','matching','fill-blank','quiz','divider','completion'];
+    const blockIcons = {
+      heading:'pixelarticons:text-box', paragraph:'pixelarticons:text-box', image:'pixelarticons:image', video:'pixelarticons:video',
+      console:'pixelarticons:terminal', hint:'pixelarticons:bulb', warning:'pixelarticons:alert', tip:'pixelarticons:lightbulb',
+      'multiple-choice':'pixelarticons:checklist', matching:'pixelarticons:swap', 'fill-blank':'pixelarticons:edit-box',
+      quiz:'pixelarticons:checklist', divider:'pixelarticons:minus', completion:'pixelarticons:flag'
+    };
 
-        // Block type icons
-        const blockIcons = {
-            heading: 'pixelarticons:text-box',
-            paragraph: 'pixelarticons:text-box',
-            image: 'pixelarticons:image',
-            video: 'pixelarticons:video',
-            console: 'pixelarticons:terminal',
-            hint: 'pixelarticons:bulb',
-            warning: 'pixelarticons:alert',
-            tip: 'pixelarticons:lightbulb',
-            exercise: 'pixelarticons:pencil',
-            quiz: 'pixelarticons:checklist',
-            divider: 'pixelarticons:minus',
-            completion: 'pixelarticons:flag'
-        };
+    // DOM elements
+    const treeContainer = document.getElementById('treeContainer');
+    const lessonToolbar = document.getElementById('lessonToolbar');
+    const lessonTitleDisplay = document.getElementById('lessonTitleDisplay');
+    const blocksArea = document.getElementById('blocksArea');
+    const emptyLessonMsg = document.getElementById('emptyLessonMsg');
+    const paletteGrid = document.getElementById('paletteGrid');
+    const paletteView = document.getElementById('paletteView');
+    const propsView = document.getElementById('propsView');
+    const blockPropsContent = document.getElementById('blockPropsContent');
+    const saveStatus = document.getElementById('saveStatus');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const modalOverlay = document.getElementById('modalOverlay');
 
-        // ==================== LEFT PANEL (TREE) ====================
-        async function loadTree() {
-            const coursesSnap = await getDocs(query(collection(db, 'courses'), orderBy('createdAt')));
-            courses = [];
-            coursesSnap.forEach(doc => courses.push({ id: doc.id, ...doc.data() }));
-            renderTree();
-        }
+    // ---- UTILS ----
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+    function showLoading() { loadingOverlay.style.display = 'flex'; }
+    function hideLoading() { loadingOverlay.style.display = 'none'; }
 
-        function renderTree() {
-            treeContainer.innerHTML = '';
-            courses.forEach(course => {
-                const courseDiv = document.createElement('div');
-                courseDiv.innerHTML = `
-                    <div class="tree-item" data-type="course" data-id="${course.id}">
-                        <span class="tree-toggle" data-action="toggle">▶</span>
-                        <iconify-icon icon="pixelarticons:folder" class="tree-icon"></iconify-icon>
-                        <span style="flex:1;">${escapeHtml(course.title)}</span>
-                        <span class="tree-actions">
-                            <button class="btn btn-sm btn-outline" data-action="addModule" title="Add Module">+</button>
-                            <button class="btn btn-sm btn-outline" data-action="editCourse">✎</button>
-                            <button class="btn btn-sm btn-danger" data-action="deleteCourse">×</button>
-                        </span>
-                    </div>
-                    <div class="tree-children" id="children-${course.id}" style="display:none;"></div>
-                `;
-                treeContainer.appendChild(courseDiv);
+    // ---- MODAL ----
+    function showModal(title, contentHtml, onSave) {
+      modalOverlay.innerHTML = `
+        <div class="modal">
+          <h2>${title}</h2>
+          <div>${contentHtml}</div>
+          <div class="btn-row">
+            <button class="btn btn-outline" id="modalCancel">Cancel</button>
+            <button class="btn btn-primary" id="modalSave">Save</button>
+          </div>
+        </div>
+      `;
+      modalOverlay.style.display = 'flex';
+      document.getElementById('modalCancel').onclick = () => modalOverlay.style.display = 'none';
+      document.getElementById('modalSave').onclick = () => {
+        const result = onSave();
+        if (result !== false) modalOverlay.style.display = 'none';
+      };
+    }
 
-                // load modules on expand
-                const toggleBtn = courseDiv.querySelector('[data-action="toggle"]');
-                toggleBtn.addEventListener('click', async (e) => {
-                    e.stopPropagation();
-                    const childrenDiv = document.getElementById(`children-${course.id}`);
-                    if (childrenDiv.style.display === 'none') {
-                        childrenDiv.style.display = 'block';
-                        toggleBtn.textContent = '▼';
-                        await loadModules(course.id, childrenDiv);
-                    } else {
-                        childrenDiv.style.display = 'none';
-                        toggleBtn.textContent = '▶';
-                    }
-                });
+    // ---- LEFT PANEL: TREE ----
+    async function loadTree() {
+      showLoading();
+      const snap = await getDocs(query(collection(db, 'courses'), orderBy('createdAt')));
+      courses = [];
+      snap.forEach(d => courses.push({ id: d.id, ...d.data() }));
+      renderTree();
+      hideLoading();
+    }
 
-                // click on course item to select (maybe highlight)
-                courseDiv.querySelector('.tree-item').addEventListener('click', (e) => {
-                    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
-                    currentCourseId = course.id;
-                    // just highlight
-                    document.querySelectorAll('.tree-item.active').forEach(el => el.classList.remove('active'));
-                    courseDiv.querySelector('.tree-item').classList.add('active');
-                });
-            });
-        }
-
-        async function loadModules(courseId, container) {
-            const modulesSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules'), orderBy('order')));
-            container.innerHTML = '';
-            modulesSnap.forEach(modDoc => {
-                const mod = { id: modDoc.id, ...modDoc.data() };
-                const modDiv = document.createElement('div');
-                modDiv.innerHTML = `
-                    <div class="tree-item" data-type="module" data-id="${mod.id}" data-course="${courseId}">
-                        <span class="tree-toggle" data-action="toggle">▶</span>
-                        <iconify-icon icon="pixelarticons:book" class="tree-icon"></iconify-icon>
-                        <span style="flex:1;">${escapeHtml(mod.title)}</span>
-                        <span class="tree-actions">
-                            <button class="btn btn-sm btn-outline" data-action="addLesson">+</button>
-                            <button class="btn btn-sm btn-outline" data-action="editModule">✎</button>
-                            <button class="btn btn-sm btn-danger" data-action="deleteModule">×</button>
-                        </span>
-                    </div>
-                    <div class="tree-children" id="children-${mod.id}" style="display:none;"></div>
-                `;
-                container.appendChild(modDiv);
-
-                const toggleBtn = modDiv.querySelector('[data-action="toggle"]');
-                toggleBtn.addEventListener('click', async (e) => {
-                    e.stopPropagation();
-                    const lessonsDiv = document.getElementById(`children-${mod.id}`);
-                    if (lessonsDiv.style.display === 'none') {
-                        lessonsDiv.style.display = 'block';
-                        toggleBtn.textContent = '▼';
-                        await loadLessons(courseId, mod.id, lessonsDiv);
-                    } else {
-                        lessonsDiv.style.display = 'none';
-                        toggleBtn.textContent = '▶';
-                    }
-                });
-
-                modDiv.querySelector('.tree-item').addEventListener('click', (e) => {
-                    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
-                    currentCourseId = courseId;
-                    currentModuleId = mod.id;
-                    document.querySelectorAll('.tree-item.active').forEach(el => el.classList.remove('active'));
-                    modDiv.querySelector('.tree-item').classList.add('active');
-                });
-            });
-        }
-
-        async function loadLessons(courseId, moduleId, container) {
-            const lessonsSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules', moduleId, 'lessons'), orderBy('order')));
-            container.innerHTML = '';
-            lessonsSnap.forEach(lessonDoc => {
-                const les = { id: lessonDoc.id, ...lessonDoc.data() };
-                const lesDiv = document.createElement('div');
-                lesDiv.innerHTML = `
-                    <div class="tree-item" data-type="lesson" data-id="${les.id}" data-course="${courseId}" data-module="${moduleId}">
-                        <iconify-icon icon="pixelarticons:file" class="tree-icon"></iconify-icon>
-                        <span style="flex:1;">${escapeHtml(les.title)}</span>
-                        <span class="tree-actions">
-                            <button class="btn btn-sm btn-outline" data-action="editLesson">✎</button>
-                            <button class="btn btn-sm btn-danger" data-action="deleteLesson">×</button>
-                        </span>
-                    </div>
-                `;
-                container.appendChild(lesDiv);
-
-                lesDiv.querySelector('.tree-item').addEventListener('click', (e) => {
-                    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
-                    selectLesson(courseId, moduleId, les.id);
-                });
-            });
-        }
-
-        // ==================== LESSON EDITING ====================
-        async function selectLesson(courseId, moduleId, lessonId) {
-            currentCourseId = courseId;
-            currentModuleId = moduleId;
-            currentLessonId = lessonId;
-            const lessonRef = doc(db, 'courses', courseId, 'modules', moduleId, 'lessons', lessonId);
-            const snap = await getDoc(lessonRef);
-            if (!snap.exists()) return alert('Lesson not found');
-            currentLessonData = snap.data();
-            lessonTitleDisplay.textContent = currentLessonData.title || 'Untitled';
-            lessonToolbar.style.display = 'flex';
-            blocksArea.innerHTML = '';
-            renderBlocks();
-            // clear right panel
-            rightPlaceholder.style.display = 'block';
-            blockPropsContent.style.display = 'none';
-            selectedBlockIndex = -1;
-            // highlight tree
-            document.querySelectorAll('.tree-item.active').forEach(el => el.classList.remove('active'));
-            const lessonEl = document.querySelector(`[data-type="lesson"][data-id="${lessonId}"]`);
-            if (lessonEl) lessonEl.classList.add('active');
-        }
-
-        function renderBlocks() {
-            blocksArea.innerHTML = '';
-            if (!currentLessonData || !currentLessonData.blocks) return;
-            currentLessonData.blocks.forEach((block, index) => {
-                const card = createBlockCard(block, index);
-                blocksArea.appendChild(card);
-            });
-            // attach drag events
-            attachDragEvents();
-        }
-
-        function createBlockCard(block, index) {
-            const div = document.createElement('div');
-            div.className = 'block-card' + (selectedBlockIndex === index ? ' selected' : '');
-            div.draggable = true;
-            div.dataset.index = index;
-            div.innerHTML = `
-                <div class="block-header">
-                    <span class="block-handle"><iconify-icon icon="pixelarticons:drag"></iconify-icon></span>
-                    <iconify-icon icon="${blockIcons[block.type] || 'pixelarticons:file'}" class="tree-icon"></iconify-icon>
-                    <span class="block-type-label">${block.type}</span>
-                    <button class="btn btn-sm btn-danger" data-action="deleteBlock">×</button>
-                </div>
-                <div class="block-body">
-                    ${renderBlockPreview(block, index)}
-                </div>
-            `;
-            div.addEventListener('click', (e) => {
-                if (e.target.closest('button')) return;
-                selectBlock(index);
-            });
-            div.querySelector('[data-action="deleteBlock"]').addEventListener('click', (e) => {
-                e.stopPropagation();
-                deleteBlock(index);
-            });
-            return div;
-        }
-
-        function renderBlockPreview(block, index) {
-            const d = block.data || {};
-            switch (block.type) {
-                case 'heading': return `<strong>${escapeHtml(d.text || '')}</strong>`;
-                case 'paragraph': return `<p>${escapeHtml(d.text || '')}</p>`;
-                case 'image': return d.url ? `<img src="${d.url}" style="max-width:100%;max-height:150px;border-radius:6px;">` : '<em>No image</em>';
-                case 'video': return d.url ? `<a href="${d.url}" target="_blank">${d.url}</a>` : '<em>No URL</em>';
-                case 'console': return `<pre style="background:#1e1e1e;color:#d4d4d4;padding:8px;border-radius:6px;">${escapeHtml(d.code || '')}</pre>`;
-                case 'hint': return `<div style="background:#fff9e6;padding:8px;border-radius:6px;">💡 ${escapeHtml(d.text || '')}</div>`;
-                case 'warning': return `<div style="background:#ffe6e6;padding:8px;border-radius:6px;">⚠️ ${escapeHtml(d.text || '')}</div>`;
-                case 'tip': return `<div style="background:#e6f7ff;padding:8px;border-radius:6px;">💡 ${escapeHtml(d.text || '')}</div>`;
-                case 'exercise': return `<div><strong>Q:</strong> ${escapeHtml(d.question || '')}<br><em>Options:</em> ${(d.options||[]).join(', ')}</div>`;
-                case 'quiz': return `<div>${(d.items||[]).length} question(s)</div>`;
-                case 'divider': return '<hr>';
-                case 'completion': return `<em>${escapeHtml(d.message || '')}</em>`;
-                default: return '';
-            }
-        }
-
-        function selectBlock(index) {
-            selectedBlockIndex = index;
-            rightPlaceholder.style.display = 'none';
-            blockPropsContent.style.display = 'block';
-            renderBlockProperties(index);
-            // highlight card
-            document.querySelectorAll('.block-card').forEach((card, i) => {
-                card.classList.toggle('selected', i === index);
-            });
-        }
-
-        function deleteBlock(index) {
-            if (!confirm('Delete this block?')) return;
-            currentLessonData.blocks.splice(index, 1);
-            if (selectedBlockIndex === index) {
-                selectedBlockIndex = -1;
-                rightPlaceholder.style.display = 'block';
-                blockPropsContent.style.display = 'none';
-            } else if (selectedBlockIndex > index) {
-                selectedBlockIndex--;
-            }
-            renderBlocks();
-            autoSave();
-        }
-
-        function addBlock(type) {
-            if (!currentLessonData) return alert('No lesson selected');
-            const newBlock = { type, data: {} };
-            currentLessonData.blocks.push(newBlock);
-            renderBlocks();
-            selectBlock(currentLessonData.blocks.length - 1);
-            autoSave();
-        }
-
-        function moveBlock(fromIndex, toIndex) {
-            if (fromIndex === toIndex) return;
-            const block = currentLessonData.blocks.splice(fromIndex, 1)[0];
-            currentLessonData.blocks.splice(toIndex, 0, block);
-            if (selectedBlockIndex === fromIndex) selectedBlockIndex = toIndex;
-            else if (selectedBlockIndex > fromIndex && selectedBlockIndex <= toIndex) selectedBlockIndex--;
-            else if (selectedBlockIndex < fromIndex && selectedBlockIndex >= toIndex) selectedBlockIndex++;
-            renderBlocks();
-            autoSave();
-        }
-
-        // Drag and drop
-        function attachDragEvents() {
-            const cards = blocksArea.querySelectorAll('.block-card');
-            cards.forEach(card => {
-                card.addEventListener('dragstart', handleDragStart);
-                card.addEventListener('dragover', handleDragOver);
-                card.addEventListener('drop', handleDrop);
-                card.addEventListener('dragend', handleDragEnd);
-            });
-        }
-
-        let dragSrcIndex = null;
-        function handleDragStart(e) {
-            dragSrcIndex = parseInt(this.dataset.index);
-            this.style.opacity = '0.4';
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/plain', dragSrcIndex);
-        }
-        function handleDragOver(e) {
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'move';
-            return false;
-        }
-        function handleDrop(e) {
-            e.stopPropagation();
-            const fromIndex = dragSrcIndex;
-            const toIndex = parseInt(this.dataset.index);
-            if (fromIndex !== toIndex) {
-                moveBlock(fromIndex, toIndex);
-            }
-            return false;
-        }
-        function handleDragEnd(e) {
-            this.style.opacity = '1';
-            document.querySelectorAll('.block-card').forEach(c => c.classList.remove('over'));
-            dragSrcIndex = null;
-        }
-
-        // ==================== RIGHT PANEL (BLOCK PROPERTIES) ====================
-        function renderBlockProperties(index) {
-            const block = currentLessonData.blocks[index];
-            const d = block.data || {};
-            let html = `<div class="props-section"><h3>Block Properties</h3>`;
-            switch (block.type) {
-                case 'heading':
-                case 'paragraph':
-                case 'hint':
-                case 'warning':
-                case 'tip':
-                    html += `<label>Text</label><textarea onchange="updateBlockProp(${index},'text',this.value)">${escapeHtml(d.text || '')}</textarea>`;
-                    break;
-                case 'image':
-                    html += `<label>Image Upload</label><input type="file" accept="image/*" onchange="uploadImage(${index}, this.files[0])">`;
-                    if (d.url) html += `<img src="${d.url}" style="max-width:100%;margin-top:8px;border-radius:6px;">`;
-                    break;
-                case 'video':
-                    html += `<label>YouTube URL</label><input value="${escapeHtml(d.url || '')}" onchange="updateBlockProp(${index},'url',this.value)">`;
-                    break;
-                case 'console':
-                    html += `<label>Code</label><textarea onchange="updateBlockProp(${index},'code',this.value)">${escapeHtml(d.code || '')}</textarea>`;
-                    html += `<label>Expected Output</label><input value="${escapeHtml(d.output || '')}" onchange="updateBlockProp(${index},'output',this.value)">`;
-                    break;
-                case 'exercise':
-                    html += `<label>Question</label><textarea onchange="updateBlockProp(${index},'question',this.value)">${escapeHtml(d.question || '')}</textarea>`;
-                    html += `<label>Options</label>`;
-                    (d.options || []).forEach((opt, i) => {
-                        html += `<div style="display:flex;gap:4px;margin-bottom:4px;"><input value="${escapeHtml(opt)}" onchange="updateExerciseOption(${index},${i},this.value)" style="flex:1;"><input type="radio" name="exCorrect${index}" ${d.correct===i?'checked':''} onchange="updateBlockProp(${index},'correct',${i})"><button class="btn btn-sm btn-danger" onclick="removeExerciseOption(${index},${i})">×</button></div>`;
-                    });
-                    html += `<button class="btn btn-sm btn-outline" onclick="addExerciseOption(${index})">+ Add Option</button>`;
-                    break;
-                case 'quiz':
-                    html += `<label>Quiz Items</label>`;
-                    const items = d.items || [];
-                    items.forEach((item, qi) => {
-                        html += `<div style="border:1px solid #ddd;padding:8px;margin-bottom:8px;border-radius:6px;">
-                            <strong>Q${qi+1}</strong>
-                            <textarea onchange="updateQuizItem(${index},${qi},'question',this.value)">${escapeHtml(item.question||'')}</textarea>
-                            <div>Options:</div>`;
-                        (item.options||[]).forEach((opt, oi) => {
-                            html += `<div style="display:flex;gap:4px;margin-bottom:4px;"><input value="${escapeHtml(opt)}" onchange="updateQuizOption(${index},${qi},${oi},this.value)" style="flex:1;"><input type="radio" name="quizCorr${index}_${qi}" ${item.correct===oi?'checked':''} onchange="updateQuizItem(${index},${qi},'correct',${oi})"><button class="btn btn-sm btn-danger" onclick="removeQuizOption(${index},${qi},${oi})">×</button></div>`;
-                        });
-                        html += `<button class="btn btn-sm btn-outline" onclick="addQuizOption(${index},${qi})">+ Option</button>
-                            <button class="btn btn-sm btn-danger" onclick="removeQuizItem(${index},${qi})">Remove Question</button>
-                        </div>`;
-                    });
-                    html += `<button class="btn btn-sm btn-outline" onclick="addQuizItem(${index})">+ Add Question</button>`;
-                    break;
-                case 'divider':
-                    html += `<p>No additional properties.</p>`;
-                    break;
-                case 'completion':
-                    html += `<label>Message</label><input value="${escapeHtml(d.message||'')}" onchange="updateBlockProp(${index},'message',this.value)">`;
-                    break;
-            }
-            html += `</div>`;
-            blockPropsContent.innerHTML = html;
-        }
-
-        window.updateBlockProp = function(index, key, value) {
-            currentLessonData.blocks[index].data[key] = value;
-            renderBlocks(); // update preview
-            autoSave();
-        };
-
-        window.uploadImage = async function(index, file) {
-            if (!file) return;
-            const formData = new FormData();
-            formData.append('image', file);
-            try {
-                const res = await fetch('https://api.imgbb.com/1/upload?key=ba8023ca74166460c442e8e703d2a1b0', { method: 'POST', body: formData });
-                const json = await res.json();
-                if (json.success) {
-                    currentLessonData.blocks[index].data.url = json.data.url;
-                    renderBlocks();
-                    renderBlockProperties(index);
-                    autoSave();
-                } else alert('Upload failed');
-            } catch(e) { alert('Upload error'); }
-        };
-
-        // Exercise helpers
-        window.addExerciseOption = function(index) {
-            if (!currentLessonData.blocks[index].data.options) currentLessonData.blocks[index].data.options = [];
-            currentLessonData.blocks[index].data.options.push('');
-            renderBlocks();
-            renderBlockProperties(index);
-            autoSave();
-        };
-        window.removeExerciseOption = function(index, optIdx) {
-            currentLessonData.blocks[index].data.options.splice(optIdx, 1);
-            renderBlocks();
-            renderBlockProperties(index);
-            autoSave();
-        };
-        window.updateExerciseOption = function(index, optIdx, value) {
-            currentLessonData.blocks[index].data.options[optIdx] = value;
-            renderBlocks();
-            autoSave();
-        };
-
-        // Quiz helpers
-        window.addQuizItem = function(index) {
-            if (!currentLessonData.blocks[index].data.items) currentLessonData.blocks[index].data.items = [];
-            currentLessonData.blocks[index].data.items.push({ question: '', options: [], correct: -1 });
-            renderBlocks();
-            renderBlockProperties(index);
-            autoSave();
-        };
-        window.removeQuizItem = function(index, qi) {
-            currentLessonData.blocks[index].data.items.splice(qi, 1);
-            renderBlocks();
-            renderBlockProperties(index);
-            autoSave();
-        };
-        window.updateQuizItem = function(index, qi, key, value) {
-            currentLessonData.blocks[index].data.items[qi][key] = value;
-            renderBlocks();
-            autoSave();
-        };
-        window.addQuizOption = function(index, qi) {
-            currentLessonData.blocks[index].data.items[qi].options.push('');
-            renderBlocks();
-            renderBlockProperties(index);
-            autoSave();
-        };
-        window.removeQuizOption = function(index, qi, oi) {
-            currentLessonData.blocks[index].data.items[qi].options.splice(oi, 1);
-            renderBlocks();
-            renderBlockProperties(index);
-            autoSave();
-        };
-        window.updateQuizOption = function(index, qi, oi, value) {
-            currentLessonData.blocks[index].data.items[qi].options[oi] = value;
-            renderBlocks();
-            autoSave();
-        };
-
-        // ==================== AUTO-SAVE ====================
-        function autoSave() {
-            saveStatus.textContent = 'Unsaved changes...';
-            if (saveTimeout) clearTimeout(saveTimeout);
-            saveTimeout = setTimeout(() => saveLesson(), 1500);
-        }
-
-        async function saveLesson() {
-            if (!currentLessonId) return;
-            const lessonRef = doc(db, 'courses', currentCourseId, 'modules', currentModuleId, 'lessons', currentLessonId);
-            try {
-                await updateDoc(lessonRef, { blocks: currentLessonData.blocks || [] });
-                saveStatus.textContent = 'All changes saved';
-            } catch(e) {
-                saveStatus.textContent = 'Error saving';
-            }
-            if (saveTimeout) clearTimeout(saveTimeout);
-        }
-
-        window.saveLesson = saveLesson;
-
-        // ==================== BLOCK DROPDOWN ====================
-        function populateBlockDropdown() {
-            const types = ['heading','paragraph','image','video','console','hint','warning','tip','exercise','quiz','divider','completion'];
-            blockDropdown.innerHTML = types.map(t => `
-                <div class="block-dropdown-item" data-type="${t}">
-                    <iconify-icon icon="${blockIcons[t]}"></iconify-icon> ${t.charAt(0).toUpperCase()+t.slice(1)}
-                </div>
-            `).join('');
-            blockDropdown.querySelectorAll('.block-dropdown-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    addBlock(item.dataset.type);
-                    blockDropdown.classList.remove('open');
-                });
-            });
-        }
-
-        window.toggleBlockDropdown = function() {
-            blockDropdown.classList.toggle('open');
-        };
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.add-block-btn')) {
-                blockDropdown.classList.remove('open');
-            }
+    function renderTree() {
+      treeContainer.innerHTML = '';
+      courses.forEach(course => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <div class="tree-item" data-type="course" data-id="${course.id}">
+            <span class="tree-toggle">▶</span>
+            <iconify-icon icon="pixelarticons:folder" class="tree-icon"></iconify-icon>
+            <span style="flex:1;">${escapeHtml(course.title)}</span>
+            <span class="tree-actions">
+              <button class="btn btn-sm btn-outline edit-course-btn">✎</button>
+              <button class="btn btn-sm btn-danger delete-course-btn">×</button>
+            </span>
+          </div>
+          <div class="tree-children" id="children-${course.id}" style="display:none;"></div>
+        `;
+        treeContainer.appendChild(div);
+        // toggle
+        const toggle = div.querySelector('.tree-toggle');
+        toggle.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const children = document.getElementById(`children-${course.id}`);
+          if (children.style.display === 'none') {
+            children.style.display = 'block';
+            toggle.textContent = '▼';
+            await loadModules(course.id, children);
+          } else {
+            children.style.display = 'none';
+            toggle.textContent = '▶';
+          }
         });
-
-        // ==================== MODALS ====================
-        function showModal(title, content, onSave) {
-            const overlay = document.getElementById('modalOverlay');
-            overlay.innerHTML = `
-                <div class="modal">
-                    <h2>${title}</h2>
-                    <div class="input-group">${content}</div>
-                    <div class="btn-row">
-                        <button class="btn btn-outline" id="modalCancel">Cancel</button>
-                        <button class="btn btn-primary" id="modalSave">Save</button>
-                    </div>
-                </div>
-            `;
-            overlay.style.display = 'flex';
-            document.getElementById('modalCancel').onclick = () => overlay.style.display = 'none';
-            document.getElementById('modalSave').onclick = () => {
-                const result = onSave();
-                if (result !== false) overlay.style.display = 'none';
-            };
-        }
-
-        window.showAddCourseModal = function() {
-            showModal('New Course', `
-                <input id="courseTitleInput" class="input" placeholder="Course title">
-                <input id="courseDescInput" class="input" placeholder="Description" style="margin-top:8px;">
-            `, async () => {
-                const title = document.getElementById('courseTitleInput').value.trim();
-                if (!title) { alert('Title required'); return false; }
-                const desc = document.getElementById('courseDescInput').value.trim();
-                await addDoc(collection(db, 'courses'), { title, description: desc, createdAt: serverTimestamp() });
-                loadTree();
-            });
-        };
-
-        // Edit course, module, lesson modals (simplified)
-        // For brevity, I'll add inline edit via prompts for now
-        // But the full code can include modals similarly.
-
-        // Actually, let's implement quick inline editing via prompts for the buttons.
-        // We'll listen to clicks on the tree actions
-        treeContainer.addEventListener('click', async (e) => {
-            const btn = e.target.closest('button');
-            if (!btn) return;
-            const action = btn.dataset.action;
-            const itemEl = btn.closest('.tree-item');
-            const type = itemEl?.dataset.type;
-            const id = itemEl?.dataset.id;
-            const courseId = itemEl?.dataset.course || currentCourseId;
-            const moduleId = itemEl?.dataset.module;
-
-            if (action === 'addModule' && type === 'course') {
-                const title = prompt('Module title:');
-                if (!title) return;
-                const order = prompt('Order (number):', '1');
-                await addDoc(collection(db, 'courses', id, 'modules'), { title, order: parseInt(order)||1, createdAt: serverTimestamp() });
-                // refresh tree
-                loadTree();
-            } else if (action === 'editCourse') {
-                const newTitle = prompt('New course title:');
-                if (newTitle) {
-                    await updateDoc(doc(db, 'courses', id), { title: newTitle });
-                    loadTree();
-                }
-            } else if (action === 'deleteCourse') {
-                if (confirm('Delete course and all its modules/lessons?')) {
-                    // cascading delete (simplified: delete modules and lessons recursively)
-                    // For safety, we'll just delete the course doc; Firebase doesn't cascade.
-                    // In production, you'd need to delete subcollections manually.
-                    await deleteDoc(doc(db, 'courses', id));
-                    loadTree();
-                    if (currentCourseId === id) clearMiddlePanel();
-                }
-            } else if (action === 'addLesson' && type === 'module') {
-                const title = prompt('Lesson title:');
-                if (!title) return;
-                const order = prompt('Order:', '1');
-                await addDoc(collection(db, 'courses', courseId, 'modules', id, 'lessons'), { title, order: parseInt(order)||1, blocks: [], createdAt: serverTimestamp() });
-                // refresh module's lessons
-                const childrenDiv = document.getElementById(`children-${id}`);
-                if (childrenDiv) await loadLessons(courseId, id, childrenDiv);
-            } else if (action === 'editModule') {
-                const newTitle = prompt('New module title:');
-                if (newTitle) {
-                    await updateDoc(doc(db, 'courses', courseId, 'modules', id), { title: newTitle });
-                    // refresh tree
-                    loadTree();
-                }
-            } else if (action === 'deleteModule') {
-                if (confirm('Delete module and its lessons?')) {
-                    await deleteDoc(doc(db, 'courses', courseId, 'modules', id));
-                    loadTree();
-                    if (currentModuleId === id) clearMiddlePanel();
-                }
-            } else if (action === 'editLesson') {
-                const newTitle = prompt('New lesson title:');
-                if (newTitle) {
-                    await updateDoc(doc(db, 'courses', courseId, 'modules', moduleId, 'lessons', id), { title: newTitle });
-                    if (currentLessonId === id) {
-                        lessonTitleDisplay.textContent = newTitle;
-                    }
-                    loadTree();
-                }
-            } else if (action === 'deleteLesson') {
-                if (confirm('Delete lesson?')) {
-                    await deleteDoc(doc(db, 'courses', courseId, 'modules', moduleId, 'lessons', id));
-                    loadTree();
-                    if (currentLessonId === id) clearMiddlePanel();
-                }
-            }
+        // edit/delete
+        div.querySelector('.edit-course-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          showModal('Edit Course', `<input id="editCourseTitle" class="input" value="${escapeHtml(course.title)}">`, async () => {
+            const newTitle = document.getElementById('editCourseTitle').value.trim();
+            if (!newTitle) { alert('Title required'); return false; }
+            await updateDoc(doc(db, 'courses', course.id), { title: newTitle });
+            loadTree();
+          });
         });
+        div.querySelector('.delete-course-btn').addEventListener('click', async (e) => {
+          e.stopPropagation();
+          if (confirm('Delete course and all its contents?')) {
+            await deleteDoc(doc(db, 'courses', course.id));
+            loadTree();
+            if (currentCourseId === course.id) clearLesson();
+          }
+        });
+      });
+    }
 
-        function clearMiddlePanel() {
-            currentLessonId = null;
-            currentLessonData = null;
-            lessonToolbar.style.display = 'none';
-            blocksArea.innerHTML = '<div class="right-placeholder">Select a lesson from the left panel to start editing.</div>';
-            rightPlaceholder.style.display = 'block';
-            blockPropsContent.style.display = 'none';
+    async function loadModules(courseId, container) {
+      const snap = await getDocs(query(collection(db, 'courses', courseId, 'modules'), orderBy('createdAt')));
+      container.innerHTML = '';
+      snap.forEach(modDoc => {
+        const mod = { id: modDoc.id, ...modDoc.data() };
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <div class="tree-item" data-type="module" data-id="${mod.id}" data-course="${courseId}">
+            <span class="tree-toggle">▶</span>
+            <iconify-icon icon="pixelarticons:book" class="tree-icon"></iconify-icon>
+            <span style="flex:1;">${escapeHtml(mod.title)}</span>
+            <span class="tree-actions">
+              <button class="btn btn-sm btn-outline edit-module-btn">✎</button>
+              <button class="btn btn-sm btn-danger delete-module-btn">×</button>
+            </span>
+          </div>
+          <div class="tree-children" id="children-${mod.id}" style="display:none;"></div>
+        `;
+        container.appendChild(div);
+        const toggle = div.querySelector('.tree-toggle');
+        toggle.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const lessonsDiv = document.getElementById(`children-${mod.id}`);
+          if (lessonsDiv.style.display === 'none') {
+            lessonsDiv.style.display = 'block';
+            toggle.textContent = '▼';
+            await loadLessons(courseId, mod.id, lessonsDiv);
+          } else {
+            lessonsDiv.style.display = 'none';
+            toggle.textContent = '▶';
+          }
+        });
+        div.querySelector('.edit-module-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          showModal('Edit Module', `<input id="editModuleTitle" class="input" value="${escapeHtml(mod.title)}">`, async () => {
+            const newTitle = document.getElementById('editModuleTitle').value.trim();
+            if (!newTitle) { alert('Title required'); return false; }
+            await updateDoc(doc(db, 'courses', courseId, 'modules', mod.id), { title: newTitle });
+            loadTree();
+          });
+        });
+        div.querySelector('.delete-module-btn').addEventListener('click', async (e) => {
+          e.stopPropagation();
+          if (confirm('Delete module and its lessons?')) {
+            await deleteDoc(doc(db, 'courses', courseId, 'modules', mod.id));
+            loadTree();
+            if (currentModuleId === mod.id) clearLesson();
+          }
+        });
+      });
+    }
+
+    async function loadLessons(courseId, moduleId, container) {
+      const snap = await getDocs(query(collection(db, 'courses', courseId, 'modules', moduleId, 'lessons'), orderBy('createdAt')));
+      container.innerHTML = '';
+      snap.forEach(lesDoc => {
+        const les = { id: lesDoc.id, ...lesDoc.data() };
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <div class="tree-item" data-type="lesson" data-id="${les.id}" data-course="${courseId}" data-module="${moduleId}">
+            <iconify-icon icon="pixelarticons:file" class="tree-icon"></iconify-icon>
+            <span style="flex:1;">${escapeHtml(les.title)}</span>
+            <span class="tree-actions">
+              <button class="btn btn-sm btn-outline edit-lesson-btn">✎</button>
+              <button class="btn btn-sm btn-danger delete-lesson-btn">×</button>
+            </span>
+          </div>
+        `;
+        container.appendChild(div);
+        div.querySelector('.tree-item').addEventListener('click', (e) => {
+          if (e.target.closest('button')) return;
+          selectLesson(courseId, moduleId, les.id);
+        });
+        div.querySelector('.edit-lesson-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          showModal('Edit Lesson', `<input id="editLessonTitle" class="input" value="${escapeHtml(les.title)}">`, async () => {
+            const newTitle = document.getElementById('editLessonTitle').value.trim();
+            if (!newTitle) { alert('Title required'); return false; }
+            await updateDoc(doc(db, 'courses', courseId, 'modules', moduleId, 'lessons', les.id), { title: newTitle });
+            loadTree();
+            if (currentLessonId === les.id) lessonTitleDisplay.textContent = newTitle;
+          });
+        });
+        div.querySelector('.delete-lesson-btn').addEventListener('click', async (e) => {
+          e.stopPropagation();
+          if (confirm('Delete lesson?')) {
+            await deleteDoc(doc(db, 'courses', courseId, 'modules', moduleId, 'lessons', les.id));
+            loadTree();
+            if (currentLessonId === les.id) clearLesson();
+          }
+        });
+      });
+    }
+
+    // ---- ADD ENTITY MODAL ----
+    document.getElementById('addEntityBtn').addEventListener('click', () => {
+      const courseOptions = courses.map(c => `<option value="${c.id}">${escapeHtml(c.title)}</option>`).join('');
+      showModal('Add New', `
+        <select id="entityType" class="input">
+          <option value="course">Course</option>
+          <option value="module">Module</option>
+          <option value="lesson">Lesson</option>
+        </select>
+        <div id="entityFields"></div>
+      `, async () => {
+        const type = document.getElementById('entityType').value;
+        if (type === 'course') {
+          const title = document.getElementById('courseTitleInput').value.trim();
+          if (!title) { alert('Title required'); return false; }
+          await addDoc(collection(db, 'courses'), { title, createdAt: serverTimestamp() });
+        } else if (type === 'module') {
+          const courseId = document.getElementById('moduleCourseSelect').value;
+          const title = document.getElementById('moduleTitleInput').value.trim();
+          if (!courseId || !title) { alert('Fill all fields'); return false; }
+          await addDoc(collection(db, 'courses', courseId, 'modules'), { title, createdAt: serverTimestamp() });
+        } else if (type === 'lesson') {
+          const courseId = document.getElementById('lessonCourseSelect').value;
+          const moduleId = document.getElementById('lessonModuleSelect').value;
+          const title = document.getElementById('lessonTitleInput').value.trim();
+          if (!courseId || !moduleId || !title) { alert('Fill all fields'); return false; }
+          await addDoc(collection(db, 'courses', courseId, 'modules', moduleId, 'lessons'), { title, blocks: [], createdAt: serverTimestamp() });
         }
-
-        // Escape HTML utility
-        function escapeHtml(text) {
-            if (!text) return '';
-            return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-        }
-
-        // Initialize
-        populateBlockDropdown();
         loadTree();
-    </script>
+      });
+
+      const typeSelect = document.getElementById('entityType');
+      const fieldsDiv = document.getElementById('entityFields');
+      function updateFields() {
+        const t = typeSelect.value;
+        if (t === 'course') {
+          fieldsDiv.innerHTML = `<input id="courseTitleInput" class="input" placeholder="Course title" style="margin-top:8px;">`;
+        } else if (t === 'module') {
+          fieldsDiv.innerHTML = `
+            <select id="moduleCourseSelect" class="input" style="margin-top:8px;">
+              <option value="">-- Select Course --</option>
+              ${courseOptions}
+            </select>
+            <input id="moduleTitleInput" class="input" placeholder="Module title" style="margin-top:4px;">
+          `;
+        } else if (t === 'lesson') {
+          fieldsDiv.innerHTML = `
+            <select id="lessonCourseSelect" class="input" style="margin-top:8px;">
+              <option value="">-- Select Course --</option>
+              ${courseOptions}
+            </select>
+            <select id="lessonModuleSelect" class="input" style="margin-top:4px;">
+              <option value="">-- Select Module --</option>
+            </select>
+            <input id="lessonTitleInput" class="input" placeholder="Lesson title" style="margin-top:4px;">
+          `;
+          const courseSel = document.getElementById('lessonCourseSelect');
+          const moduleSel = document.getElementById('lessonModuleSelect');
+          courseSel.addEventListener('change', async () => {
+            const cid = courseSel.value;
+            moduleSel.innerHTML = '<option value="">-- Select Module --</option>';
+            if (!cid) return;
+            const snap = await getDocs(query(collection(db, 'courses', cid, 'modules'), orderBy('createdAt')));
+            snap.forEach(d => {
+              moduleSel.innerHTML += `<option value="${d.id}">${escapeHtml(d.data().title)}</option>`;
+            });
+          });
+        }
+      }
+      typeSelect.addEventListener('change', updateFields);
+      updateFields();
+    });
+
+    // ---- LESSON SELECTION ----
+    async function selectLesson(courseId, moduleId, lessonId) {
+      currentCourseId = courseId;
+      currentModuleId = moduleId;
+      currentLessonId = lessonId;
+      showLoading();
+      const ref = doc(db, 'courses', courseId, 'modules', moduleId, 'lessons', lessonId);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) { alert('Lesson not found'); hideLoading(); return; }
+      currentLessonData = snap.data();
+      lessonTitleDisplay.textContent = currentLessonData.title || 'Untitled';
+      lessonToolbar.style.display = 'flex';
+      emptyLessonMsg.style.display = 'none';
+      renderBlocks();
+      deselectBlock(); // show palette
+      hideLoading();
+      // highlight tree
+      document.querySelectorAll('.tree-item.active').forEach(el => el.classList.remove('active'));
+      const lessonEl = document.querySelector(`[data-type="lesson"][data-id="${lessonId}"]`);
+      if (lessonEl) lessonEl.classList.add('active');
+    }
+
+    function clearLesson() {
+      currentLessonId = null;
+      currentLessonData = null;
+      lessonToolbar.style.display = 'none';
+      blocksArea.innerHTML = '<div class="right-placeholder">Select a lesson from the left panel.</div>';
+      emptyLessonMsg.style.display = 'block';
+      deselectBlock();
+    }
+
+    // ---- BLOCK RENDERING ----
+    function renderBlocks() {
+      blocksArea.innerHTML = '';
+      if (!currentLessonData?.blocks) return;
+      currentLessonData.blocks.forEach((block, index) => {
+        const card = createBlockCard(block, index);
+        blocksArea.appendChild(card);
+      });
+    }
+
+    function createBlockCard(block, index) {
+      const div = document.createElement('div');
+      div.className = 'block-card' + (selectedBlockIndex === index ? ' selected' : '');
+      div.draggable = true;
+      div.dataset.index = index;
+      div.innerHTML = `
+        <div class="block-header">
+          <iconify-icon icon="${blockIcons[block.type] || 'pixelarticons:file'}" class="tree-icon"></iconify-icon>
+          <span class="block-type-label">${block.type}</span>
+          <button class="btn btn-sm btn-danger del-block-btn">×</button>
+        </div>
+        <div class="block-body" id="block-body-${index}">
+          ${renderBlockContent(block, index)}
+        </div>
+      `;
+      div.addEventListener('click', (e) => {
+        if (e.target.closest('button')) return;
+        selectBlock(index);
+      });
+      div.querySelector('.del-block-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        deleteBlock(index);
+      });
+      // drag reorder within middle
+      div.addEventListener('dragstart', handleDragStart);
+      div.addEventListener('dragover', (e) => e.preventDefault());
+      div.addEventListener('drop', handleDropReorder);
+      return div;
+    }
+
+    function renderBlockContent(block, index) {
+      const d = block.data || {};
+      switch (block.type) {
+        case 'heading': return `<h3>${escapeHtml(d.text || '')}</h3>`;
+        case 'paragraph': return `<div class="rich-editor" contenteditable="false">${d.html || escapeHtml(d.text || '')}</div>`;
+        case 'image': return d.url ? `<img src="${d.url}" style="max-width:100%; border-radius:6px;">` : '<em>No image</em>';
+        case 'video': return d.url ? `<a href="${d.url}" target="_blank">${d.url}</a>` : '<em>No URL</em>';
+        case 'console': return `<pre style="background:#1e1e1e;color:#d4d4d4;padding:8px;border-radius:6px;">${escapeHtml(d.code || '')}</pre>`;
+        case 'hint': return `<div style="background:#fff9e6;padding:8px;border-radius:6px;">💡 ${escapeHtml(d.text || '')}</div>`;
+        case 'warning': return `<div style="background:#ffe6e6;padding:8px;border-radius:6px;">⚠️ ${escapeHtml(d.text || '')}</div>`;
+        case 'tip': return `<div style="background:#e6f7ff;padding:8px;border-radius:6px;">💡 ${escapeHtml(d.text || '')}</div>`;
+        case 'multiple-choice': return renderMCQPreview(d);
+        case 'matching': return renderMatchingPreview(d);
+        case 'fill-blank': return renderFillBlankPreview(d);
+        case 'quiz': return `<div>${(d.items||[]).length} question(s)</div>`;
+        case 'divider': return '<hr>';
+        case 'completion': return `<em>${escapeHtml(d.message || '')}</em>`;
+        default: return '';
+      }
+    }
+
+    function renderMCQPreview(d) {
+      const q = d.question || '';
+      const opts = d.options || [];
+      return `<div><strong>${escapeHtml(q)}</strong><ul>${opts.map(o => `<li>${escapeHtml(o)}</li>`).join('')}</ul></div>`;
+    }
+    function renderMatchingPreview(d) {
+      const pairs = d.pairs || [];
+      return `<div>${pairs.map(p => `<div>${escapeHtml(p.left)} ↔ ${escapeHtml(p.right)}</div>`).join('')}</div>`;
+    }
+    function renderFillBlankPreview(d) {
+      const text = d.text || '';
+      return `<div>${escapeHtml(text)}</div>`;
+    }
+
+    // ---- BLOCK SELECTION & PROPERTIES ----
+    function selectBlock(index) {
+      selectedBlockIndex = index;
+      // switch right panel to properties
+      paletteView.style.display = 'none';
+      propsView.style.display = 'block';
+      renderBlockProperties(index);
+      // highlight card
+      document.querySelectorAll('.block-card').forEach((c,i) => c.classList.toggle('selected', i===index));
+    }
+
+    function deselectBlock() {
+      selectedBlockIndex = -1;
+      paletteView.style.display = 'block';
+      propsView.style.display = 'none';
+      document.querySelectorAll('.block-card').forEach(c => c.classList.remove('selected'));
+    }
+
+    function renderBlockProperties(index) {
+      const block = currentLessonData.blocks[index];
+      const d = block.data || {};
+      let html = '';
+      switch (block.type) {
+        case 'heading':
+          html = `<label>Text</label><input class="input" value="${escapeHtml(d.text||'')}" onchange="updateBlockProp(${index},'text',this.value)">`;
+          break;
+        case 'paragraph':
+          html = `
+            <label>Content</label>
+            <div class="rich-toolbar">
+              <button type="button" onclick="formatRich('bold',${index})"><b>B</b></button>
+              <button type="button" onclick="formatRich('italic',${index})"><i>I</i></button>
+              <button type="button" onclick="formatRich('underline',${index})"><u>U</u></button>
+            </div>
+            <div id="rich-editor-${index}" class="rich-editor" contenteditable="true">${d.html || escapeHtml(d.text||'')}</div>
+          `;
+          break;
+        case 'image':
+          html = `<label>Upload</label><input type="file" accept="image/*" onchange="uploadImage(${index}, this.files[0])">`;
+          if (d.url) html += `<img src="${d.url}" style="max-width:100%;margin-top:8px;">`;
+          break;
+        case 'video':
+          html = `<label>YouTube URL</label><input class="input" value="${escapeHtml(d.url||'')}" onchange="updateBlockProp(${index},'url',this.value)">`;
+          break;
+        case 'console':
+          html = `<label>Code</label><textarea class="input" onchange="updateBlockProp(${index},'code',this.value)">${escapeHtml(d.code||'')}</textarea>
+                  <label>Expected Output</label><input class="input" value="${escapeHtml(d.output||'')}" onchange="updateBlockProp(${index},'output',this.value)">`;
+          break;
+        case 'hint': case 'warning': case 'tip':
+          html = `<label>Text</label><textarea class="input" onchange="updateBlockProp(${index},'text',this.value)">${escapeHtml(d.text||'')}</textarea>`;
+          break;
+        case 'multiple-choice':
+          html = `<label>Question</label><textarea class="input" onchange="updateBlockProp(${index},'question',this.value)">${escapeHtml(d.question||'')}</textarea>
+                  <label>Options</label>`;
+          (d.options||[]).forEach((opt,i) => {
+            html += `<div class="flex-row"><input class="input" value="${escapeHtml(opt)}" onchange="updateOption(${index},${i},this.value)" style="flex:1;"><input type="radio" name="mcq${index}" ${d.correct===i?'checked':''} onchange="updateBlockProp(${index},'correct',${i})"><button class="btn btn-sm btn-danger" onclick="removeOption(${index},${i})">×</button></div>`;
+          });
+          html += `<button class="btn btn-sm btn-outline" onclick="addOption(${index})">+ Add Option</button>`;
+          break;
+        case 'matching':
+          html = `<label>Pairs</label>`;
+          (d.pairs||[]).forEach((p,i) => {
+            html += `<div class="flex-row"><input class="input" value="${escapeHtml(p.left)}" onchange="updatePair(${index},${i},'left',this.value)" placeholder="Left"><input class="input" value="${escapeHtml(p.right)}" onchange="updatePair(${index},${i},'right',this.value)" placeholder="Right"><button class="btn btn-sm btn-danger" onclick="removePair(${index},${i})">×</button></div>`;
+          });
+          html += `<button class="btn btn-sm btn-outline" onclick="addPair(${index})">+ Add Pair</button>`;
+          break;
+        case 'fill-blank':
+          html = `<label>Text with blanks (use ___ )</label><textarea class="input" onchange="updateBlockProp(${index},'text',this.value)">${escapeHtml(d.text||'')}</textarea>
+                  <label>Answers (comma separated)</label><input class="input" value="${escapeHtml((d.answers||[]).join(','))}" onchange="updateBlockProp(${index},'answers',this.value.split(',').map(s=>s.trim()))">`;
+          break;
+        case 'quiz': 
+          // (quiz block - multiple questions each with options, correct) – simplified for brevity, you can expand
+          html = `<p>Quiz editor coming soon.</p>`;
+          break;
+        case 'divider': html = `<p>No properties</p>`; break;
+        case 'completion': html = `<label>Message</label><input class="input" value="${escapeHtml(d.message||'')}" onchange="updateBlockProp(${index},'message',this.value)">`; break;
+      }
+      blockPropsContent.innerHTML = html;
+      // if paragraph, set focus and update on input
+      if (block.type === 'paragraph') {
+        const editor = document.getElementById(`rich-editor-${index}`);
+        editor.addEventListener('input', () => {
+          currentLessonData.blocks[index].data.html = editor.innerHTML;
+          currentLessonData.blocks[index].data.text = editor.innerText;
+          autoSave();
+        });
+      }
+    }
+
+    // Helper for rich text
+    window.formatRich = function(cmd, index) {
+      document.execCommand(cmd, false, null);
+      const editor = document.getElementById(`rich-editor-${index}`);
+      currentLessonData.blocks[index].data.html = editor.innerHTML;
+      currentLessonData.blocks[index].data.text = editor.innerText;
+      autoSave();
+    };
+
+    // Update block property generic
+    window.updateBlockProp = function(index, key, value) {
+      currentLessonData.blocks[index].data[key] = value;
+      renderBlocks(); // update preview
+      autoSave();
+    };
+    // Option helpers for MCQ
+    window.addOption = function(index) {
+      if (!currentLessonData.blocks[index].data.options) currentLessonData.blocks[index].data.options = [];
+      currentLessonData.blocks[index].data.options.push('');
+      renderBlocks(); renderBlockProperties(index); autoSave();
+    };
+    window.removeOption = function(index, i) {
+      currentLessonData.blocks[index].data.options.splice(i,1);
+      if (currentLessonData.blocks[index].data.correct === i) currentLessonData.blocks[index].data.correct = -1;
+      else if (currentLessonData.blocks[index].data.correct > i) currentLessonData.blocks[index].data.correct--;
+      renderBlocks(); renderBlockProperties(index); autoSave();
+    };
+    window.updateOption = function(index, i, val) {
+      currentLessonData.blocks[index].data.options[i] = val;
+      renderBlocks(); autoSave();
+    };
+    // Matching
+    window.addPair = function(index) {
+      if (!currentLessonData.blocks[index].data.pairs) currentLessonData.blocks[index].data.pairs = [];
+      currentLessonData.blocks[index].data.pairs.push({left:'',right:''});
+      renderBlocks(); renderBlockProperties(index); autoSave();
+    };
+    window.removePair = function(index,i) {
+      currentLessonData.blocks[index].data.pairs.splice(i,1);
+      renderBlocks(); renderBlockProperties(index); autoSave();
+    };
+    window.updatePair = function(index,i,side,val) {
+      currentLessonData.blocks[index].data.pairs[i][side] = val;
+      renderBlocks(); autoSave();
+    };
+
+    // Image upload
+    window.uploadImage = async function(index, file) {
+      if (!file) return;
+      const formData = new FormData();
+      formData.append('image', file);
+      try {
+        const res = await fetch('https://api.imgbb.com/1/upload?key=ba8023ca74166460c442e8e703d2a1b0', { method:'POST', body:formData });
+        const json = await res.json();
+        if (json.success) {
+          currentLessonData.blocks[index].data.url = json.data.url;
+          renderBlocks(); renderBlockProperties(index); autoSave();
+        } else alert('Upload failed');
+      } catch(e) { alert('Upload error'); }
+    };
+
+    // ---- BLOCK DELETE & REORDER ----
+    function deleteBlock(index) {
+      if (!confirm('Delete this block?')) return;
+      currentLessonData.blocks.splice(index, 1);
+      if (selectedBlockIndex === index) deselectBlock();
+      else if (selectedBlockIndex > index) selectedBlockIndex--;
+      renderBlocks();
+      autoSave();
+    }
+
+    let dragSrcIdx = null;
+    function handleDragStart(e) {
+      dragSrcIdx = parseInt(this.dataset.index);
+      e.dataTransfer.setData('text/plain', dragSrcIdx);
+      this.style.opacity = '0.4';
+    }
+    function handleDropReorder(e) {
+      e.preventDefault();
+      const fromIdx = dragSrcIdx;
+      const toIdx = parseInt(this.dataset.index);
+      if (fromIdx !== toIdx && fromIdx !== null) {
+        const block = currentLessonData.blocks.splice(fromIdx,1)[0];
+        currentLessonData.blocks.splice(toIdx,0,block);
+        if (selectedBlockIndex === fromIdx) selectedBlockIndex = toIdx;
+        else if (selectedBlockIndex > fromIdx && selectedBlockIndex <= toIdx) selectedBlockIndex--;
+        else if (selectedBlockIndex < fromIdx && selectedBlockIndex >= toIdx) selectedBlockIndex++;
+        renderBlocks();
+        autoSave();
+      }
+      this.style.opacity = '1';
+      dragSrcIdx = null;
+    }
+    document.addEventListener('dragend', () => {
+      document.querySelectorAll('.block-card').forEach(c => c.style.opacity = '1');
+      dragSrcIdx = null;
+    });
+
+    // ---- DRAG FROM PALETTE TO MIDDLE ----
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      blocksArea.classList.add('drop-zone-highlight');
+    }
+    window.handleDropOnArea = function(e) {
+      e.preventDefault();
+      blocksArea.classList.remove('drop-zone-highlight');
+      const blockType = e.dataTransfer.getData('blockType');
+      if (!blockType) return; // not from palette
+      if (!currentLessonData) { alert('Select a lesson first'); return; }
+      const newBlock = { type: blockType, data: {} };
+      currentLessonData.blocks.push(newBlock);
+      const newIndex = currentLessonData.blocks.length - 1;
+      renderBlocks();
+      selectBlock(newIndex);
+      autoSave();
+    };
+    // Palette items
+    function populatePalette() {
+      paletteGrid.innerHTML = blockTypes.map(t => `
+        <div class="palette-item" draggable="true" data-type="${t}"
+             ondragstart="event.dataTransfer.setData('blockType','${t}')">
+          <iconify-icon icon="${blockIcons[t]}"></iconify-icon>
+          <span>${t.replace('-',' ')}</span>
+        </div>
+      `).join('');
+    }
+
+    // ---- AUTO-SAVE ----
+    function autoSave() {
+      saveStatus.textContent = 'Unsaved changes...';
+      if (saveTimeout) clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => saveLesson(), 1500);
+    }
+    async function saveLesson() {
+      if (!currentLessonId) return;
+      const ref = doc(db, 'courses', currentCourseId, 'modules', currentModuleId, 'lessons', currentLessonId);
+      try {
+        await updateDoc(ref, { blocks: currentLessonData.blocks || [] });
+        saveStatus.textContent = 'All changes saved';
+      } catch(e) {
+        saveStatus.textContent = 'Error saving';
+      }
+    }
+    window.saveLesson = saveLesson;
+
+    // Initialize
+    populatePalette();
+    loadTree();
+  </script>
 </body>
 </html>
