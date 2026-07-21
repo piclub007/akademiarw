@@ -7,9 +7,22 @@
   <meta name="robots" content="noindex">
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
-  <!-- Fonts -->
+  <!-- Fonts (fallback to system if CDN fails) -->
   <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/drafting-mono" rel="stylesheet">
+  <style>
+    /* fallback if custom fonts don't load */
+    @font-face {
+      font-family: 'BlockBlueprint';
+      src: local('BlockBlueprint'), local('BlockBlueprint');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Drafting Mono';
+      src: local('Drafting Mono'), local('Drafting Mono');
+      font-display: swap;
+    }
+  </style>
 
   <!-- Icons -->
   <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
@@ -30,7 +43,7 @@
 
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Drafting* Mono', monospace;
+      font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
       background: var(--bg-secondary);
       color: var(--text);
       height: 100vh;
@@ -64,7 +77,7 @@
       font-weight: 600;
       font-size:0.85rem;
       cursor:pointer;
-      font-family: 'Drafting* Mono', monospace;
+      font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
       display:inline-flex;
       align-items:center;
       gap:6px;
@@ -88,7 +101,8 @@
     .panel-right { width:var(--palette-width); flex-shrink:0; }
 
     /* Left panel tree */
-    .section-title { font-weight:700; margin:12px 0 6px; font-size:0.9rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:1px; }
+    .section-title { font-weight:700; margin:12px 0 6px; font-size:0.9rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:1px; display:flex; align-items:center; gap:8px; }
+    .section-title .add-btn { margin-left:auto; }
     .tree-item {
       display:flex; align-items:center; gap:6px; padding:6px 8px; border-radius:6px;
       cursor:pointer; transition: background 0.15s; font-size:0.85rem; margin-bottom:2px;
@@ -100,7 +114,6 @@
     .tree-item:hover .tree-actions { opacity:1; }
     .tree-children { padding-left:20px; margin-top:2px; }
     .tree-toggle { cursor:pointer; user-select:none; width:16px; display:inline-block; text-align:center; }
-    .add-btn { display:flex; align-items:center; gap:4px; margin-top:8px; }
 
     /* Middle panel */
     .lesson-toolbar {
@@ -124,16 +137,19 @@
     }
     .block-type-label { flex:1; text-transform:uppercase; letter-spacing:0.5px; }
     .block-body { padding:12px; }
-    .block-body .rich-editor { min-height:60px; border:1px solid var(--border); padding:8px; border-radius:6px; background:white; }
+    .block-body .editable-text { min-height:30px; padding:4px; border:1px solid transparent; border-radius:4px; }
+    .block-body .editable-text:focus { outline:none; border-color:var(--green); background:white; }
     .rich-toolbar { display:flex; gap:4px; margin-bottom:4px; }
     .rich-toolbar button { padding:2px 6px; font-size:0.8rem; cursor:pointer; border:1px solid var(--border); background:white; border-radius:4px; }
     .drop-zone-highlight { outline:3px dashed var(--green); outline-offset:4px; }
+    .video-preview { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; }
+    .video-preview iframe { position:absolute; top:0; left:0; width:100%; height:100%; border-radius:6px; }
 
     /* Right panel: palette */
     .palette-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
     .palette-item {
       border:2px solid var(--border); border-radius:var(--radius); padding:10px;
-      text-align:center; cursor:grab; font-size:0.75rem; transition: all 0.2s;
+      text-align:center; cursor:pointer; font-size:0.75rem; transition: all 0.2s;
       display:flex; flex-direction:column; align-items:center; gap:4px; background:var(--bg);
     }
     .palette-item:hover { border-color:var(--green); background:#f0fde0; }
@@ -145,7 +161,7 @@
     .props-section h3 { font-size:0.9rem; margin-bottom:8px; color:var(--text-secondary); text-transform:uppercase; }
     .input, .props-section input, .props-section textarea, .props-section select {
       width:100%; padding:8px; border:2px solid var(--border); border-radius:6px;
-      font-family:'Drafting* Mono', monospace; font-size:0.85rem; background:var(--bg-secondary);
+      font-family:'Drafting Mono', 'Drafting* Mono', monospace; font-size:0.85rem; background:var(--bg-secondary);
       margin-bottom:8px;
     }
     .input:focus, .props-section input:focus, .props-section textarea:focus { outline:none; border-color:var(--green); background:white; }
@@ -172,9 +188,6 @@
       position:absolute; inset:0; background:rgba(255,255,255,0.7); display:flex;
       align-items:center; justify-content:center; z-index:5;
     }
-
-    /* Blank input group */
-    .blank-group { margin-bottom:8px; padding:8px; background:var(--bg-secondary); border-radius:6px; }
   </style>
 </head>
 <body>
@@ -194,24 +207,26 @@
   <div class="panels">
     <!-- LEFT PANEL -->
     <div class="panel panel-left" id="leftPanel">
-      <div class="section-title">Content Tree</div>
+      <div class="section-title">
+        Content Tree
+        <button class="btn btn-outline btn-sm add-btn" id="addEntityBtn" title="Add new">
+          <iconify-icon icon="pixelarticons:plus"></iconify-icon> Add
+        </button>
+      </div>
       <div id="treeContainer"></div>
-      <button class="btn btn-outline btn-sm add-btn" id="addEntityBtn">
-        <iconify-icon icon="pixelarticons:plus"></iconify-icon> Add
-      </button>
     </div>
 
     <!-- MIDDLE PANEL -->
     <div class="panel panel-middle" id="middlePanel">
       <div class="lesson-toolbar" id="lessonToolbar" style="display:none;">
         <span class="lesson-title" id="lessonTitleDisplay"></span>
-        <button class="btn btn-primary btn-sm" onclick="saveLesson()">
+        <button class="btn btn-primary btn-sm" onclick="window.saveLesson()">
           <iconify-icon icon="pixelarticons:floppy"></iconify-icon> Save
         </button>
       </div>
       <div class="blocks-area" id="blocksArea" 
-           ondragover="handleDragOver(event)" 
-           ondrop="handleDropOnArea(event)">
+           ondragover="window.handleDragOver(event)" 
+           ondrop="window.handleDropOnArea(event)">
         <div class="right-placeholder" id="emptyLessonMsg">Select a lesson from the left panel.</div>
       </div>
     </div>
@@ -225,7 +240,7 @@
       <div id="propsView" style="display:none;">
         <div class="section-title">Block Properties</div>
         <div id="blockPropsContent"></div>
-        <button class="btn btn-outline btn-sm" onclick="deselectBlock()">
+        <button class="btn btn-outline btn-sm" onclick="window.deselectBlock()">
           <iconify-icon icon="pixelarticons:arrow-left"></iconify-icon> Back to Palette
         </button>
       </div>
@@ -239,7 +254,7 @@
 
   <script type="module">
     import { db } from '../src/js/firebase-config.js';
-    import { collection, addDoc, doc, setDoc, getDoc, getDocs, query, orderBy, serverTimestamp, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+    import { collection, addDoc, doc, getDoc, getDocs, query, orderBy, serverTimestamp, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
     // ---- STATE ----
     let courses = [];
@@ -279,6 +294,16 @@
     function showLoading() { loadingOverlay.style.display = 'flex'; }
     function hideLoading() { loadingOverlay.style.display = 'none'; }
 
+    // Extract YouTube video ID and generate embed URL
+    function getYouTubeEmbedUrl(url) {
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      if (match && match[2].length === 11) {
+        return `https://www.youtube.com/embed/${match[2]}`;
+      }
+      return null;
+    }
+
     // ---- MODAL ----
     function showModal(title, contentHtml, onSave) {
       modalOverlay.innerHTML = `
@@ -298,6 +323,7 @@
         if (result !== false) modalOverlay.style.display = 'none';
       };
     }
+    window.showModal = showModal;
 
     // ---- LEFT PANEL: TREE ----
     async function loadTree() {
@@ -326,7 +352,6 @@
           <div class="tree-children" id="children-${course.id}" style="display:none;"></div>
         `;
         treeContainer.appendChild(div);
-        // toggle
         const toggle = div.querySelector('.tree-toggle');
         toggle.addEventListener('click', async (e) => {
           e.stopPropagation();
@@ -340,7 +365,6 @@
             toggle.textContent = '▶';
           }
         });
-        // edit/delete
         div.querySelector('.edit-course-btn').addEventListener('click', (e) => {
           e.stopPropagation();
           showModal('Edit Course', `<input id="editCourseTitle" class="input" value="${escapeHtml(course.title)}">`, async () => {
@@ -544,7 +568,6 @@
       renderBlocks();
       deselectBlock(); // show palette
       hideLoading();
-      // highlight tree
       document.querySelectorAll('.tree-item.active').forEach(el => el.classList.remove('active'));
       const lessonEl = document.querySelector(`[data-type="lesson"][data-id="${lessonId}"]`);
       if (lessonEl) lessonEl.classList.add('active');
@@ -559,7 +582,7 @@
       deselectBlock();
     }
 
-    // ---- BLOCK RENDERING ----
+    // ---- BLOCK RENDERING (with inline editing for text blocks) ----
     function renderBlocks() {
       blocksArea.innerHTML = '';
       if (!currentLessonData?.blocks) return;
@@ -572,7 +595,6 @@
     function createBlockCard(block, index) {
       const div = document.createElement('div');
       div.className = 'block-card' + (selectedBlockIndex === index ? ' selected' : '');
-      div.draggable = true;
       div.dataset.index = index;
       div.innerHTML = `
         <div class="block-header">
@@ -592,31 +614,90 @@
         e.stopPropagation();
         deleteBlock(index);
       });
-      // drag reorder within middle
-      div.addEventListener('dragstart', handleDragStart);
-      div.addEventListener('dragover', (e) => e.preventDefault());
-      div.addEventListener('drop', handleDropReorder);
+      // Make text blocks editable directly
+      if (['heading','paragraph','hint','warning','tip'].includes(block.type)) {
+        const editable = div.querySelector('.editable-text');
+        if (editable) {
+          editable.addEventListener('input', () => {
+            const data = currentLessonData.blocks[index].data;
+            data.text = editable.innerText;
+            data.html = editable.innerHTML; // for paragraph
+            autoSave();
+          });
+        }
+      }
+      // For paragraph, add rich toolbar (already in renderBlockContent if index matches selected, but we can attach globally)
+      if (block.type === 'paragraph') {
+        const body = div.querySelector('.block-body');
+        const toolbar = body.querySelector('.rich-toolbar');
+        if (toolbar) {
+          toolbar.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const cmd = btn.dataset.cmd;
+              document.execCommand(cmd, false, null);
+              const editor = body.querySelector('.editable-text');
+              if (editor) {
+                currentLessonData.blocks[index].data.html = editor.innerHTML;
+                currentLessonData.blocks[index].data.text = editor.innerText;
+                autoSave();
+              }
+            });
+          });
+        }
+      }
       return div;
     }
 
     function renderBlockContent(block, index) {
       const d = block.data || {};
       switch (block.type) {
-        case 'heading': return `<h3>${escapeHtml(d.text || '')}</h3>`;
-        case 'paragraph': return `<div class="rich-editor" contenteditable="false">${d.html || escapeHtml(d.text || '')}</div>`;
-        case 'image': return d.url ? `<img src="${d.url}" style="max-width:100%; border-radius:6px;">` : '<em>No image</em>';
-        case 'video': return d.url ? `<a href="${d.url}" target="_blank">${d.url}</a>` : '<em>No URL</em>';
-        case 'console': return `<pre style="background:#1e1e1e;color:#d4d4d4;padding:8px;border-radius:6px;">${escapeHtml(d.code || '')}</pre>`;
-        case 'hint': return `<div style="background:#fff9e6;padding:8px;border-radius:6px;">💡 ${escapeHtml(d.text || '')}</div>`;
-        case 'warning': return `<div style="background:#ffe6e6;padding:8px;border-radius:6px;">⚠️ ${escapeHtml(d.text || '')}</div>`;
-        case 'tip': return `<div style="background:#e6f7ff;padding:8px;border-radius:6px;">💡 ${escapeHtml(d.text || '')}</div>`;
-        case 'multiple-choice': return renderMCQPreview(d);
-        case 'matching': return renderMatchingPreview(d);
-        case 'fill-blank': return renderFillBlankPreview(d);
-        case 'quiz': return `<div>${(d.items||[]).length} question(s)</div>`;
-        case 'divider': return '<hr>';
-        case 'completion': return `<em>${escapeHtml(d.message || '')}</em>`;
-        default: return '';
+        case 'heading':
+          return `<h3 class="editable-text" contenteditable="true">${d.html || escapeHtml(d.text || '')}</h3>`;
+        case 'paragraph':
+          return `
+            <div class="rich-toolbar">
+              <button type="button" data-cmd="bold"><b>B</b></button>
+              <button type="button" data-cmd="italic"><i>I</i></button>
+              <button type="button" data-cmd="underline"><u>U</u></button>
+            </div>
+            <div class="editable-text" contenteditable="true">${d.html || escapeHtml(d.text || '')}</div>
+          `;
+        case 'image':
+          return d.url ? `<img src="${d.url}" style="max-width:100%; border-radius:6px;">` : '<em>No image</em>';
+        case 'video':
+          if (d.url) {
+            const embed = getYouTubeEmbedUrl(d.url);
+            if (embed) {
+              return `<div class="video-preview"><iframe src="${embed}" frameborder="0" allowfullscreen></iframe></div>`;
+            } else {
+              return `<a href="${d.url}" target="_blank">${d.url}</a>`;
+            }
+          } else {
+            return '<em>No URL</em>';
+          }
+        case 'console':
+          return `<pre style="background:#1e1e1e;color:#d4d4d4;padding:8px;border-radius:6px;">${escapeHtml(d.code || '')}</pre>`;
+        case 'hint':
+          return `<div class="editable-text" contenteditable="true" style="background:#fff9e6;padding:8px;border-radius:6px;">${d.html || escapeHtml(d.text || '')}</div>`;
+        case 'warning':
+          return `<div class="editable-text" contenteditable="true" style="background:#ffe6e6;padding:8px;border-radius:6px;">${d.html || escapeHtml(d.text || '')}</div>`;
+        case 'tip':
+          return `<div class="editable-text" contenteditable="true" style="background:#e6f7ff;padding:8px;border-radius:6px;">${d.html || escapeHtml(d.text || '')}</div>`;
+        case 'multiple-choice':
+          return renderMCQPreview(d);
+        case 'matching':
+          return renderMatchingPreview(d);
+        case 'fill-blank':
+          return renderFillBlankPreview(d);
+        case 'quiz':
+          return `<div>${(d.items||[]).length} question(s)</div>`;
+        case 'divider':
+          return '<hr>';
+        case 'completion':
+          return `<em>${escapeHtml(d.message || '')}</em>`;
+        default:
+          return '';
       }
     }
 
@@ -634,14 +715,12 @@
       return `<div>${escapeHtml(text)}</div>`;
     }
 
-    // ---- BLOCK SELECTION & PROPERTIES ----
+    // ---- BLOCK SELECTION & PROPERTIES (right panel) ----
     function selectBlock(index) {
       selectedBlockIndex = index;
-      // switch right panel to properties
       paletteView.style.display = 'none';
       propsView.style.display = 'block';
       renderBlockProperties(index);
-      // highlight card
       document.querySelectorAll('.block-card').forEach((c,i) => c.classList.toggle('selected', i===index));
     }
 
@@ -651,6 +730,7 @@
       propsView.style.display = 'none';
       document.querySelectorAll('.block-card').forEach(c => c.classList.remove('selected'));
     }
+    window.deselectBlock = deselectBlock;
 
     function renderBlockProperties(index) {
       const block = currentLessonData.blocks[index];
@@ -658,133 +738,57 @@
       let html = '';
       switch (block.type) {
         case 'heading':
-          html = `<label>Text</label><input class="input" value="${escapeHtml(d.text||'')}" onchange="updateBlockProp(${index},'text',this.value)">`;
+          html = `<label>Text</label><input class="input" value="${escapeHtml(d.text||'')}" onchange="window.updateBlockProp(${index},'text',this.value)">`;
           break;
         case 'paragraph':
           html = `
-            <label>Content</label>
-            <div class="rich-toolbar">
-              <button type="button" onclick="formatRich('bold',${index})"><b>B</b></button>
-              <button type="button" onclick="formatRich('italic',${index})"><i>I</i></button>
-              <button type="button" onclick="formatRich('underline',${index})"><u>U</u></button>
-            </div>
-            <div id="rich-editor-${index}" class="rich-editor" contenteditable="true">${d.html || escapeHtml(d.text||'')}</div>
+            <label>Text</label>
+            <textarea class="input" onchange="window.updateBlockProp(${index},'text',this.value)">${escapeHtml(d.text||'')}</textarea>
           `;
           break;
         case 'image':
-          html = `<label>Upload</label><input type="file" accept="image/*" onchange="uploadImage(${index}, this.files[0])">`;
+          html = `<label>Upload</label><input type="file" accept="image/*" onchange="window.uploadImage(${index}, this.files[0])">`;
           if (d.url) html += `<img src="${d.url}" style="max-width:100%;margin-top:8px;">`;
           break;
         case 'video':
-          html = `<label>YouTube URL</label><input class="input" value="${escapeHtml(d.url||'')}" onchange="updateBlockProp(${index},'url',this.value)">`;
+          html = `<label>YouTube URL</label><input class="input" value="${escapeHtml(d.url||'')}" onchange="window.updateBlockProp(${index},'url',this.value)">`;
           break;
         case 'console':
-          html = `<label>Code</label><textarea class="input" onchange="updateBlockProp(${index},'code',this.value)">${escapeHtml(d.code||'')}</textarea>
-                  <label>Expected Output</label><input class="input" value="${escapeHtml(d.output||'')}" onchange="updateBlockProp(${index},'output',this.value)">`;
+          html = `<label>Code</label><textarea class="input" onchange="window.updateBlockProp(${index},'code',this.value)">${escapeHtml(d.code||'')}</textarea>
+                  <label>Expected Output</label><input class="input" value="${escapeHtml(d.output||'')}" onchange="window.updateBlockProp(${index},'output',this.value)">`;
           break;
         case 'hint': case 'warning': case 'tip':
-          html = `<label>Text</label><textarea class="input" onchange="updateBlockProp(${index},'text',this.value)">${escapeHtml(d.text||'')}</textarea>`;
+          html = `<label>Text</label><textarea class="input" onchange="window.updateBlockProp(${index},'text',this.value)">${escapeHtml(d.text||'')}</textarea>`;
           break;
         case 'multiple-choice':
-          html = `<label>Question</label><textarea class="input" onchange="updateBlockProp(${index},'question',this.value)">${escapeHtml(d.question||'')}</textarea>
+          html = `<label>Question</label><textarea class="input" onchange="window.updateBlockProp(${index},'question',this.value)">${escapeHtml(d.question||'')}</textarea>
                   <label>Options</label>`;
           (d.options||[]).forEach((opt,i) => {
-            html += `<div class="flex-row"><input class="input" value="${escapeHtml(opt)}" onchange="updateOption(${index},${i},this.value)" style="flex:1;"><input type="radio" name="mcq${index}" ${d.correct===i?'checked':''} onchange="updateBlockProp(${index},'correct',${i})"><button class="btn btn-sm btn-danger" onclick="removeOption(${index},${i})">×</button></div>`;
+            html += `<div class="flex-row"><input class="input" value="${escapeHtml(opt)}" onchange="window.updateOption(${index},${i},this.value)" style="flex:1;"><input type="radio" name="mcq${index}" ${d.correct===i?'checked':''} onchange="window.updateBlockProp(${index},'correct',${i})"><button class="btn btn-sm btn-danger" onclick="window.removeOption(${index},${i})">×</button></div>`;
           });
-          html += `<button class="btn btn-sm btn-outline" onclick="addOption(${index})">+ Add Option</button>`;
+          html += `<button class="btn btn-sm btn-outline" onclick="window.addOption(${index})">+ Add Option</button>`;
           break;
         case 'matching':
           html = `<label>Pairs</label>`;
           (d.pairs||[]).forEach((p,i) => {
-            html += `<div class="flex-row"><input class="input" value="${escapeHtml(p.left)}" onchange="updatePair(${index},${i},'left',this.value)" placeholder="Left"><input class="input" value="${escapeHtml(p.right)}" onchange="updatePair(${index},${i},'right',this.value)" placeholder="Right"><button class="btn btn-sm btn-danger" onclick="removePair(${index},${i})">×</button></div>`;
+            html += `<div class="flex-row"><input class="input" value="${escapeHtml(p.left)}" onchange="window.updatePair(${index},${i},'left',this.value)" placeholder="Left"><input class="input" value="${escapeHtml(p.right)}" onchange="window.updatePair(${index},${i},'right',this.value)" placeholder="Right"><button class="btn btn-sm btn-danger" onclick="window.removePair(${index},${i})">×</button></div>`;
           });
-          html += `<button class="btn btn-sm btn-outline" onclick="addPair(${index})">+ Add Pair</button>`;
+          html += `<button class="btn btn-sm btn-outline" onclick="window.addPair(${index})">+ Add Pair</button>`;
           break;
         case 'fill-blank':
-          html = `<label>Text with blanks (use ___ )</label><textarea class="input" onchange="updateBlockProp(${index},'text',this.value)">${escapeHtml(d.text||'')}</textarea>
-                  <label>Answers (comma separated)</label><input class="input" value="${escapeHtml((d.answers||[]).join(','))}" onchange="updateBlockProp(${index},'answers',this.value.split(',').map(s=>s.trim()))">`;
+          html = `<label>Text with blanks (use ___ )</label><textarea class="input" onchange="window.updateBlockProp(${index},'text',this.value)">${escapeHtml(d.text||'')}</textarea>
+                  <label>Answers (comma separated)</label><input class="input" value="${escapeHtml((d.answers||[]).join(','))}" onchange="window.updateBlockProp(${index},'answers',this.value.split(',').map(s=>s.trim()))">`;
           break;
-        case 'quiz': 
-          // (quiz block - multiple questions each with options, correct) – simplified for brevity, you can expand
+        case 'quiz':
           html = `<p>Quiz editor coming soon.</p>`;
           break;
         case 'divider': html = `<p>No properties</p>`; break;
-        case 'completion': html = `<label>Message</label><input class="input" value="${escapeHtml(d.message||'')}" onchange="updateBlockProp(${index},'message',this.value)">`; break;
+        case 'completion': html = `<label>Message</label><input class="input" value="${escapeHtml(d.message||'')}" onchange="window.updateBlockProp(${index},'message',this.value)">`; break;
       }
       blockPropsContent.innerHTML = html;
-      // if paragraph, set focus and update on input
-      if (block.type === 'paragraph') {
-        const editor = document.getElementById(`rich-editor-${index}`);
-        editor.addEventListener('input', () => {
-          currentLessonData.blocks[index].data.html = editor.innerHTML;
-          currentLessonData.blocks[index].data.text = editor.innerText;
-          autoSave();
-        });
-      }
     }
 
-    // Helper for rich text
-    window.formatRich = function(cmd, index) {
-      document.execCommand(cmd, false, null);
-      const editor = document.getElementById(`rich-editor-${index}`);
-      currentLessonData.blocks[index].data.html = editor.innerHTML;
-      currentLessonData.blocks[index].data.text = editor.innerText;
-      autoSave();
-    };
-
-    // Update block property generic
-    window.updateBlockProp = function(index, key, value) {
-      currentLessonData.blocks[index].data[key] = value;
-      renderBlocks(); // update preview
-      autoSave();
-    };
-    // Option helpers for MCQ
-    window.addOption = function(index) {
-      if (!currentLessonData.blocks[index].data.options) currentLessonData.blocks[index].data.options = [];
-      currentLessonData.blocks[index].data.options.push('');
-      renderBlocks(); renderBlockProperties(index); autoSave();
-    };
-    window.removeOption = function(index, i) {
-      currentLessonData.blocks[index].data.options.splice(i,1);
-      if (currentLessonData.blocks[index].data.correct === i) currentLessonData.blocks[index].data.correct = -1;
-      else if (currentLessonData.blocks[index].data.correct > i) currentLessonData.blocks[index].data.correct--;
-      renderBlocks(); renderBlockProperties(index); autoSave();
-    };
-    window.updateOption = function(index, i, val) {
-      currentLessonData.blocks[index].data.options[i] = val;
-      renderBlocks(); autoSave();
-    };
-    // Matching
-    window.addPair = function(index) {
-      if (!currentLessonData.blocks[index].data.pairs) currentLessonData.blocks[index].data.pairs = [];
-      currentLessonData.blocks[index].data.pairs.push({left:'',right:''});
-      renderBlocks(); renderBlockProperties(index); autoSave();
-    };
-    window.removePair = function(index,i) {
-      currentLessonData.blocks[index].data.pairs.splice(i,1);
-      renderBlocks(); renderBlockProperties(index); autoSave();
-    };
-    window.updatePair = function(index,i,side,val) {
-      currentLessonData.blocks[index].data.pairs[i][side] = val;
-      renderBlocks(); autoSave();
-    };
-
-    // Image upload
-    window.uploadImage = async function(index, file) {
-      if (!file) return;
-      const formData = new FormData();
-      formData.append('image', file);
-      try {
-        const res = await fetch('https://api.imgbb.com/1/upload?key=ba8023ca74166460c442e8e703d2a1b0', { method:'POST', body:formData });
-        const json = await res.json();
-        if (json.success) {
-          currentLessonData.blocks[index].data.url = json.data.url;
-          renderBlocks(); renderBlockProperties(index); autoSave();
-        } else alert('Upload failed');
-      } catch(e) { alert('Upload error'); }
-    };
-
-    // ---- BLOCK DELETE & REORDER ----
+    // ---- BLOCK ACTIONS ----
     function deleteBlock(index) {
       if (!confirm('Delete this block?')) return;
       currentLessonData.blocks.splice(index, 1);
@@ -794,61 +798,80 @@
       autoSave();
     }
 
-    let dragSrcIdx = null;
-    function handleDragStart(e) {
-      dragSrcIdx = parseInt(this.dataset.index);
-      e.dataTransfer.setData('text/plain', dragSrcIdx);
-      this.style.opacity = '0.4';
-    }
-    function handleDropReorder(e) {
-      e.preventDefault();
-      const fromIdx = dragSrcIdx;
-      const toIdx = parseInt(this.dataset.index);
-      if (fromIdx !== toIdx && fromIdx !== null) {
-        const block = currentLessonData.blocks.splice(fromIdx,1)[0];
-        currentLessonData.blocks.splice(toIdx,0,block);
-        if (selectedBlockIndex === fromIdx) selectedBlockIndex = toIdx;
-        else if (selectedBlockIndex > fromIdx && selectedBlockIndex <= toIdx) selectedBlockIndex--;
-        else if (selectedBlockIndex < fromIdx && selectedBlockIndex >= toIdx) selectedBlockIndex++;
-        renderBlocks();
-        autoSave();
-      }
-      this.style.opacity = '1';
-      dragSrcIdx = null;
-    }
-    document.addEventListener('dragend', () => {
-      document.querySelectorAll('.block-card').forEach(c => c.style.opacity = '1');
-      dragSrcIdx = null;
-    });
-
-    // ---- DRAG FROM PALETTE TO MIDDLE ----
-    function handleDragOver(e) {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
-      blocksArea.classList.add('drop-zone-highlight');
-    }
-    window.handleDropOnArea = function(e) {
-      e.preventDefault();
-      blocksArea.classList.remove('drop-zone-highlight');
-      const blockType = e.dataTransfer.getData('blockType');
-      if (!blockType) return; // not from palette
-      if (!currentLessonData) { alert('Select a lesson first'); return; }
-      const newBlock = { type: blockType, data: {} };
+    function addBlock(type) {
+      if (!currentLessonData) return alert('No lesson selected');
+      const newBlock = { type, data: {} };
       currentLessonData.blocks.push(newBlock);
       const newIndex = currentLessonData.blocks.length - 1;
       renderBlocks();
       selectBlock(newIndex);
       autoSave();
-    };
-    // Palette items
+    }
+
+    function moveBlock(from, to) {
+      if (from === to) return;
+      const block = currentLessonData.blocks.splice(from,1)[0];
+      currentLessonData.blocks.splice(to,0,block);
+      if (selectedBlockIndex === from) selectedBlockIndex = to;
+      else if (selectedBlockIndex > from && selectedBlockIndex <= to) selectedBlockIndex--;
+      else if (selectedBlockIndex < from && selectedBlockIndex >= to) selectedBlockIndex++;
+      renderBlocks();
+      autoSave();
+    }
+
+    // ---- DRAG & DROP within middle panel (reorder) ----
+    let dragSrcIdx = null;
+    function handleDragStart(e) {
+      dragSrcIdx = parseInt(e.target.closest('.block-card')?.dataset.index);
+      e.dataTransfer.setData('text/plain', dragSrcIdx);
+      e.target.closest('.block-card').style.opacity = '0.4';
+    }
+    function handleDropReorder(e) {
+      e.preventDefault();
+      const targetCard = e.target.closest('.block-card');
+      if (!targetCard || dragSrcIdx === null) return;
+      const toIdx = parseInt(targetCard.dataset.index);
+      if (dragSrcIdx !== toIdx) moveBlock(dragSrcIdx, toIdx);
+      dragSrcIdx = null;
+      document.querySelectorAll('.block-card').forEach(c => c.style.opacity = '1');
+    }
+
+    // Palette drop to middle panel
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      blocksArea.classList.add('drop-zone-highlight');
+    }
+    function handleDropOnArea(e) {
+      e.preventDefault();
+      blocksArea.classList.remove('drop-zone-highlight');
+      const blockType = e.dataTransfer.getData('blockType');
+      if (blockType) {
+        addBlock(blockType);
+      }
+    }
+
+    // Expose drag handlers to window for inline ondragover/ondrop
+    window.handleDragOver = handleDragOver;
+    window.handleDropOnArea = handleDropOnArea;
+
+    // ---- PALETTE (click to add) ----
     function populatePalette() {
       paletteGrid.innerHTML = blockTypes.map(t => `
-        <div class="palette-item" draggable="true" data-type="${t}"
+        <div class="palette-item" data-type="${t}" 
+             draggable="true"
              ondragstart="event.dataTransfer.setData('blockType','${t}')">
           <iconify-icon icon="${blockIcons[t]}"></iconify-icon>
           <span>${t.replace('-',' ')}</span>
         </div>
       `).join('');
+      // Add click listeners for direct add
+      paletteGrid.querySelectorAll('.palette-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          if (!currentLessonData) { alert('Select a lesson first'); return; }
+          addBlock(item.dataset.type);
+        });
+      });
     }
 
     // ---- AUTO-SAVE ----
@@ -868,6 +891,71 @@
       }
     }
     window.saveLesson = saveLesson;
+
+    // ---- GLOBAL FUNCTION ASSIGNMENTS (for inline onclick) ----
+    window.updateBlockProp = function(index, key, value) {
+      currentLessonData.blocks[index].data[key] = value;
+      renderBlocks();
+      autoSave();
+    };
+    window.uploadImage = async function(index, file) {
+      if (!file) return;
+      const formData = new FormData();
+      formData.append('image', file);
+      try {
+        const res = await fetch('https://api.imgbb.com/1/upload?key=ba8023ca74166460c442e8e703d2a1b0', { method:'POST', body:formData });
+        const json = await res.json();
+        if (json.success) {
+          currentLessonData.blocks[index].data.url = json.data.url;
+          renderBlocks();
+          renderBlockProperties(index);
+          autoSave();
+        } else alert('Upload failed');
+      } catch(e) { alert('Upload error'); }
+    };
+    window.addOption = function(index) {
+      if (!currentLessonData.blocks[index].data.options) currentLessonData.blocks[index].data.options = [];
+      currentLessonData.blocks[index].data.options.push('');
+      renderBlocks(); renderBlockProperties(index); autoSave();
+    };
+    window.removeOption = function(index, i) {
+      currentLessonData.blocks[index].data.options.splice(i,1);
+      if (currentLessonData.blocks[index].data.correct === i) currentLessonData.blocks[index].data.correct = -1;
+      else if (currentLessonData.blocks[index].data.correct > i) currentLessonData.blocks[index].data.correct--;
+      renderBlocks(); renderBlockProperties(index); autoSave();
+    };
+    window.updateOption = function(index, i, val) {
+      currentLessonData.blocks[index].data.options[i] = val;
+      renderBlocks(); autoSave();
+    };
+    window.addPair = function(index) {
+      if (!currentLessonData.blocks[index].data.pairs) currentLessonData.blocks[index].data.pairs = [];
+      currentLessonData.blocks[index].data.pairs.push({left:'',right:''});
+      renderBlocks(); renderBlockProperties(index); autoSave();
+    };
+    window.removePair = function(index,i) {
+      currentLessonData.blocks[index].data.pairs.splice(i,1);
+      renderBlocks(); renderBlockProperties(index); autoSave();
+    };
+    window.updatePair = function(index,i,side,val) {
+      currentLessonData.blocks[index].data.pairs[i][side] = val;
+      renderBlocks(); autoSave();
+    };
+
+    // Attach drag events to blocks after render
+    function attachDragEvents() {
+      document.querySelectorAll('.block-card').forEach(card => {
+        card.addEventListener('dragstart', handleDragStart);
+        card.addEventListener('dragover', (e) => e.preventDefault());
+        card.addEventListener('drop', handleDropReorder);
+      });
+    }
+    // Override renderBlocks to attach drag events
+    const originalRenderBlocks = renderBlocks;
+    renderBlocks = function() {
+      originalRenderBlocks();
+      attachDragEvents();
+    };
 
     // Initialize
     populatePalette();
