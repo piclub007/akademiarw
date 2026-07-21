@@ -15,7 +15,6 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Akademia - Learn to Code for Free">
     <meta property="og:description" content="The free, fun, and effective way to learn coding! Game-like lessons and earn points while mastering programming.">
-    <meta property="og:image" content="/og-image.png">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -29,7 +28,6 @@
     <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/drafting-mono" rel="stylesheet">
     <style>
-        /* Fallback if custom fonts don't load */
         @font-face {
             font-family: 'BlockBlueprint';
             src: local('BlockBlueprint'), local('BlockBlueprint');
@@ -56,14 +54,9 @@
             --border: #E5E5E5;
             --gold: #FFC800;
             --radius: 16px;
-            --shadow-button: 0 4px 0 #46A302;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; }
 
         body {
             font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
@@ -74,10 +67,20 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'BlockBlueprint', sans-serif;
-            letter-spacing: -0.3px;
+        /* Vignette effect - dark corners */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.15) 100%);
         }
+
+        h1, h2, h3, h4 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
 
         /* ---------- NAVIGATION ---------- */
         .nav {
@@ -91,9 +94,7 @@
             z-index: 1000;
             transition: box-shadow 0.2s;
         }
-        .nav.scrolled {
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-        }
+        .nav.scrolled { box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
         .nav-container {
             max-width: 1140px;
             margin: 0 auto;
@@ -117,8 +118,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
             color: white;
+            font-size: 24px;
             font-weight: 800;
         }
         .logo-text {
@@ -126,9 +127,7 @@
             font-weight: 800;
             color: var(--text);
         }
-        .logo-text span {
-            color: var(--green);
-        }
+        .logo-text span { color: var(--green); }
         .nav-links {
             display: flex;
             align-items: center;
@@ -143,9 +142,7 @@
             letter-spacing: 0.5px;
             transition: color 0.2s;
         }
-        .nav-link:hover {
-            color: var(--text);
-        }
+        .nav-link:hover { color: var(--text); }
         .btn {
             padding: 12px 24px;
             border: none;
@@ -164,7 +161,7 @@
         .btn-primary {
             background: var(--green);
             color: white;
-            box-shadow: var(--shadow-button);
+            box-shadow: 0 4px 0 var(--green-hover);
         }
         .btn-primary:hover {
             background: var(--green-hover);
@@ -177,9 +174,7 @@
             border: 2px solid var(--border);
             box-shadow: 0 4px 0 var(--border);
         }
-        .btn-secondary:hover {
-            background: var(--bg-secondary);
-        }
+        .btn-secondary:hover { background: var(--bg-secondary); }
         .btn-large {
             padding: 16px 32px;
             font-size: 1.05rem;
@@ -197,9 +192,7 @@
             align-items: center;
             min-height: 85vh;
         }
-        .hero-content {
-            position: relative;
-        }
+        .hero-content { position: relative; }
         .hero-badge {
             display: inline-block;
             background: var(--gold);
@@ -219,9 +212,7 @@
             color: var(--text);
             margin-bottom: 24px;
         }
-        .hero-title .highlight {
-            color: var(--green);
-        }
+        .hero-title .highlight { color: var(--green); }
         .hero-subtitle {
             font-size: 1.2rem;
             color: var(--text-secondary);
@@ -243,9 +234,7 @@
             color: var(--text-secondary);
             font-size: 0.9rem;
         }
-        .hero-avatars {
-            display: flex;
-        }
+        .hero-avatars { display: flex; }
         .hero-avatar {
             width: 32px;
             height: 32px;
@@ -259,83 +248,81 @@
             font-size: 0.7rem;
             font-weight: 700;
         }
-        .hero-avatar:first-child {
-            margin-left: 0;
-        }
+        .hero-avatar:first-child { margin-left: 0; }
+
+        /* New hero visual - modern code illustration with Pixelarticons */
         .hero-visual {
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-        .hero-phone {
-            width: 300px;
-            height: 600px;
-            background: var(--bg);
-            border-radius: 40px;
-            border: 8px solid #2B2B2B;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            overflow: hidden;
             position: relative;
         }
-        .phone-screen {
-            background: linear-gradient(135deg, #1CB0F6, #58CC02);
-            height: 100%;
-            padding: 40px 24px;
+        .code-illustration {
+            width: 320px;
+            height: 400px;
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            padding: 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: white;
-            text-align: center;
+            gap: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
         }
-        .phone-character {
-            font-size: 6rem;
-            margin-bottom: 16px;
-            animation: bounce 2s infinite;
+        .code-illustration::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, var(--green), transparent 70%);
+            opacity: 0.05;
+            animation: rotate 20s linear infinite;
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        @keyframes rotate { to { transform: rotate(360deg); } }
+        .illustration-icon {
+            font-size: 80px;
+            color: var(--green);
+            position: relative;
+            z-index: 1;
         }
-        .phone-question {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 24px;
-        }
-        .phone-options {
+        .illustration-lines {
+            width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            width: 100%;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
         }
-        .phone-option {
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 12px;
-            padding: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
+        .line {
+            height: 10px;
+            background: var(--border);
+            border-radius: 5px;
+            width: 80%;
         }
-        .phone-option:hover {
-            background: rgba(255,255,255,0.3);
-        }
-        .phone-option.correct {
-            background: var(--green);
-            border-color: var(--green);
-        }
-        .floating-element {
+        .line.short { width: 60%; }
+        .line.green { background: var(--green); width: 40%; }
+
+        .floating-badge {
             position: absolute;
-            animation: float 3s ease-in-out infinite;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .floating-1 { top: 10%; right: -30px; animation-delay: 0s; }
-        .floating-2 { bottom: 20%; left: -40px; animation-delay: 1s; }
-        .floating-3 { top: 50%; right: -50px; animation-delay: 2s; }
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
+        .badge-1 { top: 20px; right: -20px; }
+        .badge-2 { bottom: 40px; left: -30px; }
 
         /* ---------- STATS BAR ---------- */
         .stats {
@@ -352,9 +339,7 @@
             gap: 32px;
             text-align: center;
         }
-        .stat-item {
-            padding: 24px;
-        }
+        .stat-item { padding: 24px; }
         .stat-number {
             font-size: 2.5rem;
             font-weight: 900;
@@ -362,11 +347,7 @@
             margin-bottom: 8px;
             font-family: 'BlockBlueprint', sans-serif;
         }
-        .stat-label {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            font-weight: 600;
-        }
+        .stat-label { font-size: 0.95rem; color: var(--text-secondary); font-weight: 600; }
 
         /* ---------- FEATURES ---------- */
         .features {
@@ -412,26 +393,15 @@
             margin-bottom: 20px;
             display: block;
         }
-        .feature-card h3 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-        .feature-card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            font-weight: 500;
-        }
+        .feature-card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; }
+        .feature-card p { color: var(--text-secondary); line-height: 1.6; font-weight: 500; }
 
         /* ---------- HOW IT WORKS ---------- */
         .how-it-works {
             padding: 100px 24px;
             background: var(--bg-secondary);
         }
-        .steps-container {
-            max-width: 1140px;
-            margin: 0 auto;
-        }
+        .steps-container { max-width: 1140px; margin: 0 auto; }
         .step {
             display: grid;
             grid-template-columns: auto 1fr;
@@ -454,26 +424,74 @@
             border: 4px solid var(--green);
             font-family: 'BlockBlueprint', sans-serif;
         }
-        .step-content h3 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 8px;
+        .step-content h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+        .step-content p { color: var(--text-secondary); font-size: 1.1rem; font-weight: 500; }
+
+        /* ---------- FEATURED COURSES ---------- */
+        .courses-section {
+            padding: 100px 24px;
+            background: var(--bg);
         }
-        .step-content p {
+        .courses-container {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+        .course-card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .course-card:hover {
+            border-color: var(--green);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .course-icon {
+            font-size: 2rem;
+            color: var(--green);
+        }
+        .course-title {
+            font-family: 'BlockBlueprint', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .course-desc {
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            font-weight: 500;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .course-level {
+            background: var(--green);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
         }
 
         /* ---------- TESTIMONIALS ---------- */
         .testimonials {
             padding: 100px 24px;
-            background: var(--bg);
+            background: var(--bg-secondary);
         }
-        .testimonials-container {
-            max-width: 1140px;
-            margin: 0 auto;
-        }
+        .testimonials-container { max-width: 1140px; margin: 0 auto; }
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -481,45 +499,20 @@
             margin-top: 48px;
         }
         .testimonial-card {
-            background: var(--bg-secondary);
+            background: var(--bg);
             padding: 32px;
             border-radius: var(--radius);
             border: 2px solid var(--border);
         }
-        .testimonial-stars {
-            color: var(--gold);
-            font-size: 1.2rem;
-            margin-bottom: 16px;
-        }
-        .testimonial-text {
-            font-size: 1.05rem;
-            color: var(--text);
-            margin-bottom: 20px;
-            line-height: 1.6;
-            font-weight: 500;
-        }
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .testimonial-stars { color: var(--gold); font-size: 1.2rem; margin-bottom: 16px; }
+        .testimonial-text { font-size: 1.05rem; color: var(--text); margin-bottom: 20px; line-height: 1.6; }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
         .testimonial-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
+            width: 48px; height: 48px; border-radius: 50%; background: var(--border);
+            display: flex; align-items: center; justify-content: center; font-weight: 700;
         }
-        .testimonial-name {
-            font-weight: 700;
-        }
-        .testimonial-role {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
+        .testimonial-name { font-weight: 700; }
+        .testimonial-role { color: var(--text-secondary); font-size: 0.9rem; }
 
         /* ---------- CTA ---------- */
         .cta-section {
@@ -528,21 +521,9 @@
             color: white;
             text-align: center;
         }
-        .cta-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .cta-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 16px;
-        }
-        .cta-text {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            opacity: 0.95;
-            font-weight: 500;
-        }
+        .cta-container { max-width: 800px; margin: 0 auto; }
+        .cta-title { font-size: 2.5rem; font-weight: 900; margin-bottom: 16px; }
+        .cta-text { font-size: 1.2rem; margin-bottom: 40px; opacity: 0.95; }
         .btn-white {
             background: white;
             color: var(--green);
@@ -553,7 +534,6 @@
         .btn-white:hover {
             background: var(--bg-secondary);
             transform: translateY(-2px);
-            box-shadow: 0 6px 0 var(--gray-200);
         }
 
         /* ---------- FOOTER ---------- */
@@ -569,14 +549,8 @@
             grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 48px;
         }
-        .footer-brand {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-        }
-        .footer-brand span {
-            color: var(--green);
-        }
+        .footer-brand { font-size: 1.5rem; font-weight: 800; margin-bottom: 16px; }
+        .footer-brand span { color: var(--green); }
         .footer-description {
             color: #AFAFAF;
             line-height: 1.6;
@@ -600,12 +574,9 @@
             color: #AFAFAF;
             text-decoration: none;
             transition: color 0.2s;
-            font-weight: 500;
             font-size: 0.9rem;
         }
-        .footer-links a:hover {
-            color: white;
-        }
+        .footer-links a:hover { color: white; }
         .footer-bottom {
             max-width: 1140px;
             margin: 48px auto 0;
@@ -615,32 +586,10 @@
             color: #AFAFAF;
             font-size: 0.9rem;
         }
-        .language-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 24px;
-        }
-        .language-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
-            font-size: 0.9rem;
-        }
-        .language-option:hover {
-            background: rgba(255,255,255,0.2);
-        }
 
         /* ---------- RESPONSIVE ---------- */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
+            .nav-links { display: none; }
             .hero {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -648,55 +597,18 @@
                 min-height: auto;
                 gap: 40px;
             }
-            .hero-cta {
-                justify-content: center;
-            }
-            .hero-trust {
-                justify-content: center;
-            }
-            .hero-visual {
-                order: -1;
-            }
-            .hero-phone {
-                width: 240px;
-                height: 480px;
-            }
-            .step {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 16px;
-            }
-            .step-number {
-                margin: 0 auto;
-                width: 60px;
-                height: 60px;
-                font-size: 1.5rem;
-            }
-            .footer-container {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-            .floating-element {
-                display: none;
-            }
+            .hero-cta { justify-content: center; }
+            .hero-trust { justify-content: center; }
+            .code-illustration { width: 260px; height: 320px; }
+            .step { grid-template-columns: 1fr; text-align: center; gap: 16px; }
+            .step-number { margin: 0 auto; width: 60px; height: 60px; font-size: 1.5rem; }
+            .footer-container { grid-template-columns: 1fr; gap: 32px; }
         }
         @media (max-width: 480px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-            .section-title {
-                font-size: 2rem;
-            }
-            .hero-cta {
-                flex-direction: column;
-            }
-            .btn-large {
-                width: 100%;
-                justify-content: center;
-            }
+            .hero-title { font-size: 2rem; }
+            .section-title { font-size: 2rem; }
+            .hero-cta { flex-direction: column; }
+            .btn-large { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -711,7 +623,7 @@
             <div class="nav-links">
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#how-it-works" class="nav-link">How it Works</a>
-                <a href="#testimonials" class="nav-link">Reviews</a>
+                <a href="#courses" class="nav-link">Courses</a>
                 <button class="btn btn-secondary" onclick="window.location.href='pages/login.html'">Log In</button>
                 <button class="btn btn-primary" onclick="window.location.href='pages/login.html#signup'">Get Started</button>
             </div>
@@ -749,20 +661,22 @@
             </div>
         </div>
         <div class="hero-visual">
-            <div class="hero-phone">
-                <div class="phone-screen">
-                    <div class="phone-character">🦉</div>
-                    <div class="phone-question">What does <code style="background:rgba(255,255,255,0.2);padding:4px 8px;border-radius:4px;">print()</code> do?</div>
-                    <div class="phone-options">
-                        <div class="phone-option correct">✓ Displays text</div>
-                        <div class="phone-option">Creates a loop</div>
-                        <div class="phone-option">Saves data</div>
-                    </div>
+            <div class="code-illustration">
+                <iconify-icon icon="pixelarticons:script" class="illustration-icon"></iconify-icon>
+                <div class="illustration-lines">
+                    <div class="line"></div>
+                    <div class="line short"></div>
+                    <div class="line green"></div>
+                    <div class="line"></div>
+                    <div class="line short"></div>
+                </div>
+                <div class="floating-badge badge-1">
+                    <iconify-icon icon="pixelarticons:check"></iconify-icon> 100% Free
+                </div>
+                <div class="floating-badge badge-2">
+                    <iconify-icon icon="pixelarticons:fire"></iconify-icon> 50+ Courses
                 </div>
             </div>
-            <div class="floating-element floating-1" style="font-size:3rem;">🐍</div>
-            <div class="floating-element floating-2" style="font-size:2.5rem;">⭐</div>
-            <div class="floating-element floating-3" style="font-size:2rem;">💻</div>
         </div>
     </section>
 
@@ -804,9 +718,9 @@
                 <p>Write real code from day one. Our interactive environment gives you immediate feedback so you learn faster and remember longer.</p>
             </div>
             <div class="feature-card">
-                <span class="feature-icon">🦉</span>
+                <span class="feature-icon"><iconify-icon icon="pixelarticons:bulb"></iconify-icon></span>
                 <h3>Smart AI guide</h3>
-                <p>Our friendly owl companion uses AI to give you personalized tips and encouragement. Never feel stuck or alone in your learning journey.</p>
+                <p>Our friendly AI assistant uses tips and encouragement. Never feel stuck or alone in your learning journey.</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">🏆</span>
@@ -832,7 +746,7 @@
                 <div class="step-number">2</div>
                 <div class="step-content">
                     <h3>Complete 5-minute lessons</h3>
-                    <p>Jump into bite-sized, game-like lessons where you'll write real code, solve puzzles, and build projects. Our owl guide helps you along the way.</p>
+                    <p>Jump into bite-sized, game-like lessons where you'll write real code, solve puzzles, and build projects. Our AI guide helps you along the way.</p>
                 </div>
             </div>
             <div class="step">
@@ -840,6 +754,26 @@
                 <div class="step-content">
                     <h3>Level up & earn rewards</h3>
                     <p>Earn XP for every completed lesson, maintain your streak, unlock achievements, and watch your coding skills grow day by day.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Courses (fetched from Firebase) -->
+    <section id="courses" class="courses-section">
+        <div class="courses-container">
+            <h2 class="section-title">Explore our popular courses</h2>
+            <p class="section-subtitle">Start learning today with our free, interactive curriculum</p>
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Dynamically loaded from Firebase -->
+                <div class="course-card">
+                    <iconify-icon icon="pixelarticons:code" class="course-icon"></iconify-icon>
+                    <div class="course-title">Loading courses…</div>
+                    <div class="course-desc">Fetching latest courses from our database.</div>
+                    <div class="course-meta">
+                        <span>0 lessons</span>
+                        <span class="course-level">Beginner</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -911,12 +845,6 @@
                     The free, fun, and effective way to learn to code. 
                     Master programming through game-like lessons and real-world projects.
                 </p>
-                <div class="language-grid">
-                    <div class="language-option"><span>🐍</span> Python</div>
-                    <div class="language-option"><span>📜</span> JavaScript</div>
-                    <div class="language-option"><span>🌐</span> HTML/CSS</div>
-                    <div class="language-option"><span>☕</span> Java</div>
-                </div>
             </div>
             <div>
                 <div class="footer-title">Product</div>
@@ -951,7 +879,55 @@
         </div>
     </footer>
 
-    <script>
+    <!-- Firebase SDK & Script to fetch courses -->
+    <script type="module">
+        import { db } from './src/js/firebase-config.js';
+        import { collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+        async function loadCourses() {
+            const coursesGrid = document.getElementById('coursesGrid');
+            try {
+                const q = query(collection(db, 'courses'), orderBy('createdAt', 'desc'), limit(4));
+                const snapshot = await getDocs(q);
+                coursesGrid.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    coursesGrid.innerHTML = '<p style="text-align:center; width:100%;">No courses available yet. Check back soon!</p>';
+                    return;
+                }
+
+                snapshot.forEach(doc => {
+                    const course = doc.data();
+                    const card = document.createElement('div');
+                    card.className = 'course-card';
+                    card.innerHTML = `
+                        <iconify-icon icon="pixelarticons:code" class="course-icon"></iconify-icon>
+                        <div class="course-title">${escapeHtml(course.title || 'Untitled')}</div>
+                        <div class="course-desc">${escapeHtml(course.description || 'Start learning today!')}</div>
+                        <div class="course-meta">
+                            <span>Free</span>
+                            <span class="course-level">${escapeHtml(course.level || 'Beginner')}</span>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => {
+                        window.location.href = 'pages/login.html#signup'; // or link to course page later
+                    });
+                    coursesGrid.appendChild(card);
+                });
+            } catch (error) {
+                coursesGrid.innerHTML = '<p style="text-align:center; width:100%;">Could not load courses. Please try again later.</p>';
+                console.error('Error fetching courses:', error);
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        // Load courses when page loads
+        loadCourses();
+
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
@@ -969,7 +945,7 @@
             });
         });
 
-        // Intersection Observer for fade-in animations
+        // Intersection Observer for animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -979,17 +955,16 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.feature-card, .step, .testimonial-card').forEach(el => {
+        document.querySelectorAll('.feature-card, .step, .testimonial-card, .course-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'all 0.6s ease';
             observer.observe(el);
         });
 
-        // Trigger initial animation after load
         window.addEventListener('load', () => {
             setTimeout(() => {
-                document.querySelectorAll('.feature-card, .step, .testimonial-card').forEach(el => {
+                document.querySelectorAll('.feature-card, .step, .testimonial-card, .course-card').forEach(el => {
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
                 });
