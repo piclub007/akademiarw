@@ -3,671 +3,481 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akademia 2026 - Learn Without Limits</title>
-    <meta name="description" content="Akademia - Master new skills with interactive courses, AI-powered tutoring, and hands-on projects.">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- SEO Meta Tags -->
+    <title>CodeQuest - Learn Python Through Adventure Games | Free Coding RPG</title>
+    <meta name="description" content="Master Python programming through epic gamified adventures. Defeat bugs, solve puzzles, and become a coding wizard. Free, interactive, and fun for beginners. Start your quest today!">
+    <meta name="keywords" content="learn python, coding game, python tutorial, gamified learning, programming for beginners, interactive coding, learn to code, coding RPG">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://codequest.example.com/">
     
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CodeQuest - Learn Python Through Adventure Games">
+    <meta property="og:description" content="Master Python programming through epic gamified adventures. Free and fun for beginners!">
+    <meta property="og:url" content="https://codequest.example.com/">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CodeQuest - Gamified Python Learning">
+    <meta name="twitter:description" content="Learn Python through adventures. Defeat bugs, solve puzzles, become a coding wizard!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "CodeQuest",
+        "description": "Gamified Python learning platform for beginners",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
     <style>
         :root {
-            --primary: #2563EB; --primary-dark: #1D4ED8; --primary-light: #3B82F6;
-            --primary-bg: #EFF6FF; --secondary: #06B6D4; --accent: #8B5CF6;
-            --success: #10B981; --success-bg: #ECFDF5; --success-dark: #059669;
-            --warning: #F59E0B; --warning-bg: #FFFBEB;
-            --danger: #EF4444; --danger-bg: #FEF2F2;
-            --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
-            --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151;
-            --gray-800: #1f2937; --gray-900: #111827;
-            --dark-bg: #282A35; --code-bg: #1e1e2e;
-            --radius-sm: 6px; --radius: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-2xl: 20px; --radius-3xl: 24px;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05); --shadow: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.08); --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
-            --shadow-xl: 0 20px 50px rgba(0,0,0,0.12);
-            --transition: 0.2s ease;
+            --primary: #6C63FF;
+            --primary-dark: #5A52D5;
+            --secondary: #00D4AA;
+            --accent: #FF6584;
+            --gold: #FFD700;
+            --bg-dark: #0F0E17;
+            --bg-card: #1A1928;
+            --bg-input: #252439;
+            --text-primary: #FFFFFE;
+            --text-secondary: #A7A6B3;
+            --border: #2D2B3D;
+            --nav-height: 70px;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Inter', sans-serif; background: var(--white);
-            color: var(--gray-800); line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--gray-100); }
-        ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
 
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-
-        @keyframes wordFade { 0%,100% { opacity: 1; transform: translateY(0); } 50% { opacity: 0.6; transform: translateY(-2px); } }
-        @keyframes gentleGlow { 0%,100% { text-shadow: 0 0 8px rgba(37,99,235,0.2); } 50% { text-shadow: 0 0 20px rgba(37,99,235,0.4); } }
-        .animate-word { display: inline-block; animation: wordFade 3s ease-in-out infinite; }
-        .animate-word:nth-child(2) { animation-delay: 0.5s; }
-        .animate-word:nth-child(3) { animation-delay: 1s; }
-        .animate-glow { animation: gentleGlow 2.5s ease-in-out infinite; }
-
-        .skeleton { background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--radius); }
-        .skeleton-card { height: 200px; border-radius: var(--radius-lg); }
-        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-
-        /* TOP BAR */
-        .topbar { background: var(--gray-900); color: white; padding: 0.5rem 0; font-size: 0.813rem; position: relative; z-index: 1001; }
-        .topbar-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
-        .topbar-links { display: flex; gap: 1.5rem; }
-        .topbar-links a { color: #9ca3af; text-decoration: none; transition: color var(--transition); display: flex; align-items: center; gap: 0.25rem; }
-        .topbar-links a:hover { color: white; }
-
-        /* NAVBAR */
-        .navbar { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-sm); }
-        .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
-        .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; flex-shrink: 0; }
-        .nav-logo img { height: 36px; width: auto; }
-        .nav-logo span { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--gray-900); letter-spacing: -0.3px; }
-        .nav-menu { display: flex; align-items: center; gap: 0.125rem; list-style: none; }
-        .nav-item { padding: 0.5rem 0.875rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500; color: var(--gray-700); text-decoration: none; cursor: pointer; transition: all var(--transition); white-space: nowrap; }
-        .nav-item:hover { background: var(--gray-100); color: var(--gray-900); }
-        .nav-item.active { background: var(--primary-bg); color: var(--primary); }
-        .nav-dropdown { position: relative; }
-        .nav-dropdown-trigger { display: flex; align-items: center; gap: 0.25rem; padding: 0.5rem 0.875rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500; color: var(--gray-700); cursor: pointer; transition: all var(--transition); white-space: nowrap; border: none; background: none; font-family: 'Inter', sans-serif; }
-        .nav-dropdown-trigger:hover { background: var(--gray-100); color: var(--gray-900); }
-        .nav-dropdown-trigger i { font-size: 0.75rem; transition: transform var(--transition); }
-        .nav-dropdown:hover .nav-dropdown-trigger i { transform: rotate(180deg); }
-        .nav-dropdown-menu {
-            position: absolute; top: 100%; left: 0;
-            background: white; border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200);
-            min-width: 320px; max-height: 400px; overflow-y: auto;
-            padding: 0.75rem; opacity: 0; visibility: hidden; transform: translateY(-8px);
-            transition: all var(--transition); z-index: 100;
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: rgba(15,14,23,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
         }
-        .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-        .nav-dropdown-menu a {
-            display: flex; align-items: center; gap: 0.625rem;
-            padding: 0.625rem 0.875rem; border-radius: var(--radius-sm);
-            font-size: 0.813rem; color: var(--gray-700); text-decoration: none; transition: all var(--transition);
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        .nav-dropdown-menu a:hover { background: var(--primary-bg); color: var(--primary); }
-        .dropdown-course-item {
-            display: flex; align-items: center; gap: 0.75rem;
-            padding: 0.75rem; border-radius: var(--radius);
-            transition: all var(--transition); cursor: pointer; text-decoration: none; color: inherit;
-            border-bottom: 1px solid var(--gray-100);
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
         }
-        .dropdown-course-item:last-child { border-bottom: none; }
-        .dropdown-course-item:hover { background: var(--primary-bg); }
-        .dropdown-course-icon {
-            width: 40px; height: 40px; border-radius: var(--radius-sm);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.25rem; flex-shrink: 0;
+
+        .logo-img {
+            width: 32px;
+            height: 32px;
         }
-        .dropdown-course-info { flex: 1; }
-        .dropdown-course-name { font-weight: 600; font-size: 0.813rem; }
-        .dropdown-course-meta { font-size: 0.688rem; color: var(--gray-500); }
 
-        .profile-dropdown { position: relative; }
-        .profile-trigger { display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.75rem; border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition); border: 1px solid var(--gray-200); background: white; font-family: 'Inter', sans-serif; }
-        .profile-trigger:hover { border-color: var(--primary); background: var(--primary-bg); }
-        .profile-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.813rem; }
-        .profile-name { font-size: 0.813rem; font-weight: 600; color: var(--gray-900); }
-        .profile-dropdown-menu { position: absolute; top: calc(100% + 4px); right: 0; background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200); min-width: 220px; padding: 0.5rem; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all var(--transition); z-index: 100; }
-        .profile-dropdown:hover .profile-dropdown-menu, .profile-dropdown-menu.show { opacity: 1; visibility: visible; transform: translateY(0); }
-        .profile-dropdown-menu a { display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.875rem; border-radius: var(--radius-sm); font-size: 0.813rem; color: var(--gray-700); text-decoration: none; transition: all var(--transition); }
-        .profile-dropdown-menu a:hover { background: var(--primary-bg); color: var(--primary); }
-        .profile-dropdown-menu .divider { height: 1px; background: var(--gray-200); margin: 0.375rem 0; }
-        .profile-dropdown-menu .logout-btn { color: var(--danger); cursor: pointer; }
-        .profile-dropdown-menu .logout-btn:hover { background: var(--danger-bg); }
-        .nav-right { display: flex; align-items: center; gap: 0.75rem; }
-        .btn { font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.5rem 1.125rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 600; transition: all var(--transition); cursor: pointer; border: none; text-decoration: none; white-space: nowrap; }
-        .btn-primary { background: var(--primary); color: white; } .btn-primary:hover { background: var(--primary-dark); }
-        .btn-outline { background: transparent; border: 1px solid var(--gray-300); color: var(--gray-700); } .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
-        .btn-success { background: var(--success); color: white; } .btn-success:hover { background: var(--success-dark); }
-        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; } .btn-lg { padding: 0.75rem 1.5rem; font-size: 1rem; } .btn-xl { padding: 0.875rem 2rem; font-size: 1.0625rem; }
-        .hamburger { display: none; background: none; border: none; font-size: 1.5rem; color: var(--gray-700); cursor: pointer; }
-
-        /* SUBTOP NAV */
-        .subtopnav-wrapper { background: var(--dark-bg); position: sticky; top: 64px; z-index: 999; height: 42px; overflow: hidden; }
-        .subtopnav-scroll { display: flex; align-items: center; overflow-x: auto; white-space: nowrap; height: 42px; scrollbar-width: none; -ms-overflow-style: none; }
-        .subtopnav-scroll::-webkit-scrollbar { display: none; }
-        .subtopnav-scroll a { display: inline-flex; align-items: center; padding: 0 1.125rem; height: 42px; color: #ffffff; text-decoration: none; font-size: 0.813rem; font-weight: 500; transition: background var(--transition); flex-shrink: 0; }
-        .subtopnav-scroll a:hover { background: rgba(255,255,255,0.1); }
-        .subtopnav-scroll a.active { background: var(--success); color: white; }
-
-        /* HERO */
-        .hero { background: var(--gray-900); color: white; padding: 4rem 0; position: relative; overflow: hidden; }
-        .hero-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 3rem; position: relative; z-index: 1; }
-        .hero-content { flex: 1; }
-        .hero-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4.5vw, 3.25rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; letter-spacing: -1px; }
-        .hero-title span { color: var(--secondary); }
-        .hero-desc { font-size: 1.0625rem; color: #9ca3af; margin-bottom: 2rem; max-width: 500px; line-height: 1.7; }
-        .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-        .hero-code { flex: 1; background: var(--code-bg); border-radius: var(--radius-lg); padding: 1.5rem; font-family: 'Source Code Pro', monospace; font-size: 0.813rem; color: #cdd6f4; line-height: 1.8; border: 1px solid rgba(255,255,255,0.1); }
-        .hero-code .comment { color: #6b7280; } .hero-code .keyword { color: #c084fc; } .hero-code .string { color: #34d399; }
-        .code-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .code-dot { width: 10px; height: 10px; border-radius: 50%; }
-        .code-dot.red { background: #ef4444; } .code-dot.yellow { background: #f59e0b; } .code-dot.green { background: #10b981; }
-
-        /* SEARCH + TREE SECTION */
-        .search-tree-section { background: var(--gray-50); padding: 0; position: relative; }
-        .search-tree-inner { max-width: 1280px; margin: 0 auto; display: flex; gap: 0; min-height: 500px; }
-        .tree-panel { width: 300px; flex-shrink: 0; background: white; border-right: 1px solid var(--gray-200); padding: 1.5rem; overflow-y: auto; max-height: 600px; position: sticky; top: 108px; }
-        .tree-panel h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.938rem; font-weight: 700; color: var(--gray-900); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-        .tree-nav { display: flex; flex-direction: column; gap: 0.125rem; }
-        .tree-folder { cursor: pointer; user-select: none; }
-        .tree-folder-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.4375rem 0.5rem; border-radius: var(--radius-sm); transition: all var(--transition); font-size: 0.813rem; font-weight: 500; color: var(--gray-700); }
-        .tree-folder-header:hover { background: var(--gray-100); }
-        .tree-folder-header i { font-size: 0.75rem; color: var(--gray-400); transition: transform var(--transition); width: 14px; text-align: center; }
-        .tree-folder.open > .tree-folder-header i { transform: rotate(90deg); }
-        .tree-folder-header .folder-icon { font-size: 1rem; color: var(--warning); }
-        .tree-folder-header .course-icon { font-size: 1rem; color: var(--primary); }
-        .tree-folder-header .module-icon { font-size: 1rem; color: var(--success); }
-        .tree-children { display: none; padding-left: 1.25rem; }
-        .tree-folder.open > .tree-children { display: flex; flex-direction: column; gap: 0.125rem; }
-        .tree-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0.5rem; border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition); font-size: 0.813rem; color: var(--gray-600); }
-        .tree-item:hover { background: var(--primary-bg); color: var(--primary); }
-        .tree-item.active { background: var(--primary-bg); color: var(--primary); font-weight: 600; }
-        .tree-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gray-300); flex-shrink: 0; }
-        .tree-item.active .dot { background: var(--primary); }
-        .highlight { background: #FDE68A; padding: 1px 3px; border-radius: 2px; color: #92400e; font-weight: 600; }
-
-        /* RIGHT CONTENT PANEL */
-        .content-panel { flex: 1; padding: 1.5rem; overflow-y: auto; max-height: 600px; }
-        .content-panel .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-        .content-panel .panel-header h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; }
-        /* Search bar in right panel */
-        .panel-search-bar {
-            display: flex; align-items: center; gap: 0.5rem;
-            background: white; border: 2px solid var(--gray-200);
-            border-radius: var(--radius-xl); padding: 0.625rem 1rem;
-            margin-bottom: 1.25rem; box-shadow: var(--shadow-sm);
-            transition: all var(--transition);
+        .logo-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .panel-search-bar:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
-        .panel-search-bar i { font-size: 1.25rem; color: var(--gray-400); }
-        .panel-search-bar input {
-            flex: 1; border: none; font-family: 'Inter', sans-serif;
-            font-size: 0.938rem; outline: none; color: var(--gray-900);
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
         }
-        .panel-search-bar input::placeholder { color: var(--gray-400); }
-        .lesson-list { display: flex; flex-direction: column; gap: 0.5rem; }
-        .lesson-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); cursor: pointer; transition: all var(--transition); }
-        .lesson-item:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); }
-        .lesson-item .l-icon { width: 36px; height: 36px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; background: var(--primary-bg); color: var(--primary); flex-shrink: 0; }
-        .lesson-item .l-info { flex: 1; }
-        .lesson-item .l-title { font-weight: 600; font-size: 0.875rem; }
-        .lesson-item .l-meta { font-size: 0.75rem; color: var(--gray-500); }
-        .search-results-inline { display: flex; flex-direction: column; gap: 0.5rem; }
-        .sr-inline-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); cursor: pointer; transition: all var(--transition); }
-        .sr-inline-item:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); background: var(--primary-bg); }
 
-        /* COURSE SECTIONS */
-        .course-section { padding: 3rem 0; }
-        .course-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 3rem; }
-        .course-info { flex: 1; text-align: center; }
-        .course-logo { width: 80px; height: 80px; border-radius: var(--radius-xl); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; background: white; box-shadow: var(--shadow); }
-        .course-info h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .course-info .course-meta-text { font-size: 1.0625rem; margin-bottom: 1rem; }
-        .course-info .course-desc { font-size: 0.875rem; opacity: 0.8; margin-bottom: 1.25rem; max-width: 400px; margin-left: auto; margin-right: auto; }
-        .course-info .btn { margin: 0.25rem; }
-        .course-code { flex: 1; background: #1a1a2e; color: #cdd6f4; border-radius: var(--radius-lg); padding: 1.5rem; font-family: 'Source Code Pro', monospace; font-size: 0.813rem; line-height: 1.8; border: 2px solid var(--success); }
-        .course-code .example-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; }
-        .course-code .try-btn { display: inline-block; margin-top: 1rem; padding: 0.5rem 1.25rem; background: var(--success); color: white; border-radius: 9999px; text-decoration: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.813rem; transition: all var(--transition); }
-        .course-code .try-btn:hover { background: var(--success-dark); }
-
-        /* EMBEDDED EDITOR */
-        .editor-embed-section { background: var(--dark-bg); padding: 3rem 0; }
-        .editor-embed-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-        .editor-embed-inner h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: white; text-align: center; margin-bottom: 2rem; }
-        .editor-frame-wrapper { background: white; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); }
-        .editor-frame-wrapper iframe { width: 100%; height: 500px; border: none; }
-
-        /* CHALLENGE SECTION */
-        .challenge-section { background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%); padding: 4rem 0; }
-        .challenge-inner { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; text-align: center; }
-        .challenge-inner h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .challenge-inner .ch-subtitle { color: var(--gray-500); font-size: 1.0625rem; margin-bottom: 2.5rem; }
-        .challenge-card { background: white; border-radius: var(--radius-2xl); padding: 2.5rem; box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); max-width: 600px; margin: 0 auto; }
-        .challenge-step { display: none; animation: fadeInUp 0.4s ease; }
-        .challenge-step.active { display: block; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        .challenge-icon { font-size: 3.5rem; margin-bottom: 1rem; display: block; }
-        .challenge-question { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; color: var(--gray-900); margin-bottom: 1.5rem; }
-        .challenge-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        .challenge-option { padding: 0.875rem 2rem; border-radius: var(--radius-xl); font-weight: 600; font-size: 1rem; cursor: pointer; transition: all var(--transition); border: 2px solid var(--gray-200); background: white; font-family: 'Inter', sans-serif; }
-        .challenge-option:hover { border-color: var(--primary); background: var(--primary-bg); }
-        .challenge-feedback { margin-top: 1.5rem; padding: 1rem 1.5rem; border-radius: var(--radius); font-weight: 600; display: none; animation: fadeInUp 0.3s ease; }
-        .challenge-feedback.show { display: block; } .challenge-feedback.correct { background: var(--success-bg); color: var(--success-dark); } .challenge-feedback.incorrect { background: var(--danger-bg); color: var(--danger-dark); }
-        .challenge-course-select { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
-        .challenge-course-btn { padding: 0.625rem 1.25rem; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: all var(--transition); border: 2px solid var(--gray-200); background: white; font-family: 'Inter', sans-serif; }
-        .challenge-course-btn:hover, .challenge-course-btn.selected { border-color: var(--primary); background: var(--primary-bg); color: var(--primary); }
-
-        /* ============ ALL COURSES GRID (SMALLER BOXES, DARK BG, NO IMAGES) ============ */
-        .all-courses-section { padding: 3rem 0; background: var(--dark-bg); }
-        .all-courses-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-        .all-courses-inner h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: white; text-align: center; margin-bottom: 2rem; }
-        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
-        .course-card {
-            border-radius: var(--radius-lg); overflow: hidden;
-            transition: all var(--transition); cursor: pointer; text-decoration: none; color: inherit; display: block;
-            box-shadow: var(--shadow-md); padding: 1.25rem;
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
         }
-        .course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
-        .course-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.938rem; font-weight: 700; margin-bottom: 0.75rem; }
-        .course-card-modules { display: flex; flex-direction: column; gap: 0.375rem; margin-bottom: 0.75rem; }
-        .course-module-item {
-            display: flex; align-items: center; gap: 0.375rem;
-            padding: 0.375rem 0.5rem; border-radius: var(--radius-sm);
-            background: rgba(255,255,255,0.12); cursor: pointer;
-            transition: all var(--transition); font-size: 0.75rem; font-weight: 500;
-        }
-        .course-module-item:hover { background: rgba(255,255,255,0.22); }
-        .course-module-item i { font-size: 0.75rem; }
-        .course-card-footer { display: flex; align-items: center; justify-content: space-between; font-size: 0.688rem; opacity: 0.75; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1); }
-        .course-card-footer span { display: flex; align-items: center; gap: 0.25rem; }
 
-        /* ============ CERTIFICATE BANNERS ============ */
-        .certificate-banners {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-            margin-top: 3rem; padding: 0 1.5rem; max-width: 1280px; margin-left: auto; margin-right: auto;
+        .nav-links a:hover {
+            color: var(--text-primary);
         }
-        .cert-banner {
-            background: white; border-radius: var(--radius-xl); overflow: hidden;
-            border: 1px solid var(--gray-200); transition: all var(--transition);
-            cursor: pointer; text-decoration: none; color: inherit; display: block;
-            box-shadow: var(--shadow-sm);
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
         }
-        .cert-banner:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
-        .cert-banner-image {
-            height: 140px; background: linear-gradient(135deg, var(--primary-bg) 0%, #e0e7ff 100%);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 3rem; position: relative; overflow: hidden;
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
-        .cert-banner-image img { width: 100%; height: 100%; object-fit: cover; }
-        .cert-banner-body { padding: 1.25rem; text-align: center; }
-        .cert-banner-body h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.375rem; }
-        .cert-banner-body p { font-size: 0.813rem; color: var(--gray-500); line-height: 1.5; }
 
-        /* CTA */
-        .cta-section { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; text-align: center; padding: 5rem 0; position: relative; overflow: hidden; }
-        .cta-section::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%); border-radius: 50%; }
-        .cta-inner { position: relative; z-index: 1; }
-        .cta-inner h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
-        .cta-inner p { font-size: 1.125rem; color: #9ca3af; margin-bottom: 2rem; }
-        .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-        /* FOOTER */
-        .footer { background: var(--dark-bg); color: #ddd; padding: 4rem 0 2rem; }
-        .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-        .footer-brand { text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .footer-brand img { height: 60px; width: auto; margin-bottom: 0.75rem; }
-        .footer-brand p { color: #9ca3af; font-size: 0.938rem; max-width: 500px; margin: 0 auto; line-height: 1.7; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
-        .footer-col h5 { font-size: 0.875rem; font-weight: 600; color: #FFF4A3; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .footer-col a { display: block; color: #ddd; text-decoration: none; font-size: 0.813rem; margin-bottom: 0.625rem; transition: color var(--transition); }
-        .footer-col a:hover { color: #FFF4A3; }
-        .footer-social { text-align: center; padding: 1.5rem 0; border-top: 1px solid rgba(255,255,255,0.1); margin-bottom: 1.5rem; }
-        .footer-social a { color: #ddd; font-size: 1.5rem; margin: 0 0.75rem; text-decoration: none; transition: color var(--transition); }
-        .footer-social a:hover { color: #FFF4A3; }
-        .footer-bottom { text-align: center; font-size: 0.813rem; color: #9ca3af; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); }
-
-        .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; }
-        .toast { background: var(--gray-900); color: white; padding: 0.875rem 1.25rem; border-radius: var(--radius); font-size: 0.813rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.3s ease; max-width: 380px; display: flex; align-items: center; gap: 0.5rem; }
-        .toast.success { background: #059669; } .toast.error { background: #DC2626; }
-        @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-
-        @media (max-width: 1024px) {
-            .course-inner { flex-direction: column; } .hero-inner { flex-direction: column; } .hero-code { width: 100%; }
-            .search-tree-inner { flex-direction: column; } .tree-panel { width: 100%; max-height: none; position: static; border-right: none; border-bottom: 1px solid var(--gray-200); }
-            .content-panel { max-height: none; }
-            .certificate-banners { grid-template-columns: 1fr; }
+        .btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
         }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(108,99,255,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108,99,255,0.5);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            border-radius: var(--radius-lg);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: calc(var(--nav-height) + 80px) 24px 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-highlight {
+            color: var(--gold);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .code-preview {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: var(--shadow);
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+
+        .code-preview::before {
+            content: '🐍 Python Quest';
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: var(--primary);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-family: inherit;
+        }
+
+        .code-line {
+            color: var(--text-secondary);
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .code-line .keyword {
+            color: #FF79C6;
+        }
+
+        .code-line .string {
+            color: #F1FA8C;
+        }
+
+        .code-line .function {
+            color: #50FA7B;
+        }
+
+        .code-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--primary);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 24px;
+            background: var(--bg-card);
+        }
+
+        .how-it-works h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .steps {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 48px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 24px;
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 24px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+        }
+
+        .cta-section p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        footer nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-menu { display: none; position: absolute; top: 64px; left: 0; right: 0; background: white; flex-direction: column; padding: 1rem; box-shadow: var(--shadow-lg); max-height: 80vh; overflow-y: auto; }
-            .nav-menu.active { display: flex; } .hamburger { display: block; }
-            .courses-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
-</head>
-<body>
-    <!-- TOP BAR -->
-    <div class="topbar"><div class="topbar-inner"><div class="topbar-links"><a href="Editor.html"><i class='bx bx-code-alt'></i> Code Editor</a><a href="documentation.html"><i class='bx bx-book'></i> Documentation</a><a href="help-center.html"><i class='bx bx-support'></i> Help Center</a><a href="contact.html"><i class='bx bx-envelope'></i> Contact</a></div></div></div>
-
-    <!-- NAVBAR -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-inner">
-            <a href="index.html" class="nav-logo"><img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia"><span>Akademia</span></a>
-            <ul class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-item active">Home</a>
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-trigger">Courses <i class='bx bx-chevron-down'></i></button>
-                    <div class="nav-dropdown-menu" id="coursesDropdown"></div>
-                </div>
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-trigger">Exercises <i class='bx bx-chevron-down'></i></button>
-                    <div class="nav-dropdown-menu" id="exercisesDropdown"></div>
-                </div>
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-trigger">Certificate <i class='bx bx-chevron-down'></i></button>
-                    <div class="nav-dropdown-menu">
-                        <a href="certificate.html"><i class='bx bx-certification'></i> View Certificates</a>
-                        <a href="certificate.html"><i class='bx bx-award'></i> Earn Certificates</a>
-                    </div>
-                </div>
-            </ul>
-            <div class="nav-right" id="navRight">
-                <a href="auth.html?mode=signin" class="btn btn-outline btn-sm" id="btnSignIn">Sign In</a>
-                <a href="auth.html?mode=register" class="btn btn-primary btn-sm" id="btnRegister">Get Started</a>
-                <div class="profile-dropdown" id="profileDropdown" style="display:none;">
-                    <button class="profile-trigger" id="profileTriggerBtn"><div class="profile-avatar" id="profileAvatar">U</div><span class="profile-name" id="profileName">User</span><i class='bx bx-chevron-down'></i></button>
-                    <div class="profile-dropdown-menu" id="profileMenu"><a href="#"><i class='bx bx-user'></i> Account</a><a href="#"><i class='bx bx-trending-up'></i> My Progress</a><a href="certificate.html"><i class='bx bx-certification'></i> Certificates</a><a href="#"><i class='bx bx-cog'></i> Settings</a><div class="divider"></div><a href="#" class="logout-btn" id="logoutBtn"><i class='bx bx-log-out'></i> Sign Out</a></div>
-                </div>
-                <button class="hamburger" id="hamburger"><i class='bx bx-menu'></i></button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- SUBTOP NAV -->
-    <div class="subtopnav-wrapper"><div class="subtopnav-scroll" id="subtopnav"></div></div>
-
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-inner">
-            <div class="hero-content">
-                <h1 class="hero-title"><span class="animate-word">Learn</span> <span class="animate-word">to</span> <span class="animate-word animate-glow" style="color:var(--secondary);">Code</span></h1>
-                <p class="hero-desc">Master new skills with interactive courses, AI-powered tutoring, and hands-on projects.</p>
-                <div class="hero-actions"><a href="course.html" class="btn btn-success btn-xl">Start Learning Free</a><a href="start.html" class="btn btn-outline btn-xl" style="border-color:rgba(255,255,255,0.3);color:white;">Try a Course</a></div>
-            </div>
-            <div class="hero-code">
-                <div class="code-header"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span><span style="margin-left:0.5rem;font-size:0.75rem;color:#6b7280;">index.html</span></div>
-                <code><span class="comment">// Welcome to Akademia 2026</span><br><span class="keyword">const</span> student = {<br>&nbsp;&nbsp;name: <span class="string">"You"</span>,<br>&nbsp;&nbsp;goal: <span class="string">"Master New Skills"</span>,<br>};<br><br><span class="keyword">function</span> startLearning() {<br>&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">"Your future begins now! 🚀"</span>;<br>}</code>
-            </div>
-        </div>
-    </section>
-
-    <!-- SEARCH + TREE NAV SECTION -->
-    <section class="search-tree-section" id="searchTreeSection">
-        <div class="search-tree-inner">
-            <div class="tree-panel" id="treePanel">
-                <h3><i class='bx bx-git-branch'></i> Course Explorer</h3>
-                <div class="tree-nav" id="treeNav"></div>
-            </div>
-            <div class="content-panel" id="contentPanel">
-                <!-- BIG SEARCH BAR IN RIGHT PANEL -->
-                <div class="panel-search-bar">
-                    <i class='bx bx-search'></i>
-                    <input type="text" id="panelSearchInput" placeholder="Search topics, courses, modules, lessons..." autocomplete="off">
-                </div>
-                <div class="panel-header"><h3 id="panelTitle"><i class='bx bx-book-open'></i> Select a course to view lessons</h3></div>
-                <div id="panelContent">
-                    <div style="text-align:center;padding:4rem 1rem;color:var(--gray-400);">
-                        <i class='bx bx-pointer' style="font-size:4rem;display:block;margin-bottom:1rem;opacity:0.4;"></i>
-                        <p>👈 Browse topics in the left panel or search above</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- COURSE SECTIONS -->
-    <div id="courseSections"><div style="text-align:center;padding:3rem;"><div class="skeleton skeleton-card" style="max-width:800px;margin:0 auto;"></div></div></div>
-
-    <!-- EMBEDDED EDITOR -->
-    <section class="editor-embed-section">
-        <div class="editor-embed-inner"><h2><i class='bx bx-code-block'></i> Try Our Code Editor</h2><div class="editor-frame-wrapper"><iframe src="https://akademiarw.vercel.app/Editor.html" allowfullscreen loading="lazy" title="Akademia Code Editor"></iframe></div></div>
-    </section>
-
-    <!-- CHALLENGE SECTION -->
-    <section class="challenge-section" id="challengeSection">
-        <div class="challenge-inner">
-            <h2><i class='bx bx-question-mark'></i> Test Your Knowledge</h2><p class="ch-subtitle">Answer a quick question and discover what you can learn</p>
-            <div class="challenge-card" id="challengeCard">
-                <div class="challenge-step active" id="stepWelcome"><div class="challenge-icon"><i class='bx bx-bulb' style="color:var(--warning);"></i></div><div class="challenge-question">Want to test your skills with a quick question?</div><div class="challenge-options"><button class="challenge-option" onclick="AppChallenge.answer('yes')"><i class='bx bx-check-circle'></i> Yes, challenge me!</button><button class="challenge-option" onclick="AppChallenge.answer('no')"><i class='bx bx-x-circle'></i> No, thanks</button></div></div>
-                <div class="challenge-step" id="stepChooseCourse"><div class="challenge-icon"><i class='bx bx-book-open' style="color:var(--primary);"></i></div><div class="challenge-question">Which course are you interested in?</div><div class="challenge-course-select" id="challengeCourseList"></div><button class="btn btn-primary" onclick="AppChallenge.loadQuestion()" id="btnLoadQuestion" style="margin-top:1rem;display:none;"><i class='bx bx-right-arrow-alt'></i> Show me a question</button></div>
-                <div class="challenge-step" id="stepQuestion"><div class="challenge-icon"><i class='bx bx-help-circle' style="color:#7C3AED;"></i></div><div class="challenge-question" id="challengeQuestionText"></div><div class="challenge-options" id="challengeQuestionOptions"></div><div class="challenge-feedback" id="challengeFeedback"></div></div>
-                <div class="challenge-step" id="stepResult"><div class="challenge-icon" id="resultIcon"></div><div class="challenge-question" id="resultMessage"></div><p style="color:var(--gray-500);margin-bottom:1.5rem;" id="resultSubtext"></p><div class="challenge-options"><button class="btn btn-primary" onclick="AppChallenge.reset()"><i class='bx bx-refresh'></i> Try Another Question</button><a href="exercise.html" class="btn btn-success" id="btnMoreExercises"><i class='bx bx-dumbbell'></i> More Exercises</a></div></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ALL COURSES GRID -->
-    <section class="all-courses-section">
-        <div class="all-courses-inner"><h2><i class='bx bx-collection'></i> Explore All Courses</h2><div class="courses-grid" id="allCoursesGrid"></div>
-            <!-- CERTIFICATE BANNERS -->
-            <div class="certificate-banners">
-                <a href="certificate.html" class="cert-banner">
-                    <div class="cert-banner-image"><img src="" alt="Certificate" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=&quot;bx bx-certification&quot; style=&quot;font-size:4rem;color:var(--primary);&quot;></i>';"></div>
-                    <div class="cert-banner-body"><h4>HTML Certificate</h4><p>Prove your HTML skills with an official certificate</p></div>
-                </a>
-                <a href="certificate.html" class="cert-banner">
-                    <div class="cert-banner-image"><img src="" alt="Certificate" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=&quot;bx bx-award&quot; style=&quot;font-size:4rem;color:#7C3AED;&quot;></i>';"></div>
-                    <div class="cert-banner-body"><h4>CSS Certificate</h4><p>Showcase your CSS expertise to employers</p></div>
-                </a>
-                <a href="certificate.html" class="cert-banner">
-                    <div class="cert-banner-image"><img src="" alt="Certificate" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=&quot;bx bx-trophy&quot; style=&quot;font-size:4rem;color:#f59e0b;&quot;></i>';"></div>
-                    <div class="cert-banner-body"><h4>JavaScript Certificate</h4><p>Validate your JavaScript knowledge</p></div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-section"><div class="cta-inner"><h2>Ready to Start Your Learning Journey?</h2><p>Join thousands of students advancing their careers with Akademia.</p><div class="cta-actions"><a href="start.html" class="btn btn-success btn-xl">Start Learning Free →</a><a href="start.html" class="btn btn-outline btn-xl" style="border-color:rgba(255,255,255,0.3);color:white;">Try a Course</a></div></div></section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-inner">
-            <div class="footer-brand"><img src="https://i.ibb.co/fVqsXWYz/akademia-logo-removebg-preview.png" alt="Akademia Logo" style="height:70px;filter:brightness(0)invert(1);"><p>The next-generation learning platform. Master new skills with interactive courses, AI-powered tutoring, and hands-on projects.</p></div>
-            <div class="footer-grid"><div class="footer-col"><h5>Platform</h5><a href="course.html">Courses</a><a href="Editor.html">Code Editor</a><a href="exercise.html">Exercises</a><a href="certificate.html">Certificates</a></div><div class="footer-col"><h5>Support</h5><a href="documentation.html">Documentation</a><a href="help-center.html">Help Center</a><a href="contact.html">Contact</a></div><div class="footer-col"><h5>Company</h5><a href="#">About Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div></div>
-            <div class="footer-social"><a href="#"><i class='bx bxl-youtube'></i></a><a href="#"><i class='bx bxl-github'></i></a><a href="#"><i class='bx bxl-discord-alt'></i></a><a href="#"><i class='bx bxl-twitter'></i></a></div>
-            <div class="footer-bottom"><p>Akademia is optimized for learning and training. &copy; 2026 Akademia. All rights reserved.</p></div>
-        </div>
-    </footer>
-
-    <div class="toast-container" id="toastContainer"></div>
-
-    <script type="module">
-        import { db, auth } from './js/firebase.js';
-        import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-
-        const $ = id => document.getElementById(id);
-        const escHtml = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
-        const toast = (msg, type = 'success') => {
-            const c = $('toastContainer'); const t = document.createElement('div');
-            t.className = `toast ${type}`; t.innerHTML = `<i class='bx ${type==='success'?'bx-check-circle':'bx-x-circle'}'></i> ${msg}`;
-            c.appendChild(t); setTimeout(() => t.remove(), 3000);
-        };
-
-        const AppData = { topics: [], courses: [], modules: [], lessons: [], currentUser: null };
-
-        // ============ AUTH ============
-        function updateAuthUI(user) {
-            AppData.currentUser = user;
-            const si = $('btnSignIn'), sr = $('btnRegister'), pd = $('profileDropdown');
-            if (user) { if (si) si.style.display = 'none'; if (sr) sr.style.display = 'none'; if (pd) pd.style.display = 'block';
-                const av = $('profileAvatar'), nm = $('profileName');
-                if (av) av.textContent = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
-                if (nm) nm.textContent = user.displayName || user.email?.split('@')[0] || 'User';
-                localStorage.setItem('ak_user', JSON.stringify({ uid: user.uid, email: user.email, displayName: user.displayName }));
-            } else { if (si) si.style.display = ''; if (sr) sr.style.display = ''; if (pd) pd.style.display = 'none'; localStorage.removeItem('ak_user'); }
-        }
-        onAuthStateChanged(auth, updateAuthUI);
-        (function() { const c = JSON.parse(localStorage.getItem('ak_user') || 'null'); if (c && !AppData.currentUser) { if ($('btnSignIn')) $('btnSignIn').style.display = 'none'; if ($('btnRegister')) $('btnRegister').style.display = 'none'; if ($('profileDropdown')) $('profileDropdown').style.display = 'block'; if ($('profileAvatar')) $('profileAvatar').textContent = (c.displayName || c.email || 'U').charAt(0).toUpperCase(); if ($('profileName')) $('profileName').textContent = c.displayName || c.email?.split('@')[0] || 'User'; } })();
-        $('profileTriggerBtn')?.addEventListener('click', function(e) { e.stopPropagation(); $('profileMenu')?.classList.toggle('show'); });
-        $('logoutBtn')?.addEventListener('click', async function(e) { e.preventDefault(); try { await signOut(auth); } catch(ex) { localStorage.removeItem('ak_user'); } updateAuthUI(null); toast('Signed out', 'success'); });
-        document.addEventListener('click', function(e) { if (!e.target.closest('.profile-dropdown')) $('profileMenu')?.classList.remove('show'); });
-
-        // ============ LOAD DATA ============
-        async function loadAllData() {
-            try {
-                const [tS, cS, mS, lS] = await Promise.all([getDocs(query(collection(db,'topics'),orderBy('createdAt','desc'))),getDocs(query(collection(db,'courses'),orderBy('createdAt','desc'))),getDocs(query(collection(db,'modules'),orderBy('order'))),getDocs(query(collection(db,'lessons'),orderBy('createdAt','desc')))]);
-                AppData.topics = tS.docs.map(d=>({id:d.id,...d.data()})); AppData.courses = cS.docs.map(d=>({id:d.id,...d.data()}));
-                AppData.modules = mS.docs.map(d=>({id:d.id,...d.data()})); AppData.lessons = lS.docs.map(d=>({id:d.id,...d.data()}));
-            } catch(e) { AppData.topics=JSON.parse(localStorage.getItem('ak_topics')||'[]'); AppData.courses=JSON.parse(localStorage.getItem('ak_courses')||'[]'); AppData.modules=JSON.parse(localStorage.getItem('ak_modules')||'[]'); AppData.lessons=JSON.parse(localStorage.getItem('ak_lessons')||'[]'); }
-            if (!AppData.topics.length && !AppData.courses.length) loadDemoData();
-            renderAll();
-        }
-        function loadDemoData() {
-            AppData.topics = [{id:'t1',name:'Web Development',icon:'bx-code-alt'},{id:'t2',name:'Python',icon:'bxl-python'}];
-            AppData.courses = [{id:'c1',name:'HTML Fundamentals',topicId:'t1',topicName:'Web Development',description:'Master HTML5.',duration:24},{id:'c2',name:'CSS Mastery',topicId:'t1',topicName:'Web Development',description:'Learn CSS3.',duration:20},{id:'c3',name:'JavaScript Essentials',topicId:'t1',topicName:'Web Development',description:'Master JS.',duration:36},{id:'c4',name:'Python Programming',topicId:'t2',topicName:'Python',description:'Learn Python.',duration:40}];
-        }
-
-        function getLessonCount(cid) { return AppData.lessons.filter(l=>{const m=AppData.modules.find(x=>x.id===l.moduleId);return m&&m.courseId===cid;}).length; }
-        function getModuleCount(cid) { return AppData.modules.filter(m=>m.courseId===cid).length; }
-        function getCodeExample(course) { const n=(course.name||'').toLowerCase(); if(n.includes('html')) return `&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n  &lt;title&gt;Page&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n  &lt;h1&gt;Hello&lt;/h1&gt;\n&lt;/body&gt;\n&lt;/html&gt;`; if(n.includes('css')) return `body{background:lightblue;}\nh1{color:white;text-align:center;}`; if(n.includes('javascript')||n.includes('js')) return `function greet(n){return"Hello "+n;}\nconsole.log(greet("World"));`; if(n.includes('python')) return `def greet(n):\n    return f"Hello {n}"\nprint(greet("World"))`; return `// ${escHtml(course.name)}`; }
-        function getSectionBg(i) { return ['#D9EEE1','#FFF4A3','#282A35','#FFC0C7','#96D4D4','#F3ECEA'][i%6]; }
-        function getRandomCardColor() { return ['#6366F1','#8B5CF6','#EC4899','#F43F5E','#F97316','#EAB308','#22C55E','#14B8A6','#06B6D4','#3B82F6'][Math.floor(Math.random()*10)]; }
-        function getTextColorForBg(bg) { const hex=bg.replace('#',''),r=parseInt(hex.substr(0,2),16),g=parseInt(hex.substr(2,2),16),b=parseInt(hex.substr(4,2),16); return (r*0.299+g*0.587+b*0.114)>150?'#1f2937':'#ffffff'; }
-
-        function renderAll() { renderSubtopNav(); renderTreeNav(); renderCourseSections(); renderAllCoursesGrid(); renderDropdowns(); renderChallengeCourses(); }
-
-        function renderSubtopNav() { const nav=$('subtopnav'); if(!AppData.courses.length){nav.innerHTML='<a href="#" class="active">Loading...</a>';return;} nav.innerHTML=AppData.courses.map((c,i)=>`<a href="course.html?id=${c.id}" class="${i===0?'active':''}">${escHtml(c.name).toUpperCase()}</a>`).join(''); }
-
-        // ============ TREE NAV ============
-        function renderTreeNav() {
-            const container = $('treeNav');
-            if (!AppData.topics.length) { container.innerHTML = '<p style="font-size:0.813rem;color:var(--gray-400);">No data yet</p>'; return; }
-            container.innerHTML = AppData.topics.map(topic => {
-                const tc = AppData.courses.filter(c => c.topicId === topic.id);
-                return `<div class="tree-folder" data-topic="${topic.id}">
-                    <div class="tree-folder-header" onclick="AppTree.toggle(this)"><i class='bx bx-chevron-right'></i><i class='bx bx-folder folder-icon'></i><span>${escHtml(topic.name)}</span></div>
-                    <div class="tree-children">${tc.map(course => {
-                        const cm = AppData.modules.filter(m => m.courseId === course.id).sort((a,b)=>a.order-b.order);
-                        return `<div class="tree-folder" data-course="${course.id}">
-                            <div class="tree-folder-header" onclick="AppTree.toggle(this);AppTree.selectCourse('${course.id}')"><i class='bx bx-chevron-right'></i><i class='bx bx-book-open course-icon'></i><span>${escHtml(course.name)}</span></div>
-                            <div class="tree-children">${cm.slice(0,6).map(mod => {
-                                const ml = AppData.lessons.filter(l => l.moduleId === mod.id);
-                                return `<div class="tree-folder" data-module="${mod.id}">
-                                    <div class="tree-folder-header" onclick="AppTree.toggle(this);AppTree.selectModule('${course.id}','${mod.id}')"><i class='bx bx-chevron-right'></i><i class='bx bx-layer module-icon'></i><span>${escHtml(mod.name)}</span></div>
-                                    <div class="tree-children">${ml.slice(0,5).map(lesson => `<div class="tree-item" onclick="AppTree.openLesson('${course.id}','${mod.id}','${lesson.id}')"><span class="dot"></span><i class='bx bx-video' style="font-size:0.75rem;color:var(--gray-400);"></i><span>${escHtml(lesson.title||'Untitled')}</span></div>`).join('')}${ml.length>5?`<div class="tree-item" style="color:var(--primary);" onclick="AppTree.openCourse('${course.id}')">+${ml.length-5} more</div>`:''}</div></div>`;
-                            }).join('')}</div></div>`;
-                    }).join('')}</div></div>`;
-            }).join('');
-        }
-
-        // Namespace for tree functions
-        window.AppTree = {
-            toggle(header) { header.parentElement.classList.toggle('open'); },
-            selectCourse(courseId) { showCourseLessons(courseId); },
-            selectModule(courseId, moduleId) { showModuleLessons(courseId, moduleId); },
-            openLesson(courseId, moduleId, lessonId) { window.location.href = `course.html?id=${courseId}&module=${moduleId}&lesson=${lessonId}`; },
-            openCourse(courseId) { window.location.href = `course.html?id=${courseId}`; }
-        };
-
-        function showCourseLessons(courseId) {
-            const course = AppData.courses.find(c => c.id === courseId); if (!course) return;
-            const allLessons = [];
-            AppData.modules.filter(m => m.courseId === courseId).sort((a,b)=>a.order-b.order).forEach(mod => {
-                AppData.lessons.filter(l => l.moduleId === mod.id).forEach(l => allLessons.push({ ...l, moduleName: mod.name, courseId, moduleId: mod.id }));
-            });
-            $('panelTitle').innerHTML = `<i class='bx bx-book-open'></i> ${escHtml(course.name)} - Lessons`;
-            $('panelContent').innerHTML = `<div class="lesson-list">${allLessons.slice(0,10).map(l => `<div class="lesson-item" onclick="AppTree.openLesson('${courseId}','${l.moduleId}','${l.id}')"><div class="l-icon"><i class='bx bx-video'></i></div><div class="l-info"><div class="l-title">${escHtml(l.title||'Untitled')}</div><div class="l-meta">Module: ${escHtml(l.moduleName)} • ${l.estimatedTime||0} min</div></div><i class='bx bx-chevron-right'></i></div>`).join('')}</div>`;
-            if (allLessons.length > 10) $('panelContent').innerHTML += `<p style="text-align:center;margin-top:1rem;"><a href="course.html?id=${courseId}" style="color:var(--primary);">View all ${allLessons.length} lessons →</a></p>`;
-        }
-        function showModuleLessons(courseId, moduleId) {
-            const mod = AppData.modules.find(m => m.id === moduleId); if (!mod) return;
-            const ml = AppData.lessons.filter(l => l.moduleId === moduleId);
-            $('panelTitle').innerHTML = `<i class='bx bx-layer'></i> ${escHtml(mod.name)} - Lessons`;
-            $('panelContent').innerHTML = `<div class="lesson-list">${ml.map(l => `<div class="lesson-item" onclick="AppTree.openLesson('${courseId}','${moduleId}','${l.id}')"><div class="l-icon"><i class='bx bx-video'></i></div><div class="l-info"><div class="l-title">${escHtml(l.title||'Untitled')}</div><div class="l-meta">${l.estimatedTime||0} min</div></div><i class='bx bx-chevron-right'></i></div>`).join('')}</div>`;
-        }
-
-        // ============ PANEL SEARCH (Right side, big, orange highlight) ============
-        $('panelSearchInput')?.addEventListener('input', function() {
-            const q = this.value.toLowerCase().trim();
-            if (!q) { $('panelTitle').innerHTML = '<i class="bx bx-book-open"></i> Select a course to view lessons'; $('panelContent').innerHTML = '<div style="text-align:center;padding:4rem 1rem;color:var(--gray-400);"><i class="bx bx-pointer" style="font-size:4rem;display:block;margin-bottom:1rem;opacity:0.4;"></i><p>👈 Browse topics in the left panel or search above</p></div>'; renderTreeNav(); return; }
-            
-            // Highlight in tree
-            renderTreeNav();
-            document.querySelectorAll('.tree-folder-header span, .tree-item span').forEach(el => {
-                const text = el.textContent || '';
-                if (text.toLowerCase().includes(q)) {
-                    const regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi');
-                    el.innerHTML = text.replace(regex,'<span class="highlight">$1</span>');
-                    el.closest('.tree-folder')?.classList.add('open');
-                }
-            });
-
-            const results = [];
-            AppData.courses.forEach(c => { if(c.name?.toLowerCase().includes(q)||c.description?.toLowerCase().includes(q)) results.push({type:'course',name:c.name,meta:c.topicName,id:c.id}); });
-            AppData.modules.forEach(m => { if(m.name?.toLowerCase().includes(q)) results.push({type:'module',name:m.name,meta:'Course: '+m.courseName,id:m.id,courseId:m.courseId}); });
-            AppData.lessons.forEach(l => { if(l.title?.toLowerCase().includes(q)) results.push({type:'lesson',name:l.title,meta:'Module: '+l.moduleName,id:l.id,courseId:l.courseId,moduleId:l.moduleId}); });
-
-            $('panelTitle').innerHTML = `<i class='bx bx-search'></i> Results for "<span class="highlight">${escHtml(q)}</span>"`;
-            $('panelContent').innerHTML = results.length ? `<div class="search-results-inline">${results.slice(0,10).map(r => `
-                <div class="sr-inline-item" onclick="window.location.href='course.html?id=${r.courseId||r.id}${r.moduleId?'&module='+r.moduleId:''}${r.type==='lesson'?'&lesson='+r.id:''}'">
-                    <div class="l-icon"><i class='bx ${r.type==='course'?'bx-book-open':r.type==='module'?'bx-layer':'bx-video'}'></i></div>
-                    <div class="l-info"><div class="l-title">${escHtml(r.name).replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<span class="highlight">$1</span>')}</div><div class="l-meta">${escHtml(r.meta)} • ${r.type}</div></div>
-                    <i class='bx bx-chevron-right'></i>
-                </div>`).join('')}</div>` : '<div style="text-align:center;padding:2rem;color:var(--gray-400);">No results found</div>';
-        });
-
-        // ============ COURSE SECTIONS ============
-        function renderCourseSections() {
-            const container = $('courseSections');
-            if (!AppData.courses.length) { container.innerHTML = '<div style="text-align:center;padding:4rem;"><i class="bx bx-book-open" style="font-size:4rem;display:block;margin-bottom:1rem;color:var(--gray-400);"></i><h2>No courses yet</h2><p>Create courses in the <a href="admin.html" style="color:var(--primary);">Admin Panel</a></p></div>'; return; }
-            container.innerHTML = AppData.courses.map((course,i)=>{
-                const bg=getSectionBg(i), isDark=bg==='#282A35', code=getCodeExample(course);
-                return `<section class="course-section" id="course-${course.id}" style="background:${bg};${isDark?'color:white;':''}"><div class="course-inner"><div class="course-info"><div class="course-logo" style="${isDark?'background:rgba(255,255,255,0.1);':''}"><i class='bx ${course.name?.toLowerCase().includes('html')?'bx-code-alt':course.name?.toLowerCase().includes('css')?'bx-palette':course.name?.toLowerCase().includes('javascript')?'bx-code-curly':course.name?.toLowerCase().includes('python')?'bxl-python':'bx-book-open'}' style="font-size:2.5rem;color:var(--primary);"></i></div><h1 style="${isDark?'color:white;':''}">${escHtml(course.name)}</h1><p class="course-meta-text" style="${isDark?'color:#9ca3af;':''}">${escHtml(course.topicName||'')} • ${course.difficulty||'All Levels'}</p><p class="course-desc" style="${isDark?'color:#9ca3af;':''}">${escHtml(course.description||'')}</p><p style="font-size:0.813rem;${isDark?'color:#9ca3af;':'opacity:0.7;'}">⏱ ${course.duration||20}h • 📚 ${getModuleCount(course.id)} modules • 📝 ${getLessonCount(course.id)} lessons</p><div style="margin-top:1rem;"><a href="course.html?id=${course.id}" class="btn btn-success btn-lg">Learn ${escHtml(course.name)}</a><a href="course.html?id=${course.id}" class="btn btn-outline btn-lg" style="${isDark?'border-color:rgba(255,255,255,0.3);color:white;':'border-color:var(--gray-700);color:var(--gray-700);'}">Course Details</a></div></div><div class="course-code"><div class="example-title">${escHtml(course.name)} Example:</div><code>${code.replace(/\n/g,'<br>').replace(/  /g,'&nbsp;&nbsp;')}</code><a href="Editor.html?code=${encodeURIComponent(code)}" class="try-btn" target="_blank">Try it Yourself →</a></div></div></section>`;
-            }).join('');
-        }
-
-        // ============ ALL COURSES GRID (SMALLER, NO IMAGES, REAL LINKS) ============
-        function renderAllCoursesGrid() {
-            const grid = $('allCoursesGrid');
-            if (!AppData.courses.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:rgba(255,255,255,0.5);">No courses yet.</div>'; return; }
-            grid.innerHTML = AppData.courses.map(course => {
-                const bgColor = getRandomCardColor(), textColor = getTextColorForBg(bgColor);
-                const modules = AppData.modules.filter(m => m.courseId === course.id).sort((a,b)=>a.order-b.order).slice(0,3);
-                return `<a href="course.html?id=${course.id}" class="course-card" style="background:${bgColor};color:${textColor};">
-                    <h3>${escHtml(course.name)}</h3>
-                    <div class="course-card-modules">
-                        ${modules.length ? modules.map(m => `<div class="course-module-item" onclick="event.stopPropagation();event.preventDefault();window.location.href='course.html?id=${course.id}&module=${m.id}'"><i class='bx bx-layer'></i> ${escHtml(m.name)}</div>`).join('') : '<div class="course-module-item"><i class="bx bx-layer"></i> No modules</div>'}
-                        ${AppData.modules.filter(m=>m.courseId===course.id).length > 3 ? `<div class="course-module-item" style="opacity:0.7;">+${AppData.modules.filter(m=>m.courseId===course.id).length-3} more</div>` : ''}
-                    </div>
-                    <div class="course-card-footer"><span><i class='bx bx-book-open'></i> ${getLessonCount(course.id)} lessons</span><span>View →</span></div>
-                </a>`;
-            }).join('');
-        }
-
-        // ============ DROPDOWNS (WIDER, RICHER) ============
-        function renderDropdowns() {
-            const cd = $('coursesDropdown'), ed = $('exercisesDropdown');
-            if (cd) cd.innerHTML = AppData.courses.length ? AppData.courses.map(c => `
-                <a href="course.html?id=${c.id}" class="dropdown-course-item">
-                    <div class="dropdown-course-icon" style="background:${getRandomCardColor()};color:white;"><i class='bx bx-book-open'></i></div>
-                    <div class="dropdown-course-info"><div class="dropdown-course-name">${escHtml(c.name)}</div><div class="dropdown-course-meta">${escHtml(c.topicName||'')} • ${getLessonCount(c.id)} lessons</div></div>
-                    <i class='bx bx-chevron-right' style="color:var(--gray-400);"></i>
-                </a>`).join('') : '<a href="course.html" class="dropdown-course-item"><div class="dropdown-course-icon" style="background:var(--primary-bg);color:var(--primary);"><i class="bx bx-book-open"></i></div><div class="dropdown-course-info"><div class="dropdown-course-name">All Courses</div></div></a>';
-            if (ed) ed.innerHTML = AppData.courses.length ? AppData.courses.map(c => `
-                <a href="exercise.html?course=${c.id}" class="dropdown-course-item">
-                    <div class="dropdown-course-icon" style="background:#F5F3FF;color:#7C3AED;"><i class='bx bx-dumbbell'></i></div>
-                    <div class="dropdown-course-info"><div class="dropdown-course-name">${escHtml(c.name)} Exercises</div><div class="dropdown-course-meta">Practice & test your skills</div></div>
-                    <i class='bx bx-chevron-right' style="color:var(--gray-400);"></i>
-                </a>`).join('') : '<a href="exercise.html" class="dropdown-course-item"><div class="dropdown-course-icon" style="background:#F5F3FF;color:#7C3AED;"><i class="bx bx-dumbbell"></i></div><div class="dropdown-course-info"><div class="dropdown-course-name">All Exercises</div></div></a>';
-        }
-
-        // ============ CHALLENGE (Namespaced) ============
-        const AppChallenge = {
-            selectedCourseId: null, currentQuestion: null,
-            renderCourses() { const list=$('challengeCourseList'); if(!list)return; list.innerHTML=AppData.courses.map(c=>`<button class="challenge-course-btn" data-course="${c.id}" onclick="AppChallenge.selectCourse('${c.id}',this)">${escHtml(c.name)}</button>`).join(''); },
-            selectCourse(courseId,btn){ document.querySelectorAll('.challenge-course-btn').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); this.selectedCourseId=courseId; $('btnLoadQuestion').style.display=''; },
-            answer(answer){ if(answer==='no'){ document.getElementById('stepWelcome').classList.remove('active'); document.getElementById('stepResult').classList.add('active'); document.getElementById('resultIcon').innerHTML='<i class="bx bx-smile" style="font-size:3.5rem;color:var(--primary);"></i>'; document.getElementById('resultMessage').textContent='No problem!'; document.getElementById('btnMoreExercises').style.display='none'; return; } document.getElementById('stepWelcome').classList.remove('active'); document.getElementById('stepChooseCourse').classList.add('active'); },
-            loadQuestion(){ if(!this.selectedCourseId){toast('Select a course','error');return;} const qs=[]; AppData.lessons.filter(l=>{const m=AppData.modules.find(x=>x.id===l.moduleId);return m&&m.courseId===this.selectedCourseId;}).forEach(l=>{(l.pages||[]).forEach(p=>{(p.blocks||[]).forEach(b=>{if(b.type==='question'&&b.question)qs.push(b);});});}); if(!qs.length){const c=AppData.courses.find(x=>x.id===this.selectedCourseId);qs.push({question:`What does ${c?.name||'this course'} teach?`,questionType:'multiple-choice',options:['Web Dev','Data Science','Mobile','Games'],correctAnswer:0,points:10});} this.currentQuestion=qs[Math.floor(Math.random()*qs.length)]; document.getElementById('stepChooseCourse').classList.remove('active'); document.getElementById('stepQuestion').classList.add('active'); document.getElementById('challengeQuestionText').textContent=this.currentQuestion.question; const oc=document.getElementById('challengeQuestionOptions'); if(this.currentQuestion.questionType==='boolean'){oc.innerHTML='<button class="challenge-option" onclick="AppChallenge.submit(true)">✅ True</button><button class="challenge-option" onclick="AppChallenge.submit(false)">❌ False</button>';}else{oc.innerHTML=(this.currentQuestion.options||['A','B','C','D']).map((o,i)=>`<button class="challenge-option" onclick="AppChallenge.submit(${i})">${String.fromCharCode(65+i)}. ${escHtml(o)}</button>`).join('');} document.getElementById('challengeFeedback').classList.remove('show','correct','incorrect'); },
-            submit(selected){ const q=this.currentQuestion; const correct=selected===q.correctAnswer; const fb=document.getElementById('challengeFeedback'); fb.textContent=correct?'✅ Correct!':'❌ Not quite.'; fb.className='challenge-feedback show '+(correct?'correct':'incorrect'); setTimeout(()=>{ document.getElementById('stepQuestion').classList.remove('active'); document.getElementById('stepResult').classList.add('active'); document.getElementById('resultIcon').innerHTML=correct?'<i class="bx bx-trophy" style="font-size:3.5rem;color:#f59e0b;"></i>':'<i class="bx bx-target-lock" style="font-size:3.5rem;color:var(--primary);"></i>'; document.getElementById('resultMessage').textContent=correct?'Excellent!':'Good try!'; document.getElementById('btnMoreExercises').style.display=''; document.getElementById('btnMoreExercises').href=`exercise.html?course=${this.selectedCourseId}`; },1500); },
-            reset(){ document.querySelectorAll('.challenge-step').forEach(s=>s.classList.remove('active')); document.getElementById('stepWelcome').classList.add('active'); document.querySelectorAll('.challenge-course-btn').forEach(b=>b.classList.remove('selected')); this.selectedCourseId=null; $('btnLoadQuestion').style.display='none'; }
-        };
-        window.AppChallenge = AppChallenge;
-        function renderChallengeCourses() { AppChallenge.renderCourses(); }
-
-        window.addEventListener('scroll',function(){const sections=document.querySelectorAll('.course-section');const links=document.querySelectorAll('#subtopnav a');let current='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-150)current=s.getAttribute('id');});links.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#course-'+current.replace('course-',''))l.classList.add('active');});});
-        $('hamburger')?.addEventListener('click',function(){$('navMenu')?.classList.toggle('active');});
-        document.addEventListener('click',function(e){if(!e.target.closest('.nav-inner')&&$('navMenu')?.classList.contains('active'))$('navMenu').classList.remove('active');});
-
-        loadAllData();
-        console.log('🚀 Akademia 2026 - Final Professional Version!');
-    </script>
-</body>
-</html>
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: calc(var(--nav-height) + 40px
