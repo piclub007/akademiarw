@@ -480,4 +480,182 @@
             .hero {
                 grid-template-columns: 1fr;
                 text-align: center;
-                padding: calc(var(--nav-height) + 40px
+                padding: calc(var(--nav-height) + 40px) 24px 60px;
+                min-height: auto;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto 40px;
+            }
+
+            .cta-group {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .code-preview {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats {
+                gap: 24px;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn-large {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" role="navigation">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="favicon.ico" alt="" class="logo-img" width="32" height="32">
+                <span class="logo-gradient">CodeQuest</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#community">Community</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button onclick="window.location.href='pages/login.html'" class="btn btn-ghost">Log In</button>
+                <button onclick="window.location.href='pages/login.html#signup'" class="btn btn-primary">Start Quest Free</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>
+                    <span class="hero-highlight">Learn Python</span> Like an<br>
+                    <span class="gradient-text">Adventure Game</span>
+                </h1>
+                <p class="hero-subtitle">
+                    No boring tutorials. Defeat bugs, solve puzzles, and master Python 
+                    through an epic coding quest designed for absolute beginners.
+                </p>
+                <div class="cta-group">
+                    <button onclick="window.location.href='pages/login.html#signup'" class="btn btn-primary btn-large">
+                        Begin Your Quest 🗡️
+                    </button>
+                    <button class="btn btn-outline btn-large" onclick="document.querySelector('.features').scrollIntoView({behavior: 'smooth'})">
+                        Learn More ↓
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">500K+</span>
+                        <span class="stat-label">Adventurers</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Quests</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4.9/5</span>
+                        <span class="stat-label">Rating</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-preview">
+                    <div class="code-line"><span class="keyword">def</span> <span class="function">cast_spell</span>():</div>
+                    <div class="code-line">&nbsp;&nbsp;spell = <span class="string">"Lux!"</span></div>
+                    <div class="code-line">&nbsp;&nbsp;<span class="function">print</span>(spell)</div>
+                    <div class="code-line">&nbsp;</div>
+                    <div class="code-line"><span class="function">cast_spell</span>()</div>
+                    <div class="code-line"><span class="string"># Output: Lux!</span><span class="code-cursor"></span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <h2>Why <span class="gradient-text">CodeQuest</span> Works</h2>
+            <div class="features-grid">
+                <article class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3>Learn By Playing</h3>
+                    <p>Every concept is a mini-game. Variables become treasure chests, loops become magical spells.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Feedback</h3>
+                    <p>Your code runs instantly in the browser. No setup, no waiting. See results in milliseconds.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Spirit Guide</h3>
+                    <p>Stuck? Our AI guide gives you hints without spoiling the answer. Like having a mentor beside you.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Real Progress</h3>
+                    <p>Earn badges, climb leaderboards, and build a portfolio of real Python projects as you play.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="how-it-works" class="how-it-works">
+            <h2>Start Your Adventure in <span class="gradient-text">3 Steps</span></h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Create Your Hero</h3>
+                    <p>Sign up in seconds and choose your coding avatar. Your adventure begins immediately.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Complete Quests</h3>
+                    <p>Solve coding challenges disguised as epic quests. Each one teaches real Python skills.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Level Up</h3>
+                    <p>Earn XP, unlock new abilities, and watch your coding powers grow with every challenge.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Ready to <span class="gradient-text">Start Your Quest</span>?</h2>
+            <p>Join thousands of adventurers learning Python the fun way. No experience required.</p>
+            <button onclick="window.location.href='pages/login.html#signup'" class="btn btn-primary btn-large">
+                Begin Your Adventure 🚀
+            </button>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 CodeQuest. All rights reserved.</p>
+            <nav>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/security">Security</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
