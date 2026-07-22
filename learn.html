@@ -1,244 +1,827 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeQuest - Your Python Adventure | Learn to Code</title>
-    <meta name="description" content="Complete coding quests, earn XP, and learn Python through gamified adventures.">
-    <meta name="robots" content="noindex">
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson · Akademia</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
-    <style>
-        :root {
-            --primary: #6C63FF;
-            --primary-dark: #5A52D5;
-            --secondary: #00D4AA;
-            --accent: #FF6584;
-            --gold: #FFD700;
-            --bg-dark: #0F0E17;
-            --bg-card: #1A1928;
-            --bg-input: #252439;
-            --text-primary: #FFFFFE;
-            --text-secondary: #A7A6B3;
-            --border: #2D2B3D;
-            --radius: 12px;
-            --radius-lg: 16px;
-            --nav-height: 70px;
+  <!-- Preload critical font -->
+  <link rel="preload" href="https://fonts.cdnfonts.com/s/125011/BlockBlueprint.woff" as="font" type="font/woff" crossorigin>
+  <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'BlockBlueprint';
+      src: local('BlockBlueprint'), local('BlockBlueprint');
+      font-display: swap;
+    }
+    body {
+      font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
+    }
+    h1,h2,h3,h4 { font-family: 'BlockBlueprint', 'Segoe UI', sans-serif; letter-spacing: -0.3px; }
+  </style>
+
+  <!-- Icons -->
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+  <!-- CodeMirror for syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/monokai.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+
+  <!-- Skulpt for Python -->
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+
+  <style>
+    :root {
+      --green: #58CC02;
+      --green-hover: #46A302;
+      --bg: #FFFFFF;
+      --bg-secondary: #F7F7F7;
+      --text: #1e1e1e;
+      --text-secondary: #777;
+      --border: #E5E5E5;
+      --radius: 16px;
+      --gold: #FFC800;
+      --error: #FF4B4B;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      background: var(--bg-secondary);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top bar */
+    .topbar {
+      height: 60px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 10;
+    }
+    .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .logo-img { width:34px; height:34px; border-radius:10px; }
+    .logo-text { font-size:1.3rem; font-weight:800; color:var(--text); }
+    .logo-text span { color:var(--green); }
+
+    .back-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-secondary); display: flex; align-items: center; gap: 4px;
+      font-size: 0.9rem; text-decoration: none;
+    }
+
+    /* Main layout */
+    .main-layout {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Left panel */
+    .left-panel {
+      width: 260px;
+      background: var(--bg);
+      border-right: 1px solid var(--border);
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+    .lesson-nav { display: flex; flex-direction: column; gap: 8px; }
+    .nav-btn {
+      display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+      border-radius: 10px; border: 1px solid var(--border); background: var(--bg-secondary);
+      cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: all 0.2s;
+      text-decoration: none; color: var(--text);
+    }
+    .nav-btn:hover { background: #ebf7e6; border-color: var(--green); }
+    .nav-btn:disabled { opacity:0.5; cursor:not-allowed; }
+    .lesson-details {
+      background: var(--bg-secondary); border-radius: var(--radius);
+      padding: 14px; border: 1px solid var(--border);
+    }
+    .lesson-details h3 { font-size:0.9rem; margin-bottom:8px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:1px; }
+    .ai-placeholder {
+      display: flex; align-items: center; gap: 8px; color: var(--text-secondary);
+      padding: 8px; border-radius: 8px; background: #f0f0f0; margin-top: auto;
+    }
+
+    /* Center content */
+    .lesson-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      background: var(--bg);
+    }
+    .lesson-header { margin-bottom: 24px; }
+    .lesson-header h1 { font-size: 2rem; margin-bottom: 4px; }
+    .lesson-header p { color: var(--text-secondary); font-size:0.9rem; }
+
+    /* Block styles */
+    .block { margin-bottom: 24px; }
+    .block h3 { font-size:1.2rem; margin-bottom:8px; }
+    .block p { color:var(--text-secondary); line-height:1.6; }
+    pre {
+      background: #1e1e1e; color: #d4d4d4; padding: 16px;
+      border-radius: 8px; overflow-x: auto;
+    }
+    .hint, .tip, .warning {
+      padding: 12px 16px; border-radius: 8px; margin-bottom:12px;
+    }
+    .hint { background:#FFF9E6; border:1px solid #FFD700; }
+    .tip { background:#E6F7FF; border:1px solid #91D5FF; }
+    .warning { background:#FFF1F0; border:1px solid #FFA39E; }
+
+    .quiz-block {
+      border: 2px solid var(--border); border-radius: var(--radius);
+      padding: 20px; margin-bottom:16px; background: var(--bg-secondary);
+    }
+    .question { font-weight:700; margin-bottom:12px; }
+    .option {
+      padding:10px; border:1px solid var(--border); border-radius:8px;
+      margin-bottom:8px; cursor:pointer; transition:all 0.2s;
+    }
+    .option:hover { background:var(--bg); }
+    .option.disabled { pointer-events: none; opacity: 0.7; }
+    .option.correct { border-color:var(--green); background:#E8F8E8; }
+    .option.wrong { border-color:var(--error); background:#FFE6E6; }
+
+    .fill-blank input {
+      padding:8px 12px; border:1px solid var(--border); border-radius:6px;
+      font-family:inherit; font-size:0.9rem; margin:4px;
+    }
+    .fill-blank input:disabled { background:#f0f0f0; }
+    .fill-blank input.correct-input { border-color:var(--green); }
+    .fill-blank input.wrong-input { border-color:var(--error); }
+
+    .complete-btn {
+      display: block; width: 100%; margin-top: 32px; font-family:inherit;
+    }
+
+    .btn {
+      padding:12px 24px; border:none; border-radius:14px; font-weight:700;
+      font-size:0.9rem; cursor:pointer; font-family:inherit;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      transition:all 0.2s; background:var(--green); color:white;
+      box-shadow:0 4px 0 var(--green-hover);
+    }
+    .btn:hover { background:var(--green-hover); transform:translateY(-1px); }
+    .btn:disabled { opacity:0.6; cursor:not-allowed; }
+
+    /* Right panel (resizable) */
+    .right-panel {
+      background: var(--bg);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .panel-tabs {
+      display: flex; background: var(--bg-secondary); border-bottom: 1px solid var(--border);
+    }
+    .panel-tab {
+      flex: 1; text-align: center; padding: 10px; font-weight: 700;
+      cursor: pointer; font-size: 0.85rem; transition: background 0.2s;
+    }
+    .panel-tab.active {
+      background: var(--bg); border-bottom: 2px solid var(--green);
+    }
+    .panel-content {
+      flex: 1; overflow-y: auto; padding: 16px;
+    }
+
+    /* Editor specific */
+    .editor-tabs {
+      display: flex; gap: 4px; margin-bottom: 12px; flex-wrap: wrap;
+    }
+    .editor-lang-btn {
+      padding: 6px 14px; border: 1px solid var(--border); border-radius: 8px;
+      cursor: pointer; background: white; font-weight: 600; font-size: 0.8rem;
+    }
+    .editor-lang-btn.active {
+      background: var(--green); color: white; border-color: var(--green);
+    }
+    .editor-subtabs {
+      display: flex; gap: 4px; margin-bottom: 8px;
+    }
+    .editor-subtab {
+      padding: 4px 12px; border-radius: 6px; cursor: pointer;
+      font-size: 0.8rem; font-weight: 600; background: var(--bg-secondary);
+      border: 1px solid var(--border);
+    }
+    .editor-subtab.active {
+      background: var(--green); color: white; border-color: var(--green);
+    }
+    .CodeMirror {
+      height: 200px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .preview-frame {
+      width: 100%; height: 200px; border: 1px solid var(--border);
+      border-radius: 8px; margin-top: 12px; background: white;
+    }
+    .console-output {
+      background: #1e1e1e; color: #aaa; padding: 12px;
+      border-radius: 8px; min-height: 60px; white-space: pre-wrap; margin-top: 8px;
+    }
+
+    /* Resize handle */
+    .resize-handle {
+      width: 4px; background: var(--border); cursor: col-resize; transition: background 0.2s;
+    }
+    .resize-handle:hover { background: var(--green); }
+
+    /* Toast notification */
+    .toast-container {
+      position: fixed; top: 20px; right: 20px; z-index: 2000;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .toast {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: slideInRight 0.3s ease, fadeOut 0.5s 2.5s forwards;
+      display: flex; align-items: center; gap: 8px; font-size:0.9rem;
+    }
+    .toast.success { border-left: 4px solid var(--green); }
+    .toast.error { border-left: 4px solid var(--error); }
+    @keyframes slideInRight { from { transform: translateX(120%); opacity:0; } to { transform: translateX(0); opacity:1; } }
+    @keyframes fadeOut { to { opacity:0; transform: translateY(-10px); } }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a href="../index.html" class="logo">
+      <img src="../favicon.ico" alt="Akademia" class="logo-img">
+      <span class="logo-text">Akade<span>mia</span></span>
+    </a>
+    <a href="learn.html" class="back-btn">
+      <iconify-icon icon="pixelarticons:arrow-left"></iconify-icon> Back to Courses
+    </a>
+  </div>
+
+  <div class="main-layout">
+    <!-- Left panel -->
+    <aside class="left-panel" id="leftPanel">
+      <div class="lesson-nav" id="lessonNav">
+        <button class="nav-btn" id="prevLessonBtn" disabled>
+          <iconify-icon icon="pixelarticons:chevron-left"></iconify-icon> Previous
+        </button>
+        <button class="nav-btn" id="nextLessonBtn" disabled>
+          Next <iconify-icon icon="pixelarticons:chevron-right"></iconify-icon>
+        </button>
+      </div>
+      <div class="lesson-details" id="lessonDetailsCard">
+        <h3>Lesson Info</h3>
+        <div id="lessonDetails"></div>
+      </div>
+      <div class="ai-placeholder">
+        <iconify-icon icon="pixelarticons:bot"></iconify-icon>
+        <span>AI Companion (soon)</span>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="lesson-content" id="lessonContent">
+      <div class="lesson-header">
+        <h1 id="lessonTitle">Lesson Title</h1>
+        <p id="lessonType">Loading...</p>
+      </div>
+      <div id="blocksContainer"></div>
+      <button class="btn complete-btn" id="completeLessonBtn" disabled>
+        <iconify-icon icon="pixelarticons:check"></iconify-icon> Mark as Complete
+      </button>
+    </main>
+
+    <!-- Right panel (resizable) -->
+    <div class="right-panel" id="rightPanel" style="width: 380px;">
+      <div class="panel-tabs">
+        <div class="panel-tab active" data-tab="progress">Progress</div>
+        <div class="panel-tab" data-tab="editor">Editor</div>
+      </div>
+      <div class="panel-content" id="panelContent">
+        <!-- Progress tab -->
+        <div id="progressTab">
+          <div style="background:var(--bg-secondary); border-radius:var(--radius); padding:16px; border:1px solid var(--border);">
+            <h3 style="margin-bottom:12px;">Your Progress</h3>
+            <div style="font-size:2rem; font-weight:800; font-family:'BlockBlueprint',sans-serif;" id="completedCount">0</div>
+            <small>lessons completed</small>
+            <div style="font-size:2rem; font-weight:800; font-family:'BlockBlueprint',sans-serif; margin-top:12px;" id="sparksCount">0</div>
+            <small>sparks earned</small>
+          </div>
+        </div>
+        <!-- Editor tab -->
+        <div id="editorTab" style="display:none;">
+          <div class="editor-tabs" id="editorMainTabs">
+            <span class="editor-lang-btn active" data-lang="web">Web (HTML/CSS/JS)</span>
+            <span class="editor-lang-btn" data-lang="python">Python</span>
+          </div>
+          <!-- Web sub-editors -->
+          <div id="webEditorContainer">
+            <div class="editor-subtabs">
+              <span class="editor-subtab active" data-file="html">HTML</span>
+              <span class="editor-subtab" data-file="css">CSS</span>
+              <span class="editor-subtab" data-file="js">JavaScript</span>
+            </div>
+            <textarea id="htmlEditor"><h1>Hello World</h1></textarea>
+            <textarea id="cssEditor" style="display:none;">body { color: red; }</textarea>
+            <textarea id="jsEditor" style="display:none;">console.log('Hi');</textarea>
+          </div>
+          <!-- Python editor -->
+          <div id="pythonEditorContainer" style="display:none;">
+            <textarea id="pythonEditor">print("Hello from Python")</textarea>
+          </div>
+          <button class="btn" id="runCodeBtn" style="margin-top:8px;">Run</button>
+          <div class="preview-frame" id="previewFrame" style="display:none;"></div>
+          <div class="console-output" id="consoleOutput" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="resize-handle" id="resizeHandle"></div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script type="module">
+    import { auth, db } from '../src/js/firebase-config.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+    import { doc, getDoc, collection, getDocs, query, orderBy, updateDoc, arrayUnion, increment } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+    // ---------- Compiler (inline) ----------
+    class Compiler {
+      async runCode(language, code) {
+        if (language === 'python') {
+          return await this._runPython(code);
+        } else if (language === 'web') {
+          // Code is already combined externally
+          return { type: 'html', code };
         }
+        return { type: 'text', output: 'Unsupported' };
+      }
+      async _runPython(code) {
+        return new Promise((resolve, reject) => {
+          let output = '';
+          window.Sk.configure({
+            output: (text) => { output += text; },
+            read: (x) => { throw 'File not found: ' + x; }
+          });
+          window.Sk.misceval.asyncToPromise(() =>
+            window.Sk.importMainWithBody('<stdin>', false, code, true)
+          ).then(
+            () => resolve({ type: 'text', output }),
+            (err) => resolve({ type: 'text', output: err.toString() })
+          );
+        });
+      }
+    }
+    const compiler = new Compiler();
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    // ---------- URL Params ----------
+    const params = new URLSearchParams(window.location.search);
+    const courseId = params.get('courseId');
+    const moduleId = params.get('moduleId');
+    const lessonId = params.get('lessonId');
+    if (!courseId || !moduleId || !lessonId) {
+      document.getElementById('lessonContent').innerHTML = '<p>Missing lesson parameters.</p>';
+      throw new Error('Missing parameters');
+    }
+
+    let currentUser = null;
+    let userData = { completedLessons: [], sparks: 0 };
+    let lessonData = null;
+    let allLessonsInModule = [];
+    let currentLessonIndex = -1;
+    let attemptedBlocks = new Set(); // block IDs that have been attempted
+    let correctBlocks = new Set(); // block IDs that were correct on first attempt
+
+    // ---------- Toast ----------
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = message;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // ---------- CodeMirror instances ----------
+    let editors = {};
+    function initEditors() {
+      const commonOptions = {
+        theme: 'monokai',
+        lineNumbers: true,
+        indentUnit: 4,
+        tabSize: 4,
+      };
+      editors.html = CodeMirror.fromTextArea(document.getElementById('htmlEditor'), { ...commonOptions, mode: 'xml' });
+      editors.css = CodeMirror.fromTextArea(document.getElementById('cssEditor'), { ...commonOptions, mode: 'css' });
+      editors.js = CodeMirror.fromTextArea(document.getElementById('jsEditor'), { ...commonOptions, mode: 'javascript' });
+      editors.python = CodeMirror.fromTextArea(document.getElementById('pythonEditor'), { ...commonOptions, mode: 'python' });
+      // Initially hide CSS/JS editors, show HTML
+      document.getElementById('cssEditor').nextElementSibling.style.display = 'none';
+      document.getElementById('jsEditor').nextElementSibling.style.display = 'none';
+    }
+
+    // Switch between web sub-editors
+    document.querySelectorAll('.editor-subtab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const file = tab.dataset.file;
+        document.querySelectorAll('.editor-subtab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('htmlEditor').nextElementSibling.style.display = file === 'html' ? '' : 'none';
+        document.getElementById('cssEditor').nextElementSibling.style.display = file === 'css' ? '' : 'none';
+        document.getElementById('jsEditor').nextElementSibling.style.display = file === 'js' ? '' : 'none';
+        editors[file]?.refresh();
+      });
+    });
+
+    // Switch between Web and Python
+    document.querySelectorAll('.editor-lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.editor-lang-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const lang = btn.dataset.lang;
+        document.getElementById('webEditorContainer').style.display = lang === 'web' ? '' : 'none';
+        document.getElementById('pythonEditorContainer').style.display = lang === 'python' ? '' : 'none';
+        if (lang === 'web') editors.html.refresh();
+        if (lang === 'python') editors.python.refresh();
+      });
+    });
+
+    // Run code
+    document.getElementById('runCodeBtn').addEventListener('click', async () => {
+      const activeLang = document.querySelector('.editor-lang-btn.active')?.dataset.lang;
+      const preview = document.getElementById('previewFrame');
+      const consoleEl = document.getElementById('consoleOutput');
+      preview.style.display = 'none';
+      consoleEl.style.display = 'none';
+
+      if (activeLang === 'web') {
+        const html = editors.html.getValue();
+        const css = editors.css.getValue();
+        const js = editors.js.getValue();
+        const combined = `<!DOCTYPE html><html><head><style>${css}</style></head><body>${html}<script>${js}<\/script></body></html>`;
+        preview.srcdoc = combined;
+        preview.style.display = 'block';
+      } else if (activeLang === 'python') {
+        const code = editors.python.getValue();
+        const result = await compiler.runCode('python', code);
+        consoleEl.style.display = 'block';
+        consoleEl.textContent = result.output;
+      }
+    });
+
+    // ---------- Resize ----------
+    let isResizing = false;
+    document.getElementById('resizeHandle').addEventListener('mousedown', (e) => {
+      isResizing = true;
+      document.body.style.cursor = 'col-resize';
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+      const newWidth = window.innerWidth - e.clientX;
+      if (newWidth > 300 && newWidth < 700) {
+        document.getElementById('rightPanel').style.width = newWidth + 'px';
+      }
+    });
+    document.addEventListener('mouseup', () => {
+      if (isResizing) { isResizing = false; document.body.style.cursor = ''; }
+    });
+
+    // ---------- Panel tabs ----------
+    document.querySelectorAll('.panel-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const tabName = tab.dataset.tab;
+        document.getElementById('progressTab').style.display = tabName === 'progress' ? 'block' : 'none';
+        document.getElementById('editorTab').style.display = tabName === 'editor' ? 'block' : 'none';
+        if (tabName === 'editor') {
+          editors.html?.refresh();
+          editors.css?.refresh();
+          editors.js?.refresh();
+          editors.python?.refresh();
         }
+      });
+    });
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            line-height: 1.6;
+    // ---------- Auth & Data ----------
+    async function loadUserData(uid) {
+      const userRef = doc(db, 'users', uid);
+      const userDoc = await getDoc(userRef);
+      if (userDoc.exists()) {
+        userData = userDoc.data();
+        userData.completedLessons = userData.completedLessons || [];
+        userData.sparks = userData.sparks || 0;
+      }
+      updateProgressUI();
+    }
+
+    async function loadModuleLessons() {
+      const lesSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules', moduleId, 'lessons'), orderBy('createdAt')));
+      allLessonsInModule = [];
+      lesSnap.forEach(doc => allLessonsInModule.push({ id: doc.id, ...doc.data() }));
+      currentLessonIndex = allLessonsInModule.findIndex(l => l.id === lessonId);
+      updateNavButtons();
+    }
+
+    async function loadLesson() {
+      const lessonRef = doc(db, 'courses', courseId, 'modules', moduleId, 'lessons', lessonId);
+      const snap = await getDoc(lessonRef);
+      if (!snap.exists()) {
+        document.getElementById('lessonContent').innerHTML = '<p>Lesson not found.</p>';
+        return;
+      }
+      lessonData = snap.data();
+      document.getElementById('lessonTitle').textContent = lessonData.title || 'Untitled';
+      document.getElementById('lessonType').textContent = lessonData.type || 'lesson';
+      document.getElementById('lessonDetails').innerHTML = `
+        <p><strong>Type:</strong> ${escapeHtml(lessonData.type || 'lesson')}</p>
+        ${lessonData.description ? `<p>${escapeHtml(lessonData.description)}</p>` : ''}
+      `;
+      renderBlocks(lessonData.blocks || []);
+    }
+
+    function renderBlocks(blocks) {
+      const container = document.getElementById('blocksContainer');
+      container.innerHTML = '';
+      attemptedBlocks.clear();
+      correctBlocks.clear();
+      blocks.forEach((block, index) => {
+        const blockEl = document.createElement('div');
+        blockEl.className = 'block';
+        blockEl.innerHTML = renderBlock(block, index);
+        container.appendChild(blockEl);
+      });
+      attachInteractiveListeners();
+      checkCompletionEligibility();
+    }
+
+    function renderBlock(block, idx) {
+      const data = block.data || {};
+      switch (block.type) {
+        case 'heading': return `<h3>${escapeHtml(data.text || '')}</h3>`;
+        case 'paragraph': return `<p>${escapeHtml(data.text || '')}</p>`;
+        case 'image': return data.url ? `<img src="${data.url}" alt="Lesson image" style="max-width:100%; border-radius:8px;">` : '';
+        case 'video': {
+          if (data.url) {
+            const embed = getYouTubeEmbed(data.url);
+            return embed ? `<div style="position:relative; padding-bottom:56.25%; height:0;"><iframe src="${embed}" frameborder="0" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:8px;"></iframe></div>` : `<a href="${data.url}" target="_blank">Watch video</a>`;
+          }
+          return '';
         }
+        case 'console': return `<pre><code>${escapeHtml(data.code || '')}</code></pre>${data.output ? `<p><strong>Output:</strong> ${escapeHtml(data.output)}</p>` : ''}`;
+        case 'hint': return `<div class="hint">💡 ${escapeHtml(data.text || '')}</div>`;
+        case 'warning': return `<div class="warning">⚠️ ${escapeHtml(data.text || '')}</div>`;
+        case 'tip': return `<div class="tip">💡 ${escapeHtml(data.text || '')}</div>`;
+        case 'multiple-choice': return renderMCQ(data, idx);
+        case 'fill-blank': return renderFillBlank(data, idx);
+        case 'quiz': return renderQuiz(data, idx);
+        case 'divider': return '<hr>';
+        case 'completion': return `<p style="font-weight:700; color:var(--green);">${escapeHtml(data.message || 'Lesson complete!')}</p>`;
+        default: return '';
+      }
+    }
 
-        /* Top Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: var(--nav-height);
-            background: rgba(15,14,23,0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            padding: 0 24px;
+    function renderMCQ(data, idx) {
+      const options = data.options || [];
+      return `
+        <div class="quiz-block" data-block-type="mcq" data-block-idx="${idx}" data-correct="${data.correct}">
+          <div class="question">${escapeHtml(data.question || '')}</div>
+          ${options.map((opt, i) => `<div class="option" data-option="${i}">${escapeHtml(opt)}</div>`).join('')}
+        </div>
+      `;
+    }
+
+    function renderFillBlank(data, idx) {
+      const answers = data.answers || [];
+      const text = data.text || '';
+      const parts = text.split('___');
+      let html = `<div class="quiz-block fill-blank" data-block-type="fill-blank" data-block-idx="${idx}" data-answers='${JSON.stringify(answers)}'>`;
+      parts.forEach((part, i) => {
+        html += escapeHtml(part);
+        if (i < parts.length - 1) {
+          html += `<input type="text" placeholder="..." />`;
         }
+      });
+      html += '<button class="btn" style="margin-top:8px; width:auto;" data-check-btn>Check</button></div>';
+      return html;
+    }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    function renderQuiz(data, idx) {
+      if (!data.items) return '';
+      let html = `<div class="quiz-block" data-block-type="quiz" data-block-idx="${idx}">`;
+      data.items.forEach((item, qi) => {
+        const options = item.options || [];
+        html += `<div class="quiz-item" data-qidx="${qi}" data-correct="${item.correct}">
+          <div class="question">Q${qi+1}: ${escapeHtml(item.question || '')}</div>
+          ${options.map((opt, oi) => `<div class="option" data-option="${oi}">${escapeHtml(opt)}</div>`).join('')}
+        </div>`;
+      });
+      html += '</div>';
+      return html;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
+    function attachInteractiveListeners() {
+      // MCQ
+      document.querySelectorAll('.quiz-block[data-block-type="mcq"]').forEach(block => {
+        const correct = parseInt(block.dataset.correct);
+        const blockIdx = block.dataset.blockIdx;
+        const options = block.querySelectorAll('.option');
+        options.forEach(opt => {
+          opt.addEventListener('click', () => {
+            if (attemptedBlocks.has(`mcq-${blockIdx}`)) return; // already attempted
+            attemptedBlocks.add(`mcq-${blockIdx}`);
+            const chosen = parseInt(opt.dataset.option);
+            options.forEach(o => o.classList.add('disabled'));
+            if (chosen === correct) {
+              opt.classList.add('correct');
+              correctBlocks.add(`mcq-${blockIdx}`);
+              awardSparks(10);
+              showToast('✅ Correct! +10 Sparks', 'success');
+            } else {
+              opt.classList.add('wrong');
+              options[correct].classList.add('correct');
+              showToast('❌ Incorrect. No sparks earned.', 'error');
+            }
+            checkCompletionEligibility();
+          });
+        });
+      });
 
-        .logo-gradient {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+      // Quiz items
+      document.querySelectorAll('.quiz-item').forEach(item => {
+        const correct = parseInt(item.dataset.correct);
+        const qidx = item.dataset.qidx;
+        const blockIdx = item.closest('.quiz-block').dataset.blockIdx;
+        const key = `quiz-${blockIdx}-${qidx}`;
+        const options = item.querySelectorAll('.option');
+        options.forEach(opt => {
+          opt.addEventListener('click', () => {
+            if (attemptedBlocks.has(key)) return;
+            attemptedBlocks.add(key);
+            const chosen = parseInt(opt.dataset.option);
+            options.forEach(o => o.classList.add('disabled'));
+            if (chosen === correct) {
+              opt.classList.add('correct');
+              correctBlocks.add(key);
+              awardSparks(10);
+              showToast('✅ Correct! +10 Sparks', 'success');
+            } else {
+              opt.classList.add('wrong');
+              options[correct].classList.add('correct');
+              showToast('❌ Incorrect. No sparks earned.', 'error');
+            }
+            checkCompletionEligibility();
+          });
+        });
+      });
 
-        .player-stats {
-            display: flex;
-            gap: 24px;
-            align-items: center;
-        }
+      // Fill-blank check buttons
+      document.querySelectorAll('[data-check-btn]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const container = btn.closest('.fill-blank');
+          const blockIdx = container.dataset.blockIdx;
+          const key = `fill-${blockIdx}`;
+          if (attemptedBlocks.has(key)) return;
+          attemptedBlocks.add(key);
+          const answers = JSON.parse(container.dataset.answers);
+          const inputs = container.querySelectorAll('input');
+          let allCorrect = true;
+          inputs.forEach((input, i) => {
+            input.disabled = true;
+            if (input.value.trim().toLowerCase() === answers[i].toLowerCase()) {
+              input.classList.add('correct-input');
+            } else {
+              input.classList.add('wrong-input');
+              allCorrect = false;
+            }
+          });
+          if (allCorrect) {
+            correctBlocks.add(key);
+            awardSparks(10);
+            showToast('✅ All blanks correct! +10 Sparks', 'success');
+          } else {
+            showToast('❌ Some blanks incorrect. No sparks.', 'error');
+          }
+          btn.disabled = true;
+          checkCompletionEligibility();
+        });
+      });
+    }
 
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
+    function checkCompletionEligibility() {
+      // Enable complete button only if all interactive blocks have been attempted (regardless of correctness)
+      const totalInteractive = document.querySelectorAll('.quiz-block, .quiz-item, .fill-blank').length;
+      const attemptedCount = attemptedBlocks.size;
+      // Note: fill-blank block counts as one attempt per block, not per input.
+      // For quiz blocks, each item is separate. We need to count unique block keys.
+      // Better: count the number of interactive elements that have a key in attemptedBlocks.
+      // We'll compute expected keys: all mcq-*, quiz-*, fill-*.
+      let expectedKeys = new Set();
+      document.querySelectorAll('.quiz-block[data-block-type="mcq"]').forEach(b => expectedKeys.add(`mcq-${b.dataset.blockIdx}`));
+      document.querySelectorAll('.quiz-item').forEach(item => {
+        const blockIdx = item.closest('.quiz-block').dataset.blockIdx;
+        expectedKeys.add(`quiz-${blockIdx}-${item.dataset.qidx}`);
+      });
+      document.querySelectorAll('.fill-blank').forEach(b => expectedKeys.add(`fill-${b.dataset.blockIdx}`));
+      
+      let allAttempted = true;
+      expectedKeys.forEach(k => {
+        if (!attemptedBlocks.has(k)) allAttempted = false;
+      });
+      document.getElementById('completeLessonBtn').disabled = !allAttempted || expectedKeys.size === 0;
+    }
 
-        .stat-icon {
-            font-size: 1.2rem;
-        }
+    function awardSparks(amount) {
+      userData.sparks += amount;
+      updateProgressUI();
+      const userRef = doc(db, 'users', currentUser.uid);
+      updateDoc(userRef, { sparks: increment(amount) }).catch(console.error);
+    }
 
-        .level-badge {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
+    // Mark as complete
+    document.getElementById('completeLessonBtn').addEventListener('click', async () => {
+      if (!currentUser || userData.completedLessons.includes(lessonId)) return;
+      const userRef = doc(db, 'users', currentUser.uid);
+      try {
+        await updateDoc(userRef, {
+          completedLessons: arrayUnion(lessonId),
+          sparks: increment(100) // completion reward
+        });
+        userData.completedLessons.push(lessonId);
+        userData.sparks += 100;
+        updateProgressUI();
+        showToast('🎉 Lesson completed! +100 Sparks', 'success');
+        setTimeout(() => {
+          window.location.href = `course.html?courseId=${courseId}&moduleId=${moduleId}`;
+        }, 2000);
+      } catch (error) {
+        showToast('Failed to save progress.', 'error');
+      }
+    });
 
-        .xp-bar {
-            width: 100px;
-            height: 6px;
-            background: var(--border);
-            border-radius: 3px;
-            overflow: hidden;
-        }
+    function updateNavButtons() {
+      const prevBtn = document.getElementById('prevLessonBtn');
+      const nextBtn = document.getElementById('nextLessonBtn');
+      if (currentLessonIndex > 0) {
+        prevBtn.disabled = false;
+        prevBtn.onclick = () => navigateToLesson(allLessonsInModule[currentLessonIndex - 1].id);
+      } else prevBtn.disabled = true;
+      if (currentLessonIndex < allLessonsInModule.length - 1) {
+        nextBtn.disabled = false;
+        nextBtn.onclick = () => navigateToLesson(allLessonsInModule[currentLessonIndex + 1].id);
+      } else nextBtn.disabled = true;
+    }
 
-        .xp-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.5s ease;
-        }
+    function navigateToLesson(id) {
+      window.location.href = `lesson.html?courseId=${courseId}&moduleId=${moduleId}&lessonId=${id}`;
+    }
 
-        .btn-logout {
-            padding: 8px 16px;
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            border-radius: var(--radius);
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
+    function updateProgressUI() {
+      document.getElementById('completedCount').textContent = userData.completedLessons.length;
+      document.getElementById('sparksCount').textContent = userData.sparks;
+    }
 
-        .btn-logout:hover {
-            background: rgba(255,255,255,0.05);
-            color: var(--text-primary);
-        }
+    function getYouTubeEmbed(url) {
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      if (match && match[2].length === 11) return `https://www.youtube.com/embed/${match[2]}`;
+      return null;
+    }
 
-        /* Main Layout */
-        .main-container {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 0;
-            margin-top: var(--nav-height);
-            min-height: calc(100vh - var(--nav-height));
-        }
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
 
-        /* Quest Sidebar */
-        .quest-sidebar {
-            background: var(--bg-card);
-            border-right: 1px solid var(--border);
-            padding: 24px;
-            overflow-y: auto;
-        }
-
-        .quest-list-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .quest-card {
-            background: var(--bg-input);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .quest-card:hover {
-            border-color: var(--primary);
-            transform: translateX(4px);
-        }
-
-        .quest-card.active {
-            border-color: var(--primary);
-            background: rgba(108,99,255,0.1);
-        }
-
-        .quest-card.completed {
-            opacity: 0.6;
-            border-color: var(--secondary);
-        }
-
-        .quest-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .quest-title {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .quest-difficulty {
-            font-size: 0.8rem;
-            padding: 2px 8px;
-            border-radius: 10px;
-            background: var(--border);
-        }
-
-        .quest-rewards {
-            display: flex;
-            gap: 12px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        /* Main Quest Area */
-        .quest-area {
-            padding: 32px;
-            max-width: 900px;
-        }
-
-        .quest-header {
-            margin-bottom: 32px;
-        }
-
-        .quest-header h1 {
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
-
-        .quest-story {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            margin-bottom: 24px;
-            position: relative;
-        }
-
-        .quest-story::before {
-            content: '📜
+    // Auth init
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) { window.location.href = 'login.html'; return; }
+      currentUser = user;
+      await loadUserData(user.uid);
+      await loadModuleLessons();
+      await loadLesson();
+      initEditors();
+    });
+  </script>
+</body>
+</html>
