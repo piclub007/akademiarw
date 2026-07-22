@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson · Akademia</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+    <!-- Fonts -->
+    <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/drafting-mono" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'BlockBlueprint';
+            src: local('BlockBlueprint'), local('BlockBlueprint');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Drafting Mono';
+            src: local('Drafting Mono'), local('Drafting Mono');
+            font-display: swap;
+        }
+    </style>
+
+    <!-- Icons -->
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+    <style>
+        :root {
+            --green: #58CC02;
+            --green-hover: #46A302;
+            --bg: #FFFFFF;
+            --bg-secondary: #F7F7F7;
+            --text: #4B4B4B;
+            --text-secondary: #777777;
+            --border: #E5E5E5;
+            --radius: 12px;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
+            background: var(--bg-secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
+
+        .topbar {
+            height: 64px;
+            background: var(--bg);
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .back-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .lesson-header {
+            margin-bottom: 32px;
+        }
+        .lesson-header h1 {
+            font-size: 2rem;
+            margin-bottom: 4px;
+        }
+        .lesson-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .block {
+            margin-bottom: 24px;
+        }
+        .block h3 {
+            margin-bottom: 8px;
+        }
+        .block p {
+            color: var(--text-secondary);
+        }
+
+        pre {
+            background: #1E1E1E;
+            color: #D4D4D4;
+            padding: 16px;
+            border-radius: var(--radius);
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+        }
+
+        .hint, .tip, .warning {
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+        }
+        .hint { background: #FFF9E6; border: 1px solid #FFD700; }
+        .tip { background: #E6F7FF; border: 1px solid #91D5FF; }
+        .warning { background: #FFF1F0; border: 1px solid #FFA39E; }
+
+        .multiple-choice, .quiz {
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            background: var(--bg);
+        }
+        .option {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option:hover { background: var(--bg-secondary); }
+        .option.selected { border-color: var(--green); background: #F0FDE0; }
+        .option.correct { border-color: var(--green); background: #E8F8E8; }
+        .option.wrong { border-color: red; background: #FFE6E6; }
+
+        .fill-blank input {
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: inherit;
+        }
+
+        .completion-message {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--green);
+            padding: 40px;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: var(--radius);
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--radius);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <a href="learn.html" class="back-btn">
+            <iconify-icon icon="pixelarticons:arrow-left"></iconify-icon> Back to Courses
+        </a>
+        <span style="font-weight:700; font-size:0.9rem;">Akademia</span>
+    </div>
+
+    <div class="container" id="lessonContainer">
+        <div class="loading">Loading lesson...</div>
+    </div>
+
+    <script type="module">
+        import { db } from '../src/js/firebase-config.js';
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+        // Get query parameters
+        const params = new URLSearchParams(window.location.search);
+        const courseId = params.get('courseId');
+        const moduleId = params.get('moduleId');
+        const lessonId = params.get('lessonId');
+
+        if (!courseId || !moduleId || !lessonId) {
+            document.getElementById('lessonContainer').innerHTML = '<p>Invalid lesson link.</p>';
+            throw new Error('Missing parameters');
+        }
+
+        async function loadLesson() {
+            const container = document.getElementById('lessonContainer');
+            container.innerHTML = '<p>Loading lesson...</p>';
+            try {
+                const lessonRef = doc(db, 'courses', courseId, 'modules', moduleId, 'lessons', lessonId);
+                const snap = await getDoc(lessonRef);
+                if (!snap.exists()) {
+                    container.innerHTML = '<p>Lesson not found.</p>';
+                    return;
+                }
+                const lesson = snap.data();
+                renderLesson(lesson, container);
+            } catch (error) {
+                container.innerHTML = '<p>Error loading lesson.</p>';
+                console.error(error);
+            }
+        }
+
+        function renderLesson(lesson, container) {
+            container.innerHTML = `
+                <div class="lesson-header">
+                    <h1>${escapeHtml(lesson.title || 'Untitled')}</h1>
+                    <div class="lesson-meta">${lesson.blocks ? lesson.blocks.length + ' blocks' : ''}</div>
+                </div>
+                <div id="blocksContainer"></div>
+            `;
+
+            const blocksContainer = document.getElementById('blocksContainer');
+            if (lesson.blocks && lesson.blocks.length > 0) {
+                lesson.blocks.forEach((block, index) => {
+                    const blockEl = document.createElement('div');
+                    blockEl.className = 'block';
+                    blockEl.innerHTML = renderBlock(block, index);
+                    blocksContainer.appendChild(blockEl);
+                });
+            } else {
+                blocksContainer.innerHTML = '<p>No content in this lesson yet.</p>';
+            }
+        }
+
+        function renderBlock(block, index) {
+            const data = block.data || {};
+            switch (block.type) {
+                case 'heading':
+                    return `<h2>${escapeHtml(data.text || '')}</h2>`;
+                case 'paragraph':
+                    return `<div>${data.html || escapeHtml(data.text || '')}</div>`;
+                case 'image':
+                    return data.url ? `<img src="${data.url}" alt="Lesson image">` : '';
+                case 'video':
+                    if (data.url) {
+                        const videoId = getYouTubeId(data.url);
+                        if (videoId) {
+                            return `<div class="video-container"><iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe></div>`;
+                        } else {
+                            return `<p><a href="${data.url}" target="_blank">Watch video</a></p>`;
+                        }
+                    }
+                    return '';
+                case 'console':
+                    return `<pre><code>${escapeHtml(data.code || '')}</code></pre>${data.output ? `<p><strong>Output:</strong> ${escapeHtml(data.output)}</p>` : ''}`;
+                case 'hint':
+                    return `<div class="hint">💡 ${escapeHtml(data.text || '')}</div>`;
+                case 'warning':
+                    return `<div class="warning">⚠️ ${escapeHtml(data.text || '')}</div>`;
+                case 'tip':
+                    return `<div class="tip">💡 ${escapeHtml(data.text || '')}</div>`;
+                case 'multiple-choice':
+                    return renderMCQ(data, index);
+                case 'quiz':
+                    return renderQuiz(data, index);
+                case 'fill-blank':
+                    return renderFillBlank(data, index);
+                case 'divider':
+                    return '<hr>';
+                case 'completion':
+                    return `<div class="completion-message">🎉 ${escapeHtml(data.message || 'Lesson completed!')}</div>`;
+                default:
+                    return '';
+            }
+        }
+
+        // Helper functions for interactive question types
+        function renderMCQ(data, blockIdx) {
+            const options = data.options || [];
+            const correct = data.correct;
+            let html = `<div class="multiple-choice"><h3>${escapeHtml(data.question || '')}</h3>`;
+            options.forEach((opt, i) => {
+                html += `<div class="option" data-answer="${i}" onclick="selectMCQ(this, ${blockIdx}, ${i}, ${correct})">${escapeHtml(opt)}</div>`;
+            });
+            html += `</div>`;
+            return html;
+        }
+
+        function renderQuiz(data, blockIdx) {
+            if (!data.items) return '';
+            let html = '';
+            data.items.forEach((item, qi) => {
+                const options = item.options || [];
+                html += `<div class="quiz"><h3>Q${qi+1}: ${escapeHtml(item.question || '')}</h3>`;
+                options.forEach((opt, oi) => {
+                    html += `<div class="option" data-quiz="${qi}" data-answer="${oi}" onclick="selectQuizOption(this, ${blockIdx}, ${qi}, ${oi}, ${item.correct})">${escapeHtml(opt)}</div>`;
+                });
+                html += `</div>`;
+            });
+            return html;
+        }
+
+        function renderFillBlank(data, blockIdx) {
+            const text = data.text || '';
+            const answers = data.answers || [];
+            // Replace ___ with input fields
+            let html = text.replace(/___/g, '<input type="text" class="fill-blank-input" style="width:100px;">');
+            return `<div class="fill-blank" data-block="${blockIdx}" data-answers='${JSON.stringify(answers)}'><p>Fill in the blanks:</p><div>${html}</div><button onclick="checkFillBlanks(this)" style="margin-top:8px;">Check</button></div>`;
+        }
+
+        // Interactive handlers (global functions)
+        window.selectMCQ = function(el, blockIdx, chosen, correct) {
+            const parent = el.parentElement;
+            const options = parent.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected', 'correct', 'wrong'));
+            if (chosen === correct) {
+                el.classList.add('correct');
+            } else {
+                el.classList.add('wrong');
+                options[correct].classList.add('correct');
+            }
+        };
+
+        window.selectQuizOption = function(el, blockIdx, qi, chosen, correct) {
+            const quizContainer = el.closest('.quiz');
+            const options = quizContainer.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected', 'correct', 'wrong'));
+            if (chosen === correct) {
+                el.classList.add('correct');
+            } else {
+                el.classList.add('wrong');
+                quizContainer.querySelector(`.option[data-answer="${correct}"]`).classList.add('correct');
+            }
+        };
+
+        window.checkFillBlanks = function(btn) {
+            const container = btn.closest('.fill-blank');
+            const answers = JSON.parse(container.dataset.answers);
+            const inputs = container.querySelectorAll('input');
+            let allCorrect = true;
+            inputs.forEach((input, i) => {
+                if (input.value.trim().toLowerCase() === answers[i].toLowerCase()) {
+                    input.style.border = '2px solid green';
+                } else {
+                    input.style.border = '2px solid red';
+                    allCorrect = false;
+                }
+            });
+        };
+
+        function getYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        loadLesson();
+    </script>
+</body>
+</html>
