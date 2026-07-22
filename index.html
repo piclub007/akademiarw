@@ -4,25 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO Meta Tags -->
-    <title>Akademia - Become a Professional Developer | Learn by Doing</title>
-    <meta name="description" content="Learn to code by building real projects. Earn certificates, get help from AI mentor, and join 120K+ students. Free, interactive, gamified.">
-    <meta name="keywords" content="learn coding, programming, online courses, web development, python, javascript, certificates, gamified learning">
-    <meta name="robots" content="index, follow">
+    <!-- Enhanced SEO Meta Tags -->
+    <title>Akademia - Become a Professional Developer | Learn to Code for Free</title>
+    <meta name="description" content="Learn coding by building real projects. Earn certificates, get AI mentor support, and join 120K+ students. Free interactive coding lessons, gamified learning, and real-world projects.">
+    <meta name="keywords" content="learn to code, programming courses, online coding, web development, python tutorial, javascript course, coding for beginners, free coding, interactive coding, coding platform, gamified learning, coding certificates">
+    <meta name="author" content="Akademia">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="language" content="English">
     <link rel="canonical" href="https://akademia.example.com/">
     
-    <!-- Open Graph -->
+    <!-- Open Graph (Social Media) -->
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://akademia.example.com/">
     <meta property="og:title" content="Akademia - Become a Professional Developer">
-    <meta property="og:description" content="Learn by doing. Build real projects. Earn certificates.">
+    <meta property="og:description" content="Learn by doing. Build real projects. Earn certificates. Start your coding journey for free.">
+    <meta property="og:image" content="https://akademia.example.com/og-image.png">
+    <meta property="og:site_name" content="Akademia">
+    <meta property="og:locale" content="en_US">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://akademia.example.com/">
     <meta name="twitter:title" content="Akademia - Learn to Code for Free">
-    <meta name="twitter:description" content="The free, fun, and effective way to learn coding!">
+    <meta name="twitter:description" content="The free, fun, and effective way to learn coding. Game-like lessons, real projects, and certificates.">
+    <meta name="twitter:image" content="https://akademia.example.com/og-image.png">
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Akademia",
+        "url": "https://akademia.example.com",
+        "description": "Interactive coding platform that gamifies learning. Build real projects, earn certificates, and master programming.",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "5000"
+        }
+    }
+    </script>
     
     <!-- Favicon (real logo) -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
@@ -40,7 +75,7 @@
         }
     </style>
 
-    <!-- Icons -->
+    <!-- Icons (Pixelarticons via Iconify) -->
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 
     <style>
@@ -137,194 +172,251 @@
         .rating-stats { display:flex; gap:12px; }
         .rating-item { font-weight:600; }
 
-        /* Right side animated code editor and floating cards */
-        .hero-visual { position:relative; display:flex; justify-content:center; align-items:center; }
-        .code-mock {
-            width:320px; height:380px; background:#1E1E1E; border-radius:16px;
-            padding:20px; box-shadow:0 20px 50px rgba(0,0,0,0.2);
-            font-family:'Courier New', monospace; color:#D4D4D4; position:relative;
+        /* Realistic code editor mock */
+        .code-editor-mock {
+            width: 360px;
+            max-width: 100%;
+            background: #1E1E1E;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            z-index: 1;
+            border: 1px solid #333;
         }
-        .code-mock .line {
-            height:12px; background:#3C3C3C; border-radius:6px; margin-bottom:10px;
-            width:80%; animation:typing 3s steps(20) infinite;
+        .editor-header {
+            background: #2D2D2D;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #444;
         }
-        .code-mock .line.short { width:60%; }
-        .code-mock .line.green { background:var(--green); width:40%; }
-        @keyframes typing {
-            0% { opacity:0.3; } 50% { opacity:1; } 100% { opacity:0.3; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.red { background: #FF5F56; }
+        .dot.yellow { background: #FFBD2E; }
+        .dot.green { background: #27C93F; }
+        .file-name {
+            margin-left: auto;
+            color: #AAA;
+            font-size: 0.75rem;
+            font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
         }
+        .editor-body {
+            display: flex;
+            padding: 14px;
+            min-height: 180px;
+            max-height: 220px;
+            overflow: hidden;
+        }
+        .line-numbers {
+            color: #555;
+            text-align: right;
+            padding-right: 12px;
+            user-select: none;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            white-space: pre;
+            min-width: 20px;
+        }
+        .code-content {
+            flex: 1;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            color: #D4D4D4;
+        }
+        .code-content .keyword { color: #569CD6; font-weight: bold; }
+        .code-content .function { color: #DCDCAA; }
+        .code-content .string { color: #CE9178; }
+        .code-content .comment { color: #6A9955; }
+        .code-content .number { color: #B5CEA8; }
+
+        .terminal {
+            border-top: 1px solid #444;
+            background: #1A1A1A;
+        }
+        .terminal-header {
+            background: #2D2D2D;
+            color: #AAA;
+            padding: 6px 14px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
+        }
+        .terminal-content {
+            padding: 10px 14px;
+            color: #4EC9B0;
+            font-size: 0.85rem;
+            min-height: 40px;
+            white-space: pre-wrap;
+        }
+
         .floating-card {
-            position:absolute; background:white; border:2px solid var(--border);
-            border-radius:12px; padding:10px 14px; font-size:0.8rem; font-weight:700;
-            display:flex; align-items:center; gap:6px; box-shadow:0 4px 10px rgba(0,0,0,0.08);
-            white-space:nowrap;
+            position: absolute; background: white; border: 2px solid var(--border);
+            border-radius: 12px; padding: 10px 14px; font-size: 0.8rem; font-weight: 700;
+            display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            white-space: nowrap; z-index: 2;
         }
-        .card-xp { top:20px; right:-20px; }
-        .card-cert { bottom:60px; left:-30px; }
-        .card-ai { top:100px; left:-40px; }
+        .card-xp { top: 20px; right: -20px; }
+        .card-cert { bottom: 60px; left: -30px; }
+        .card-ai { top: 100px; left: -40px; }
         .progress-circle {
-            width:50px; height:50px; border-radius:50%;
+            width: 50px; height: 50px; border-radius: 50%;
             background: conic-gradient(var(--green) 70%, var(--border) 0);
-            display:flex; align-items:center; justify-content:center;
-            position:absolute; bottom:10px; right:-10px;
-            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: center;
+            position: absolute; bottom: 10px; right: -10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 2;
         }
-        .progress-circle span { font-size:0.7rem; font-weight:800; color:var(--text); }
+        .progress-circle span { font-size: 0.7rem; font-weight: 800; color: var(--text); }
 
         /* ---------- TRUSTED BY ---------- */
         .trusted {
-            padding:60px 24px; background:var(--bg-secondary);
-            border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+            padding: 60px 24px; background: var(--bg-secondary);
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
         }
-        .trusted-container { max-width:1140px; margin:0 auto; text-align:center; }
+        .trusted-container { max-width: 1140px; margin:0 auto; text-align:center; }
         .trusted-text {
-            font-size:0.9rem; color:var(--text-secondary); margin-bottom:24px;
-            text-transform:uppercase; letter-spacing:1px; font-weight:700;
+            font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 24px;
+            text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
         }
         .trusted-logos {
-            display:flex; justify-content:center; align-items:center; gap:48px;
-            flex-wrap:wrap; font-size:1.3rem; font-weight:800; color:var(--text);
+            display: flex; justify-content: center; align-items: center; gap: 48px;
+            flex-wrap: wrap; font-size: 1.3rem; font-weight: 800; color: var(--text);
         }
-        .trusted-logos span { opacity:0.6; transition:opacity 0.2s; }
-        .trusted-logos span:hover { opacity:1; }
+        .trusted-logos span { opacity: 0.6; transition: opacity 0.2s; }
+        .trusted-logos span:hover { opacity: 1; }
 
-        /* ---------- STATISTICS (minimized) ---------- */
+        /* ---------- STATISTICS ---------- */
         .stats {
-            padding:60px 24px; max-width:1000px; margin:0 auto;
-            display:grid; grid-template-columns:repeat(4,1fr); gap:16px; text-align:center;
+            padding: 60px 24px; max-width: 1000px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; text-align: center;
         }
-        .stat-item { padding:16px; }
+        .stat-item { padding: 16px; }
         .stat-number {
-            font-size:2.2rem; font-weight:900; color:var(--green);
-            margin-bottom:4px; font-family:'BlockBlueprint', sans-serif;
+            font-size: 2.2rem; font-weight: 900; color: var(--green);
+            margin-bottom: 4px; font-family: 'BlockBlueprint', sans-serif;
         }
-        .stat-label { font-size:0.85rem; color:var(--text-secondary); font-weight:600; }
+        .stat-label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; }
 
         /* ---------- INTERACTIVE DEMO ---------- */
-        .interactive-demo {
-            padding:80px 24px; background:var(--bg);
-        }
+        .interactive-demo { padding: 80px 24px; background: var(--bg); }
         .demo-container {
-            max-width:800px; margin:0 auto;
-            background:var(--bg-secondary); border:2px solid var(--border);
-            border-radius:var(--radius); padding:24px;
+            max-width: 800px; margin: 0 auto;
+            background: var(--bg-secondary); border: 2px solid var(--border);
+            border-radius: var(--radius); padding: 24px;
         }
-        .demo-title { text-align:center; font-size:1.8rem; margin-bottom:24px; }
-        .demo-editor { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+        .demo-title { text-align: center; font-size: 1.8rem; margin-bottom: 24px; }
+        .demo-editor { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .demo-input {
-            background:#1E1E1E; border-radius:12px; padding:16px; display:flex; flex-direction:column;
+            background: #1E1E1E; border-radius: 12px; padding: 16px;
+            display: flex; flex-direction: column;
         }
         .demo-input textarea {
-            width:100%; flex:1; background:transparent; border:none;
-            color:#D4D4D4; font-family:'Courier New', monospace; font-size:0.95rem;
-            resize:vertical; outline:none;
+            width: 100%; flex: 1; background: transparent; border: none;
+            color: #D4D4D4; font-family: 'Courier New', monospace; font-size: 0.95rem;
+            resize: vertical; outline: none;
         }
-        .demo-run { margin-top:12px; align-self:flex-end; }
+        .demo-run { margin-top: 12px; align-self: flex-end; }
         .demo-output {
-            background:white; border-radius:12px; padding:16px; border:1px solid var(--border);
+            background: white; border-radius: 12px; padding: 16px;
+            border: 1px solid var(--border);
         }
-        .demo-output iframe { width:100%; height:100%; border:none; min-height:150px; }
+        .demo-output iframe { width: 100%; height: 100%; border: none; min-height: 150px; }
 
         /* ---------- WHY AKADEMIA ---------- */
-        .why {
-            padding:100px 24px; max-width:1140px; margin:0 auto;
-        }
+        .why { padding: 100px 24px; max-width: 1140px; margin: 0 auto; }
         .why-grid {
-            display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
-            gap:32px; margin-top:48px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px; margin-top: 48px;
         }
         .why-card {
-            text-align:center; padding:32px 24px; border-radius:var(--radius);
-            border:2px solid var(--border); transition:all 0.3s;
+            text-align: center; padding: 32px 24px; border-radius: var(--radius);
+            border: 2px solid var(--border); transition: all 0.3s;
         }
-        .why-card:hover { border-color:var(--green); transform:translateY(-4px); }
-        .why-icon { font-size:3rem; margin-bottom:20px; color:var(--green); }
-        .why-card h3 { margin-bottom:8px; }
-        .why-card p { color:var(--text-secondary); }
+        .why-card:hover { border-color: var(--green); transform: translateY(-4px); }
+        .why-icon { font-size: 3rem; margin-bottom: 20px; color: var(--green); }
+        .why-card h3 { margin-bottom: 8px; }
+        .why-card p { color: var(--text-secondary); }
 
         /* ---------- PLATFORM FEATURES ---------- */
-        .platform {
-            padding:80px 24px; background:var(--bg-secondary);
-        }
+        .platform { padding: 80px 24px; background: var(--bg-secondary); }
         .feature-row {
-            max-width:1000px; margin:0 auto 60px;
-            display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+            max-width: 1000px; margin: 0 auto 60px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
         }
-        .feature-row.reverse { direction:rtl; }
-        .feature-row.reverse > * { direction:ltr; }
-        .feature-text h2 { font-size:2rem; margin-bottom:12px; }
-        .feature-text p { color:var(--text-secondary); line-height:1.7; }
+        .feature-row.reverse { direction: rtl; }
+        .feature-row.reverse > * { direction: ltr; }
+        .feature-text h2 { font-size: 2rem; margin-bottom: 12px; }
+        .feature-text p { color: var(--text-secondary); line-height: 1.7; }
         .feature-image {
-            background:var(--bg); border:2px solid var(--border);
-            border-radius:var(--radius); padding:24px;
-            display:flex; flex-direction:column; align-items:center; gap:12px;
-            min-height:250px; justify-content:center;
+            background: var(--bg); border: 2px solid var(--border);
+            border-radius: var(--radius); padding: 24px;
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            min-height: 250px; justify-content: center;
         }
 
         /* ---------- PRICING ---------- */
-        .pricing {
-            padding:100px 24px; max-width:1140px; margin:0 auto;
-        }
+        .pricing { padding: 100px 24px; max-width: 1140px; margin: 0 auto; }
         .pricing-grid {
-            display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
-            gap:24px; margin-top:48px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px; margin-top: 48px;
         }
         .pricing-card {
-            background:var(--bg); border:2px solid var(--border);
-            border-radius:var(--radius); padding:32px 24px; text-align:center;
-            transition:all 0.3s; display:flex; flex-direction:column; justify-content:space-between;
+            background: var(--bg); border: 2px solid var(--border);
+            border-radius: var(--radius); padding: 32px 24px; text-align: center;
+            transition: all 0.3s; display: flex; flex-direction: column; height: 100%;
         }
-        .pricing-card.featured { border-color:var(--green); box-shadow:0 8px 20px rgba(0,0,0,0.1); transform:scale(1.02); }
-        .pricing-name { font-size:1.5rem; font-weight:800; margin-bottom:8px; }
-        .pricing-price { font-size:2.5rem; font-weight:900; color:var(--green); margin-bottom:16px; }
+        .pricing-card.featured { border-color: var(--green); box-shadow: 0 8px 20px rgba(0,0,0,0.1); transform: scale(1.02); }
+        .pricing-name { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+        .pricing-price { font-size: 2.5rem; font-weight: 900; color: var(--green); margin-bottom: 16px; }
         .pricing-features {
-            list-style:none; margin-bottom:24px; text-align:left; padding:0 12px;
+            list-style: none; margin-bottom: 24px; text-align: left; padding: 0 12px; flex-grow: 1;
         }
-        .pricing-features li { margin-bottom:8px; color:var(--text-secondary); display:flex; align-items:center; gap:8px; }
-        .pricing-features li iconify-icon { color:var(--green); }
-        .pricing-features li .strikethrough { text-decoration: line-through; color: #ccc; }
-        .btn-pricing { width:100%; justify-content:center; margin-top:auto; }
+        .pricing-features li {
+            margin-bottom: 8px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;
+        }
+        .pricing-features li iconify-icon { color: var(--green); }
+        .pricing-features li .strikethrough {
+            text-decoration: line-through; color: #ccc; opacity: 0.7;
+        }
+        .btn-pricing { width: 100%; justify-content: center; margin-top: auto; }
 
         /* ---------- FOOTER ---------- */
         .footer {
-            background:#2B2B2B; color:white; padding:60px 24px 32px;
+            background: #2B2B2B; color: white; padding: 60px 24px 32px;
         }
         .footer-container {
-            max-width:1140px; margin:0 auto; display:grid;
-            grid-template-columns:2fr 1fr 1fr 1fr; gap:48px;
+            max-width: 1140px; margin: 0 auto; display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
         }
-        .footer-brand { font-size:1.5rem; font-weight:800; margin-bottom:16px; }
-        .footer-brand span { color:var(--green); }
-        .footer-description {
-            color:#AFAFAF; line-height:1.6; margin-bottom:24px; font-size:0.95rem;
-        }
-        .footer-title {
-            font-weight:800; margin-bottom:20px; font-size:1rem;
-            text-transform:uppercase; letter-spacing:1px;
-        }
-        .footer-links { list-style:none; display:flex; flex-direction:column; gap:12px; }
-        .footer-links a {
-            color:#AFAFAF; text-decoration:none; transition:color 0.2s; font-size:0.9rem;
-        }
-        .footer-links a:hover { color:white; }
+        .footer-brand { font-size: 1.5rem; font-weight: 800; margin-bottom: 16px; }
+        .footer-brand span { color: var(--green); }
+        .footer-description { color: #AFAFAF; line-height: 1.6; margin-bottom: 24px; font-size: 0.95rem; }
+        .footer-title { font-weight: 800; margin-bottom: 20px; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .footer-links a { color: #AFAFAF; text-decoration: none; transition: color 0.2s; font-size: 0.9rem; }
+        .footer-links a:hover { color: white; }
         .footer-bottom {
-            max-width:1140px; margin:48px auto 0; padding-top:24px;
-            border-top:1px solid rgba(255,255,255,0.1); text-align:center;
-            color:#AFAFAF; font-size:0.9rem;
+            max-width: 1140px; margin: 48px auto 0; padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1); text-align: center;
+            color: #AFAFAF; font-size: 0.9rem;
         }
 
         /* ---------- RESPONSIVE ---------- */
-        @media (max-width:768px) {
-            .nav-links { display:none; }
-            .hero { grid-template-columns:1fr; text-align:center; min-height:auto; padding:100px 24px 60px; }
-            .hero-rating { justify-content:center; }
-            .code-mock { width:260px; height:300px; }
-            .floating-card { display:none; }
-            .feature-row { grid-template-columns:1fr; gap:24px; }
-            .demo-editor { grid-template-columns:1fr; }
-            .footer-container { grid-template-columns:1fr; gap:32px; }
-            .stats { grid-template-columns:repeat(2,1fr); }
-            .pricing-grid { grid-template-columns:1fr; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { grid-template-columns: 1fr; text-align: center; min-height: auto; padding: 100px 24px 60px; }
+            .hero-rating { justify-content: center; }
+            .code-editor-mock { width: 100%; max-width: 320px; margin: 0 auto; }
+            .floating-card { display: none; }
+            .feature-row { grid-template-columns: 1fr; gap: 24px; }
+            .demo-editor { grid-template-columns: 1fr; }
+            .footer-container { grid-template-columns: 1fr; gap: 32px; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; }
         }
     </style>
 </head>
@@ -370,12 +462,21 @@
             </div>
         </div>
         <div class="hero-visual">
-            <div class="code-mock">
-                <div class="line"></div>
-                <div class="line short"></div>
-                <div class="line green"></div>
-                <div class="line"></div>
-                <div class="line short"></div>
+            <div class="code-editor-mock">
+                <div class="editor-header">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                    <span class="file-name">main.py</span>
+                </div>
+                <div class="editor-body">
+                    <div class="line-numbers" id="lineNumbers"></div>
+                    <div class="code-content" id="codeContent"></div>
+                </div>
+                <div class="terminal">
+                    <div class="terminal-header">Output</div>
+                    <div class="terminal-content" id="terminalContent"></div>
+                </div>
             </div>
             <div class="floating-card card-xp">
                 <iconify-icon icon="pixelarticons:coin" style="color: var(--gold);"></iconify-icon> +500 XP
@@ -465,7 +566,7 @@
         </div>
     </section>
 
-    <!-- Platform Features -->
+    <!-- Platform Features (alternating rows) -->
     <section class="platform" id="features">
         <div class="feature-row">
             <div class="feature-text">
@@ -543,16 +644,17 @@
         </div>
     </section>
 
-    <!-- Featured Courses -->
-    <section id="courses" style="padding:100px 24px; background:var(--bg-secondary);">
-        <div style="max-width:1140px; margin:0 auto;">
-            <h2 style="text-align:center;">Explore our popular courses</h2>
-            <p style="text-align:center; color:var(--text-secondary); margin-bottom:40px;">Start learning today with our free, interactive curriculum</p>
-            <div id="coursesGrid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:24px;">
-                <div style="background:var(--bg); border:2px solid var(--border); border-radius:var(--radius); padding:24px; text-align:center;">
-                    <iconify-icon icon="pixelarticons:code" style="font-size:2rem; color:var(--green); margin-bottom:16px;"></iconify-icon>
-                    <div style="font-size:1.2rem; font-weight:700;">Loading…</div>
-                    <div style="color:var(--text-secondary);">Fetching courses…</div>
+    <!-- Featured Courses (loaded from Firebase) -->
+    <section id="courses" style="padding: 100px 24px; background: var(--bg-secondary);">
+        <div style="max-width: 1140px; margin: 0 auto;">
+            <h2 style="text-align: center;">Explore our popular courses</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px;">Start learning today with our free, interactive curriculum</p>
+            <div id="coursesGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px;">
+                <!-- Loading placeholder -->
+                <div style="background: var(--bg); border: 2px solid var(--border); border-radius: var(--radius); padding: 24px; text-align: center;">
+                    <iconify-icon icon="pixelarticons:code" style="font-size: 2rem; color: var(--green); margin-bottom: 16px;"></iconify-icon>
+                    <div style="font-size: 1.2rem; font-weight: 700;">Loading…</div>
+                    <div style="color: var(--text-secondary);">Fetching courses…</div>
                 </div>
             </div>
         </div>
@@ -594,7 +696,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Akademia. All rights reserved.</p>
+            <p>&copy; 2026 Akademia. All rights reserved. Made with ❤️ for learners everywhere.</p>
         </div>
     </footer>
 
@@ -690,6 +792,118 @@
                 if (target) target.scrollIntoView({ behavior: 'smooth' });
             });
         });
+
+        // ======== HERO CODE ANIMATION LOOP ========
+        const codeLines = [
+            { text: 'import random', type: 'keyword' },
+            { text: '', type: 'empty' },
+            { text: '# Define a list of spells', type: 'comment' },
+            { text: 'spells = ["fireball", "heal",', type: 'normal' },
+            { text: '          "teleport", "shield"]', type: 'normal' },
+            { text: '', type: 'empty' },
+            { text: 'def cast_spell(magic_level):', type: 'keyword' },
+            { text: '    if magic_level > 5:', type: 'keyword' },
+            { text: '        chosen = random.choice(spells)', type: 'normal' },
+            { text: '        print(f"You cast {chosen}!")', type: 'function' },
+            { text: '        return chosen', type: 'keyword' },
+            { text: '    else:', type: 'keyword' },
+            { text: '        print("Not enough magic.")', type: 'function' },
+            { text: '', type: 'empty' },
+            { text: 'cast_spell(7)', type: 'function' },
+        ];
+
+        const terminalOutput = [
+            'You cast fireball!',
+            'You cast teleport!',
+            'You cast shield!',
+            'You cast heal!',
+            'You cast fireball!',
+        ];
+
+        let codeIndex = 0;
+        let charIndex = 0;
+        let currentLine = '';
+        let isTyping = true;
+        let terminalTimeout;
+
+        function updateCodeDisplay() {
+            const lineNumbersEl = document.getElementById('lineNumbers');
+            const codeContentEl = document.getElementById('codeContent');
+            
+            if (codeIndex === 0 && charIndex === 0) {
+                lineNumbersEl.innerHTML = '';
+                codeContentEl.innerHTML = '';
+            }
+            
+            if (isTyping && codeIndex < codeLines.length) {
+                const line = codeLines[codeIndex];
+                if (line.type === 'empty') {
+                    codeContentEl.innerHTML += '<br>';
+                    lineNumbersEl.innerHTML += '<br>';
+                    codeIndex++;
+                    charIndex = 0;
+                } else {
+                    if (charIndex === 0) {
+                        lineNumbersEl.innerHTML += `${codeIndex + 1}<br>`;
+                        currentLine = '';
+                    }
+                    if (charIndex < line.text.length) {
+                        currentLine += line.text[charIndex];
+                        const lines = codeContentEl.innerHTML.split('<br>');
+                        lines[lines.length - 1] = highlightLine(currentLine, line.type);
+                        codeContentEl.innerHTML = lines.join('<br>');
+                        charIndex++;
+                    } else {
+                        codeContentEl.innerHTML += '<br>';
+                        codeIndex++;
+                        charIndex = 0;
+                    }
+                }
+            } else if (!isTyping && codeIndex >= codeLines.length) {
+                const terminalEl = document.getElementById('terminalContent');
+                const randomOutput = terminalOutput[Math.floor(Math.random() * terminalOutput.length)];
+                terminalEl.textContent = `> python main.py\n${randomOutput}`;
+                clearTimeout(terminalTimeout);
+                terminalTimeout = setTimeout(() => {
+                    codeIndex = 0;
+                    charIndex = 0;
+                    isTyping = true;
+                    document.getElementById('lineNumbers').innerHTML = '';
+                    document.getElementById('codeContent').innerHTML = '';
+                    document.getElementById('terminalContent').textContent = '';
+                    updateCodeDisplay(); // restart loop
+                }, 2500);
+                return;
+            }
+            
+            const delay = isTyping ? (Math.random() * 60 + 30) : 1500;
+            if (codeIndex < codeLines.length || isTyping) {
+                setTimeout(updateCodeDisplay, delay);
+            } else if (isTyping) {
+                isTyping = false;
+                setTimeout(updateCodeDisplay, 800);
+            }
+        }
+
+        function highlightLine(text, type) {
+            let result = text;
+            const keywords = ['import', 'def', 'if', 'else', 'return', 'random', 'choice', 'and', 'or'];
+            keywords.forEach(kw => {
+                const regex = new RegExp(`\\b${kw}\\b`, 'g');
+                result = result.replace(regex, `<span class="keyword">${kw}</span>`);
+            });
+            result = result.replace(/("[^"]*")/g, '<span class="string">$1</span>');
+            result = result.replace(/('[^']*')/g, '<span class="string">$1</span>');
+            if (result.trim().startsWith('#')) {
+                result = `<span class="comment">${result}</span>`;
+            }
+            result = result.replace(/\b(print)\b/g, '<span class="function">$1</span>');
+            result = result.replace(/\b(range|len|int|str|float)\b/g, '<span class="function">$1</span>');
+            return result;
+        }
+
+        setTimeout(updateCodeDisplay, 1000);
+        // End hero animation
     </script>
 </body>
 </html>
