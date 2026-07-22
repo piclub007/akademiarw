@@ -6,7 +6,7 @@
   <title>Lesson · Akademia</title>
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
-  <!-- Only BlockBlueprint via CDN (stable) – fallback to system monospace for body -->
+  <!-- Fonts (system fallback if slow) -->
   <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
   <style>
     @font-face {
@@ -14,6 +14,11 @@
       src: local('BlockBlueprint'), local('BlockBlueprint');
       font-display: swap;
     }
+    /* Body uses monospace system fonts */
+    body {
+      font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
+    }
+    h1,h2,h3,h4 { font-family: 'BlockBlueprint', 'Segoe UI', sans-serif; letter-spacing: -0.3px; }
   </style>
 
   <!-- Icons -->
@@ -36,7 +41,6 @@
     * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
-      font-family: 'Courier New', 'Consolas', 'Monaco', monospace; /* fallback */
       background: var(--bg-secondary);
       color: var(--text);
       height: 100vh;
@@ -44,8 +48,6 @@
       display: flex;
       flex-direction: column;
     }
-
-    h1, h2, h3 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
 
     /* Top bar */
     .topbar {
@@ -75,14 +77,62 @@
       text-decoration: none;
     }
 
-    /* Main layout */
+    /* Main layout (three columns) */
     .main-layout {
       flex: 1;
       display: flex;
       overflow: hidden;
     }
 
-    /* Center – lesson content */
+    /* Left sidebar (navigation + lesson info) */
+    .left-panel {
+      width: 260px;
+      background: var(--bg);
+      border-right: 1px solid var(--border);
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+    .lesson-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .nav-btn:hover { background: #ebf7e6; border-color: var(--green); }
+    .nav-btn:disabled { opacity:0.5; cursor:not-allowed; }
+    .lesson-details {
+      background: var(--bg-secondary);
+      border-radius: var(--radius);
+      padding: 14px;
+      border: 1px solid var(--border);
+    }
+    .lesson-details h3 {
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Center content */
     .lesson-content {
       flex: 1;
       overflow-y: auto;
@@ -92,27 +142,13 @@
     .lesson-header {
       margin-bottom: 24px;
     }
-    .lesson-header h1 {
-      font-size: 2rem;
-      margin-bottom: 4px;
-    }
-    .lesson-header p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
+    .lesson-header h1 { font-size: 2rem; margin-bottom: 4px; }
+    .lesson-header p { color: var(--text-secondary); font-size:0.9rem; }
 
     /* Block styles */
-    .block {
-      margin-bottom: 24px;
-    }
-    .block h3 {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-    }
-    .block p {
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
+    .block { margin-bottom: 24px; }
+    .block h3 { font-size:1.2rem; margin-bottom:8px; }
+    .block p { color:var(--text-secondary); line-height:1.6; }
     pre {
       background: #1e1e1e;
       color: #d4d4d4;
@@ -123,82 +159,56 @@
     .hint, .tip, .warning {
       padding: 12px 16px;
       border-radius: 8px;
-      margin-bottom: 12px;
+      margin-bottom:12px;
     }
-    .hint { background: #FFF9E6; border: 1px solid #FFD700; }
-    .tip { background: #E6F7FF; border: 1px solid #91D5FF; }
-    .warning { background: #FFF1F0; border: 1px solid #FFA39E; }
+    .hint { background:#FFF9E6; border:1px solid #FFD700; }
+    .tip { background:#E6F7FF; border:1px solid #91D5FF; }
+    .warning { background:#FFF1F0; border:1px solid #FFA39E; }
 
     .quiz-block {
       border: 2px solid var(--border);
       border-radius: var(--radius);
       padding: 20px;
-      margin-bottom: 16px;
+      margin-bottom:16px;
       background: var(--bg-secondary);
     }
-    .question {
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
+    .question { font-weight:700; margin-bottom:12px; }
     .option {
-      padding: 10px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
+      padding:10px; border:1px solid var(--border); border-radius:8px;
+      margin-bottom:8px; cursor:pointer; transition:all 0.2s;
     }
-    .option:hover { background: var(--bg); }
-    .option.selected { border-color: var(--green); background: #F0FDE0; }
-    .option.correct { border-color: var(--green); background: #E8F8E8; }
-    .option.wrong { border-color: var(--error); background: #FFE6E6; }
+    .option:hover { background:var(--bg); }
+    .option.selected { border-color:var(--green); background:#F0FDE0; }
+    .option.correct { border-color:var(--green); background:#E8F8E8; }
+    .option.wrong { border-color:var(--error); background:#FFE6E6; }
 
     .fill-blank input {
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-family: inherit;
-      font-size: 0.9rem;
+      padding:8px 12px; border:1px solid var(--border); border-radius:6px;
+      font-family:inherit; font-size:0.9rem; margin:4px;
     }
-    .fill-blank input.correct-input { border-color: var(--green); }
-    .fill-blank input.wrong-input { border-color: var(--error); }
+    .fill-blank input.correct-input { border-color:var(--green); }
+    .fill-blank input.wrong-input { border-color:var(--error); }
 
     .complete-btn {
       display: block;
       width: 100%;
       margin-top: 32px;
-      font-family: inherit;
+      font-family:inherit;
     }
 
     .btn {
-      padding: 12px 24px;
-      border: none;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      font-family: inherit;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.2s;
-      background: var(--green);
-      color: white;
-      box-shadow: 0 4px 0 var(--green-hover);
+      padding:12px 24px; border:none; border-radius:14px; font-weight:700;
+      font-size:0.9rem; cursor:pointer; font-family:inherit;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      transition:all 0.2s; background:var(--green); color:white;
+      box-shadow:0 4px 0 var(--green-hover);
     }
-    .btn:hover {
-      background: var(--green-hover);
-      transform: translateY(-1px);
-    }
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+    .btn:hover { background:var(--green-hover); transform:translateY(-1px); }
+    .btn:disabled { opacity:0.6; cursor:not-allowed; }
 
-    /* Right panel (learner stats) */
+    /* Right panel */
     .right-panel {
-      width: 280px;
+      width: 300px;
       background: var(--bg);
       border-left: 1px solid var(--border);
       padding: 20px 16px;
@@ -207,23 +217,25 @@
       gap: 16px;
       overflow-y: auto;
     }
-    .stats-card {
+    .card {
       background: var(--bg-secondary);
       border-radius: var(--radius);
       padding: 16px;
       border: 1px solid var(--border);
     }
-    .stats-card h3 {
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .card h3 {
+      font-size:0.9rem; margin-bottom:12px; color:var(--text-secondary);
+      text-transform:uppercase; letter-spacing:1px;
     }
-    .big-number {
-      font-size: 2rem;
-      font-weight: 800;
-      font-family: 'BlockBlueprint', sans-serif;
+    .big-number { font-size:2rem; font-weight:800; font-family:'BlockBlueprint', sans-serif; }
+    .ai-placeholder {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      padding: 8px;
+      border-radius: 8px;
+      background: #f0f0f0;
     }
   </style>
 </head>
@@ -239,7 +251,23 @@
   </div>
 
   <div class="main-layout">
-    <!-- Main lesson content -->
+    <!-- Left panel: navigation + lesson details -->
+    <aside class="left-panel" id="leftPanel">
+      <div class="lesson-nav" id="lessonNav">
+        <button class="nav-btn" id="prevLessonBtn" disabled>
+          <iconify-icon icon="pixelarticons:chevron-left"></iconify-icon> Previous
+        </button>
+        <button class="nav-btn" id="nextLessonBtn" disabled>
+          Next <iconify-icon icon="pixelarticons:chevron-right"></iconify-icon>
+        </button>
+      </div>
+      <div class="lesson-details" id="lessonDetailsCard">
+        <h3>Lesson Info</h3>
+        <div id="lessonDetails"></div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
     <main class="lesson-content" id="lessonContent">
       <div class="lesson-header">
         <h1 id="lessonTitle">Lesson Title</h1>
@@ -251,16 +279,32 @@
       </button>
     </main>
 
-    <!-- Right panel: learner stats -->
+    <!-- Right panel: AI companion + practice + stats -->
     <aside class="right-panel" id="rightPanel">
-      <!-- filled by JS -->
+      <div class="card">
+        <h3>AI Companion</h3>
+        <div class="ai-placeholder">
+          <iconify-icon icon="pixelarticons:bot"></iconify-icon>
+          <span>Ask AI (coming soon)</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Practice Exercise</h3>
+        <button class="btn" id="practiceBtn" style="width:100%;">
+          <iconify-icon icon="pixelarticons:run"></iconify-icon> Start Practice
+        </button>
+      </div>
+      <div class="card" id="progressCard">
+        <h3>Your Progress</h3>
+        <div id="progressContent"></div>
+      </div>
     </aside>
   </div>
 
   <script type="module">
     import { auth, db } from '../src/js/firebase-config.js';
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-    import { doc, getDoc, updateDoc, arrayUnion, increment } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+    import { doc, getDoc, collection, getDocs, query, orderBy, updateDoc, arrayUnion, increment } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
     // URL params
     const params = new URLSearchParams(window.location.search);
@@ -270,15 +314,16 @@
 
     if (!courseId || !moduleId || !lessonId) {
       document.getElementById('lessonContent').innerHTML = '<p>Missing lesson parameters.</p>';
-      throw new Error('Missing courseId, moduleId, or lessonId');
+      throw new Error('Missing parameters');
     }
 
     let currentUser = null;
     let userData = { completedLessons: [], sparks: 0 };
     let lessonData = null;
-    let allBlocksCorrect = false; // track if all interactive questions are answered correctly
+    let allLessonsInModule = []; // For navigation
+    let currentLessonIndex = -1;
 
-    // Fetch user data
+    // Load user data
     async function loadUserData(uid) {
       const userRef = doc(db, 'users', uid);
       const userDoc = await getDoc(userRef);
@@ -287,10 +332,20 @@
         userData.completedLessons = userData.completedLessons || [];
         userData.sparks = userData.sparks || 0;
       }
-      renderRightPanel();
+      updateProgressDisplay();
     }
 
-    // Load lesson from Firestore
+    // Load all lessons of the module for navigation
+    async function loadModuleLessons() {
+      const lesSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules', moduleId, 'lessons'), orderBy('createdAt')));
+      allLessonsInModule = [];
+      lesSnap.forEach(doc => allLessonsInModule.push({ id: doc.id, ...doc.data() }));
+      // Find current index
+      currentLessonIndex = allLessonsInModule.findIndex(l => l.id === lessonId);
+      updateNavigationButtons();
+    }
+
+    // Load the current lesson
     async function loadLesson() {
       const lessonRef = doc(db, 'courses', courseId, 'modules', moduleId, 'lessons', lessonId);
       const snap = await getDoc(lessonRef);
@@ -301,6 +356,11 @@
       lessonData = snap.data();
       document.getElementById('lessonTitle').textContent = lessonData.title || 'Untitled';
       document.getElementById('lessonType').textContent = lessonData.type || 'lesson';
+      // Show lesson details
+      document.getElementById('lessonDetails').innerHTML = `
+        <p><strong>Type:</strong> ${escapeHtml(lessonData.type || 'lesson')}</p>
+        ${lessonData.description ? `<p>${escapeHtml(lessonData.description)}</p>` : ''}
+      `;
       renderBlocks(lessonData.blocks || []);
     }
 
@@ -308,28 +368,21 @@
     function renderBlocks(blocks) {
       const container = document.getElementById('blocksContainer');
       container.innerHTML = '';
-      allBlocksCorrect = false; // reset
-
       blocks.forEach((block, index) => {
         const blockEl = document.createElement('div');
         blockEl.className = 'block';
         blockEl.innerHTML = renderBlock(block, index);
         container.appendChild(blockEl);
       });
-
-      // After rendering, attach event listeners for interactive blocks
       attachInteractiveListeners();
     }
 
     function renderBlock(block, idx) {
       const data = block.data || {};
       switch (block.type) {
-        case 'heading':
-          return `<h3>${escapeHtml(data.text || '')}</h3>`;
-        case 'paragraph':
-          return `<p>${escapeHtml(data.text || '')}</p>`;
-        case 'image':
-          return data.url ? `<img src="${data.url}" alt="Lesson image" style="max-width:100%; border-radius:8px;">` : '';
+        case 'heading': return `<h3>${escapeHtml(data.text || '')}</h3>`;
+        case 'paragraph': return `<p>${escapeHtml(data.text || '')}</p>`;
+        case 'image': return data.url ? `<img src="${data.url}" alt="Lesson image" style="max-width:100%; border-radius:8px;">` : '';
         case 'video':
           if (data.url) {
             const embed = getYouTubeEmbed(data.url);
@@ -338,24 +391,15 @@
           return '';
         case 'console':
           return `<pre><code>${escapeHtml(data.code || '')}</code></pre>${data.output ? `<p><strong>Output:</strong> ${escapeHtml(data.output)}</p>` : ''}`;
-        case 'hint':
-          return `<div class="hint">💡 ${escapeHtml(data.text || '')}</div>`;
-        case 'warning':
-          return `<div class="warning">⚠️ ${escapeHtml(data.text || '')}</div>`;
-        case 'tip':
-          return `<div class="tip">💡 ${escapeHtml(data.text || '')}</div>`;
-        case 'multiple-choice':
-          return renderMCQ(data, idx);
-        case 'fill-blank':
-          return renderFillBlank(data, idx);
-        case 'quiz':
-          return renderQuiz(data, idx);
-        case 'divider':
-          return '<hr>';
-        case 'completion':
-          return `<p style="font-weight:700; color:var(--green);">${escapeHtml(data.message || 'Lesson complete!')}</p>`;
-        default:
-          return '';
+        case 'hint': return `<div class="hint">💡 ${escapeHtml(data.text || '')}</div>`;
+        case 'warning': return `<div class="warning">⚠️ ${escapeHtml(data.text || '')}</div>`;
+        case 'tip': return `<div class="tip">💡 ${escapeHtml(data.text || '')}</div>`;
+        case 'multiple-choice': return renderMCQ(data, idx);
+        case 'fill-blank': return renderFillBlank(data, idx);
+        case 'quiz': return renderQuiz(data, idx);
+        case 'divider': return '<hr>';
+        case 'completion': return `<p style="font-weight:700; color:var(--green);">${escapeHtml(data.message || 'Lesson complete!')}</p>`;
+        default: return '';
       }
     }
 
@@ -372,9 +416,8 @@
     function renderFillBlank(data, idx) {
       const answers = data.answers || [];
       const text = data.text || '';
-      // Replace blanks with input fields
       const parts = text.split('___');
-      let html = '<div class="quiz-block fill-blank" data-block-type="fill-blank" data-block-idx="'+idx+'" data-answers=\'' + JSON.stringify(answers) + '\'>';
+      let html = `<div class="quiz-block fill-blank" data-block-type="fill-blank" data-block-idx="${idx}" data-answers='${JSON.stringify(answers)}'>`;
       parts.forEach((part, i) => {
         html += escapeHtml(part);
         if (i < parts.length - 1) {
@@ -399,29 +442,27 @@
       return html;
     }
 
-    // Attach listeners for MCQ, quiz options
+    // Attach interactive listeners and re-evaluate completion
     function attachInteractiveListeners() {
       // MCQ
       document.querySelectorAll('.quiz-block[data-block-type="mcq"]').forEach(block => {
         const correct = parseInt(block.dataset.correct);
         block.querySelectorAll('.option').forEach(opt => {
           opt.addEventListener('click', () => {
-            // Prevent multiple selections
             if (block.querySelector('.option.selected')) return;
             const chosen = parseInt(opt.dataset.option);
             block.querySelectorAll('.option').forEach(o => o.classList.remove('selected', 'correct', 'wrong'));
-            if (chosen === correct) {
-              opt.classList.add('correct');
-            } else {
+            if (chosen === correct) opt.classList.add('correct');
+            else {
               opt.classList.add('wrong');
               block.querySelector(`.option[data-option="${correct}"]`).classList.add('correct');
             }
-            checkAllBlocksCorrect();
+            checkCompletion();
           });
         });
       });
 
-      // Quiz items (individual questions)
+      // Quiz items
       document.querySelectorAll('.quiz-item').forEach(item => {
         const correct = parseInt(item.dataset.correct);
         item.querySelectorAll('.option').forEach(opt => {
@@ -429,23 +470,21 @@
             if (item.querySelector('.option.selected')) return;
             const chosen = parseInt(opt.dataset.option);
             item.querySelectorAll('.option').forEach(o => o.classList.remove('selected', 'correct', 'wrong'));
-            if (chosen === correct) {
-              opt.classList.add('correct');
-            } else {
+            if (chosen === correct) opt.classList.add('correct');
+            else {
               opt.classList.add('wrong');
               item.querySelector(`.option[data-option="${correct}"]`).classList.add('correct');
             }
-            checkAllBlocksCorrect();
+            checkCompletion();
           });
         });
       });
 
-      // Fill-blank check is handled by inline function, but we still need to re-evaluate completion status after check
+      // Fill-blank check function
       window.checkFillBlanks = function(btn) {
         const container = btn.closest('.fill-blank');
         const answers = JSON.parse(container.dataset.answers);
         const inputs = container.querySelectorAll('input');
-        let allCorrect = true;
         inputs.forEach((input, i) => {
           if (input.value.trim().toLowerCase() === answers[i].toLowerCase()) {
             input.classList.add('correct-input');
@@ -453,69 +492,55 @@
           } else {
             input.classList.add('wrong-input');
             input.classList.remove('correct-input');
-            allCorrect = false;
           }
         });
-        // After checking, re-evaluate overall completion
-        checkAllBlocksCorrect();
+        checkCompletion();
       };
 
-      // Initial check
-      checkAllBlocksCorrect();
+      checkCompletion();
     }
 
-    function checkAllBlocksCorrect() {
-      // Check all MCQ blocks
-      const mcqBlocks = document.querySelectorAll('.quiz-block[data-block-type="mcq"]');
-      let allCorrect = mcqBlocks.length > 0;
-      mcqBlocks.forEach(block => {
-        const correctOpt = block.querySelector('.option.correct');
-        if (!correctOpt) allCorrect = false;
+    function checkCompletion() {
+      let allCorrect = true;
+      // MCQ
+      document.querySelectorAll('.quiz-block[data-block-type="mcq"]').forEach(block => {
+        if (!block.querySelector('.option.correct')) allCorrect = false;
       });
-
-      // Check quiz items
-      const quizItems = document.querySelectorAll('.quiz-item');
-      quizItems.forEach(item => {
-        const correctOpt = item.querySelector('.option.correct');
-        if (!correctOpt) allCorrect = false;
+      // Quiz items
+      document.querySelectorAll('.quiz-item').forEach(item => {
+        if (!item.querySelector('.option.correct')) allCorrect = false;
       });
-
-      // Check fill-blank blocks
-      const fillBlocks = document.querySelectorAll('.fill-blank');
-      fillBlocks.forEach(block => {
-        const inputs = block.querySelectorAll('input');
+      // Fill-blank
+      document.querySelectorAll('.fill-blank').forEach(block => {
         const answers = JSON.parse(block.dataset.answers);
+        const inputs = block.querySelectorAll('input');
         inputs.forEach((input, i) => {
-          if (input.value.trim().toLowerCase() !== answers[i].toLowerCase()) {
-            allCorrect = false;
-          }
+          if (input.value.trim().toLowerCase() !== answers[i].toLowerCase()) allCorrect = false;
         });
       });
 
-      // Enable complete button only if all interactive blocks are answered correctly
       const completeBtn = document.getElementById('completeLessonBtn');
-      if (allCorrect && (mcqBlocks.length > 0 || quizItems.length > 0 || fillBlocks.length > 0)) {
+      if (allCorrect && (document.querySelectorAll('.quiz-block, .quiz-item, .fill-blank').length > 0)) {
         completeBtn.disabled = false;
       } else {
         completeBtn.disabled = true;
       }
     }
 
-    // Completion button handler
+    // Mark as complete
     document.getElementById('completeLessonBtn').addEventListener('click', async () => {
       if (!currentUser) return;
       const userRef = doc(db, 'users', currentUser.uid);
       try {
         await updateDoc(userRef, {
           completedLessons: arrayUnion(lessonId),
-          sparks: increment(50) // default spark reward
+          sparks: increment(50)
         });
-        // Update local data
         userData.completedLessons.push(lessonId);
         userData.sparks += 50;
-        renderRightPanel();
+        updateProgressDisplay();
         alert('Lesson completed! +50 Sparks');
-        // Optionally redirect back to course
+        // Redirect back to course page
         setTimeout(() => {
           window.location.href = `course.html?courseId=${courseId}&moduleId=${moduleId}`;
         }, 1500);
@@ -525,22 +550,44 @@
       }
     });
 
-    // Update right panel
-    function renderRightPanel() {
-      const right = document.getElementById('rightPanel');
-      if (!right) return;
+    // Practice button
+    document.getElementById('practiceBtn').addEventListener('click', () => {
+      // Collect all question blocks and navigate to exercise page
+      window.location.href = `exercise.html?courseId=${courseId}&moduleId=${moduleId}&lessonId=${lessonId}`;
+    });
+
+    // Navigation buttons
+    function updateNavigationButtons() {
+      const prevBtn = document.getElementById('prevLessonBtn');
+      const nextBtn = document.getElementById('nextLessonBtn');
+      if (currentLessonIndex > 0) {
+        prevBtn.disabled = false;
+        const prev = allLessonsInModule[currentLessonIndex - 1];
+        prevBtn.onclick = () => {
+          window.location.href = `lesson.html?courseId=${courseId}&moduleId=${moduleId}&lessonId=${prev.id}`;
+        };
+      } else {
+        prevBtn.disabled = true;
+      }
+      if (currentLessonIndex < allLessonsInModule.length - 1) {
+        nextBtn.disabled = false;
+        const next = allLessonsInModule[currentLessonIndex + 1];
+        nextBtn.onclick = () => {
+          window.location.href = `lesson.html?courseId=${courseId}&moduleId=${moduleId}&lessonId=${next.id}`;
+        };
+      } else {
+        nextBtn.disabled = true;
+      }
+    }
+
+    // Update progress display
+    function updateProgressDisplay() {
       const completedCount = (userData.completedLessons && userData.completedLessons.length) || 0;
-      right.innerHTML = `
-        <div class="stats-card">
-          <h3>Your Progress</h3>
-          <div class="big-number">${completedCount}</div>
-          <small>lessons completed</small>
-        </div>
-        <div class="stats-card">
-          <h3>Total Sparks</h3>
-          <div class="big-number">${userData.sparks || 0}</div>
-          <small>earned</small>
-        </div>
+      document.getElementById('progressContent').innerHTML = `
+        <div class="big-number">${completedCount}</div>
+        <small>lessons completed</small>
+        <div class="big-number" style="margin-top:12px;">${userData.sparks || 0}</div>
+        <small>sparks earned</small>
       `;
     }
 
@@ -558,7 +605,7 @@
       return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
-    // Auth state observer
+    // Auth & init
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
         window.location.href = 'login.html';
@@ -566,6 +613,7 @@
       }
       currentUser = user;
       await loadUserData(user.uid);
+      await loadModuleLessons();
       await loadLesson();
     });
   </script>
