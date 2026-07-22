@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson · Akademia</title>
+    <title>Choose Your Path · Akademia</title>
     <meta name="robots" content="noindex">
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
@@ -35,7 +35,8 @@
             --text: #4B4B4B;
             --text-secondary: #777777;
             --border: #E5E5E5;
-            --radius: 12px;
+            --radius: 16px;
+            --gold: #FFC800;
         }
 
         * { margin:0; padding:0; box-sizing:border-box; }
@@ -45,6 +46,7 @@
             background: var(--bg-secondary);
             color: var(--text);
             line-height: 1.6;
+            padding-bottom: 60px;
         }
 
         h1, h2, h3 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
@@ -61,7 +63,11 @@
             top: 0;
             z-index: 100;
         }
-        .back-btn {
+        .topbar .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+        .logo-img { width:34px; height:34px; border-radius:10px; }
+        .logo-text { font-size:1.3rem; font-weight:800; color:var(--text); }
+        .logo-text span { color:var(--green); }
+        .back-link {
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 700;
@@ -72,295 +78,329 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 32px 24px;
+            padding: 40px 24px;
         }
 
-        .lesson-header {
+        .page-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+        }
+
+        /* ---------- ROADMAP STYLES ---------- */
+        .roadmap {
+            position: relative;
+            padding-left: 32px;
+        }
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--border);
+            border-radius: 2px;
+        }
+
+        .roadmap-item {
+            position: relative;
             margin-bottom: 32px;
         }
-        .lesson-header h1 {
-            font-size: 2rem;
-            margin-bottom: 4px;
-        }
-        .lesson-meta {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
 
-        .block {
-            margin-bottom: 24px;
-        }
-        .block h3 {
-            margin-bottom: 8px;
-        }
-        .block p {
-            color: var(--text-secondary);
-        }
-
-        pre {
-            background: #1E1E1E;
-            color: #D4D4D4;
-            padding: 16px;
-            border-radius: var(--radius);
-            overflow-x: auto;
-        }
-        code {
-            font-family: 'Courier New', monospace;
-        }
-
-        .hint, .tip, .warning {
-            padding: 12px 16px;
-            border-radius: var(--radius);
-            margin-bottom: 12px;
-        }
-        .hint { background: #FFF9E6; border: 1px solid #FFD700; }
-        .tip { background: #E6F7FF; border: 1px solid #91D5FF; }
-        .warning { background: #FFF1F0; border: 1px solid #FFA39E; }
-
-        .multiple-choice, .quiz {
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px;
-            background: var(--bg);
-        }
-        .option {
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            margin-bottom: 8px;
+        .roadmap-node {
+            display: flex;
+            align-items: center;
+            gap: 16px;
             cursor: pointer;
             transition: all 0.2s;
         }
-        .option:hover { background: var(--bg-secondary); }
-        .option.selected { border-color: var(--green); background: #F0FDE0; }
-        .option.correct { border-color: var(--green); background: #E8F8E8; }
-        .option.wrong { border-color: red; background: #FFE6E6; }
-
-        .fill-blank input {
-            padding: 8px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: inherit;
+        .roadmap-node:hover .node-title {
+            color: var(--green);
         }
 
-        .completion-message {
-            text-align: center;
+        .node-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 3px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .roadmap-item.expanded .node-circle {
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+        }
+        .node-circle iconify-icon {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+        .roadmap-item.expanded .node-circle iconify-icon {
+            color: white;
+        }
+
+        .node-content {
+            flex: 1;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            transition: border-color 0.2s;
+        }
+        .roadmap-item.expanded .node-content {
+            border-color: var(--green);
+        }
+        .node-title {
             font-size: 1.2rem;
             font-weight: 800;
-            color: var(--green);
-            padding: 40px;
+            font-family: 'BlockBlueprint', sans-serif;
+            margin-bottom: 4px;
+        }
+        .node-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
         }
 
-        img {
-            max-width: 100%;
-            border-radius: var(--radius);
+        .children-container {
+            margin-left: 32px;
+            margin-top: 12px;
+            display: none;
         }
-        .video-container {
+        .roadmap-item.expanded > .children-container {
+            display: block;
+        }
+
+        .sub-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
             position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: var(--radius);
         }
-        .video-container iframe {
+        .sub-item:hover {
+            border-color: var(--green);
+        }
+        .sub-item::before {
+            content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
+            left: -20px;
+            top: 50%;
+            width: 12px;
+            height: 2px;
+            background: var(--border);
         }
+        .sub-item .sub-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--bg-secondary);
+            flex-shrink: 0;
+        }
+        .sub-item .sub-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .sub-item .sub-meta {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-left: auto;
+        }
+
+        .lesson-item {
+            margin-left: 28px;
+            margin-bottom: 4px;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .lesson-item:hover {
+            background: var(--bg-secondary);
+        }
+        .lesson-item::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            flex-shrink: 0;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--text-secondary);
+        }
+        .spinner {
+            display: inline-block;
+            width: 32px; height: 32px;
+            border: 4px solid var(--border);
+            border-top-color: var(--green);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
     <div class="topbar">
-        <a href="learn.html" class="back-btn">
-            <iconify-icon icon="pixelarticons:arrow-left"></iconify-icon> Back to Courses
+        <a href="../index.html" class="logo">
+            <img src="../favicon.ico" alt="Akademia" class="logo-img">
+            <div class="logo-text">Akade<span>mia</span></div>
         </a>
-        <span style="font-weight:700; font-size:0.9rem;">Akademia</span>
+        <a href="../index.html" class="back-link">
+            <iconify-icon icon="pixelarticons:arrow-left"></iconify-icon> Home
+        </a>
     </div>
 
-    <div class="container" id="lessonContainer">
-        <div class="loading">Loading lesson...</div>
+    <div class="container">
+        <h1 class="page-title">Your Learning Path</h1>
+        <p class="page-subtitle">Choose a course, then a module, and start a lesson.</p>
+
+        <div class="roadmap" id="roadmap">
+            <div class="loading"><div class="spinner"></div><p>Loading courses…</p></div>
+        </div>
     </div>
 
     <script type="module">
         import { db } from '../src/js/firebase-config.js';
-        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+        import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-        // Get query parameters
-        const params = new URLSearchParams(window.location.search);
-        const courseId = params.get('courseId');
-        const moduleId = params.get('moduleId');
-        const lessonId = params.get('lessonId');
+        const roadmapEl = document.getElementById('roadmap');
 
-        if (!courseId || !moduleId || !lessonId) {
-            document.getElementById('lessonContainer').innerHTML = '<p>Invalid lesson link.</p>';
-            throw new Error('Missing parameters');
-        }
-
-        async function loadLesson() {
-            const container = document.getElementById('lessonContainer');
-            container.innerHTML = '<p>Loading lesson...</p>';
+        // Fetch all courses
+        async function loadRoadmap() {
+            roadmapEl.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading courses…</p></div>';
             try {
-                const lessonRef = doc(db, 'courses', courseId, 'modules', moduleId, 'lessons', lessonId);
-                const snap = await getDoc(lessonRef);
-                if (!snap.exists()) {
-                    container.innerHTML = '<p>Lesson not found.</p>';
+                const coursesSnap = await getDocs(query(collection(db, 'courses'), orderBy('createdAt')));
+                const courses = [];
+                coursesSnap.forEach(doc => courses.push({ id: doc.id, ...doc.data() }));
+
+                if (courses.length === 0) {
+                    roadmapEl.innerHTML = '<div style="text-align:center; padding:60px; color:var(--text-secondary);">No courses available yet.</div>';
                     return;
                 }
-                const lesson = snap.data();
-                renderLesson(lesson, container);
+
+                roadmapEl.innerHTML = '';
+                courses.forEach((course, idx) => {
+                    const courseItem = document.createElement('div');
+                    courseItem.className = 'roadmap-item';
+                    courseItem.innerHTML = `
+                        <div class="roadmap-node" data-course-id="${course.id}">
+                            <div class="node-circle">
+                                <iconify-icon icon="pixelarticons:folder"></iconify-icon>
+                            </div>
+                            <div class="node-content">
+                                <div class="node-title">${escapeHtml(course.title)}</div>
+                                <div class="node-desc">${escapeHtml(course.description || 'Master the fundamentals')}</div>
+                            </div>
+                        </div>
+                        <div class="children-container" id="modules-${course.id}"></div>
+                    `;
+                    roadmapEl.appendChild(courseItem);
+
+                    // Toggle expansion
+                    const node = courseItem.querySelector('.roadmap-node');
+                    node.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        courseItem.classList.toggle('expanded');
+                        const modulesContainer = document.getElementById(`modules-${course.id}`);
+                        if (courseItem.classList.contains('expanded') && modulesContainer.children.length === 0) {
+                            await loadModules(course.id, modulesContainer);
+                        }
+                    });
+                });
             } catch (error) {
-                container.innerHTML = '<p>Error loading lesson.</p>';
+                roadmapEl.innerHTML = '<p style="text-align:center; color:red;">Failed to load courses.</p>';
                 console.error(error);
             }
         }
 
-        function renderLesson(lesson, container) {
-            container.innerHTML = `
-                <div class="lesson-header">
-                    <h1>${escapeHtml(lesson.title || 'Untitled')}</h1>
-                    <div class="lesson-meta">${lesson.blocks ? lesson.blocks.length + ' blocks' : ''}</div>
-                </div>
-                <div id="blocksContainer"></div>
-            `;
+        async function loadModules(courseId, container) {
+            container.innerHTML = '<div style="padding:10px; color:var(--text-secondary);">Loading modules…</div>';
+            try {
+                const modulesSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules'), orderBy('createdAt')));
+                container.innerHTML = '';
+                modulesSnap.forEach(modDoc => {
+                    const mod = { id: modDoc.id, ...modDoc.data() };
+                    const modDiv = document.createElement('div');
+                    modDiv.className = 'sub-item';
+                    modDiv.innerHTML = `
+                        <div class="sub-circle"></div>
+                        <span class="sub-title">${escapeHtml(mod.title)}</span>
+                        <span class="sub-meta">Module</span>
+                    `;
+                    container.appendChild(modDiv);
 
-            const blocksContainer = document.getElementById('blocksContainer');
-            if (lesson.blocks && lesson.blocks.length > 0) {
-                lesson.blocks.forEach((block, index) => {
-                    const blockEl = document.createElement('div');
-                    blockEl.className = 'block';
-                    blockEl.innerHTML = renderBlock(block, index);
-                    blocksContainer.appendChild(blockEl);
-                });
-            } else {
-                blocksContainer.innerHTML = '<p>No content in this lesson yet.</p>';
-            }
-        }
+                    const lessonsDiv = document.createElement('div');
+                    lessonsDiv.className = 'children-container';
+                    lessonsDiv.id = `lessons-${mod.id}`;
+                    container.appendChild(lessonsDiv);
 
-        function renderBlock(block, index) {
-            const data = block.data || {};
-            switch (block.type) {
-                case 'heading':
-                    return `<h2>${escapeHtml(data.text || '')}</h2>`;
-                case 'paragraph':
-                    return `<div>${data.html || escapeHtml(data.text || '')}</div>`;
-                case 'image':
-                    return data.url ? `<img src="${data.url}" alt="Lesson image">` : '';
-                case 'video':
-                    if (data.url) {
-                        const videoId = getYouTubeId(data.url);
-                        if (videoId) {
-                            return `<div class="video-container"><iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe></div>`;
+                    modDiv.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        // Toggle lessons visibility
+                        if (lessonsDiv.style.display === 'block') {
+                            lessonsDiv.style.display = 'none';
                         } else {
-                            return `<p><a href="${data.url}" target="_blank">Watch video</a></p>`;
+                            if (lessonsDiv.children.length === 0) {
+                                await loadLessons(courseId, mod.id, lessonsDiv);
+                            }
+                            lessonsDiv.style.display = 'block';
                         }
-                    }
-                    return '';
-                case 'console':
-                    return `<pre><code>${escapeHtml(data.code || '')}</code></pre>${data.output ? `<p><strong>Output:</strong> ${escapeHtml(data.output)}</p>` : ''}`;
-                case 'hint':
-                    return `<div class="hint">💡 ${escapeHtml(data.text || '')}</div>`;
-                case 'warning':
-                    return `<div class="warning">⚠️ ${escapeHtml(data.text || '')}</div>`;
-                case 'tip':
-                    return `<div class="tip">💡 ${escapeHtml(data.text || '')}</div>`;
-                case 'multiple-choice':
-                    return renderMCQ(data, index);
-                case 'quiz':
-                    return renderQuiz(data, index);
-                case 'fill-blank':
-                    return renderFillBlank(data, index);
-                case 'divider':
-                    return '<hr>';
-                case 'completion':
-                    return `<div class="completion-message">🎉 ${escapeHtml(data.message || 'Lesson completed!')}</div>`;
-                default:
-                    return '';
-            }
-        }
-
-        // Helper functions for interactive question types
-        function renderMCQ(data, blockIdx) {
-            const options = data.options || [];
-            const correct = data.correct;
-            let html = `<div class="multiple-choice"><h3>${escapeHtml(data.question || '')}</h3>`;
-            options.forEach((opt, i) => {
-                html += `<div class="option" data-answer="${i}" onclick="selectMCQ(this, ${blockIdx}, ${i}, ${correct})">${escapeHtml(opt)}</div>`;
-            });
-            html += `</div>`;
-            return html;
-        }
-
-        function renderQuiz(data, blockIdx) {
-            if (!data.items) return '';
-            let html = '';
-            data.items.forEach((item, qi) => {
-                const options = item.options || [];
-                html += `<div class="quiz"><h3>Q${qi+1}: ${escapeHtml(item.question || '')}</h3>`;
-                options.forEach((opt, oi) => {
-                    html += `<div class="option" data-quiz="${qi}" data-answer="${oi}" onclick="selectQuizOption(this, ${blockIdx}, ${qi}, ${oi}, ${item.correct})">${escapeHtml(opt)}</div>`;
+                    });
                 });
-                html += `</div>`;
-            });
-            return html;
+            } catch (error) {
+                container.innerHTML = '<p style="color:red;">Error loading modules.</p>';
+            }
         }
 
-        function renderFillBlank(data, blockIdx) {
-            const text = data.text || '';
-            const answers = data.answers || [];
-            // Replace ___ with input fields
-            let html = text.replace(/___/g, '<input type="text" class="fill-blank-input" style="width:100px;">');
-            return `<div class="fill-blank" data-block="${blockIdx}" data-answers='${JSON.stringify(answers)}'><p>Fill in the blanks:</p><div>${html}</div><button onclick="checkFillBlanks(this)" style="margin-top:8px;">Check</button></div>`;
-        }
-
-        // Interactive handlers (global functions)
-        window.selectMCQ = function(el, blockIdx, chosen, correct) {
-            const parent = el.parentElement;
-            const options = parent.querySelectorAll('.option');
-            options.forEach(opt => opt.classList.remove('selected', 'correct', 'wrong'));
-            if (chosen === correct) {
-                el.classList.add('correct');
-            } else {
-                el.classList.add('wrong');
-                options[correct].classList.add('correct');
+        async function loadLessons(courseId, moduleId, container) {
+            container.innerHTML = '<div style="padding:10px; color:var(--text-secondary);">Loading lessons…</div>';
+            try {
+                const lessonsSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules', moduleId, 'lessons'), orderBy('createdAt')));
+                container.innerHTML = '';
+                lessonsSnap.forEach(lesDoc => {
+                    const les = { id: lesDoc.id, ...lesDoc.data() };
+                    const lesItem = document.createElement('div');
+                    lesItem.className = 'lesson-item';
+                    lesItem.innerHTML = `
+                        <span>${escapeHtml(les.title)}</span>
+                        <span style="margin-left:auto; font-size:0.75rem; color:var(--text-secondary);">→</span>
+                    `;
+                    lesItem.addEventListener('click', () => {
+                        window.location.href = `lesson.html?courseId=${courseId}&moduleId=${moduleId}&lessonId=${les.id}`;
+                    });
+                    container.appendChild(lesItem);
+                });
+            } catch (error) {
+                container.innerHTML = '<p style="color:red;">Error loading lessons.</p>';
             }
-        };
-
-        window.selectQuizOption = function(el, blockIdx, qi, chosen, correct) {
-            const quizContainer = el.closest('.quiz');
-            const options = quizContainer.querySelectorAll('.option');
-            options.forEach(opt => opt.classList.remove('selected', 'correct', 'wrong'));
-            if (chosen === correct) {
-                el.classList.add('correct');
-            } else {
-                el.classList.add('wrong');
-                quizContainer.querySelector(`.option[data-answer="${correct}"]`).classList.add('correct');
-            }
-        };
-
-        window.checkFillBlanks = function(btn) {
-            const container = btn.closest('.fill-blank');
-            const answers = JSON.parse(container.dataset.answers);
-            const inputs = container.querySelectorAll('input');
-            let allCorrect = true;
-            inputs.forEach((input, i) => {
-                if (input.value.trim().toLowerCase() === answers[i].toLowerCase()) {
-                    input.style.border = '2px solid green';
-                } else {
-                    input.style.border = '2px solid red';
-                    allCorrect = false;
-                }
-            });
-        };
-
-        function getYouTubeId(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
         }
 
         function escapeHtml(text) {
@@ -368,7 +408,7 @@
             return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
         }
 
-        loadLesson();
+        loadRoadmap();
     </script>
 </body>
 </html>
