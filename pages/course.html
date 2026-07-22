@@ -73,11 +73,6 @@
       align-items: center;
       gap: 12px;
     }
-    .course-title {
-      font-family: 'BlockBlueprint', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 800;
-    }
     .back-btn {
       background: none;
       border: none;
@@ -105,6 +100,20 @@
       overflow-y: auto;
       padding: 20px 16px;
       flex-shrink: 0;
+    }
+    .course-info {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .course-info h2 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .course-info p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
     }
     .module-list {
       display: flex;
@@ -295,13 +304,18 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-    .xp-progress {
+    .big-number {
+      font-size: 2rem;
+      font-weight: 800;
+      font-family: 'BlockBlueprint', sans-serif;
+    }
+    .progress-bar {
       height: 8px;
       background: #e0e0e0;
       border-radius: 4px;
       margin: 8px 0;
     }
-    .xp-fill {
+    .progress-fill {
       height: 100%;
       background: var(--green);
       border-radius: 4px;
@@ -318,7 +332,6 @@
       <a href="learn.html" class="back-btn">
         <iconify-icon icon="pixelarticons:arrow-left"></iconify-icon> Back to Courses
       </a>
-      <span class="course-title" id="headerCourseTitle"></span>
     </div>
     <div></div>
   </div>
@@ -326,6 +339,9 @@
   <div class="main-layout">
     <!-- Left sidebar: module list -->
     <aside class="sidebar-modules" id="moduleSidebar">
+      <div class="course-info" id="courseInfoCard">
+        <!-- filled by JS -->
+      </div>
       <div class="module-list" id="moduleList"></div>
     </aside>
 
@@ -339,51 +355,47 @@
     </main>
 
     <!-- Right panel: learner stats -->
-    <aside class="right-panel">
-      <div class="stats-card">
-        <h3>Your Progress</h3>
-        <div><strong>Level 7</strong></div>
-        <div class="xp-progress">
-          <div class="xp-fill" style="width:68%;"></div>
-        </div>
-        <small>2,430 / 3,500 XP</small>
-      </div>
-      <div class="stats-card">
-        <h3>Streak</h3>
-        <div style="font-size:2rem; font-weight:800; color:var(--gold);">5</div>
-        <small>days</small>
-      </div>
-      <div class="stats-card">
-        <h3>Sparks</h3>
-        <div style="font-size:2rem; font-weight:800;">240</div>
-        <small>earned</small>
-      </div>
+    <aside class="right-panel" id="rightPanel">
+      <!-- filled by JS -->
     </aside>
   </div>
 
   <script type="module">
-    import { db } from '../src/js/firebase-config.js';
-    import { collection, getDocs, query, orderBy, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+    import { auth, db } from '../src/js/firebase-config.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+    import { doc, getDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
     // Get URL parameters
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get('courseId') || 'python';
-    const moduleId = params.get('moduleId') || 'fundamentals'; // optional, will default to first module
+    const moduleId = params.get('moduleId') || null; // will default to first module
 
-    // Simulated user (replace with Firebase auth later)
-    const user = {
-      uid: 'demo',
-      completedLessons: ['les1', 'les2', 'les3'],
-      sparks: 240,
-      level: 7,
-      xp: 2430,
-      streak: 5
-    };
-
+    let currentUser = null;
+    let userData = null; // from Firestore users/{uid}
     let course = null;
     let modules = [];
     let currentModuleId = moduleId;
     let lessons = [];
+    let allCourseLessons = []; // all lessons across all modules for progress calculation
+
+    // Listen for auth state
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+      currentUser = user;
+      // Fetch user data from Firestore
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (userDoc.exists()) {
+        userData = userDoc.data();
+      } else {
+        // If no user doc (shouldn't happen), initialize empty
+        userData = { completedLessons: [], sparks: 0 };
+      }
+      await loadCourse();
+      renderRightPanel();
+    });
 
     // Load course data
     async function loadCourse() {
@@ -393,31 +405,55 @@
         return;
       }
       course = { id: courseDoc.id, ...courseDoc.data() };
-      document.getElementById('headerCourseTitle').textContent = course.title;
+
+      // Show course info in left sidebar
+      const courseInfoCard = document.getElementById('courseInfoCard');
+      courseInfoCard.innerHTML = `
+        <h2>${escapeHtml(course.title)}</h2>
+        <p>${escapeHtml(course.description || '')}</p>
+      `;
 
       // Load modules
       const modSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules'), orderBy('createdAt')));
       modules = [];
       modSnap.forEach(doc => modules.push({ id: doc.id, ...doc.data() }));
-      renderModuleSidebar();
-
-      // If no moduleId provided or invalid, use the first one
-      if (!modules.some(m => m.id === currentModuleId) && modules.length > 0) {
-        currentModuleId = modules[0].id;
+      
+      // Determine initial module
+      if (!currentModuleId || !modules.some(m => m.id === currentModuleId)) {
+        currentModuleId = modules.length > 0 ? modules[0].id : null;
       }
-      loadModuleLessons(currentModuleId);
+
+      // Load all lessons for progress tracking
+      allCourseLessons = [];
+      for (let mod of modules) {
+        const lesSnap = await getDocs(collection(db, 'courses', courseId, 'modules', mod.id, 'lessons'));
+        lesSnap.forEach(doc => {
+          allCourseLessons.push({ id: doc.id, moduleId: mod.id, ...doc.data() });
+        });
+      }
+
+      renderModuleSidebar();
+      if (currentModuleId) {
+        loadModuleLessons(currentModuleId);
+      }
+      updateRightPanel();
     }
 
     // Render module list in sidebar
     function renderModuleSidebar() {
       const list = document.getElementById('moduleList');
-      list.innerHTML = modules.map(mod => `
-        <div class="module-item ${mod.id === currentModuleId ? 'active' : ''}" data-module-id="${mod.id}">
-          <iconify-icon icon="pixelarticons:folder"></iconify-icon>
-          <span>${escapeHtml(mod.title)}</span>
-          <span class="module-progress">${getModuleProgress(mod.id)}%</span>
-        </div>
-      `).join('');
+      list.innerHTML = modules.map(mod => {
+        const totalInModule = allCourseLessons.filter(l => l.moduleId === mod.id).length;
+        const completedInModule = allCourseLessons.filter(l => l.moduleId === mod.id && userData.completedLessons.includes(l.id)).length;
+        const progress = totalInModule > 0 ? Math.round((completedInModule / totalInModule) * 100) : 0;
+        return `
+          <div class="module-item ${mod.id === currentModuleId ? 'active' : ''}" data-module-id="${mod.id}">
+            <iconify-icon icon="pixelarticons:folder"></iconify-icon>
+            <span>${escapeHtml(mod.title)}</span>
+            <span class="module-progress">${progress}%</span>
+          </div>
+        `;
+      }).join('');
 
       // Add click handlers
       list.querySelectorAll('.module-item').forEach(item => {
@@ -426,18 +462,11 @@
           if (newModuleId !== currentModuleId) {
             currentModuleId = newModuleId;
             loadModuleLessons(newModuleId);
-            // Update active state
             list.querySelectorAll('.module-item').forEach(i => i.classList.remove('active'));
             item.classList.add('active');
           }
         });
       });
-    }
-
-    // Calculate progress percentage for a module
-    function getModuleProgress(moduleId) {
-      // For simplicity, count completed lessons in this module (would need to fetch lesson IDs)
-      return Math.floor(Math.random() * 100); // placeholder
     }
 
     // Load lessons for a module
@@ -467,8 +496,8 @@
       let currentReached = false;
 
       lessons.forEach((les, idx) => {
-        const completed = user.completedLessons.includes(les.id);
-        const locked = !completed && !currentReached && !(idx === 0);
+        const completed = userData.completedLessons.includes(les.id);
+        const locked = !completed && !currentReached && idx !== 0;
         if (completed) lastCompleted = true;
         if (!completed && !locked && !currentReached) {
           currentReached = true;
@@ -476,7 +505,8 @@
         } else {
           les.current = false;
         }
-        if (!completed && !les.current && idx > 0 && !lessons[idx-1].completed) {
+        // A lesson is locked if the previous one is not completed (linear progression)
+        if (idx > 0 && !lessons[idx-1].completed) {
           les.locked = true;
         } else {
           les.locked = locked;
@@ -494,14 +524,13 @@
           <div class="node-content">
             <div class="lesson-title">${escapeHtml(les.title)}</div>
             <div class="lesson-meta">
-              ${les.type || 'lesson'} · ${les.duration || 10} min · +${les.reward || 30} XP
+              ${les.type || 'lesson'}
             </div>
           </div>
         `;
 
         if (!les.locked) {
           nodeDiv.addEventListener('click', () => {
-            // Navigate to lesson page
             window.location.href = `lesson.html?courseId=${courseId}&moduleId=${currentModuleId}&lessonId=${les.id}`;
           });
         }
@@ -510,7 +539,7 @@
       });
 
       // Add continue button for the next incomplete lesson
-      const nextLesson = lessons.find(l => !user.completedLessons.includes(l.id) && !l.locked);
+      const nextLesson = lessons.find(l => !userData.completedLessons.includes(l.id) && !l.locked);
       if (nextLesson) {
         const continueDiv = document.createElement('div');
         continueDiv.className = 'continue-btn';
@@ -526,12 +555,39 @@
       }
     }
 
+    // Update right panel with real data
+    function updateRightPanel() {
+      const totalLessons = allCourseLessons.length;
+      const completedLessons = allCourseLessons.filter(l => userData.completedLessons.includes(l.id)).length;
+      const progressPercent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+      const sparks = userData.sparks || 0;
+
+      const rightPanel = document.getElementById('rightPanel');
+      rightPanel.innerHTML = `
+        <div class="stats-card">
+          <h3>Your Progress</h3>
+          <div class="big-number">${completedLessons}/${totalLessons}</div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width:${progressPercent}%;"></div>
+          </div>
+          <small>${progressPercent}% of lessons completed</small>
+        </div>
+        <div class="stats-card">
+          <h3>Total Sparks</h3>
+          <div class="big-number">${sparks}</div>
+          <small>earned</small>
+        </div>
+      `;
+    }
+
+    function renderRightPanel() {
+      updateRightPanel();
+    }
+
     function escapeHtml(text) {
       if (!text) return '';
       return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
-
-    loadCourse();
   </script>
 </body>
 </html>
