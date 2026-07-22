@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>Akademia - Learn to Code for Free | Fun Programming Lessons</title>
-    <meta name="description" content="The free, fun, and effective way to learn coding! Game-like lessons, earn points, unlock levels, and master programming while having fun. Join millions learning with Akademia.">
-    <meta name="keywords" content="learn coding, programming for beginners, free coding lessons, learn python, coding game, interactive coding, fun programming">
+    <title>Akademia - Become a Professional Developer | Learn by Doing</title>
+    <meta name="description" content="Learn to code by building real projects. Earn certificates, get help from AI mentor, and join 120K+ students. Free, interactive, gamified.">
+    <meta name="keywords" content="learn coding, programming, online courses, web development, python, javascript, certificates, gamified learning">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://akademia.example.com/">
     
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Akademia - Learn to Code for Free">
-    <meta property="og:description" content="The free, fun, and effective way to learn coding! Game-like lessons and earn points while mastering programming.">
+    <meta property="og:title" content="Akademia - Become a Professional Developer">
+    <meta property="og:description" content="Learn by doing. Build real projects. Earn certificates.">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -77,7 +77,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 999;
-            background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.15) 100%);
+            background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.12) 100%);
         }
 
         h1, h2, h3, h4 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
@@ -104,82 +104,36 @@
             align-items: center;
             justify-content: space-between;
         }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
         .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--green);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: 800;
+            width: 36px; height: 36px; background: var(--green); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; color: white;
+            font-size: 24px; font-weight: 800;
         }
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text);
-        }
+        .logo-text { font-size: 1.5rem; font-weight: 800; color: var(--text); }
         .logo-text span { color: var(--green); }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
+        .nav-links { display: flex; align-items: center; gap: 24px; }
         .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: color 0.2s;
+            color: var(--text-secondary); text-decoration: none; font-weight: 700;
+            font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.2s;
         }
         .nav-link:hover { color: var(--text); }
         .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 16px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
+            padding: 12px 24px; border: none; border-radius: 16px; font-weight: 700;
+            font-size: 0.95rem; cursor: pointer; transition: all 0.2s;
+            text-transform: uppercase; letter-spacing: 0.5px; display: inline-flex;
+            align-items: center; gap: 8px; font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
         }
         .btn-primary {
-            background: var(--green);
-            color: white;
-            box-shadow: 0 4px 0 var(--green-hover);
+            background: var(--green); color: white; box-shadow: 0 4px 0 var(--green-hover);
         }
-        .btn-primary:hover {
-            background: var(--green-hover);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 0 #358A02;
-        }
+        .btn-primary:hover { background: var(--green-hover); transform: translateY(-1px); box-shadow: 0 6px 0 #358A02; }
         .btn-secondary {
-            background: var(--bg);
-            color: var(--green);
-            border: 2px solid var(--border);
+            background: var(--bg); color: var(--green); border: 2px solid var(--border);
             box-shadow: 0 4px 0 var(--border);
         }
         .btn-secondary:hover { background: var(--bg-secondary); }
-        .btn-large {
-            padding: 16px 32px;
-            font-size: 1.05rem;
-            border-radius: 16px;
-        }
+        .btn-large { padding: 16px 32px; font-size: 1.05rem; border-radius: 16px; }
 
         /* ---------- HERO ---------- */
         .hero {
@@ -190,425 +144,242 @@
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
-            min-height: 85vh;
+            min-height: 90vh;
         }
         .hero-content { position: relative; }
         .hero-badge {
-            display: inline-block;
-            background: var(--gold);
-            color: white;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-weight: 800;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
+            display: inline-block; background: var(--gold); color: white; padding: 6px 16px;
+            border-radius: 20px; font-weight: 800; font-size: 0.9rem; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 20px;
         }
         .hero-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 900;
-            line-height: 1.1;
-            color: var(--text);
-            margin-bottom: 24px;
+            font-size: clamp(2.5rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.1;
+            color: var(--text); margin-bottom: 24px;
         }
         .hero-title .highlight { color: var(--green); }
         .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 32px;
-            line-height: 1.6;
-            font-weight: 500;
-            max-width: 500px;
+            font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 32px;
+            line-height: 1.6; font-weight: 500; max-width: 500px;
         }
-        .hero-cta {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
+        .hero-cta { display: flex; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+        .hero-rating {
+            display: flex; align-items: center; gap: 24px; color: var(--text-secondary); font-size: 0.9rem;
         }
-        .hero-trust {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .hero-avatars { display: flex; }
-        .hero-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid white;
-            margin-left: -8px;
-            background: var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-        }
-        .hero-avatar:first-child { margin-left: 0; }
+        .stars { color: var(--gold); }
+        .rating-stats { display: flex; gap: 12px; }
+        .rating-item { font-weight: 600; }
 
-        /* New hero visual - modern code illustration with Pixelarticons */
+        /* Right side - animated code editor and floating cards */
         .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+            position: relative; display: flex; justify-content: center; align-items: center;
         }
-        .code-illustration {
-            width: 320px;
-            height: 400px;
-            background: var(--bg-secondary);
-            border-radius: 24px;
-            border: 2px solid var(--border);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
+        .code-mock {
+            width: 320px; height: 380px; background: #1E1E1E; border-radius: 16px;
+            padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            font-family: 'Courier New', monospace; color: #D4D4D4; position: relative;
         }
-        .code-illustration::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, var(--green), transparent 70%);
-            opacity: 0.05;
-            animation: rotate 20s linear infinite;
+        .code-mock .line {
+            height: 12px; background: #3C3C3C; border-radius: 6px; margin-bottom: 10px;
+            width: 80%; animation: typing 3s steps(20) infinite;
         }
-        @keyframes rotate { to { transform: rotate(360deg); } }
-        .illustration-icon {
-            font-size: 80px;
-            color: var(--green);
-            position: relative;
-            z-index: 1;
+        .code-mock .line.short { width: 60%; }
+        .code-mock .line.green { background: var(--green); width: 40%; }
+        @keyframes typing {
+            0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; }
         }
-        .illustration-lines {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            position: relative;
-            z-index: 1;
+        .floating-card {
+            position: absolute; background: white; border: 2px solid var(--border);
+            border-radius: 12px; padding: 10px 14px; font-size: 0.8rem; font-weight: 700;
+            display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            white-space: nowrap;
         }
-        .line {
-            height: 10px;
-            background: var(--border);
-            border-radius: 5px;
-            width: 80%;
+        .card-xp { top: 20px; right: -20px; }
+        .card-cert { bottom: 60px; left: -30px; }
+        .card-ai { top: 100px; left: -40px; }
+        .progress-circle {
+            width: 50px; height: 50px; border-radius: 50%;
+            background: conic-gradient(var(--green) 70%, var(--border) 0);
+            display: flex; align-items: center; justify-content: center;
+            position: absolute; bottom: 10px; right: -10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        .line.short { width: 60%; }
-        .line.green { background: var(--green); width: 40%; }
+        .progress-circle span { font-size: 0.7rem; font-weight: 800; color: var(--text); }
 
-        .floating-badge {
-            position: absolute;
-            background: white;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 8px 12px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .badge-1 { top: 20px; right: -20px; }
-        .badge-2 { bottom: 40px; left: -30px; }
-
-        /* ---------- STATS BAR ---------- */
-        .stats {
+        /* ---------- TRUSTED BY ---------- */
+        .trusted {
             padding: 60px 24px;
-            background: var(--bg);
-            border-top: 2px solid var(--border);
-            border-bottom: 2px solid var(--border);
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
-        .stats-container {
-            max-width: 1140px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 32px;
-            text-align: center;
+        .trusted-container {
+            max-width: 1140px; margin: 0 auto; text-align: center;
         }
-        .stat-item { padding: 24px; }
+        .trusted-text {
+            font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 24px;
+            text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
+        }
+        .trusted-logos {
+            display: flex; justify-content: center; align-items: center; gap: 48px;
+            flex-wrap: wrap; font-size: 1.3rem; font-weight: 800; color: var(--text);
+        }
+        .trusted-logos span { opacity: 0.6; transition: opacity 0.2s; }
+        .trusted-logos span:hover { opacity: 1; }
+
+        /* ---------- STATISTICS ---------- */
+        .stats {
+            padding: 80px 24px;
+            max-width: 1140px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px; text-align: center;
+        }
+        .stat-item { padding: 20px; }
         .stat-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--green);
-            margin-bottom: 8px;
-            font-family: 'BlockBlueprint', sans-serif;
+            font-size: 3rem; font-weight: 900; color: var(--green);
+            margin-bottom: 8px; font-family: 'BlockBlueprint', sans-serif;
         }
-        .stat-label { font-size: 0.95rem; color: var(--text-secondary); font-weight: 600; }
+        .stat-label { font-size: 1rem; color: var(--text-secondary); font-weight: 600; }
 
-        /* ---------- FEATURES ---------- */
-        .features {
+        /* ---------- INTERACTIVE DEMO ---------- */
+        .interactive-demo {
+            padding: 80px 24px;
+            background: var(--bg);
+        }
+        .demo-container {
+            max-width: 800px; margin: 0 auto;
+            background: var(--bg-secondary); border: 2px solid var(--border);
+            border-radius: var(--radius); padding: 24px;
+        }
+        .demo-title {
+            text-align: center; font-size: 1.8rem; margin-bottom: 24px;
+        }
+        .demo-editor {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+        }
+        .demo-input {
+            background: #1E1E1E; border-radius: 12px; padding: 16px;
+            display: flex; flex-direction: column;
+        }
+        .demo-input textarea {
+            width: 100%; flex: 1; background: transparent; border: none;
+            color: #D4D4D4; font-family: 'Courier New', monospace; font-size: 0.95rem;
+            resize: vertical; outline: none;
+        }
+        .demo-run {
+            margin-top: 12px; align-self: flex-end;
+        }
+        .demo-output {
+            background: white; border-radius: 12px; padding: 16px;
+            border: 1px solid var(--border);
+        }
+        .demo-output iframe {
+            width: 100%; height: 100%; border: none; min-height: 150px;
+        }
+
+        /* ---------- WHY AKADEMIA ---------- */
+        .why {
             padding: 100px 24px;
-            max-width: 1140px;
-            margin: 0 auto;
+            max-width: 1140px; margin: 0 auto;
         }
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 16px;
+        .why-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px; margin-top: 48px;
         }
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 60px;
-            font-weight: 500;
+        .why-card {
+            text-align: center; padding: 32px 24px; border-radius: var(--radius);
+            border: 2px solid var(--border); transition: all 0.3s;
         }
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+        .why-card:hover { border-color: var(--green); transform: translateY(-4px); }
+        .why-icon { font-size: 3rem; margin-bottom: 20px; color: var(--green); }
+        .why-card h3 { margin-bottom: 8px; }
+        .why-card p { color: var(--text-secondary); }
+
+        /* ---------- PLATFORM FEATURES ---------- */
+        .platform {
+            padding: 80px 24px;
+            background: var(--bg-secondary);
         }
-        .feature-card {
-            padding: 40px 32px;
-            border-radius: var(--radius);
+        .feature-row {
+            max-width: 1000px; margin: 0 auto 60px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+        }
+        .feature-row.reverse { direction: rtl; }
+        .feature-row.reverse > * { direction: ltr; }
+        .feature-text h2 { font-size: 2rem; margin-bottom: 12px; }
+        .feature-text p { color: var(--text-secondary); line-height: 1.7; }
+        .feature-image {
+            background: var(--bg); border: 2px solid var(--border);
+            border-radius: var(--radius); padding: 24px;
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            min-height: 250px; justify-content: center;
+        }
+
+        /* ---------- PRICING ---------- */
+        .pricing {
+            padding: 100px 24px;
+            max-width: 1140px; margin: 0 auto;
+        }
+        .pricing-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px; margin-top: 48px;
+        }
+        .pricing-card {
+            background: var(--bg); border: 2px solid var(--border);
+            border-radius: var(--radius); padding: 32px 24px; text-align: center;
             transition: all 0.3s;
-            border: 2px solid transparent;
         }
-        .feature-card:nth-child(1) { background: #E8F8E8; }
-        .feature-card:nth-child(2) { background: #E8F0FF; }
-        .feature-card:nth-child(3) { background: #FFF3E8; }
-        .feature-card:nth-child(4) { background: #F3E8FF; }
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-color: var(--green);
+        .pricing-card.featured {
+            border-color: var(--green); box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transform: scale(1.02);
         }
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: block;
-        }
-        .feature-card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; }
-        .feature-card p { color: var(--text-secondary); line-height: 1.6; font-weight: 500; }
-
-        /* ---------- HOW IT WORKS ---------- */
-        .how-it-works {
-            padding: 100px 24px;
-            background: var(--bg-secondary);
-        }
-        .steps-container { max-width: 1140px; margin: 0 auto; }
-        .step {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 32px;
-            margin-bottom: 48px;
-            align-items: center;
-        }
-        .step-number {
-            width: 80px;
-            height: 80px;
-            background: var(--bg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--green);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            border: 4px solid var(--green);
-            font-family: 'BlockBlueprint', sans-serif;
-        }
-        .step-content h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
-        .step-content p { color: var(--text-secondary); font-size: 1.1rem; font-weight: 500; }
-
-        /* ---------- FEATURED COURSES ---------- */
-        .courses-section {
-            padding: 100px 24px;
-            background: var(--bg);
-        }
-        .courses-container {
-            max-width: 1140px;
-            margin: 0 auto;
-        }
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-top: 40px;
-        }
-        .course-card {
-            background: var(--bg-secondary);
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            padding: 24px;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .course-card:hover {
-            border-color: var(--green);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        .course-icon {
-            font-size: 2rem;
-            color: var(--green);
-        }
-        .course-title {
-            font-family: 'BlockBlueprint', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-        .course-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            flex: 1;
-        }
-        .course-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-        .course-level {
-            background: var(--green);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: 700;
-        }
-
-        /* ---------- TESTIMONIALS ---------- */
-        .testimonials {
-            padding: 100px 24px;
-            background: var(--bg-secondary);
-        }
-        .testimonials-container { max-width: 1140px; margin: 0 auto; }
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-top: 48px;
-        }
-        .testimonial-card {
-            background: var(--bg);
-            padding: 32px;
-            border-radius: var(--radius);
-            border: 2px solid var(--border);
-        }
-        .testimonial-stars { color: var(--gold); font-size: 1.2rem; margin-bottom: 16px; }
-        .testimonial-text { font-size: 1.05rem; color: var(--text); margin-bottom: 20px; line-height: 1.6; }
-        .testimonial-author { display: flex; align-items: center; gap: 12px; }
-        .testimonial-avatar {
-            width: 48px; height: 48px; border-radius: 50%; background: var(--border);
-            display: flex; align-items: center; justify-content: center; font-weight: 700;
-        }
-        .testimonial-name { font-weight: 700; }
-        .testimonial-role { color: var(--text-secondary); font-size: 0.9rem; }
-
-        /* ---------- CTA ---------- */
-        .cta-section {
-            padding: 100px 24px;
-            background: linear-gradient(135deg, var(--green), #46A302);
-            color: white;
-            text-align: center;
-        }
-        .cta-container { max-width: 800px; margin: 0 auto; }
-        .cta-title { font-size: 2.5rem; font-weight: 900; margin-bottom: 16px; }
-        .cta-text { font-size: 1.2rem; margin-bottom: 40px; opacity: 0.95; }
-        .btn-white {
-            background: white;
-            color: var(--green);
-            box-shadow: 0 4px 0 var(--border);
-            font-size: 1.1rem;
-            padding: 18px 40px;
-        }
-        .btn-white:hover {
-            background: var(--bg-secondary);
-            transform: translateY(-2px);
+        .pricing-name { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+        .pricing-price { font-size: 2.5rem; font-weight: 900; color: var(--green); margin-bottom: 16px; }
+        .pricing-features { list-style: none; margin-bottom: 24px; }
+        .pricing-features li { margin-bottom: 8px; color: var(--text-secondary); }
+        .btn-pricing {
+            width: 100%; justify-content: center;
         }
 
         /* ---------- FOOTER ---------- */
         .footer {
-            background: #2B2B2B;
-            color: white;
-            padding: 60px 24px 32px;
+            background: #2B2B2B; color: white; padding: 60px 24px 32px;
         }
         .footer-container {
-            max-width: 1140px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 48px;
+            max-width: 1140px; margin: 0 auto; display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
         }
         .footer-brand { font-size: 1.5rem; font-weight: 800; margin-bottom: 16px; }
         .footer-brand span { color: var(--green); }
         .footer-description {
-            color: #AFAFAF;
-            line-height: 1.6;
-            margin-bottom: 24px;
-            font-size: 0.95rem;
+            color: #AFAFAF; line-height: 1.6; margin-bottom: 24px; font-size: 0.95rem;
         }
         .footer-title {
-            font-weight: 800;
-            margin-bottom: 20px;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 800; margin-bottom: 20px; font-size: 1rem;
+            text-transform: uppercase; letter-spacing: 1px;
         }
         .footer-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            list-style: none; display: flex; flex-direction: column; gap: 12px;
         }
         .footer-links a {
-            color: #AFAFAF;
-            text-decoration: none;
-            transition: color 0.2s;
-            font-size: 0.9rem;
+            color: #AFAFAF; text-decoration: none; transition: color 0.2s; font-size: 0.9rem;
         }
         .footer-links a:hover { color: white; }
         .footer-bottom {
-            max-width: 1140px;
-            margin: 48px auto 0;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-            color: #AFAFAF;
-            font-size: 0.9rem;
+            max-width: 1140px; margin: 48px auto 0; padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1); text-align: center;
+            color: #AFAFAF; font-size: 0.9rem;
         }
 
         /* ---------- RESPONSIVE ---------- */
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-                padding: 100px 24px 60px;
-                min-height: auto;
-                gap: 40px;
-            }
-            .hero-cta { justify-content: center; }
-            .hero-trust { justify-content: center; }
-            .code-illustration { width: 260px; height: 320px; }
-            .step { grid-template-columns: 1fr; text-align: center; gap: 16px; }
-            .step-number { margin: 0 auto; width: 60px; height: 60px; font-size: 1.5rem; }
+            .hero { grid-template-columns: 1fr; text-align: center; min-height: auto; padding: 100px 24px 60px; }
+            .hero-rating { justify-content: center; }
+            .code-mock { width: 260px; height: 300px; }
+            .floating-card { display: none; }
+            .feature-row { grid-template-columns: 1fr; gap: 24px; }
+            .demo-editor { grid-template-columns: 1fr; }
             .footer-container { grid-template-columns: 1fr; gap: 32px; }
-        }
-        @media (max-width: 480px) {
-            .hero-title { font-size: 2rem; }
-            .section-title { font-size: 2rem; }
-            .hero-cta { flex-direction: column; }
-            .btn-large { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -622,7 +393,7 @@
             </a>
             <div class="nav-links">
                 <a href="#features" class="nav-link">Features</a>
-                <a href="#how-it-works" class="nav-link">How it Works</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
                 <a href="#courses" class="nav-link">Courses</a>
                 <button class="btn btn-secondary" onclick="window.location.href='pages/login.html'">Log In</button>
                 <button class="btn btn-primary" onclick="window.location.href='pages/login.html#signup'">Get Started</button>
@@ -633,206 +404,205 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <div class="hero-badge">⭐ #1 Coding App</div>
+            <div class="hero-badge">⭐ #1 Coding Platform</div>
             <h1 class="hero-title">
-                The free, fun, and effective way to <span class="highlight">learn to code!</span>
+                Become a <span class="highlight">Professional Developer</span>.
             </h1>
             <p class="hero-subtitle">
-                Learning with Akademia is fun, and research shows that it works! 
-                With quick, bite-sized lessons, you'll earn points and unlock new 
-                levels while gaining real-world programming skills.
+                Learn by doing. Build real projects. Earn certificates.
             </p>
             <div class="hero-cta">
-                <button class="btn btn-primary btn-large" onclick="window.location.href='pages/login.html#signup'">
-                    GET STARTED
-                </button>
-                <button class="btn btn-secondary btn-large" onclick="window.location.href='pages/login.html'">
-                    I ALREADY HAVE AN ACCOUNT
-                </button>
+                <button class="btn btn-primary btn-large" onclick="window.location.href='pages/login.html#signup'">Start Learning</button>
+                <button class="btn btn-secondary btn-large" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Browse Courses</button>
             </div>
-            <div class="hero-trust">
-                <div class="hero-avatars">
-                    <div class="hero-avatar">JK</div>
-                    <div class="hero-avatar">MS</div>
-                    <div class="hero-avatar">AR</div>
-                    <div class="hero-avatar">+</div>
+            <div class="hero-rating">
+                <div class="stars">★★★★☆</div>
+                <span>4.9 Rating</span>
+                <div class="rating-stats">
+                    <span class="rating-item"><strong>120K+</strong> Students</span>
+                    <span class="rating-item"><strong>800+</strong> Lessons</span>
                 </div>
-                <span>Joined by <strong>500K+</strong> learners</span>
             </div>
         </div>
         <div class="hero-visual">
-            <div class="code-illustration">
-                <iconify-icon icon="pixelarticons:script" class="illustration-icon"></iconify-icon>
-                <div class="illustration-lines">
-                    <div class="line"></div>
-                    <div class="line short"></div>
-                    <div class="line green"></div>
-                    <div class="line"></div>
-                    <div class="line short"></div>
+            <div class="code-mock">
+                <div class="line"></div>
+                <div class="line short"></div>
+                <div class="line green"></div>
+                <div class="line"></div>
+                <div class="line short"></div>
+            </div>
+            <div class="floating-card card-xp">
+                <iconify-icon icon="pixelarticons:coin" style="color: var(--gold);"></iconify-icon> +500 XP
+            </div>
+            <div class="floating-card card-cert">
+                <iconify-icon icon="pixelarticons:certificate" style="color: var(--green);"></iconify-icon> Certificate
+            </div>
+            <div class="floating-card card-ai">
+                <iconify-icon icon="pixelarticons:bot" style="color: #1CB0F6;"></iconify-icon> AI Assistant
+            </div>
+            <div class="progress-circle">
+                <span>70%</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted By -->
+    <div class="trusted">
+        <div class="trusted-container">
+            <p class="trusted-text">Used by learners from</p>
+            <div class="trusted-logos">
+                <span>Google</span>
+                <span>Microsoft</span>
+                <span>GitHub</span>
+                <span>Spotify</span>
+                <span>Netflix</span>
+                <span>Airbnb</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics with animated counters -->
+    <section class="stats" id="stats">
+        <div class="stat-item">
+            <div class="stat-number" data-target="120">0</div>
+            <div class="stat-label">Courses</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="2000">0</div>
+            <div class="stat-label">Lessons</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="100000">0</div>
+            <div class="stat-label">Students</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="98">0</div>
+            <div class="stat-label">Completion Rate</div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section class="interactive-demo" id="demo">
+        <div class="demo-container">
+            <h2 class="demo-title">Try coding now – no account needed</h2>
+            <div class="demo-editor">
+                <div class="demo-input">
+                    <textarea id="htmlCode" placeholder="<h1>Hello</h1>"><h1>Hello</h1></textarea>
+                    <button class="btn btn-primary demo-run" onclick="runCode()">Run</button>
                 </div>
-                <div class="floating-badge badge-1">
-                    <iconify-icon icon="pixelarticons:check"></iconify-icon> 100% Free
-                </div>
-                <div class="floating-badge badge-2">
-                    <iconify-icon icon="pixelarticons:fire"></iconify-icon> 50+ Courses
+                <div class="demo-output">
+                    <iframe id="outputFrame"></iframe>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Bar -->
-    <section class="stats">
-        <div class="stats-container">
-            <div class="stat-item">
-                <div class="stat-number">500K+</div>
-                <div class="stat-label">Active Learners</div>
+    <!-- Why Akademia -->
+    <section class="why" id="why">
+        <h2 class="section-title" style="text-align:center;">Why Akademia?</h2>
+        <div class="why-grid">
+            <div class="why-card">
+                <iconify-icon icon="pixelarticons:build" class="why-icon"></iconify-icon>
+                <h3>Learn by Building</h3>
+                <p>Projects from day one. Write real code and see results immediately.</p>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">50+</div>
-                <div class="stat-label">Coding Courses</div>
+            <div class="why-card">
+                <iconify-icon icon="pixelarticons:bot" class="why-icon"></iconify-icon>
+                <h3>AI Mentor</h3>
+                <p>Get instant explanations, debug help, and personalized tips.</p>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">4.9/5</div>
-                <div class="stat-label">App Store Rating</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Free Content</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section id="features" class="features">
-        <h2 class="section-title">Why you'll love learning with Akademia</h2>
-        <p class="section-subtitle">Effective and entertaining – our approach makes coding accessible to everyone</p>
-        <div class="features-grid">
-            <div class="feature-card">
-                <span class="feature-icon">🎮</span>
-                <h3>Game-like lessons</h3>
-                <p>Earn points for correct answers, race against the clock, and level up. Our bite-sized lessons are effective, and we have proof that it works.</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">⚡</span>
-                <h3>Instant practice</h3>
-                <p>Write real code from day one. Our interactive environment gives you immediate feedback so you learn faster and remember longer.</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon"><iconify-icon icon="pixelarticons:bulb"></iconify-icon></span>
-                <h3>Smart AI guide</h3>
-                <p>Our friendly AI assistant uses tips and encouragement. Never feel stuck or alone in your learning journey.</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">🏆</span>
-                <h3>Track your progress</h3>
-                <p>Earn achievements, maintain streaks, and compete with friends. Stay motivated with leaderboards and weekly challenges.</p>
+            <div class="why-card">
+                <iconify-icon icon="pixelarticons:certificate" class="why-icon"></iconify-icon>
+                <h3>Real Certificates</h3>
+                <p>Share on LinkedIn and showcase your skills to employers.</p>
             </div>
         </div>
     </section>
 
-    <!-- How It Works -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="steps-container">
-            <h2 class="section-title">Start learning in 3 simple steps</h2>
-            <p class="section-subtitle">Your coding adventure begins in minutes</p>
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h3>Create your free account</h3>
-                    <p>Sign up in seconds with email or Google. Choose your first programming language and set your learning goal – whether for career, school, or fun.</p>
-                </div>
+    <!-- Platform Features (alternating) -->
+    <section class="platform" id="features">
+        <div class="feature-row">
+            <div class="feature-text">
+                <h2>Code Everywhere</h2>
+                <p>Write, run, and test code directly in your browser. No setup, no installation. Start coding immediately.</p>
             </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h3>Complete 5-minute lessons</h3>
-                    <p>Jump into bite-sized, game-like lessons where you'll write real code, solve puzzles, and build projects. Our AI guide helps you along the way.</p>
-                </div>
+            <div class="feature-image">
+                <iconify-icon icon="pixelarticons:laptop" style="font-size:4rem; color:var(--green);"></iconify-icon>
+                <span>Browser-based editor</span>
             </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h3>Level up & earn rewards</h3>
-                    <p>Earn XP for every completed lesson, maintain your streak, unlock achievements, and watch your coding skills grow day by day.</p>
-                </div>
+        </div>
+        <div class="feature-row reverse">
+            <div class="feature-text">
+                <h2>AI Tutor</h2>
+                <p>Ask questions, fix bugs, and understand complex concepts with our AI-powered mentor by your side.</p>
+            </div>
+            <div class="feature-image">
+                <iconify-icon icon="pixelarticons:bot" style="font-size:4rem; color:#1CB0F6;"></iconify-icon>
+                <span>AI Assistant</span>
+            </div>
+        </div>
+        <div class="feature-row">
+            <div class="feature-text">
+                <h2>Gamification</h2>
+                <p>Earn XP, unlock achievements, maintain daily streaks, and climb leaderboards. Learning becomes addictive.</p>
+            </div>
+            <div class="feature-image">
+                <iconify-icon icon="pixelarticons:trophy" style="font-size:4rem; color:var(--gold);"></iconify-icon>
+                <span>Rewards</span>
             </div>
         </div>
     </section>
 
-    <!-- Featured Courses (fetched from Firebase) -->
-    <section id="courses" class="courses-section">
-        <div class="courses-container">
-            <h2 class="section-title">Explore our popular courses</h2>
-            <p class="section-subtitle">Start learning today with our free, interactive curriculum</p>
-            <div class="courses-grid" id="coursesGrid">
-                <!-- Dynamically loaded from Firebase -->
-                <div class="course-card">
-                    <iconify-icon icon="pixelarticons:code" class="course-icon"></iconify-icon>
-                    <div class="course-title">Loading courses…</div>
-                    <div class="course-desc">Fetching latest courses from our database.</div>
-                    <div class="course-meta">
-                        <span>0 lessons</span>
-                        <span class="course-level">Beginner</span>
-                    </div>
-                </div>
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <h2 class="section-title" style="text-align:center;">Choose your plan</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-name">Free</div>
+                <div class="pricing-price">$0</div>
+                <ul class="pricing-features">
+                    <li>Basic lessons</li>
+                    <li>Community support</li>
+                    <li>Limited practice</li>
+                </ul>
+                <button class="btn btn-secondary btn-pricing">Get Started</button>
+            </div>
+            <div class="pricing-card featured">
+                <div class="pricing-name">Pro</div>
+                <div class="pricing-price">$12/mo</div>
+                <ul class="pricing-features">
+                    <li>Certificates</li>
+                    <li>AI Tutor</li>
+                    <li>Unlimited projects</li>
+                </ul>
+                <button class="btn btn-primary btn-pricing">Start Pro</button>
+            </div>
+            <div class="pricing-card">
+                <div class="pricing-name">Team</div>
+                <div class="pricing-price">$9/mo</div>
+                <ul class="pricing-features">
+                    <li>For schools & companies</li>
+                    <li>Admin dashboard</li>
+                    <li>Priority support</li>
+                </ul>
+                <button class="btn btn-secondary btn-pricing">Contact Us</button>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section id="testimonials" class="testimonials">
-        <div class="testimonials-container">
-            <h2 class="section-title">Loved by learners worldwide</h2>
-            <p class="section-subtitle">See why Akademia is the world's favorite way to learn coding</p>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"I tried other coding apps, but Akademia makes it actually fun! The game-like format keeps me coming back every day. I've learned more Python in 3 weeks than in 3 months of YouTube tutorials."</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">SK</div>
-                        <div>
-                            <div class="testimonial-name">Sarah K.</div>
-                            <div class="testimonial-role">Self-taught Developer</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"The streak feature is addictive! I'm on day 67 and can now build my own websites. The lessons are perfectly structured – just hard enough to be challenging but not frustrating."</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">MR</div>
-                        <div>
-                            <div class="testimonial-name">Marcus R.</div>
-                            <div class="testimonial-role">College Student</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"As a teacher, I recommend Akademia to all my students. The gamification keeps them engaged, and the curriculum is surprisingly comprehensive. Best free coding resource available."</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">JL</div>
-                        <div>
-                            <div class="testimonial-name">Prof. James L.</div>
-                            <div class="testimonial-role">Computer Science Educator</div>
-                        </div>
-                    </div>
+    <!-- Featured Courses (loaded from Firebase) -->
+    <section id="courses" class="courses-section" style="padding:100px 24px; background:var(--bg-secondary);">
+        <div class="courses-container" style="max-width:1140px; margin:0 auto;">
+            <h2 class="section-title" style="text-align:center;">Explore our popular courses</h2>
+            <p class="section-subtitle" style="text-align:center; color:var(--text-secondary); margin-bottom:40px;">Start learning today with our free, interactive curriculum</p>
+            <div class="courses-grid" id="coursesGrid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:24px;">
+                <div class="course-card" style="background:var(--bg); border:2px solid var(--border); border-radius:var(--radius); padding:24px; text-align:center;">
+                    <iconify-icon icon="pixelarticons:code" style="font-size:2rem; color:var(--green); margin-bottom:16px;"></iconify-icon>
+                    <div class="course-title" style="font-size:1.2rem; font-weight:700;">Loading…</div>
+                    <div class="course-desc" style="color:var(--text-secondary);">Fetching courses…</div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-section">
-        <div class="cta-container">
-            <h2 class="cta-title">Start your coding adventure today!</h2>
-            <p class="cta-text">
-                Join over 500,000 learners who are mastering programming the fun way.
-                Free forever. No credit card required.
-            </p>
-            <button class="btn btn-white btn-large" onclick="window.location.href='pages/login.html#signup'">
-                START LEARNING NOW
-            </button>
         </div>
     </section>
 
@@ -850,9 +620,8 @@
                 <div class="footer-title">Product</div>
                 <ul class="footer-links">
                     <li><a href="#">Courses</a></li>
-                    <li><a href="#">Plans</a></li>
+                    <li><a href="#">Pricing</a></li>
                     <li><a href="#">Features</a></li>
-                    <li><a href="#">Mobile App</a></li>
                 </ul>
             </div>
             <div>
@@ -861,62 +630,92 @@
                     <li><a href="#">About</a></li>
                     <li><a href="#">Blog</a></li>
                     <li><a href="#">Careers</a></li>
-                    <li><a href="#">Press</a></li>
                 </ul>
             </div>
             <div>
                 <div class="footer-title">Support</div>
                 <ul class="footer-links">
                     <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Community</a></li>
                     <li><a href="#">Privacy</a></li>
                     <li><a href="#">Terms</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Akademia. All rights reserved. Made with ❤️ for learners everywhere.</p>
+            <p>&copy; 2026 Akademia. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Firebase SDK & Script to fetch courses -->
+    <!-- Firebase SDK -->
     <script type="module">
         import { db } from './src/js/firebase-config.js';
         import { collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
+        // Interactive Demo: run HTML code
+        window.runCode = function() {
+            const code = document.getElementById('htmlCode').value;
+            const iframe = document.getElementById('outputFrame');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(code);
+            iframeDoc.close();
+        };
+
+        // Animated counters
+        const counters = document.querySelectorAll('.stat-number');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.getAttribute('data-target'));
+                    const duration = 1500;
+                    const step = target / (duration / 16);
+                    let current = 0;
+                    const timer = setInterval(() => {
+                        current += step;
+                        if (current >= target) {
+                            el.textContent = target + (target === 98 ? '%' : '+');
+                            clearInterval(timer);
+                        } else {
+                            el.textContent = Math.floor(current) + (target === 98 ? '%' : '+');
+                        }
+                    }, 16);
+                    observer.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => observer.observe(counter));
+
+        // Load courses from Firebase
         async function loadCourses() {
             const coursesGrid = document.getElementById('coursesGrid');
             try {
-                const q = query(collection(db, 'courses'), orderBy('createdAt', 'desc'), limit(4));
+                const q = query(collection(db, 'courses'), orderBy('createdAt', 'desc'), limit(3));
                 const snapshot = await getDocs(q);
                 coursesGrid.innerHTML = '';
-                
                 if (snapshot.empty) {
-                    coursesGrid.innerHTML = '<p style="text-align:center; width:100%;">No courses available yet. Check back soon!</p>';
+                    coursesGrid.innerHTML = '<p style="text-align:center; width:100%;">No courses yet. Check back soon!</p>';
                     return;
                 }
-
                 snapshot.forEach(doc => {
                     const course = doc.data();
                     const card = document.createElement('div');
                     card.className = 'course-card';
+                    card.style.cssText = 'background:var(--bg); border:2px solid var(--border); border-radius:var(--radius); padding:24px; text-align:center; transition:all 0.3s; cursor:pointer;';
                     card.innerHTML = `
-                        <iconify-icon icon="pixelarticons:code" class="course-icon"></iconify-icon>
-                        <div class="course-title">${escapeHtml(course.title || 'Untitled')}</div>
-                        <div class="course-desc">${escapeHtml(course.description || 'Start learning today!')}</div>
-                        <div class="course-meta">
-                            <span>Free</span>
-                            <span class="course-level">${escapeHtml(course.level || 'Beginner')}</span>
-                        </div>
+                        <iconify-icon icon="pixelarticons:code" style="font-size:2rem; color:var(--green); margin-bottom:16px;"></iconify-icon>
+                        <div class="course-title" style="font-size:1.2rem; font-weight:700;">${escapeHtml(course.title)}</div>
+                        <div class="course-desc" style="color:var(--text-secondary); margin:8px 0;">${escapeHtml(course.description || '')}</div>
+                        <div class="course-level" style="background:var(--green); color:white; padding:4px 12px; border-radius:20px; display:inline-block; font-size:0.8rem;">Beginner</div>
                     `;
                     card.addEventListener('click', () => {
-                        window.location.href = 'pages/login.html#signup'; // or link to course page later
+                        window.location.href = 'pages/login.html#signup';
                     });
                     coursesGrid.appendChild(card);
                 });
             } catch (error) {
-                coursesGrid.innerHTML = '<p style="text-align:center; width:100%;">Could not load courses. Please try again later.</p>';
-                console.error('Error fetching courses:', error);
+                coursesGrid.innerHTML = '<p style="text-align:center;">Could not load courses.</p>';
             }
         }
 
@@ -925,13 +724,11 @@
             return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
         }
 
-        // Load courses when page loads
         loadCourses();
 
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            nav.classList.toggle('scrolled', window.scrollY > 50);
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
 
         // Smooth scroll for anchor links
@@ -939,36 +736,8 @@
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
             });
-        });
-
-        // Intersection Observer for animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.feature-card, .step, .testimonial-card, .course-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.querySelectorAll('.feature-card, .step, .testimonial-card, .course-card').forEach(el => {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                });
-            }, 200);
         });
     </script>
 </body>
