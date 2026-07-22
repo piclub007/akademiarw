@@ -3,191 +3,231 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Akademia · Gamified Learning Journey</title>
+  <title>My Courses · Akademia</title>
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
   <!-- Fonts -->
   <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/drafting-mono" rel="stylesheet">
-  <style>
-    @font-face {
-      font-family: 'BlockBlueprint';
-      src: local('BlockBlueprint'), local('BlockBlueprint');
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Drafting Mono';
-      src: local('Drafting Mono'), local('Drafting Mono');
-      font-display: swap;
-    }
-  </style>
-  <!-- Iconify -->
+  <!-- Icons -->
   <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
-  <!-- Three.js import map -->
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.157.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.157.0/examples/jsm/"
-      }
-    }
-  </script>
-
   <style>
     :root {
-      --bg-primary: #0b0b0f;
-      --bg-secondary: #15151a;
-      --bg-surface: #1f1f26;
-      --text-primary: #f0f0f0;
-      --text-secondary: #a0a0b0;
-      --accent: #58CC02;
-      --accent-glow: #8cff66;
-      --xp-color: #FFC800;
-      --streak-color: #FF6B6B;
-      --gold: #FFD700;
-      --border: #2a2a35;
-      --radius: 20px;
-      --sidebar-width: 260px;
-      --dashboard-width: 340px;
+      --green: #58CC02;
+      --green-hover: #46A302;
+      --bg: #FFFFFF;
+      --bg2: #F7F7F7;
+      --text: #1e1e1e;
+      --text2: #777;
+      --border: #E5E5E5;
+      --radius: 16px;
+      --gold: #FFC800;
     }
-
     * { margin:0; padding:0; box-sizing:border-box; }
-
     body {
-      font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
-      background: var(--bg-primary);
-      color: var(--text-primary);
+      font-family: 'Drafting Mono', monospace;
+      background: var(--bg2);
+      color: var(--text);
+      display: flex;
       height: 100vh;
       overflow: hidden;
-      display: flex;
     }
+    h1,h2,h3 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
 
-    h1, h2, h3 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
-
-    /* ── LEFT SIDEBAR ────────────────────── */
-    .sidebar-left {
-      width: var(--sidebar-width);
-      background: var(--bg-secondary);
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: var(--bg);
       border-right: 1px solid var(--border);
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      padding: 20px 14px;
-      z-index: 20;
+      flex-shrink: 0;
     }
     .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 28px;
+      gap: 8px;
+      margin-bottom: 32px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text);
     }
-    .logo-img { width: 28px; height: 28px; border-radius: 8px; }
-    .logo-text { font-size: 1.2rem; font-weight: 800; color: var(--text-primary); }
-    .logo-text span { color: var(--accent); }
+    .logo img { width: 28px; height: 28px; border-radius: 8px; }
+    .logo span { color: var(--green); }
     .nav-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      border-radius: 12px;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
       margin-bottom: 4px;
       cursor: pointer;
-      transition: background 0.2s;
       font-size: 0.9rem;
-      color: var(--text-secondary);
+      color: var(--text2);
+      transition: background 0.2s;
     }
-    .nav-item:hover { background: var(--bg-surface); color: var(--text-primary); }
-    .nav-item.active { background: #2a3a1e; color: var(--accent); }
+    .nav-item:hover { background: var(--bg2); color: var(--text); }
+    .nav-item.active { background: #ebf7e6; color: var(--green); font-weight: 700; }
 
-    .user-card {
-      margin-top: auto;
-      background: var(--bg-surface);
-      border-radius: 18px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .avatar {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      color: #000;
-      font-size: 1.2rem;
-    }
-    .level-badge {
-      background: var(--xp-color);
-      color: #000;
-      font-weight: 700;
-      font-size: 0.75rem;
-      padding: 2px 8px;
-      border-radius: 20px;
-      margin-left: auto;
-    }
-
-    /* ── MAIN WORKSPACE ──────────────────── */
-    .center-workspace {
+    /* Main area */
+    .main {
       flex: 1;
       display: flex;
       flex-direction: column;
-      background: var(--bg-primary);
       overflow: hidden;
-      position: relative;
     }
-    .journey-header {
-      padding: 16px 24px 8px;
-      background: var(--bg-secondary);
+    .top-stats {
+      display: flex;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--bg);
       border-bottom: 1px solid var(--border);
     }
-    .breadcrumb { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 6px; }
-    .journey-title { font-size: 1.8rem; }
-    .canvas-container {
-      flex: 1;
-      margin: 0 24px 16px;
+    .stat-card {
+      background: var(--bg2);
       border-radius: var(--radius);
+      padding: 12px 20px;
+      text-align: center;
+      flex: 1;
       border: 1px solid var(--border);
-      overflow: hidden;
-      position: relative;
-      background: radial-gradient(circle at center, #1c1c24, #0b0b0f);
     }
-    #threeCanvas { display: block; }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--green);
+      font-family: 'BlockBlueprint', sans-serif;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--text2); margin-top: 4px; }
 
-    /* ── RIGHT DASHBOARD ──────────────────── */
-    .dashboard-right {
-      width: var(--dashboard-width);
-      background: var(--bg-secondary);
-      border-left: 1px solid var(--border);
+    .content {
+      flex: 1;
       overflow-y: auto;
-      padding: 20px 16px;
+      padding: 24px;
+    }
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .course-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .course-card:hover {
+      border-color: var(--green);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+    }
+    .course-icon { font-size: 2rem; color: var(--green); margin-bottom: 12px; }
+    .course-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 4px; }
+    .course-desc { font-size: 0.8rem; color: var(--text2); margin-bottom: 12px; }
+    .progress-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--green);
+      transition: width 0.5s;
+    }
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text2);
+    }
+
+    /* Roadmap expand (simple) */
+    .roadmap-section {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .module-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 700;
+      padding: 8px 0;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+    }
+    .module-header:last-child { border-bottom: none; }
+    .lesson-list {
+      display: none;
+      padding-left: 20px;
+    }
+    .lesson-list.open { display: block; }
+    .lesson-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .lesson-item.completed { color: var(--green); }
+    .lesson-item.locked { color: #ccc; pointer-events: none; }
+
+    /* Right dashboard (gamification) */
+    .right-panel {
+      width: 280px;
+      background: var(--bg);
+      border-left: 1px solid var(--border);
+      padding: 20px;
       display: flex;
       flex-direction: column;
       gap: 16px;
+      overflow-y: auto;
     }
-    .card {
-      background: var(--bg-surface);
-      border-radius: var(--radius);
+    .user-card {
+      text-align: center;
       padding: 16px;
-      border: 1px solid var(--border);
+      background: var(--bg2);
+      border-radius: var(--radius);
     }
-    .card-title {
+    .avatar {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .level-badge {
+      background: var(--gold);
+      color: #000;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin: 8px 0;
       font-size: 0.8rem;
-      font-weight: 800;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
     }
-    .xp-progress {
+    .xp-bar {
       height: 8px;
-      background: #333;
+      background: #e0e0e0;
       border-radius: 4px;
       margin: 8px 0;
-      overflow: hidden;
     }
-    .xp-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-glow)); transition: width 0.5s; }
-    .streak-flame { color: var(--streak-color); }
+    .xp-fill {
+      height: 100%;
+      background: var(--green);
+      border-radius: 4px;
+    }
     .quest-item {
       display: flex;
       align-items: center;
@@ -195,482 +235,202 @@
       margin-bottom: 8px;
       font-size: 0.8rem;
     }
-    .quest-progress {
-      flex: 1;
-      height: 4px;
-      background: #444;
-      border-radius: 2px;
-    }
-    .quest-bar { height: 100%; background: var(--accent); border-radius: 2px; }
-    .reward-tag {
-      background: var(--xp-color);
-      color: #000;
-      padding: 2px 6px;
-      border-radius: 10px;
-      font-size: 0.7rem;
-      font-weight: 700;
-    }
-    .achievement {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-    .achievement-icon {
-      font-size: 1.5rem;
-      color: var(--gold);
-    }
-
-    /* ── TOAST / NOTIFICATION ────────────── */
-    .toast-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .toast {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      animation: slideInRight 0.3s ease, fadeOut 0.5s 2.5s forwards;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    }
-    .toast.xp { border-left: 4px solid var(--xp-color); }
-    .toast.level { border-left: 4px solid var(--accent); }
-    .toast.achievement { border-left: 4px solid var(--gold); }
-    @keyframes slideInRight { from { transform: translateX(120%); opacity:0; } to { transform: translateX(0); opacity:1; } }
-    @keyframes fadeOut { to { opacity:0; transform: translateY(-10px); } }
-
-    /* ── FLOATING ACTION BUTTONS ──────────── */
-    .fab-container {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 30;
-    }
-    .fab {
-      width: 48px; height: 48px;
+    .quest-check {
+      width: 18px; height: 18px;
+      border: 2px solid var(--border);
       border-radius: 50%;
-      background: var(--accent);
-      border: none;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      color: #000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: transform 0.2s;
     }
-    .fab:hover { transform: scale(1.1); }
+    .quest-check.done { background: var(--green); border-color: var(--green); color: white; }
   </style>
 </head>
 <body>
-  <!-- LEFT SIDEBAR -->
-  <aside class="sidebar-left">
+  <!-- Sidebar -->
+  <aside class="sidebar">
     <div class="logo">
-      <img src="../favicon.ico" alt="Akademia" class="logo-img">
-      <span class="logo-text">Akade<span>mia</span></span>
+      <img src="../favicon.ico" alt="Akademia">
+      Akade<span>mia</span>
     </div>
     <nav>
-      <div class="nav-item active"><iconify-icon icon="pixelarticons:compass"></iconify-icon> Journey</div>
+      <div class="nav-item active"><iconify-icon icon="pixelarticons:home"></iconify-icon> Home</div>
+      <div class="nav-item"><iconify-icon icon="pixelarticons:compass"></iconify-icon> Discover</div>
       <div class="nav-item"><iconify-icon icon="pixelarticons:trophy"></iconify-icon> Achievements</div>
-      <div class="nav-item"><iconify-icon icon="pixelarticons:users"></iconify-icon> Leaderboard</div>
       <div class="nav-item"><iconify-icon icon="pixelarticons:bookmark"></iconify-icon> Saved</div>
     </nav>
-    <div class="user-card">
-      <div class="avatar" id="playerAvatar">A</div>
-      <div>
-        <div style="font-weight:700;">Adventurer</div>
-        <div style="font-size:0.75rem; color:var(--text-secondary);">Level <span id="playerLevel">7</span></div>
-      </div>
-      <div class="level-badge"><span id="playerXP">2,430</span> XP</div>
-    </div>
   </aside>
 
-  <!-- CENTER WORKSPACE -->
-  <main class="center-workspace">
-    <div class="journey-header">
-      <div class="breadcrumb">Home / Python Mastery</div>
-      <div class="journey-title">Python Mastery</div>
+  <!-- Main content -->
+  <main class="main">
+    <!-- Top stats -->
+    <div class="top-stats">
+      <div class="stat-card">
+        <div class="stat-value" id="sparksCount">240</div>
+        <div class="stat-label">🔥 Sparks</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="streakCount">5</div>
+        <div class="stat-label">📅 Day Streak</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="completedCount">12</div>
+        <div class="stat-label">✅ Completed</div>
+      </div>
     </div>
-    <div class="canvas-container" id="canvasContainer">
-      <canvas id="threeCanvas"></canvas>
-      <div class="fab-container">
-        <button class="fab" id="claimDailyBtn" title="Daily Reward"><iconify-icon icon="pixelarticons:gift"></iconify-icon></button>
+
+    <!-- Courses section -->
+    <div class="content">
+      <h2 style="margin-bottom:16px;">Your Courses</h2>
+      <div class="courses-grid" id="coursesGrid"></div>
+
+      <!-- Inline roadmap for selected course -->
+      <div class="roadmap-section" id="roadmapSection" style="display:none;">
+        <h3 id="selectedCourseTitle" style="margin-bottom:12px;"></h3>
+        <div id="moduleContainer"></div>
       </div>
     </div>
   </main>
 
-  <!-- RIGHT DASHBOARD -->
-  <aside class="dashboard-right">
-    <!-- Daily Quests -->
+  <!-- Right gamification panel -->
+  <aside class="right-panel">
+    <div class="user-card">
+      <div class="avatar">A</div>
+      <div style="font-weight:700;">Adventurer</div>
+      <div class="level-badge">Level 7</div>
+      <div class="xp-bar">
+        <div class="xp-fill" style="width:68%;"></div>
+      </div>
+      <small style="color:var(--text2);">2,430 / 3,500 XP</small>
+    </div>
     <div class="card">
-      <div class="card-title">Daily Quests</div>
+      <strong>Daily Quests</strong>
       <div class="quest-item">
+        <div class="quest-check done">✓</div>
         <span>Complete 1 lesson</span>
-        <div class="quest-progress"><div class="quest-bar" style="width:100%;"></div></div>
-        <span class="reward-tag">+30 XP</span>
       </div>
       <div class="quest-item">
-        <span>Solve 3 exercises</span>
-        <div class="quest-progress"><div class="quest-bar" style="width:66%;"></div></div>
-        <span class="reward-tag">+50 XP</span>
+        <div class="quest-check" style="border-color:var(--gold);"> </div>
+        <span>Earn 50 sparks</span>
       </div>
       <div class="quest-item">
-        <span>Maintain streak</span>
-        <div class="quest-progress"><div class="quest-bar" style="width:40%;"></div></div>
-        <span class="reward-tag">+20 XP</span>
+        <div class="quest-check"></div>
+        <span>Study 30 min</span>
       </div>
     </div>
-
-    <!-- Streak & Stats -->
-    <div class="card" style="display:flex; align-items:center; justify-content:space-between;">
-      <div>
-        <div class="card-title" style="margin-bottom:4px;">🔥 Streak</div>
-        <span style="font-size:1.8rem; font-weight:900; color:var(--streak-color);">5</span> days
-      </div>
-      <div style="text-align:right;">
-        <div class="card-title" style="margin-bottom:4px;">⏱ Today</div>
-        <span style="font-size:1.2rem;">32 min</span>
-      </div>
-    </div>
-
-    <!-- Recent Achievements -->
-    <div class="card">
-      <div class="card-title">Recent Achievements</div>
-      <div class="achievement">
-        <iconify-icon icon="pixelarticons:star" class="achievement-icon"></iconify-icon>
-        <div>
-          <div style="font-weight:600;">First Lesson</div>
-          <div style="font-size:0.7rem; color:var(--text-secondary);">Completed your first lesson!</div>
-        </div>
-      </div>
-      <div class="achievement">
-        <iconify-icon icon="pixelarticons:lightning" class="achievement-icon"></iconify-icon>
-        <div>
-          <div style="font-weight:600;">Speed Demon</div>
-          <div style="font-size:0.7rem; color:var(--text-secondary);">Finished a quiz in under 2 min</div>
-        </div>
-      </div>
+    <div>
+      <strong>Recent Achievements</strong>
+      <div style="font-size:0.8rem; margin-top:8px;">🏆 Fast Learner</div>
+      <div style="font-size:0.8rem;">⭐ First Steps</div>
     </div>
   </aside>
 
-  <!-- Toast Container -->
-  <div class="toast-container" id="toastContainer"></div>
-
   <script type="module">
-    import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-    import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+    import { db } from '../src/js/firebase-config.js';
+    import { collection, getDocs, query, orderBy, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-    // ── GAMIFICATION STATE (simulated) ────────
-    const player = {
+    // Simulated user data (would come from Firebase auth + Firestore)
+    const user = {
+      uid: 'demo123',
       name: 'Adventurer',
-      avatar: 'A',
+      sparks: 240,
       level: 7,
       xp: 2430,
-      xpToNextLevel: 3500,
+      xpToNext: 3500,
       streak: 5,
-      todayMinutes: 32,
-      completedLessons: ['l1','l2'],
-      currentLesson: 'l3',
-      achievements: ['first_lesson', 'speed_demon']
+      completedLessons: ['les1','les2','les3']
     };
 
-    // Lesson nodes (in a real app, fetched from backend)
-    const lessons = [
-      { id: 'l1', type: 'lesson', title: 'Introduction', completed: true, current: false, locked: false, xp: 30, duration: 10, description: 'Get started with Python basics.' },
-      { id: 'l2', type: 'lesson', title: 'Variables', completed: true, current: false, locked: false, xp: 30, duration: 15, description: 'Learn about variables and data types.' },
-      { id: 'l3', type: 'quiz', title: 'Quiz: Basics', completed: false, current: true, locked: false, xp: 50, duration: 20, description: 'Test your knowledge.' },
-      { id: 'l4', type: 'lesson', title: 'Control Flow', completed: false, current: false, locked: true, xp: 40, duration: 25, description: 'If statements and loops.' },
-      { id: 'l5', type: 'project', title: 'Project: Calculator', completed: false, current: false, locked: true, xp: 100, duration: 45, description: 'Build a calculator app.' },
-      { id: 'l6', type: 'lesson', title: 'Functions', completed: false, current: false, locked: true, xp: 35, duration: 20, description: 'Organize code with functions.' },
-      { id: 'l7', type: 'certificate', title: 'Python Basics Cert', completed: false, current: false, locked: true, xp: 150, duration: 0, description: 'Earn your certificate!' }
-    ];
-
-    // ── TOAST FUNCTION ────────────────────────
-    function showToast(type, title, message) {
-      const container = document.getElementById('toastContainer');
-      const toast = document.createElement('div');
-      toast.className = `toast ${type}`;
-      let icon = '';
-      if (type === 'xp') icon = '<iconify-icon icon="pixelarticons:coin" style="color:var(--xp-color);"></iconify-icon>';
-      else if (type === 'level') icon = '<iconify-icon icon="pixelarticons:arrow-up" style="color:var(--accent);"></iconify-icon>';
-      else if (type === 'achievement') icon = '<iconify-icon icon="pixelarticons:star" style="color:var(--gold);"></iconify-icon>';
-      toast.innerHTML = `${icon}<div><strong>${title}</strong><br><small>${message}</small></div>`;
-      container.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
-    }
-
-    // ── THREE.JS SCENE ────────────────────────
-    const canvasContainer = document.getElementById('canvasContainer');
-    const canvas = document.getElementById('threeCanvas');
-
-    const scene = new THREE.Scene();
-    scene.background = null;
-    scene.fog = new THREE.FogExp2(0x0b0b0f, 0.00003);
-
-    const camera = new THREE.PerspectiveCamera(45, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
-    camera.position.set(0, 6, 22);
-    camera.lookAt(0, 0, 0);
-
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = true;
-
-    const labelRenderer = new CSS2DRenderer();
-    labelRenderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-    labelRenderer.domElement.style.position = 'absolute';
-    labelRenderer.domElement.style.top = '0';
-    labelRenderer.domElement.style.pointerEvents = 'none';
-    canvasContainer.appendChild(labelRenderer.domElement);
-
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.rotateSpeed = 0.3;
-    controls.zoomSpeed = 0.7;
-    controls.target.set(0, 0, 0);
-    controls.maxPolarAngle = Math.PI / 2.2;
-    controls.minDistance = 12;
-    controls.maxDistance = 40;
-
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0x404066);
-    scene.add(ambientLight);
-    const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
-    dirLight.position.set(5, 10, 7);
-    dirLight.castShadow = true;
-    scene.add(dirLight);
-    const pointLight1 = new THREE.PointLight(0x58CC02, 2, 30);
-    pointLight1.position.set(2, 1, 3);
-    scene.add(pointLight1);
-
-    // Particles
-    const particlesGeo = new THREE.BufferGeometry();
-    const particlesCount = 800;
-    const posArray = new Float32Array(particlesCount * 3);
-    for (let i = 0; i < particlesCount * 3; i += 3) {
-      posArray[i] = (Math.random() - 0.5) * 50;
-      posArray[i+1] = (Math.random() - 0.5) * 30;
-      posArray[i+2] = (Math.random() - 0.5) * 40;
-    }
-    particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    const particlesMat = new THREE.PointsMaterial({ size: 0.05, color: 0x88aaff, transparent: true, blending: THREE.AdditiveBlending });
-    const particles = new THREE.Points(particlesGeo, particlesMat);
-    scene.add(particles);
-
-    // ── BUILD NODES ────────────────────────────
-    const nodes = [];
-    const nodeMeshes = new Map();
-
-    function createNode(les, idx, y) {
-      const group = new THREE.Group();
-      group.position.set(0, y, 0);
-      group.userData = { id: les.id };
-
-      // Hex base
-      const hexGeo = new THREE.CylinderGeometry(0.9, 0.9, 0.2, 6);
-      const color = les.completed ? 0x4a6b4a : (les.current ? 0x3a5a3a : (les.locked ? 0x2a2a2a : 0x3a4a5a));
-      const hexMat = new THREE.MeshStandardMaterial({ color, roughness: 0.3, metalness: 0.6, emissive: les.current ? 0x112211 : 0x000000 });
-      const hex = new THREE.Mesh(hexGeo, hexMat);
-      hex.castShadow = true;
-      hex.receiveShadow = true;
-      group.add(hex);
-
-      // Glow ring
-      const ringGeo = new THREE.TorusGeometry(0.6, 0.05, 16, 32);
-      const ringColor = les.completed ? 0x88ff88 : (les.current ? 0x66cc66 : 0x444466);
-      const ringMat = new THREE.MeshStandardMaterial({ color: ringColor, emissive: les.current ? 0x225522 : 0x000000, roughness: 0.2 });
-      const ring = new THREE.Mesh(ringGeo, ringMat);
-      ring.position.y = 0.15;
-      group.add(ring);
-
-      // Icon
-      const iconCanvas = document.createElement('canvas');
-      iconCanvas.width = 64; iconCanvas.height = 64;
-      const ctx = iconCanvas.getContext('2d');
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 28px Arial';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      let iconChar = '📖';
-      if (les.type === 'quiz') iconChar = '❓';
-      else if (les.type === 'project') iconChar = '💻';
-      else if (les.type === 'certificate') iconChar = '🏆';
-      ctx.fillText(iconChar, 32, 32);
-      const iconTexture = new THREE.CanvasTexture(iconCanvas);
-      const iconSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: iconTexture }));
-      iconSprite.position.y = 0.5;
-      iconSprite.scale.set(0.8, 0.8, 1);
-      group.add(iconSprite);
-
-      // Title label
-      const div = document.createElement('div');
-      div.textContent = les.title;
-      div.style.color = '#cccccc';
-      div.style.fontSize = '10px';
-      div.style.fontWeight = 'bold';
-      const label = new CSS2DObject(div);
-      label.position.set(0, -1.2, 0);
-      group.add(label);
-
-      return group;
-    }
-
-    lessons.forEach((les, idx) => {
-      const y = idx * 3.2 - 6;
-      const nodeGroup = createNode(les, idx, y);
-      scene.add(nodeGroup);
-      nodes.push({ ...les, group: nodeGroup, y });
-      nodeMeshes.set(les.id, nodeGroup);
-      // Add connection tube between nodes
-      if (idx > 0) {
-        const prev = nodes[idx-1];
-        const curve = new THREE.CatmullRomCurve3([
-          new THREE.Vector3(0, prev.y, 0),
-          new THREE.Vector3(0.5, (prev.y + y)/2, 1),
-          new THREE.Vector3(0, y, 0)
-        ]);
-        const tubeGeo = new THREE.TubeGeometry(curve, 20, 0.08, 8, false);
-        const tubeMat = new THREE.MeshStandardMaterial({ 
-          color: prev.completed ? 0x58CC02 : (prev.current ? 0x55aa55 : 0x444466),
-          emissive: prev.completed ? 0x225522 : 0x000000,
-          roughness: 0.4,
-          metalness: 0.3
+    // Load courses
+    async function loadCourses() {
+      const coursesGrid = document.getElementById('coursesGrid');
+      coursesGrid.innerHTML = '<p>Loading courses...</p>';
+      try {
+        const q = query(collection(db, 'courses'), orderBy('createdAt'));
+        const snap = await getDocs(q);
+        coursesGrid.innerHTML = '';
+        snap.forEach(courseDoc => {
+          const course = { id: courseDoc.id, ...courseDoc.data() };
+          const card = document.createElement('div');
+          card.className = 'course-card';
+          // Calculate progress (simplified: count completed lessons vs total)
+          const total = 10; // you'd fetch real count from modules/lessons
+          const completed = user.completedLessons.filter(id => id.startsWith(course.id)).length;
+          const progress = (completed / total) * 100;
+          card.innerHTML = `
+            <iconify-icon icon="pixelarticons:folder" class="course-icon"></iconify-icon>
+            <div class="course-title">${escapeHtml(course.title)}</div>
+            <div class="course-desc">${escapeHtml(course.description || '')}</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:${progress}%;"></div>
+            </div>
+            <div class="course-meta">
+              <span>${Math.round(progress)}% done</span>
+              <span>${completed}/${total} lessons</span>
+            </div>
+          `;
+          card.addEventListener('click', () => showRoadmap(course.id, course.title));
+          coursesGrid.appendChild(card);
         });
-        const tube = new THREE.Mesh(tubeGeo, tubeMat);
-        scene.add(tube);
+      } catch (err) {
+        coursesGrid.innerHTML = '<p>Failed to load courses.</p>';
       }
-    });
-
-    // ── RAYCASTER INTERACTION ──────────────────
-    const raycaster = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
-    let hovered = null;
-
-    canvas.addEventListener('mousemove', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-
-      raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObjects(Array.from(nodeMeshes.values()), true);
-      if (intersects.length > 0) {
-        const obj = intersects[0].object;
-        let group = obj;
-        while (group && !group.userData?.id) group = group.parent;
-        if (group && nodeMeshes.has(group.userData?.id)) {
-          canvas.style.cursor = 'pointer';
-          if (hovered !== group) {
-            if (hovered) hovered.children.forEach(c => { if (c.material?.emissive) c.material.emissive.set(0x000000); });
-            hovered = group;
-            group.children.forEach(c => { if (c.material?.emissive) c.material.emissive.set(0x333333); });
-          }
-        }
-      } else {
-        canvas.style.cursor = '';
-        if (hovered) {
-          hovered.children.forEach(c => { if (c.material?.emissive) c.material.emissive.set(0x000000); });
-          hovered = null;
-        }
-      }
-    });
-
-    canvas.addEventListener('click', () => {
-      if (hovered) {
-        const lessonId = hovered.userData.id;
-        const les = nodes.find(n => n.id === lessonId);
-        if (les && !les.locked) {
-          // Simulate XP gain and level up
-          const xpGain = les.xp || 30;
-          player.xp += xpGain;
-          document.getElementById('playerXP').textContent = player.xp.toLocaleString();
-          showToast('xp', `+${xpGain} XP`, `You earned XP from ${les.title}`);
-          
-          // Check level up
-          if (player.xp >= player.xpToNextLevel) {
-            player.level++;
-            player.xpToNextLevel = Math.floor(player.xpToNextLevel * 1.5);
-            document.getElementById('playerLevel').textContent = player.level;
-            showToast('level', 'Level Up!', `You are now level ${player.level}`);
-          }
-          // Mark lesson completed (visual update)
-          les.completed = true;
-          hovered.children[0].material.color.set(0x4a6b4a);
-          hovered.children[1].material.color.set(0x88ff88);
-          // Animate camera
-          const targetPos = new THREE.Vector3(0, les.y, 8);
-          const targetLook = new THREE.Vector3(0, les.y, 0);
-          animateCamera(targetPos, targetLook);
-        }
-      }
-    });
-
-    function animateCamera(targetPos, targetLook) {
-      const startPos = camera.position.clone();
-      const startTarget = controls.target.clone();
-      const duration = 800;
-      const startTime = Date.now();
-      function update() {
-        const now = Date.now();
-        const t = Math.min((now - startTime) / duration, 1);
-        camera.position.lerpVectors(startPos, targetPos, t);
-        controls.target.lerpVectors(startTarget, targetLook, t);
-        controls.update();
-        if (t < 1) requestAnimationFrame(update);
-      }
-      update();
     }
 
-    // Daily reward button
-    document.getElementById('claimDailyBtn').addEventListener('click', () => {
-      player.xp += 100;
-      document.getElementById('playerXP').textContent = player.xp.toLocaleString();
-      showToast('xp', '+100 XP', 'Daily reward claimed!');
-      if (player.xp >= player.xpToNextLevel) {
-        player.level++;
-        player.xpToNextLevel = Math.floor(player.xpToNextLevel * 1.5);
-        document.getElementById('playerLevel').textContent = player.level;
-        showToast('level', 'Level Up!', `You are now level ${player.level}`);
+    // Show module/lesson roadmap for selected course
+    async function showRoadmap(courseId, courseTitle) {
+      const section = document.getElementById('roadmapSection');
+      section.style.display = 'block';
+      document.getElementById('selectedCourseTitle').textContent = courseTitle;
+      const container = document.getElementById('moduleContainer');
+      container.innerHTML = '<p>Loading modules...</p>';
+      try {
+        const modulesSnap = await getDocs(collection(db, 'courses', courseId, 'modules'));
+        container.innerHTML = '';
+        for (let modDoc of modulesSnap.docs) {
+          const mod = { id: modDoc.id, ...modDoc.data() };
+          const modDiv = document.createElement('div');
+          modDiv.innerHTML = `
+            <div class="module-header">
+              <span>${escapeHtml(mod.title)}</span>
+              <span>▼</span>
+            </div>
+            <div class="lesson-list" id="lessons-${mod.id}"></div>
+          `;
+          container.appendChild(modDiv);
+          const header = modDiv.querySelector('.module-header');
+          const list = modDiv.querySelector('.lesson-list');
+          header.addEventListener('click', () => {
+            list.classList.toggle('open');
+          });
+          // Load lessons for this module
+          const lessonsSnap = await getDocs(collection(db, 'courses', courseId, 'modules', mod.id, 'lessons'));
+          let html = '';
+          lessonsSnap.forEach(lesDoc => {
+            const les = { id: lesDoc.id, ...lesDoc.data() };
+            const completed = user.completedLessons.includes(les.id);
+            const locked = false; // would be determined by order
+            html += `
+              <div class="lesson-item ${completed ? 'completed' : ''} ${locked ? 'locked' : ''}">
+                <iconify-icon icon="${completed ? 'pixelarticons:check' : (locked ? 'pixelarticons:lock' : 'pixelarticons:play')}"></iconify-icon>
+                <span>${escapeHtml(les.title)}</span>
+                ${completed ? '<span style="margin-left:auto;">✓</span>' : ''}
+              </div>
+            `;
+          });
+          list.innerHTML = html;
+        }
+      } catch (err) {
+        container.innerHTML = '<p>Could not load modules.</p>';
       }
-    });
-
-    // Animation loop
-    function animate() {
-      requestAnimationFrame(animate);
-      particles.rotation.y += 0.0002;
-      // subtle floating for nodes
-      nodes.forEach((node, i) => {
-        node.group.position.y = node.y + Math.sin(Date.now()*0.002 + i)*0.08;
-      });
-      controls.update();
-      renderer.render(scene, camera);
-      labelRenderer.render(scene, camera);
     }
-    animate();
 
-    // Resize
-    window.addEventListener('resize', () => {
-      const w = canvasContainer.clientWidth;
-      const h = canvasContainer.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-      labelRenderer.setSize(w, h);
-    });
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    loadCourses();
   </script>
 </body>
 </html>
