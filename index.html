@@ -21,7 +21,7 @@
     <meta name="twitter:title" content="Akademia - Learn to Code for Free">
     <meta name="twitter:description" content="The free, fun, and effective way to learn coding!">
     
-    <!-- Favicon -->
+    <!-- Favicon (real logo) -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
     <!-- Fonts -->
@@ -67,16 +67,12 @@
             overflow-x: hidden;
         }
 
-        /* Vignette effect - dark corners */
+        /* Vignette effect */
         body::after {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 999;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 999;
             background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.12) 100%);
         }
 
@@ -84,302 +80,251 @@
 
         /* ---------- NAVIGATION ---------- */
         .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 70px;
-            background: var(--bg);
-            border-bottom: 2px solid var(--border);
-            z-index: 1000;
+            position: fixed; top:0; left:0; right:0; height:70px;
+            background: var(--bg); border-bottom:2px solid var(--border); z-index:1000;
             transition: box-shadow 0.2s;
         }
         .nav.scrolled { box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
         .nav-container {
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 0 24px;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            max-width:1140px; margin:0 auto; padding:0 24px; height:100%;
+            display:flex; align-items:center; justify-content:space-between;
         }
-        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .logo-icon {
-            width: 36px; height: 36px; background: var(--green); border-radius: 10px;
-            display: flex; align-items: center; justify-content: center; color: white;
-            font-size: 24px; font-weight: 800;
-        }
-        .logo-text { font-size: 1.5rem; font-weight: 800; color: var(--text); }
-        .logo-text span { color: var(--green); }
-        .nav-links { display: flex; align-items: center; gap: 24px; }
+        .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+        .logo-img { width:36px; height:36px; border-radius:10px; }
+        .logo-text { font-size:1.5rem; font-weight:800; color:var(--text); }
+        .logo-text span { color:var(--green); }
+        .nav-links { display:flex; align-items:center; gap:24px; }
         .nav-link {
-            color: var(--text-secondary); text-decoration: none; font-weight: 700;
-            font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.2s;
+            color:var(--text-secondary); text-decoration:none; font-weight:700;
+            font-size:0.95rem; text-transform:uppercase; letter-spacing:0.5px; transition:color 0.2s;
         }
-        .nav-link:hover { color: var(--text); }
+        .nav-link:hover { color:var(--text); }
         .btn {
-            padding: 12px 24px; border: none; border-radius: 16px; font-weight: 700;
-            font-size: 0.95rem; cursor: pointer; transition: all 0.2s;
-            text-transform: uppercase; letter-spacing: 0.5px; display: inline-flex;
-            align-items: center; gap: 8px; font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
+            padding:12px 24px; border:none; border-radius:16px; font-weight:700;
+            font-size:0.95rem; cursor:pointer; transition:all 0.2s;
+            text-transform:uppercase; letter-spacing:0.5px; display:inline-flex;
+            align-items:center; gap:8px; font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
         }
-        .btn-primary {
-            background: var(--green); color: white; box-shadow: 0 4px 0 var(--green-hover);
-        }
-        .btn-primary:hover { background: var(--green-hover); transform: translateY(-1px); box-shadow: 0 6px 0 #358A02; }
-        .btn-secondary {
-            background: var(--bg); color: var(--green); border: 2px solid var(--border);
-            box-shadow: 0 4px 0 var(--border);
-        }
-        .btn-secondary:hover { background: var(--bg-secondary); }
-        .btn-large { padding: 16px 32px; font-size: 1.05rem; border-radius: 16px; }
+        .btn-primary { background:var(--green); color:white; box-shadow:0 4px 0 var(--green-hover); }
+        .btn-primary:hover { background:var(--green-hover); transform:translateY(-1px); box-shadow:0 6px 0 #358A02; }
+        .btn-secondary { background:var(--bg); color:var(--green); border:2px solid var(--border); box-shadow:0 4px 0 var(--border); }
+        .btn-secondary:hover { background:var(--bg-secondary); }
+        .btn-large { padding:16px 32px; font-size:1.05rem; border-radius:16px; }
 
         /* ---------- HERO ---------- */
         .hero {
-            padding: 120px 24px 80px;
-            max-width: 1140px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            min-height: 90vh;
+            padding:120px 24px 80px; max-width:1140px; margin:0 auto;
+            display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; min-height:90vh;
         }
-        .hero-content { position: relative; }
+        .hero-content { position:relative; }
         .hero-badge {
-            display: inline-block; background: var(--gold); color: white; padding: 6px 16px;
-            border-radius: 20px; font-weight: 800; font-size: 0.9rem; text-transform: uppercase;
-            letter-spacing: 1px; margin-bottom: 20px;
+            display:inline-block; background:var(--gold); color:white; padding:6px 16px;
+            border-radius:20px; font-weight:800; font-size:0.9rem; text-transform:uppercase;
+            letter-spacing:1px; margin-bottom:20px;
         }
         .hero-title {
-            font-size: clamp(2.5rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.1;
-            color: var(--text); margin-bottom: 24px;
+            font-size: clamp(2.5rem, 5vw, 3.8rem); font-weight:900; line-height:1.1;
+            color:var(--text); margin-bottom:24px;
         }
-        .hero-title .highlight { color: var(--green); }
+        .hero-title .highlight { color:var(--green); }
         .hero-subtitle {
-            font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 32px;
-            line-height: 1.6; font-weight: 500; max-width: 500px;
+            font-size:1.2rem; color:var(--text-secondary); margin-bottom:32px;
+            line-height:1.6; font-weight:500; max-width:500px;
         }
-        .hero-cta { display: flex; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
-        .hero-rating {
-            display: flex; align-items: center; gap: 24px; color: var(--text-secondary); font-size: 0.9rem;
-        }
-        .stars { color: var(--gold); }
-        .rating-stats { display: flex; gap: 12px; }
-        .rating-item { font-weight: 600; }
+        .hero-cta { display:flex; gap:16px; margin-bottom:32px; flex-wrap:wrap; }
+        .hero-rating { display:flex; align-items:center; gap:24px; color:var(--text-secondary); font-size:0.9rem; }
+        .stars { color:var(--gold); }
+        .rating-stats { display:flex; gap:12px; }
+        .rating-item { font-weight:600; }
 
-        /* Right side - animated code editor and floating cards */
-        .hero-visual {
-            position: relative; display: flex; justify-content: center; align-items: center;
-        }
+        /* Right side animated code editor and floating cards */
+        .hero-visual { position:relative; display:flex; justify-content:center; align-items:center; }
         .code-mock {
-            width: 320px; height: 380px; background: #1E1E1E; border-radius: 16px;
-            padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            font-family: 'Courier New', monospace; color: #D4D4D4; position: relative;
+            width:320px; height:380px; background:#1E1E1E; border-radius:16px;
+            padding:20px; box-shadow:0 20px 50px rgba(0,0,0,0.2);
+            font-family:'Courier New', monospace; color:#D4D4D4; position:relative;
         }
         .code-mock .line {
-            height: 12px; background: #3C3C3C; border-radius: 6px; margin-bottom: 10px;
-            width: 80%; animation: typing 3s steps(20) infinite;
+            height:12px; background:#3C3C3C; border-radius:6px; margin-bottom:10px;
+            width:80%; animation:typing 3s steps(20) infinite;
         }
-        .code-mock .line.short { width: 60%; }
-        .code-mock .line.green { background: var(--green); width: 40%; }
+        .code-mock .line.short { width:60%; }
+        .code-mock .line.green { background:var(--green); width:40%; }
         @keyframes typing {
-            0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; }
+            0% { opacity:0.3; } 50% { opacity:1; } 100% { opacity:0.3; }
         }
         .floating-card {
-            position: absolute; background: white; border: 2px solid var(--border);
-            border-radius: 12px; padding: 10px 14px; font-size: 0.8rem; font-weight: 700;
-            display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            white-space: nowrap;
+            position:absolute; background:white; border:2px solid var(--border);
+            border-radius:12px; padding:10px 14px; font-size:0.8rem; font-weight:700;
+            display:flex; align-items:center; gap:6px; box-shadow:0 4px 10px rgba(0,0,0,0.08);
+            white-space:nowrap;
         }
-        .card-xp { top: 20px; right: -20px; }
-        .card-cert { bottom: 60px; left: -30px; }
-        .card-ai { top: 100px; left: -40px; }
+        .card-xp { top:20px; right:-20px; }
+        .card-cert { bottom:60px; left:-30px; }
+        .card-ai { top:100px; left:-40px; }
         .progress-circle {
-            width: 50px; height: 50px; border-radius: 50%;
+            width:50px; height:50px; border-radius:50%;
             background: conic-gradient(var(--green) 70%, var(--border) 0);
-            display: flex; align-items: center; justify-content: center;
-            position: absolute; bottom: 10px; right: -10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display:flex; align-items:center; justify-content:center;
+            position:absolute; bottom:10px; right:-10px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
         }
-        .progress-circle span { font-size: 0.7rem; font-weight: 800; color: var(--text); }
+        .progress-circle span { font-size:0.7rem; font-weight:800; color:var(--text); }
 
         /* ---------- TRUSTED BY ---------- */
         .trusted {
-            padding: 60px 24px;
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+            padding:60px 24px; background:var(--bg-secondary);
+            border-top:1px solid var(--border); border-bottom:1px solid var(--border);
         }
-        .trusted-container {
-            max-width: 1140px; margin: 0 auto; text-align: center;
-        }
+        .trusted-container { max-width:1140px; margin:0 auto; text-align:center; }
         .trusted-text {
-            font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 24px;
-            text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
+            font-size:0.9rem; color:var(--text-secondary); margin-bottom:24px;
+            text-transform:uppercase; letter-spacing:1px; font-weight:700;
         }
         .trusted-logos {
-            display: flex; justify-content: center; align-items: center; gap: 48px;
-            flex-wrap: wrap; font-size: 1.3rem; font-weight: 800; color: var(--text);
+            display:flex; justify-content:center; align-items:center; gap:48px;
+            flex-wrap:wrap; font-size:1.3rem; font-weight:800; color:var(--text);
         }
-        .trusted-logos span { opacity: 0.6; transition: opacity 0.2s; }
-        .trusted-logos span:hover { opacity: 1; }
+        .trusted-logos span { opacity:0.6; transition:opacity 0.2s; }
+        .trusted-logos span:hover { opacity:1; }
 
-        /* ---------- STATISTICS ---------- */
+        /* ---------- STATISTICS (minimized) ---------- */
         .stats {
-            padding: 80px 24px;
-            max-width: 1140px; margin: 0 auto;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 32px; text-align: center;
+            padding:60px 24px; max-width:1000px; margin:0 auto;
+            display:grid; grid-template-columns:repeat(4,1fr); gap:16px; text-align:center;
         }
-        .stat-item { padding: 20px; }
+        .stat-item { padding:16px; }
         .stat-number {
-            font-size: 3rem; font-weight: 900; color: var(--green);
-            margin-bottom: 8px; font-family: 'BlockBlueprint', sans-serif;
+            font-size:2.2rem; font-weight:900; color:var(--green);
+            margin-bottom:4px; font-family:'BlockBlueprint', sans-serif;
         }
-        .stat-label { font-size: 1rem; color: var(--text-secondary); font-weight: 600; }
+        .stat-label { font-size:0.85rem; color:var(--text-secondary); font-weight:600; }
 
         /* ---------- INTERACTIVE DEMO ---------- */
         .interactive-demo {
-            padding: 80px 24px;
-            background: var(--bg);
+            padding:80px 24px; background:var(--bg);
         }
         .demo-container {
-            max-width: 800px; margin: 0 auto;
-            background: var(--bg-secondary); border: 2px solid var(--border);
-            border-radius: var(--radius); padding: 24px;
+            max-width:800px; margin:0 auto;
+            background:var(--bg-secondary); border:2px solid var(--border);
+            border-radius:var(--radius); padding:24px;
         }
-        .demo-title {
-            text-align: center; font-size: 1.8rem; margin-bottom: 24px;
-        }
-        .demo-editor {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-        }
+        .demo-title { text-align:center; font-size:1.8rem; margin-bottom:24px; }
+        .demo-editor { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
         .demo-input {
-            background: #1E1E1E; border-radius: 12px; padding: 16px;
-            display: flex; flex-direction: column;
+            background:#1E1E1E; border-radius:12px; padding:16px; display:flex; flex-direction:column;
         }
         .demo-input textarea {
-            width: 100%; flex: 1; background: transparent; border: none;
-            color: #D4D4D4; font-family: 'Courier New', monospace; font-size: 0.95rem;
-            resize: vertical; outline: none;
+            width:100%; flex:1; background:transparent; border:none;
+            color:#D4D4D4; font-family:'Courier New', monospace; font-size:0.95rem;
+            resize:vertical; outline:none;
         }
-        .demo-run {
-            margin-top: 12px; align-self: flex-end;
-        }
+        .demo-run { margin-top:12px; align-self:flex-end; }
         .demo-output {
-            background: white; border-radius: 12px; padding: 16px;
-            border: 1px solid var(--border);
+            background:white; border-radius:12px; padding:16px; border:1px solid var(--border);
         }
-        .demo-output iframe {
-            width: 100%; height: 100%; border: none; min-height: 150px;
-        }
+        .demo-output iframe { width:100%; height:100%; border:none; min-height:150px; }
 
         /* ---------- WHY AKADEMIA ---------- */
         .why {
-            padding: 100px 24px;
-            max-width: 1140px; margin: 0 auto;
+            padding:100px 24px; max-width:1140px; margin:0 auto;
         }
         .why-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 32px; margin-top: 48px;
+            display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+            gap:32px; margin-top:48px;
         }
         .why-card {
-            text-align: center; padding: 32px 24px; border-radius: var(--radius);
-            border: 2px solid var(--border); transition: all 0.3s;
+            text-align:center; padding:32px 24px; border-radius:var(--radius);
+            border:2px solid var(--border); transition:all 0.3s;
         }
-        .why-card:hover { border-color: var(--green); transform: translateY(-4px); }
-        .why-icon { font-size: 3rem; margin-bottom: 20px; color: var(--green); }
-        .why-card h3 { margin-bottom: 8px; }
-        .why-card p { color: var(--text-secondary); }
+        .why-card:hover { border-color:var(--green); transform:translateY(-4px); }
+        .why-icon { font-size:3rem; margin-bottom:20px; color:var(--green); }
+        .why-card h3 { margin-bottom:8px; }
+        .why-card p { color:var(--text-secondary); }
 
         /* ---------- PLATFORM FEATURES ---------- */
         .platform {
-            padding: 80px 24px;
-            background: var(--bg-secondary);
+            padding:80px 24px; background:var(--bg-secondary);
         }
         .feature-row {
-            max-width: 1000px; margin: 0 auto 60px;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+            max-width:1000px; margin:0 auto 60px;
+            display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
         }
-        .feature-row.reverse { direction: rtl; }
-        .feature-row.reverse > * { direction: ltr; }
-        .feature-text h2 { font-size: 2rem; margin-bottom: 12px; }
-        .feature-text p { color: var(--text-secondary); line-height: 1.7; }
+        .feature-row.reverse { direction:rtl; }
+        .feature-row.reverse > * { direction:ltr; }
+        .feature-text h2 { font-size:2rem; margin-bottom:12px; }
+        .feature-text p { color:var(--text-secondary); line-height:1.7; }
         .feature-image {
-            background: var(--bg); border: 2px solid var(--border);
-            border-radius: var(--radius); padding: 24px;
-            display: flex; flex-direction: column; align-items: center; gap: 12px;
-            min-height: 250px; justify-content: center;
+            background:var(--bg); border:2px solid var(--border);
+            border-radius:var(--radius); padding:24px;
+            display:flex; flex-direction:column; align-items:center; gap:12px;
+            min-height:250px; justify-content:center;
         }
 
         /* ---------- PRICING ---------- */
         .pricing {
-            padding: 100px 24px;
-            max-width: 1140px; margin: 0 auto;
+            padding:100px 24px; max-width:1140px; margin:0 auto;
         }
         .pricing-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px; margin-top: 48px;
+            display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+            gap:24px; margin-top:48px;
         }
         .pricing-card {
-            background: var(--bg); border: 2px solid var(--border);
-            border-radius: var(--radius); padding: 32px 24px; text-align: center;
-            transition: all 0.3s;
+            background:var(--bg); border:2px solid var(--border);
+            border-radius:var(--radius); padding:32px 24px; text-align:center;
+            transition:all 0.3s; display:flex; flex-direction:column; justify-content:space-between;
         }
-        .pricing-card.featured {
-            border-color: var(--green); box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            transform: scale(1.02);
+        .pricing-card.featured { border-color:var(--green); box-shadow:0 8px 20px rgba(0,0,0,0.1); transform:scale(1.02); }
+        .pricing-name { font-size:1.5rem; font-weight:800; margin-bottom:8px; }
+        .pricing-price { font-size:2.5rem; font-weight:900; color:var(--green); margin-bottom:16px; }
+        .pricing-features {
+            list-style:none; margin-bottom:24px; text-align:left; padding:0 12px;
         }
-        .pricing-name { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
-        .pricing-price { font-size: 2.5rem; font-weight: 900; color: var(--green); margin-bottom: 16px; }
-        .pricing-features { list-style: none; margin-bottom: 24px; }
-        .pricing-features li { margin-bottom: 8px; color: var(--text-secondary); }
-        .btn-pricing {
-            width: 100%; justify-content: center;
-        }
+        .pricing-features li { margin-bottom:8px; color:var(--text-secondary); display:flex; align-items:center; gap:8px; }
+        .pricing-features li iconify-icon { color:var(--green); }
+        .pricing-features li .strikethrough { text-decoration: line-through; color: #ccc; }
+        .btn-pricing { width:100%; justify-content:center; margin-top:auto; }
 
         /* ---------- FOOTER ---------- */
         .footer {
-            background: #2B2B2B; color: white; padding: 60px 24px 32px;
+            background:#2B2B2B; color:white; padding:60px 24px 32px;
         }
         .footer-container {
-            max-width: 1140px; margin: 0 auto; display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+            max-width:1140px; margin:0 auto; display:grid;
+            grid-template-columns:2fr 1fr 1fr 1fr; gap:48px;
         }
-        .footer-brand { font-size: 1.5rem; font-weight: 800; margin-bottom: 16px; }
-        .footer-brand span { color: var(--green); }
+        .footer-brand { font-size:1.5rem; font-weight:800; margin-bottom:16px; }
+        .footer-brand span { color:var(--green); }
         .footer-description {
-            color: #AFAFAF; line-height: 1.6; margin-bottom: 24px; font-size: 0.95rem;
+            color:#AFAFAF; line-height:1.6; margin-bottom:24px; font-size:0.95rem;
         }
         .footer-title {
-            font-weight: 800; margin-bottom: 20px; font-size: 1rem;
-            text-transform: uppercase; letter-spacing: 1px;
+            font-weight:800; margin-bottom:20px; font-size:1rem;
+            text-transform:uppercase; letter-spacing:1px;
         }
-        .footer-links {
-            list-style: none; display: flex; flex-direction: column; gap: 12px;
-        }
+        .footer-links { list-style:none; display:flex; flex-direction:column; gap:12px; }
         .footer-links a {
-            color: #AFAFAF; text-decoration: none; transition: color 0.2s; font-size: 0.9rem;
+            color:#AFAFAF; text-decoration:none; transition:color 0.2s; font-size:0.9rem;
         }
-        .footer-links a:hover { color: white; }
+        .footer-links a:hover { color:white; }
         .footer-bottom {
-            max-width: 1140px; margin: 48px auto 0; padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.1); text-align: center;
-            color: #AFAFAF; font-size: 0.9rem;
+            max-width:1140px; margin:48px auto 0; padding-top:24px;
+            border-top:1px solid rgba(255,255,255,0.1); text-align:center;
+            color:#AFAFAF; font-size:0.9rem;
         }
 
         /* ---------- RESPONSIVE ---------- */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero { grid-template-columns: 1fr; text-align: center; min-height: auto; padding: 100px 24px 60px; }
-            .hero-rating { justify-content: center; }
-            .code-mock { width: 260px; height: 300px; }
-            .floating-card { display: none; }
-            .feature-row { grid-template-columns: 1fr; gap: 24px; }
-            .demo-editor { grid-template-columns: 1fr; }
-            .footer-container { grid-template-columns: 1fr; gap: 32px; }
+        @media (max-width:768px) {
+            .nav-links { display:none; }
+            .hero { grid-template-columns:1fr; text-align:center; min-height:auto; padding:100px 24px 60px; }
+            .hero-rating { justify-content:center; }
+            .code-mock { width:260px; height:300px; }
+            .floating-card { display:none; }
+            .feature-row { grid-template-columns:1fr; gap:24px; }
+            .demo-editor { grid-template-columns:1fr; }
+            .footer-container { grid-template-columns:1fr; gap:32px; }
+            .stats { grid-template-columns:repeat(2,1fr); }
+            .pricing-grid { grid-template-columns:1fr; }
         }
     </style>
 </head>
@@ -388,7 +333,7 @@
     <nav class="nav" id="navbar">
         <div class="nav-container">
             <a href="/" class="logo">
-                <div class="logo-icon">A</div>
+                <img src="favicon.ico" alt="Akademia Logo" class="logo-img">
                 <div class="logo-text">Akade<span>mia</span></div>
             </a>
             <div class="nav-links">
@@ -419,8 +364,8 @@
                 <div class="stars">★★★★☆</div>
                 <span>4.9 Rating</span>
                 <div class="rating-stats">
-                    <span class="rating-item"><strong>120K+</strong> Students</span>
-                    <span class="rating-item"><strong>800+</strong> Lessons</span>
+                    <span class="rating-item">120K+ Students</span>
+                    <span class="rating-item">800+ Lessons</span>
                 </div>
             </div>
         </div>
@@ -462,7 +407,7 @@
         </div>
     </div>
 
-    <!-- Statistics with animated counters -->
+    <!-- Statistics (minimized) -->
     <section class="stats" id="stats">
         <div class="stat-item">
             <div class="stat-number" data-target="120">0</div>
@@ -478,7 +423,7 @@
         </div>
         <div class="stat-item">
             <div class="stat-number" data-target="98">0</div>
-            <div class="stat-label">Completion Rate</div>
+            <div class="stat-label">Completion %</div>
         </div>
     </section>
 
@@ -500,7 +445,7 @@
 
     <!-- Why Akademia -->
     <section class="why" id="why">
-        <h2 class="section-title" style="text-align:center;">Why Akademia?</h2>
+        <h2 style="text-align:center;">Why Akademia?</h2>
         <div class="why-grid">
             <div class="why-card">
                 <iconify-icon icon="pixelarticons:build" class="why-icon"></iconify-icon>
@@ -520,7 +465,7 @@
         </div>
     </section>
 
-    <!-- Platform Features (alternating) -->
+    <!-- Platform Features -->
     <section class="platform" id="features">
         <div class="feature-row">
             <div class="feature-text">
@@ -556,51 +501,58 @@
 
     <!-- Pricing -->
     <section class="pricing" id="pricing">
-        <h2 class="section-title" style="text-align:center;">Choose your plan</h2>
+        <h2 style="text-align:center;">Choose your plan</h2>
         <div class="pricing-grid">
+            <!-- Basic $0 -->
             <div class="pricing-card">
-                <div class="pricing-name">Free</div>
+                <div class="pricing-name">Basic</div>
                 <div class="pricing-price">$0</div>
                 <ul class="pricing-features">
-                    <li>Basic lessons</li>
-                    <li>Community support</li>
-                    <li>Limited practice</li>
+                    <li><iconify-icon icon="pixelarticons:check"></iconify-icon> Free</li>
+                    <li><iconify-icon icon="pixelarticons:check"></iconify-icon> Learn (Limited daily)</li>
+                    <li class="strikethrough"><iconify-icon icon="pixelarticons:close"></iconify-icon> Practice</li>
+                    <li class="strikethrough"><iconify-icon icon="pixelarticons:close"></iconify-icon> Exercise</li>
+                    <li class="strikethrough"><iconify-icon icon="pixelarticons:close"></iconify-icon> Certificate</li>
                 </ul>
                 <button class="btn btn-secondary btn-pricing">Get Started</button>
             </div>
+            <!-- Beginner $0.98 -->
             <div class="pricing-card featured">
-                <div class="pricing-name">Pro</div>
-                <div class="pricing-price">$12/mo</div>
+                <div class="pricing-name">Beginner</div>
+                <div class="pricing-price">$0.98</div>
                 <ul class="pricing-features">
-                    <li>Certificates</li>
-                    <li>AI Tutor</li>
-                    <li>Unlimited projects</li>
+                    <li><iconify-icon icon="pixelarticons:check"></iconify-icon> Learn</li>
+                    <li><iconify-icon icon="pixelarticons:check"></iconify-icon> Practice</li>
+                    <li><iconify-icon icon="pixelarticons:check"></iconify-icon> Exercise</li>
+                    <li class="strikethrough"><iconify-icon icon="pixelarticons:close"></iconify-icon> Certificate</li>
                 </ul>
-                <button class="btn btn-primary btn-pricing">Start Pro</button>
+                <button class="btn btn-primary btn-pricing">Start Beginner</button>
             </div>
+            <!-- Learner $5.87 -->
             <div class="pricing-card">
-                <div class="pricing-name">Team</div>
-                <div class="pricing-price">$9/mo</div>
+                <div class="pricing-name">Learner</div>
+                <div class="pricing-price">$5.87</div>
                 <ul class="pricing-features">
-                    <li>For schools & companies</li>
-                    <li>Admin dashboard</li>
-                    <li>Priority support</li>
+                    <li><iconify-icon icon="pixelarticons:check"></iconify-icon> Learn</li>
+                    <li><iconify-icon icon="pixelarticons:check"></iconify-icon> Practice</li>
+                    <li><iconify-icon icon="pixelarticons:check"></iconify-icon> Exercise</li>
+                    <li><iconify-icon icon="pixelarticons:check"></iconify-icon> Certificate</li>
                 </ul>
-                <button class="btn btn-secondary btn-pricing">Contact Us</button>
+                <button class="btn btn-primary btn-pricing">Start Learner</button>
             </div>
         </div>
     </section>
 
-    <!-- Featured Courses (loaded from Firebase) -->
-    <section id="courses" class="courses-section" style="padding:100px 24px; background:var(--bg-secondary);">
-        <div class="courses-container" style="max-width:1140px; margin:0 auto;">
-            <h2 class="section-title" style="text-align:center;">Explore our popular courses</h2>
-            <p class="section-subtitle" style="text-align:center; color:var(--text-secondary); margin-bottom:40px;">Start learning today with our free, interactive curriculum</p>
-            <div class="courses-grid" id="coursesGrid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:24px;">
-                <div class="course-card" style="background:var(--bg); border:2px solid var(--border); border-radius:var(--radius); padding:24px; text-align:center;">
+    <!-- Featured Courses -->
+    <section id="courses" style="padding:100px 24px; background:var(--bg-secondary);">
+        <div style="max-width:1140px; margin:0 auto;">
+            <h2 style="text-align:center;">Explore our popular courses</h2>
+            <p style="text-align:center; color:var(--text-secondary); margin-bottom:40px;">Start learning today with our free, interactive curriculum</p>
+            <div id="coursesGrid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:24px;">
+                <div style="background:var(--bg); border:2px solid var(--border); border-radius:var(--radius); padding:24px; text-align:center;">
                     <iconify-icon icon="pixelarticons:code" style="font-size:2rem; color:var(--green); margin-bottom:16px;"></iconify-icon>
-                    <div class="course-title" style="font-size:1.2rem; font-weight:700;">Loading…</div>
-                    <div class="course-desc" style="color:var(--text-secondary);">Fetching courses…</div>
+                    <div style="font-size:1.2rem; font-weight:700;">Loading…</div>
+                    <div style="color:var(--text-secondary);">Fetching courses…</div>
                 </div>
             </div>
         </div>
@@ -619,25 +571,25 @@
             <div>
                 <div class="footer-title">Product</div>
                 <ul class="footer-links">
-                    <li><a href="#">Courses</a></li>
-                    <li><a href="#">Pricing</a></li>
-                    <li><a href="#">Features</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#features">Features</a></li>
                 </ul>
             </div>
             <div>
                 <div class="footer-title">Company</div>
                 <ul class="footer-links">
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Careers</a></li>
+                    <li><a href="menoyou.html?page=about">About</a></li>
+                    <li><a href="menoyou.html?page=blog">Blog</a></li>
+                    <li><a href="menoyou.html?page=careers">Careers</a></li>
                 </ul>
             </div>
             <div>
                 <div class="footer-title">Support</div>
                 <ul class="footer-links">
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Privacy</a></li>
-                    <li><a href="#">Terms</a></li>
+                    <li><a href="readme.html?page=help">Help Center</a></li>
+                    <li><a href="readme.html?page=privacy">Privacy</a></li>
+                    <li><a href="readme.html?page=terms">Terms</a></li>
                 </ul>
             </div>
         </div>
@@ -674,10 +626,10 @@
                     const timer = setInterval(() => {
                         current += step;
                         if (current >= target) {
-                            el.textContent = target + (target === 98 ? '%' : '+');
+                            el.textContent = target + (target === 98 ? '%' : '');
                             clearInterval(timer);
                         } else {
-                            el.textContent = Math.floor(current) + (target === 98 ? '%' : '+');
+                            el.textContent = Math.floor(current) + (target === 98 ? '%' : '');
                         }
                     }, 16);
                     observer.unobserve(el);
@@ -701,13 +653,12 @@
                 snapshot.forEach(doc => {
                     const course = doc.data();
                     const card = document.createElement('div');
-                    card.className = 'course-card';
                     card.style.cssText = 'background:var(--bg); border:2px solid var(--border); border-radius:var(--radius); padding:24px; text-align:center; transition:all 0.3s; cursor:pointer;';
                     card.innerHTML = `
                         <iconify-icon icon="pixelarticons:code" style="font-size:2rem; color:var(--green); margin-bottom:16px;"></iconify-icon>
-                        <div class="course-title" style="font-size:1.2rem; font-weight:700;">${escapeHtml(course.title)}</div>
-                        <div class="course-desc" style="color:var(--text-secondary); margin:8px 0;">${escapeHtml(course.description || '')}</div>
-                        <div class="course-level" style="background:var(--green); color:white; padding:4px 12px; border-radius:20px; display:inline-block; font-size:0.8rem;">Beginner</div>
+                        <div style="font-size:1.2rem; font-weight:700;">${escapeHtml(course.title)}</div>
+                        <div style="color:var(--text-secondary); margin:8px 0;">${escapeHtml(course.description || '')}</div>
+                        <div style="background:var(--green); color:white; padding:4px 12px; border-radius:20px; display:inline-block; font-size:0.8rem;">Beginner</div>
                     `;
                     card.addEventListener('click', () => {
                         window.location.href = 'pages/login.html#signup';
