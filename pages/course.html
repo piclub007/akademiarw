@@ -32,12 +32,12 @@
       --green-hover: #46A302;
       --bg: #FFFFFF;
       --bg-secondary: #F7F7F7;
-      --text: #4B4B4B;
+      --text: #1e1e1e;
       --text-secondary: #777777;
       --border: #E5E5E5;
-      --radius: 14px;
-      --gold: #FFC800;
-      --shadow: 0 8px 20px rgba(0,0,0,0.08);
+      --radius: 18px;
+      --card-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      --node-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -56,25 +56,21 @@
 
     /* Top Bar */
     .topbar {
-      height: 60px;
+      height: 56px;
       background: var(--bg);
       border-bottom: 2px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
-      z-index: 10;
+      z-index: 50;
     }
     .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
     .logo-img { width:34px; height:34px; border-radius:10px; }
     .logo-text { font-size:1.3rem; font-weight:800; color:var(--text); }
     .logo-text span { color:var(--green); }
 
-    .topbar-center {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .topbar-right { display:flex; align-items:center; gap:12px; }
     .btn-icon {
       padding: 8px;
       border: 2px solid var(--border);
@@ -87,190 +83,207 @@
       transition: all 0.2s;
     }
     .btn-icon:hover { background: var(--bg-secondary); }
-    .btn-icon.active { border-color: var(--green); background: #F0FDE0; }
 
-    .user-avatar {
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      background: var(--green);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    /* Layout */
-    .layout {
-      display: flex;
+    /* Main Layout */
+    .main-layout {
       flex: 1;
+      display: flex;
       overflow: hidden;
+      position: relative;
     }
 
-    /* Left Sidebar */
+    /* Left Sidebar (collapsed by default) */
     .sidebar-left {
-      width: 260px;
+      width: 0;
+      transition: width 0.3s ease;
       background: var(--bg);
       border-right: 2px solid var(--border);
       overflow-y: auto;
-      padding: 16px;
-      transition: width 0.3s;
-      flex-shrink: 0;
+      z-index: 10;
     }
-    .sidebar-left.collapsed { width: 50px; padding: 10px; }
-    .sidebar-left .tree-item {
+    .sidebar-left.open { width: 260px; padding: 16px; }
+
+    /* Center Workspace */
+    .workspace {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Information Card */
+    .journey-card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      border: 2px solid var(--border);
+      margin: 16px 24px 12px;
+      padding: 20px 24px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .breadcrumb {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      margin-bottom: 2px;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
     }
-    .sidebar-left .tree-item:hover { background: var(--bg-secondary); }
-    .sidebar-left .tree-item.active { background: #F0FDE0; font-weight: 700; }
-    .tree-children { padding-left: 20px; }
-    .tree-toggle { cursor: pointer; width: 16px; display: inline-block; text-align: center; }
+    .breadcrumb a { color: var(--text-secondary); text-decoration: none; font-weight: 600; }
+    .breadcrumb a:hover { color: var(--text); }
+    .journey-title {
+      font-size: 2rem;
+      font-weight: 800;
+    }
+    .journey-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      max-width: 600px;
+    }
+    .journey-stats {
+      display: flex;
+      gap: 24px;
+      margin-top: 8px;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--green);
+      font-family: 'BlockBlueprint', sans-serif;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+    .continue-btn {
+      align-self: flex-start;
+      margin-top: 8px;
+    }
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      background: var(--green);
+      color: white;
+      box-shadow: 0 4px 0 var(--green-hover);
+    }
+    .btn:hover {
+      background: var(--green-hover);
+      transform: translateY(-1px);
+    }
 
-    /* Main Canvas Area */
-    .canvas-container {
+    /* Module Title with dividers */
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 8px 24px;
+    }
+    .module-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Roadmap Canvas Container */
+    .canvas-wrapper {
       flex: 1;
       position: relative;
-      background: var(--bg-secondary);
+      margin: 0 24px 16px;
+      background: var(--bg);
+      border-radius: var(--radius);
+      border: 2px solid var(--border);
       overflow: hidden;
+      box-shadow: var(--card-shadow);
     }
     canvas {
       display: block;
-      cursor: grab;
     }
-    canvas:active { cursor: grabbing; }
 
-    /* Floating toolbar on canvas */
-    .canvas-toolbar {
+    /* Toolbar */
+    .roadmap-toolbar {
       position: absolute;
       top: 12px;
       right: 12px;
       display: flex;
-      flex-direction: column;
-      gap: 4px;
-      z-index: 5;
+      gap: 6px;
+      z-index: 10;
+    }
+    .roadmap-toolbar .btn-icon {
+      padding: 6px;
+      font-size: 0.8rem;
     }
 
-    /* Node Preview (hover) */
-    .node-preview {
+    /* Hover Preview */
+    .hover-preview {
       position: absolute;
       pointer-events: none;
       background: var(--bg);
       border: 2px solid var(--border);
       border-radius: var(--radius);
-      padding: 12px;
-      box-shadow: var(--shadow);
-      z-index: 15;
+      padding: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      z-index: 20;
       display: none;
-      max-width: 220px;
+      max-width: 240px;
     }
-    .node-preview .title { font-weight: 700; font-size: 0.9rem; }
-    .node-preview .desc { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
-    .node-preview .meta { display: flex; gap: 8px; margin-top: 8px; font-size: 0.7rem; color: var(--text-secondary); }
+    .hover-preview .p-title { font-weight:700; font-size:0.9rem; }
+    .hover-preview .p-meta { display: flex; gap: 12px; margin-top: 8px; font-size:0.75rem; color:var(--text-secondary); }
 
-    /* Side Drawer (right) */
-    .drawer {
+    /* Slide-over Panel */
+    .slide-panel {
       position: fixed;
       top: 0;
-      right: -400px;
+      right: -420px;
       width: 400px;
       height: 100%;
       background: var(--bg);
       border-left: 2px solid var(--border);
       box-shadow: -5px 0 20px rgba(0,0,0,0.1);
-      z-index: 20;
+      z-index: 100;
       transition: right 0.3s ease;
       padding: 24px;
       overflow-y: auto;
     }
-    .drawer.open { right: 0; }
-    .drawer-close {
+    .slide-panel.open { right: 0; }
+    .slide-panel-close {
       position: absolute;
       top: 12px;
       right: 12px;
       background: none;
       border: none;
-      cursor: pointer;
       font-size: 1.5rem;
+      cursor: pointer;
       color: var(--text-secondary);
     }
-    .drawer h2 { margin-bottom: 12px; }
-    .drawer .meta-item { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 0.9rem; }
-    .drawer .btn-primary { display: block; width: 100%; margin-top: 20px; }
-
-    /* Right Sidebar */
-    .sidebar-right {
-      width: 300px;
-      background: var(--bg);
-      border-left: 2px solid var(--border);
-      padding: 16px;
-      overflow-y: auto;
-      flex-shrink: 0;
-    }
-    .sidebar-right .card {
-      background: var(--bg-secondary);
-      border-radius: var(--radius);
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-    .card .stat-value {
-      font-size: 1.5rem;
-      font-weight: 900;
-      color: var(--green);
-      font-family: 'BlockBlueprint', sans-serif;
-    }
-    .progress-ring {
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: conic-gradient(var(--green) 68%, var(--border) 0);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 12px;
-      position: relative;
-    }
-    .progress-ring span {
-      font-size: 1.2rem;
-      font-weight: 800;
-      font-family: 'BlockBlueprint', sans-serif;
-    }
-    .goal-item { font-size: 0.8rem; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-
-    /* Context Menu */
-    .context-menu {
-      position: absolute;
-      background: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      z-index: 30;
-      display: none;
-      min-width: 150px;
-    }
-    .context-menu .item {
-      padding: 10px 16px;
-      cursor: pointer;
-      font-size: 0.9rem;
+    .slide-panel h2 { margin-bottom: 12px; }
+    .slide-panel .detail-row {
       display: flex;
       align-items: center;
       gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
     }
-    .context-menu .item:hover { background: var(--bg-secondary); }
-
-    /* Animations */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    .pulse { animation: pulse 2s infinite; }
+    .btn-block { width: 100%; justify-content: center; margin-top: 16px; }
   </style>
 </head>
 <body>
@@ -279,217 +292,431 @@
       <img src="../favicon.ico" alt="Akademia" class="logo-img">
       <div class="logo-text">Akade<span>mia</span></div>
     </a>
-    <div class="topbar-center">
-      <button class="btn-icon" id="zoomInBtn" title="Zoom In"><iconify-icon icon="pixelarticons:zoom-in"></iconify-icon></button>
-      <button class="btn-icon" id="zoomOutBtn" title="Zoom Out"><iconify-icon icon="pixelarticons:zoom-out"></iconify-icon></button>
-      <button class="btn-icon" id="fitBtn" title="Fit to Screen"><iconify-icon icon="pixelarticons:expand"></iconify-icon></button>
-      <button class="btn-icon" id="collapseAllBtn" title="Collapse All"><iconify-icon icon="pixelarticons:collapse"></iconify-icon></button>
-      <button class="btn-icon" id="expandAllBtn" title="Expand All"><iconify-icon icon="pixelarticons:expand"></iconify-icon></button>
+    <div class="topbar-right">
+      <button class="btn-icon" id="toggleSidebarBtn"><iconify-icon icon="pixelarticons:menu"></iconify-icon></button>
     </div>
-    <div class="user-avatar" id="userAvatar">A</div>
   </div>
 
-  <div class="layout">
-    <!-- Left Sidebar (tree of modules/lessons) -->
+  <div class="main-layout">
+    <!-- Left Sidebar (collapsible) -->
     <aside class="sidebar-left" id="leftSidebar">
-      <div id="treeContainer"></div>
+      <!-- Will be populated dynamically if needed, but we keep it minimal -->
     </aside>
 
-    <!-- Canvas -->
-    <div class="canvas-container" id="canvasContainer">
-      <canvas id="roadmapCanvas"></canvas>
-      <div class="canvas-toolbar">
-        <button class="btn-icon" id="toggleGridBtn" title="Grid"><iconify-icon icon="pixelarticons:grid"></iconify-icon></button>
-        <button class="btn-icon" id="toggleMiniMapBtn" title="Mini Map"><iconify-icon icon="pixelarticons:map"></iconify-icon></button>
+    <!-- Center Workspace -->
+    <div class="workspace" id="workspace">
+      <!-- Journey Card -->
+      <div class="journey-card" id="journeyCard">
+        <div class="breadcrumb" id="breadcrumb"></div>
+        <div class="journey-title" id="journeyTitle"></div>
+        <div class="journey-desc" id="journeyDesc"></div>
+        <div class="journey-stats">
+          <div class="stat-item"><span class="stat-value" id="progressPercent">0%</span><span class="stat-label">Progress</span></div>
+          <div class="stat-item"><span class="stat-value" id="modulesCount">0</span><span class="stat-label">Modules</span></div>
+          <div class="stat-item"><span class="stat-value" id="lessonsCount">0</span><span class="stat-label">Lessons</span></div>
+        </div>
+        <button class="btn continue-btn" id="continueBtn">Continue Learning</button>
       </div>
-      <!-- Node preview -->
-      <div class="node-preview" id="nodePreview"></div>
+
+      <!-- Module Title -->
+      <div class="module-header">
+        <div class="divider-line"></div>
+        <span class="module-title" id="currentModuleTitle">Current Module</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <!-- Canvas Wrapper -->
+      <div class="canvas-wrapper" id="canvasWrapper">
+        <canvas id="roadmapCanvas"></canvas>
+        <div class="roadmap-toolbar">
+          <button class="btn-icon" id="zoomInBtn"><iconify-icon icon="pixelarticons:zoom-in"></iconify-icon></button>
+          <button class="btn-icon" id="zoomOutBtn"><iconify-icon icon="pixelarticons:zoom-out"></iconify-icon></button>
+          <button class="btn-icon" id="fitBtn"><iconify-icon icon="pixelarticons:expand"></iconify-icon></button>
+          <button class="btn-icon" id="centerCurrentBtn"><iconify-icon icon="pixelarticons:target"></iconify-icon></button>
+        </div>
+        <!-- Hover preview -->
+        <div class="hover-preview" id="hoverPreview"></div>
+      </div>
     </div>
-
-    <!-- Right Sidebar (learner dashboard) -->
-    <aside class="sidebar-right" id="rightSidebar">
-      <div class="card" style="text-align:center;">
-        <div class="progress-ring"><span>68%</span></div>
-        <div style="font-weight:800;">Overall Progress</div>
-        <div style="font-size:0.8rem; color:var(--text-secondary);">14 / 20 completed</div>
-      </div>
-      <div class="card">
-        <div class="stat-value" id="sparksDisplay">0</div>
-        <div style="font-size:0.9rem;">Sparks earned</div>
-      </div>
-      <div class="card">
-        <div style="font-weight:700;">Today's Goals</div>
-        <div class="goal-item"><input type="checkbox" checked disabled> Read one lesson</div>
-        <div class="goal-item"><input type="checkbox" disabled> Complete a quiz</div>
-        <div class="goal-item"><input type="checkbox" disabled> Study 30 min</div>
-      </div>
-      <div class="card">
-        <div style="font-weight:700;">Streak</div>
-        <div style="font-size:2rem; font-weight:900; color:var(--gold);">5</div>
-        <div style="font-size:0.8rem;">Days</div>
-      </div>
-    </aside>
   </div>
 
-  <!-- Side Drawer (lesson details) -->
-  <div class="drawer" id="drawer">
-    <button class="drawer-close" onclick="closeDrawer()"><iconify-icon icon="pixelarticons:close"></iconify-icon></button>
-    <h2 id="drawerTitle">Node Title</h2>
-    <div class="meta-item"><iconify-icon icon="pixelarticons:clock"></iconify-icon> <span id="drawerDuration">10 min</span></div>
-    <div class="meta-item"><iconify-icon icon="pixelarticons:coin"></iconify-icon> <span id="drawerXP">+50 XP</span></div>
-    <div class="meta-item"><iconify-icon icon="pixelarticons:file"></iconify-icon> <span id="drawerType">Lesson</span></div>
-    <p id="drawerDesc" style="margin:12px 0; font-size:0.9rem; color:var(--text-secondary);"></p>
-    <button class="btn btn-primary" id="startLessonBtn" style="display:none;">Start Lesson</button>
-  </div>
-
-  <!-- Context Menu -->
-  <div class="context-menu" id="contextMenu">
-    <div class="item" data-action="open"><iconify-icon icon="pixelarticons:play"></iconify-icon> Open</div>
-    <div class="item" data-action="bookmark"><iconify-icon icon="pixelarticons:bookmark"></iconify-icon> Bookmark</div>
-    <div class="item" data-action="complete"><iconify-icon icon="pixelarticons:check"></iconify-icon> Mark Complete</div>
-    <div class="item" data-action="notes"><iconify-icon icon="pixelarticons:note"></iconify-icon> Notes</div>
+  <!-- Slide Panel -->
+  <div class="slide-panel" id="slidePanel">
+    <button class="slide-panel-close" id="closeSlidePanel"><iconify-icon icon="pixelarticons:close"></iconify-icon></button>
+    <h2 id="slideTitle"></h2>
+    <div class="detail-row"><iconify-icon icon="pixelarticons:clock"></iconify-icon> <span id="slideDuration"></span></div>
+    <div class="detail-row"><iconify-icon icon="pixelarticons:coin"></iconify-icon> <span id="slideXP"></span></div>
+    <div class="detail-row"><iconify-icon icon="pixelarticons:file"></iconify-icon> <span id="slideType"></span></div>
+    <p id="slideDesc" style="margin:12px 0; color:var(--text-secondary); font-size:0.9rem;"></p>
+    <button class="btn btn-block" id="slideStartBtn">Start Lesson</button>
   </div>
 
   <script type="module">
     import { auth, db } from '../src/js/firebase-config.js';
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-    import { doc, getDoc, collection, getDocs, query, orderBy, updateDoc, arrayUnion, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+    import { doc, getDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-    // ─── CONFIGURATION ────────────────────────────────
+    // ─── Get courseId from URL ─────────────────────
     const urlParams = new URLSearchParams(window.location.search);
     const courseId = urlParams.get('courseId');
-    if (!courseId) { document.body.innerHTML = '<h2>No course selected.</h2>'; throw new Error('Missing courseId'); }
+    if (!courseId) {
+      document.body.innerHTML = '<h2>No course selected.</h2>';
+      throw new Error('Missing courseId');
+    }
 
+    // ─── DOM Elements ──────────────────────────────
     const canvas = document.getElementById('roadmapCanvas');
     const ctx = canvas.getContext('2d');
-    const container = document.getElementById('canvasContainer');
-    const nodePreview = document.getElementById('nodePreview');
-    const contextMenu = document.getElementById('contextMenu');
-    const drawer = document.getElementById('drawer');
+    const wrapper = document.getElementById('canvasWrapper');
+    const hoverPreview = document.getElementById('hoverPreview');
+    const slidePanel = document.getElementById('slidePanel');
+    const slideTitle = document.getElementById('slideTitle');
+    const slideDuration = document.getElementById('slideDuration');
+    const slideXP = document.getElementById('slideXP');
+    const slideType = document.getElementById('slideType');
+    const slideDesc = document.getElementById('slideDesc');
+    const slideStartBtn = document.getElementById('slideStartBtn');
+    const closeSlidePanel = document.getElementById('closeSlidePanel');
+    const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
+    const leftSidebar = document.getElementById('leftSidebar');
 
+    // ─── Global State ──────────────────────────────
     let userData = null;
     let courseData = null;
     let modules = [];
     let lessonsMap = new Map(); // moduleId -> [lesson]
-    let nodes = [];
-    let edges = [];
-    let nodeRadius = 28;
-    let scale = 1;
-    let offsetX = 0, offsetY = 0;
-    let isPanning = false, panStart = { x: 0, y: 0 };
+    let nodes = [];            // all visible nodes on canvas
+    let connections = [];      // edge list
+    let currentModuleId = null;
+    let currentLessonId = null;
+    let scale = 1, offsetX = 0, offsetY = 0;
+    let isPanning = false, panStart = { x:0, y:0 };
     let hoveredNode = null;
     let selectedNode = null;
+    let animationId = null;
 
-    // ─── AUTH & DATA ─────────────────────────────────
+    const NODE_RADIUS = 32;
+    const VERTICAL_SPACING = 120;
+
+    // ─── Auth & Data Loading ──────────────────────
     onAuthStateChanged(auth, async (user) => {
       if (!user) { window.location.href = 'login.html'; return; }
       const userDoc = await getDoc(doc(db, 'users', user.uid));
       if (userDoc.exists()) userData = userDoc.data();
-      document.getElementById('userAvatar').textContent = (userData?.name || 'A')[0].toUpperCase();
-      document.getElementById('sparksDisplay').textContent = userData?.sparks || 0;
       await loadCourseData();
       buildGraph();
       resizeCanvas();
-      requestAnimationFrame(render);
+      startRenderLoop();
     });
 
     async function loadCourseData() {
       const courseDoc = await getDoc(doc(db, 'courses', courseId));
       if (!courseDoc.exists()) return;
       courseData = courseDoc.data();
+
+      // Update journey card
+      document.getElementById('breadcrumb').innerHTML = `<a href="#">Home</a> / <a href="#">Journeys</a> / <span>${escapeHtml(courseData.title)}</span>`;
+      document.getElementById('journeyTitle').textContent = courseData.title;
+      document.getElementById('journeyDesc').textContent = courseData.description || 'Master the fundamentals through interactive lessons.';
+      
+      // Load modules
       const modSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules'), orderBy('createdAt')));
       modules = [];
       modSnap.forEach(doc => modules.push({ id: doc.id, ...doc.data() }));
+      document.getElementById('modulesCount').textContent = modules.length;
+
+      // Load lessons per module
+      let totalLessons = 0;
+      lessonsMap.clear();
       for (let mod of modules) {
         const lesSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules', mod.id, 'lessons'), orderBy('createdAt')));
         const lessons = [];
         lesSnap.forEach(doc => lessons.push({ id: doc.id, ...doc.data() }));
         lessonsMap.set(mod.id, lessons);
+        totalLessons += lessons.length;
+      }
+      document.getElementById('lessonsCount').textContent = totalLessons;
+
+      // Determine current module/lesson (first incomplete)
+      const completed = userData?.completedLessons || [];
+      let found = false;
+      for (let mod of modules) {
+        const lessons = lessonsMap.get(mod.id) || [];
+        for (let les of lessons) {
+          if (!completed.includes(les.id)) {
+            currentModuleId = mod.id;
+            currentLessonId = les.id;
+            found = true;
+            break;
+          }
+        }
+        if (found) break;
+      }
+      if (!found && modules.length > 0) {
+        // all completed? show last module
+        currentModuleId = modules[modules.length-1].id;
+        currentLessonId = lessonsMap.get(currentModuleId)?.[0]?.id || null;
+      }
+
+      // Update module title
+      const modName = modules.find(m => m.id === currentModuleId)?.title || 'Getting Started';
+      document.getElementById('currentModuleTitle').textContent = modName;
+
+      // Progress percentage (simplified)
+      const totalAllLessons = totalLessons || 1;
+      const completedCount = completed.filter(id => {
+        // check if lesson belongs to this course? we can assume any lesson in this course starts with courseId prefix? Not safe. We'll use a simple approach: count completed lessons that exist in our loaded data.
+        return Array.from(lessonsMap.values()).flat().some(les => les.id === id);
+      }).length;
+      const progress = Math.round((completedCount / totalAllLessons) * 100);
+      document.getElementById('progressPercent').textContent = `${progress}%`;
+
+      document.getElementById('continueBtn').addEventListener('click', () => {
+        if (currentLessonId && currentModuleId) {
+          window.location.href = `lesson.html?courseId=${courseId}&moduleId=${currentModuleId}&lessonId=${currentLessonId}`;
+        }
+      });
+    }
+
+    // ─── Graph Construction ────────────────────────
+    function buildGraph() {
+      nodes = [];
+      connections = [];
+      if (modules.length === 0) return;
+
+      // Layout: vertical centered column
+      const startY = 80;
+      let y = startY;
+      const centerX = 0; // will be centered on canvas via offset
+
+      modules.forEach((mod, mi) => {
+        const lessons = lessonsMap.get(mod.id) || [];
+        // Module node (not displayed as separate node? The spec says nodes are lessons/quizzes. We'll have a module "header" as a visual separator, but not a clickable node. We'll just add lesson nodes.)
+        lessons.forEach((les, li) => {
+          const node = {
+            id: les.id,
+            type: les.type || 'lesson', // lesson, quiz, exercise, etc.
+            title: les.title,
+            description: les.description || '',
+            duration: les.duration || 10,
+            reward: les.reward || 50,
+            moduleId: mod.id,
+            completed: (userData?.completedLessons || []).includes(les.id),
+            locked: false, // will determine later
+            x: centerX,
+            y: y,
+          };
+          // Determine locked state: locked if previous lesson not completed (simplified linear progression)
+          if (li > 0) {
+            const prev = nodes[nodes.length-1];
+            if (prev && !prev.completed) node.locked = true;
+          } else if (mi > 0) {
+            // check last lesson of previous module
+            const prevModLessons = lessonsMap.get(modules[mi-1].id) || [];
+            const lastPrev = prevModLessons[prevModLessons.length-1];
+            if (lastPrev && !(userData?.completedLessons || []).includes(lastPrev.id)) node.locked = true;
+          }
+          // if current lesson is the current, mark as current
+          if (les.id === currentLessonId) {
+            node.current = true;
+            node.locked = false;
+          }
+          nodes.push(node);
+          // Add connection from previous node if exists
+          if (nodes.length > 1) {
+            connections.push({
+              from: nodes[nodes.length-2].id,
+              to: node.id,
+              completed: nodes[nodes.length-2].completed,
+            });
+          }
+          y += VERTICAL_SPACING;
+        });
+        // add extra space between modules
+        y += 40;
+      });
+
+      // Set current node based on first unlocked
+      if (!currentLessonId && nodes.length > 0) {
+        const firstUnlocked = nodes.find(n => !n.locked);
+        if (firstUnlocked) {
+          firstUnlocked.current = true;
+          currentModuleId = firstUnlocked.moduleId;
+          currentLessonId = firstUnlocked.id;
+        }
       }
     }
 
-    // ─── GRAPH BUILDING ──────────────────────────────
-    function buildGraph() {
-      nodes = [];
-      edges = [];
-      const startX = 200, startY = 100;
-      // Course node
-      nodes.push({
-        id: 'course',
-        type: 'course',
-        title: courseData?.title || 'Untitled',
-        description: courseData?.description || '',
-        x: startX, y: startY,
-        fixed: true
-      });
-      // Module nodes
-      const modSpacing = 180;
-      modules.forEach((mod, i) => {
-        const x = startX + 120 + i * modSpacing;
-        const y = startY + 150;
-        nodes.push({
-          id: mod.id,
-          type: 'module',
-          title: mod.title,
-          description: '',
-          x, y,
-          parent: 'course'
-        });
-        edges.push({ from: 'course', to: mod.id });
-        // Lesson nodes for this module
-        const lessons = lessonsMap.get(mod.id) || [];
-        lessons.forEach((les, j) => {
-          const lx = x + j * 90;
-          const ly = y + 120;
-          nodes.push({
-            id: les.id,
-            type: les.type || 'lesson',
-            title: les.title,
-            description: les.description || '',
-            x: lx, y: ly,
-            parent: mod.id,
-            reward: les.reward || 50,
-            duration: les.duration || 10
-          });
-          edges.push({ from: mod.id, to: les.id });
-        });
-      });
-    }
-
-    // ─── CANVAS & INTERACTION ────────────────────────
+    // ─── Canvas Drawing ─────────────────────────────
     function resizeCanvas() {
-      canvas.width = container.clientWidth;
-      canvas.height = container.clientHeight;
+      const rect = wrapper.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
     }
-    window.addEventListener('resize', () => { resizeCanvas(); render(); });
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+    });
 
-    // Transformations
     function toScreen(x, y) {
       return {
-        sx: (x + offsetX) * scale + canvas.width / 2,
-        sy: (y + offsetY) * scale + canvas.height / 2
+        sx: (x + offsetX) * scale + canvas.width/2,
+        sy: (y + offsetY) * scale + canvas.height/2
       };
     }
     function toWorld(sx, sy) {
       return {
-        x: (sx - canvas.width / 2) / scale - offsetX,
-        y: (sy - canvas.height / 2) / scale - offsetY
+        x: (sx - canvas.width/2) / scale - offsetX,
+        y: (sy - canvas.height/2) / scale - offsetY
       };
     }
 
-    // Pan & zoom
+    // Hexagon path
+    function drawHexagon(cx, cy, r) {
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        const angle = (Math.PI / 3) * i - Math.PI/6;
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+    }
+
+    function drawNode(node) {
+      const { sx, sy } = toScreen(node.x, node.y);
+      const radius = NODE_RADIUS;
+
+      // Determine colors
+      let fillColor = '#ffffff';
+      let strokeColor = '#d1d5db';
+      let glow = false;
+      if (node.completed) {
+        fillColor = '#e6ffe6';
+        strokeColor = '#58CC02';
+      } else if (node.current) {
+        fillColor = '#f0fdf4';
+        strokeColor = '#58CC02';
+        glow = true;
+      } else if (node.locked) {
+        fillColor = '#f3f4f6';
+        strokeColor = '#d1d5db';
+      }
+
+      // Shadow
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,0.1)';
+      ctx.shadowBlur = 10;
+      ctx.shadowOffsetY = 4;
+
+      // Hexagon background
+      drawHexagon(sx, sy, radius);
+      ctx.fillStyle = fillColor;
+      ctx.fill();
+      ctx.shadowColor = 'transparent';
+      ctx.strokeStyle = strokeColor;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // Glow for current
+      if (glow) {
+        ctx.save();
+        ctx.shadowColor = 'rgba(88,204,2,0.4)';
+        ctx.shadowBlur = 12;
+        ctx.strokeStyle = '#58CC02';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Icon or type indicator
+      ctx.fillStyle = node.locked ? '#9ca3af' : '#4B4B4B';
+      ctx.font = '16px BlockBlueprint';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      let icon = '📄';
+      switch (node.type) {
+        case 'quiz': icon = '❓'; break;
+        case 'exercise': icon = '✏️'; break;
+        case 'project': icon = '💻'; break;
+        case 'assessment': icon = '📝'; break;
+        default: icon = '📖';
+      }
+      ctx.fillText(icon, sx, sy-2);
+
+      // Title below
+      ctx.fillStyle = '#1e1e1e';
+      ctx.font = '11px Drafting Mono';
+      ctx.textAlign = 'center';
+      ctx.fillText(node.title.length > 20 ? node.title.substring(0,18)+'…' : node.title, sx, sy + radius + 16);
+
+      // XP badge (small)
+      if (node.reward) {
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 10px Drafting Mono';
+        ctx.beginPath();
+        ctx.arc(sx + radius*0.7, sy - radius*0.7, 12, 0, 2*Math.PI);
+        ctx.fillStyle = '#FFC800';
+        ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.fillText(`+${node.reward}`, sx + radius*0.7, sy - radius*0.7+1);
+      }
+
+      // "CURRENT" label if current
+      if (node.current) {
+        ctx.fillStyle = '#58CC02';
+        ctx.font = 'bold 9px BlockBlueprint';
+        ctx.fillText('CURRENT', sx, sy - radius - 20);
+      }
+
+      ctx.restore();
+    }
+
+    function drawConnection(conn) {
+      const fromNode = nodes.find(n => n.id === conn.from);
+      const toNode = nodes.find(n => n.id === conn.to);
+      if (!fromNode || !toNode) return;
+      const p1 = toScreen(fromNode.x, fromNode.y);
+      const p2 = toScreen(toNode.x, toNode.y);
+      ctx.beginPath();
+      ctx.moveTo(p1.sx, p1.sy + NODE_RADIUS);
+      ctx.lineTo(p2.sx, p2.sy - NODE_RADIUS);
+      ctx.strokeStyle = conn.completed ? '#58CC02' : (fromNode.current ? '#58CC02' : '#d1d5db');
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    function render() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Draw connections
+      connections.forEach(conn => drawConnection(conn));
+      // Draw nodes
+      nodes.forEach(node => drawNode(node));
+    }
+
+    function startRenderLoop() {
+      function loop() {
+        render();
+        animationId = requestAnimationFrame(loop);
+      }
+      loop();
+    }
+
+    // ─── Interaction ───────────────────────────────
     canvas.addEventListener('mousedown', (e) => {
-      if (e.button === 0) { // left click
-        const world = toWorld(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
-        const clickedNode = hitTest(world.x, world.y);
-        if (clickedNode) {
-          selectNode(clickedNode);
-          return;
-        }
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+      const world = toWorld(mx, my);
+      const node = hitTest(world.x, world.y);
+      if (node && !node.locked) {
+        selectNode(node);
+      } else {
         isPanning = true;
         panStart = { x: e.clientX, y: e.clientY, ox: offsetX, oy: offsetY };
       }
     });
+
     canvas.addEventListener('mousemove', (e) => {
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left;
@@ -499,202 +726,99 @@
         const dy = (e.clientY - panStart.y) / scale;
         offsetX = panStart.ox + dx;
         offsetY = panStart.oy + dy;
-        render();
         return;
       }
-      // Hover detection
       const world = toWorld(mx, my);
       const node = hitTest(world.x, world.y);
       if (node) {
         canvas.style.cursor = 'pointer';
         if (hoveredNode !== node) {
           hoveredNode = node;
-          showNodePreview(node, e.clientX, e.clientY);
+          showHoverPreview(node, e.clientX, e.clientY);
         }
       } else {
         canvas.style.cursor = 'grab';
         hoveredNode = null;
-        nodePreview.style.display = 'none';
+        hoverPreview.style.display = 'none';
       }
     });
+
     canvas.addEventListener('mouseup', () => { isPanning = false; });
     canvas.addEventListener('wheel', (e) => {
       e.preventDefault();
-      const factor = e.deltaY < 0 ? 1.08 : 0.92;
+      const factor = e.deltaY < 0 ? 1.06 : 0.94;
       scale *= factor;
       scale = Math.min(2, Math.max(0.3, scale));
-      render();
     });
 
     function hitTest(wx, wy) {
       for (let node of nodes) {
         const { sx, sy } = toScreen(node.x, node.y);
-        const dist = Math.hypot(sx - wx, sy - wy); // approximate
-        if (dist < nodeRadius + 5) return node;
+        const dist = Math.hypot(sx - wx, sy - wy);
+        if (dist < NODE_RADIUS + 12) return node;
       }
       return null;
     }
 
-    // Node selection
-    function selectNode(node) {
-      selectedNode = node;
-      // Open side drawer
-      const drawerTitle = document.getElementById('drawerTitle');
-      drawerTitle.textContent = node.title;
-      document.getElementById('drawerDuration').textContent = node.duration ? `${node.duration} min` : '—';
-      document.getElementById('drawerXP').textContent = node.reward ? `+${node.reward} XP` : '—';
-      document.getElementById('drawerType').textContent = node.type || 'Lesson';
-      document.getElementById('drawerDesc').textContent = node.description || '';
-      const startBtn = document.getElementById('startLessonBtn');
-      if (node.type === 'lesson' || node.type === 'quiz' || node.type === 'project') {
-        startBtn.style.display = 'block';
-        startBtn.onclick = () => {
-          window.location.href = `lesson.html?courseId=${courseId}&moduleId=${node.parent}&lessonId=${node.id}`;
-        };
-      } else {
-        startBtn.style.display = 'none';
-      }
-      drawer.classList.add('open');
-    }
-    window.closeDrawer = function() { drawer.classList.remove('open'); };
-
-    // Preview on hover
-    function showNodePreview(node, mx, my) {
-      nodePreview.innerHTML = `
-        <div class="title">${escapeHtml(node.title)}</div>
-        <div class="desc">${escapeHtml(node.description || '')}</div>
-        <div class="meta">
-          <span>⏱ ${node.duration || '?'} min</span>
-          <span>⭐ +${node.reward || '?'} XP</span>
+    function showHoverPreview(node, cx, cy) {
+      hoverPreview.innerHTML = `
+        <div class="p-title">${escapeHtml(node.title)}</div>
+        <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:4px;">${escapeHtml(node.description || '')}</div>
+        <div class="p-meta">
+          <span>⏱ ${node.duration} min</span>
+          <span>⭐ +${node.reward} XP</span>
         </div>
       `;
-      nodePreview.style.display = 'block';
-      nodePreview.style.left = (mx + 20) + 'px';
-      nodePreview.style.top = (my + 20) + 'px';
+      hoverPreview.style.display = 'block';
+      const left = cx + 20;
+      const top = cy + 20;
+      hoverPreview.style.left = Math.min(left, window.innerWidth - 260) + 'px';
+      hoverPreview.style.top = Math.min(top, window.innerHeight - 200) + 'px';
     }
 
-    // Context menu
-    canvas.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      const world = toWorld(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
-      const node = hitTest(world.x, world.y);
-      if (node) {
-        contextMenu.style.display = 'block';
-        contextMenu.style.left = (e.clientX) + 'px';
-        contextMenu.style.top = (e.clientY) + 'px';
-        contextMenu.dataset.nodeId = node.id;
-      }
-    });
-    document.addEventListener('click', () => contextMenu.style.display = 'none');
-    contextMenu.querySelectorAll('.item').forEach(item => {
-      item.addEventListener('click', () => {
-        const nodeId = contextMenu.dataset.nodeId;
-        const node = nodes.find(n => n.id === nodeId);
-        if (!node) return;
-        const action = item.dataset.action;
-        if (action === 'open') selectNode(node);
-        else if (action === 'bookmark') alert('Bookmark added');
-        else if (action === 'complete') markComplete(node);
-        else if (action === 'notes') alert('Notes feature coming soon');
-        contextMenu.style.display = 'none';
-      });
+    function selectNode(node) {
+      selectedNode = node;
+      slideTitle.textContent = node.title;
+      slideDuration.textContent = `${node.duration} min`;
+      slideXP.textContent = `+${node.reward} XP`;
+      slideType.textContent = node.type.charAt(0).toUpperCase() + node.type.slice(1);
+      slideDesc.textContent = node.description || '';
+      slideStartBtn.onclick = () => {
+        window.location.href = `lesson.html?courseId=${courseId}&moduleId=${node.moduleId}&lessonId=${node.id}`;
+      };
+      slidePanel.classList.add('open');
+    }
+
+    closeSlidePanel.addEventListener('click', () => {
+      slidePanel.classList.remove('open');
     });
 
-    async function markComplete(node) {
-      if (!userData?.uid) return;
-      const userRef = doc(db, 'users', userData.uid);
-      await updateDoc(userRef, {
-        completedLessons: arrayUnion(node.id),
-        sparks: (userData.sparks || 0) + (node.reward || 50)
-      });
-      node.completed = true;
-      render();
-    }
-
-    // ─── RENDERING ──────────────────────────────────
-    function render() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // Draw grid (optional)
-      ctx.strokeStyle = '#eaeaea';
-      ctx.lineWidth = 0.5;
-      const gridSize = 40 * scale;
-      for (let x = 0; x < canvas.width; x += gridSize) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
-      }
-      for (let y = 0; y < canvas.height; y += gridSize) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
-      }
-
-      // Draw edges
-      ctx.strokeStyle = '#ccc';
-      ctx.lineWidth = 2;
-      edges.forEach(edge => {
-        const fromNode = nodes.find(n => n.id === edge.from);
-        const toNode = nodes.find(n => n.id === edge.to);
-        if (!fromNode || !toNode) return;
-        const p1 = toScreen(fromNode.x, fromNode.y);
-        const p2 = toScreen(toNode.x, toNode.y);
-        ctx.beginPath();
-        ctx.moveTo(p1.sx, p1.sy);
-        ctx.lineTo(p2.sx, p2.sy);
-        ctx.stroke();
-      });
-
-      // Draw nodes
-      nodes.forEach(node => {
-        const { sx, sy } = toScreen(node.x, node.y);
-        // State styling
-        let fillColor = '#fff';
-        let strokeColor = '#ccc';
-        if (node.completed) { fillColor = '#e6ffe6'; strokeColor = '#58CC02'; }
-        if (selectedNode?.id === node.id) { strokeColor = '#FFC800'; }
-        // Draw circle
-        ctx.beginPath();
-        ctx.arc(sx, sy, nodeRadius, 0, Math.PI * 2);
-        ctx.fillStyle = fillColor;
-        ctx.fill();
-        ctx.strokeStyle = strokeColor;
-        ctx.lineWidth = 3;
-        ctx.stroke();
-
-        // Icon/type indicator
-        ctx.fillStyle = '#4B4B4B';
-        ctx.font = '14px BlockBlueprint';
-        ctx.textAlign = 'center';
-        ctx.fillText(node.type === 'course' ? 'C' : node.type === 'module' ? 'M' : 'L', sx, sy + 4);
-
-        // Title below
-        ctx.fillStyle = '#4B4B4B';
-        ctx.font = '11px Drafting Mono';
-        ctx.fillText(node.title.length > 15 ? node.title.substring(0,13)+'…' : node.title, sx, sy + nodeRadius + 14);
-      });
-
-      // Current node pulse
-      if (selectedNode) {
-        const { sx, sy } = toScreen(selectedNode.x, selectedNode.y);
-        ctx.beginPath();
-        ctx.arc(sx, sy, nodeRadius + 5, 0, Math.PI * 2);
-        ctx.strokeStyle = '#FFC800';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-    }
-
-    // ─── BUTTONS ───────────────────────────────────
-    document.getElementById('zoomInBtn').addEventListener('click', () => { scale *= 1.1; render(); });
-    document.getElementById('zoomOutBtn').addEventListener('click', () => { scale *= 0.9; render(); });
+    // Toolbar actions
+    document.getElementById('zoomInBtn').addEventListener('click', () => { scale *= 1.1; });
+    document.getElementById('zoomOutBtn').addEventListener('click', () => { scale *= 0.9; });
     document.getElementById('fitBtn').addEventListener('click', () => {
-      scale = 1; offsetX = 0; offsetY = 0; render();
+      scale = 1;
+      offsetX = 0;
+      offsetY = 0;
     });
-    document.getElementById('collapseAllBtn').addEventListener('click', () => { /* collapse modules */ });
-    document.getElementById('expandAllBtn').addEventListener('click', () => { /* expand all */ });
+    document.getElementById('centerCurrentBtn').addEventListener('click', () => {
+      const curr = nodes.find(n => n.current);
+      if (curr) {
+        offsetX = -curr.x;
+        offsetY = -curr.y + canvas.height/(2*scale);
+      }
+    });
 
+    toggleSidebarBtn.addEventListener('click', () => {
+      leftSidebar.classList.toggle('open');
+    });
+
+    // Helper
     function escapeHtml(text) {
       if (!text) return '';
       return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
-    // Initial resize and render
     resizeCanvas();
   </script>
 </body>
