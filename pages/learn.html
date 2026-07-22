@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Your Path · Akademia</title>
+    <title>Learning Workspace · Akademia</title>
     <meta name="robots" content="noindex">
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
@@ -45,12 +45,15 @@
             font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
             background: var(--bg-secondary);
             color: var(--text);
-            line-height: 1.6;
-            padding-bottom: 60px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         h1, h2, h3 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
 
+        /* Top Bar */
         .topbar {
             height: 64px;
             background: var(--bg);
@@ -58,208 +61,352 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 24px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 0 20px;
+            z-index: 10;
         }
-        .topbar .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+        .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
         .logo-img { width:34px; height:34px; border-radius:10px; }
         .logo-text { font-size:1.3rem; font-weight:800; color:var(--text); }
         .logo-text span { color:var(--green); }
-        .back-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 700;
+
+        .topbar-search {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 20px;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 8px 16px 8px 36px;
+            border: 2px solid var(--border);
+            border-radius: 30px;
+            font-family: inherit;
             font-size: 0.9rem;
+            background: var(--bg-secondary);
+        }
+        .search-input:focus { outline: none; border-color: var(--green); }
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .view-toggles {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 4px;
+        }
+        .view-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+        .view-btn.active {
+            background: var(--bg);
+            color: var(--text);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .user-menu {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 24px;
+        /* Main Layout */
+        .layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
         }
 
-        .page-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 8px;
+        /* Left Sidebar */
+        .sidebar-left {
+            width: 260px;
+            background: var(--bg);
+            border-right: 2px solid var(--border);
+            overflow-y: auto;
+            padding: 16px;
+            transition: width 0.3s;
         }
-        .page-subtitle {
-            text-align: center;
+        .sidebar-left.collapsed { width: 50px; }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+        .sidebar-title {
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
             color: var(--text-secondary);
-            margin-bottom: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        .sidebar-title:hover { color: var(--text); }
+
+        .tree-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.15s;
+            margin-bottom: 2px;
+        }
+        .tree-item:hover { background: var(--bg-secondary); }
+        .tree-item.active { background: #F0FDE0; font-weight: 700; }
+        .tree-children { padding-left: 20px; }
+        .tree-toggle { cursor: pointer; width: 16px; display: inline-block; text-align: center; }
+        .collapsed .tree-children { display: none; }
+
+        /* Main Panel */
+        .main-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .main-header {
+            padding: 16px 24px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .breadcrumb {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .breadcrumb a { color: var(--text-secondary); text-decoration: none; font-weight: 600; }
+        .breadcrumb a:hover { color: var(--text); }
+
+        .view-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            position: relative;
         }
 
-        /* ---------- ROADMAP STYLES ---------- */
+        /* Roadmap View */
         .roadmap {
             position: relative;
-            padding-left: 32px;
+            padding-left: 40px;
         }
         .roadmap::before {
             content: '';
             position: absolute;
-            left: 15px;
+            left: 19px;
             top: 0;
             bottom: 0;
             width: 4px;
             background: var(--border);
             border-radius: 2px;
         }
-
-        .roadmap-item {
-            position: relative;
-            margin-bottom: 32px;
-        }
-
         .roadmap-node {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
+            position: relative;
+            margin-bottom: 24px;
         }
-        .roadmap-node:hover .node-title {
-            color: var(--green);
-        }
-
+        .roadmap-node.course { margin-bottom: 32px; }
         .node-circle {
-            width: 34px;
-            height: 34px;
+            width: 42px; height: 42px;
             border-radius: 50%;
-            background: var(--bg);
             border: 3px solid var(--border);
+            background: var(--bg);
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
+            position: absolute;
+            left: -32px;
+            top: 0;
             z-index: 2;
-            transition: all 0.2s;
-            flex-shrink: 0;
+            transition: all 0.3s;
         }
-        .roadmap-item.expanded .node-circle {
+        .roadmap-node.completed .node-circle {
             background: var(--green);
             border-color: var(--green);
-            color: white;
         }
-        .node-circle iconify-icon {
-            font-size: 18px;
-            color: var(--text-secondary);
-        }
-        .roadmap-item.expanded .node-circle iconify-icon {
-            color: white;
-        }
+        .roadmap-node.completed .node-circle iconify-icon { color: white; }
 
-        .node-content {
-            flex: 1;
+        .node-card {
             background: var(--bg);
             border: 2px solid var(--border);
             border-radius: var(--radius);
             padding: 16px 20px;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
+            cursor: pointer;
         }
-        .roadmap-item.expanded .node-content {
-            border-color: var(--green);
-        }
-        .node-title {
-            font-size: 1.2rem;
-            font-weight: 800;
-            font-family: 'BlockBlueprint', sans-serif;
-            margin-bottom: 4px;
-        }
-        .node-desc {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
+        .node-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .node-title { font-weight: 800; font-size: 1.1rem; font-family: 'BlockBlueprint', sans-serif; }
+        .node-meta { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
+        .node-progress { margin-top: 8px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--green); transition: width 0.5s; }
 
-        .children-container {
-            margin-left: 32px;
-            margin-top: 12px;
-            display: none;
-        }
-        .roadmap-item.expanded > .children-container {
-            display: block;
-        }
+        .children-container { margin-left: 24px; margin-top: 8px; display: none; }
+        .roadmap-node.expanded > .children-container { display: block; }
 
         .sub-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 10px 16px;
+            gap: 8px;
+            padding: 8px 12px;
             background: var(--bg);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            margin-bottom: 8px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 6px;
             cursor: pointer;
             transition: all 0.2s;
             position: relative;
         }
-        .sub-item:hover {
-            border-color: var(--green);
-        }
         .sub-item::before {
             content: '';
             position: absolute;
-            left: -20px;
+            left: -12px;
             top: 50%;
-            width: 12px;
+            width: 8px;
             height: 2px;
             background: var(--border);
         }
         .sub-item .sub-circle {
-            width: 20px;
-            height: 20px;
+            width: 16px; height: 16px;
             border-radius: 50%;
             border: 2px solid var(--border);
             background: var(--bg-secondary);
-            flex-shrink: 0;
         }
-        .sub-item .sub-title {
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-        .sub-item .sub-meta {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-left: auto;
-        }
+        .sub-item.completed .sub-circle { background: var(--green); border-color: var(--green); }
 
         .lesson-item {
-            margin-left: 28px;
-            margin-bottom: 4px;
-            padding: 6px 12px;
+            margin-left: 20px;
+            padding: 4px 8px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            border-radius: 8px;
+            gap: 6px;
+            font-size: 0.8rem;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background 0.2s;
         }
-        .lesson-item:hover {
-            background: var(--bg-secondary);
-        }
+        .lesson-item:hover { background: var(--bg-secondary); }
         .lesson-item::before {
             content: '';
-            width: 6px;
-            height: 6px;
+            width: 6px; height: 6px;
             border-radius: 50%;
-            background: var(--green);
-            flex-shrink: 0;
+            background: var(--text-secondary);
         }
+        .lesson-item.completed::before { background: var(--green); }
 
-        .loading {
-            text-align: center;
-            padding: 60px 0;
-            color: var(--text-secondary);
+        /* Grid View */
+        .grid-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            display: none;
         }
+        .grid-card {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .grid-card:hover { border-color: var(--green); transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .grid-card .grid-icon { font-size: 2rem; color: var(--green); margin-bottom: 12px; }
+
+        /* List View */
+        .list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            display: none;
+        }
+        .list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+        .list-item:hover { background: var(--bg-secondary); }
+
+        /* Right Sidebar */
+        .sidebar-right {
+            width: 260px;
+            background: var(--bg);
+            border-left: 2px solid var(--border);
+            padding: 16px;
+            overflow-y: auto;
+        }
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .stat-value { font-size: 1.8rem; font-weight: 900; color: var(--green); font-family: 'BlockBlueprint', sans-serif; }
+        .stat-label { font-size: 0.8rem; color: var(--text-secondary); }
+
+        .floating-dock {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+        .dock-btn {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.2s;
+        }
+        .dock-btn:hover { transform: scale(1.1); border-color: var(--green); }
+
         .spinner {
             display: inline-block;
-            width: 32px; height: 32px;
-            border: 4px solid var(--border);
+            width: 24px; height: 24px;
+            border: 3px solid var(--border);
             border-top-color: var(--green);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
@@ -273,87 +420,212 @@
             <img src="../favicon.ico" alt="Akademia" class="logo-img">
             <div class="logo-text">Akade<span>mia</span></div>
         </a>
-        <a href="../index.html" class="back-link">
-            <iconify-icon icon="pixelarticons:arrow-left"></iconify-icon> Home
-        </a>
+        <div class="topbar-search">
+            <iconify-icon icon="pixelarticons:search" class="search-icon"></iconify-icon>
+            <input type="text" class="search-input" id="globalSearch" placeholder="Search courses, modules, lessons...">
+        </div>
+        <div class="view-toggles" id="viewToggles">
+            <button class="view-btn active" data-view="roadmap">Roadmap</button>
+            <button class="view-btn" data-view="grid">Grid</button>
+            <button class="view-btn" data-view="list">List</button>
+        </div>
+        <div class="user-menu" id="userMenu">
+            <div class="user-avatar" id="userAvatar">A</div>
+            <span id="userNameDisplay" style="font-weight:700;"></span>
+        </div>
     </div>
 
-    <div class="container">
-        <h1 class="page-title">Your Learning Path</h1>
-        <p class="page-subtitle">Choose a course, then a module, and start a lesson.</p>
+    <div class="layout">
+        <!-- Left Sidebar -->
+        <aside class="sidebar-left" id="leftSidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Navigation</div>
+                <div class="tree-item" data-view="all-courses">
+                    <iconify-icon icon="pixelarticons:folder"></iconify-icon> All Courses
+                </div>
+                <div class="tree-item" data-view="in-progress">
+                    <iconify-icon icon="pixelarticons:play"></iconify-icon> In Progress
+                </div>
+                <div class="tree-item" data-view="completed">
+                    <iconify-icon icon="pixelarticons:check"></iconify-icon> Completed
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">Filters</div>
+                <div class="tree-item" data-filter="beginner">
+                    <iconify-icon icon="pixelarticons:leaf"></iconify-icon> Beginner
+                </div>
+                <div class="tree-item" data-filter="intermediate">
+                    <iconify-icon icon="pixelarticons:rocket"></iconify-icon> Intermediate
+                </div>
+                <div class="tree-item" data-filter="advanced">
+                    <iconify-icon icon="pixelarticons:star"></iconify-icon> Advanced
+                </div>
+            </div>
+        </aside>
 
-        <div class="roadmap" id="roadmap">
-            <div class="loading"><div class="spinner"></div><p>Loading courses…</p></div>
+        <!-- Main Panel -->
+        <main class="main-panel">
+            <div class="main-header">
+                <div class="breadcrumb" id="breadcrumb">
+                    <a href="#">Home</a> <span>/</span> <span>All Courses</span>
+                </div>
+                <div class="view-toggles" style="background:transparent; padding:0;">
+                    <!-- duplicated for quick access, linked to same event -->
+                    <button class="view-btn active" data-view="roadmap">Roadmap</button>
+                    <button class="view-btn" data-view="grid">Grid</button>
+                    <button class="view-btn" data-view="list">List</button>
+                </div>
+            </div>
+            <div class="view-container" id="viewContainer">
+                <div class="roadmap" id="roadmapView"></div>
+                <div class="grid-view" id="gridView"></div>
+                <div class="list-view" id="listView"></div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="sidebar-right" id="rightSidebar">
+            <div class="stat-card">
+                <div class="stat-value" id="xpValue">0</div>
+                <div class="stat-label">XP</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="streakValue">0</div>
+                <div class="stat-label">Day Streak</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="levelValue">1</div>
+                <div class="stat-label">Level</div>
+            </div>
+            <div style="margin-top:16px; color:var(--text-secondary); text-align:center; font-size:0.8rem;">
+                <iconify-icon icon="pixelarticons:bot"></iconify-icon> AI Assistant (coming soon)
+            </div>
+        </aside>
+    </div>
+
+    <!-- Floating Dock -->
+    <div class="floating-dock">
+        <div class="dock-btn" title="Search" onclick="document.getElementById('globalSearch').focus()">
+            <iconify-icon icon="pixelarticons:search"></iconify-icon>
+        </div>
+        <div class="dock-btn" title="Resume" onclick="resumeLearning()">
+            <iconify-icon icon="pixelarticons:play"></iconify-icon>
         </div>
     </div>
 
     <script type="module">
-        import { db } from '../src/js/firebase-config.js';
-        import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+        import { auth, db } from '../src/js/firebase-config.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+        import { doc, getDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-        const roadmapEl = document.getElementById('roadmap');
+        // Global state
+        let userData = null;
+        let courses = [];
+        let currentView = 'roadmap';
 
-        // Fetch all courses
-        async function loadRoadmap() {
-            roadmapEl.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading courses…</p></div>';
+        // DOM elements
+        const roadmapView = document.getElementById('roadmapView');
+        const gridView = document.getElementById('gridView');
+        const listView = document.getElementById('listView');
+        const userAvatar = document.getElementById('userAvatar');
+        const userNameDisplay = document.getElementById('userNameDisplay');
+        const globalSearch = document.getElementById('globalSearch');
+
+        // Check auth & load data
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            // Load user profile
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
+            if (userDoc.exists()) {
+                userData = userDoc.data();
+                updateUserUI();
+            }
+            // Load courses
+            await loadCourses();
+            // Set initial view
+            switchView('roadmap');
+        });
+
+        function updateUserUI() {
+            if (!userData) return;
+            userAvatar.textContent = (userData.name || 'A')[0].toUpperCase();
+            userNameDisplay.textContent = userData.name || 'Adventurer';
+            document.getElementById('xpValue').textContent = userData.xp || 0;
+            document.getElementById('streakValue').textContent = userData.streak || 0;
+            document.getElementById('levelValue').textContent = userData.level || 1;
+        }
+
+        async function loadCourses() {
             try {
-                const coursesSnap = await getDocs(query(collection(db, 'courses'), orderBy('createdAt')));
-                const courses = [];
-                coursesSnap.forEach(doc => courses.push({ id: doc.id, ...doc.data() }));
-
-                if (courses.length === 0) {
-                    roadmapEl.innerHTML = '<div style="text-align:center; padding:60px; color:var(--text-secondary);">No courses available yet.</div>';
-                    return;
-                }
-
-                roadmapEl.innerHTML = '';
-                courses.forEach((course, idx) => {
-                    const courseItem = document.createElement('div');
-                    courseItem.className = 'roadmap-item';
-                    courseItem.innerHTML = `
-                        <div class="roadmap-node" data-course-id="${course.id}">
-                            <div class="node-circle">
-                                <iconify-icon icon="pixelarticons:folder"></iconify-icon>
-                            </div>
-                            <div class="node-content">
-                                <div class="node-title">${escapeHtml(course.title)}</div>
-                                <div class="node-desc">${escapeHtml(course.description || 'Master the fundamentals')}</div>
-                            </div>
-                        </div>
-                        <div class="children-container" id="modules-${course.id}"></div>
-                    `;
-                    roadmapEl.appendChild(courseItem);
-
-                    // Toggle expansion
-                    const node = courseItem.querySelector('.roadmap-node');
-                    node.addEventListener('click', async (e) => {
-                        e.stopPropagation();
-                        courseItem.classList.toggle('expanded');
-                        const modulesContainer = document.getElementById(`modules-${course.id}`);
-                        if (courseItem.classList.contains('expanded') && modulesContainer.children.length === 0) {
-                            await loadModules(course.id, modulesContainer);
-                        }
-                    });
-                });
+                const snap = await getDocs(query(collection(db, 'courses'), orderBy('createdAt')));
+                courses = [];
+                snap.forEach(doc => courses.push({ id: doc.id, ...doc.data() }));
+                renderAllViews();
             } catch (error) {
-                roadmapEl.innerHTML = '<p style="text-align:center; color:red;">Failed to load courses.</p>';
                 console.error(error);
+                roadmapView.innerHTML = '<p>Failed to load courses.</p>';
             }
         }
 
+        function renderAllViews() {
+            renderRoadmap();
+            renderGrid();
+            renderList();
+        }
+
+        function renderRoadmap() {
+            roadmapView.innerHTML = '';
+            courses.forEach(course => {
+                const node = document.createElement('div');
+                node.className = 'roadmap-node course';
+                const completedLessons = userData?.completedLessons || [];
+                const totalLessons = course.totalLessons || 0; // if you store count in course doc
+                const completedCount = completedLessons.filter(id => id.startsWith(course.id)).length; // rough estimate
+                const progressPercent = totalLessons ? (completedCount / totalLessons) * 100 : 0;
+
+                node.innerHTML = `
+                    <div class="node-circle">
+                        <iconify-icon icon="pixelarticons:folder"></iconify-icon>
+                    </div>
+                    <div class="node-card" data-course-id="${course.id}">
+                        <div class="node-title">${escapeHtml(course.title)}</div>
+                        <div class="node-meta">${escapeHtml(course.description || '')}</div>
+                        <div class="node-progress">
+                            <div class="progress-fill" style="width: ${progressPercent}%;"></div>
+                        </div>
+                    </div>
+                    <div class="children-container" id="modules-${course.id}"></div>
+                `;
+                roadmapView.appendChild(node);
+
+                const card = node.querySelector('.node-card');
+                card.addEventListener('click', async () => {
+                    node.classList.toggle('expanded');
+                    const modulesContainer = document.getElementById(`modules-${course.id}`);
+                    if (node.classList.contains('expanded') && modulesContainer.children.length === 0) {
+                        await loadModules(course.id, modulesContainer);
+                    }
+                });
+            });
+        }
+
         async function loadModules(courseId, container) {
-            container.innerHTML = '<div style="padding:10px; color:var(--text-secondary);">Loading modules…</div>';
+            container.innerHTML = '<div style="padding:8px; color:var(--text-secondary);">Loading modules…</div>';
             try {
-                const modulesSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules'), orderBy('createdAt')));
+                const snap = await getDocs(query(collection(db, 'courses', courseId, 'modules'), orderBy('createdAt')));
                 container.innerHTML = '';
-                modulesSnap.forEach(modDoc => {
+                snap.forEach(modDoc => {
                     const mod = { id: modDoc.id, ...modDoc.data() };
                     const modDiv = document.createElement('div');
                     modDiv.className = 'sub-item';
                     modDiv.innerHTML = `
                         <div class="sub-circle"></div>
-                        <span class="sub-title">${escapeHtml(mod.title)}</span>
-                        <span class="sub-meta">Module</span>
+                        <span style="flex:1; font-weight:600;">${escapeHtml(mod.title)}</span>
+                        <span style="font-size:0.7rem; color:var(--text-secondary);">Module</span>
                     `;
                     container.appendChild(modDiv);
 
@@ -362,9 +634,7 @@
                     lessonsDiv.id = `lessons-${mod.id}`;
                     container.appendChild(lessonsDiv);
 
-                    modDiv.addEventListener('click', async (e) => {
-                        e.stopPropagation();
-                        // Toggle lessons visibility
+                    modDiv.addEventListener('click', async () => {
                         if (lessonsDiv.style.display === 'block') {
                             lessonsDiv.style.display = 'none';
                         } else {
@@ -376,39 +646,97 @@
                     });
                 });
             } catch (error) {
-                container.innerHTML = '<p style="color:red;">Error loading modules.</p>';
+                container.innerHTML = '<p style="color:red;">Error</p>';
             }
         }
 
         async function loadLessons(courseId, moduleId, container) {
-            container.innerHTML = '<div style="padding:10px; color:var(--text-secondary);">Loading lessons…</div>';
+            container.innerHTML = '<div style="padding:8px; color:var(--text-secondary);">Loading lessons…</div>';
             try {
-                const lessonsSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules', moduleId, 'lessons'), orderBy('createdAt')));
+                const snap = await getDocs(query(collection(db, 'courses', courseId, 'modules', moduleId, 'lessons'), orderBy('createdAt')));
                 container.innerHTML = '';
-                lessonsSnap.forEach(lesDoc => {
+                snap.forEach(lesDoc => {
                     const les = { id: lesDoc.id, ...lesDoc.data() };
                     const lesItem = document.createElement('div');
                     lesItem.className = 'lesson-item';
-                    lesItem.innerHTML = `
-                        <span>${escapeHtml(les.title)}</span>
-                        <span style="margin-left:auto; font-size:0.75rem; color:var(--text-secondary);">→</span>
-                    `;
+                    const completed = userData?.completedLessons?.includes(les.id);
+                    if (completed) lesItem.classList.add('completed');
+                    lesItem.innerHTML = `<span>${escapeHtml(les.title)}</span>`;
                     lesItem.addEventListener('click', () => {
                         window.location.href = `lesson.html?courseId=${courseId}&moduleId=${moduleId}&lessonId=${les.id}`;
                     });
                     container.appendChild(lesItem);
                 });
             } catch (error) {
-                container.innerHTML = '<p style="color:red;">Error loading lessons.</p>';
+                container.innerHTML = '<p style="color:red;">Error</p>';
             }
         }
+
+        function renderGrid() {
+            gridView.innerHTML = courses.map(course => `
+                <div class="grid-card" onclick="document.querySelector('[data-course-id="${course.id}"]').click()">
+                    <iconify-icon icon="pixelarticons:folder" class="grid-icon"></iconify-icon>
+                    <div class="node-title">${escapeHtml(course.title)}</div>
+                    <div class="node-meta">${escapeHtml(course.description || '')}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderList() {
+            listView.innerHTML = courses.map(course => `
+                <div class="list-item" onclick="document.querySelector('[data-course-id="${course.id}"]').click()">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <iconify-icon icon="pixelarticons:folder" style="font-size:1.3rem; color:var(--green);"></iconify-icon>
+                        <span style="font-weight:700;">${escapeHtml(course.title)}</span>
+                    </div>
+                    <span style="color:var(--text-secondary);">→</span>
+                </div>
+            `).join('');
+        }
+
+        // View switching
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                switchView(btn.dataset.view);
+            });
+        });
+
+        function switchView(view) {
+            currentView = view;
+            roadmapView.style.display = view === 'roadmap' ? 'block' : 'none';
+            gridView.style.display = view === 'grid' ? 'grid' : 'none';
+            listView.style.display = view === 'list' ? 'flex' : 'none';
+        }
+
+        // Search
+        globalSearch.addEventListener('input', () => {
+            const term = globalSearch.value.toLowerCase();
+            document.querySelectorAll('.roadmap-node .node-card').forEach(card => {
+                const title = card.querySelector('.node-title').textContent.toLowerCase();
+                card.closest('.roadmap-node').style.display = title.includes(term) ? '' : 'none';
+            });
+            // Also filter grid/list similarly
+            document.querySelectorAll('.grid-card').forEach(card => {
+                const title = card.querySelector('.node-title').textContent.toLowerCase();
+                card.style.display = title.includes(term) ? '' : 'none';
+            });
+            document.querySelectorAll('.list-item').forEach(item => {
+                const title = item.querySelector('span').textContent.toLowerCase();
+                item.style.display = title.includes(term) ? '' : 'none';
+            });
+        });
 
         function escapeHtml(text) {
             if (!text) return '';
             return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
         }
 
-        loadRoadmap();
+        window.resumeLearning = function() {
+            // Navigate to last opened lesson (if stored) or first incomplete
+            alert('Resume feature will be implemented soon.');
+        };
     </script>
 </body>
 </html>
