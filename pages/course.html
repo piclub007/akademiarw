@@ -3,221 +3,299 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Courses · Akademia</title>
+  <title>Journey · Akademia</title>
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
   <!-- Fonts -->
   <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/drafting-mono" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'BlockBlueprint';
+      src: local('BlockBlueprint'), local('BlockBlueprint');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Drafting Mono';
+      src: local('Drafting Mono'), local('Drafting Mono');
+      font-display: swap;
+    }
+  </style>
+
   <!-- Icons -->
   <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
   <style>
     :root {
       --green: #58CC02;
       --green-hover: #46A302;
       --bg: #FFFFFF;
-      --bg2: #F7F7F7;
+      --bg-secondary: #F7F7F7;
       --text: #1e1e1e;
-      --text2: #777;
+      --text-secondary: #777;
       --border: #E5E5E5;
       --radius: 16px;
       --gold: #FFC800;
     }
+
     * { margin:0; padding:0; box-sizing:border-box; }
+
     body {
-      font-family: 'Drafting Mono', monospace;
-      background: var(--bg2);
+      font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
+      background: var(--bg-secondary);
       color: var(--text);
-      display: flex;
       height: 100vh;
       overflow: hidden;
-    }
-    h1,h2,h3 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
-
-    /* Sidebar */
-    .sidebar {
-      width: 240px;
-      background: var(--bg);
-      border-right: 1px solid var(--border);
-      padding: 20px;
       display: flex;
       flex-direction: column;
-      flex-shrink: 0;
     }
-    .logo {
+
+    h1, h2, h3 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
+
+    /* Top bar */
+    .topbar {
+      height: 60px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 32px;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 10;
+    }
+    .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .logo-img { width:34px; height:34px; border-radius:10px; }
+    .logo-text { font-size:1.3rem; font-weight:800; color:var(--text); }
+    .logo-text span { color:var(--green); }
+
+    .course-title-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .course-title {
+      font-family: 'BlockBlueprint', sans-serif;
       font-size: 1.2rem;
       font-weight: 800;
-      color: var(--text);
     }
-    .logo img { width: 28px; height: 28px; border-radius: 8px; }
-    .logo span { color: var(--green); }
-    .nav-item {
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+
+    /* Main layout */
+    .main-layout {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Left sidebar (module list) */
+    .sidebar-modules {
+      width: 280px;
+      background: var(--bg);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 20px 16px;
+      flex-shrink: 0;
+    }
+    .module-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .module-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      margin-bottom: 4px;
+      padding: 12px 16px;
+      border-radius: 12px;
       cursor: pointer;
-      font-size: 0.9rem;
-      color: var(--text2);
       transition: background 0.2s;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
     }
-    .nav-item:hover { background: var(--bg2); color: var(--text); }
-    .nav-item.active { background: #ebf7e6; color: var(--green); font-weight: 700; }
+    .module-item:hover { background: var(--bg-secondary); }
+    .module-item.active {
+      background: #ebf7e6;
+      border-color: var(--green);
+    }
+    .module-item .module-progress {
+      margin-left: auto;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
 
-    /* Main area */
-    .main {
+    /* Center – roadmap */
+    .roadmap-container {
       flex: 1;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-    }
-    .top-stats {
-      display: flex;
-      gap: 16px;
-      padding: 20px 24px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-    }
-    .stat-card {
-      background: var(--bg2);
-      border-radius: var(--radius);
-      padding: 12px 20px;
-      text-align: center;
-      flex: 1;
-      border: 1px solid var(--border);
-    }
-    .stat-value {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--green);
-      font-family: 'BlockBlueprint', sans-serif;
-    }
-    .stat-label { font-size: 0.8rem; color: var(--text2); margin-top: 4px; }
-
-    .content {
-      flex: 1;
       overflow-y: auto;
       padding: 24px;
-    }
-    .courses-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-    .course-card {
       background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .course-card:hover {
-      border-color: var(--green);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.05);
-    }
-    .course-icon { font-size: 2rem; color: var(--green); margin-bottom: 12px; }
-    .course-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 4px; }
-    .course-desc { font-size: 0.8rem; color: var(--text2); margin-bottom: 12px; }
-    .progress-bar {
-      height: 6px;
-      background: var(--border);
-      border-radius: 3px;
-      margin-bottom: 8px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--green);
-      transition: width 0.5s;
-    }
-    .course-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      color: var(--text2);
-    }
-
-    /* Roadmap expand (simple) */
-    .roadmap-section {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      margin-top: 16px;
     }
     .module-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-weight: 700;
-      padding: 8px 0;
-      cursor: pointer;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
     }
-    .module-header:last-child { border-bottom: none; }
-    .lesson-list {
-      display: none;
-      padding-left: 20px;
+    .module-header h2 {
+      font-size: 1.8rem;
+      margin-bottom: 4px;
     }
-    .lesson-list.open { display: block; }
-    .lesson-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 0;
-      font-size: 0.85rem;
-      cursor: pointer;
+    .module-header p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
     }
-    .lesson-item.completed { color: var(--green); }
-    .lesson-item.locked { color: #ccc; pointer-events: none; }
 
-    /* Right dashboard (gamification) */
-    .right-panel {
-      width: 280px;
-      background: var(--bg);
-      border-left: 1px solid var(--border);
-      padding: 20px;
+    /* Vertical roadmap */
+    .roadmap {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      left: 27px;
+      top: 20px;
+      bottom: 20px;
+      width: 2px;
+      background: var(--border);
+      border-radius: 1px;
+    }
+    .lesson-node {
+      display: flex;
+      align-items: center;
       gap: 16px;
-      overflow-y: auto;
+      width: 100%;
+      margin-bottom: 16px;
+      position: relative;
+      cursor: pointer;
     }
-    .user-card {
-      text-align: center;
-      padding: 16px;
-      background: var(--bg2);
-      border-radius: var(--radius);
-    }
-    .avatar {
-      width: 60px; height: 60px;
+    .node-circle {
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      background: var(--green);
+      border: 3px solid var(--border);
+      background: var(--bg);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 8px;
-      font-size: 1.5rem;
-      color: #fff;
+      font-size: 1.2rem;
+      transition: all 0.2s;
+      flex-shrink: 0;
+      z-index: 2;
     }
-    .level-badge {
-      background: var(--gold);
-      color: #000;
+    .lesson-node.completed .node-circle {
+      background: var(--green);
+      border-color: var(--green);
+      color: white;
+    }
+    .lesson-node.current .node-circle {
+      border-color: var(--green);
+      background: #ebf7e6;
+      color: var(--green);
+    }
+    .lesson-node.locked .node-circle {
+      background: var(--bg-secondary);
+      border-color: #ddd;
+      color: #ccc;
+      cursor: not-allowed;
+    }
+    .node-content {
+      flex: 1;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      transition: all 0.2s;
+    }
+    .lesson-node.completed .node-content {
+      border-color: var(--green);
+      background: #f0fde0;
+    }
+    .lesson-node.current .node-content {
+      border-color: var(--green);
+    }
+    .lesson-node:hover .node-content {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .lesson-title {
       font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 20px;
-      display: inline-block;
-      margin: 8px 0;
-      font-size: 0.8rem;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
     }
-    .xp-bar {
+    .lesson-meta {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .continue-btn {
+      margin-top: 16px;
+      align-self: center;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      background: var(--green);
+      color: white;
+      box-shadow: 0 4px 0 var(--green-hover);
+    }
+    .btn:hover {
+      background: var(--green-hover);
+      transform: translateY(-1px);
+    }
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Right panel (learner stats) */
+    .right-panel {
+      width: 300px;
+      background: var(--bg);
+      border-left: 1px solid var(--border);
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow-y: auto;
+    }
+    .stats-card {
+      background: var(--bg-secondary);
+      border-radius: var(--radius);
+      padding: 16px;
+      border: 1px solid var(--border);
+    }
+    .stats-card h3 {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .xp-progress {
       height: 8px;
       background: #e0e0e0;
       border-radius: 4px;
@@ -228,200 +306,223 @@
       background: var(--green);
       border-radius: 4px;
     }
-    .quest-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-      font-size: 0.8rem;
-    }
-    .quest-check {
-      width: 18px; height: 18px;
-      border: 2px solid var(--border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .quest-check.done { background: var(--green); border-color: var(--green); color: white; }
   </style>
 </head>
 <body>
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="logo">
-      <img src="../favicon.ico" alt="Akademia">
-      Akade<span>mia</span>
+  <div class="topbar">
+    <a href="../index.html" class="logo">
+      <img src="../favicon.ico" alt="Akademia" class="logo-img">
+      <span class="logo-text">Akade<span>mia</span></span>
+    </a>
+    <div class="course-title-area" id="courseTitleArea">
+      <a href="learn.html" class="back-btn">
+        <iconify-icon icon="pixelarticons:arrow-left"></iconify-icon> Back to Courses
+      </a>
+      <span class="course-title" id="headerCourseTitle"></span>
     </div>
-    <nav>
-      <div class="nav-item active"><iconify-icon icon="pixelarticons:home"></iconify-icon> Home</div>
-      <div class="nav-item"><iconify-icon icon="pixelarticons:compass"></iconify-icon> Discover</div>
-      <div class="nav-item"><iconify-icon icon="pixelarticons:trophy"></iconify-icon> Achievements</div>
-      <div class="nav-item"><iconify-icon icon="pixelarticons:bookmark"></iconify-icon> Saved</div>
-    </nav>
-  </aside>
+    <div></div>
+  </div>
 
-  <!-- Main content -->
-  <main class="main">
-    <!-- Top stats -->
-    <div class="top-stats">
-      <div class="stat-card">
-        <div class="stat-value" id="sparksCount">240</div>
-        <div class="stat-label">🔥 Sparks</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" id="streakCount">5</div>
-        <div class="stat-label">📅 Day Streak</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" id="completedCount">12</div>
-        <div class="stat-label">✅ Completed</div>
-      </div>
-    </div>
+  <div class="main-layout">
+    <!-- Left sidebar: module list -->
+    <aside class="sidebar-modules" id="moduleSidebar">
+      <div class="module-list" id="moduleList"></div>
+    </aside>
 
-    <!-- Courses section -->
-    <div class="content">
-      <h2 style="margin-bottom:16px;">Your Courses</h2>
-      <div class="courses-grid" id="coursesGrid"></div>
+    <!-- Center: roadmap of lessons -->
+    <main class="roadmap-container" id="roadmapContainer">
+      <div class="module-header">
+        <h2 id="currentModuleName">Fundamentals</h2>
+        <p id="currentModuleDesc"></p>
+      </div>
+      <div class="roadmap" id="roadmap"></div>
+    </main>
 
-      <!-- Inline roadmap for selected course -->
-      <div class="roadmap-section" id="roadmapSection" style="display:none;">
-        <h3 id="selectedCourseTitle" style="margin-bottom:12px;"></h3>
-        <div id="moduleContainer"></div>
+    <!-- Right panel: learner stats -->
+    <aside class="right-panel">
+      <div class="stats-card">
+        <h3>Your Progress</h3>
+        <div><strong>Level 7</strong></div>
+        <div class="xp-progress">
+          <div class="xp-fill" style="width:68%;"></div>
+        </div>
+        <small>2,430 / 3,500 XP</small>
       </div>
-    </div>
-  </main>
-
-  <!-- Right gamification panel -->
-  <aside class="right-panel">
-    <div class="user-card">
-      <div class="avatar">A</div>
-      <div style="font-weight:700;">Adventurer</div>
-      <div class="level-badge">Level 7</div>
-      <div class="xp-bar">
-        <div class="xp-fill" style="width:68%;"></div>
+      <div class="stats-card">
+        <h3>Streak</h3>
+        <div style="font-size:2rem; font-weight:800; color:var(--gold);">5</div>
+        <small>days</small>
       </div>
-      <small style="color:var(--text2);">2,430 / 3,500 XP</small>
-    </div>
-    <div class="card">
-      <strong>Daily Quests</strong>
-      <div class="quest-item">
-        <div class="quest-check done">✓</div>
-        <span>Complete 1 lesson</span>
+      <div class="stats-card">
+        <h3>Sparks</h3>
+        <div style="font-size:2rem; font-weight:800;">240</div>
+        <small>earned</small>
       </div>
-      <div class="quest-item">
-        <div class="quest-check" style="border-color:var(--gold);"> </div>
-        <span>Earn 50 sparks</span>
-      </div>
-      <div class="quest-item">
-        <div class="quest-check"></div>
-        <span>Study 30 min</span>
-      </div>
-    </div>
-    <div>
-      <strong>Recent Achievements</strong>
-      <div style="font-size:0.8rem; margin-top:8px;">🏆 Fast Learner</div>
-      <div style="font-size:0.8rem;">⭐ First Steps</div>
-    </div>
-  </aside>
+    </aside>
+  </div>
 
   <script type="module">
     import { db } from '../src/js/firebase-config.js';
     import { collection, getDocs, query, orderBy, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-    // Simulated user data (would come from Firebase auth + Firestore)
+    // Get URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const courseId = params.get('courseId') || 'python';
+    const moduleId = params.get('moduleId') || 'fundamentals'; // optional, will default to first module
+
+    // Simulated user (replace with Firebase auth later)
     const user = {
-      uid: 'demo123',
-      name: 'Adventurer',
+      uid: 'demo',
+      completedLessons: ['les1', 'les2', 'les3'],
       sparks: 240,
       level: 7,
       xp: 2430,
-      xpToNext: 3500,
-      streak: 5,
-      completedLessons: ['les1','les2','les3']
+      streak: 5
     };
 
-    // Load courses
-    async function loadCourses() {
-      const coursesGrid = document.getElementById('coursesGrid');
-      coursesGrid.innerHTML = '<p>Loading courses...</p>';
-      try {
-        const q = query(collection(db, 'courses'), orderBy('createdAt'));
-        const snap = await getDocs(q);
-        coursesGrid.innerHTML = '';
-        snap.forEach(courseDoc => {
-          const course = { id: courseDoc.id, ...courseDoc.data() };
-          const card = document.createElement('div');
-          card.className = 'course-card';
-          // Calculate progress (simplified: count completed lessons vs total)
-          const total = 10; // you'd fetch real count from modules/lessons
-          const completed = user.completedLessons.filter(id => id.startsWith(course.id)).length;
-          const progress = (completed / total) * 100;
-          card.innerHTML = `
-            <iconify-icon icon="pixelarticons:folder" class="course-icon"></iconify-icon>
-            <div class="course-title">${escapeHtml(course.title)}</div>
-            <div class="course-desc">${escapeHtml(course.description || '')}</div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width:${progress}%;"></div>
-            </div>
-            <div class="course-meta">
-              <span>${Math.round(progress)}% done</span>
-              <span>${completed}/${total} lessons</span>
-            </div>
-          `;
-          card.addEventListener('click', () => showRoadmap(course.id, course.title));
-          coursesGrid.appendChild(card);
-        });
-      } catch (err) {
-        coursesGrid.innerHTML = '<p>Failed to load courses.</p>';
+    let course = null;
+    let modules = [];
+    let currentModuleId = moduleId;
+    let lessons = [];
+
+    // Load course data
+    async function loadCourse() {
+      const courseDoc = await getDoc(doc(db, 'courses', courseId));
+      if (!courseDoc.exists()) {
+        document.getElementById('roadmap').innerHTML = '<p>Course not found.</p>';
+        return;
       }
+      course = { id: courseDoc.id, ...courseDoc.data() };
+      document.getElementById('headerCourseTitle').textContent = course.title;
+
+      // Load modules
+      const modSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules'), orderBy('createdAt')));
+      modules = [];
+      modSnap.forEach(doc => modules.push({ id: doc.id, ...doc.data() }));
+      renderModuleSidebar();
+
+      // If no moduleId provided or invalid, use the first one
+      if (!modules.some(m => m.id === currentModuleId) && modules.length > 0) {
+        currentModuleId = modules[0].id;
+      }
+      loadModuleLessons(currentModuleId);
     }
 
-    // Show module/lesson roadmap for selected course
-    async function showRoadmap(courseId, courseTitle) {
-      const section = document.getElementById('roadmapSection');
-      section.style.display = 'block';
-      document.getElementById('selectedCourseTitle').textContent = courseTitle;
-      const container = document.getElementById('moduleContainer');
-      container.innerHTML = '<p>Loading modules...</p>';
-      try {
-        const modulesSnap = await getDocs(collection(db, 'courses', courseId, 'modules'));
-        container.innerHTML = '';
-        for (let modDoc of modulesSnap.docs) {
-          const mod = { id: modDoc.id, ...modDoc.data() };
-          const modDiv = document.createElement('div');
-          modDiv.innerHTML = `
-            <div class="module-header">
-              <span>${escapeHtml(mod.title)}</span>
-              <span>▼</span>
-            </div>
-            <div class="lesson-list" id="lessons-${mod.id}"></div>
-          `;
-          container.appendChild(modDiv);
-          const header = modDiv.querySelector('.module-header');
-          const list = modDiv.querySelector('.lesson-list');
-          header.addEventListener('click', () => {
-            list.classList.toggle('open');
-          });
-          // Load lessons for this module
-          const lessonsSnap = await getDocs(collection(db, 'courses', courseId, 'modules', mod.id, 'lessons'));
-          let html = '';
-          lessonsSnap.forEach(lesDoc => {
-            const les = { id: lesDoc.id, ...lesDoc.data() };
-            const completed = user.completedLessons.includes(les.id);
-            const locked = false; // would be determined by order
-            html += `
-              <div class="lesson-item ${completed ? 'completed' : ''} ${locked ? 'locked' : ''}">
-                <iconify-icon icon="${completed ? 'pixelarticons:check' : (locked ? 'pixelarticons:lock' : 'pixelarticons:play')}"></iconify-icon>
-                <span>${escapeHtml(les.title)}</span>
-                ${completed ? '<span style="margin-left:auto;">✓</span>' : ''}
-              </div>
-            `;
-          });
-          list.innerHTML = html;
+    // Render module list in sidebar
+    function renderModuleSidebar() {
+      const list = document.getElementById('moduleList');
+      list.innerHTML = modules.map(mod => `
+        <div class="module-item ${mod.id === currentModuleId ? 'active' : ''}" data-module-id="${mod.id}">
+          <iconify-icon icon="pixelarticons:folder"></iconify-icon>
+          <span>${escapeHtml(mod.title)}</span>
+          <span class="module-progress">${getModuleProgress(mod.id)}%</span>
+        </div>
+      `).join('');
+
+      // Add click handlers
+      list.querySelectorAll('.module-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const newModuleId = item.dataset.moduleId;
+          if (newModuleId !== currentModuleId) {
+            currentModuleId = newModuleId;
+            loadModuleLessons(newModuleId);
+            // Update active state
+            list.querySelectorAll('.module-item').forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+          }
+        });
+      });
+    }
+
+    // Calculate progress percentage for a module
+    function getModuleProgress(moduleId) {
+      // For simplicity, count completed lessons in this module (would need to fetch lesson IDs)
+      return Math.floor(Math.random() * 100); // placeholder
+    }
+
+    // Load lessons for a module
+    async function loadModuleLessons(moduleId) {
+      const module = modules.find(m => m.id === moduleId);
+      if (!module) return;
+      document.getElementById('currentModuleName').textContent = module.title;
+      document.getElementById('currentModuleDesc').textContent = module.description || '';
+
+      const lesSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules', moduleId, 'lessons'), orderBy('createdAt')));
+      lessons = [];
+      lesSnap.forEach(doc => lessons.push({ id: doc.id, ...doc.data() }));
+      renderRoadmap();
+    }
+
+    // Render the vertical roadmap
+    function renderRoadmap() {
+      const roadmapEl = document.getElementById('roadmap');
+      roadmapEl.innerHTML = '';
+
+      if (lessons.length === 0) {
+        roadmapEl.innerHTML = '<p style="text-align:center; color:var(--text-secondary);">No lessons in this module.</p>';
+        return;
+      }
+
+      let lastCompleted = true;
+      let currentReached = false;
+
+      lessons.forEach((les, idx) => {
+        const completed = user.completedLessons.includes(les.id);
+        const locked = !completed && !currentReached && !(idx === 0);
+        if (completed) lastCompleted = true;
+        if (!completed && !locked && !currentReached) {
+          currentReached = true;
+          les.current = true;
+        } else {
+          les.current = false;
         }
-      } catch (err) {
-        container.innerHTML = '<p>Could not load modules.</p>';
+        if (!completed && !les.current && idx > 0 && !lessons[idx-1].completed) {
+          les.locked = true;
+        } else {
+          les.locked = locked;
+        }
+
+        const nodeClass = completed ? 'completed' : (les.current ? 'current' : (les.locked ? 'locked' : ''));
+        const icon = completed ? 'check' : (les.locked ? 'lock' : 'play');
+
+        const nodeDiv = document.createElement('div');
+        nodeDiv.className = `lesson-node ${nodeClass}`;
+        nodeDiv.innerHTML = `
+          <div class="node-circle">
+            <iconify-icon icon="pixelarticons:${icon}"></iconify-icon>
+          </div>
+          <div class="node-content">
+            <div class="lesson-title">${escapeHtml(les.title)}</div>
+            <div class="lesson-meta">
+              ${les.type || 'lesson'} · ${les.duration || 10} min · +${les.reward || 30} XP
+            </div>
+          </div>
+        `;
+
+        if (!les.locked) {
+          nodeDiv.addEventListener('click', () => {
+            // Navigate to lesson page
+            window.location.href = `lesson.html?courseId=${courseId}&moduleId=${currentModuleId}&lessonId=${les.id}`;
+          });
+        }
+
+        roadmapEl.appendChild(nodeDiv);
+      });
+
+      // Add continue button for the next incomplete lesson
+      const nextLesson = lessons.find(l => !user.completedLessons.includes(l.id) && !l.locked);
+      if (nextLesson) {
+        const continueDiv = document.createElement('div');
+        continueDiv.className = 'continue-btn';
+        continueDiv.innerHTML = `
+          <button class="btn" id="continueLessonBtn">
+            <iconify-icon icon="pixelarticons:play"></iconify-icon> Continue
+          </button>
+        `;
+        continueDiv.querySelector('button').addEventListener('click', () => {
+          window.location.href = `lesson.html?courseId=${courseId}&moduleId=${currentModuleId}&lessonId=${nextLesson.id}`;
+        });
+        roadmapEl.appendChild(continueDiv);
       }
     }
 
@@ -430,7 +531,7 @@
       return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
-    loadCourses();
+    loadCourse();
   </script>
 </body>
 </html>
