@@ -33,7 +33,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
 
-  <!-- Skulpt for Python -->
+  <!-- Skulpt -->
   <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
 
@@ -256,7 +256,6 @@
     @keyframes slideInRight { from { transform: translateX(120%); opacity:0; } to { transform: translateX(0); opacity:1; } }
     @keyframes fadeOut { to { opacity:0; transform: translateY(-10px); } }
 
-    /* Mood modal */
     .modal-overlay {
       position: fixed; top:0; left:0; width:100%; height:100%;
       background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
@@ -369,7 +368,7 @@
   </div>
 
   <div class="toast-container" id="toastContainer"></div>
-  <!-- Mood modal (hidden) -->
+  <!-- Mood modal -->
   <div id="moodModal" class="modal-overlay" style="display:none;">
     <div class="modal-card">
       <h2>How are you feeling today?</h2>
@@ -385,9 +384,9 @@
   <script type="module">
     import { auth, db } from '../src/js/firebase-config.js';
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-    import { doc, getDoc, collection, getDocs, query, orderBy, updateDoc, arrayUnion, increment } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+    import { doc, getDoc, collection, getDocs, query, orderBy, updateDoc, arrayUnion, increment, setDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-    // ---------- Compiler (inline) ----------
+    // ---------- Compiler ----------
     class Compiler {
       async runCode(language, code) {
         if (language === 'python') {
@@ -425,14 +424,15 @@
     }
 
     let currentUser = null;
-    let userData = { completedLessons: [], sparks: 0 };
+    let userData = { completedLessons: [], sparks: 0, correctAnswers: {}, attemptedAnswers: {} };
     let lessonData = null;
     let allLessonsInModule = [];
     let currentLessonIndex = -1;
-    let attemptedBlocks = new Set(); // block keys attempted
-    let correctBlocks = new Set(); // block keys that were correct on first attempt
+    let correctAnswersSet = new Set(); // block keys that were correct before this session
+    let attemptedAnswersSet = new Set(); // block keys attempted this session (to prevent re-click)
+    // We'll load the persisted sets from userData.correctAnswers[lessonId] and userData.attemptedAnswers[lessonId]
 
-    // ---------- Toast ----------
+    // Toast
     function showToast(message, type = 'success') {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
@@ -442,7 +442,7 @@
       setTimeout(() => toast.remove(), 3000);
     }
 
-    // ---------- CodeMirror ----------
+    // CodeMirror instances
     let editors = {};
     function initEditors() {
       const commonOptions = {
@@ -459,7 +459,7 @@
       document.getElementById('jsEditor').nextElementSibling.style.display = 'none';
     }
 
-    // Sub-editor tabs
+    // Sub tabs
     document.querySelectorAll('.editor-subtab').forEach(tab => {
       tab.addEventListener('click', () => {
         const file = tab.dataset.file;
@@ -472,7 +472,7 @@
       });
     });
 
-    // Language tabs
+    // Main language tabs
     document.querySelectorAll('.editor-lang-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.editor-lang-btn').forEach(b => b.classList.remove('active'));
@@ -485,7 +485,7 @@
       });
     });
 
-    // Run code
+    // Run button
     document.getElementById('runCodeBtn').addEventListener('click', async () => {
       const activeLang = document.querySelector('.editor-lang-btn.active')?.dataset.lang;
       const preview = document.getElementById('previewFrame');
@@ -553,9 +553,23 @@
         userData = userDoc.data();
         userData.completedLessons = userData.completedLessons || [];
         userData.sparks = userData.sparks || 0;
+        userData.correctAnswers = userData.correctAnswers || {};
+        userData.attemptedAnswers = userData.attemptedAnswers || {};
       }
       updateProgressUI();
-      checkIfAlreadyCompleted();
+      // Load persisted answers for this lesson
+      const lessonCorrect = userData.correctAnswers[lessonId] || [];
+      const lessonAttempted = userData.attemptedAnswers[lessonId] || [];
+      correctAnswersSet = new Set(lessonCorrect);
+      attemptedAnswersSet = new Set(lessonAttempted);
+    }
+
+    async function saveAnswerState(type, key) {
+      // Update Firestore
+      const field = type === 'correct' ? `correctAnswers.${lessonId}` : `attemptedAnswers.${lessonId}`;
+      const value = type === 'correct' ? arrayUnion(key) : arrayUnion(key);
+      const userRef = doc(db, 'users', currentUser.uid);
+      await updateDoc(userRef, { [field]: value }).catch(console.error);
     }
 
     async function loadModuleLessons() {
@@ -581,20 +595,19 @@
         ${lessonData.description ? `<p>${escapeHtml(lessonData.description)}</p>` : ''}
       `;
       renderBlocks(lessonData.blocks || []);
-      checkIfAlreadyCompleted();
     }
 
     function renderBlocks(blocks) {
       const container = document.getElementById('blocksContainer');
       container.innerHTML = '';
-      attemptedBlocks.clear();
-      correctBlocks.clear();
       blocks.forEach((block, index) => {
         const blockEl = document.createElement('div');
         blockEl.className = 'block';
         blockEl.innerHTML = renderBlock(block, index);
         container.appendChild(blockEl);
       });
+      // After rendering, disable already correct/attempted blocks
+      applyPersistedState();
       attachInteractiveListeners();
       checkCompletionEligibility();
     }
@@ -664,22 +677,84 @@
       return html;
     }
 
+    // Apply persisted correct/attempted state to blocks
+    function applyPersistedState() {
+      // If lesson already completed, disable all interactive elements
+      if (userData.completedLessons.includes(lessonId)) {
+        document.querySelectorAll('.option').forEach(o => o.classList.add('disabled'));
+        document.querySelectorAll('.fill-blank input').forEach(i => i.disabled = true);
+        document.querySelectorAll('[data-check-btn]').forEach(b => b.disabled = true);
+        return;
+      }
+
+      // For each block type, check if its key is in correctAnswersSet or attemptedAnswersSet
+      // MCQ
+      document.querySelectorAll('.quiz-block[data-block-type="mcq"]').forEach(block => {
+        const blockIdx = block.dataset.blockIdx;
+        const key = `mcq-${blockIdx}`;
+        if (correctAnswersSet.has(key) || attemptedAnswersSet.has(key)) {
+          block.querySelectorAll('.option').forEach(o => o.classList.add('disabled'));
+          // Highlight correct option if known
+          if (correctAnswersSet.has(key)) {
+            const correct = parseInt(block.dataset.correct);
+            block.querySelector(`.option[data-option="${correct}"]`)?.classList.add('correct');
+          }
+        }
+      });
+
+      // Quiz items
+      document.querySelectorAll('.quiz-item').forEach(item => {
+        const qidx = item.dataset.qidx;
+        const blockIdx = item.closest('.quiz-block').dataset.blockIdx;
+        const key = `quiz-${blockIdx}-${qidx}`;
+        if (correctAnswersSet.has(key) || attemptedAnswersSet.has(key)) {
+          item.querySelectorAll('.option').forEach(o => o.classList.add('disabled'));
+          if (correctAnswersSet.has(key)) {
+            const correct = parseInt(item.dataset.correct);
+            item.querySelector(`.option[data-option="${correct}"]`)?.classList.add('correct');
+          }
+        }
+      });
+
+      // Fill-blank
+      document.querySelectorAll('.fill-blank').forEach(block => {
+        const blockIdx = block.dataset.blockIdx;
+        const key = `fill-${blockIdx}`;
+        if (correctAnswersSet.has(key) || attemptedAnswersSet.has(key)) {
+          block.querySelectorAll('input').forEach(i => i.disabled = true);
+          const btn = block.querySelector('[data-check-btn]');
+          if (btn) btn.disabled = true;
+          if (correctAnswersSet.has(key)) {
+            const answers = JSON.parse(block.dataset.answers);
+            const inputs = block.querySelectorAll('input');
+            inputs.forEach((input, i) => {
+              input.value = answers[i]; // show correct answer
+              input.classList.add('correct-input');
+            });
+          }
+        }
+      });
+    }
+
     function attachInteractiveListeners() {
       // MCQ
       document.querySelectorAll('.quiz-block[data-block-type="mcq"]').forEach(block => {
         const correct = parseInt(block.dataset.correct);
         const blockIdx = block.dataset.blockIdx;
         const key = `mcq-${blockIdx}`;
+        if (correctAnswersSet.has(key) || attemptedAnswersSet.has(key)) return; // already handled
         const options = block.querySelectorAll('.option');
         options.forEach(opt => {
           opt.addEventListener('click', () => {
-            if (attemptedBlocks.has(key)) return;
-            attemptedBlocks.add(key);
+            if (attemptedAnswersSet.has(key)) return;
+            attemptedAnswersSet.add(key);
+            saveAnswerState('attempted', key);
             const chosen = parseInt(opt.dataset.option);
             options.forEach(o => o.classList.add('disabled'));
             if (chosen === correct) {
               opt.classList.add('correct');
-              correctBlocks.add(key);
+              correctAnswersSet.add(key);
+              saveAnswerState('correct', key);
               awardSparks(10);
               showToast('✅ Correct! +10 Sparks', 'success');
             } else {
@@ -698,16 +773,19 @@
         const qidx = item.dataset.qidx;
         const blockIdx = item.closest('.quiz-block').dataset.blockIdx;
         const key = `quiz-${blockIdx}-${qidx}`;
+        if (correctAnswersSet.has(key) || attemptedAnswersSet.has(key)) return;
         const options = item.querySelectorAll('.option');
         options.forEach(opt => {
           opt.addEventListener('click', () => {
-            if (attemptedBlocks.has(key)) return;
-            attemptedBlocks.add(key);
+            if (attemptedAnswersSet.has(key)) return;
+            attemptedAnswersSet.add(key);
+            saveAnswerState('attempted', key);
             const chosen = parseInt(opt.dataset.option);
             options.forEach(o => o.classList.add('disabled'));
             if (chosen === correct) {
               opt.classList.add('correct');
-              correctBlocks.add(key);
+              correctAnswersSet.add(key);
+              saveAnswerState('correct', key);
               awardSparks(10);
               showToast('✅ Correct! +10 Sparks', 'success');
             } else {
@@ -722,12 +800,14 @@
 
       // Fill-blank
       document.querySelectorAll('[data-check-btn]').forEach(btn => {
+        const container = btn.closest('.fill-blank');
+        const blockIdx = container.dataset.blockIdx;
+        const key = `fill-${blockIdx}`;
+        if (correctAnswersSet.has(key) || attemptedAnswersSet.has(key)) return;
         btn.addEventListener('click', () => {
-          const container = btn.closest('.fill-blank');
-          const blockIdx = container.dataset.blockIdx;
-          const key = `fill-${blockIdx}`;
-          if (attemptedBlocks.has(key)) return;
-          attemptedBlocks.add(key);
+          if (attemptedAnswersSet.has(key)) return;
+          attemptedAnswersSet.add(key);
+          saveAnswerState('attempted', key);
           const answers = JSON.parse(container.dataset.answers);
           const inputs = container.querySelectorAll('input');
           let allCorrect = true;
@@ -741,7 +821,8 @@
             }
           });
           if (allCorrect) {
-            correctBlocks.add(key);
+            correctAnswersSet.add(key);
+            saveAnswerState('correct', key);
             awardSparks(10);
             showToast('✅ All blanks correct! +10 Sparks', 'success');
           } else {
@@ -754,6 +835,7 @@
     }
 
     function checkCompletionEligibility() {
+      // Collect all expected keys
       let expectedKeys = new Set();
       document.querySelectorAll('.quiz-block[data-block-type="mcq"]').forEach(b => expectedKeys.add(`mcq-${b.dataset.blockIdx}`));
       document.querySelectorAll('.quiz-item').forEach(item => {
@@ -764,7 +846,7 @@
 
       let allAttempted = expectedKeys.size > 0;
       expectedKeys.forEach(k => {
-        if (!attemptedBlocks.has(k)) allAttempted = false;
+        if (!attemptedAnswersSet.has(k)) allAttempted = false;
       });
 
       const completeBtn = document.getElementById('completeLessonBtn');
@@ -774,15 +856,6 @@
         completeBtn.classList.add('completed-state');
       } else {
         completeBtn.disabled = !allAttempted;
-      }
-    }
-
-    function checkIfAlreadyCompleted() {
-      const completeBtn = document.getElementById('completeLessonBtn');
-      if (userData.completedLessons.includes(lessonId)) {
-        completeBtn.disabled = true;
-        completeBtn.innerHTML = '<iconify-icon icon="pixelarticons:check"></iconify-icon> Completed';
-        completeBtn.classList.add('completed-state');
       }
     }
 
@@ -806,7 +879,7 @@
         userData.sparks += 100;
         updateProgressUI();
         showToast('🎉 Lesson completed! +100 Sparks', 'success');
-        checkIfAlreadyCompleted();
+        checkCompletionEligibility();
         setTimeout(() => {
           window.location.href = `course.html?courseId=${courseId}&moduleId=${moduleId}`;
         }, 2000);
@@ -849,7 +922,7 @@
       return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
-    // ---------- Mood modal ----------
+    // Mood modal
     function showMoodModalIfNewDay() {
       const today = new Date().toDateString();
       const lastMoodDate = localStorage.getItem('akademiaMoodDate');
@@ -860,7 +933,6 @@
     document.querySelectorAll('.mood-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const mood = btn.dataset.mood;
-        // Hide options
         document.getElementById('moodOptions').style.display = 'none';
         const feedback = document.getElementById('moodFeedback');
         let message = '';
@@ -869,22 +941,19 @@
         else message = 'We all have tough days. Take it easy and be kind to yourself. 🤗';
         feedback.textContent = message;
         feedback.style.display = 'block';
-        // Save to localStorage
         localStorage.setItem('akademiaMoodDate', new Date().toDateString());
-        // Optionally save to Firestore (mood tracking)
         if (currentUser) {
           updateDoc(doc(db, 'users', currentUser.uid), {
             mood: { mood, timestamp: new Date() }
           }).catch(console.error);
         }
-        // Close after 3 seconds
         setTimeout(() => {
           document.getElementById('moodModal').style.display = 'none';
         }, 3000);
       });
     });
 
-    // ---------- Auth init ----------
+    // Auth init
     onAuthStateChanged(auth, async (user) => {
       if (!user) { window.location.href = 'login.html'; return; }
       currentUser = user;
