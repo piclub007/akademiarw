@@ -6,20 +6,15 @@
   <title>Journey · Akademia</title>
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
-  <!-- Fonts -->
+  <!-- Only BlockBlueprint via CDN (stable) – Drafting Mono is replaced by system monospace -->
   <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/drafting-mono" rel="stylesheet">
   <style>
     @font-face {
       font-family: 'BlockBlueprint';
       src: local('BlockBlueprint'), local('BlockBlueprint');
       font-display: swap;
     }
-    @font-face {
-      font-family: 'Drafting Mono';
-      src: local('Drafting Mono'), local('Drafting Mono');
-      font-display: swap;
-    }
+    /* no external font for Drafting Mono, using system stack */
   </style>
 
   <!-- Icons -->
@@ -41,7 +36,7 @@
     * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
-      font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
+      font-family: 'Courier New', 'Consolas', 'Monaco', monospace; /* fallback */
       background: var(--bg-secondary);
       color: var(--text);
       height: 100vh;
@@ -371,7 +366,7 @@
     const moduleId = params.get('moduleId') || null; // will default to first module
 
     let currentUser = null;
-    let userData = null; // from Firestore users/{uid}
+    let userData = { completedLessons: [], sparks: 0 }; // default safe values
     let course = null;
     let modules = [];
     let currentModuleId = moduleId;
@@ -386,11 +381,16 @@
       }
       currentUser = user;
       // Fetch user data from Firestore
-      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      const userRef = doc(db, 'users', user.uid);
+      const userDoc = await getDoc(userRef);
       if (userDoc.exists()) {
-        userData = userDoc.data();
+        const data = userDoc.data();
+        userData = {
+          completedLessons: data.completedLessons || [],
+          sparks: data.sparks || 0
+        };
       } else {
-        // If no user doc (shouldn't happen), initialize empty
+        // Shouldn't happen, but keep defaults
         userData = { completedLessons: [], sparks: 0 };
       }
       await loadCourse();
@@ -442,9 +442,11 @@
     // Render module list in sidebar
     function renderModuleSidebar() {
       const list = document.getElementById('moduleList');
+      // Make sure userData and completedLessons exist
+      const completed = (userData && userData.completedLessons) ? userData.completedLessons : [];
       list.innerHTML = modules.map(mod => {
         const totalInModule = allCourseLessons.filter(l => l.moduleId === mod.id).length;
-        const completedInModule = allCourseLessons.filter(l => l.moduleId === mod.id && userData.completedLessons.includes(l.id)).length;
+        const completedInModule = allCourseLessons.filter(l => l.moduleId === mod.id && completed.includes(l.id)).length;
         const progress = totalInModule > 0 ? Math.round((completedInModule / totalInModule) * 100) : 0;
         return `
           <div class="module-item ${mod.id === currentModuleId ? 'active' : ''}" data-module-id="${mod.id}">
@@ -492,28 +494,28 @@
         return;
       }
 
+      const completed = (userData && userData.completedLessons) ? userData.completedLessons : [];
       let lastCompleted = true;
       let currentReached = false;
 
       lessons.forEach((les, idx) => {
-        const completed = userData.completedLessons.includes(les.id);
-        const locked = !completed && !currentReached && idx !== 0;
-        if (completed) lastCompleted = true;
-        if (!completed && !locked && !currentReached) {
-          currentReached = true;
+        const isCompleted = completed.includes(les.id);
+        const locked = idx > 0 ? !lessons[idx-1].completed : false;
+        if (isCompleted) {
+          les.completed = true;
+          les.current = false;
+          les.locked = false;
+        } else if (!currentReached && !locked) {
           les.current = true;
+          les.locked = false;
+          currentReached = true;
         } else {
           les.current = false;
-        }
-        // A lesson is locked if the previous one is not completed (linear progression)
-        if (idx > 0 && !lessons[idx-1].completed) {
-          les.locked = true;
-        } else {
-          les.locked = locked;
+          les.locked = locked || !currentReached;
         }
 
-        const nodeClass = completed ? 'completed' : (les.current ? 'current' : (les.locked ? 'locked' : ''));
-        const icon = completed ? 'check' : (les.locked ? 'lock' : 'play');
+        const nodeClass = les.completed ? 'completed' : (les.current ? 'current' : (les.locked ? 'locked' : ''));
+        const icon = les.completed ? 'check' : (les.locked ? 'lock' : 'play');
 
         const nodeDiv = document.createElement('div');
         nodeDiv.className = `lesson-node ${nodeClass}`;
@@ -524,7 +526,7 @@
           <div class="node-content">
             <div class="lesson-title">${escapeHtml(les.title)}</div>
             <div class="lesson-meta">
-              ${les.type || 'lesson'}
+              ${escapeHtml(les.type || 'lesson')}
             </div>
           </div>
         `;
@@ -538,8 +540,8 @@
         roadmapEl.appendChild(nodeDiv);
       });
 
-      // Add continue button for the next incomplete lesson
-      const nextLesson = lessons.find(l => !userData.completedLessons.includes(l.id) && !l.locked);
+      // Continue button
+      const nextLesson = lessons.find(l => !completed.includes(l.id) && !l.locked);
       if (nextLesson) {
         const continueDiv = document.createElement('div');
         continueDiv.className = 'continue-btn';
@@ -558,7 +560,8 @@
     // Update right panel with real data
     function updateRightPanel() {
       const totalLessons = allCourseLessons.length;
-      const completedLessons = allCourseLessons.filter(l => userData.completedLessons.includes(l.id)).length;
+      const completed = (userData && userData.completedLessons) ? userData.completedLessons : [];
+      const completedLessons = allCourseLessons.filter(l => completed.includes(l.id)).length;
       const progressPercent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
       const sparks = userData.sparks || 0;
 
