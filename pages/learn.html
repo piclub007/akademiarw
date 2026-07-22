@@ -1,742 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Workspace · Akademia</title>
-    <meta name="robots" content="noindex">
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Courses · Akademia</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
-    <!-- Fonts -->
-    <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/drafting-mono" rel="stylesheet">
-    <style>
-        @font-face {
-            font-family: 'BlockBlueprint';
-            src: local('BlockBlueprint'), local('BlockBlueprint');
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'Drafting Mono';
-            src: local('Drafting Mono'), local('Drafting Mono');
-            font-display: swap;
-        }
-    </style>
+  <!-- Fonts -->
+  <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/drafting-mono" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'BlockBlueprint';
+      src: local('BlockBlueprint'), local('BlockBlueprint');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Drafting Mono';
+      src: local('Drafting Mono'), local('Drafting Mono');
+      font-display: swap;
+    }
+  </style>
 
-    <!-- Icons -->
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  <!-- Icons -->
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 
-    <style>
-        :root {
-            --green: #58CC02;
-            --green-hover: #46A302;
-            --bg: #FFFFFF;
-            --bg-secondary: #F7F7F7;
-            --text: #4B4B4B;
-            --text-secondary: #777777;
-            --border: #E5E5E5;
-            --radius: 16px;
-            --gold: #FFC800;
-        }
+  <style>
+    :root {
+      --green: #58CC02;
+      --green-hover: #46A302;
+      --bg: #FFFFFF;
+      --bg-secondary: #F7F7F7;
+      --text: #4B4B4B;
+      --text-secondary: #777777;
+      --border: #E5E5E5;
+      --radius: 14px;
+      --gold: #FFC800;
+    }
 
-        * { margin:0; padding:0; box-sizing:border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
 
-        body {
-            font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
-            background: var(--bg-secondary);
-            color: var(--text);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+    body {
+      font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
+      background: var(--bg-secondary);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 40px;
+    }
 
-        h1, h2, h3 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
+    h1, h2, h3 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
 
-        /* Top Bar */
-        .topbar {
-            height: 64px;
-            background: var(--bg);
-            border-bottom: 2px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            z-index: 10;
-        }
-        .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
-        .logo-img { width:34px; height:34px; border-radius:10px; }
-        .logo-text { font-size:1.3rem; font-weight:800; color:var(--text); }
-        .logo-text span { color:var(--green); }
+    /* Top Bar */
+    .topbar {
+      background: var(--bg);
+      border-bottom: 2px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .logo-img { width:34px; height:34px; border-radius:10px; }
+    .logo-text { font-size:1.3rem; font-weight:800; color:var(--text); }
+    .logo-text span { color:var(--green); }
 
-        .topbar-search {
-            flex: 1;
-            max-width: 400px;
-            margin: 0 20px;
-            position: relative;
-        }
-        .search-input {
-            width: 100%;
-            padding: 8px 16px 8px 36px;
-            border: 2px solid var(--border);
-            border-radius: 30px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            background: var(--bg-secondary);
-        }
-        .search-input:focus { outline: none; border-color: var(--green); }
-        .search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
+    .right-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .sparks-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-secondary);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .sparks-badge iconify-icon { color: var(--gold); }
 
-        .view-toggles {
-            display: flex;
-            gap: 4px;
-            background: var(--bg-secondary);
-            border-radius: 10px;
-            padding: 4px;
-        }
-        .view-btn {
-            padding: 6px 12px;
-            border: none;
-            background: transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            transition: all 0.2s;
-        }
-        .view-btn.active {
-            background: var(--bg);
-            color: var(--text);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-        }
+    .user-menu {
+      position: relative;
+    }
+    .user-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .user-avatar:hover { transform: scale(1.05); }
 
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--green);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 800;
-        }
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 8px;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      min-width: 160px;
+      display: none;
+      z-index: 50;
+    }
+    .dropdown.active { display: block; }
+    .dropdown-item {
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s;
+    }
+    .dropdown-item:hover { background: var(--bg-secondary); }
 
-        /* Main Layout */
-        .layout {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
+    /* Container */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px;
+    }
 
-        /* Left Sidebar */
-        .sidebar-left {
-            width: 260px;
-            background: var(--bg);
-            border-right: 2px solid var(--border);
-            overflow-y: auto;
-            padding: 16px;
-            transition: width 0.3s;
-        }
-        .sidebar-left.collapsed { width: 50px; }
+    .greeting {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .sub-greeting {
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
 
-        .sidebar-section {
-            margin-bottom: 24px;
-        }
-        .sidebar-title {
-            font-weight: 800;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-        }
-        .sidebar-title:hover { color: var(--text); }
+    /* Recent Section */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+    .recent-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 32px;
+      scrollbar-width: thin;
+    }
+    .recent-card {
+      min-width: 160px;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .recent-card:hover { border-color: var(--green); transform: translateY(-2px); }
+    .recent-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    .recent-meta { font-size: 0.75rem; color: var(--text-secondary); }
 
-        .tree-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.15s;
-            margin-bottom: 2px;
-        }
-        .tree-item:hover { background: var(--bg-secondary); }
-        .tree-item.active { background: #F0FDE0; font-weight: 700; }
-        .tree-children { padding-left: 20px; }
-        .tree-toggle { cursor: pointer; width: 16px; display: inline-block; text-align: center; }
-        .collapsed .tree-children { display: none; }
+    /* Course Grid */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .course-card {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: all 0.2s;
+      cursor: pointer;
+      position: relative;
+    }
+    .course-card:hover {
+      border-color: var(--green);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+    }
+    .course-icon {
+      font-size: 2rem;
+      color: var(--green);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .course-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      font-family: 'BlockBlueprint', sans-serif;
+      margin-bottom: 4px;
+    }
+    .course-desc {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+    .progress-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--green);
+      transition: width 0.5s;
+    }
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
 
-        /* Main Panel */
-        .main-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .main-header {
-            padding: 16px 24px;
-            background: var(--bg);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .breadcrumb {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-        .breadcrumb a { color: var(--text-secondary); text-decoration: none; font-weight: 600; }
-        .breadcrumb a:hover { color: var(--text); }
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+    }
 
-        .view-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px;
-            position: relative;
-        }
-
-        /* Roadmap View */
-        .roadmap {
-            position: relative;
-            padding-left: 40px;
-        }
-        .roadmap::before {
-            content: '';
-            position: absolute;
-            left: 19px;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--border);
-            border-radius: 2px;
-        }
-        .roadmap-node {
-            position: relative;
-            margin-bottom: 24px;
-        }
-        .roadmap-node.course { margin-bottom: 32px; }
-        .node-circle {
-            width: 42px; height: 42px;
-            border-radius: 50%;
-            border: 3px solid var(--border);
-            background: var(--bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            left: -32px;
-            top: 0;
-            z-index: 2;
-            transition: all 0.3s;
-        }
-        .roadmap-node.completed .node-circle {
-            background: var(--green);
-            border-color: var(--green);
-        }
-        .roadmap-node.completed .node-circle iconify-icon { color: white; }
-
-        .node-card {
-            background: var(--bg);
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px 20px;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-        .node-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .node-title { font-weight: 800; font-size: 1.1rem; font-family: 'BlockBlueprint', sans-serif; }
-        .node-meta { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
-        .node-progress { margin-top: 8px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--green); transition: width 0.5s; }
-
-        .children-container { margin-left: 24px; margin-top: 8px; display: none; }
-        .roadmap-node.expanded > .children-container { display: block; }
-
-        .sub-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            margin-bottom: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
-        .sub-item::before {
-            content: '';
-            position: absolute;
-            left: -12px;
-            top: 50%;
-            width: 8px;
-            height: 2px;
-            background: var(--border);
-        }
-        .sub-item .sub-circle {
-            width: 16px; height: 16px;
-            border-radius: 50%;
-            border: 2px solid var(--border);
-            background: var(--bg-secondary);
-        }
-        .sub-item.completed .sub-circle { background: var(--green); border-color: var(--green); }
-
-        .lesson-item {
-            margin-left: 20px;
-            padding: 4px 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.8rem;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        .lesson-item:hover { background: var(--bg-secondary); }
-        .lesson-item::before {
-            content: '';
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--text-secondary);
-        }
-        .lesson-item.completed::before { background: var(--green); }
-
-        /* Grid View */
-        .grid-view {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            display: none;
-        }
-        .grid-card {
-            background: var(--bg);
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-        .grid-card:hover { border-color: var(--green); transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
-        .grid-card .grid-icon { font-size: 2rem; color: var(--green); margin-bottom: 12px; }
-
-        /* List View */
-        .list-view {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            display: none;
-        }
-        .list-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            transition: all 0.2s;
-        }
-        .list-item:hover { background: var(--bg-secondary); }
-
-        /* Right Sidebar */
-        .sidebar-right {
-            width: 260px;
-            background: var(--bg);
-            border-left: 2px solid var(--border);
-            padding: 16px;
-            overflow-y: auto;
-        }
-        .stat-card {
-            background: var(--bg-secondary);
-            border-radius: var(--radius);
-            padding: 12px;
-            text-align: center;
-            margin-bottom: 12px;
-        }
-        .stat-value { font-size: 1.8rem; font-weight: 900; color: var(--green); font-family: 'BlockBlueprint', sans-serif; }
-        .stat-label { font-size: 0.8rem; color: var(--text-secondary); }
-
-        .floating-dock {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 100;
-        }
-        .dock-btn {
-            width: 48px; height: 48px;
-            border-radius: 50%;
-            background: var(--bg);
-            border: 2px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: all 0.2s;
-        }
-        .dock-btn:hover { transform: scale(1.1); border-color: var(--green); }
-
-        .spinner {
-            display: inline-block;
-            width: 24px; height: 24px;
-            border: 3px solid var(--border);
-            border-top-color: var(--green);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-    </style>
+    .spinner {
+      display: inline-block;
+      width: 24px; height: 24px;
+      border: 3px solid var(--border);
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
 </head>
 <body>
-    <div class="topbar">
-        <a href="../index.html" class="logo">
-            <img src="../favicon.ico" alt="Akademia" class="logo-img">
-            <div class="logo-text">Akade<span>mia</span></div>
-        </a>
-        <div class="topbar-search">
-            <iconify-icon icon="pixelarticons:search" class="search-icon"></iconify-icon>
-            <input type="text" class="search-input" id="globalSearch" placeholder="Search courses, modules, lessons...">
+  <div class="topbar">
+    <a href="../index.html" class="logo">
+      <img src="../favicon.ico" alt="Akademia" class="logo-img">
+      <div class="logo-text">Akade<span>mia</span></div>
+    </a>
+    <div class="right-section">
+      <div class="sparks-badge">
+        <iconify-icon icon="pixelarticons:fire"></iconify-icon>
+        <span id="sparksDisplay">0</span> Sparks
+      </div>
+      <div class="user-menu" id="userMenu">
+        <div class="user-avatar" id="userAvatar">A</div>
+        <div class="dropdown" id="dropdownMenu">
+          <div class="dropdown-item" id="settingsBtn">
+            <iconify-icon icon="pixelarticons:settings"></iconify-icon> Settings
+          </div>
+          <div class="dropdown-item" id="logoutBtn">
+            <iconify-icon icon="pixelarticons:logout"></iconify-icon> Log out
+          </div>
         </div>
-        <div class="view-toggles" id="viewToggles">
-            <button class="view-btn active" data-view="roadmap">Roadmap</button>
-            <button class="view-btn" data-view="grid">Grid</button>
-            <button class="view-btn" data-view="list">List</button>
-        </div>
-        <div class="user-menu" id="userMenu">
-            <div class="user-avatar" id="userAvatar">A</div>
-            <span id="userNameDisplay" style="font-weight:700;"></span>
-        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 class="greeting" id="greetingText">Welcome!</h1>
+    <p class="sub-greeting">Pick up where you left off, or explore new courses.</p>
+
+    <!-- Recent Section -->
+    <div class="section-title">
+      <iconify-icon icon="pixelarticons:history"></iconify-icon> Recent
+    </div>
+    <div class="recent-scroll" id="recentScroll">
+      <!-- Dynamically filled -->
     </div>
 
-    <div class="layout">
-        <!-- Left Sidebar -->
-        <aside class="sidebar-left" id="leftSidebar">
-            <div class="sidebar-section">
-                <div class="sidebar-title">Navigation</div>
-                <div class="tree-item" data-view="all-courses">
-                    <iconify-icon icon="pixelarticons:folder"></iconify-icon> All Courses
-                </div>
-                <div class="tree-item" data-view="in-progress">
-                    <iconify-icon icon="pixelarticons:play"></iconify-icon> In Progress
-                </div>
-                <div class="tree-item" data-view="completed">
-                    <iconify-icon icon="pixelarticons:check"></iconify-icon> Completed
-                </div>
-            </div>
-            <div class="sidebar-section">
-                <div class="sidebar-title">Filters</div>
-                <div class="tree-item" data-filter="beginner">
-                    <iconify-icon icon="pixelarticons:leaf"></iconify-icon> Beginner
-                </div>
-                <div class="tree-item" data-filter="intermediate">
-                    <iconify-icon icon="pixelarticons:rocket"></iconify-icon> Intermediate
-                </div>
-                <div class="tree-item" data-filter="advanced">
-                    <iconify-icon icon="pixelarticons:star"></iconify-icon> Advanced
-                </div>
-            </div>
-        </aside>
-
-        <!-- Main Panel -->
-        <main class="main-panel">
-            <div class="main-header">
-                <div class="breadcrumb" id="breadcrumb">
-                    <a href="#">Home</a> <span>/</span> <span>All Courses</span>
-                </div>
-                <div class="view-toggles" style="background:transparent; padding:0;">
-                    <!-- duplicated for quick access, linked to same event -->
-                    <button class="view-btn active" data-view="roadmap">Roadmap</button>
-                    <button class="view-btn" data-view="grid">Grid</button>
-                    <button class="view-btn" data-view="list">List</button>
-                </div>
-            </div>
-            <div class="view-container" id="viewContainer">
-                <div class="roadmap" id="roadmapView"></div>
-                <div class="grid-view" id="gridView"></div>
-                <div class="list-view" id="listView"></div>
-            </div>
-        </main>
-
-        <!-- Right Sidebar -->
-        <aside class="sidebar-right" id="rightSidebar">
-            <div class="stat-card">
-                <div class="stat-value" id="xpValue">0</div>
-                <div class="stat-label">XP</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="streakValue">0</div>
-                <div class="stat-label">Day Streak</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="levelValue">1</div>
-                <div class="stat-label">Level</div>
-            </div>
-            <div style="margin-top:16px; color:var(--text-secondary); text-align:center; font-size:0.8rem;">
-                <iconify-icon icon="pixelarticons:bot"></iconify-icon> AI Assistant (coming soon)
-            </div>
-        </aside>
+    <!-- All Courses -->
+    <div class="section-title">
+      <iconify-icon icon="pixelarticons:folder"></iconify-icon> All Courses
     </div>
-
-    <!-- Floating Dock -->
-    <div class="floating-dock">
-        <div class="dock-btn" title="Search" onclick="document.getElementById('globalSearch').focus()">
-            <iconify-icon icon="pixelarticons:search"></iconify-icon>
-        </div>
-        <div class="dock-btn" title="Resume" onclick="resumeLearning()">
-            <iconify-icon icon="pixelarticons:play"></iconify-icon>
-        </div>
+    <div class="courses-grid" id="coursesGrid">
+      <!-- Dynamically filled -->
     </div>
+  </div>
 
-    <script type="module">
-        import { auth, db } from '../src/js/firebase-config.js';
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-        import { doc, getDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+  <script type="module">
+    import { auth, db } from '../src/js/firebase-config.js';
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+    import { doc, getDoc, collection, getDocs, query, orderBy, updateDoc, arrayUnion, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-        // Global state
-        let userData = null;
-        let courses = [];
-        let currentView = 'roadmap';
+    // Elements
+    const userAvatar = document.getElementById('userAvatar');
+    const sparksDisplay = document.getElementById('sparksDisplay');
+    const greetingText = document.getElementById('greetingText');
+    const recentScroll = document.getElementById('recentScroll');
+    const coursesGrid = document.getElementById('coursesGrid');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const userMenu = document.getElementById('userMenu');
 
-        // DOM elements
-        const roadmapView = document.getElementById('roadmapView');
-        const gridView = document.getElementById('gridView');
-        const listView = document.getElementById('listView');
-        const userAvatar = document.getElementById('userAvatar');
-        const userNameDisplay = document.getElementById('userNameDisplay');
-        const globalSearch = document.getElementById('globalSearch');
+    let userData = null;
+    let allCourses = [];
 
-        // Check auth & load data
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                window.location.href = 'login.html';
-                return;
-            }
-            // Load user profile
-            const userDoc = await getDoc(doc(db, 'users', user.uid));
-            if (userDoc.exists()) {
-                userData = userDoc.data();
-                updateUserUI();
-            }
-            // Load courses
-            await loadCourses();
-            // Set initial view
-            switchView('roadmap');
-        });
+    // Auth state
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (userDoc.exists()) {
+        userData = userDoc.data();
+        userData.uid = user.uid;
+        updateUI();
+      }
+      loadCourses();
+    });
 
-        function updateUserUI() {
-            if (!userData) return;
-            userAvatar.textContent = (userData.name || 'A')[0].toUpperCase();
-            userNameDisplay.textContent = userData.name || 'Adventurer';
-            document.getElementById('xpValue').textContent = userData.xp || 0;
-            document.getElementById('streakValue').textContent = userData.streak || 0;
-            document.getElementById('levelValue').textContent = userData.level || 1;
-        }
+    function updateUI() {
+      userAvatar.textContent = (userData.name || 'A')[0].toUpperCase();
+      greetingText.textContent = `Hello, ${userData.name || 'Adventurer'}!`;
+      sparksDisplay.textContent = userData.sparks || 0;
+    }
 
-        async function loadCourses() {
-            try {
-                const snap = await getDocs(query(collection(db, 'courses'), orderBy('createdAt')));
-                courses = [];
-                snap.forEach(doc => courses.push({ id: doc.id, ...doc.data() }));
-                renderAllViews();
-            } catch (error) {
-                console.error(error);
-                roadmapView.innerHTML = '<p>Failed to load courses.</p>';
-            }
-        }
+    // Toggle dropdown
+    userAvatar.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownMenu.classList.toggle('active');
+    });
+    document.addEventListener('click', () => {
+      dropdownMenu.classList.remove('active');
+    });
 
-        function renderAllViews() {
-            renderRoadmap();
-            renderGrid();
-            renderList();
-        }
+    // Settings / Logout
+    document.getElementById('settingsBtn').addEventListener('click', () => {
+      // Navigate to settings page (placeholder)
+      alert('Settings page coming soon.');
+    });
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = '../index.html';
+    });
 
-        function renderRoadmap() {
-            roadmapView.innerHTML = '';
-            courses.forEach(course => {
-                const node = document.createElement('div');
-                node.className = 'roadmap-node course';
-                const completedLessons = userData?.completedLessons || [];
-                const totalLessons = course.totalLessons || 0; // if you store count in course doc
-                const completedCount = completedLessons.filter(id => id.startsWith(course.id)).length; // rough estimate
-                const progressPercent = totalLessons ? (completedCount / totalLessons) * 100 : 0;
+    // Load courses
+    async function loadCourses() {
+      try {
+        const snap = await getDocs(query(collection(db, 'courses'), orderBy('createdAt')));
+        allCourses = [];
+        snap.forEach(doc => allCourses.push({ id: doc.id, ...doc.data() }));
+        renderRecent();
+        renderAllCourses();
+      } catch (error) {
+        console.error(error);
+        coursesGrid.innerHTML = '<div class="empty-state">Could not load courses.</div>';
+      }
+    }
 
-                node.innerHTML = `
-                    <div class="node-circle">
-                        <iconify-icon icon="pixelarticons:folder"></iconify-icon>
-                    </div>
-                    <div class="node-card" data-course-id="${course.id}">
-                        <div class="node-title">${escapeHtml(course.title)}</div>
-                        <div class="node-meta">${escapeHtml(course.description || '')}</div>
-                        <div class="node-progress">
-                            <div class="progress-fill" style="width: ${progressPercent}%;"></div>
-                        </div>
-                    </div>
-                    <div class="children-container" id="modules-${course.id}"></div>
-                `;
-                roadmapView.appendChild(node);
+    // Render recent courses (from user data)
+    function renderRecent() {
+      const recentIds = userData?.recentCourses || [];
+      if (recentIds.length === 0) {
+        recentScroll.innerHTML = '<div style="color:var(--text-secondary); font-size:0.9rem;">No recent activity yet.</div>';
+        return;
+      }
+      // Get course details for recent IDs (they may not be in allCourses if not loaded, but loadCourses done first)
+      const recentCourses = recentIds.map(id => allCourses.find(c => c.id === id)).filter(Boolean);
+      recentScroll.innerHTML = recentCourses.slice(0, 5).map(course => `
+        <div class="recent-card" onclick="window.openCourse('${course.id}')">
+          <div class="recent-title">${escapeHtml(course.title)}</div>
+          <div class="recent-meta">${escapeHtml(course.description?.substring(0, 30) || '')}</div>
+        </div>
+      `).join('');
+    }
 
-                const card = node.querySelector('.node-card');
-                card.addEventListener('click', async () => {
-                    node.classList.toggle('expanded');
-                    const modulesContainer = document.getElementById(`modules-${course.id}`);
-                    if (node.classList.contains('expanded') && modulesContainer.children.length === 0) {
-                        await loadModules(course.id, modulesContainer);
-                    }
-                });
-            });
-        }
+    // Render all courses grid with progress
+    function renderAllCourses() {
+      if (allCourses.length === 0) {
+        coursesGrid.innerHTML = '<div class="empty-state">No courses available yet. Check back soon!</div>';
+        return;
+      }
+      const completedLessons = userData?.completedLessons || [];
+      coursesGrid.innerHTML = allCourses.map(course => {
+        // Calculate progress (simplistic: count completed lessons of this course)
+        const courseCompleted = completedLessons.filter(id => id.startsWith(course.id)).length;
+        const totalLessons = course.totalLessons || 10; // fallback
+        const progress = totalLessons > 0 ? Math.min(100, (courseCompleted / totalLessons) * 100) : 0;
+        return `
+          <div class="course-card" onclick="window.openCourse('${course.id}')">
+            <iconify-icon icon="pixelarticons:folder" class="course-icon"></iconify-icon>
+            <div class="course-title">${escapeHtml(course.title)}</div>
+            <div class="course-desc">${escapeHtml(course.description || '')}</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${progress}%;"></div>
+            </div>
+            <div class="course-meta">
+              <span>${Math.round(progress)}% complete</span>
+              <span>${courseCompleted} / ${totalLessons} lessons</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
 
-        async function loadModules(courseId, container) {
-            container.innerHTML = '<div style="padding:8px; color:var(--text-secondary);">Loading modules…</div>';
-            try {
-                const snap = await getDocs(query(collection(db, 'courses', courseId, 'modules'), orderBy('createdAt')));
-                container.innerHTML = '';
-                snap.forEach(modDoc => {
-                    const mod = { id: modDoc.id, ...modDoc.data() };
-                    const modDiv = document.createElement('div');
-                    modDiv.className = 'sub-item';
-                    modDiv.innerHTML = `
-                        <div class="sub-circle"></div>
-                        <span style="flex:1; font-weight:600;">${escapeHtml(mod.title)}</span>
-                        <span style="font-size:0.7rem; color:var(--text-secondary);">Module</span>
-                    `;
-                    container.appendChild(modDiv);
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
 
-                    const lessonsDiv = document.createElement('div');
-                    lessonsDiv.className = 'children-container';
-                    lessonsDiv.id = `lessons-${mod.id}`;
-                    container.appendChild(lessonsDiv);
-
-                    modDiv.addEventListener('click', async () => {
-                        if (lessonsDiv.style.display === 'block') {
-                            lessonsDiv.style.display = 'none';
-                        } else {
-                            if (lessonsDiv.children.length === 0) {
-                                await loadLessons(courseId, mod.id, lessonsDiv);
-                            }
-                            lessonsDiv.style.display = 'block';
-                        }
-                    });
-                });
-            } catch (error) {
-                container.innerHTML = '<p style="color:red;">Error</p>';
-            }
-        }
-
-        async function loadLessons(courseId, moduleId, container) {
-            container.innerHTML = '<div style="padding:8px; color:var(--text-secondary);">Loading lessons…</div>';
-            try {
-                const snap = await getDocs(query(collection(db, 'courses', courseId, 'modules', moduleId, 'lessons'), orderBy('createdAt')));
-                container.innerHTML = '';
-                snap.forEach(lesDoc => {
-                    const les = { id: lesDoc.id, ...lesDoc.data() };
-                    const lesItem = document.createElement('div');
-                    lesItem.className = 'lesson-item';
-                    const completed = userData?.completedLessons?.includes(les.id);
-                    if (completed) lesItem.classList.add('completed');
-                    lesItem.innerHTML = `<span>${escapeHtml(les.title)}</span>`;
-                    lesItem.addEventListener('click', () => {
-                        window.location.href = `lesson.html?courseId=${courseId}&moduleId=${moduleId}&lessonId=${les.id}`;
-                    });
-                    container.appendChild(lesItem);
-                });
-            } catch (error) {
-                container.innerHTML = '<p style="color:red;">Error</p>';
-            }
-        }
-
-        function renderGrid() {
-            gridView.innerHTML = courses.map(course => `
-                <div class="grid-card" onclick="document.querySelector('[data-course-id="${course.id}"]').click()">
-                    <iconify-icon icon="pixelarticons:folder" class="grid-icon"></iconify-icon>
-                    <div class="node-title">${escapeHtml(course.title)}</div>
-                    <div class="node-meta">${escapeHtml(course.description || '')}</div>
-                </div>
-            `).join('');
-        }
-
-        function renderList() {
-            listView.innerHTML = courses.map(course => `
-                <div class="list-item" onclick="document.querySelector('[data-course-id="${course.id}"]').click()">
-                    <div style="display:flex; align-items:center; gap:12px;">
-                        <iconify-icon icon="pixelarticons:folder" style="font-size:1.3rem; color:var(--green);"></iconify-icon>
-                        <span style="font-weight:700;">${escapeHtml(course.title)}</span>
-                    </div>
-                    <span style="color:var(--text-secondary);">→</span>
-                </div>
-            `).join('');
-        }
-
-        // View switching
-        document.querySelectorAll('.view-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                switchView(btn.dataset.view);
-            });
-        });
-
-        function switchView(view) {
-            currentView = view;
-            roadmapView.style.display = view === 'roadmap' ? 'block' : 'none';
-            gridView.style.display = view === 'grid' ? 'grid' : 'none';
-            listView.style.display = view === 'list' ? 'flex' : 'none';
-        }
-
-        // Search
-        globalSearch.addEventListener('input', () => {
-            const term = globalSearch.value.toLowerCase();
-            document.querySelectorAll('.roadmap-node .node-card').forEach(card => {
-                const title = card.querySelector('.node-title').textContent.toLowerCase();
-                card.closest('.roadmap-node').style.display = title.includes(term) ? '' : 'none';
-            });
-            // Also filter grid/list similarly
-            document.querySelectorAll('.grid-card').forEach(card => {
-                const title = card.querySelector('.node-title').textContent.toLowerCase();
-                card.style.display = title.includes(term) ? '' : 'none';
-            });
-            document.querySelectorAll('.list-item').forEach(item => {
-                const title = item.querySelector('span').textContent.toLowerCase();
-                item.style.display = title.includes(term) ? '' : 'none';
-            });
-        });
-
-        function escapeHtml(text) {
-            if (!text) return '';
-            return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-        }
-
-        window.resumeLearning = function() {
-            // Navigate to last opened lesson (if stored) or first incomplete
-            alert('Resume feature will be implemented soon.');
-        };
-    </script>
+    // Open course and update recent
+    window.openCourse = async function(courseId) {
+      if (userData?.uid) {
+        // Add to recentCourses in user doc
+        const userRef = doc(db, 'users', userData.uid);
+        await updateDoc(userRef, {
+          recentCourses: arrayUnion(courseId),
+          lastActive: serverTimestamp()
+        }).catch(err => console.error('Could not update recent:', err));
+      }
+      window.location.href = `course.html?courseId=${courseId}`;
+    };
+  </script>
 </body>
 </html>
