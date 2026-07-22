@@ -48,6 +48,11 @@
             "@type": "AggregateRating",
             "ratingValue": "4.9",
             "reviewCount": "5000"
+        },
+        "creator": {
+            "@type": "Person",
+            "name": "PIReactive",
+            "url": "https://pireactive.vercel.app/"
         }
     }
     </script>
@@ -172,19 +177,32 @@
         .rating-stats { display:flex; gap:12px; }
         .rating-item { font-weight:600; }
 
-        /* Realistic code editor mock */
+        /* Enhanced Hero Visual */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
         .code-editor-mock {
             width: 360px;
             max-width: 100%;
             background: #1E1E1E;
             border-radius: 12px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 0 1px #333;
             overflow: hidden;
             font-family: 'Courier New', monospace;
             position: relative;
             z-index: 1;
-            border: 1px solid #333;
+            transform: rotateY(-5deg) rotateX(2deg);
+            transition: transform 0.5s;
         }
+        .code-editor-mock:hover {
+            transform: rotateY(0deg) rotateX(0deg);
+        }
+
         .editor-header {
             background: #2D2D2D;
             padding: 10px 14px;
@@ -203,12 +221,14 @@
             font-size: 0.75rem;
             font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
         }
+
         .editor-body {
             display: flex;
             padding: 14px;
             min-height: 180px;
-            max-height: 220px;
+            max-height: 240px;
             overflow: hidden;
+            position: relative;
         }
         .line-numbers {
             color: #555;
@@ -226,12 +246,25 @@
             line-height: 1.5;
             white-space: pre-wrap;
             color: #D4D4D4;
+            position: relative;
         }
         .code-content .keyword { color: #569CD6; font-weight: bold; }
         .code-content .function { color: #DCDCAA; }
         .code-content .string { color: #CE9178; }
         .code-content .comment { color: #6A9955; }
         .code-content .number { color: #B5CEA8; }
+        .code-content .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 16px;
+            background: #fff;
+            animation: blink 1s infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
 
         .terminal {
             border-top: 1px solid #444;
@@ -253,6 +286,8 @@
             min-height: 40px;
             white-space: pre-wrap;
         }
+        .terminal-content .error { color: #FF6B6B; }
+        .terminal-content .warn { color: #FFD93D; }
 
         .floating-card {
             position: absolute; background: white; border: 2px solid var(--border);
@@ -272,22 +307,44 @@
         }
         .progress-circle span { font-size: 0.7rem; font-weight: 800; color: var(--text); }
 
-        /* ---------- TRUSTED BY ---------- */
-        .trusted {
+        /* ---------- SEARCH SECTION ---------- */
+        .search-section {
             padding: 60px 24px; background: var(--bg-secondary);
             border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
         }
-        .trusted-container { max-width: 1140px; margin:0 auto; text-align:center; }
-        .trusted-text {
-            font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 24px;
-            text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
+        .search-container {
+            max-width: 700px; margin: 0 auto; position: relative;
         }
-        .trusted-logos {
-            display: flex; justify-content: center; align-items: center; gap: 48px;
-            flex-wrap: wrap; font-size: 1.3rem; font-weight: 800; color: var(--text);
+        .search-input-wrap {
+            display: flex; align-items: center;
+            background: var(--bg); border: 2px solid var(--border);
+            border-radius: 50px; padding: 6px 20px; transition: border-color 0.3s;
         }
-        .trusted-logos span { opacity: 0.6; transition: opacity 0.2s; }
-        .trusted-logos span:hover { opacity: 1; }
+        .search-input-wrap:focus-within { border-color: var(--green); }
+        .search-input {
+            width: 100%; border: none; padding: 14px 0; font-size: 1rem;
+            font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
+            outline: none; background: transparent; color: var(--text);
+        }
+        .search-icon {
+            margin-right: 12px; color: var(--text-secondary); font-size: 1.4rem;
+        }
+        .search-results {
+            position: absolute; top: 100%; left: 0; right: 0;
+            background: var(--bg); border: 2px solid var(--border); border-top: none;
+            border-radius: 0 0 20px 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            z-index: 50; max-height: 300px; overflow-y: auto; display: none;
+        }
+        .search-results.active { display: block; }
+        .result-item {
+            padding: 12px 20px; cursor: pointer; display: flex; align-items: center;
+            gap: 12px; border-bottom: 1px solid var(--border); transition: background 0.2s;
+        }
+        .result-item:hover { background: var(--bg-secondary); }
+        .result-icon { font-size: 1.3rem; color: var(--green); min-width: 24px; text-align: center; }
+        .result-info { flex: 1; }
+        .result-title { font-weight: 700; color: var(--text); font-size: 0.95rem; }
+        .result-path { font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px; }
 
         /* ---------- STATISTICS ---------- */
         .stats {
@@ -382,7 +439,43 @@
         .pricing-features li .strikethrough {
             text-decoration: line-through; color: #ccc; opacity: 0.7;
         }
-        .btn-pricing { width: 100%; justify-content: center; margin-top: auto; }
+        /* No buttons in pricing now, remove btn-pricing */
+
+        /* ---------- PARTNER SECTION ---------- */
+        .partner-section {
+            padding: 100px 24px; background: var(--bg-secondary);
+        }
+        .partner-container {
+            max-width: 700px; margin: 0 auto; text-align: center;
+        }
+        .partner-title { font-size: 2rem; margin-bottom: 16px; }
+        .partner-desc { color: var(--text-secondary); margin-bottom: 32px; line-height: 1.6; }
+        .partner-btn {
+            margin-bottom: 40px;
+        }
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal {
+            background: var(--bg); border-radius: var(--radius); padding: 32px;
+            width: 90%; max-width: 450px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(20px); transition: transform 0.3s;
+        }
+        .modal-overlay.active .modal { transform: translateY(0); }
+        .modal h3 { margin-bottom: 24px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 6px; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 10px; border: 2px solid var(--border);
+            border-radius: 10px; font-family: inherit; font-size: 0.9rem;
+        }
+        .btn-submit { width: 100%; margin-top: 8px; }
+        .success-message { text-align: center; color: var(--green); font-weight: 700; display: none; }
+        .success-message .phone { font-size: 1.5rem; margin: 16px 0; }
 
         /* ---------- FOOTER ---------- */
         .footer {
@@ -404,13 +497,17 @@
             border-top: 1px solid rgba(255,255,255,0.1); text-align: center;
             color: #AFAFAF; font-size: 0.9rem;
         }
+        .creator-credit {
+            margin-top: 8px; font-size: 0.8rem;
+        }
+        .creator-credit a { color: var(--green); text-decoration: none; font-weight: 700; }
 
         /* ---------- RESPONSIVE ---------- */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero { grid-template-columns: 1fr; text-align: center; min-height: auto; padding: 100px 24px 60px; }
             .hero-rating { justify-content: center; }
-            .code-editor-mock { width: 100%; max-width: 320px; margin: 0 auto; }
+            .code-editor-mock { width: 100%; max-width: 320px; margin: 0 auto; transform: none; }
             .floating-card { display: none; }
             .feature-row { grid-template-columns: 1fr; gap: 24px; }
             .demo-editor { grid-template-columns: 1fr; }
@@ -431,7 +528,7 @@
             <div class="nav-links">
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#pricing" class="nav-link">Pricing</a>
-                <a href="#courses" class="nav-link">Courses</a>
+                <a href="#search" class="nav-link">Search</a>
                 <button class="btn btn-secondary" onclick="window.location.href='pages/login.html'">Log In</button>
                 <button class="btn btn-primary" onclick="window.location.href='pages/login.html#signup'">Get Started</button>
             </div>
@@ -450,7 +547,7 @@
             </p>
             <div class="hero-cta">
                 <button class="btn btn-primary btn-large" onclick="window.location.href='pages/login.html#signup'">Start Learning</button>
-                <button class="btn btn-secondary btn-large" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Browse Courses</button>
+                <button class="btn btn-secondary btn-large" onclick="document.getElementById('search').scrollIntoView({behavior:'smooth'})">Search Courses</button>
             </div>
             <div class="hero-rating">
                 <div class="stars">★★★★☆</div>
@@ -467,7 +564,7 @@
                     <div class="dot red"></div>
                     <div class="dot yellow"></div>
                     <div class="dot green"></div>
-                    <span class="file-name">main.py</span>
+                    <span class="file-name">adventure.py</span>
                 </div>
                 <div class="editor-body">
                     <div class="line-numbers" id="lineNumbers"></div>
@@ -493,22 +590,19 @@
         </div>
     </section>
 
-    <!-- Trusted By -->
-    <div class="trusted">
-        <div class="trusted-container">
-            <p class="trusted-text">Used by learners from</p>
-            <div class="trusted-logos">
-                <span>Google</span>
-                <span>Microsoft</span>
-                <span>GitHub</span>
-                <span>Spotify</span>
-                <span>Netflix</span>
-                <span>Airbnb</span>
+    <!-- Search Section (replaces Trusted By) -->
+    <section id="search" class="search-section">
+        <div class="search-container">
+            <div class="search-input-wrap">
+                <iconify-icon icon="pixelarticons:search" class="search-icon"></iconify-icon>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search courses, modules, lessons..." autocomplete="off">
+                <button class="btn btn-primary btn-sm" style="padding:8px 16px; border-radius:30px;" onclick="performSearch()">Search</button>
             </div>
+            <div class="search-results" id="searchResults"></div>
         </div>
-    </div>
+    </section>
 
-    <!-- Statistics (minimized) -->
+    <!-- Statistics -->
     <section class="stats" id="stats">
         <div class="stat-item">
             <div class="stat-number" data-target="120">0</div>
@@ -566,7 +660,7 @@
         </div>
     </section>
 
-    <!-- Platform Features (alternating rows) -->
+    <!-- Platform Features -->
     <section class="platform" id="features">
         <div class="feature-row">
             <div class="feature-text">
@@ -600,7 +694,7 @@
         </div>
     </section>
 
-    <!-- Pricing -->
+    <!-- Pricing (without buttons) -->
     <section class="pricing" id="pricing">
         <h2 style="text-align:center;">Choose your plan</h2>
         <div class="pricing-grid">
@@ -615,7 +709,6 @@
                     <li class="strikethrough"><iconify-icon icon="pixelarticons:close"></iconify-icon> Exercise</li>
                     <li class="strikethrough"><iconify-icon icon="pixelarticons:close"></iconify-icon> Certificate</li>
                 </ul>
-                <button class="btn btn-secondary btn-pricing">Get Started</button>
             </div>
             <!-- Beginner $0.98 -->
             <div class="pricing-card featured">
@@ -627,7 +720,6 @@
                     <li><iconify-icon icon="pixelarticons:check"></iconify-icon> Exercise</li>
                     <li class="strikethrough"><iconify-icon icon="pixelarticons:close"></iconify-icon> Certificate</li>
                 </ul>
-                <button class="btn btn-primary btn-pricing">Start Beginner</button>
             </div>
             <!-- Learner $5.87 -->
             <div class="pricing-card">
@@ -639,26 +731,58 @@
                     <li><iconify-icon icon="pixelarticons:check"></iconify-icon> Exercise</li>
                     <li><iconify-icon icon="pixelarticons:check"></iconify-icon> Certificate</li>
                 </ul>
-                <button class="btn btn-primary btn-pricing">Start Learner</button>
             </div>
         </div>
     </section>
 
-    <!-- Featured Courses (loaded from Firebase) -->
-    <section id="courses" style="padding: 100px 24px; background: var(--bg-secondary);">
-        <div style="max-width: 1140px; margin: 0 auto;">
-            <h2 style="text-align: center;">Explore our popular courses</h2>
-            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px;">Start learning today with our free, interactive curriculum</p>
-            <div id="coursesGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px;">
-                <!-- Loading placeholder -->
-                <div style="background: var(--bg); border: 2px solid var(--border); border-radius: var(--radius); padding: 24px; text-align: center;">
-                    <iconify-icon icon="pixelarticons:code" style="font-size: 2rem; color: var(--green); margin-bottom: 16px;"></iconify-icon>
-                    <div style="font-size: 1.2rem; font-weight: 700;">Loading…</div>
-                    <div style="color: var(--text-secondary);">Fetching courses…</div>
-                </div>
+    <!-- Partner Section (replaces courses) -->
+    <section class="partner-section" id="partner">
+        <div class="partner-container">
+            <h2 class="partner-title">Become a Partner</h2>
+            <p class="partner-desc">
+                Join us in shaping the future of coding education. Whether you're a content creator, institution, or tech company, we'd love to collaborate.
+            </p>
+            <button class="btn btn-primary btn-large partner-btn" onclick="openPartnerModal()">Partner with Us</button>
+            <div style="margin-top:32px; color: var(--text-secondary); font-size:0.9rem;">
+                <iconify-icon icon="pixelarticons:users" style="font-size:1.2rem; vertical-align:middle;"></iconify-icon>
+                Trusted by educators and companies worldwide.
             </div>
         </div>
     </section>
+
+    <!-- Partner Modal -->
+    <div class="modal-overlay" id="partnerModal">
+        <div class="modal">
+            <h3>Partner Inquiry</h3>
+            <div id="partnerForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="partnerName" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="partnerEmail" placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Organization</label>
+                    <input type="text" id="partnerOrg" placeholder="Company or School">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="partnerMsg" rows="3" placeholder="How can we work together?"></textarea>
+                </div>
+                <button class="btn btn-primary btn-submit" onclick="submitPartnerForm()">Send Inquiry</button>
+                <button class="btn btn-secondary" style="width:100%; margin-top:8px;" onclick="closePartnerModal()">Cancel</button>
+            </div>
+            <div class="success-message" id="partnerSuccess">
+                <iconify-icon icon="pixelarticons:check" style="font-size:3rem; color:var(--green);"></iconify-icon>
+                <p>Thank you! We'll get back to you shortly.</p>
+                <p>You can also reach us directly:</p>
+                <div class="phone">+250 795 065789</div>
+                <button class="btn btn-primary" onclick="closePartnerModal()">Close</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -673,7 +797,7 @@
             <div>
                 <div class="footer-title">Product</div>
                 <ul class="footer-links">
-                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#search">Courses</a></li>
                     <li><a href="#pricing">Pricing</a></li>
                     <li><a href="#features">Features</a></li>
                 </ul>
@@ -696,7 +820,8 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Akademia. All rights reserved. Made with ❤️ for learners everywhere.</p>
+            <p>&copy; 2026 Akademia. All rights reserved.</p>
+            <p class="creator-credit">Created by <a href="https://pireactive.vercel.app/" target="_blank" rel="noopener noreferrer">PIReactive</a></p>
         </div>
     </footer>
 
@@ -705,7 +830,7 @@
         import { db } from './src/js/firebase-config.js';
         import { collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-        // Interactive Demo: run HTML code
+        // Interactive Demo
         window.runCode = function() {
             const code = document.getElementById('htmlCode').value;
             const iframe = document.getElementById('outputFrame');
@@ -738,46 +863,145 @@
                 }
             });
         }, { threshold: 0.5 });
-
         counters.forEach(counter => observer.observe(counter));
 
-        // Load courses from Firebase
-        async function loadCourses() {
-            const coursesGrid = document.getElementById('coursesGrid');
+        // Search functionality
+        let allCourses = [];
+        let allModules = [];
+        let allLessons = [];
+
+        async function loadSearchData() {
             try {
-                const q = query(collection(db, 'courses'), orderBy('createdAt', 'desc'), limit(3));
-                const snapshot = await getDocs(q);
-                coursesGrid.innerHTML = '';
-                if (snapshot.empty) {
-                    coursesGrid.innerHTML = '<p style="text-align:center; width:100%;">No courses yet. Check back soon!</p>';
-                    return;
-                }
-                snapshot.forEach(doc => {
-                    const course = doc.data();
-                    const card = document.createElement('div');
-                    card.style.cssText = 'background:var(--bg); border:2px solid var(--border); border-radius:var(--radius); padding:24px; text-align:center; transition:all 0.3s; cursor:pointer;';
-                    card.innerHTML = `
-                        <iconify-icon icon="pixelarticons:code" style="font-size:2rem; color:var(--green); margin-bottom:16px;"></iconify-icon>
-                        <div style="font-size:1.2rem; font-weight:700;">${escapeHtml(course.title)}</div>
-                        <div style="color:var(--text-secondary); margin:8px 0;">${escapeHtml(course.description || '')}</div>
-                        <div style="background:var(--green); color:white; padding:4px 12px; border-radius:20px; display:inline-block; font-size:0.8rem;">Beginner</div>
-                    `;
-                    card.addEventListener('click', () => {
-                        window.location.href = 'pages/login.html#signup';
-                    });
-                    coursesGrid.appendChild(card);
+                const coursesSnap = await getDocs(query(collection(db, 'courses'), orderBy('createdAt', 'desc')));
+                allCourses = [];
+                coursesSnap.forEach(doc => {
+                    allCourses.push({ id: doc.id, ...doc.data(), type: 'course' });
                 });
-            } catch (error) {
-                coursesGrid.innerHTML = '<p style="text-align:center;">Could not load courses.</p>';
+
+                // For modules & lessons we'll load on demand? For demo, load first 20 courses' modules/lessons
+                allModules = [];
+                allLessons = [];
+                for (let course of allCourses.slice(0, 5)) { // limit to 5 courses for performance
+                    const modulesSnap = await getDocs(collection(db, 'courses', course.id, 'modules'));
+                    modulesSnap.forEach(modDoc => {
+                        const mod = { id: modDoc.id, ...modDoc.data(), courseId: course.id, courseTitle: course.title, type: 'module' };
+                        allModules.push(mod);
+                    });
+                    for (let mod of allModules.filter(m => m.courseId === course.id)) {
+                        const lessonsSnap = await getDocs(collection(db, 'courses', course.id, 'modules', mod.id, 'lessons'));
+                        lessonsSnap.forEach(lesDoc => {
+                            allLessons.push({
+                                id: lesDoc.id,
+                                ...lesDoc.data(),
+                                courseId: course.id,
+                                moduleId: mod.id,
+                                courseTitle: course.title,
+                                moduleTitle: mod.title,
+                                type: 'lesson'
+                            });
+                        });
+                    }
+                }
+            } catch (e) {
+                console.error('Failed to load search data', e);
             }
         }
+        loadSearchData();
+
+        window.performSearch = function() {
+            const queryText = document.getElementById('searchInput').value.toLowerCase().trim();
+            const resultsDiv = document.getElementById('searchResults');
+            if (!queryText) {
+                resultsDiv.innerHTML = '';
+                resultsDiv.classList.remove('active');
+                return;
+            }
+
+            const results = [];
+            // Search in courses
+            allCourses.forEach(c => {
+                if (c.title && c.title.toLowerCase().includes(queryText)) {
+                    results.push({ ...c, path: 'Course' });
+                }
+            });
+            // Modules
+            allModules.forEach(m => {
+                if (m.title && m.title.toLowerCase().includes(queryText)) {
+                    results.push({ ...m, path: `Module in ${m.courseTitle}` });
+                }
+            });
+            // Lessons
+            allLessons.forEach(l => {
+                if (l.title && l.title.toLowerCase().includes(queryText)) {
+                    results.push({ ...l, path: `Lesson in ${l.moduleTitle} → ${l.courseTitle}` });
+                }
+            });
+
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<div style="padding:20px; text-align:center; color:var(--text-secondary);">No results found</div>';
+            } else {
+                resultsDiv.innerHTML = results.slice(0, 8).map(r => `
+                    <div class="result-item" onclick="openResult('${r.type}', '${r.id}', '${r.courseId || ''}', '${r.moduleId || ''}')">
+                        <iconify-icon icon="pixelarticons:${r.type === 'course' ? 'folder' : r.type === 'module' ? 'book' : 'file'}" class="result-icon"></iconify-icon>
+                        <div class="result-info">
+                            <div class="result-title">${escapeHtml(r.title)}</div>
+                            <div class="result-path">${r.path}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            resultsDiv.classList.add('active');
+        };
+
+        window.openResult = function(type, id, courseId, moduleId) {
+            let url = 'course.html?';
+            if (type === 'course') url += `courseId=${id}`;
+            else if (type === 'module') url += `courseId=${courseId}&moduleId=${id}`;
+            else if (type === 'lesson') url += `courseId=${courseId}&moduleId=${moduleId}&lessonId=${id}`;
+            window.location.href = url;
+        };
+
+        // Hide results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) {
+                document.getElementById('searchResults').classList.remove('active');
+            }
+        });
+
+        // Debounce search on input
+        let searchTimer;
+        document.getElementById('searchInput').addEventListener('input', function() {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => window.performSearch(), 300);
+        });
 
         function escapeHtml(text) {
             if (!text) return '';
             return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
         }
 
-        loadCourses();
+        // Partner modal
+        window.openPartnerModal = function() {
+            document.getElementById('partnerModal').classList.add('active');
+            document.getElementById('partnerForm').style.display = 'block';
+            document.getElementById('partnerSuccess').style.display = 'none';
+        };
+        window.closePartnerModal = function() {
+            document.getElementById('partnerModal').classList.remove('active');
+        };
+        window.submitPartnerForm = function() {
+            // Simple validation
+            const name = document.getElementById('partnerName').value.trim();
+            const email = document.getElementById('partnerEmail').value.trim();
+            if (!name || !email) {
+                alert('Please fill in name and email.');
+                return;
+            }
+            // Simulate submission
+            document.getElementById('partnerForm').style.display = 'none';
+            document.getElementById('partnerSuccess').style.display = 'block';
+            // Optionally save to Firestore, but not required for now
+        };
 
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
@@ -793,31 +1017,46 @@
             });
         });
 
-        // ======== HERO CODE ANIMATION LOOP ========
+        // ======== ENHANCED HERO CODE ANIMATION ========
         const codeLines = [
             { text: 'import random', type: 'keyword' },
+            { text: 'import time', type: 'keyword' },
             { text: '', type: 'empty' },
-            { text: '# Define a list of spells', type: 'comment' },
-            { text: 'spells = ["fireball", "heal",', type: 'normal' },
-            { text: '          "teleport", "shield"]', type: 'normal' },
+            { text: 'class Adventurer:', type: 'keyword' },
+            { text: '    def __init__(self, name):', type: 'function' },
+            { text: '        self.name = name', type: 'normal' },
+            { text: '        self.hp = 100', type: 'normal' },
+            { text: '        self.mana = 50', type: 'normal' },
             { text: '', type: 'empty' },
-            { text: 'def cast_spell(magic_level):', type: 'keyword' },
-            { text: '    if magic_level > 5:', type: 'keyword' },
-            { text: '        chosen = random.choice(spells)', type: 'normal' },
-            { text: '        print(f"You cast {chosen}!")', type: 'function' },
-            { text: '        return chosen', type: 'keyword' },
-            { text: '    else:', type: 'keyword' },
-            { text: '        print("Not enough magic.")', type: 'function' },
+            { text: '    def cast_spell(self, spell):', type: 'function' },
+            { text: '        if self.mana >= 10:', type: 'keyword' },
+            { text: '            self.mana -= 10', type: 'normal' },
+            { text: '            dmg = random.randint(15, 30)', type: 'normal' },
+            { text: '            print(f"{self.name} casts {spell}!")', type: 'function' },
+            { text: '            return dmg', type: 'keyword' },
+            { text: '        else:', type: 'keyword' },
+            { text: '            print("Not enough mana!")', type: 'function' },
+            { text: '            return 0', type: 'keyword' },
             { text: '', type: 'empty' },
-            { text: 'cast_spell(7)', type: 'function' },
+            { text: 'hero = Adventurer("CodeMaster")', type: 'normal' },
+            { text: 'enemy_hp = 80', type: 'normal' },
+            { text: '', type: 'empty' },
+            { text: 'while enemy_hp > 0:', type: 'keyword' },
+            { text: '    dmg = hero.cast_spell("Fireball")', type: 'normal' },
+            { text: '    enemy_hp -= dmg', type: 'normal' },
+            { text: '    print(f"Enemy HP: {enemy_hp}")', type: 'function' },
+            { text: '    time.sleep(0.5)', type: 'function' },
+            { text: '', type: 'empty' },
+            { text: 'print("Victory!")', type: 'function' },
         ];
 
-        const terminalOutput = [
-            'You cast fireball!',
-            'You cast teleport!',
-            'You cast shield!',
-            'You cast heal!',
-            'You cast fireball!',
+        const terminalOutputs = [
+            'CodeMaster casts Fireball!\nEnemy HP: 55',
+            'CodeMaster casts Fireball!\nEnemy HP: 28',
+            'CodeMaster casts Fireball!\nEnemy HP: 2',
+            'CodeMaster casts Fireball!\nEnemy HP: -18\nVictory!',
+            'Not enough mana!\nEnemy HP: 12',
+            'CodeMaster casts Fireball!\nEnemy HP: -5\nVictory!',
         ];
 
         let codeIndex = 0;
@@ -861,8 +1100,8 @@
                 }
             } else if (!isTyping && codeIndex >= codeLines.length) {
                 const terminalEl = document.getElementById('terminalContent');
-                const randomOutput = terminalOutput[Math.floor(Math.random() * terminalOutput.length)];
-                terminalEl.textContent = `> python main.py\n${randomOutput}`;
+                const randomOutput = terminalOutputs[Math.floor(Math.random() * terminalOutputs.length)];
+                terminalEl.innerHTML = `> python adventure.py\n${randomOutput.replace(/\n/g, '<br>')}`;
                 clearTimeout(terminalTimeout);
                 terminalTimeout = setTimeout(() => {
                     codeIndex = 0;
@@ -871,12 +1110,12 @@
                     document.getElementById('lineNumbers').innerHTML = '';
                     document.getElementById('codeContent').innerHTML = '';
                     document.getElementById('terminalContent').textContent = '';
-                    updateCodeDisplay(); // restart loop
-                }, 2500);
+                    updateCodeDisplay();
+                }, 3000);
                 return;
             }
             
-            const delay = isTyping ? (Math.random() * 60 + 30) : 1500;
+            const delay = isTyping ? (Math.random() * 50 + 20) : 1500;
             if (codeIndex < codeLines.length || isTyping) {
                 setTimeout(updateCodeDisplay, delay);
             } else if (isTyping) {
@@ -887,7 +1126,7 @@
 
         function highlightLine(text, type) {
             let result = text;
-            const keywords = ['import', 'def', 'if', 'else', 'return', 'random', 'choice', 'and', 'or'];
+            const keywords = ['import', 'def', 'if', 'else', 'return', 'random', 'class', 'while', 'and', 'or', 'self', 'True', 'False', 'None'];
             keywords.forEach(kw => {
                 const regex = new RegExp(`\\b${kw}\\b`, 'g');
                 result = result.replace(regex, `<span class="keyword">${kw}</span>`);
@@ -897,13 +1136,11 @@
             if (result.trim().startsWith('#')) {
                 result = `<span class="comment">${result}</span>`;
             }
-            result = result.replace(/\b(print)\b/g, '<span class="function">$1</span>');
-            result = result.replace(/\b(range|len|int|str|float)\b/g, '<span class="function">$1</span>');
+            result = result.replace(/\b(print|range|len|int|str|float|randint|sleep)\b/g, '<span class="function">$1</span>');
             return result;
         }
 
-        setTimeout(updateCodeDisplay, 1000);
-        // End hero animation
+        setTimeout(updateCodeDisplay, 800);
     </script>
 </body>
 </html>
