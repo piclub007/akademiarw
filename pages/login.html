@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akademia - Log In or Sign Up</title>
+    <title>Choose Your Path · Akademia</title>
     <meta name="robots" content="noindex">
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
@@ -36,7 +36,7 @@
             --text-secondary: #777777;
             --border: #E5E5E5;
             --radius: 16px;
-            --error: #FF4B4B;
+            --gold: #FFC800;
         }
 
         * { margin:0; padding:0; box-sizing:border-box; }
@@ -45,504 +45,370 @@
             font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
             background: var(--bg-secondary);
             color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            line-height: 1.5;
+            line-height: 1.6;
+            padding-bottom: 60px;
         }
 
-        h1, h2 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
+        h1, h2, h3 { font-family: 'BlockBlueprint', sans-serif; letter-spacing: -0.3px; }
 
-        .auth-card {
+        .topbar {
+            height: 64px;
             background: var(--bg);
-            border: 2px solid var(--border);
-            border-radius: 24px;
-            padding: 40px 32px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo {
+            border-bottom: 2px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 32px;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .topbar .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+        .logo-img { width:34px; height:34px; border-radius:10px; }
+        .logo-text { font-size:1.3rem; font-weight:800; color:var(--text); }
+        .logo-text span { color:var(--green); }
+        .back-link {
+            color: var(--text-secondary);
             text-decoration: none;
-        }
-        .logo-img { width: 40px; height: 40px; border-radius: 10px; }
-        .logo-text { font-size: 1.4rem; font-weight: 800; color: var(--text); }
-        .logo-text span { color: var(--green); }
-
-        .tabs {
-            display: flex;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 4px;
-            margin-bottom: 32px;
-        }
-        .tab {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            border-radius: 10px;
             font-weight: 700;
             font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+        }
+
+        /* ---------- ROADMAP STYLES ---------- */
+        .roadmap {
+            position: relative;
+            padding-left: 32px;
+        }
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--border);
+            border-radius: 2px;
+        }
+
+        .roadmap-item {
+            position: relative;
+            margin-bottom: 32px;
+        }
+
+        .roadmap-node {
+            display: flex;
+            align-items: center;
+            gap: 16px;
             cursor: pointer;
             transition: all 0.2s;
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
         }
-        .tab.active { background: var(--bg); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .roadmap-node:hover .node-title {
+            color: var(--green);
+        }
 
-        .step-container { min-height: 250px; position: relative; }
-        .step { display: none; flex-direction: column; gap: 16px; }
-        .step.active { display: flex; }
+        .node-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 3px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .roadmap-item.expanded .node-circle {
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+        }
+        .node-circle iconify-icon {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+        .roadmap-item.expanded .node-circle iconify-icon {
+            color: white;
+        }
 
-        .step-question {
-            font-size: 1.5rem;
+        .node-content {
+            flex: 1;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            transition: border-color 0.2s;
+        }
+        .roadmap-item.expanded .node-content {
+            border-color: var(--green);
+        }
+        .node-title {
+            font-size: 1.2rem;
             font-weight: 800;
             font-family: 'BlockBlueprint', sans-serif;
             margin-bottom: 4px;
         }
-        .step-desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 8px; }
-
-        .input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid var(--border);
-            border-radius: 14px;
-            font-size: 0.95rem;
-            font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
-            color: var(--text);
-            background: var(--bg-secondary);
-            transition: border 0.2s;
+        .node-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
         }
-        .input:focus { outline: none; border-color: var(--green); background: var(--bg); }
-        .input.error { border-color: var(--error); }
 
-        .error-msg { color: var(--error); font-size: 0.8rem; display: none; }
-        .error-msg.visible { display: block; }
+        .children-container {
+            margin-left: 32px;
+            margin-top: 12px;
+            display: none;
+        }
+        .roadmap-item.expanded > .children-container {
+            display: block;
+        }
 
-        .btn {
-            padding: 14px 24px;
-            border: none;
-            border-radius: 14px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Drafting Mono', 'Drafting* Mono', monospace;
-            display: inline-flex;
+        .sub-item {
+            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-        }
-        .btn-primary { background: var(--green); color: white; box-shadow: 0 4px 0 var(--green-hover); }
-        .btn-primary:hover { background: var(--green-hover); transform: translateY(-1px); }
-        .btn-outline {
+            gap: 12px;
+            padding: 10px 16px;
             background: var(--bg);
             border: 2px solid var(--border);
-            color: var(--text);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
         }
-        .btn-outline:hover { background: var(--bg-secondary); }
-        .btn-google {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: white;
+        .sub-item:hover {
+            border-color: var(--green);
+        }
+        .sub-item::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            width: 12px;
+            height: 2px;
+            background: var(--border);
+        }
+        .sub-item .sub-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
             border: 2px solid var(--border);
-            margin-top: 16px;
+            background: var(--bg-secondary);
+            flex-shrink: 0;
+        }
+        .sub-item .sub-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .sub-item .sub-meta {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-left: auto;
         }
 
-        .progress-dots {
+        .lesson-item {
+            margin-left: 28px;
+            margin-bottom: 4px;
+            padding: 6px 12px;
             display: flex;
-            justify-content: center;
+            align-items: center;
             gap: 8px;
-            margin-top: 24px;
-        }
-        .dot-step {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--border);
+            font-size: 0.85rem;
+            border-radius: 8px;
+            cursor: pointer;
             transition: background 0.2s;
         }
-        .dot-step.filled { background: var(--green); }
-
-        .back-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin-bottom: 16px;
-            padding: 0;
+        .lesson-item:hover {
+            background: var(--bg-secondary);
         }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 24px 0;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-        .divider::before, .divider::after {
+        .lesson-item::before {
             content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            flex-shrink: 0;
         }
-        .divider span { padding: 0 16px; }
 
+        .loading {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--text-secondary);
+        }
         .spinner {
             display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255,255,255,0.3);
+            width: 32px; height: 32px;
+            border: 4px solid var(--border);
+            border-top-color: var(--green);
             border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.6s linear infinite;
+            animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* login form */
-        .login-form { display: flex; flex-direction: column; gap: 16px; }
     </style>
 </head>
 <body>
-    <div class="auth-card">
+    <div class="topbar">
         <a href="../index.html" class="logo">
             <img src="../favicon.ico" alt="Akademia" class="logo-img">
             <div class="logo-text">Akade<span>mia</span></div>
         </a>
+        <a href="../index.html" class="back-link">
+            <iconify-icon icon="pixelarticons:arrow-left"></iconify-icon> Home
+        </a>
+    </div>
 
-        <div class="tabs">
-            <button class="tab active" data-mode="login">Log In</button>
-            <button class="tab" data-mode="signup">Sign Up</button>
-        </div>
+    <div class="container">
+        <h1 class="page-title">Your Learning Path</h1>
+        <p class="page-subtitle">Choose a course, then a module, and start a lesson.</p>
 
-        <!-- LOGIN FORM (single step) -->
-        <div id="loginContainer" class="active" style="display:flex; flex-direction:column; gap:16px;">
-            <div style="text-align:center;">
-                <h2 style="margin-bottom:8px;">Welcome back</h2>
-                <p style="color:var(--text-secondary);">Enter your email or username</p>
-            </div>
-            <input type="text" class="input" id="loginIdentifier" placeholder="Email or Username" autocomplete="username">
-            <div class="error-msg" id="loginIdError">Please enter a valid email or username.</div>
-            <input type="password" class="input" id="loginPassword" placeholder="Password" autocomplete="current-password">
-            <div class="error-msg" id="loginPassError">Password required.</div>
-            <button class="btn btn-primary" id="loginBtn">Log In</button>
-            <div class="divider"><span>or</span></div>
-            <button class="btn btn-google" id="googleLoginBtn">
-                <iconify-icon icon="pixelarticons:google"></iconify-icon> Continue with Google
-            </button>
-        </div>
-
-        <!-- SIGNUP MULTI-STEP (hidden initially) -->
-        <div id="signupContainer" style="display:none;">
-            <div class="step-container" id="stepContainer">
-                <!-- Step 1: Full Name -->
-                <div class="step active" data-step="0">
-                    <div class="step-question">What's your name?</div>
-                    <div class="step-desc">We'll use it on your profile.</div>
-                    <input type="text" class="input" id="signupName" placeholder="Full Name" autocomplete="name">
-                    <div class="error-msg" id="nameError">Name is required.</div>
-                    <button class="btn btn-primary" onclick="nextStep(1)">Next</button>
-                    <div class="progress-dots" id="progressDots">
-                        <span class="dot-step filled"></span><span class="dot-step"></span><span class="dot-step"></span><span class="dot-step"></span><span class="dot-step"></span>
-                    </div>
-                </div>
-                <!-- Step 2: Username -->
-                <div class="step" data-step="1">
-                    <button class="back-btn" onclick="prevStep(0)">← Back</button>
-                    <div class="step-question">Choose a username</div>
-                    <div class="step-desc">You'll use this to log in. Must be unique.</div>
-                    <input type="text" class="input" id="signupUsername" placeholder="Username" autocomplete="username">
-                    <div class="error-msg" id="usernameError">Username must be at least 3 characters.</div>
-                    <button class="btn btn-primary" onclick="checkUsername()">Next</button>
-                    <div class="progress-dots" id="progressDots">
-                        <span class="dot-step filled"></span><span class="dot-step filled"></span><span class="dot-step"></span><span class="dot-step"></span><span class="dot-step"></span>
-                    </div>
-                </div>
-                <!-- Step 3: Date of Birth -->
-                <div class="step" data-step="2">
-                    <button class="back-btn" onclick="prevStep(1)">← Back</button>
-                    <div class="step-question">When were you born?</div>
-                    <div class="step-desc">We use this to personalize your experience.</div>
-                    <input type="date" class="input" id="signupDob" max="<?= date('Y-m-d', strtotime('-13 years')) ?>" value="2000-01-01">
-                    <div class="error-msg" id="dobError">You must be at least 13 years old.</div>
-                    <button class="btn btn-primary" onclick="nextStep(3)">Next</button>
-                    <div class="progress-dots" id="progressDots">
-                        <span class="dot-step filled"></span><span class="dot-step filled"></span><span class="dot-step filled"></span><span class="dot-step"></span><span class="dot-step"></span>
-                    </div>
-                </div>
-                <!-- Step 4: Email -->
-                <div class="step" data-step="3">
-                    <button class="back-btn" onclick="prevStep(2)">← Back</button>
-                    <div class="step-question">Your email address</div>
-                    <div class="step-desc">We'll send you important updates.</div>
-                    <input type="email" class="input" id="signupEmail" placeholder="you@example.com" autocomplete="email">
-                    <div class="error-msg" id="emailError">Please enter a valid email.</div>
-                    <button class="btn btn-primary" onclick="nextStep(4)">Next</button>
-                    <div class="progress-dots" id="progressDots">
-                        <span class="dot-step filled"></span><span class="dot-step filled"></span><span class="dot-step filled"></span><span class="dot-step filled"></span><span class="dot-step"></span>
-                    </div>
-                </div>
-                <!-- Step 5: Password -->
-                <div class="step" data-step="4">
-                    <button class="back-btn" onclick="prevStep(3)">← Back</button>
-                    <div class="step-question">Create a password</div>
-                    <div class="step-desc">At least 8 characters, with uppercase and number.</div>
-                    <input type="password" class="input" id="signupPassword" placeholder="Password" autocomplete="new-password">
-                    <div class="error-msg" id="passwordError">Password does not meet requirements.</div>
-                    <button class="btn btn-primary" id="signupSubmitBtn">Create Account</button>
-                    <div class="progress-dots" id="progressDots">
-                        <span class="dot-step filled"></span><span class="dot-step filled"></span><span class="dot-step filled"></span><span class="dot-step filled"></span><span class="dot-step filled"></span>
-                    </div>
-                </div>
-            </div>
+        <div class="roadmap" id="roadmap">
+            <div class="loading"><div class="spinner"></div><p>Loading courses…</p></div>
         </div>
     </div>
 
     <script type="module">
-        import { auth, db } from '../src/js/firebase-config.js';
-        import { 
-            signInWithEmailAndPassword,
-            createUserWithEmailAndPassword,
-            signInWithPopup,
-            GoogleAuthProvider
-        } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-        import { 
-            doc, setDoc, getDoc, query, collection, where, getDocs, serverTimestamp 
-        } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+        import { db } from '../src/js/firebase-config.js';
+        import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-        // ---- DOM Elements ----
-        const tabs = document.querySelectorAll('.tab');
-        const loginContainer = document.getElementById('loginContainer');
-        const signupContainer = document.getElementById('signupContainer');
-        const loginBtn = document.getElementById('loginBtn');
-        const googleLoginBtn = document.getElementById('googleLoginBtn');
-        const loginIdentifier = document.getElementById('loginIdentifier');
-        const loginPassword = document.getElementById('loginPassword');
-        const loginIdError = document.getElementById('loginIdError');
-        const loginPassError = document.getElementById('loginPassError');
+        const roadmapEl = document.getElementById('roadmap');
 
-        const signupSubmitBtn = document.getElementById('signupSubmitBtn');
-        let currentStep = 0;
-
-        // Tab switching
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                if (tab.dataset.mode === 'signup') {
-                    loginContainer.style.display = 'none';
-                    signupContainer.style.display = 'block';
-                    // reset steps
-                    goToStep(0);
-                } else {
-                    signupContainer.style.display = 'none';
-                    loginContainer.style.display = 'flex';
-                }
-            });
-        });
-
-        // Check URL for mode
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('mode') === 'signup') {
-            document.querySelector('.tab[data-mode="signup"]').click();
-        }
-
-        // ---- Step Navigation ----
-        function goToStep(step) {
-            currentStep = step;
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            document.querySelector(`.step[data-step="${step}"]`).classList.add('active');
-        }
-
-        window.nextStep = function(next) {
-            // Validate current step before advancing
-            let valid = true;
-            const step = currentStep;
-            if (step === 0) {
-                const name = document.getElementById('signupName').value.trim();
-                if (!name) {
-                    document.getElementById('nameError').classList.add('visible');
-                    valid = false;
-                } else {
-                    document.getElementById('nameError').classList.remove('visible');
-                }
-            } else if (step === 1) {
-                // already validated by checkUsername()
-                // if we got here it's valid (checkUsername calls nextStep itself)
-            } else if (step === 2) {
-                const dob = document.getElementById('signupDob').value;
-                const age = Math.floor((new Date() - new Date(dob)) / (365.25 * 24 * 60 * 60 * 1000));
-                if (age < 13) {
-                    document.getElementById('dobError').classList.add('visible');
-                    valid = false;
-                } else {
-                    document.getElementById('dobError').classList.remove('visible');
-                }
-            } else if (step === 3) {
-                const email = document.getElementById('signupEmail').value.trim();
-                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                    document.getElementById('emailError').classList.add('visible');
-                    valid = false;
-                } else {
-                    document.getElementById('emailError').classList.remove('visible');
-                }
-            }
-            if (valid) {
-                goToStep(next);
-            }
-        };
-
-        window.prevStep = function(prev) {
-            goToStep(prev);
-        };
-
-        // Username check (on step 2 Next)
-        window.checkUsername = async function() {
-            const username = document.getElementById('signupUsername').value.trim();
-            const errorEl = document.getElementById('usernameError');
-            if (username.length < 3) {
-                errorEl.textContent = 'Username must be at least 3 characters.';
-                errorEl.classList.add('visible');
-                return;
-            }
-            // Check uniqueness in Firestore
-            const q = query(collection(db, 'users'), where('username', '==', username));
-            const snap = await getDocs(q);
-            if (!snap.empty) {
-                errorEl.textContent = 'This username is already taken.';
-                errorEl.classList.add('visible');
-                return;
-            }
-            errorEl.classList.remove('visible');
-            goToStep(2);
-        };
-
-        // Signup submission
-        signupSubmitBtn.addEventListener('click', async (e) => {
-            e.preventDefault();
-            const password = document.getElementById('signupPassword').value;
-            const passError = document.getElementById('passwordError');
-            if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
-                passError.classList.add('visible');
-                return;
-            }
-            passError.classList.remove('visible');
-
-            const name = document.getElementById('signupName').value.trim();
-            const username = document.getElementById('signupUsername').value.trim();
-            const dob = document.getElementById('signupDob').value;
-            const email = document.getElementById('signupEmail').value.trim();
-
-            signupSubmitBtn.disabled = true;
-            signupSubmitBtn.innerHTML = '<span class="spinner"></span> Creating...';
-
+        // Fetch all courses
+        async function loadRoadmap() {
+            roadmapEl.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading courses…</p></div>';
             try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                // Save user data in Firestore
-                await setDoc(doc(db, 'users', userCredential.user.uid), {
-                    name,
-                    username,
-                    dob,
-                    email,
-                    createdAt: serverTimestamp(),
-                    xp: 0,
-                    level: 1,
-                    streak: 0,
-                    hearts: 5,
-                    mana: 100,
-                });
-                window.location.href = 'learn.html';
-            } catch (error) {
-                alert(error.message);
-                signupSubmitBtn.disabled = false;
-                signupSubmitBtn.innerHTML = 'Create Account';
-            }
-        });
+                const coursesSnap = await getDocs(query(collection(db, 'courses'), orderBy('createdAt')));
+                const courses = [];
+                coursesSnap.forEach(doc => courses.push({ id: doc.id, ...doc.data() }));
 
-        // Login (with email or username)
-        loginBtn.addEventListener('click', async () => {
-            const identifier = loginIdentifier.value.trim();
-            const password = loginPassword.value;
-            let email = identifier;
-            loginIdError.classList.remove('visible');
-            loginPassError.classList.remove('visible');
-
-            if (!identifier || !password) {
-                if (!identifier) loginIdError.classList.add('visible');
-                if (!password) loginPassError.classList.add('visible');
-                return;
-            }
-
-            loginBtn.disabled = true;
-            loginBtn.innerHTML = '<span class="spinner"></span> Logging in...';
-
-            try {
-                // Check if input is email
-                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier)) {
-                    // It's a username, look up email
-                    const q = query(collection(db, 'users'), where('username', '==', identifier));
-                    const snap = await getDocs(q);
-                    if (snap.empty) {
-                        throw new Error('No account found with that username.');
-                    }
-                    email = snap.docs[0].data().email;
+                if (courses.length === 0) {
+                    roadmapEl.innerHTML = '<div style="text-align:center; padding:60px; color:var(--text-secondary);">No courses available yet.</div>';
+                    return;
                 }
-                await signInWithEmailAndPassword(auth, email, password);
-                window.location.href = 'learn.html';
-            } catch (error) {
-                loginIdError.textContent = error.message;
-                loginIdError.classList.add('visible');
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = 'Log In';
-            }
-        });
 
-        // Google login
-        googleLoginBtn.addEventListener('click', async () => {
-            const provider = new GoogleAuthProvider();
-            try {
-                const result = await signInWithPopup(auth, provider);
-                // Check if user already exists in Firestore
-                const userDoc = await getDoc(doc(db, 'users', result.user.uid));
-                if (!userDoc.exists()) {
-                    // Create a minimal profile
-                    await setDoc(doc(db, 'users', result.user.uid), {
-                        name: result.user.displayName || '',
-                        username: result.user.email.split('@')[0],
-                        email: result.user.email,
-                        createdAt: serverTimestamp(),
-                        xp: 0,
-                        level: 1,
-                        streak: 0,
-                        hearts: 5,
-                        mana: 100,
+                roadmapEl.innerHTML = '';
+                courses.forEach((course, idx) => {
+                    const courseItem = document.createElement('div');
+                    courseItem.className = 'roadmap-item';
+                    courseItem.innerHTML = `
+                        <div class="roadmap-node" data-course-id="${course.id}">
+                            <div class="node-circle">
+                                <iconify-icon icon="pixelarticons:folder"></iconify-icon>
+                            </div>
+                            <div class="node-content">
+                                <div class="node-title">${escapeHtml(course.title)}</div>
+                                <div class="node-desc">${escapeHtml(course.description || 'Master the fundamentals')}</div>
+                            </div>
+                        </div>
+                        <div class="children-container" id="modules-${course.id}"></div>
+                    `;
+                    roadmapEl.appendChild(courseItem);
+
+                    // Toggle expansion
+                    const node = courseItem.querySelector('.roadmap-node');
+                    node.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        courseItem.classList.toggle('expanded');
+                        const modulesContainer = document.getElementById(`modules-${course.id}`);
+                        if (courseItem.classList.contains('expanded') && modulesContainer.children.length === 0) {
+                            await loadModules(course.id, modulesContainer);
+                        }
                     });
-                }
-                window.location.href = 'learn.html';
+                });
             } catch (error) {
-                alert(error.message);
+                roadmapEl.innerHTML = '<p style="text-align:center; color:red;">Failed to load courses.</p>';
+                console.error(error);
             }
-        });
+        }
+
+        async function loadModules(courseId, container) {
+            container.innerHTML = '<div style="padding:10px; color:var(--text-secondary);">Loading modules…</div>';
+            try {
+                const modulesSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules'), orderBy('createdAt')));
+                container.innerHTML = '';
+                modulesSnap.forEach(modDoc => {
+                    const mod = { id: modDoc.id, ...modDoc.data() };
+                    const modDiv = document.createElement('div');
+                    modDiv.className = 'sub-item';
+                    modDiv.innerHTML = `
+                        <div class="sub-circle"></div>
+                        <span class="sub-title">${escapeHtml(mod.title)}</span>
+                        <span class="sub-meta">Module</span>
+                    `;
+                    container.appendChild(modDiv);
+
+                    const lessonsDiv = document.createElement('div');
+                    lessonsDiv.className = 'children-container';
+                    lessonsDiv.id = `lessons-${mod.id}`;
+                    container.appendChild(lessonsDiv);
+
+                    modDiv.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        // Toggle lessons visibility
+                        if (lessonsDiv.style.display === 'block') {
+                            lessonsDiv.style.display = 'none';
+                        } else {
+                            if (lessonsDiv.children.length === 0) {
+                                await loadLessons(courseId, mod.id, lessonsDiv);
+                            }
+                            lessonsDiv.style.display = 'block';
+                        }
+                    });
+                });
+            } catch (error) {
+                container.innerHTML = '<p style="color:red;">Error loading modules.</p>';
+            }
+        }
+
+        async function loadLessons(courseId, moduleId, container) {
+            container.innerHTML = '<div style="padding:10px; color:var(--text-secondary);">Loading lessons…</div>';
+            try {
+                const lessonsSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules', moduleId, 'lessons'), orderBy('createdAt')));
+                container.innerHTML = '';
+                lessonsSnap.forEach(lesDoc => {
+                    const les = { id: lesDoc.id, ...lesDoc.data() };
+                    const lesItem = document.createElement('div');
+                    lesItem.className = 'lesson-item';
+                    lesItem.innerHTML = `
+                        <span>${escapeHtml(les.title)}</span>
+                        <span style="margin-left:auto; font-size:0.75rem; color:var(--text-secondary);">→</span>
+                    `;
+                    lesItem.addEventListener('click', () => {
+                        window.location.href = `lesson.html?courseId=${courseId}&moduleId=${moduleId}&lessonId=${les.id}`;
+                    });
+                    container.appendChild(lesItem);
+                });
+            } catch (error) {
+                container.innerHTML = '<p style="color:red;">Error loading lessons.</p>';
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        loadRoadmap();
     </script>
 </body>
 </html>
