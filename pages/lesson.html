@@ -6,15 +6,17 @@
   <title>Lesson · Akademia</title>
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
-  <!-- Fonts (system fallback if slow) -->
+  <!-- Preload critical font to reduce FOIT -->
+  <link rel="preload" href="https://fonts.cdnfonts.com/s/125011/BlockBlueprint.woff" as="font" type="font/woff" crossorigin>
   <link href="https://fonts.cdnfonts.com/css/blockblueprint" rel="stylesheet">
   <style>
+    /* Fallback if custom font fails */
     @font-face {
       font-family: 'BlockBlueprint';
       src: local('BlockBlueprint'), local('BlockBlueprint');
       font-display: swap;
     }
-    /* Body uses monospace system fonts */
+    /* System monospace for body */
     body {
       font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
     }
@@ -23,6 +25,10 @@
 
   <!-- Icons -->
   <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+  <!-- Skulpt for Python (preload) -->
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
 
   <style>
     :root {
@@ -36,6 +42,7 @@
       --radius: 16px;
       --gold: #FFC800;
       --error: #FF4B4B;
+      --panel-resize-handle: 4px;
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -77,14 +84,14 @@
       text-decoration: none;
     }
 
-    /* Main layout (three columns) */
+    /* Main layout */
     .main-layout {
       flex: 1;
       display: flex;
       overflow: hidden;
     }
 
-    /* Left sidebar (navigation + lesson info) */
+    /* Left panel */
     .left-panel {
       width: 260px;
       background: var(--bg);
@@ -131,6 +138,16 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
+    .ai-placeholder {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      padding: 8px;
+      border-radius: 8px;
+      background: #f0f0f0;
+      margin-top: auto;
+    }
 
     /* Center content */
     .lesson-content {
@@ -139,9 +156,7 @@
       padding: 24px;
       background: var(--bg);
     }
-    .lesson-header {
-      margin-bottom: 24px;
-    }
+    .lesson-header { margin-bottom: 24px; }
     .lesson-header h1 { font-size: 2rem; margin-bottom: 4px; }
     .lesson-header p { color: var(--text-secondary); font-size:0.9rem; }
 
@@ -206,37 +221,107 @@
     .btn:hover { background:var(--green-hover); transform:translateY(-1px); }
     .btn:disabled { opacity:0.6; cursor:not-allowed; }
 
-    /* Right panel */
+    /* Right panel (resizable) */
     .right-panel {
-      width: 300px;
       background: var(--bg);
       border-left: 1px solid var(--border);
-      padding: 20px 16px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      overflow-y: auto;
+      overflow: hidden;
+      transition: width 0.3s;
+      /* default width set by JS */
     }
+    .panel-tabs {
+      display: flex;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .panel-tab.active {
+      background: var(--bg);
+      border-bottom: 2px solid var(--green);
+    }
+    .panel-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    /* Editor specific */
+    .editor-lang-select {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .lang-btn {
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      background: white;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .lang-btn.active {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+    }
+    .code-editor {
+      width: 100%;
+      height: 200px;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      border: none;
+      padding: 12px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      resize: vertical;
+      border-radius: 8px;
+    }
+    .preview-frame {
+      width: 100%;
+      height: 150px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+    .console-output {
+      background: #1e1e1e;
+      color: #aaa;
+      padding: 12px;
+      border-radius: 8px;
+      min-height: 60px;
+      white-space: pre-wrap;
+      margin-top: 8px;
+    }
+
+    /* Resize handle */
+    .resize-handle {
+      width: var(--panel-resize-handle);
+      background: var(--border);
+      cursor: col-resize;
+      transition: background 0.2s;
+    }
+    .resize-handle:hover { background: var(--green); }
+
+    /* Stats card */
     .card {
       background: var(--bg-secondary);
       border-radius: var(--radius);
       padding: 16px;
       border: 1px solid var(--border);
-    }
-    .card h3 {
-      font-size:0.9rem; margin-bottom:12px; color:var(--text-secondary);
-      text-transform:uppercase; letter-spacing:1px;
+      margin-bottom: 12px;
     }
     .big-number { font-size:2rem; font-weight:800; font-family:'BlockBlueprint', sans-serif; }
-    .ai-placeholder {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-secondary);
-      padding: 8px;
-      border-radius: 8px;
-      background: #f0f0f0;
-    }
   </style>
 </head>
 <body>
@@ -251,7 +336,7 @@
   </div>
 
   <div class="main-layout">
-    <!-- Left panel: navigation + lesson details -->
+    <!-- Left panel -->
     <aside class="left-panel" id="leftPanel">
       <div class="lesson-nav" id="lessonNav">
         <button class="nav-btn" id="prevLessonBtn" disabled>
@@ -264,6 +349,10 @@
       <div class="lesson-details" id="lessonDetailsCard">
         <h3>Lesson Info</h3>
         <div id="lessonDetails"></div>
+      </div>
+      <div class="ai-placeholder">
+        <iconify-icon icon="pixelarticons:bot"></iconify-icon>
+        <span>AI Companion (soon)</span>
       </div>
     </aside>
 
@@ -279,34 +368,48 @@
       </button>
     </main>
 
-    <!-- Right panel: AI companion + practice + stats -->
-    <aside class="right-panel" id="rightPanel">
-      <div class="card">
-        <h3>AI Companion</h3>
-        <div class="ai-placeholder">
-          <iconify-icon icon="pixelarticons:bot"></iconify-icon>
-          <span>Ask AI (coming soon)</span>
+    <!-- Right panel (resizable) -->
+    <div class="right-panel" id="rightPanel" style="width: 320px;">
+      <div class="panel-tabs">
+        <div class="panel-tab active" data-tab="progress">Progress</div>
+        <div class="panel-tab" data-tab="editor">Editor</div>
+      </div>
+      <div class="panel-content" id="panelContent">
+        <!-- Progress tab (default) -->
+        <div id="progressTab">
+          <div class="card">
+            <h3>Your Progress</h3>
+            <div class="big-number" id="completedCount">0</div>
+            <small>lessons completed</small>
+            <div class="big-number" style="margin-top:12px;" id="sparksCount">0</div>
+            <small>sparks earned</small>
+          </div>
+        </div>
+        <!-- Editor tab (hidden initially) -->
+        <div id="editorTab" style="display:none;">
+          <div class="editor-lang-select" id="langSelect">
+            <span class="lang-btn active" data-lang="html">HTML</span>
+            <span class="lang-btn" data-lang="css">CSS</span>
+            <span class="lang-btn" data-lang="javascript">JS</span>
+            <span class="lang-btn" data-lang="python">Python</span>
+          </div>
+          <textarea class="code-editor" id="codeEditor" placeholder="Write your code here..."></textarea>
+          <button class="btn" id="runCodeBtn" style="margin-top:8px;">Run</button>
+          <div class="preview-frame" id="previewFrame"></div>
+          <div class="console-output" id="consoleOutput"></div>
         </div>
       </div>
-      <div class="card">
-        <h3>Practice Exercise</h3>
-        <button class="btn" id="practiceBtn" style="width:100%;">
-          <iconify-icon icon="pixelarticons:run"></iconify-icon> Start Practice
-        </button>
-      </div>
-      <div class="card" id="progressCard">
-        <h3>Your Progress</h3>
-        <div id="progressContent"></div>
-      </div>
-    </aside>
+    </div>
+    <div class="resize-handle" id="resizeHandle"></div>
   </div>
 
   <script type="module">
     import { auth, db } from '../src/js/firebase-config.js';
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
     import { doc, getDoc, collection, getDocs, query, orderBy, updateDoc, arrayUnion, increment } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+    import { Compiler } from '../src/js/compiler.js';
 
-    // URL params
+    // --- State ---
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get('courseId');
     const moduleId = params.get('moduleId');
@@ -320,10 +423,97 @@
     let currentUser = null;
     let userData = { completedLessons: [], sparks: 0 };
     let lessonData = null;
-    let allLessonsInModule = []; // For navigation
+    let allLessonsInModule = [];
     let currentLessonIndex = -1;
+    let correctAnswerSet = new Set(); // track correctly answered question blocks to avoid double sparks
+    const compiler = new Compiler();
 
-    // Load user data
+    // --- DOM elements ---
+    const completeBtn = document.getElementById('completeLessonBtn');
+    const progressTab = document.getElementById('progressTab');
+    const editorTab = document.getElementById('editorTab');
+    const panelTabs = document.querySelectorAll('.panel-tab');
+    const langSelect = document.getElementById('langSelect');
+    const codeEditor = document.getElementById('codeEditor');
+    const runCodeBtn = document.getElementById('runCodeBtn');
+    const previewFrame = document.getElementById('previewFrame');
+    const consoleOutput = document.getElementById('consoleOutput');
+    const resizeHandle = document.getElementById('resizeHandle');
+    const rightPanel = document.getElementById('rightPanel');
+
+    // --- Panel tab switching ---
+    panelTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        panelTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const tabName = tab.dataset.tab;
+        if (tabName === 'progress') {
+          progressTab.style.display = 'block';
+          editorTab.style.display = 'none';
+        } else {
+          progressTab.style.display = 'none';
+          editorTab.style.display = 'block';
+        }
+      });
+    });
+
+    // --- Language selection for editor ---
+    let currentLang = 'html';
+    langSelect.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        langSelect.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentLang = btn.dataset.lang;
+        codeEditor.placeholder = `Write ${currentLang.toUpperCase()} code...`;
+      });
+    });
+
+    // --- Run code ---
+    runCodeBtn.addEventListener('click', async () => {
+      const code = codeEditor.value;
+      if (!code.trim()) return;
+      const result = await compiler.runCode(currentLang, code);
+      if (result.type === 'html') {
+        previewFrame.srcdoc = result.code;
+        previewFrame.style.display = 'block';
+        consoleOutput.style.display = 'none';
+      } else if (result.type === 'script') {
+        // JS execution using iframe
+        const iframeDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(`<script>${result.code}<\/script>`);
+        iframeDoc.close();
+        previewFrame.style.display = 'block';
+        consoleOutput.style.display = 'none';
+      } else if (result.type === 'text') {
+        previewFrame.style.display = 'none';
+        consoleOutput.style.display = 'block';
+        consoleOutput.textContent = result.output;
+      }
+    });
+
+    // --- Resize right panel ---
+    let isResizing = false;
+    resizeHandle.addEventListener('mousedown', (e) => {
+      isResizing = true;
+      document.body.style.cursor = 'col-resize';
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+      const newWidth = window.innerWidth - e.clientX;
+      if (newWidth > 320 && newWidth < 700) {
+        rightPanel.style.width = newWidth + 'px';
+      }
+    });
+    document.addEventListener('mouseup', () => {
+      if (isResizing) {
+        isResizing = false;
+        document.body.style.cursor = '';
+      }
+    });
+
+    // --- Load user data ---
     async function loadUserData(uid) {
       const userRef = doc(db, 'users', uid);
       const userDoc = await getDoc(userRef);
@@ -332,20 +522,19 @@
         userData.completedLessons = userData.completedLessons || [];
         userData.sparks = userData.sparks || 0;
       }
-      updateProgressDisplay();
+      updateProgressUI();
     }
 
-    // Load all lessons of the module for navigation
+    // --- Load module lessons (for navigation) ---
     async function loadModuleLessons() {
       const lesSnap = await getDocs(query(collection(db, 'courses', courseId, 'modules', moduleId, 'lessons'), orderBy('createdAt')));
       allLessonsInModule = [];
       lesSnap.forEach(doc => allLessonsInModule.push({ id: doc.id, ...doc.data() }));
-      // Find current index
       currentLessonIndex = allLessonsInModule.findIndex(l => l.id === lessonId);
-      updateNavigationButtons();
+      updateNavButtons();
     }
 
-    // Load the current lesson
+    // --- Load current lesson ---
     async function loadLesson() {
       const lessonRef = doc(db, 'courses', courseId, 'modules', moduleId, 'lessons', lessonId);
       const snap = await getDoc(lessonRef);
@@ -356,7 +545,6 @@
       lessonData = snap.data();
       document.getElementById('lessonTitle').textContent = lessonData.title || 'Untitled';
       document.getElementById('lessonType').textContent = lessonData.type || 'lesson';
-      // Show lesson details
       document.getElementById('lessonDetails').innerHTML = `
         <p><strong>Type:</strong> ${escapeHtml(lessonData.type || 'lesson')}</p>
         ${lessonData.description ? `<p>${escapeHtml(lessonData.description)}</p>` : ''}
@@ -364,7 +552,7 @@
       renderBlocks(lessonData.blocks || []);
     }
 
-    // Render blocks
+    // --- Render blocks ---
     function renderBlocks(blocks) {
       const container = document.getElementById('blocksContainer');
       container.innerHTML = '';
@@ -375,6 +563,7 @@
         container.appendChild(blockEl);
       });
       attachInteractiveListeners();
+      checkCompletionStatus();
     }
 
     function renderBlock(block, idx) {
@@ -424,7 +613,7 @@
           html += `<input type="text" placeholder="..." />`;
         }
       });
-      html += '<button class="btn" style="margin-top:8px; width:auto;" onclick="checkFillBlanks(this)">Check</button></div>';
+      html += '<button class="btn" style="margin-top:8px; width:auto;" onclick="window.checkFillBlanks(this)">Check</button></div>';
       return html;
     }
 
@@ -442,22 +631,28 @@
       return html;
     }
 
-    // Attach interactive listeners and re-evaluate completion
+    // --- Interactive listeners ---
     function attachInteractiveListeners() {
       // MCQ
       document.querySelectorAll('.quiz-block[data-block-type="mcq"]').forEach(block => {
         const correct = parseInt(block.dataset.correct);
+        const blockIdx = block.dataset.blockIdx;
         block.querySelectorAll('.option').forEach(opt => {
           opt.addEventListener('click', () => {
             if (block.querySelector('.option.selected')) return;
             const chosen = parseInt(opt.dataset.option);
             block.querySelectorAll('.option').forEach(o => o.classList.remove('selected', 'correct', 'wrong'));
-            if (chosen === correct) opt.classList.add('correct');
-            else {
+            if (chosen === correct) {
+              opt.classList.add('correct');
+              if (!correctAnswerSet.has(`mcq-${blockIdx}`)) {
+                correctAnswerSet.add(`mcq-${blockIdx}`);
+                awardSparks(10);
+              }
+            } else {
               opt.classList.add('wrong');
               block.querySelector(`.option[data-option="${correct}"]`).classList.add('correct');
             }
-            checkCompletion();
+            checkCompletionStatus();
           });
         });
       });
@@ -465,26 +660,36 @@
       // Quiz items
       document.querySelectorAll('.quiz-item').forEach(item => {
         const correct = parseInt(item.dataset.correct);
+        const qidx = item.dataset.qidx;
+        const blockIdx = item.closest('.quiz-block').dataset.blockIdx;
+        const key = `quiz-${blockIdx}-${qidx}`;
         item.querySelectorAll('.option').forEach(opt => {
           opt.addEventListener('click', () => {
             if (item.querySelector('.option.selected')) return;
             const chosen = parseInt(opt.dataset.option);
             item.querySelectorAll('.option').forEach(o => o.classList.remove('selected', 'correct', 'wrong'));
-            if (chosen === correct) opt.classList.add('correct');
-            else {
+            if (chosen === correct) {
+              opt.classList.add('correct');
+              if (!correctAnswerSet.has(key)) {
+                correctAnswerSet.add(key);
+                awardSparks(10);
+              }
+            } else {
               opt.classList.add('wrong');
               item.querySelector(`.option[data-option="${correct}"]`).classList.add('correct');
             }
-            checkCompletion();
+            checkCompletionStatus();
           });
         });
       });
 
-      // Fill-blank check function
+      // Fill-blank check function (exposed globally)
       window.checkFillBlanks = function(btn) {
         const container = btn.closest('.fill-blank');
         const answers = JSON.parse(container.dataset.answers);
+        const blockIdx = container.dataset.blockIdx;
         const inputs = container.querySelectorAll('input');
+        let allCorrect = true;
         inputs.forEach((input, i) => {
           if (input.value.trim().toLowerCase() === answers[i].toLowerCase()) {
             input.classList.add('correct-input');
@@ -492,15 +697,19 @@
           } else {
             input.classList.add('wrong-input');
             input.classList.remove('correct-input');
+            allCorrect = false;
           }
         });
-        checkCompletion();
+        if (allCorrect && !correctAnswerSet.has(`fill-${blockIdx}`)) {
+          correctAnswerSet.add(`fill-${blockIdx}`);
+          awardSparks(10);
+        }
+        checkCompletionStatus();
       };
-
-      checkCompletion();
     }
 
-    function checkCompletion() {
+    // --- Check if all interactive blocks are correctly answered ---
+    function checkCompletionStatus() {
       let allCorrect = true;
       // MCQ
       document.querySelectorAll('.quiz-block[data-block-type="mcq"]').forEach(block => {
@@ -510,7 +719,7 @@
       document.querySelectorAll('.quiz-item').forEach(item => {
         if (!item.querySelector('.option.correct')) allCorrect = false;
       });
-      // Fill-blank
+      // Fill-blank (need all inputs correct)
       document.querySelectorAll('.fill-blank').forEach(block => {
         const answers = JSON.parse(block.dataset.answers);
         const inputs = block.querySelectorAll('input');
@@ -519,28 +728,36 @@
         });
       });
 
-      const completeBtn = document.getElementById('completeLessonBtn');
-      if (allCorrect && (document.querySelectorAll('.quiz-block, .quiz-item, .fill-blank').length > 0)) {
-        completeBtn.disabled = false;
-      } else {
-        completeBtn.disabled = true;
-      }
+      const hasInteractive = document.querySelectorAll('.quiz-block, .quiz-item, .fill-blank').length > 0;
+      completeBtn.disabled = hasInteractive ? !allCorrect : false; // if no interactive blocks, enable
     }
 
-    // Mark as complete
-    document.getElementById('completeLessonBtn').addEventListener('click', async () => {
+    // --- Award sparks and update UI ---
+    function awardSparks(amount) {
+      userData.sparks += amount;
+      updateProgressUI();
+      // Persist to Firestore (optimistic)
+      const userRef = doc(db, 'users', currentUser.uid);
+      updateDoc(userRef, { sparks: increment(amount) }).catch(console.error);
+    }
+
+    // --- Mark as complete ---
+    completeBtn.addEventListener('click', async () => {
       if (!currentUser) return;
+      if (userData.completedLessons.includes(lessonId)) {
+        alert('Already completed.');
+        return;
+      }
       const userRef = doc(db, 'users', currentUser.uid);
       try {
         await updateDoc(userRef, {
           completedLessons: arrayUnion(lessonId),
-          sparks: increment(50)
+          sparks: increment(100) // completion reward
         });
         userData.completedLessons.push(lessonId);
-        userData.sparks += 50;
-        updateProgressDisplay();
-        alert('Lesson completed! +50 Sparks');
-        // Redirect back to course page
+        userData.sparks += 100;
+        updateProgressUI();
+        alert('Lesson completed! +100 Sparks');
         setTimeout(() => {
           window.location.href = `course.html?courseId=${courseId}&moduleId=${moduleId}`;
         }, 1500);
@@ -550,47 +767,35 @@
       }
     });
 
-    // Practice button
-    document.getElementById('practiceBtn').addEventListener('click', () => {
-      // Collect all question blocks and navigate to exercise page
-      window.location.href = `exercise.html?courseId=${courseId}&moduleId=${moduleId}&lessonId=${lessonId}`;
-    });
-
-    // Navigation buttons
-    function updateNavigationButtons() {
+    // --- Navigation ---
+    function updateNavButtons() {
       const prevBtn = document.getElementById('prevLessonBtn');
       const nextBtn = document.getElementById('nextLessonBtn');
       if (currentLessonIndex > 0) {
         prevBtn.disabled = false;
-        const prev = allLessonsInModule[currentLessonIndex - 1];
-        prevBtn.onclick = () => {
-          window.location.href = `lesson.html?courseId=${courseId}&moduleId=${moduleId}&lessonId=${prev.id}`;
-        };
+        prevBtn.onclick = () => navigateToLesson(allLessonsInModule[currentLessonIndex - 1].id);
       } else {
         prevBtn.disabled = true;
       }
       if (currentLessonIndex < allLessonsInModule.length - 1) {
         nextBtn.disabled = false;
-        const next = allLessonsInModule[currentLessonIndex + 1];
-        nextBtn.onclick = () => {
-          window.location.href = `lesson.html?courseId=${courseId}&moduleId=${moduleId}&lessonId=${next.id}`;
-        };
+        nextBtn.onclick = () => navigateToLesson(allLessonsInModule[currentLessonIndex + 1].id);
       } else {
         nextBtn.disabled = true;
       }
     }
 
-    // Update progress display
-    function updateProgressDisplay() {
-      const completedCount = (userData.completedLessons && userData.completedLessons.length) || 0;
-      document.getElementById('progressContent').innerHTML = `
-        <div class="big-number">${completedCount}</div>
-        <small>lessons completed</small>
-        <div class="big-number" style="margin-top:12px;">${userData.sparks || 0}</div>
-        <small>sparks earned</small>
-      `;
+    function navigateToLesson(newLessonId) {
+      window.location.href = `lesson.html?courseId=${courseId}&moduleId=${moduleId}&lessonId=${newLessonId}`;
     }
 
+    // --- Progress UI ---
+    function updateProgressUI() {
+      document.getElementById('completedCount').textContent = userData.completedLessons.length;
+      document.getElementById('sparksCount').textContent = userData.sparks;
+    }
+
+    // --- Helpers ---
     function getYouTubeEmbed(url) {
       const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
       const match = url.match(regExp);
@@ -605,7 +810,7 @@
       return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
-    // Auth & init
+    // --- Auth & init ---
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
         window.location.href = 'login.html';
